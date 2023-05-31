@@ -54,6 +54,7 @@ class Perawat extends ApplicationBase {
 
 
         $fs_kd_layanan = $this->com_user['fs_kd_layanan'];
+        $this->smarty->assign("rs_ases_per_igd", $this->m_igd->get_data_ases_perawat_igd(array($date, $akhirnya,$date)));
 
        $this->smarty->assign("rs_pasien", $this->m_igd->get_pasien_ugd());
    
@@ -304,85 +305,90 @@ class Perawat extends ApplicationBase {
             }
 
 
-                 $params2 = array(
-                    $this->input->post('FS_KD_REG'), 
-                    '',
-                    '',
-                    $this->input->post('KEL_UTAMA'),
-                    $this->input->post('KEL_SEKARANG'), 
-                    $this->input->post('RIWAYAT_SAKIT'),
-                    '',
-                    $this->input->post('RIWAYAT_ALERGI_MAKANAN'),
-                    $d,
-                    $this->input->post('MENIKAH'),
-                    $this->input->post('JOB'),
-                    $this->input->post('SUKU'),
-                    $this->input->post('AGAMA'),
-                    $this->input->post('PSIKOLOGIS'),
-                    $this->input->post('MENTAL'),
-                    
-                    $this->input->post('KESADARAN'),
-                    $this->input->post('KEADAAN_UMUM'),
-                    $this->input->post('TD'),
-                    $this->input->post('N'),
-                    $this->input->post('S'),
-                    $this->input->post('R'),
-                    $this->input->post('TB'),
-                    $this->input->post('BB'),
-                     
-                    $this->input->post('LINGKAR_KEPALA'),
-                    $this->input->post('STATUS_GIZI'),
-                   
-                    $this->input->post('GCS'),
-                    $this->input->post('ALAT_BANTU'),
-                    $this->input->post('CACAT'),
-                    $this->input->post('ADL'),
-                    $this->input->post('RESIKO_JATUH'),
-                    $this->input->post('IRAMA_NAFAS'),
-                    $this->input->post('BATUK'),
-                    $this->input->post('POLA_NAFAS'),
-                    $this->input->post('SUARA_NAFAS'),
-                    $a,
-                    $this->input->post('NYERI_DADA'),
-                    $this->input->post('AKRAL'),
-                    $b,
-                    $this->input->post('CYANOSIS'),
-                    $this->input->post('CRT'),
-                    $this->input->post('TURGOR'),
-                   
-                    $this->input->post('REFLEK_CAHAYA'),
-                    $this->input->post('PUPIL'),
-                    $this->input->post('LUMPUH'),
-                    $this->input->post('PUSING'),
-                    $this->input->post('BAK'),
-                    $this->input->post('BAK_TEKAN'),
-                    $this->input->post('URINE'),
-                    $this->input->post('BAB'),
-                    $this->input->post('ABDOMEN'),
-                    $this->input->post('BAB_TEKAN'),
-                    $this->input->post('JEJAS_ABDOMEN'),
-                    $this->input->post('SENDI'),
-                    $this->input->post('DISLOK'),
-                    $c,
-                    $this->input->post('LUKA'),
-                    $this->input->post('JATUH_3BULAN'),
-                    $this->input->post('BANTU_JALAN'),
-                    $this->input->post('SULIT_JALAN'),
-                    $this->input->post('KURSI_RODA'),
-                    $this->input->post('ALVI'),
-                    $this->input->post('RIWAYAT_DEKUBITUS'),
-                    $this->input->post('USIA65'),
-                    $this->input->post('ANAK_SESUAI_UMUR'),
-                    
-                    $this->input->post('PENERJEMAH'),
-                    $kd,
-                    $this->input->post('HASIL'),
-                    $this->input->post('JAM_SELESAI'), 
-                    $this->com_user['user_name'],
-                    date('Y-m-d H:i:s'), 
-                    
-                );
-                $this->m_igd->INSERT_AWAL_PERAWAT($params2);
+                $na=$this->m_igd->get_nama( $this->input->post('FS_KD_REG'));
+                $nama_pasien=$na['Nama_Pasien'];
+                $alamat=$na['Alamat'];
+            $params2 = array(
+                $this->input->post('FS_KD_REG'), 
+                '',
+                '',
+                $this->input->post('KEL_UTAMA'),
+                $this->input->post('KEL_SEKARANG'), 
+                $this->input->post('RIWAYAT_SAKIT'),
+                '',
+                $this->input->post('RIWAYAT_ALERGI_MAKANAN'),
+                $d,
+                $this->input->post('MENIKAH'),
+                $this->input->post('JOB'),
+                $this->input->post('SUKU'),
+                $this->input->post('AGAMA'),
+                $this->input->post('PSIKOLOGIS'),
+                $this->input->post('MENTAL'),
+                
+                $this->input->post('KESADARAN'),
+                $this->input->post('KEADAAN_UMUM'),
+                $this->input->post('TD'),
+                $this->input->post('N'),
+                $this->input->post('S'),
+                $this->input->post('R'),
+                $this->input->post('TB'),
+                $this->input->post('BB'),
+                
+                $this->input->post('LINGKAR_KEPALA'),
+                $this->input->post('STATUS_GIZI'),
+            
+                $this->input->post('GCS'),
+                $this->input->post('ALAT_BANTU'),
+                $this->input->post('CACAT'),
+                $this->input->post('ADL'),
+                $this->input->post('RESIKO_JATUH'),
+                $this->input->post('IRAMA_NAFAS'),
+                $this->input->post('BATUK'),
+                $this->input->post('POLA_NAFAS'),
+                $this->input->post('SUARA_NAFAS'),
+                $a,
+                $this->input->post('NYERI_DADA'),
+                $this->input->post('AKRAL'),
+                $b,
+                $this->input->post('CYANOSIS'),
+                $this->input->post('CRT'),
+                $this->input->post('TURGOR'),
+            
+                $this->input->post('REFLEK_CAHAYA'),
+                $this->input->post('PUPIL'),
+                $this->input->post('LUMPUH'),
+                $this->input->post('PUSING'),
+                $this->input->post('BAK'),
+                $this->input->post('BAK_TEKAN'),
+                $this->input->post('URINE'),
+                $this->input->post('BAB'),
+                $this->input->post('ABDOMEN'),
+                $this->input->post('BAB_TEKAN'),
+                $this->input->post('JEJAS_ABDOMEN'),
+                $this->input->post('SENDI'),
+                $this->input->post('DISLOK'),
+                $c,
+                $this->input->post('LUKA'),
+                $this->input->post('JATUH_3BULAN'),
+                $this->input->post('BANTU_JALAN'),
+                $this->input->post('SULIT_JALAN'),
+                $this->input->post('KURSI_RODA'),
+                $this->input->post('ALVI'),
+                $this->input->post('RIWAYAT_DEKUBITUS'),
+                $this->input->post('USIA65'),
+                $this->input->post('ANAK_SESUAI_UMUR'),
+                
+                $this->input->post('PENERJEMAH'),
+                $kd,
+                $this->input->post('HASIL'),
+                $this->input->post('JAM_SELESAI'), 
+                $this->com_user['user_name'],
+                date('Y-m-d H:i:s'),
+                $nama_pasien,
+                $alamat
+                
+            );
+            $this->m_igd->INSERT_AWAL_PERAWAT($params2);
 
                 $params3 = array(
                     $this->input->post('FS_KD_REG'),
@@ -1010,7 +1016,9 @@ class Perawat extends ApplicationBase {
         $this->m_rawat_jalan->update_vs($params1); 
         $this->m_igd->update_vs($params1); 
 
-
+        $na=$this->m_igd->get_nama( $this->input->post('FS_KD_REG'));
+        $nama_pasien=$na['Nama_Pasien'];
+        $alamat=$na['Alamat'];
                  $params2 = array(
                     $this->input->post('FS_KD_REG'), 
                     '',
@@ -1085,7 +1093,10 @@ class Perawat extends ApplicationBase {
                     $this->input->post('HASIL'),
                     $this->input->post('JAM_SELESAI'), 
                     $this->com_user['user_name'],
-                    date('Y-m-d H:i:s'), 
+                    date('Y-m-d H:i:s'),
+       
+                    $nama_pasien,
+                    $alamat,
                     $this->input->post('id'),
 
                     

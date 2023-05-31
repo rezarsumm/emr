@@ -44,6 +44,24 @@ class m_igd extends CI_Model {
         }
     }
 
+    function get_data_ases_perawat_igd($params) {
+        $n=date('Y-m-d');
+
+        $sql = "select A.*, B.Kode_Dokter, B.No_Reg, C.Tgl_lahir, C.No_MR
+        from  PKU.dbo.IGD_AWAL_PERAWAT A
+        left join DB_RSMM.dbo.PENDAFTARAN B on B.No_Reg=A.FS_KD_REG
+        left join DB_RSMM.dbo.REGISTER_PASIEN C on B.No_MR=C.No_MR
+        where (B.Tanggal=? or B.Tanggal=?) or (cast(A.MDD as date)=?)";
+        $query = $this->db->query($sql, $params);
+        if ($query->num_rows() > 0) {
+            $result = $query->result_array();
+            $query->free_result();
+            return $result;
+        } else {
+            return array();
+        }
+    }
+
 
     function INSERT($params) {
         $sql = "INSERT INTO PKU.dbo.TRIASE(FS_KD_REG, Nama_Pasien, Alamat, TGL_DATANG, JAM_DATANG, CARA_MASUK, SUDAH_TERPASANG, ALASAN_DATANG, KENDARAAN, NAMA_PENGANTAR, TELP_PENGANTAR, JENIS_KASUS, JENIS_TRAUMA, URAIAN_TRAUMA, TGL_KEJADIAN, TEMPAT_KEJADIAN, PACS, KESADARAN, SKOR_KESADARAN, TD, SKOR_TD, R, SKOR_R, O2, SKOR_O2, N, N_SKOR, SUHU, SKOR_SUHU, NYERI, BB, TB, KEPUTUSAN, rujukan_dari, dijemput, KELUHAN, CAT_KHUSUS, TOTAL_SKOR, JAM_KEP, KD_PERAWAT, mdd )
@@ -76,8 +94,8 @@ class m_igd extends CI_Model {
     
     function INSERT_AWAL_PERAWAT($params) { 
         $sql = "INSERT INTO PKU.dbo.IGD_AWAL_PERAWAT(FS_KD_REG,CARA_MASUK, ASAL_MASUK, KEL_UTAMA,KEL_SEKARANG,RIWAYAT_SAKIT,RIWAYAT_ALERGI_OBAT, RIWAYAT_ALERGI_MAKANAN, HAMIL,MENIKAH, JOB, SUKU, AGAMA, PSIKOLOGIS,MENTAL,KESADARAN,KEADAAN_UMUM,TD, N, S,R,TB,BB,LINGKAR_KEPALA,STATUS_GIZI, GCS, ALAT_BANTU, CACAT, ADL, RESIKO_JATUH,
-        IRAMA_NAFAS, BATUK,POLA_NAFAS,SUARA_NAFAS,BANTU_NAFAS,NYERI_DADA,AKRAL,PERDARAHAN, CYANOSIS, CRT, TURGOR, REFLEK_CAHAYA, PUPIL, LUMPUH, PUSING, BAK, BAK_TEKAN, URINE, BAB, ABDOMEN, BAB_TEKAN, JEJAS_ABDOMEN, SENDI, DISLOK, FRAKTUR,LUKA, JATUH_3BULAN, BANTU_JALAN, SULIT_JALAN, KURSI_RODA, ALVI, RIWAYAT_DEKUBITUS, USIA65, ANAK_SESUAI_UMUR, PENERJEMAH, KRITERIA_DISCHARGE, HASIL, JAM_SELESAI, MDB, MDD)
-        VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        IRAMA_NAFAS, BATUK,POLA_NAFAS,SUARA_NAFAS,BANTU_NAFAS,NYERI_DADA,AKRAL,PERDARAHAN, CYANOSIS, CRT, TURGOR, REFLEK_CAHAYA, PUPIL, LUMPUH, PUSING, BAK, BAK_TEKAN, URINE, BAB, ABDOMEN, BAB_TEKAN, JEJAS_ABDOMEN, SENDI, DISLOK, FRAKTUR,LUKA, JATUH_3BULAN, BANTU_JALAN, SULIT_JALAN, KURSI_RODA, ALVI, RIWAYAT_DEKUBITUS, USIA65, ANAK_SESUAI_UMUR, PENERJEMAH, KRITERIA_DISCHARGE, HASIL, JAM_SELESAI, MDB, MDD,Nama_Pasien,Alamat)
+        VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         return $this->db->query($sql, $params);
     }
 
@@ -145,7 +163,7 @@ class m_igd extends CI_Model {
           PUSING=?, BAK=?, BAK_TEKAN=?, URINE=?, BAB=?, ABDOMEN=?, BAB_TEKAN=?, JEJAS_ABDOMEN=?, SENDI=?,
            DISLOK=?, FRAKTUR=?,LUKA=?, JATUH_3BULAN=?, BANTU_JALAN=?, SULIT_JALAN=?, KURSI_RODA=?, ALVI=?,
             RIWAYAT_DEKUBITUS=?, USIA65=?, ANAK_SESUAI_UMUR=?, PENERJEMAH=?, KRITERIA_DISCHARGE=?, HASIL=?, 
-            JAM_SELESAI=?, MDB=?, MDD=? where id=? ";
+            JAM_SELESAI=?, MDB=?, MDD=?, Nama_Pasien=?, Alamat=? where id=? ";
         return $this->db->query($sql, $params);
     }
 

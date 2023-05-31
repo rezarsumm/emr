@@ -50,6 +50,7 @@ $active_record = TRUE;
 //$db['default']['hostname'] = '10.0.0.1';
 //$db['default']['hostname'] = '192.168.10.41';
 // konfigurasi db asli
+// DESKTOP-FJQOGPK\SQLEXPRESS local sql
 $db['default']['hostname'] = '192.168.2.50';
 $db['default']['username'] = 'admin';
 $db['default']['password'] = '123';

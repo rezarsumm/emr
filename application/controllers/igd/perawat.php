@@ -186,6 +186,7 @@ class Perawat extends ApplicationBase {
           foreach ($planning as $key => $value) {
               $planning_str .= "'" . $value['FS_KD_PLANNING'] . "',";
           }
+          $this->smarty->assign('rs_planning', $planning_str);
           
         $this->smarty->assign("role_id", $this->com_user['role_id']);
         $this->smarty->assign("tgl", $tgl);

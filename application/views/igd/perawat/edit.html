@@ -1170,10 +1170,10 @@
                             <tr>
                                 <td width='20%'>Kriteria Discharge Planning</td>
                                 <td width='30%'> 
-                                    <input type="checkbox" name="KRITERIA_DISCHARGE[]" value="Umur>65">Umur>65<br>
-                                    <input type="checkbox" name="KRITERIA_DISCHARGE[]" value="Terbatas Mobilitas">Terbatas Mobilitas<br>
-                                    <input type="checkbox" name="KRITERIA_DISCHARGE[]" value="Perawatan Lanjutan">Perawatan Lanjutan<br>
-                                    <input type="checkbox" name="KRITERIA_DISCHARGE[]" value="Bantuan Aktifitas Sehari hari">Bantuan Aktifitas Sehari hari<br>
+                                    <input type="checkbox" name="KRITERIA_DISCHARGE[]" value="Umur>65" {if $ases2.KRITERIA_DISCHARGE eq 'Umur>65'} selected="" {/if}>Umur>65<br>
+                                    <input type="checkbox" name="KRITERIA_DISCHARGE[]" value="Terbatas Mobilitas" {if $ases2.KRITERIA_DISCHARGE eq 'Terbatas Mobilitas'} selected="" {/if}>Terbatas Mobilitas<br>
+                                    <input type="checkbox" name="KRITERIA_DISCHARGE[]" value="Perawatan Lanjutan" {if $ases2.KRITERIA_DISCHARGE eq 'Perawatan Lanjutan'} selected="" {/if}>Perawatan Lanjutan<br>
+                                    <input type="checkbox" name="KRITERIA_DISCHARGE[]" value="Bantuan Aktifitas Sehari hari" {if $ases2.KRITERIA_DISCHARGE eq 'Bantuan Aktifitas Sehari hari'} selected="" {/if}>Bantuan Aktifitas Sehari hari<br>
                                 </td>
                                 <td width='20%'>Discharge Planning</td>
                                 <td width='30%'>
@@ -1207,6 +1207,8 @@
             </form>
             </div>
       <script>
+
+
 
 $(function(){
       $(":radio.rad").click(function(){
@@ -1260,7 +1262,7 @@ $(function(){
 
 
 
-<!--Tembusan-->
+<!--planning-->
 <script type="text/javascript">
     $(document).ready(function() {
         // chain select
@@ -1416,7 +1418,7 @@ $(function(){
 
  
  
-<!--Tembusan-->
+<!--edukasi-->
 <script type="text/javascript">
     $(document).ready(function() {
         // chain select
@@ -1478,6 +1480,133 @@ $(function(){
         $("#edukasi").select2({});
     });
 </script>
+
+<!-- masalah keperawatan -->
+<script type="text/javascript">
+    $(document).ready(function() {
+        // chain select
+        // tembusan
+        var user = $("#user").val();
+        $('#tujuan').select2('data', null);
+        if (user == '') {
+            $("#tujuan").attr("disabled", "disabled");
+        } else {
+//            $('#tujuan').select2('data', null);
+                $("#tujuan").removeAttr("disabled");
+                jQuery("#tujuan").html('');
+                $.ajax({
+                    type: "POST",
+                    url: "{$config->site_url('inap/ass_awal/list_masalah_kep/')}",
+                    data: "user=" + user,
+                    dataType: 'json',
+                    success: function(data) {
+                        var showData;
+                        jQuery.each(data, function(index, result) {
+                            if (result.value == 0) {
+                            } else {
+                                showData += "<option value='" + result.value + "'>" + result.label + "</option>";
+                            }
+                        })
+                        jQuery("#tujuan").html(showData);
+                        $('#tujuan').select2('val', [{$rs_tujuan}]);
+                }
+            });
+        }
+        $("#user").change(function() {
+            user = $(this).val();
+  
+            $('#tujuan').select2('data', null);
+            if (user == '') {
+                $("#tujuan").attr("disabled", "disabled");
+            } else {
+                $("#tujuan").removeAttr("disabled");
+                jQuery("#tujuan").html('');
+                $.ajax({
+                    type: "POST",
+                    url: "{$config->site_url('inap/ass_awal/list_masalah_kep/')}",
+                    data: "user=" + user,
+                    dataType: 'json',
+                    success: function(data) {
+                        var showData;
+                        jQuery.each(data, function(index, result) {
+                            if (result.value == 0) {
+                            } else {
+                                showData += "<option value='" + result.value + "'>" + result.label + "</option>";
+                            }
+                        })
+                        jQuery("#tujuan").html(showData);
+                    }
+                });
+            }
+        });
+        //tags
+        $("#tujuan").select2({});
+    });
+</script>
+
+<!-- rencana keperawatan -->
+<script type="text/javascript">
+    $(document).ready(function() {
+        // chain select
+        // tembusan
+        var user = $("#user").val();
+        $('#tembusan').select2('data', null);
+        if (user == '') {
+            $("#tembusan").attr("disabled", "disabled");
+        } else {
+//            $('#tembusan').select2('data', null);
+                $("#tembusan").removeAttr("disabled");
+                jQuery("#tembusan").html('');
+                $.ajax({
+                    type: "POST",
+                    url: "{$config->site_url('inap/ass_awal/list_rencana_kep/')}",
+                    data: "user=" + user,
+                    dataType: 'json',
+                    success: function(data) {
+                        var showData;
+                        jQuery.each(data, function(index, result) {
+                            if (result.value == 0) {
+                            } else {
+                                showData += "<option value='" + result.value + "'>" + result.label + "</option>";
+                            }
+                        })
+                        jQuery("#tembusan").html(showData);
+                        $('#tembusan').select2('val', [{$rs_tembusan}]);
+                }
+            });
+        }
+        $("#user").change(function() {
+            user = $(this).val();
+  
+            $('#tembusan').select2('data', null);
+            if (user == '') {
+                $("#tembusan").attr("disabled", "disabled");
+            } else {
+                $("#tembusan").removeAttr("disabled");
+                jQuery("#tembusan").html('');
+                $.ajax({
+                    type: "POST",
+                    url: "{$config->site_url('inap/ass_awal/list_rencana_kep/')}",
+                    data: "user=" + user,
+                    dataType: 'json',
+                    success: function(data) {
+                        var showData;
+                        jQuery.each(data, function(index, result) {
+                            if (result.value == 0) {
+                            } else {
+                                showData += "<option value='" + result.value + "'>" + result.label + "</option>";
+                            }
+                        })
+                        jQuery("#tembusan").html(showData);
+                    }
+                });
+            }
+        });
+        //tags
+        $("#tembusan").select2({});
+    });
+</script>
+
 {if isset($result)}
 {foreach from=$result key=key item=i}
 {if $key eq 'edukasi_loop[]'}
@@ -1553,6 +1682,8 @@ $(function(){
         });
         //tags
         $("#edukasi").select2({});
+
+        
     });
 </script>
 {/if}

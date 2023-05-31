@@ -49,10 +49,16 @@ $active_record = TRUE;
 //$db['default']['password'] = '34rs1pm4n4d0';
 //$db['default']['hostname'] = '10.0.0.1';
 //$db['default']['hostname'] = '192.168.10.41';
+// konfigurasi db asli
 $db['default']['hostname'] = '192.168.2.50';
 $db['default']['username'] = 'admin';
 $db['default']['password'] = '123';
 $db['default']['database'] = 'DB_RSMM';
+// $db['default']['hostname'] = '192.168.2.50';
+// $db['default']['username'] = 'admin';
+// $db['default']['password'] = '123';
+// $db['default']['database'] = 'DB_RSMM';
+
 $db['default']['dbdriver'] = 'sqlsrv';
 $db['default']['dbprefix'] = '';
 $db['default']['pconnect'] = FALSE;
@@ -69,6 +75,11 @@ $db['hospital']['hostname'] = '192.168.2.50';
 $db['hospital']['username'] = 'admin';
 $db['hospital']['password'] = '123';
 $db['hospital']['database'] = 'PKU';
+// $db['default']['hostname'] = '192.168.2.50';
+// $db['default']['username'] = 'admin';
+// $db['default']['password'] = '123';
+// $db['default']['database'] = 'PKU';
+
 $db['hospital']['dbdriver'] = 'sqlsrv';
 $db['hospital']['dbprefix'] = '';
 $db['hospital']['pconnect'] = FALSE;

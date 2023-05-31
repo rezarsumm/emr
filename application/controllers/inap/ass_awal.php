@@ -879,6 +879,34 @@ class ass_awal extends ApplicationBase {
         echo json_encode($data);
     }
 
+    public function list_rencana_kep() { //rencana keperawatan
+        $instansi = $this->m_ass_awal->list_rencana_kep();
+        $data[] = array();
+        $i = 0;
+        foreach ($instansi as $key => $value) {
+            $data[$i] = array(
+                'label' => $value['FS_NM_REN_KEP'],
+                'value' => $value['FS_KD_TRS']
+            );
+            $i++;
+        }
+        echo json_encode($data);
+    }
+
+    public function list_masalah_kep() { // masalah kep
+        $instansi = $this->m_rawat_jalan->list_masalah_kep();
+        $data[] = array();
+        $i = 0;
+        foreach ($instansi as $key => $value) {
+            $data[$i] = array(
+                'label' => $value['FS_NM_DIAGNOSA'],
+                'value' => $value['FS_KD_DAFTAR_DIAGNOSA']
+            );
+            $i++;
+        }
+        echo json_encode($data);
+    } 
+
     // list_users
     public function list_edukasi() {
         $instansi = $this->m_ass_awal->list_edukasi();

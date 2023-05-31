@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.0.7, created on 2022-01-07 15:50:10
+<?php /* Smarty version Smarty-3.0.7, created on 2023-05-31 10:31:41
          compiled from "application/views\dashboard/welcome/index.html" */ ?>
 <?php /*%%SmartyHeaderCode:1959961d7fec27248b4-59926533%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_smarty_tpl->decodeProperties(array (
     '1acb92841b2776ed54df63255e6cf7e24a0c381c' => 
     array (
       0 => 'application/views\\dashboard/welcome/index.html',
-      1 => 1641544309,
+      1 => 1685501796,
       2 => 'file',
     ),
   ),
@@ -17,7 +17,7 @@ $_smarty_tpl->decodeProperties(array (
   ),
   'has_nocache_code' => false,
 )); /*/%%SmartyHeaderCode%%*/?>
-<?php if (!is_callable('smarty_modifier_date_format')) include 'D:\XAMPP\htdocs\emr\system\plugins\smarty\libs\plugins\modifier.date_format.php';
+<?php if (!is_callable('smarty_modifier_date_format')) include 'F:\xampp\htdocs\emr\system\plugins\smarty\libs\plugins\modifier.date_format.php';
 ?><div class="dashboard-home">
     <!--<div class="dashboard-home-content">
         <div class="left">

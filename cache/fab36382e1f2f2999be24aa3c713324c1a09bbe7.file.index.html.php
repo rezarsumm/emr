@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.0.7, created on 2022-12-12 06:57:44
+<?php /* Smarty version Smarty-3.0.7, created on 2023-05-31 10:32:58
          compiled from "application/views\rm/berkas/index.html" */ ?>
 <?php /*%%SmartyHeaderCode:991563966e78a0d926-24846794%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_smarty_tpl->decodeProperties(array (
     'fab36382e1f2f2999be24aa3c713324c1a09bbe7' => 
     array (
       0 => 'application/views\\rm/berkas/index.html',
-      1 => 1670803059,
+      1 => 1685501796,
       2 => 'file',
     ),
   ),
@@ -17,7 +17,8 @@ $_smarty_tpl->decodeProperties(array (
   ),
   'has_nocache_code' => false,
 )); /*/%%SmartyHeaderCode%%*/?>
-<?php if (!is_callable('smarty_modifier_date_format')) include 'D:\XAMPP\htdocs\emr\system\plugins\smarty\libs\plugins\modifier.date_format.php';
+<?php if (!is_callable('smarty_modifier_capitalize')) include 'F:\xampp\htdocs\emr\system\plugins\smarty\libs\plugins\modifier.capitalize.php';
+if (!is_callable('smarty_modifier_date_format')) include 'F:\xampp\htdocs\emr\system\plugins\smarty\libs\plugins\modifier.date_format.php';
 ?> <?php $_template = new Smarty_Internal_Template("nurse/rawat_jalan/add_script_js.html", $_smarty_tpl->smarty, $_smarty_tpl, $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, null, null);
  echo $_template->getRenderedTemplate();?><?php unset($_template);?>
 <div class="breadcrum">

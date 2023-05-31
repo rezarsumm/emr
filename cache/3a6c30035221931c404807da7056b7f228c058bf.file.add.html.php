@@ -1,23 +1,23 @@
-<?php /* Smarty version Smarty-3.0.7, created on 2023-05-27 11:35:19
+<?php /* Smarty version Smarty-3.0.7, created on 2023-05-31 10:55:15
          compiled from "application/views\igd/perawat/add.html" */ ?>
-<?php /*%%SmartyHeaderCode:520164718887735260-39980174%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:6026476c523eafb92-67441318%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     '3a6c30035221931c404807da7056b7f228c058bf' => 
     array (
       0 => 'application/views\\igd/perawat/add.html',
-      1 => 1685162108,
+      1 => 1685505302,
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '520164718887735260-39980174',
+  'nocache_hash' => '6026476c523eafb92-67441318',
   'function' => 
   array (
   ),
   'has_nocache_code' => false,
 )); /*/%%SmartyHeaderCode%%*/?>
-<?php if (!is_callable('smarty_modifier_date_format')) include 'D:\XAMPP\htdocs\emr\system\plugins\smarty\libs\plugins\modifier.date_format.php';
+<?php if (!is_callable('smarty_modifier_date_format')) include 'F:\xampp\htdocs\emr\system\plugins\smarty\libs\plugins\modifier.date_format.php';
 ?><script type="text/javascript">
     $(document).ready(function () {
         score();
@@ -1239,7 +1239,7 @@ $_smarty_tpl->decodeProperties(array (
                                     </select>
                                 </td> -->
                                 <td>Jam Selesai diperiksa</td>
-                                <td><input type="time" required name="JAM_SELESAI"></td>
+                                <td><input type="time" required name="JAM_SELESAI" id="jam_keperawatan"></td>
 
                                 <td  > 
                                     Kode ICD 10 ( bila terdiagnosa TBC)
@@ -1273,6 +1273,25 @@ if ($_smarty_tpl->_count($_from) > 0){
             </form>
             </div>
       <script>
+
+             // Mendapatkan elemen input waktu
+     const inputWaktu = document.getElementById('jam_keperawatan');
+  
+  // Mengatur waktu awal
+  updateTime();
+
+  // Fungsi untuk memperbarui waktu pada input
+  function updateTime() {
+    const waktuSekarang = new Date();
+    const jam = waktuSekarang.getHours();
+    const menit = waktuSekarang.getMinutes();
+    const detik = waktuSekarang.getSeconds();
+    const waktuDefault = jam.toString().padStart(2, '0') + ':' + menit.toString().padStart(2, '0');
+    inputWaktu.value = waktuDefault;
+  }
+
+  // Memperbarui waktu setiap menit
+  setInterval(updateTime, 1000);
 
 
 $(".select2").select2({

@@ -1,23 +1,23 @@
-<?php /* Smarty version Smarty-3.0.7, created on 2023-04-14 13:39:06
+<?php /* Smarty version Smarty-3.0.7, created on 2023-05-31 10:44:20
          compiled from "application/views\igd/perawat/edit.html" */ ?>
-<?php /*%%SmartyHeaderCode:1686438f50a0efdc8-81451201%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:58506476c294894ba3-09268044%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     '8f52e88c67745a3b57abf257a90405a1cbe8d229' => 
     array (
       0 => 'application/views\\igd/perawat/edit.html',
-      1 => 1658975475,
+      1 => 1685504657,
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '1686438f50a0efdc8-81451201',
+  'nocache_hash' => '58506476c294894ba3-09268044',
   'function' => 
   array (
   ),
   'has_nocache_code' => false,
 )); /*/%%SmartyHeaderCode%%*/?>
-<?php if (!is_callable('smarty_modifier_date_format')) include 'D:\XAMPP\htdocs\emr\system\plugins\smarty\libs\plugins\modifier.date_format.php';
+<?php if (!is_callable('smarty_modifier_date_format')) include 'F:\xampp\htdocs\emr\system\plugins\smarty\libs\plugins\modifier.date_format.php';
 ?><script type="text/javascript">
     $(document).ready(function () {
         score();
@@ -1227,10 +1227,10 @@ $_smarty_tpl->decodeProperties(array (
                             <tr>
                                 <td width='20%'>Kriteria Discharge Planning</td>
                                 <td width='30%'> 
-                                    <input type="checkbox" name="KRITERIA_DISCHARGE[]" value="Umur>65">Umur>65<br>
-                                    <input type="checkbox" name="KRITERIA_DISCHARGE[]" value="Terbatas Mobilitas">Terbatas Mobilitas<br>
-                                    <input type="checkbox" name="KRITERIA_DISCHARGE[]" value="Perawatan Lanjutan">Perawatan Lanjutan<br>
-                                    <input type="checkbox" name="KRITERIA_DISCHARGE[]" value="Bantuan Aktifitas Sehari hari">Bantuan Aktifitas Sehari hari<br>
+                                    <input type="checkbox" name="KRITERIA_DISCHARGE[]" value="Umur>65" <?php if ($_smarty_tpl->getVariable('ases2')->value['KRITERIA_DISCHARGE']=='Umur>65'){?> selected="" <?php }?>>Umur>65<br>
+                                    <input type="checkbox" name="KRITERIA_DISCHARGE[]" value="Terbatas Mobilitas" <?php if ($_smarty_tpl->getVariable('ases2')->value['KRITERIA_DISCHARGE']=='Terbatas Mobilitas'){?> selected="" <?php }?>>Terbatas Mobilitas<br>
+                                    <input type="checkbox" name="KRITERIA_DISCHARGE[]" value="Perawatan Lanjutan" <?php if ($_smarty_tpl->getVariable('ases2')->value['KRITERIA_DISCHARGE']=='Perawatan Lanjutan'){?> selected="" <?php }?>>Perawatan Lanjutan<br>
+                                    <input type="checkbox" name="KRITERIA_DISCHARGE[]" value="Bantuan Aktifitas Sehari hari" <?php if ($_smarty_tpl->getVariable('ases2')->value['KRITERIA_DISCHARGE']=='Bantuan Aktifitas Sehari hari'){?> selected="" <?php }?>>Bantuan Aktifitas Sehari hari<br>
                                 </td>
                                 <td width='20%'>Discharge Planning</td>
                                 <td width='30%'>
@@ -1318,7 +1318,7 @@ $(function(){
 
 
 
-<!--Tembusan-->
+<!--planning-->
 <script type="text/javascript">
     $(document).ready(function() {
         // chain select
@@ -1494,7 +1494,7 @@ if ($_smarty_tpl->_count($_from) > 0){
 
  
  
-<!--Tembusan-->
+<!--edukasi-->
 <script type="text/javascript">
     $(document).ready(function() {
         // chain select
@@ -1559,6 +1559,139 @@ if ($_smarty_tpl->_count($_from) > 0){
         $("#edukasi").select2({});
     });
 </script>
+
+<!-- masalah keperawatan -->
+<script type="text/javascript">
+    $(document).ready(function() {
+        // chain select
+        // tembusan
+        var user = $("#user").val();
+        $('#tujuan').select2('data', null);
+        if (user == '') {
+            $("#tujuan").attr("disabled", "disabled");
+        } else {
+//            $('#tujuan').select2('data', null);
+                $("#tujuan").removeAttr("disabled");
+                jQuery("#tujuan").html('');
+                $.ajax({
+                    type: "POST",
+                    url: "<?php echo $_smarty_tpl->getVariable('config')->value->site_url('inap/ass_awal/list_masalah_kep/');?>
+",
+                    data: "user=" + user,
+                    dataType: 'json',
+                    success: function(data) {
+                        var showData;
+                        jQuery.each(data, function(index, result) {
+                            if (result.value == 0) {
+                            } else {
+                                showData += "<option value='" + result.value + "'>" + result.label + "</option>";
+                            }
+                        })
+                        jQuery("#tujuan").html(showData);
+                        $('#tujuan').select2('val', [<?php echo $_smarty_tpl->getVariable('rs_tujuan')->value;?>
+]);
+                }
+            });
+        }
+        $("#user").change(function() {
+            user = $(this).val();
+  
+            $('#tujuan').select2('data', null);
+            if (user == '') {
+                $("#tujuan").attr("disabled", "disabled");
+            } else {
+                $("#tujuan").removeAttr("disabled");
+                jQuery("#tujuan").html('');
+                $.ajax({
+                    type: "POST",
+                    url: "<?php echo $_smarty_tpl->getVariable('config')->value->site_url('inap/ass_awal/list_masalah_kep/');?>
+",
+                    data: "user=" + user,
+                    dataType: 'json',
+                    success: function(data) {
+                        var showData;
+                        jQuery.each(data, function(index, result) {
+                            if (result.value == 0) {
+                            } else {
+                                showData += "<option value='" + result.value + "'>" + result.label + "</option>";
+                            }
+                        })
+                        jQuery("#tujuan").html(showData);
+                    }
+                });
+            }
+        });
+        //tags
+        $("#tujuan").select2({});
+    });
+</script>
+
+<!-- rencana keperawatan -->
+<script type="text/javascript">
+    $(document).ready(function() {
+        // chain select
+        // tembusan
+        var user = $("#user").val();
+        $('#tembusan').select2('data', null);
+        if (user == '') {
+            $("#tembusan").attr("disabled", "disabled");
+        } else {
+//            $('#tembusan').select2('data', null);
+                $("#tembusan").removeAttr("disabled");
+                jQuery("#tembusan").html('');
+                $.ajax({
+                    type: "POST",
+                    url: "<?php echo $_smarty_tpl->getVariable('config')->value->site_url('inap/ass_awal/list_rencana_kep/');?>
+",
+                    data: "user=" + user,
+                    dataType: 'json',
+                    success: function(data) {
+                        var showData;
+                        jQuery.each(data, function(index, result) {
+                            if (result.value == 0) {
+                            } else {
+                                showData += "<option value='" + result.value + "'>" + result.label + "</option>";
+                            }
+                        })
+                        jQuery("#tembusan").html(showData);
+                        $('#tembusan').select2('val', [<?php echo $_smarty_tpl->getVariable('rs_tembusan')->value;?>
+]);
+                }
+            });
+        }
+        $("#user").change(function() {
+            user = $(this).val();
+  
+            $('#tembusan').select2('data', null);
+            if (user == '') {
+                $("#tembusan").attr("disabled", "disabled");
+            } else {
+                $("#tembusan").removeAttr("disabled");
+                jQuery("#tembusan").html('');
+                $.ajax({
+                    type: "POST",
+                    url: "<?php echo $_smarty_tpl->getVariable('config')->value->site_url('inap/ass_awal/list_rencana_kep/');?>
+",
+                    data: "user=" + user,
+                    dataType: 'json',
+                    success: function(data) {
+                        var showData;
+                        jQuery.each(data, function(index, result) {
+                            if (result.value == 0) {
+                            } else {
+                                showData += "<option value='" + result.value + "'>" + result.label + "</option>";
+                            }
+                        })
+                        jQuery("#tembusan").html(showData);
+                    }
+                });
+            }
+        });
+        //tags
+        $("#tembusan").select2({});
+    });
+</script>
+
 <?php if (isset($_smarty_tpl->getVariable('result',null,true,false)->value)){?>
 <?php  $_smarty_tpl->tpl_vars['i'] = new Smarty_Variable;
  $_smarty_tpl->tpl_vars['key'] = new Smarty_Variable;
@@ -1650,6 +1783,8 @@ if ($_smarty_tpl->_count($_from) > 0){
         });
         //tags
         $("#edukasi").select2({});
+
+        
     });
 </script>
 <?php }?>

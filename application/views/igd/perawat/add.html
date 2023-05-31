@@ -1197,7 +1197,7 @@
                                     </select>
                                 </td> -->
                                 <td>Jam Selesai diperiksa</td>
-                                <td><input type="time" required name="JAM_SELESAI"></td>
+                                <td><input type="time" required name="JAM_SELESAI" id="jam_keperawatan"></td>
 
                                 <td  > 
                                     Kode ICD 10 ( bila terdiagnosa TBC)
@@ -1224,6 +1224,25 @@
             </form>
             </div>
       <script>
+
+             // Mendapatkan elemen input waktu
+     const inputWaktu = document.getElementById('jam_keperawatan');
+  
+  // Mengatur waktu awal
+  updateTime();
+
+  // Fungsi untuk memperbarui waktu pada input
+  function updateTime() {
+    const waktuSekarang = new Date();
+    const jam = waktuSekarang.getHours();
+    const menit = waktuSekarang.getMinutes();
+    const detik = waktuSekarang.getSeconds();
+    const waktuDefault = jam.toString().padStart(2, '0') + ':' + menit.toString().padStart(2, '0');
+    inputWaktu.value = waktuDefault;
+  }
+
+  // Memperbarui waktu setiap menit
+  setInterval(updateTime, 1000);
 
 
 $(".select2").select2({

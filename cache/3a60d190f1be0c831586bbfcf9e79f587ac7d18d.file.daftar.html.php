@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.0.7, created on 2022-07-01 10:15:04
+<?php /* Smarty version Smarty-3.0.7, created on 2023-05-31 10:38:31
          compiled from "application/views\igd/daftar.html" */ ?>
 <?php /*%%SmartyHeaderCode:3067262be66b85ddda6-46959618%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_smarty_tpl->decodeProperties(array (
     '3a60d190f1be0c831586bbfcf9e79f587ac7d18d' => 
     array (
       0 => 'application/views\\igd/daftar.html',
-      1 => 1656645302,
+      1 => 1685501796,
       2 => 'file',
     ),
   ),

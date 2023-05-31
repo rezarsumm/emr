@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.0.7, created on 2023-05-27 08:05:07
+<?php /* Smarty version Smarty-3.0.7, created on 2023-05-31 10:52:15
          compiled from "application/views\igd/triase/add.html" */ ?>
 <?php /*%%SmartyHeaderCode:639464715743283173-63958429%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_smarty_tpl->decodeProperties(array (
     '85e8dced42f10b77bfbf3bd789c9813b989f3dbb' => 
     array (
       0 => 'application/views\\igd/triase/add.html',
-      1 => 1685149500,
+      1 => 1685501796,
       2 => 'file',
     ),
   ),

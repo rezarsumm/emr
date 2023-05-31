@@ -1,0 +1,299 @@
+<html>
+    
+<head>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
+
+</head>
+<body>
+    <br>
+    
+  <p style="font-size: 15px;">  Hasil Penyisiran Data Pasien TB </p>
+{if $rolenya neq 'Perawat IGD'} 
+ 
+            <!-- <button class="btn btn-success btn-xs fa fa-pencil" data-toggle="modal" data-target="#tambahanakModal"> Tambah Data  </button> -->
+
+   
+{/if}
+ <br>
+ <br>
+<div class="dashboard-container">
+    <table class="table-view" width="100%" border="0" style="font-size: 12px;">
+        <thead>
+            <tr>
+                <th width='1%'>No</th>
+                <th style="width:3%;padding:6px 1px">No MR</th>
+                <th style="width:12% ; padding:6px 5px">Nama Pasien</th>
+                <th style="width:10%;padding:6px 5px">Alamat</th> 
+                <!-- <th style="width:10%;padding:6px 5px">Tanggal  </th>  -->
+                <th style="width:8%;padding:6px 5px">Sebelum Pengobatan</th> 
+                <th style="width:1%;padding:6px 5px">ICD</th> 
+                <th style="width:8%;padding:6px 5px">Paduan OAT</th> 
+                <th style="width:8%;padding:6px 5px;">Progres (Mikroskopis)</th> 
+                <th style="width:8%;padding:6px 5px;">Akhir Pengobatan</th> 
+                <th width='2%'>Aksi</th>
+            </tr>
+        </thead>
+        <tbody>{$no=1}
+            {foreach from=$rs_pasien item=data}
+            <tr>
+                <td>{$no++}</td>
+                <td>{$data.No_MR}</td>
+                <td>{$data.Nama_Pasien}</td>
+                <td>{$data.Alamat}</td>  
+                <td>
+                     Mikroskopis : {$data.sebelum_pengobatan_hasil_mikroskopis} <br>
+                     TCM : {$data.sebelum_pengobatan_hasil_tes_cepat} <br>
+                     Biakan : {$data.sebelum_pengobatan_hasil_biakan} 
+
+                </td>  
+                <td>{$data.kode_icd_x}</td>  
+                <td>{$data.paduan_oat}</td>  
+                  <td>
+                    Bulan 2 : {$data.hasil_mikroskopis_bulan_2} <br> 
+                    Bulan 3 : {$data.hasil_mikroskopis_bulan_2} <br> 
+                    Bulan 5 : {$data.hasil_mikroskopis_bulan_5}  
+
+               </td>  
+               <td>
+               Hasil Lab Akhir : {$data.akhir_pengobatan_hasil_mikroskopis} <br> 
+               Tgl Akhir : {$data.tanggal_hasil_akhir_pengobatan} </td>  
+                <!-- <td> Permintaan : {date('d-m-Y', strtotime($data.tglp))}<br> Hasil : {$data.Tgl_hasil_muncul}
+                </td>   -->
+                <!-- <td>{if $data.Jenis eq '1'} TCM {/if} {if $data.Jenis eq '2'} Mikroskopis {/if}</td>   -->
+                
+                 <td>
+                    <button class="btn btn-primary btn-xs fa fa-pencil" data-toggle="modal" data-target="#etambahanakModal{$data.idlab}"> Edit  </button>
+                </td>
+            </tr>
+            {/foreach}
+        </tbody>
+    </table>
+ </div>
+
+ 
+
+
+
+  
+ {foreach from=$rs_pasien item=data}
+
+
+ <div class="modal fade" id="etambahanakModal{$data.idlab}" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+               <div class="modal-header" >
+            <button type="button" class="close"   data-dismiss="modal">&times;</button>
+            <center><font ><h3>Edit Data Pasien TB </h3></font> </center>
+                 
+            </div>
+          <div class="modal-body" style="padding:10px 20px;" width>
+            <div class="login-block"> 
+                <form action="{$config->site_url('pasien_tb/edit_process')}" method="post" onkeypress="return event.keyCode != 13">
+                   
+                    <input type="hidden" name="idpasientb" value="{$data.idlab}">
+                    <input type="hidden" name="id_tb_03" value="{$data.id_tb_03}">
+                    <input type="hidden" name="nik" value="{$data.nik}">
+                    <input type="hidden" name="alamat_lengkap" value="{$data.alamat_lengkap}">
+                    <input type="hidden" name="id_propinsi_pasien" value="{$data.id_propinsi_pasien}">
+                    <input type="hidden" name="kd_kabupaten_pasien" value="{$data.kd_kabupaten_pasien}">  
+                    <input type="hidden" name="jenis_kelamin" value="{$data.jenis_kelamin}">
+                    <input type="hidden" name="klasifikasi_lokasi_anatomi" value="{$data.klasifikasi_lokasi_anatomi}">
+                    <input type="hidden" name="tgl_lahir" value="{$data.tgl_lahir}">
+                    <input type="hidden" name="FS_KD_REG" value="{$data.No_Reg}">
+                    <input type="hidden" name="tglmulailama" value="{$data.tanggal_mulai_pengobatan}">
+                    
+                   <table>              
+                                      <tr>
+                                          <td width="40%">Nama Pasien    </td>
+                                          <td width="20%">
+                                            <input type="text" name="Nama" style="width: 400px;" value="{$data.Nama_Pasien}" readonly class="form-control">
+                                          </td>
+                                      </tr>
+                                      <tr>
+                                        <td width="40%">  Alamat </td>
+                                        <td width="20%">
+                                          <input type="text" name="Alamat" class="form-control" value="{$data.Alamat}" readonly style="width: 400px;">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="40%">No  MR    </td>
+                                        <td width="20%">
+                                          <input type="text" name="No_MR" style="width: 400px;" value="{$data.No_MR}" readonly class="form-control">
+                                        </td>
+                                    </tr>
+                                    
+                                    
+                                    <tr>
+                                        <td width="40%">Mikroskopis Sebelum   </td>
+                                        <td width="20%">
+                                            <input type="text" name="sebelum_pengobatan_hasil_mikroskopis" style="width: 400px;" value="{$data.sebelum_pengobatan_hasil_mikroskopis}"   class="form-control">
+                                          </td>
+                                    </tr>
+                                   
+                                    <tr>
+                                        <td width="40%">TCM Sebelum   </td>
+                                        <td width="20%">
+                                            <input type="text" name="sebelum_pengobatan_hasil_tes_cepat" style="width: 400px;" value="{$data.sebelum_pengobatan_hasil_tes_cepat}"   class="form-control">
+                                         </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="40%">Biakan Sebelum   </td>
+                                        <td width="20%">
+                                            <input type="text" name="sebelum_pengobatan_hasil_biakan" style="width: 400px;" value="{$data.sebelum_pengobatan_hasil_biakan}"   class="form-control">
+                                            
+                                         </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="40%">Kode ICD X  </td>
+                                        <td width="20%">
+                                            <select name="kode_icd_x"  class="form-control select2" id="kode" style="width:300px">
+                                                <option value=""></option>
+                                                {foreach $icd as $kode} 
+                                                <option value="{$kode.KODE}" {if {$kode.KODE} eq $data.kode_icd_x} selected {/if} >  {$kode.KODE}</option>
+                                                {/foreach}
+                                                </select>
+                                          </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="40%">Tipe Diagnosa  </td>
+                                        <td width="20%">
+                                            <input type="radio" name="tipe_diagnosis"  value="1" {if $data.tipe_diagnosis eq '1'} checked {/if}   >  Bakteriologis  
+                                            <input type="radio" name="tipe_diagnosis"  value="2" {if $data.tipe_diagnosis eq '2'} checked {/if}    > Klinis  </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="40%">  Riwayat Pengobatan  </td>
+                                        <td width="20%">
+                                            <select name="klasifikasi_riwayat_pengobatan"  class="form-control select2"   style="width:300px">
+                                                <option value=""></option> 
+                                                <option value="1" {if {$data.klasifikasi_riwayat_pengobatan} eq  '1'} selected {/if} >  Baru</option>
+                                                <option value="2 " {if {$data.klasifikasi_riwayat_pengobatan} eq  '2 '} selected {/if} >  Kambuh </option>
+                                                <option value="3" {if {$data.klasifikasi_riwayat_pengobatan} eq  '3'} selected {/if} >     Diobati Setelah Gagal </option>
+                                                <option value="4" {if {$data.klasifikasi_riwayat_pengobatan} eq  '4'} selected {/if} >  Diobati Setelah Putus Berobat</option>
+                                                <option value="5" {if {$data.klasifikasi_riwayat_pengobatan} eq  '5'} selected {/if} >  Lain-lain </option>
+                                                <option value="6" {if {$data.klasifikasi_riwayat_pengobatan} eq  '6'} selected {/if} >   Riwayat Pengobatan Sebelumnya Tidak Diketahui</option>
+                                               
+                                                </select>
+                                          </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="40%"> Mulai Pengobatan   </td>
+                                        <td width="20%">
+                                            <input type="date" name="tanggal_mulai_pengobatan" style="width: 200px;" value="{$data.tanggal_mulai_pengobatan}"   class="form-control">
+
+                                         </td>
+                                    </tr>
+                                     <tr>
+                                        <td width="40%">  Paduan OAT  </td>
+                                        <td width="20%">
+                                            <select name="paduan_oat"   class="form-control select2" style="width:300px">
+                                                <option value=""></option> 
+                                                <option value="Isoniazid, Rifampicin, Pyranizanimid, dan Etambutol" {if {$data.paduan_oat} eq  'Isoniazid, Rifampicin, Pyranizanimid, dan Etambutol'} selected {/if} >  Isoniazid, Rifampicin, Pyranizanimid, dan Etambutol</option>
+                                                <option value="Isoniazid dan Rifampicin" {if {$data.paduan_oat} eq  'Isoniazid dan Rifampicin'} selected {/if} >   Isoniazid dan Rifampicin</option>
+                                                <option value="Rifampicin, Isoniazid, Pyrazinamid, Etambutol, dan Streptomicin" {if {$data.paduan_oat} eq  'Rifampicin, Isoniazid, Pyrazinamid, Etambutol, dan Streptomicin'} selected {/if} >   Rifampicin, Isoniazid, Pyrazinamid, Etambutol, dan Streptomicin</option>
+                                                <option value="Rifampicin, Isoniazid, dan Etambutol" {if {$data.paduan_oat} eq  'Rifampicin, Isoniazid, dan Etambutol'} selected {/if} >   Rifampicin, Isoniazid, dan Etambutol </option>
+                                                <option value="Rifampicin, Isoniazid, dan Pyrazinamid" {if {$data.paduan_oat} eq  'Rifampicin, Isoniazid, dan Pyrazinamid'} selected {/if} >  Rifampicin, Isoniazid, dan Pyrazinamid </option>
+                                                <option value="Rifampicin dan Isoniazid" {if {$data.paduan_oat} eq  'Rifampicin dan Isoniazid'} selected {/if} >  Rifampicin dan Isoniazid </option>
+                                                </select>
+                                         </td>
+                                    </tr>
+                                   
+                                    <tr>
+                                        <td width="40%">Mikroskopis Bulan-2   </td>
+                                        <td width="20%">
+                                            <input type="text" name="hasil_mikroskopis_bulan_2" style="width: 400px;" value="{$data.hasil_mikroskopis_bulan_2}"   class="form-control">
+
+                                         </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="40%">Mikroskopis Bulan-3   </td>
+                                        <td width="20%">
+                                            <input type="text" name="hasil_mikroskopis_bulan_3" style="width: 400px;" value="{$data.hasil_mikroskopis_bulan_3}"   class="form-control">
+
+                                         </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="40%">Mikroskopis Bulan-5   </td>
+                                        <td width="20%">
+                                            <input type="text" name="hasil_mikroskopis_bulan_5" style="width: 400px;" value="{$data.hasil_mikroskopis_bulan_5}"   class="form-control">
+
+                                         </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="40%"> Akhir Pengobatan   </td>
+                                        <td width="20%">
+                                            <input type="date" name="tanggal_hasil_akhir_pengobatan" style="width: 200px;" value="{$data.tanggal_hasil_akhir_pengobatan}"   class="form-control">
+
+                                         </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="40%">Mikroskopis Akhir   </td>
+                                        <td width="20%">
+                                            <input type="text" name="akhir_pengobatan_hasil_mikroskopis" style="width: 400px;" value="{$data.akhir_pengobatan_hasil_mikroskopis}"   class="form-control">
+
+                                         </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="40%"> Hasil Akhir  </td>
+                                        <td width="20%">
+                                            <select name="hasil_akhir_pengobatan"  class="form-control select2"  style="width:300px">
+                                                <option value=""></option> 
+                                                <option value="sembuh" {if {$data.hasil_akhir_pengobatan} eq  'sembuh'} selected {/if} > sembuh </option>
+                                                <option value="pengobatan lengkap" {if {$data.hasil_akhir_pengobatan} eq  'pengobatan lengkap'} selected {/if} > pengobatan lengkap </option>
+                                                <option value="lost to follow up" {if {$data.hasil_akhir_pengobatan} eq  'lost to follow up'} selected {/if} > lost to follow up </option>
+                                                <option value="meninggal" {if {$data.hasil_akhir_pengobatan} eq  'meninggal'} selected {/if} > meninggal </option>
+                                                <option value="gagal" {if {$data.hasil_akhir_pengobatan} eq  'gagal'} selected {/if} > gagal </option>
+                                                <option value="tidak dievaluasi" {if {$data.hasil_akhir_pengobatan} eq  'tidak dievaluasi'} selected {/if} > tidak dievaluasi </option>
+
+                                                </select>
+                                         </td>
+                                    </tr>
+                                    </table>
+                                  
+                     
+                    <br>
+                    <br>
+                 
+                
+                      <button type="submit" class="btn btn-primary btn-sm">
+                            <i class="ti ti-save"></i> Simpan
+                        </button>
+                    <button type="button" class="btn btn-warning btn-sm" data-dismiss="modal">Batal</button>
+               </form>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+
+  {/foreach}
+
+
+ </body>
+ </html>
+ 
+
+ <script>
+    $(".select2").select2({
+         placeholder: "Pilih",
+         allowClear: true
+     });
+
+   
+   $(":radio.rad").click(function(){
+    //  $("#form2").hide();
+    //  $("#form3").hide();
+
+    //  if($(this).val() == "Ya"){
+    //    $("#form2").show();
+    //    $("#form3").hide()
+    //  }else if($(this).val() == "Tidak"){
+    //    $("#form2").hide();
+    //    $("#form3").show()
+    //  }
+    alert("h");
+   });
+
+ </script>

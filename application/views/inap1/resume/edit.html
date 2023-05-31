@@ -1,0 +1,332 @@
+<!-- include javascript -->
+{include file="inap/resume/edit_script_js.html"}
+<!-- end of include javascript-->
+<div class="breadcrum">
+    <p>
+        <a href="#">Data Arsip</a><span></span>
+        <a href="{$config->site_url('inap/resume/cari')}">Resume Pasien Pulang</a><span></span>
+        <small>Edit Data</small>
+    </p>
+    <div class="clear"></div>
+</div>
+<div class="head-content">
+    <div class="head-content-nav">
+        <ul>
+            <li><a href="{$config->site_url('inap/resume/add/'|cat:$rs_pasien.NOREG)}" class="active">Data Resume</a></li>
+            <li><a href="{$config->site_url('inap/resume/add_diagnosis/'|cat:$rs_pasien.NOREG)}">Data Diagnosis</a></li>
+            <li><a href="{$config->site_url('inap/resume/add_terapi/'|cat:$rs_pasien.NOREG)}">Data Terapi Pasien</a></li>
+        </ul>
+        <div class="clear"></div>
+    </div>
+    <div class="clear"></div>
+</div>
+<div class="content-entry">
+    <!-- notification template -->
+    {include file="base/templates/notification.html"}
+    <!-- end of notification template-->
+    <form action="{$config->site_url('inap/resume/edit_process')}" method="post">
+        <input name="FS_KD_REG" type="hidden" value="{$rs_pasien.NO_REG}" />
+        <input name="FS_MR" type="hidden" value="{$rs_pasien.NO_MR}" />
+
+        <table class="table-input" width="100%">
+            <tr class="headrow">
+                <th colspan="2">Edit Resume Pasien Pulang</th>
+            </tr>
+            <tr>
+                <td>NAMA</td>
+                <td>
+                    {$rs_pasien.NAMA_PASIEN}
+                </td>
+            </tr>
+            <tr>
+                <td>NO MR</td>
+                <td>
+                    {$rs_pasien.NO_MR}
+                </td>
+            </tr>
+            <tr>
+                <td>TANGGAL LAHIR</td>
+                <td>
+                    {$rs_pasien.TGL_LAHIR|date_format:"%d %b %Y"}
+                </td>
+            </tr>
+            <tr>
+                <td>ALAMAT</td>
+                <td>{$rs_pasien.ALAMAT}</td>
+            </tr>
+        </table>
+        <table class="table-input" width="100%">
+            <tr>
+                <th colspan="2">KELUHAN UTAMA</th>
+            </tr>
+            <tr>
+                <td>Diagnosa Saat Masuk</td>
+                <td>
+                    <textarea name="FS_KELUHAN_UTAMA" rows="3" cols="100">{$rs_resume.FS_KELUHAN_UTAMA}</textarea>
+                </td>
+            </tr>
+            <tr>
+                <td style="vertical-align: top">Indikasi Di Rawat</td>
+                <td style="vertical-align: top" colspan="2">
+                    <select name="tembusan[]" multiple id="tembusan" style="width:350px">
+                        <option></option>
+                    </select>
+                    <input type="text" name="FS_KET_INDIKASI" value="{$rs_resume.FS_KET_INDIKASI}" size="25" placeholder="Keterangan Indikasi Dirawat ">
+
+                    <!--<td>Indikasi Di Rawat</td>
+                    <td> 
+                        <select name="FS_INDIKASI_DIRAWAT" id="opa1">
+                            <option value="0" >--Pilih--</option>
+                            <option value="3" {if {$rs_resume.FS_INDIKASI_DIRAWAT} eq 3}selected="selected"{/if}>Evalusai Klinis</option>
+                    <!-- <option value="2" {if {$rs_resume.FS_INDIKASI_DIRAWAT} eq 2}selected="selected"{/if}>Pemberian Terapi</option>
+                     <option value="1" {if {$rs_resume.FS_INDIKASI_DIRAWAT} eq 1}selected="selected"{/if}>Prosedur Diagnostik / Prosedur Terapi / Tindakan</option>
+                 </select>
+             </td>-->
+            </tr>
+            <tr>
+                <td>Ringkasan riwayat penyakit / Anamnese</td>
+                <td>
+                    <textarea name="FS_RIWAYAT_PENYAKIT" rows="3" cols="100">{$rs_resume.FS_RIWAYAT_PENYAKIT}</textarea>
+                </td>
+            </tr>
+            <tr>
+                <td>Pemeriksaan fisik Abnormal</td>
+                <td>
+                    <textarea name="FS_PEMERIKSAAN_FISIK" rows="3" cols="100">{$rs_resume.FS_PEMERIKSAAN_FISIK}</textarea>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Vital Sign Sebelum Dirawat
+                </td>
+                <td>
+                    Suhu : <input type="text" name="FS_SUHU1" size="10" value="{$rs_resume.FS_SUHU1|default:''}">
+                    Nadi : <input type="text" name="FS_NADI1" size="10" value="{$rs_resume.FS_NADI1|default:''}">x/menit
+                    R : <input type="text" name="FS_R1" size="10" value="{$rs_resume.FS_R1|default:''}">x/menit
+                    TD : <input type="text" name="FS_TD1" size="10" value="{$rs_resume.FS_TD1|default:''}">mmHg
+                </td>
+            </tr>
+            <tr>
+                <td>Pemeriksaan penunjang terpenting</td>
+                <td>
+                    <textarea name="FS_PEMERIKSAAN_PENUNJANG" rows="3" cols="100">{$rs_resume.FS_PEMERIKSAAN_PENUNJANG}</textarea>
+                </td>
+            </tr>
+            <tr>
+                <td>Terapi / Pengobatan selama di rumah sakit</td>
+                <td>
+                    <textarea name="FS_TERAPI" rows="3" cols="100">{$rs_resume.FS_TERAPI}</textarea>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Hasil laboratorium belum selesai
+                </td>
+                <td>
+                    <select name="FS_HASIL_LAB">
+                        <option value="NULL" {if {$rs_resume.FS_HASIL_LAB} eq 'NULL'}selected="selected"{/if} onclick='document.getElementById("civstaton1").disabled = true'>-- Pilih --</option>
+                        <option value="TIDAK" {if {$rs_resume.FS_HASIL_LAB} eq 'TIDAK'}selected="selected"{/if} onclick='document.getElementById("civstaton1").disabled = true'>Tidak Ada</option>
+                        <option {if {$rs_resume.FS_HASIL_LAB} neq 'NULL'} && {$rs_resume.FS_HASIL_LAB} neq 'TIDAK'}selected="selected"{/if}onclick='document.getElementById("civstaton1").disabled = false'>Ada</option>
+                    </select>
+                    {if {$rs_resume.FS_HASIL_LAB} neq 'NULL' && {$rs_resume.FS_HASIL_LAB} neq 'TIDAK'}
+                    <input type="text" name="FS_HASIL_LAB" id="civstaton1" value='{$rs_resume.FS_HASIL_LAB}' size="30">
+                    {elseif {$rs_resume.FS_HASIL_LAB} neq 'NULL' || {$rs_resume.FS_HASIL_LAB} neq 'TIDAK'}
+                    <input type="text" name="FS_HASIL_LAB" id="civstaton1" disabled="" size="30">
+                    {/if}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Alergi (reaksi obat)
+                </td>
+                <td>
+                    <select name="FS_ALERGI">
+                        <option value="NULL" {if {$rs_resume.FS_ALERGI} eq 'NULL'}selected="selected"{/if} onclick='document.getElementById("civstaton2").disabled = true'>-- Pilih --</option>
+                        <option value="TIDAK" {if {$rs_resume.FS_ALERGI} eq 'TIDAK'}selected="selected"{/if} onclick='document.getElementById("civstaton2").disabled = true'>Tidak Ada</option>
+                        <option {if {$rs_resume.FS_ALERGI} neq 'NULL' && {$rs_resume.FS_ALERGI} neq 'TIDAK'}selected="selected"{/if} onclick='document.getElementById("civstaton2").disabled = false'>Ada</option>
+                    </select>
+                    {if {$rs_resume.FS_ALERGI} neq 'NULL' && {$rs_resume.FS_ALERGI} neq 'TIDAK'}
+                    <input type="text" name="FS_ALERGI" id="civstaton2" size="30" value="{$rs_resume.FS_ALERGI}">
+                    {elseif {$rs_resume.FS_ALERGI} neq 'NULL' || {$rs_resume.FS_ALERGI} neq 'TIDAK'}
+                    <input type="text" name="FS_ALERGI" id="civstaton2" disabled="" size="30">
+                    {/if}
+                </td>
+            </tr>
+            <tr>
+                <td style="vertical-align: top">Diet</td>
+                <td style="vertical-align: top" colspan="2">
+                    <select name="tujuan[]" multiple id="tujuan" style="width:350px">
+                        <option></option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Instruksi/Anjuran edukasi</td>
+                <td>
+                    <!-- <textarea name="FS_INSTRUKSI" rows="3" cols="30">{$rs_resume.FS_INSTRUKSI}</textarea>-->
+                    <input type='checkbox' name='FS_INSTRUKSI1' {if {$rs_resume.FS_INSTRUKSI1} eq 'YA'}checked="checked"{/if}  value="YA">Istirahat Cukup <br>  
+                    <input type='checkbox' name='FS_INSTRUKSI2' {if {$rs_resume.FS_INSTRUKSI2} eq 'YA'}checked="checked"{/if} value="YA">Kontrol Sesuai Waktu Di Anjurkan<br> 
+                    <input type='checkbox' name='FS_INSTRUKSI3' {if {$rs_resume.FS_INSTRUKSI3} eq 'YA'}checked="checked"{/if}  value="YA">Minum Obat Sesuai Anjuran <br>
+                    <input type='checkbox' name='FS_INSTRUKSI4' {if {$rs_resume.FS_INSTRUKSI4} eq 'YA'}checked="checked"{/if}  value="YA">Tingkatkan Latihan <br>
+                    <input type='checkbox' name='FS_INSTRUKSI5' {if {$rs_resume.FS_INSTRUKSI5} eq 'YA'}checked="checked"{/if}  value="YA"> Hubungi IGD RSU Muhammadiyah Metro bila dalam keadaan gawat darurat
+
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Pengobatan dilanjutkan
+                </td>
+                <td>
+                    <select name="FS_KD_LAYANAN" id="surat_dari" class="select2" style="width: 300px;">
+                        <option value=""></option>
+                        {foreach from=$rs_layanan item=data}
+                        <option value="{$data.KODE_MASUK}" {if {$rs_resume.FS_KD_LAYANAN} eq {$data.KODE_MASUK}}selected="selected"{/if}>{$data.KET_MASUK}</option>
+                        {/foreach}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Tanggal Kontrol</td>
+                <td>
+                    <input name="FD_TGL_KONTROL" type="text" size="10" maxlength="10" value="{$rs_resume.FD_TGL_KONTROL|default:''}" class="tanggal" style="text-align: center;" />
+                </td>
+            </tr>
+            <tr>
+                <td>Jam Kontrol</td>
+                <td>
+                    <input name="FS_JAM_KONTROL" type="text" value="{$rs_resume.FS_JAM_KONTROL|default:''}" size="10" maxlength="10" style="text-align: center"/>
+                </td>
+            </tr>
+            <tr>
+                <td>Keterangan Kontrol</td>
+                <td>
+                    <input name="FS_KET_KONTROL" type="text" value="{$rs_resume.FS_KET_KONTROL|default:''}" size="25" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Pengobatan dilanjutkan 2
+                </td>
+                <td>
+                    <select name="FS_KD_LAYANAN2" id="surat_dari" class="select2" style="width: 300px;">
+                        <option value=""></option>
+                        {foreach from=$rs_layanan item=data2}
+                        <option value="{$data2.KODE_MASUK}" {if {$rs_resume.FS_KD_LAYANAN2} eq {$data2.KODE_MASUK}}selected="selected"{/if}>{$data2.KET_MASUK}</option>
+                        {/foreach}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Tanggal Kontrol 2</td>
+                <td>
+                    <input name="FD_TGL_KONTROL2" type="text" size="10" maxlength="10" value="{$rs_resume.FD_TGL_KONTROL2|default:''}" class="tanggal" style="text-align: center;" />
+                </td>
+            </tr>
+            <tr>
+                <td>Jam Kontrol 2</td>
+                <td>
+                    <input name="FS_JAM_KONTROL2" type="text" value="{$rs_resume.FS_JAM_KONTROL2|default:''}" size="10" maxlength="10" style="text-align: center"/>
+                </td>
+            </tr>
+            <tr>
+                <td>Keterangan Kontrol 2</td>
+                <td>
+                    <input name="FS_KET_KONTROL2" type="text" value="{$rs_resume.FS_KET_KONTROL2|default:''}" size="25" />
+                </td>
+            </tr>
+            <tr>
+                <td>Diagnosis Utama</td>
+                <td>
+                    <textarea name="FS_DIAG_UTAMA" rows="3" cols="100">{$rs_resume.FS_DIAG_UTAMA}</textarea>
+                </td>
+            </tr>
+            <tr>
+                <th colspan="2">KEADAAN PASIEN SAAT PULANG</th>
+            </tr>
+            <tr>
+                <td>
+                    Keadaan Umum
+                </td>
+                <td>
+                    <input type='checkbox' name='FS_KEADAAN_UMUM_BAIK' {if {$rs_resume.FS_KEADAAN_UMUM_BAIK} eq 'YA'}checked="checked"{/if} onclick='document.getElementById("civstaton3").disabled = true' value="YA">Baik  
+                           <input type='checkbox' name='FS_KEADAAN_UMUM_MASIH_SAKIT' {if {$rs_resume.FS_KEADAAN_UMUM_MASIH_SAKIT} eq 'YA'}checked="checked"{/if} onclick='document.getElementById("civstaton3").disabled = true' value="YA">Masih Sakit   
+                           <input type='checkbox' name='FS_KEADAAN_UMUM_SESAK' {if {$rs_resume.FS_KEADAAN_UMUM_SESAK} eq 'YA'}checked="checked"{/if} onclick='document.getElementById("civstaton3").disabled = true' value="YA">Sesak   
+                           <input type='checkbox' name='FS_KEADAAN_UMUM_PUCAT' {if {$rs_resume.FS_KEADAAN_UMUM_PUCAT} eq 'YA'}checked="checked"{/if} onclick='document.getElementById("civstaton3").disabled = true' value="YA">Pucat   
+                           <input type='checkbox' name='FS_KEADAAN_UMUM_LEMAH' {if {$rs_resume.FS_KEADAAN_UMUM_LEMAH} eq 'YA'}checked="checked"{/if} onclick='document.getElementById("civstaton3").disabled = true' value="YA">Lemah   
+                           <input type='checkbox' name='FS_KEADAAN_UMUM_LAIN' {if {$rs_resume.FS_KEADAAN_UMUM_LAIN} neq 0}checked="checked"{/if} onclick='document.getElementById("civstaton3").disabled = false'>lain-lain
+                           {if {$rs_resume.FS_KEADAAN_UMUM_LAIN} neq 0}
+                           <input type='text' name='FS_KEADAAN_UMUM_LAIN' id="civstaton3" value='{$rs_resume.FS_KEADAAN_UMUM_LAIN}'>
+                    {else}
+                    <input type='text' name='FS_KEADAAN_UMUM_LAIN' id="civstaton3" disabled="">
+                    {/if}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Vital Sign
+                </td>
+                <td>
+                    Suhu : <input type="text" name="FS_SUHU" size="10" value="{$rs_resume.FS_SUHU|default:''}">
+                    Nadi : <input type="text" name="FS_NADI" size="10" value="{$rs_resume.FS_NADI|default:''}">x/menit
+                    R : <input type="text" name="FS_R" size="10" value="{$rs_resume.FS_R|default:''}">x/menit
+                    TD : <input type="text" name="FS_TD" size="10" value="{$rs_resume.FS_TD|default:''}">mmHg
+                </td>
+            </tr>
+            <tr>
+                <td>Pemeriksaan Fisik</td>
+                <td>
+                    <!--<textarea name="FS_PEM_FISIK" rows="3" cols="30">{$rs_resume.FS_PEM_FISIK|default:''}</textarea>-->
+                    <input type='checkbox' name='FS_PEM_FISIK1'  {if {$rs_resume.FS_PEM_FISIK1} eq 'YA'}checked="checked"{/if} onclick='document.getElementById("civstaton5").disabled = true' value="YA">Tak Anemis<br>  
+                    <input type='checkbox' name='FS_PEM_FISIK2'  {if {$rs_resume.FS_PEM_FISIK2} eq 'YA'}checked="checked"{/if}onclick='document.getElementById("civstaton5").disabled = true' value="YA">Anemis<br>   
+                    <input type='checkbox' name='FS_PEM_FISIK3'  {if {$rs_resume.FS_PEM_FISIK3} eq 'YA'}checked="checked"{/if}onclick='document.getElementById("civstaton5").disabled = true' value="YA">Cor Dalam Batas Normal<br>   
+                    <input type='checkbox' name='FS_PEM_FISIK4'  {if {$rs_resume.FS_PEM_FISIK4} eq 'YA'}checked="checked"{/if}onclick='document.getElementById("civstaton5").disabled = true' value="YA">Kardiomegali<br>   
+                    <input type='checkbox' name='FS_PEM_FISIK5'  {if {$rs_resume.FS_PEM_FISIK5} eq 'YA'}checked="checked"{/if}onclick='document.getElementById("civstaton5").disabled = true' value="YA">Paru Dalam Batas Normal<br>   
+                    <input type='checkbox' name='FS_PEM_FISIK5'  {if {$rs_resume.FS_PEM_FISIK8} eq 'YA'}checked="checked"{/if}onclick='document.getElementById("civstaton5").disabled = true' value="YA">Abdomen Dalam Batas Normal<br>   
+                    <input type='checkbox' name='FS_PEM_FISIK6'  {if {$rs_resume.FS_PEM_FISIK6} eq 'YA'}checked="checked"{/if}onclick='document.getElementById("civstaton5").disabled = true' value="YA">Ekstremitas Dalam Batas Normal<br>   
+                    <input type='checkbox' name='FS_PEM_FISIK7'  {if {$rs_resume.FS_PEM_FISIK7} neq 'YA' AND $rs_resume.FS_PEM_FISIK7} neq '0'}checked="checked"{/if}onclick='document.getElementById("civstaton5").disabled = false' value="YA">Lainnya  
+                           {if {$rs_resume.FS_PEM_FISIK7} eq 'YA' AND $rs_resume.FS_PEM_FISIK7} neq '0'}
+                           <input type='text' name='FS_PEM_FISIK7' id="civstaton5" disabled>
+                    {else}
+                    <input type='text' name='FS_PEM_FISIK7' id="civstaton5" value='{$rs_resume.FS_PEM_FISIK7}'>
+                    {/if}
+
+                </td>
+            </tr>
+            <!--<tr>
+                <td>Catatan Hal Penting</td>
+                <td>
+                    <textarea name="FS_CAT_HAL_PENTING" rows="3" cols="30">{$rs_resume.FS_CAT_HAL_PENTING|default:''}</textarea>
+                </td>
+            </tr>-->
+            <tr>
+                <td>Tanggal Pulang</td>
+                <td>
+                    <input name="FD_TGL_PULANG" type="text" size="10" maxlength="10" value="{$rs_resume.FD_TGL_PULANG|default:''}" class="tanggal" style="text-align: center;" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Cara Pulang
+                </td>
+                <td>
+                    <select name="FS_CARA_PULANG">
+                        <option value="0" {if {$rs_resume.FS_CARA_PULANG} eq '0'}selected="selected"{/if} onclick='document.getElementById("civstaton4").disabled = true'>-- Pilih --</option>
+                        <option value="1" {if {$rs_resume.FS_CARA_PULANG} eq '1'}selected="selected"{/if}onclick='document.getElementById("civstaton4").disabled = true'>Sembuh</option>
+                        <option value="2" {if {$rs_resume.FS_CARA_PULANG} eq '2'}selected="selected"{/if}onclick='document.getElementById("civstaton4").disabled = true'>Tampak Masih Sakit</option>
+                        <option value="3" {if {$rs_resume.FS_CARA_PULANG} eq '3'}selected="selected"{/if}onclick='document.getElementById("civstaton4").disabled = true'>Pulang Atas Permintaan Sendiri</option>
+                        <option value="4" {if {$rs_resume.FS_CARA_PULANG} eq '4'}selected="selected"{/if}onclick='document.getElementById("civstaton4").disabled = true'>Meninggal</option>
+                        <option value="5" {if {$rs_resume.FS_CARA_PULANG} eq '5'}selected="selected"{/if}onclick='document.getElementById("civstaton4").disabled = true'>Pindah Rumah Sakit</option>
+                        <option onclick='document.getElementById("civstaton4").disabled = false'>Lain-Lain</option>
+                    </select>
+
+                    <input type="text" name="FS_CARA_PULANG" id="civstaton4" disabled="" size="30">
+                </td>
+            </tr>
+            <tr class="submit-box">
+                <td colspan="2">
+                    <input type="submit" name="save" value="Lanjutkan & Simpan" class="edit-button" style="float:right;"/>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>

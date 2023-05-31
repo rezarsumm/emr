@@ -1,0 +1,166 @@
+{include file="nurse/hd/add_script_js.html"}
+<div class="breadcrum">
+    <p>
+        <a href="#">Data Arsip</a><span></span>
+        <a href="{$config->site_url('surat/hd/cari')}">Tindakan Keperawatan</a><span></span>
+        <small>Add Data</small>
+    </p>
+    <div class="clear"></div>
+</div>
+<div class="navigation">
+    <div class="navigation-button">
+        <ul>
+            <li><a href="{$config->site_url('nurse/hd/')}"><img src="{$BASEURL}resource/doc/images/icon/back-icon.png" alt="" />  Back</a></li>
+        </ul>
+    </div>
+    <div class="clear"></div>
+</div>
+    <!-- notification template -->
+    {include file="base/templates/notification.html"}
+    <!-- end of notification template-->
+    <form action="{$config->site_url('nurse/hd/add_process_tindakan')}" method="post">
+        <input name="FS_KD_REG" type="hidden" value="{$result.FS_KD_REG}" />
+
+        <table class="table-info" width="100%">
+        <tr class="headrow">
+            <th colspan="4">Data Pasien</th>
+        </tr>
+        <tr>
+            <td width='15%'>Kode Reg</td>
+            <td width='35%'>{$result.FS_KD_REG}</td>
+            <td width='15%'>No RM</td>
+            <td width='35%'>{$result.FS_MR}</td>
+        </tr>
+        <tr>
+            <td>Nama</td>
+            <td>{$result.FS_NM_PASIEN|default:''}</td>
+            <td>Alamat</td>
+            <td>{$result.FS_ALM_PASIEN|default:''}</td>
+        </tr>
+        <tr>
+            <td>Umur</td>
+            <td>{$result.fn_umur|default:''} Tahun</td>
+            <td>Jenis Kelamin</td>
+            <td>
+                {if $result.FS_JNS_KELAMIN eq '1'}
+                Perempuan
+                {else}
+                Laki-Laki
+                {/if}
+            </td>
+        </tr>
+        <tr>
+            <td>Jaminan</td>
+            <td>{$result.FS_NM_JAMINAN|default:''}</td>
+            <td>Dokter</td>
+            <td>1. {$result.FS_NM_PEG|default:''}<br> 2. {$result.DOK2}</td>
+        </tr>
+    </table>
+         <div class="navigation">
+    <div class="navigation-button">
+        <ul>
+           <li><a href="{$config->site_url('nurse/hd/add_monitor/'|cat:$result.FS_KD_REG|cat:'/'|cat:$search.FS_KD_PEG)}"><img src="{$BASEURL}resource/doc/images/icon/add-icon.png" alt="" />  Monitoring</a></li>
+        </ul>
+    </div>
+    <div class="clear"></div>
+</div>
+        <table class="table-input" width="100%">
+
+            <tr class="headrow">
+                <th colspan="15">MONITOR</th>
+            </tr>
+            <tr>
+                <td rowspan="2"><div align="center">Jam</div></td>
+                <td rowspan="2"><div align="center">QB<br>(ml/mnt)</div></td>
+                <td rowspan="2"><div align="center">VP</div></td>
+                <td rowspan="2"><div align="center">TMP<br>(mm/Hg)</div></td>
+                <td rowspan="2"><div align="center">SUHU <br>(<span>&#176;</span>C)</div></td>
+                <td rowspan="2"><div align="center">TD</div></td>
+                <td rowspan="2"><div align="center">UF</div></td>
+                <td rowspan="2"><div align="center">CONDK</div></td>
+                <td colspan="3"><div align="center">INTAKE</div></td>
+                <td colspan="3"><div align="center">OUTPUT</div></td>
+                <td rowspan="2"><div align="center">KET</div></td>
+            </tr>
+            <tr>
+                <td>Washout</td>
+                <td>Transfusi</td>
+                <td>Makan <br>-minum</td>
+                <td>Urin</td>
+                <td>Muntah</td>
+                <td>Per<br>darahan</td>
+            </tr>
+            <tr>
+                <td><input name="tindakan_anthd_jam" type="text" value="{$result.izin_timestart|default:''}" size="7" maxlength="10" class="waktu" style="text-align: center"readonly/></td>
+                <td><input name="tindakan_anthd_qb" type="text" id="tindakan_anthd_qb" size="3"></td>
+                <td><input name="tindakan_anthd_vp" type="text" id="tindakan_anthd_vp" size="3"></td>
+                <td><input name="tindakan_anthd_tmp" type="text" id="tindakan_anthd_tmp" size="3"></td>
+                <td><input name="tindakan_anthd_suhu" type="text" id="tindakan_anthd_suhu" size="3"></td>
+                <td><input name="tindakan_anthd_td" type="text" id="tindakan_anthd_td" size="3"></td>
+                <td><input name="tindakan_anthd_uf" type="text" id="tindakan_anthd_uf" size="3"></td>
+                <td><input name="tindakan_anthd_condk" type="text" id="tindakan_anthd_condk" size="3"></td>
+                <td><input name="tindakan_anthd_washout" type="text" id="tindakan_anthd_washout" size="3"></td>
+                <td><input name="tindakan_anthd_tranfusi" type="text" id="tindakan_anthd_tranfusi" size="3"></td>
+                <td><input name="tindakan_anthd_makan" type="text" id="tindakan_anthd_makan" size="3"></td>
+                <td><input name="tindakan_anthd_urin" type="text" id="tindakan_anthd_urin" size="3"></td>
+                <td><input name="tindakan_anthd_muntah" type="text" id="tindakan_anthd_muntah" size="3"></td>
+                <td><input name="tindakan_anthd_perdarahan" type="text" id="tindakan_anthd_perdarahan" size="3"></td>
+                <td><input name="tindakan_anthd_keterangan" type="text" id="tindakan_anthd_keterangan" size="6"></td>
+            </tr>
+            <tr>
+                <td colspan="15">
+                    <input type="submit" name="save" value="Simpan" class="edit-button" /> 
+                </td>
+            </tr>
+        </table>
+        <table class="table-view" width="100%">
+            <tbody>
+                <tr class="headrow">
+                    <th rowspan="2"><div align="center">Jam</div></th>
+            <th rowspan="2"><div align="center">QB<br>(ml/mnt)</div></th>
+            <th rowspan="2"><div align="center">VP</div></th>
+            <th rowspan="2"><div align="center">TMP<br>(mm/Hg)</div></th>
+            <th rowspan="2"><div align="center">SUHU <br>(<span>&#176;</span>C)</div></th>
+            <th rowspan="2"><div align="center">TD</div></th>
+            <th rowspan="2"><div align="center">UF</div></th>
+            <th rowspan="2"><div align="center">CONDK</div></th>
+            <th colspan="3"><div align="center">INTAKE</div></th>
+            <th colspan="3"><div align="center">OUTPUT</div></th>
+            <th rowspan="2"><div align="center">KET</div></th>
+            <th></th>
+            </tr>
+            <tr class="headrow">
+                <th>Washout</th>
+                <th>Transfusi</th>
+                <th>Makan <br>-minum</th>
+                <th>Urin</th>
+                <th>Muntah</th>
+                <th>Per<br>darahan</th>
+                <th></th>
+            </tr>
+            {foreach from=$rs_monitoring_hd item=result}
+            <tr>
+                <td align="center">{$result.tindakan_anthd_jam}</td>
+                <td align="center">{$result.tindakan_anthd_qb}</td>
+                <td align="center">{$result.tindakan_anthd_vp}</td>
+                <td align="center">{$result.tindakan_anthd_tmp}</td>
+                <td align="center">{$result.tindakan_anthd_suhu}</td>
+                <td align="center">{$result.tindakan_anthd_td}</td>
+                <td align="center">{$result.tindakan_anthd_uf}</td>
+                <td align="center">{$result.tindakan_anthd_condk}</td>
+                <td align="center">{$result.tindakan_anthd_washout}</td>
+                <td align="center">{$result.tindakan_anthd_tranfusi}</td>
+                <td align="center">{$result.tindakan_anthd_makan}</td>
+                <td align="center">{$result.tindakan_anthd_urin}</td>
+                <td align="center">{$result.tindakan_anthd_muntah}</td>
+                <td align="center">{$result.tindakan_anthd_perdarahan}</td>
+                <td align="center">{$result.tindakan_anthd_keterangan}</td>
+                <td align="center">
+                    <a href="{$config->site_url('nurse/hd/delete_process_tindakan_monitoring/'|cat:$result.FS_KD_HD_TINDAKAN_MONITORING|cat:'/'|cat:$result.FS_KD_REG|default:'')}" class="button-edit" onClick="return confirm('Yakin ingin menghapus?')">Hapus</a>
+                </td>
+            </tr>
+            {/foreach}
+            </tbody>
+        </table>
+        
+    </form>

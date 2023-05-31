@@ -1,0 +1,111 @@
+<html>
+    
+<head>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
+
+</head>
+<body>
+    <br> 
+    
+  <p style="font-size: 19px;">  Data Pengantar Pendaftaran Rawat Jalan dan Rawat Inap </p>
+{if $rolenya neq 'IGD'} 
+ 
+  <a href="{$config->site_url('igd/ppdftr/add')}"> <button class="btn btn-success btn-xs fa fa-pencil"> Tambah Data </button></a> 
+
+         <!--    <button class="btn btn-success btn-xs fa fa-pencil" data-toggle="modal" data-target="#tambahanakModal"> Tambah Data  </button> -->
+ 
+   
+{/if}
+ <br>
+ <br>
+<div class="dashboard-container">
+    <table class="table-view" width="100%" border="0" style="font-size: 12px;">
+        <thead>
+            <tr>
+                <th width='1%'>No</th>
+                <th style="width:3%;padding:1px 2px;"> No MR</th>
+                <th style="width:8%;padding:1px 2px;">Nama Pasien</th>
+                <th style="width:8%;padding:1px 2px;">Alamat</th> 
+                <th style="width:3%;padding:1px 3px;">Jenis</th> 
+                <th style="width:8%;padding:1px 2px;">Layanan</th> 
+                <!-- <th style="width:8%;padding:1px 2px;">Ruang</th>  -->
+                <th style="width:8%;padding:1px 2px;"> Admisi </th> 
+                <th style="width:8%;padding:1px 2px;"> Transfer Pasien</th> 
+                <th style="width:8%;padding:1px 2px;">DPJP</th>   
+                <th width='4%'>Aksi</th>
+            </tr>
+        </thead>
+        <tbody>{$no=1}
+            {foreach from=$rs_pasien item=data}
+            <tr>
+                <td>{$no++}</td>
+                <td>{$data.No_MR}</td>
+                <td>{if $data.rg eq ''} {$data.Nama} {else} {$data.NM} {/if}</td>
+                <td>{$data.alamat}</td>  
+                <td style="color: green;"> {$data.JENIS_RAWAT}</td> 
+                <td>{$data.UNIT1} <br> Ruang :
+                     {$data.Nama_Ruang}</td> 
+                <td>  {$data.KD_ADMISI}</td> 
+                <td>Tujuan : {$data.TUJUAN}  <br>
+                    Status :
+                    {IF $data.STATUS_TF eq 'Diterima'}
+                    <img src="{$BASEURL}resource/doc/images/icon/icon.approve.png" alt="" />
+                    Diterima  oleh {$data.PENERIMA}
+                    {else}
+                    {$data.STATUS_TF}
+                    {/if} </td>  
+                <td>{$data.Nama_Dokter}</td>  
+                 <td>
+                    {if $rolenya neq 'IGD'} 
+                      <a href="{$config->site_url('igd/ppdftr/edit/'|cat:$data.id|cat:'/'|cat:$id|default:'')}">  
+                    <button class="btn btn-primary btn-xs fa fa-pencil"> Edit  </button></a>
+                    <!-- <a href="{$config->site_url('igd/ppdftr/edit/'|cat:$data.id)}" class="button-edit">Edit</a>             -->
+                    {/if}
+                    <!-- <a href="javascript:void(0);" onclick="window.open('{$config->site_url('igd/ppdftr/cetak/'|cat:$FS_RG|cat:'/'|cat:$id|default:'')}', 'nama_window_pop_up', 'scrollbars=yes,resizeable=no')" class="button-download"> Cetak </a> -->
+                    {IF $data.STATUS_TF neq 'Diterima'}
+                    {if $data.FS_KD_REG neq ''}
+                    {if $rolenya eq 'IGD'}
+                    <a href="{$config->site_url('igd/perawat/tf/'|cat:$data.FS_KD_REG|cat:'/'|cat:$id|default:'')}" class="button-edit">Transfer</a>
+                    {/if}
+                    {/if}
+                    {/if}
+
+                </td>
+            </tr>
+            {/foreach}
+        </tbody>
+    </table>
+ </div>
+
+
+ 
+ </body>
+ </html>
+ 
+ 
+
+<script>
+    $(".select2").select2({
+         placeholder: "Pilih",
+         allowClear: true
+     });
+
+   
+   $(":radio.rad").click(function(){
+    //  $("#form2").hide();
+    //  $("#form3").hide();
+
+    //  if($(this).val() == "Ya"){
+    //    $("#form2").show();
+    //    $("#form3").hide()
+    //  }else if($(this).val() == "Tidak"){
+    //    $("#form2").hide();
+    //    $("#form3").show()
+    //  }
+    alert("h");
+   });
+
+ </script>

@@ -1,0 +1,138 @@
+<div class="breadcrumb">
+    <ul>
+        <li><a href="#">Data Arsip</a></li>
+        <li class="active"><a href="#">Print Out</a></li>
+    </ul>
+    <div class="clear"></div>
+</div>
+<div class="content-entry">
+    <!-- notification template -->
+    {include file="base/templates/notification.html"}
+    <!-- end of notification template-->
+    <table class="table-view" width="100%">
+        <tbody>
+            <tr class="headrow">
+                <th colspan="3">CETAK LAPORAN INVESTIGASI SEDERHANA</th>
+            </tr>
+            <tr>
+                <td width="20%">No RM</td>
+                <td width="40%"><span class="blue">{$result.fs_mr}</span></td>
+                <td width="20%" rowspan="9">
+                    <a class="btn-red" target="_blank" href="{$config->site_url('surat/lapinvestigasi/cetak/'|cat:{$result.FS_KD_LAP_INVESTIGASI}|default:'')}" title="Print">
+                        <span class="icon-print"></span>
+                    </a>
+                </td>
+            </tr>   
+            <tr>
+                <td>Nama Pasien</td>
+                <td><span class="blue">{$result.fs_nm_pasien}</span></td>
+            </tr>   
+            <tr>
+                <td>Kasus</td>
+                <td><span class="blue">{$result.FS_KASUS}</span></td>
+            </tr>   
+             <tr>
+                <td> Lokasi Kejadian</td>
+                <td>
+                    <span class="blue">{$result.FS_NM_LAYANAN}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>Sasaran Keselamatan Pasien</td>
+                <td>
+                    <span class="blue">{$result.FS_NM_SASARAN}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>Jenis IKP</td>
+                <td>
+                    <span class="blue">
+                        {if $result.FS_IKP eq '1'}
+                        KNC
+                        {elseif $result.FS_IKP eq '2'}
+                        KTD
+                        {elseif $result.FS_IKP eq '3'}
+                        Sentinel
+                        {/if}
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td>Kronologis Kejadian</td>
+                <td>
+                    <span class="blue">{$result.FS_KRONOLOGIS}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>Tindakan Yang Telah Dilakukan</td>
+                <td>
+                    <span class="blue">{$result.FS_TINDAKAN}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>Mengapa 1</td>
+                <td>
+                    <span class="blue">{$result.FS_PENYEBAB_LANGSUNG}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>Mengapa 2</td>
+                <td><span class="blue">{$result.FS_PENYEBAB_LATAR_BELAKANG}</span></td>
+            </tr>
+            <tr>
+                <td>Mengapa 3</td>
+                <td><span class="blue">{$result.FS_MENGAPA3}</span></td>
+            </tr>
+            <tr>
+                <td>Mengapa 4</td>
+                <td><span class="blue">{$result.FS_MENGAPA4}</span></td>
+            </tr>
+            <tr>
+                <td>Mengapa 5</td>
+                <td><span class="blue">{$result.FS_MENGAPA5}</span></td>
+            </tr>
+            <tr>
+                <td>Tanggal Kejadian</td>
+                <td><span class="blue">{$result.FD_TGL_KEJADIAN|date_format:"%d %b %Y"}</span></td>
+            </tr>
+            <tr>
+                <td>Tanggal Mulai Investigasi</td>
+                <td><span class="blue">{$result.FD_TGL_MULAI|date_format:"%d %b %Y"}</span></td>
+            </tr>
+            <tr>
+                <td>Tanggal Selesai Investigasi</td>
+                <td>
+                    <span class="blue">{$result.FD_TGL_SELESAI|date_format:"%d %b %Y"}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>Rekomendasi & Rencana Tindak Lanjut</td>
+                <td><span class="blue">{$result.FS_REKOMENDASI}</span></td>
+            </tr>
+            <tr>
+                <td>Kelengkapan Investigasi</td>
+                <td>
+                    <span class="blue">
+                        {if $result.FS_KD_KELENGKAPAN eq '1'}
+                        YA
+                        {elseif $result.FS_KD_KELENGKAPAN eq '2'}
+                        TIDAK
+                        {/if}
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td> Diperlukan Investigasi lebih lanjut </td>
+                <td>
+                    <span class="blue">
+                        {if $result.FS_KD_KELANJUTAN eq '1'}
+                        YA
+                        {elseif $result.FS_KD_KELANJUTAN eq '0'}
+                        TIDAK
+                        {/if}
+                    </span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

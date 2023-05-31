@@ -1,0 +1,644 @@
+{include file="nurse/rawat_jalan/edit_script_js.html"}
+<script type="text/javascript">
+    $(document).ready(function () {
+        score();
+        $("#op1").change(function () {
+            var sc = $(this).val();
+            $("#sc1").html(sc);
+            score();
+        });
+        $("#op2").change(function () {
+            var sc = $(this).val();
+            $("#sc2").html(sc);
+            score();
+        });
+        $("#op3").change(function () {
+            var sc = $(this).val();
+            $("#sc3").html(sc);
+            score();
+        });
+        $("#sn1").change(function () {
+            var sn = $(this).val();
+            $("#snh1").html(sn);
+            score_sn();
+        });
+        $("#sn2").change(function () {
+            var sn = $(this).val();
+            $("#snh2").html(sn);
+            score_sn();
+        });
+        $("#sna1").change(function () {
+            var sna = $(this).val();
+            $("#snha1").html(sna);
+            score_sna();
+        });
+        $("#sna2").change(function () {
+            var sna = $(this).val();
+            $("#snha2").html(sna);
+            score_sna();
+        });
+        $("#sna3").change(function () {
+            var sna = $(this).val();
+            $("#snha3").html(sna);
+            score_sna();
+        });
+        $("#sna4").change(function () {
+            var sna = $(this).val();
+            $("#snha4").html(sna);
+            score_sna();
+        });
+    });
+</script>
+<script type="text/javascript">
+    function score() {
+        var sc = parseInt($("#sc1").text()) + parseInt($("#sc2").text()) + parseInt($("#sc3").text());
+        $("#totalsc").html(sc);
+        if (sc >= 45) {
+            $("#rjtkesimpulan").html(">=45 (RISIKO TINGGI)");
+        } else if (sc >= 25 && sc <= 44) {
+            $("#rjtkesimpulan").html("25-44 (risiko rendah)");
+        } else if (sc <= 24) {
+            $("#rjtkesimpulan").html("0-24 (TIDAK ADA RISIKO)");
+        }
+    }
+     function score_sn() {
+        var sn = parseInt($("#snh1").text()) + parseInt($("#snh2").text());
+        $("#totalsn").html(sn);
+        if (sn >= 2) {
+            $("#kesimpulansn").html("LAPORKAN KE DOKTER");
+        } else if (sn < 2) {
+            $("#kesimpulansn").html("NORMAL");
+        }
+    }
+    function score_sna() {
+        var sna = parseInt($("#snha1").text()) + parseInt($("#snha2").text())+ parseInt($("#snha3").text())+ parseInt($("#snha4").text());
+        $("#totalsna").html(sna);
+        if (sna >= 1) {
+            $("#kesimpulansna").html("LAPORKAN KE DOKTER");
+        } else if (sna <= 0) {
+            $("#kesimpulansna").html("NORMAL");
+        }
+    }
+</script>
+<div class="breadcrum">
+    <p>
+        <a href="#">Nursing Record</a><span></span>
+        <a href="{$config->site_url('nurse/rawat_jalan/')}">Rawat Jalan</a><span></span>
+        <small>Add Data</small>
+    </p>
+    <div class="clear"></div>
+</div>
+<div class="navigation">
+    <div class="navigation-button">
+        <ul>
+            <li><a href="{$config->site_url('nurse/rawat_jalan/')}"><img src="{$BASEURL}resource/doc/images/icon/back-icon.png" alt="" />  Back</a></li>
+        </ul>
+    </div>
+    <div class="clear"></div>
+</div>
+<!-- notification template -->
+{include file="base/templates/notification.html"}
+<!-- end of notification template-->
+<form action="{$config->site_url('nurse/rawat_jalan_kb/edit_process')}" method="post">
+    <input type="hidden" name="FS_MR" value="{$result.FS_MR}" />
+    <input type="hidden" name="FS_KD_REG" value="{$result.FS_KD_REG}" />
+    <table class="table-info" width="100%">
+        <tr class="headrow">
+            <th colspan="4">Data Pasien</th>
+        </tr>
+        <tr>
+            <td width='15%'>Kode Reg</td>
+            <td width='35%'>{$result.FS_KD_REG}</td>
+            <td width='15%'>No RM</td>
+            <td width='35%'>{$result.FS_MR}</td>
+        </tr>
+        <tr>
+            <td>Nama</td>
+            <td>{$result.FS_NM_PASIEN|default:''}</td>
+            <td>Alamat</td>
+            <td>{$result.FS_ALM_PASIEN|default:''}</td>
+        </tr>
+        <tr>
+            <td>Umur</td>
+            <td>{$result.fn_umur|default:''} Tahun</td>
+            <td>Jenis Kelamin</td>
+            <td>
+                {if $result.FS_JNS_KELAMIN eq '1'}
+                Perempuan
+                {else}
+                Laki-Laki
+                {/if}
+            </td>
+        </tr>
+        <tr>
+            <td>Jaminan</td>
+            <td>{$result.FS_NM_JAMINAN|default:''}</td>
+            <td>Dokter</td>
+            <td>{$result.FS_NM_PEG|default:''}</td>
+        </tr>
+    </table>
+    <table class="table-input" width="100%">
+        <tr class="headrow">
+            <th colspan="4">Identitas Suami</th>
+        </tr>
+
+        <tr>
+            <td>Nama</td>
+            <td>
+                <input type="text" name="FS_NM_SUAMI" size="35" value="{$result.FS_NM_SUAMI}"/>
+            </td>
+            <td>Tanggal Lahir</td>
+            <td>
+                <input type="text" name="FS_TGL_LAHIR_SUAMI" size="15" value="{$result.FS_TGL_LAHIR_SUAMI}"/>
+            </td>
+        </tr>
+    </table>
+    <table class="table-input" width="100%">
+        <tr class="headrow">
+            <th colspan="2">Anamnesa</th>
+            <th colspan="2">High Risk</th>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <textarea cols="50" name="FS_ANAMNESA">{$ases2.FS_ANAMNESA}</textarea>
+                </td>
+                <td colspan="2">
+                <textarea cols="50" name="FS_HIGH_RISK">{$result.FS_HIGH_RISK}</textarea><br><em>*Jika Pasien ditemukan high risk</em>
+                </td>
+        <tr class="headrow">
+            <th colspan="4">Vital Sign</th>
+        </tr>
+        <tr>
+            <td width='15%'>Suhu</td>
+            <td width='35%'><input type="text" name="FS_SUHU" size="10" value="{$vs.FS_SUHU}"/></td>
+            <td width='15%'>Nadi</td>
+            <td width='35%'><input type="text" name="FS_NADI" size="10" value="{$vs.FS_NADI}" /> x/menit</td>
+        </tr>
+        <tr>
+            <td>R</td>
+            <td><input type="text" name="FS_R" size="10" value="{$vs.FS_R}" /> x/menit</td>
+            <td>TD</td>
+            <td><input type="text" name="FS_TD" size="10" value="{$vs.FS_TD}" /> mmHg</td>
+        </tr>
+        <tr>
+            <td>Tinggi Badan</td>
+            <td><input type="text" name="FS_TB" size="10" value="{$vs.FS_TB}"/> cm</td>
+            <td>Berat Badan</td>
+            <td><input type="text" name="FS_BB" size="10" value="{$vs.FS_BB}"/> Kg</td>
+        </tr>
+    </table>
+    <table class="table-input" width="100%">
+        <tr class="headrow">
+            <th colspan="4">Asesmen Nyeri</th>
+        </tr>
+        <tr>
+            <td width='20%'>Ada Nyeri ?</td>
+            <td width='30%'>
+                <select name="FS_NYERI" id="surat_dari" class="select2" style="width: 170px;">
+                    <option value="0" {if $nyeri.FS_NYERI eq '0'} selected="" {/if}>Tidak</option>
+                    <option value="1" {if $nyeri.FS_NYERI eq '1'} selected="" {/if}>Ya</option>
+                </select>
+            </td>
+            <td width='20%'></td>
+            <td width='30%'></td>
+        </tr>
+        <tr>
+            <td>Provokatif</td>
+            <td>
+                <select name="FS_NYERIP" id="surat_dari" class="select2" style="width: 150px;">
+                    <option value="0" {if $nyeri.FS_NYERIP eq '0'} selected="" {/if}>Tidak Ada Nyeri</option>
+                    <option value="1" {if $nyeri.FS_NYERIP eq '1'} selected="" {/if}>Biologik</option>
+                    <option value="2" {if $nyeri.FS_NYERIP eq '2'} selected="" {/if}>Kimiawi</option>
+                    <option value="3" {if $nyeri.FS_NYERIP eq '3'} selected="" {/if}>Mekanik / Rudapaksa</option>
+                </select>
+            </td>
+            <td>Quality</td>
+            <td>
+                <select name="FS_NYERIQ" id="surat_dari" class="select2" style="width: 170px;">
+                    <option value="0" {if $nyeri.FS_NYERIQ eq '0'} selected="" {/if}>Tidak Ada</option>
+                    <option value="1" {if $nyeri.FS_NYERIQ eq '1'} selected="" {/if}>Seperti Di Tusuk-Tusuk</option>
+                    <option value="2" {if $nyeri.FS_NYERIQ eq '2'} selected="" {/if}>Seperti Terbakar</option>
+                    <option value="3" {if $nyeri.FS_NYERIQ eq '3'} selected="" {/if}>Seperti Tertimpa Beb</option>
+                    <option value="4" {if $nyeri.FS_NYERIQ eq '4'} selected="" {/if}>Ngilu</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Regio</td>
+            <td>
+                <input type="text" name="FS_NYERIR" size="30" value="{$nyeri.FS_NYERIR}"/>
+            </td>
+            <td>Severity</td>
+            <td>
+                <select name="FS_NYERIS" id="surat_dari" class="select2" style="width: 170px;">
+                    <option value="0" {if $nyeri.FS_NYERIS eq '0'} selected="" {/if}>0</option>
+                    <option value="1" {if $nyeri.FS_NYERIS eq '1'} selected="" {/if}>1</option>
+                    <option value="2" {if $nyeri.FS_NYERIS eq '2'} selected="" {/if}>2</option>
+                    <option value="3" {if $nyeri.FS_NYERIS eq '3'} selected="" {/if}>3</option>
+                    <option value="4" {if $nyeri.FS_NYERIS eq '4'} selected="" {/if}>4</option>
+                    <option value="5" {if $nyeri.FS_NYERIS eq '5'} selected="" {/if}>5</option>
+                    <option value="6" {if $nyeri.FS_NYERIS eq '6'} selected="" {/if}>6</option>
+                    <option value="7" {if $nyeri.FS_NYERIS eq '7'} selected="" {/if}>7</option>
+                    <option value="8" {if $nyeri.FS_NYERIS eq '8'} selected="" {/if}>8</option>
+                    <option value="9" {if $nyeri.FS_NYERIS eq '9'} selected="" {/if}>9</option>
+                    <option value="10"{if $nyeri.FS_NYERIS eq '10'} selected="" {/if}>10</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Time</td>
+            <td>
+                <select name="FS_NYERIT" id="surat_dari" class="select2" style="width: 170px;">
+                        <option value="0" {if $nyeri.FS_NYERIT eq '0'} selected="" {/if}>Tidak Ada</option>
+                        <option value="1" {if $nyeri.FS_NYERIT eq '1'} selected="" {/if}>Kadang-kadang</option>
+                        <option value="2" {if $nyeri.FS_NYERIT eq '2'} selected="" {/if}>Sering</option>
+                        <option value="3" {if $nyeri.FS_NYERIT eq '3'} selected="" {/if}>Menetap</option>
+                    </select>
+            </td>
+            <td></td>
+            <td></td>
+        </tr>
+    </table>
+    <table class="table-input" width="100%">
+        <tr class="headrow">
+            <th colspan="4">Asesmen Jatuh</th>
+        </tr>
+        <tr>
+            <td width='15%'>Cara berjalan pasien Tidak seimbang / sempoyongan / limbung</td>
+            <td width='35%'>
+                 <select name="FS_CARA_BERJALAN1" id="surat_dari" class="select2" style="width: 170px;" id="op1">
+                    <option value="">--Pilih Data--</option>
+                    <option value="1" {if $jatuh.FS_CARA_BERJALAN1 eq '1'} selected="" {/if}>YA</option>
+                    <option value="0" {if $jatuh.FS_CARA_BERJALAN1 eq '0'} selected="" {/if}>TIDAK</option>
+                </select>
+                <span id="sc1"></span>
+            </td>
+            <td width='15%'>Kesimpulan</td>
+            <td width='35%'>
+                <b><span id="totalsc">0</span></b>
+                <span id="rjtkesimpulan">
+                    
+                </span></td>
+        </tr>
+        <tr>
+            <td width='15%'>Cara berjalan pasien dengan mengunakan alat bantu</td>
+            <td width='35%'>
+                 <select name="FS_CARA_BERJALAN2" id="surat_dari" class="select2" style="width: 170px;" id="op2">
+                    <option value="">--Pilih Data--</option>
+                    <option value="1" {if $jatuh.FS_CARA_BERJALAN2 eq '1'} selected="" {/if}>YA</option>
+                    <option value="0" {if $jatuh.FS_CARA_BERJALAN2 eq '0'} selected="" {/if}>TIDAK</option>
+                </select>
+                <span id="sc2"></span>
+            </td>
+            <td></td>
+            <td>
+            </td>
+        </tr>
+        <tr>
+            <td>Menopang saat akan duduk: tampak memegang pinggiran kursi atau meja / benda lain sebagai penopang saat akan duduk.</td>
+            <td>
+                <select name="FS_CARA_DUDUK" id="surat_dari" class="select2" style="width: 170px;" id="op3">
+                    <option value="">--Pilih Data--</option>
+                    <option value="1" {if $jatuh.FS_CARA_DUDUK eq '1'} selected="" {/if}>YA</option>
+                    <option value="0" {if $jatuh.FS_CARA_DUDUK eq '0'} selected="" {/if}>TIDAK</option>
+                </select>
+                <span id="sc3"></span>
+            </td>
+            <td></td>
+            <td></td>
+        </tr>
+    </table>
+         <table class="table-input" width="100%">
+        <tr class="headrow">
+            <th colspan="4">Riwayat Kesehatan</th>
+        </tr>
+        <tr>
+            <td width='20%'>Riweayat Penyakit dahulu</td>
+            <td width='30%'>
+                <select name="FS_RIW_PENYAKIT_DAHULU">
+                    <option value="" {if $ases2.FS_RIW_PENYAKIT_DAHULU eq ''} selected="" {/if} onclick='document.getElementById("civstaton1").disabled = true'>--Pilih Data--</option>
+                    <option value="1" {if $ases2.FS_RIW_PENYAKIT_DAHULU eq '1'} selected="" {/if}onclick='document.getElementById("civstaton1").disabled = true'>Hipertensi</option>
+                    <option value="2" {if $ases2.FS_RIW_PENYAKIT_DAHULU eq '2'} selected="" {/if} onclick='document.getElementById("civstaton1").disabled = true'>TB Paru</option>
+                    <option value="3" {if $ases2.FS_RIW_PENYAKIT_DAHULU neq '' &&  $ases2.FS_RIW_PENYAKIT_DAHULU neq '1' && $ases2.FS_RIW_PENYAKIT_DAHULU neq '2'}selected="" {/if} onclick='document.getElementById("civstaton1").disabled = false'>Lainnya</option>
+                </select>
+                <br><br>
+                <input type="text" name="FS_RIW_PENYAKIT_DAHULU2" id="civstaton1" {if $ases2.FS_RIW_PENYAKIT_DAHULU2 eq '0'}disabled=""{/if} size="27" value="{$ases2.FS_RIW_PENYAKIT_DAHULU2}">
+            </td>
+            <td width='20%'>Riwayat penyakit keluarga</td>
+            <td width='30%'>
+                <select name="FS_RIW_PENYAKIT_KEL">
+                     <option value=""  {if $ases2.FS_RIW_PENYAKIT_KEL eq ''} selected="" {/if} onclick='document.getElementById("civstaton2").disabled = true'>--Pilih Data--</option>
+                    <option value="1"  {if $ases2.FS_RIW_PENYAKIT_KEL eq '1'} selected="" {/if} onclick='document.getElementById("civstaton2").disabled = true'>Hipertensi</option>
+                    <option value="2"  {if $ases2.FS_RIW_PENYAKIT_KEL eq '2'} selected="" {/if} onclick='document.getElementById("civstaton2").disabled = true'>TB Paru</option>
+                    <option value="3" {if $ases2.FS_RIW_PENYAKIT_KEL neq '' &&  $ases2.FS_RIW_PENYAKIT_KEL neq '1' && $ases2.FS_RIW_PENYAKIT_KEL neq '2'}selected="" {/if}onclick='document.getElementById("civstaton2").disabled = false'>Lainnya</option>
+                </select>
+                <br><br>
+                <input type="text" name="FS_RIW_PENYAKIT_KEL2" id="civstaton2"  {if $ases2.FS_RIW_PENYAKIT_KEL2 eq '0'}disabled=""{/if} size="27" value="{$ases2.FS_RIW_PENYAKIT_KEL2}">
+            </td>
+        </tr>
+       
+    </table>
+    <table class="table-input" width="100%">
+        <tr class="headrow">
+            <th colspan="4">Riwayat Alergi</th>
+        </tr>
+        <tr>
+           <td width='20%'>Riwayat Alergi</td>
+            <td width='30%'>
+                <select name="FS_ALERGI">
+                     <option value="" {if $alergi.FS_ALERGI eq ''} selected="" {/if} onclick='document.getElementById("civstaton5").disabled = true'>--Pilih Data--</option>
+                    <option value="1" {if $alergi.FS_ALERGI eq '1'} selected="" {/if} onclick='document.getElementById("civstaton5").disabled = true'>Belum diketahui</option>
+                    <option value="2" {if $alergi.FS_ALERGI eq '2'} selected="" {/if} onclick='document.getElementById("civstaton5").disabled = true'>Tidak Ada</option>
+                    <option VALUE="3" {if $alergi.FS_ALERGI eq '3'} selected="" {/if}onclick='document.getElementById("civstaton5").disabled = false'>Ada</option>
+                </select>
+                <br><br>
+                <input type="text" name="FS_ALERGI2" id="civstaton5" {if $alergi.FS_ALERGI2 eq '0'}disabled=""{/if} size="27" value="{$alergi.FS_ALERGI2}">
+            </td>
+            <td width='20%'>Reaksi Alergi</td>
+            <td width='30%'>
+                <input type="text" name="FS_REAK_ALERGI" size="35" value="{$alergi.FS_REAK_ALERGI}">
+            </td>
+        </tr>
+    </table>
+     <table class="table-input" width="100%">
+        <tr class="headrow">
+            <th colspan="2">Status Psikologis</th>
+            <th colspan="2">Status Sosial</th>
+        </tr>
+        <tr>
+            <td width='20%'>Status Psikologis</td>
+            <td width='30%'>
+                <select name="FS_STATUS_PSIK">
+                    <option value=""  {if $ases2.FS_STATUS_PSIK eq ''} selected="" {/if}  onclick='document.getElementById("civstaton3").disabled = true'>--Pilih Data--</option>
+                    <option value="1" {if $ases2.FS_STATUS_PSIK eq '1'} selected="" {/if} onclick='document.getElementById("civstaton3").disabled = true'>Tenang</option>
+                    <option value="2" {if $ases2.FS_STATUS_PSIK eq '2'} selected="" {/if} onclick='document.getElementById("civstaton3").disabled = true'>Cemas</option>
+                    <option value="3" {if $ases2.FS_STATUS_PSIK eq '3'} selected="" {/if} onclick='document.getElementById("civstaton3").disabled = true'>Takut</option>
+                    <option value="4" {if $ases2.FS_STATUS_PSIK eq '4'} selected="" {/if} onclick='document.getElementById("civstaton3").disabled = true'>Marah</option>
+                    <option value="5" {if $ases2.FS_STATUS_PSIK eq '5'} selected="" {/if} onclick='document.getElementById("civstaton3").disabled = true'>Sedih</option>
+                    <option value="6" {if $ases2.FS_STATUS_PSIK neq '' &&  $ases2.FS_STATUS_PSIK neq '1' && $ases2.FS_STATUS_PSIK neq '2'&& $ases2.FS_STATUS_PSIK neq '3'&& $ases2.FS_STATUS_PSIK neq '4'&& $ases2.FS_STATUS_PSIK neq '5'}selected="" {/if}onclick='document.getElementById("civstaton3").disabled = false'>Lainnya</option>
+                </select>
+                <br><br>
+                <input type="text" name="FS_STATUS_PSIK2" id="civstaton3" {if $ases2.FS_STATUS_PSIK2 eq '0'}disabled=""{/if} size="27" value="{$ases2.FS_STATUS_PSIK2}">
+            </td>
+            <td width='20%'>Hubungan dengan anggota keluarga</td>
+            <td width='30%'>
+                <select name="FS_HUB_KELUARGA" id="surat_dari" class="select2" style="width: 170px;">
+                    <option value="" {if $ases2.FS_HUB_KELUARGA eq ''} selected="" {/if}>--Pilih Data--</option>
+                    <option value="1" {if $ases2.FS_HUB_KELUARGA eq '1'} selected="" {/if}>Baik</option>
+                    <option value="2" {if $ases2.FS_HUB_KELUARGA eq '2'} selected="" {/if}>Tidak Baik</option>
+
+                </select>
+            </td>
+        </tr>
+    </table>
+     <table class="table-input" width="100%">
+        <tr class="headrow">
+            <th colspan="4">Status Fungsional</th>
+        </tr>
+        <tr>
+            <td width='20%'>Status Fungsional</td>
+            <td width='30%'>
+                <select name="FS_ST_FUNGSIONAL" id="surat_dari" class="select2" style="width: 170px;">
+                    <option value="" {if $ases2.FS_ST_FUNGSIONAL eq ''} selected="" {/if}>--Pilih Data--</option>
+                    <option value="1" {if $ases2.FS_ST_FUNGSIONAL eq '1'} selected="" {/if}>Mandiri</option>
+                    <option value="2" {if $ases2.FS_ST_FUNGSIONAL eq '2'} selected="" {/if}>Perlu Bantuan</option>
+                </select>
+            </td>
+             <td width='20%'>Pengelihatan</td>
+            <td width='30%'>
+                <select name="FS_PENGELIHATAN" id="surat_dari" class="select2" style="width: 190px;">
+                    <option value="1" {if $ases2.FS_PENGELIHATAN eq '1'} selected="" {/if}>Normal</option>
+                    <option value="2" {if $ases2.FS_PENGELIHATAN eq '2'} selected="" {/if}>Kabur</option>
+                    <option value="3" {if $ases2.FS_PENGELIHATAN eq '3'} selected="" {/if}>Kaca Mata</option>
+                    <option value="4" {if $ases2.FS_PENGELIHATAN eq '4'} selected="" {/if}>Lensa Kontak</option>
+
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Penciuman</td>
+            <td>
+                <select name="FS_PENCIUMAN" id="surat_dari" class="select2" style="width: 190px;">
+                    <option value="1" {if $ases2.FS_PENCIUMAN eq '1'} selected="" {/if}>Normal</option>
+                    <option value="2" {if $ases2.FS_PENCIUMAN eq '2'} selected="" {/if}>Tidak Normal</option>
+
+                </select>
+            </td>
+            <td>Pendengaran</td>
+            <td>
+                <select name="FS_PENDENGARAN" id="surat_dari" class="select2" style="width: 190px;">
+                    <option value="1" {if $ases2.FS_PENDENGARAN eq '1'} selected="" {/if}>Normal</option>
+                    <option value="2" {if $ases2.FS_PENDENGARAN eq '2'} selected="" {/if}>Tidak Normal (Kanan)</option>
+                    <option value="3" {if $ases2.FS_PENDENGARAN eq '3'} selected="" {/if}>Tidak Normal (Kiri)</option>
+                    <option value="4" {if $ases2.FS_PENDENGARAN eq '4'} selected="" {/if}>Tidak Normal (Kanan & Kiri)</option>
+                    <option value="5" {if $ases2.FS_PENDENGARAN eq '5'} selected="" {/if}>Alat Bantu Dengar (Kanan)</option>
+                    <option value="6" {if $ases2.FS_PENDENGARAN eq '6'} selected="" {/if}>Alat Bantu Dengar (Kiri)</option>
+                    <option value="7" {if $ases2.FS_PENDENGARAN eq '7'} selected="" {/if}>Alat Bantu Dengar (Kanan & Kiri)</option>
+                </select>
+            </td>
+        </tr>
+        </tr>
+    </table>
+    
+     <table class="table-input" width="100%">
+        <tr class="headrow">
+            <th colspan="4">Skrining Nutrisi</th>
+        </tr>
+        <tr>
+            <td width='20%'>Penurunan berat badan yang tidak diinginkan selama 6 bulan terakhir</td>
+            <td width='30%'>
+                <select name="FS_NUTRISI1" class="select2" style="width: 190px;" id="sn1">
+                    <option value="">--Pilih Data--</option>
+                    <option value="0" {if $nutrisi.FS_NUTRISI1 eq '0'}selected=""{/if}>Tidak</option>
+                    <option value="1" {if $nutrisi.FS_NUTRISI1 eq '1'}selected=""{/if}>Tidak Yakin</option>
+                    <option value="2" {if $nutrisi.FS_NUTRISI1 eq '2'}selected=""{/if}>Ya (1-5 Kg)</option>
+                    <option value="3" {if $nutrisi.FS_NUTRISI1 eq '3'}selected=""{/if}>Ya (6-10 Kg)</option>
+                    <option value="4" {if $nutrisi.FS_NUTRISI1 eq '4'}selected=""{/if}>Ya (11-15 Kg)</option>
+                    <option value="5" {if $nutrisi.FS_NUTRISI1 eq '5'}selected=""{/if}>Ya (>15 Kg)</option>
+
+                </select>
+                <span id="snh1"></span>
+            </td>
+            <td width='20%'>Kesimpulan</td>
+            <td width='30%'><b><span id="kesimpulansn"></span></b></td>
+        </tr>
+        <tr>
+            <td>Asupan makanan menurun dikarenakan adanya penurunan nafsu makan</td>
+            <td>
+                <select name="FS_NUTRISI2" class="select2" style="width: 190px;" id="sn2">
+                    <option value="">--Pilih Data--</option>
+                    <option value="0" {if $nutrisi.FS_NUTRISI2 eq '0'}selected=""{/if}>Tidak</option>
+                    <option value="1" {if $nutrisi.FS_NUTRISI2 eq '1'}selected=""{/if}>Ya</option>
+                </select>
+                <span id="snh2"></span>
+            </td>
+            <td></td>
+            <td>
+            </td>
+        </tr>
+    </table>
+    <table class="table-input" width="100%">
+        <tr class="headrow">
+            <th colspan="4">Spiritual dan Kultural pasien</th>
+        </tr>
+        <tr>
+            <td width='20%'>Agama</td>
+            <td width='30%'>
+                <select name="FS_AGAMA" id="surat_dari" class="select2" style="width: 170px;">
+                    <option value="" {if $ases2.FS_AGAMA eq ''} selected="" {/if}>--Pilih Data--</option>
+                    <option value="1" {if $ases2.FS_AGAMA eq '1'} selected="" {/if}>Islam</option>
+                    <option value="2" {if $ases2.FS_AGAMA eq '2'} selected="" {/if}>Kristen</option>
+                    <option value="3" {if $ases2.FS_AGAMA eq '3'} selected="" {/if}>Katholik</option>
+                    <option value="4" {if $ases2.FS_AGAMA eq '4'} selected="" {/if}>Hindu</option>
+                    <option value="5" {if $ases2.FS_AGAMA eq '5'} selected="" {/if}>Buda</option>
+                    <option value="6" {if $ases2.FS_AGAMA eq '6'} selected="" {/if}>Konghucu</option>
+                </select>
+            </td>
+            <td width='20%'>Nilai/Kepercayaan khusus</td>
+            <td width='30%'>
+                 <select name="FS_NILAI_KHUSUS">
+                     <option value="" {if $ases2.FS_NILAI_KHUSUS eq ''} selected="" {/if} onclick='document.getElementById("civstaton4").disabled = true'>--Pilih Data--</option>
+                    <option value="1" {if $ases2.FS_NILAI_KHUSUS eq '1'} selected="" {/if} onclick='document.getElementById("civstaton4").disabled = true'>Tidak Ada</option>
+                    <option value="2" {if $ases2.FS_NILAI_KHUSUS neq '' && $ases2.FS_NILAI_KHUSUS neq '1'}selected="" {/if}onclick='document.getElementById("civstaton4").disabled = false'>Ada</option>
+                </select>
+                <br><br>
+                <input type="text" name="FS_NILAI_KHUSUS2" id="civstaton4" {if $ases2.FS_NILAI_KHUSUS2 eq '0'}disabled=""{/if} size="27" value="{$ases2.FS_NILAI_KHUSUS2}">
+            </td>
+        </tr>
+    </table>
+     <table class="table-input" width="100%">
+        <tr class="headrow">
+            <th colspan="4">Riwayat Gynekologi</th>
+        </tr>
+        <tr>
+            <td width='20%'>Riwayat Gynekologi</td>
+            <td width='30%'>
+                <select name="FS_RIWAYAT_GYNEKOLOGI">
+                    <option value="1" {if $kebidanan.FS_RIWAYAT_GYNEKOLOGI eq '1'} selected="" {/if} onclick='document.getElementById("civstaton6").disabled = true'>Tidak Ada</option>
+                    <option VALUE="2" {if $kebidanan.FS_RIWAYAT_GYNEKOLOGI eq '2'} selected="" {/if} onclick='document.getElementById("civstaton6").disabled = false'>Ada</option>
+                </select>
+                <br><br>
+                <input type="text" name="FS_RIWAYAT_GYNEKOLOGI_KET" id="civstaton6" disabled="" size="32" value="{$kebidanan.FS_RIWAYAT_GYNEKOLOGI_KET}">
+            </td>
+            <td width='20%'></td>
+            <td width='30%'></td>
+        </tr>
+    </table>
+    <table class="table-input" width="100%">
+        <tr class="headrow">
+            <th colspan="4">Riwayat Menstruasi</th>
+        </tr>
+        <tr>
+            <td width='20%'>Umur Menarche</td>
+            <td width='30%'>
+                <input type="text" name="FS_RIW_MENS_UMUR_MENARCHE" size="32" value="{$kebidanan.FS_RIW_MENS_UMUR_MENARCHE}"> Tahun
+            </td>
+            <td width='20%'>Lama Haid</td>
+            <td width='30%'>
+                <input type="text" name="FS_RIW_MENS_LAMA_HAID" size="32" value="{$kebidanan.FS_RIW_MENS_LAMA_HAID}"> Hari
+            </td>
+        </tr>
+        <tr>
+            <td>Ganti Pembalut</td>
+            <td>
+                <input type="text" name="FS_RIW_MENS_GANTI_PEMBALUT" size="32" value="{$kebidanan.FS_RIW_MENS_GANTI_PEMBALUT}"> Kali/Hari
+            </td>
+            <td>HPM</td>
+            <td>
+                <input type="text" name="FS_RIW_MENS_HPM" size="10" class="tanggal" value="{$kebidanan.FS_RIW_MENS_HPM}">
+            </td>
+        </tr>
+        <tr>
+            <td>Keluhan</td>
+            <td>
+                <select name="FS_RIW_MENS_KELUHAN">
+                    <option value="0"  {if $kebidanan.FS_RIW_MENS_KELUHAN eq '0'} selected="" {/if}onclick='document.getElementById("civstaton7").disabled = true'>Tidak Ada</option>
+                    <option value="1"  {if $kebidanan.FS_RIW_MENS_KELUHAN eq '1'} selected="" {/if}onclick='document.getElementById("civstaton7").disabled = true'>Disminorhe</option>
+                    <option value="2"  {if $kebidanan.FS_RIW_MENS_KELUHAN eq '2'} selected="" {/if}onclick='document.getElementById("civstaton7").disabled = true'>Spotting</option>
+                    <option value="3"  {if $kebidanan.FS_RIW_MENS_KELUHAN eq '3'} selected="" {/if}onclick='document.getElementById("civstaton7").disabled = true'>Menorrhagia</option>
+                    <option value="4"  {if $kebidanan.FS_RIW_MENS_KELUHAN eq '4'} selected="" {/if}onclick='document.getElementById("civstaton7").disabled = false'>Lain-lain</option>
+                </select>
+                <br>
+                <br>
+                <input type="text" name="FS_RIW_MENS_KELUHAN_KET" id="civstaton7" disabled="" size="32" value="{$kebidanan.FS_RIW_MENS_KELUHAN_KET}">
+            </td>
+            <td>HPL</td>
+            <td><input type="text" name="FS_RIW_MENS_HPL" size="10" value="{$kebidanan.FS_RIW_MENS_HPL}"></td>
+        </tr>
+    </table>
+     <table class="table-input" width="100%">
+        <tr class="headrow">
+            <th colspan="4">Riwayat KB</th>
+        </tr>
+        <tr>
+            <td width='20%'>Metode KB yang pernah dipakai</td>
+            <td width='30%'>
+                1. <input type="text" name="FS_RIW_KB_METODE_1" size="20" value="{$kebidanan.FS_RIW_KB_METODE_1}"> Lama 
+                <input type="text" name="FS_RIW_KB_METODE_LAMA_1" size="8" value="{$kebidanan.FS_RIW_KB_METODE_LAMA_1}"> Tahun <br><br>
+                2. <input type="text" name="FS_RIW_KB_METODE_2" size="20" value="{$kebidanan.FS_RIW_KB_METODE_2}"> Lama 
+                <input type="text" name="FS_RIW_KB_METODE_LAMA_2" size="8" value="{$kebidanan.FS_RIW_KB_METODE_LAMA_2}"> Tahun
+            </td>
+            <td width='20%'>Komplikasi dari KB</td>
+            <td width='30%'>
+                <select name="FS_RIW_KB_KOMPLIKASI">
+                    <option value="0" {if $kebidanan.FS_RIW_KB_KOMPLIKASI eq '0'} selected="" {/if} onclick='document.getElementById("civstaton8").disabled = true'>Tidak Ada</option>
+                    <option value="1" {if $kebidanan.FS_RIW_KB_KOMPLIKASI eq '1'} selected="" {/if} onclick='document.getElementById("civstaton8").disabled = true'>Perdarahan</option>
+                    <option value="2" {if $kebidanan.FS_RIW_KB_KOMPLIKASI eq '2'} selected="" {/if} onclick='document.getElementById("civstaton8").disabled = true'>PID/Radang Panggul</option>
+                    <option value="3" {if $kebidanan.FS_RIW_KB_KOMPLIKASI eq '3'} selected="" {/if} onclick='document.getElementById("civstaton8").disabled = false'>Lain-lain</option>
+                </select>
+                <br>
+                <br>
+                <input type="text" name="FS_RIW_KB_KOMPLIKASI_KET" id="civstaton8" disabled="" size="32" value="{$kebidanan.FS_RIW_KB_KOMPLIKASI_KET}">
+            </td>
+        </tr>
+    </table>
+     <table class="table-input" width="100%">
+        <tr class="headrow">
+            <th colspan="4">Riwayat Kehamilan,Persalinan dan Nifas Yang Lalu</th>
+        </tr>
+        <tr>
+            <td width='20%'>G</td>
+            <td width='30%'>
+                <input type="text" name="G" size="35" value="{$kebidanan.G}">
+            </td>
+            <td width='20%'></td>
+            <td width='30%'></td>
+        </tr>
+        <tr>
+            <td>P</td>
+            <td>
+                <input type="text" name="P" size="35" value="{$kebidanan.P}">
+            </td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>A</td>
+            <td>
+                <input type="text" name="A" size="35" value="{$kebidanan.A}">
+            </td>
+            <td></td>
+            <td></td>
+        </tr>
+    </table>
+        <table class="table-input" width="100%">
+        <tr class="headrow">
+            <th colspan="4">Kebidanan</th>
+        </tr>
+        <tr>
+            <td width='20%'>Masalah Kebidanan</td>
+            <td width='30%'>
+                <input type="text" name="FS_MASALAH_KEBIDANAN" size="35" value="{$kebidanan.FS_MASALAH_KEBIDANAN}">
+            </td>
+            <td width='20%'>Rencana Kebidanan</td>
+            <td width='30%'>
+                <input type="text" name="FS_RENCANA_KEBIDANAN" size="35" value="{$kebidanan.FS_RENCANA_KEBIDANAN}">
+            </td>
+        </tr>
+        <tr class="submit-box">
+            <td colspan="4">
+                <input type="submit" name="save" value="Simpan" class="edit-button" /> 
+            </td>
+        </tr>
+    </table>
+</form>

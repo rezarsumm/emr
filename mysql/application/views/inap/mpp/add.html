@@ -1,0 +1,222 @@
+<!-- include javascript -->
+{include file="inap/mpp/add_script_js.html"}
+<!-- end of include javascript-->
+<div class="breadcrum">
+    <p>
+        <a href="{$config->site_url('inap/mpp/')}">MPP</a><span></span>
+        <small>Add Data</small>
+    </p>
+    <div class="clear"></div>
+</div>
+<div class="head-content">
+    <div class="head-content-nav">
+        <ul>
+            <li><a href="{$config->site_url('inap/mpp/add/'|cat:$rs_pasien.fs_kd_reg)}" class="active">Data Umum</a></li>
+            <li><a href="{$config->site_url('inap/mpp/add_catatan/'|cat:$rs_pasien.fs_kd_reg)}">Data Catatan Edukasi</a></li>
+        </ul>
+        <div class="clear"></div>
+    </div>
+    <div class="clear"></div>
+</div>
+<div class="content-entry">
+    <!-- notification template -->
+    {include file="base/templates/notification.html"}
+    <!-- end of notification template-->
+    <form action="{$config->site_url('inap/mpp/add_process')}" method="post">
+        <input name="FS_KD_REG" type="hidden" value="{$rs_pasien.fs_kd_reg}" />
+        <input name="FS_MR" type="hidden" value="{$rs_pasien.fs_mr}" />
+
+        <table class="table-info" width="100%">
+            <tr class="headrow">
+                <th colspan="2">Add MPP</th>
+            </tr>
+            <tr>
+                <td>Nama</td>
+                <td>
+                    {$rs_pasien.fs_nm_pasien}
+                </td>
+            </tr>
+            <tr>
+                <td>No RM</td>
+                <td>
+                    {$rs_pasien.fs_mr}
+                </td>
+            </tr>
+            <tr>
+                <td>Tanggal Lahir</td>
+                <td>
+                    {$rs_pasien.FD_TGL_LAHIR|date_format:"%d %b %Y"} ({$rs_pasien.fs_umur})
+                </td>
+            </tr>
+            <tr>
+                <td>Alamat</td>
+                <td>{$rs_pasien.FS_ALM_PASIEN}</td>
+            </tr>
+            <tr>
+                <td>Status Sosial / Pekerjaan / Pendidikan</td>
+                <td>
+                    {$rs_pasien.FS_NM_PEKERJAAN_DK} / {$rs_pasien.FS_NM_PENDIDIKAN_DK}
+                </td>
+            </tr>
+            <tr>
+                <td>Agama</td>
+                <td>
+                    {$rs_pasien.FS_NM_AGAMA}
+                </td>
+            </tr>
+            <tr>
+                <td>Dokter</td>
+                <td>
+                    {$rs_pasien.fs_nm_medis2}
+                </td>
+            </tr>
+        </table>
+        <table class="table-input" width="100%">
+            <tr>
+                <th colspan="2">Asesmen MPP</th>
+            </tr>
+            <tr>
+                <td width='30%'>
+                    Siapa yang merawat pasien sebelum pulang ?
+                </td>
+                <td width='70%'>
+                    <input type="text" name="FS_PARAM1" size="50">
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    Siapa yang merawat pasien setelah pulang?
+                </td>
+                <td>
+                    <input type="text" name="FS_PARAM2" size="50">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Pasien aktif di dalam organisasi (lingkungan dan tempat tinggal?
+                </td>
+                <td>
+                    <select name="FS_PARAM3">
+                        <option value="0">Tidak</option>
+                        <option value="1">Ya</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Pasien datang dengan ambulance? 
+                </td>
+                <td>
+                   <select name="FS_PARAM4">
+                    <option value="0" onclick='document.getElementById("civstaton1").disabled = true'>Tidak</option>
+                    <option VALUE="1" onclick='document.getElementById("civstaton1").disabled = false'>Ya</option>
+                </select>
+                Jika ya, sebutkan nama ambulance yang mengantarkan
+                <input type="text" name="FS_PARAM5" id="civstaton1" disabled="" size="32">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Pertanggungan asuransi untuk layanan pasca rawat inap?
+            </td>
+            <td>
+                <select name="FS_PARAM6">
+                    <option value="0">Tidak</option>
+                    <option VALUE="1">Ya</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Home care
+            </td>
+            <td>
+                <select name="FS_PARAM7">
+                    <option value="0">Tidak</option>
+                    <option VALUE="1">Ya</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Rehabilitasi
+            </td>
+            <td>
+                <select name="FS_PARAM8">
+                    <option value="0">Tidak</option>
+                    <option VALUE="1">Ya</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Kontrol di RS
+            </td>
+            <td>
+                <select name="FS_PARAM9">
+                    <option value="0">Tidak</option>
+                    <option VALUE="1">Ya</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>
+               Apakah pasien sudah tau informasi awal tentang penyakitnya?
+           </td>
+           <td>
+            <select name="FS_PARAM10">
+                <option value="0">Belum</option>
+                <option VALUE="1">Sudah</option>
+            </select>
+        </td>
+    </tr> 
+    <tr>
+        <td>
+           Apakah ada kebutuhan ambulasi setelah pulang?
+       </td>
+       <td>
+        <select name="FS_PARAM11">
+            <option value="0" onclick='document.getElementById("civstaton2").disabled = true'>Tidak</option>
+            <option VALUE="1" onclick='document.getElementById("civstaton2").disabled = false'>Ya</option>
+        </select>
+        Jika Ya, sebutkan kebutuhannya 
+        <input type="text" name="FS_PARAM12" id="civstaton2" disabled="" size="32">
+    </td>
+</tr>    
+<tr>
+    <td>
+       Harapan terhadap hasil asuhan dan kemampuan untuk menerima perubahan?
+   </td>
+   <td>
+    <input type="text" name="FS_PARAM13" size="50">
+</td>
+</tr>
+<tr>
+    <td>
+       Identifikasi Masalah
+   </td>
+   <td>
+    <textarea name="FS_PARAM14" cols="80"></textarea>
+</td>
+</tr>
+<tr>
+    <td>
+       Perencanaan Manajemen Pelayanan Pasien
+   </td>
+   <td>
+    <textarea name="FS_PARAM15" cols="80"></textarea>
+</td>
+</tr>
+<tr class="submit-box">
+    <td colspan="2">
+       <div style="font-weight: bold;">
+        *Bismillahirohmanirrohim, saya dengan sadar dan penuh tanggung jawab mengisikan formulir ini dengan data yang benar
+    </div>
+    <br>
+    <input type="submit" name="save" value="Lanjutkan & Simpan" class="edit-button" style="float:right;"/>
+</td>
+</tr>
+</table>
+</form>
+</div>

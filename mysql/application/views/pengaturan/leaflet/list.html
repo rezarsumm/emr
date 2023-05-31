@@ -1,0 +1,59 @@
+<div class="breadcrum">
+    <p>
+        <a href="#">Settings</a><span></span>
+        <small>Leaflet Edukasi</small>
+    </p>
+    <div class="clear"></div>
+</div>
+<div class="navigation">
+    <div class="pageRow">
+        <div class="pageNav">
+            <ul>
+                <li class="info"></li>
+            </ul>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="navigation-button">
+        <ul>
+            <li><a href="{$config->site_url('pengaturan/leaflet/add')}"><img src="{$BASEURL}resource/doc/images/icon/add-icon.png" alt="" /> Add Data</a></li>
+        </ul>
+    </div>
+    <div class="clear"></div>
+</div>
+<!-- notification template -->
+{include file="base/templates/notification.html"}
+<!-- end of notification template-->
+<div class="content-scroll">
+    <table class="table-view" width="100%">
+        <tr>
+            <th width="4%">No</th>
+            <th width="55%">Nama Leaflet</th>
+            <th width="30%">Leaflet</th>
+            <th width="11%"></th>
+        </tr>
+        {foreach from=$rs_preferences item=result}
+        <tr {if ($no % 2) <> 1}class="blink-row"{/if}>
+            <td align="center">{$no++}.</td>
+            <td>{$result.FS_NM_JUDUL|capitalize|default:''}</td>
+            <td>
+                {if $result.filename neq NULL}
+                <label><a href="{$config->site_url('pengaturan/leaflet/download/'|cat:$result.filename|default:'')}">
+                        <img src="{$BASEURL}resource/doc/images/icon/jpeg.png" alt="" height="15"/>
+                        <b>{$result.filename} ({$result.filesize}K)</b></a>
+                </label>
+                <br />
+                {/if}
+            </td>
+            <td align="center">
+                <a href="{$config->site_url('pengaturan/leaflet/edit/'|cat:$result.FS_KD_TRS|default:'')}" class="button-edit">Edit</a>
+                <a href="{$config->site_url('pengaturan/leaflet/delete/'|cat:$result.FS_KD_TRS|default:'')}" class="button-hapus">Hapus</a>
+            </td>
+        </tr>
+        {foreachelse}
+        <tr>
+            <td colspan="5">Data not found!</td>
+        </tr>
+        {/foreach}
+    </table>
+</div>

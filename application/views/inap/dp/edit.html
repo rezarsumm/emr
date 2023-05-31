@@ -1,0 +1,195 @@
+<!-- include javascript -->
+{include file="inap/dp/edit_script_js.html"}
+<!-- end of include javascript-->
+<div class="breadcrum">
+    <p>
+        <a href="{$config->site_url('inap/dp/')}">Discharge Planning</a><span></span>
+        <small>Edit Data</small>
+    </p>
+    <div class="clear"></div>
+</div>
+<div class="head-content">
+    <div class="clear"></div>
+</div>
+<div class="content-entry">
+    <!-- notification template -->
+    {include file="base/templates/notification.html"}
+    <!-- end of notification template-->
+    <form action="{$config->site_url('inap/dp/edit_process')}" method="post">
+        <input name="FS_KD_REG" id="FS_KD_REG" type="hidden" value="{$rs_pasien.fs_kd_reg}" />
+        <input name="FS_MR" type="hidden" value="{$rs_pasien.fs_mr}" />
+
+        <table class="table-info" width="100%">
+            <tr class="headrow">
+                <th colspan="2">Add Discharge Planning</th>
+            </tr>
+            <tr>
+                <td>NAMA</td>
+                <td>
+                    {$rs_pasien.fs_nm_pasien}
+                </td>
+            </tr>
+            <tr>
+                <td>NO MR</td>
+                <td>
+                    {$rs_pasien.fs_mr}
+                </td>
+            </tr>
+            <tr>
+                <td>TANGGAL LAHIR</td>
+                <td>
+                    {$rs_pasien.FD_TGL_LAHIR|date_format:"%d %b %Y"}
+                </td>
+            </tr>
+            <tr>
+                <td>ALAMAT</td>
+                <td>{$rs_pasien.FS_ALM_PASIEN}</td>
+            </tr>
+        </table>
+        <div class="notification red">
+            <p><strong>High Risk :</strong> {$rs_pasien.FS_HIGH_RISK|default:'-'} </p>
+            <p><strong>Alergi :</strong> {$rs_pasien.FS_ALERGI|default:'-'} ({$rs_pasien.FS_REAK_ALERGI|default:'-'})</p>
+            <div class="clear"></div>
+        </div>
+        <table class="table-input" width="100%">
+            <tr>
+                <th colspan="2">Asesmen Awal Discharge Planning</th>
+            </tr>
+            <tr>
+                <td width='20%'>
+                    Pasien tinggal dengan
+                </td>
+                <td width='80%'>
+                    <select name="FS_NM_TINGGAL[]" multiple id="FS_NM_TINGGAL" style="width:300px">
+                            <option></option>
+                    </select>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    Perawatan lanjutan yang dibutuhkan
+                </td>
+                <td>
+                    <select name="FS_LANJUTAN_PERAWATAN[]" multiple id="FS_LANJUTAN_PERAWATAN" style="width:300px">
+                            <option></option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Transportasi pasien pulang
+                </td>
+                <td>
+                    <select name="FS_TRANS_PULANG" id="surat_dari" class="select2" style="width: 300px;">
+                        <option value=""></option>
+                        <option value="1" {if $result.FS_TRANS_PULANG eq '1'} selected="" {/if}>Taksi</option>
+                        <option value="2" {if $result.FS_TRANS_PULANG eq '2'} selected="" {/if}>Mobil Sendiri</option>
+                        <option value="3" {if $result.FS_TRANS_PULANG eq '3'} selected="" {/if}>Ambulan luar RS</option>
+                        <option value="4" {if $result.FS_TRANS_PULANG eq '4'} selected="" {/if}>Ambulan RS</option>
+                    </select>
+                </td>
+            </tr>
+            <tr class="submit-box">
+                <td colspan="2">
+                    <div style="font-weight: bold;">
+                        *Bismillahirohmanirrohim, saya dengan sadar dan penuh tanggung jawab mengisikan formulir ini dengan data yang benar
+                    </div>
+                    <br>
+                    <input type="submit" name="save" value="Simpan" class="edit-button"/>
+                </td>
+            </tr>
+        </table>
+    </form>
+    <table class="table-input" width="100%">
+        <tr>
+            <th colspan="4">Discharge Planning</th>
+        </tr>
+        <tr class="submit-box">
+            <td colspan="5">
+                <a href="javascript:;" class="btn-blue item_add">Tambah Catatan</a>
+            </td> 
+        </tr>
+        <tr>
+            <td colspan="5">
+                <table width='100%'>
+                    <thead>
+                        <tr class="headrow">
+                            <th colspan="6"><center>Catatan Discharge Planning</center></th>
+        </tr>
+        <tr class="headrow">
+            <th><center>Tanggal / Jam</center></th>
+        <th><center>Aktifitas</center></th>
+        <th><center>Judul Edukasi</center></th>
+        <th><center>Diberikan Kepada</center></th>
+        <th><center>Hubungan</center></th>
+        <th><center>Verifikasi</center></th>
+        </tr>
+        </thead>
+        <tbody id="show_data_catatan"></tbody>
+    </table>
+
+    <div id="ModalAdd">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <table class="table-input" width="100%">
+                    <tr >
+                        <th colspan="2">Add Data <span id="loading">LOADING...</span></th>
+                    </tr>
+                    <tr>
+                        <td>Edukasi</td>
+                        <td>
+                            <input name="FS_AKTIFITAS" id="FS_AKTIFITAS" class="form-control" type="text" size="40">
+                            
+                        </td>
+                    </tr>
+                     <tr>
+                        <td>Leaflet Edukasi</td>
+                        <td>
+                             <select name="FS_KD_EDUKASI" id="FS_KD_EDUKASI" class="select2" style="width: 300px;">
+                                <option value="">--Pilih Data--</option>
+                                {foreach $rs_leaflet as $data}
+                                <option value="{$data.FS_KD_TRS}">{$data.FS_NM_JUDUL}</option>
+                                {/foreach}
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Diberikan Kepada</td>
+                        <td>
+                            <input name="FS_DIBERIKAN" id="FS_DIBERIKAN" class="form-control" type="text" size="40">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Hubungan</td>
+                        <td>
+                            <select name="FS_HUBUNGAN" id="FS_HUBUNGAN" class="select2" style="width: 300px;">
+                                <option value=""></option>
+                                <option value="1">Istri</option>
+                                <option value="2">Suami</option>
+                                <option value="3">Anak</option>
+                                <option value="4">Saudara</option>
+                                <option value="5">Pasien</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Verifikasi</td>
+                        <td>
+                            <select name="FS_VERIFIKASI" id="FS_VERIFIKASI" class="select2" style="width: 300px;">
+                                <option value=""></option>
+                                <option value="1">Dapat menjelaskan kembali dengan baik</option>
+                                <option value="3">Dapat menjelaskan kembali dan mendemonstrasikan </option>
+                                <option value="2">Tidak dapat menjelaskan kembali</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr class="submit-box">
+                        <td colspan="2">
+                            <button type="button" id="btn-add" class="btn-blue">Tambah</button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>

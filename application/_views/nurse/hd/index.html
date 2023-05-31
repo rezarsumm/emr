@@ -1,0 +1,117 @@
+{include file="nurse/hd/add_script_js.html"}
+<div class="breadcrum">
+    <p>
+        <a href="#">Nursing Record</a><span></span>
+        <small>Rawat Jalan</small>
+    </p>
+    <div class="clear"></div>
+</div>
+<div class="search-box">
+    <h3><a href="#">Search</a></h3>
+    <form action="{$config->site_url('nurse/hd/proses_cari')}" method="post">
+        <table class="table-search" width="100%">
+            <tr>
+                <th width="10%" aligh="left">Dokter</th>
+                <td>
+                    <select name="FS_KD_PEG" id="surat_dari" class="select2" style="width: 300px;">
+                        <option value=""></option>
+                        {foreach from=$rs_dokter item=data}
+                        <option value="{$data.FS_KD_PEG}" {if $search.FS_KD_PEG eq $data.FS_KD_PEG} selected="selected"{/if}>{$data.FS_NM_PEG}</option>
+                        {/foreach}
+                    </select>
+                <th width="10%" aligh="left">Periode</th>
+                <td width="75%">
+                    <input name="FD_TGL_MASUK" value="{$search.FD_TGL_MASUK}" class="tanggal" size="10" style="text-align: center;"/>
+                    <input name="save" type="submit" value="Tampilkan" />
+                    <input name="save" type="submit" value="Reset" />
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+<div class="navigation">
+    <div class="pageRow">
+        <div class="pageNav">
+            <ul>
+                <li class="info"></li>
+            </ul>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="navigation-button">
+        <ul>
+            <li><a href="{$config->site_url('nurse/hd/rekap_excel/'|cat:'')}"><img src="{$BASEURL}resource/doc/images/icon/printer-icon.png" alt="" /> Cetak Rekap Laporan</a></li>
+        </ul>
+    </div>
+    <div class="clear"></div>
+</div>
+<!-- notification template -->
+{include file="base/templates/notification.html"}
+<!-- end of notification template-->
+<div class="dashboard-container">
+    <table class="table-view" width="100%" border="0">
+        <thead>
+            <tr>
+                <th width='5%'>Nomor Antrian</th>
+                <th width='6%'>Kode Reg</th>
+                <th>No MR</th>
+                <th>Nama Psien</th>
+                <th>Alamat</th>
+                <th>Status</th>
+                <th width='24%'>Aksi</th>
+            </tr>
+        </thead>
+        <tbody>
+            {foreach from=$rs_pasien item=data}
+            <tr {if ($data.FN_NO_URUT % 2) <> 1}class="blink-row"{/if}>
+                <td>{$data.FN_NO_URUT}</td>
+                <td>{$data.FS_KD_REG}</td>
+                <td>{$data.FS_MR}</td>
+                <td>{$data.FS_NM_PASIEN}</td>
+                <td>{$data.FS_ALM_PASIEN}</td> 
+                <td>
+                    {if $data.FS_STATUS eq ''}
+                    <img src="{$BASEURL}resource/doc/images/icon/icon.waiting.png" alt="" />
+                    Periksa Perawat
+                    {elseif $data.FS_STATUS eq '1'}
+                    <img src="{$BASEURL}resource/doc/images/icon/icon.waiting.dokter.png" alt="" />
+                    Periksa Dokter
+                    {elseif $data.FS_STATUS eq '2'}
+                     {if $data.FS_TERAPI eq '' OR $data.FS_TERAPI eq '<p>-</p>'}
+                     <img src="{$BASEURL}resource/doc/images/icon/icon.approve.png" alt="" />
+                     Selesai
+                     {else}
+                    <img src="{$BASEURL}resource/doc/images/icon/icon.waiting.farmasi.png" alt="" />
+                    Farmasi
+                    {/if}
+                     
+                    {/if}
+                </td> 
+                <td>
+                    
+                    {if $data.FS_STATUS >= '1'}
+                    <a href="{$config->site_url('nurse/hd/edit/'|cat:$data.FS_KD_REG|default:'')}" class="button-edit">Edit</a>
+                    <a href="javascript:void(0);" onclick="window.open('{$config->site_url('medis/hd/cetak_rm/'|cat:$data.FS_KD_REG|cat:'/'|cat:$data.FS_KD_TRS|cat:'/'|cat:$data.FS_FORM)}', 'nama_window_pop_up', 'scrollbars=yes,resizeable=no')" class="button-download">RM</a>
+                    {if $data.FS_CARA_PULANG == '2'}
+                    <a  href="javascript:void(0);" onclick="window.open('{$config->site_url('medis/hd/cetak_skdp/'|cat:$data.FS_KD_REG|cat:'/'|cat:$data.FS_KD_TRS)}', 'nama_window_pop_up', 'scrollbars=yes,resizeable=no')" class="button-edit">SKDP</a>
+                    {else}
+                    {/if}
+                    {if $data.FS_CARA_PULANG == '1'}
+                    <a  href="javascript:void(0);" onclick="window.open('{$config->site_url('medis/hd/cetak_prb/'|cat:$data.FS_KD_REG|cat:'/'|cat:$data.FS_KD_TRS)}', 'nama_window_pop_up', 'scrollbars=yes,resizeable=no')" class="button-edit">PRB</a>
+                    {else}
+                    {/if}
+                    {if $data.FS_TERAPI eq '' OR $data.FS_TERAPI eq '<p>-</p>'}
+                    {else}
+                    <a href="javascript:void(0);" onclick="window.open('{$config->site_url('medis/hd/cetak_resep/'|cat:$data.FS_KD_REG|cat:'/'|cat:$data.FS_KD_TRS)}', 'nama_window_pop_up', 'scrollbars=yes,resizeable=no')" class="button-edit">Resep</a>
+                    {/if}
+                    {else}
+                   <a href="{$config->site_url('nurse/hd/add/'|cat:$data.FS_KD_REG|cat:'/'|cat:$search.FS_KD_PEG)}" class="button-edit">Asesment</a>
+                   <!--<a href="{$config->site_url('nurse/hd/add_monitor/'|cat:$data.FS_KD_REG|cat:'/'|cat:$search.FS_KD_PEG)}" class="button-edit">Monitoring</a>
+                   <a href="{$config->site_url('nurse/hd/add_monitor/'|cat:$data.FS_KD_REG|cat:'/'|cat:$search.FS_KD_PEG)}" class="button-edit">Keperawatan</a>-->
+                   {/if}
+                </td>
+            </tr>
+            {/foreach}
+        </tbody>
+    </table>
+</div>

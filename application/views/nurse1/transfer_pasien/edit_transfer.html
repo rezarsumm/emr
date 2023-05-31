@@ -1,0 +1,211 @@
+{include file="nurse/rawat_jalan/edit_script_js.html"}
+
+
+<div class="breadcrum">
+    <p>
+        <a href="#">IGD</a><span></span>
+         <small>Transfer internal antar Unit :  IGD - Rawat Inap</small>
+    </p>
+    <div class="clear"></div>
+</div> 
+<div class="content-entry">
+    <!-- notification template -->
+     <!-- end of notification template-->
+    <form action="{$config->site_url('nurse/tf/edit_transfer_process')}" method="post" onkeypress="return event.keyCode != 13">
+        <input name="FS_KD_REG" id="FS_KD_REG" type="hidden" value="{$rs_pasien.NO_REG}" />
+        <input name="FS_MR" type="hidden" value="{$rs_pasien.NO_MR}" />
+        <input name="id" type="hidden" value="{$tf.id}" />
+        <input name="FS_KD_LAYANAN" type="hidden" value="{$rs_pasien.KODE_BANGSAL}" />
+        <input name="FS_KD_PETUGAS_MEDIS" type="hidden" value="{$rs_pasien.fs_kd_medis}" />
+
+        <table class="table-info" width="100%">
+            <tr class="headrow">
+                <th colspan="4"></th>
+            </tr>
+            <tr>
+                <td>NAMA</td>
+                <td>
+                    {$rs_pasien.NAMA_PASIEN}
+                </td>
+                <td>TANGGAL LAHIR</td>
+                <td>
+                    {$rs_pasien.TGL_LAHIR|date_format:"%d %b %Y"}
+                </td>
+            </tr>
+            <tr>
+                <td>NO MR</td>
+                <td>
+                    {$rs_pasien.NO_MR}
+                </td>
+                 <td>ALAMAT</td>
+                <td>{$rs_pasien.ALAMAT}</td>
+            </tr>
+        </table>
+        <table class="table-input" width="100%">
+           
+
+       </table>
+     
+        <table class="table-input" width="100%">
+
+            <tr>
+                <td>DPJP </td>
+                <td colspan="3">
+                    <select name="KD_DOKTER_DPJP" id="surat_dari" class="select2" style="width: 400px;">
+                        <option value=""></option>
+                        {foreach from=$rs_dokter item=data}
+                        {if $tf.KD_DOKTER_DPJP eq $data.NAMAUSER}
+                        <option value="{$data.NAMAUSER}" selected>{$data.NAMALENGKAP} </option>
+                        {else}
+                        <option value="{$data.NAMAUSER}">{$data.NAMALENGKAP} </option>
+                        {/if}
+                        {/foreach}
+                    </select>
+                
+                </td></tr>
+                <tr>
+                <td> Dokter Konsul 1</td>
+                <td colspan="1"> 
+                    <select name="KD_KONSUL_1" id="surat_dari" class="select2" style="width: 400px;">
+                        <option value=""></option>
+                        {foreach from=$rs_dokter item=data}
+                        {if $daftar.KD_DOKTER1 eq $data.NAMAUSER}
+                        <option value="{$data.NAMAUSER}" selected>{$data.NAMALENGKAP} </option>
+                        {else}
+                        <option value="{$data.NAMAUSER}">{$data.NAMALENGKAP} </option>
+                        {/if}
+                        {/foreach}
+                    </select>
+                 </td>
+                 <td> Dokter Konsul 2</td>
+                <td colspan="1"> 
+                    <select name="KD_KONSUL_2" id="surat_dari" class="select2" style="width: 400px;">
+                        <option value=""></option>
+                        {foreach from=$rs_dokter item=data}
+                        {if $daftar.KD_DOKTER2 eq $data.NAMAUSER}
+                        <option value="{$data.NAMAUSER}" selected>{$data.NAMALENGKAP} </option>
+                        {else}
+                        <option value="{$data.NAMAUSER}">{$data.NAMALENGKAP} </option>
+                        {/if}
+                        {/foreach}
+                    </select>
+                 </td>
+             </tr>
+
+             
+            
+             <input type="hidden" name="RUANG1" value="{$tf.RUANG1}">
+
+             <tr>
+                <td>Pindah ke ruang   </td>
+                <td > 
+                    <select name="RUANG2" id="surat_dari" class="select2" style="width: 400px;">
+                        <option value=""></option> 
+                        {foreach from=$ruang item=gata}
+                        {if $tf.RUANG2 eq $gata.Kode_Ruang}
+                        <option value="{$gata.Kode_Ruang}" selected>{$gata.Nama_Ruang} </option>
+                        {else}
+                        <option value="{$gata.Kode_Ruang}">{$gata.Nama_Ruang} </option>
+                        {/if}
+                        {/foreach}
+                    </select>
+                  </td> 
+                <td>  Tanggal/Jam Pindah</td>
+                <td  > <input type="date" name="TGL_PINDAH" size="100" value="{date('Y-m-d', strtotime($tf.TGL_PINDAH))}" required> 
+                    <input type="time" name="JAM_PINDAH" size="100" value="{date('H:i', strtotime($tf.JAM_PINDAH))}" required>  </td>
+                    
+
+             </tr>
+
+
+
+            <tr class="headrow">
+                <th colspan="4">RINGKASAN RIWAYAT PASIEN </th> 
+            </tr>
+            <tr>
+                <td>Keluhan Utama  </td>
+                <td colspan="3"> <input type="text" name="ANAMNESA" style="width:78% ;" value="{$tf.ANAMNESA}">  </td></tr>
+                
+             <tr>
+                <td >Riwayat Penyakit </td>
+                <td  ><input type="text" name="RIWAYAT_SAKIT" value="{$tf.RIWAYAT_SAKIT}"  size="30"> </td>
+                   <td> Riwayat  Alergi  </td>
+                   <td> <input type="text" name="RIWAYAT_ALERGI_MAKANAN" value="{$tf.RIWAYAT_ALERGI_MAKANAN}" size="30">
+                
+                </td>
+            </tr>
+            <tr>
+                <td >Diagnosa Awal </td>
+                <td  >
+                   <input type="text" name="DIAGNOSA1" value="{$tf.DIAGNOSA1}"  size="30"> </td>
+                   <td> Diagnosa  Sekarang  </td>
+                   <td>     <input type="text" name="DIAGNOSA2" value="{$tf.DIAGNOSA2}" size="30">      </td>
+            </tr>
+
+            <tr class="headrow">
+                <th colspan="2">Pemeriksaan Penunjang </th> 
+                <th colspan="2">  Pemberian Therapi </th> 
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <textarea name="PENUNJANG" rows="3" style="width:100%">{$tf.PENUNJANG}
+                       
+                        </textarea>
+                    
+                     </td>
+                     <td colspan="2">
+                        <textarea name="TERAPI" rows="3" style="width:100%">{$tf.TERAPI}
+                             </textarea>
+                        
+                         </td>
+                        </tr>
+                
+              <tr class="headrow">
+                    <th colspan="2">Pemeriksaan Fisik Sebelum Transfer</th> 
+                    <th colspan="2">Pemeriksaan Fisik Setelah Transfer</th> 
+                </tr>
+                <TR>
+                    <td colspan="2">
+                        <textarea name="PEMERIKSAAN_FISIK1" rows="4" style="width:100%">
+                      {$tf.PEMERIKSAAN_FISIK1}
+                        </textarea>
+                    </td>
+                    
+                    <td colspan="2">
+                        <textarea name="PEMERIKSAAN_FISIK2" rows="4"   style="width:100%"> {$tf.PEMERIKSAAN_FISIK2}
+                        </textarea>
+                    </td>
+                </TR>
+               <tr>
+                  <td>Derajat Kebutuhan Transfer</td>
+                  <td>
+                     <input type="radio" name="DERAJAT" {if $tf.DERAJAT eq '0'} checked {/if} value="0">0
+                     <input type="radio" name="DERAJAT" {if $tf.DERAJAT eq '1'} checked {/if} value="1">1
+                     <input type="radio" name="DERAJAT" {if $tf.DERAJAT eq '2'} checked {/if} value="2">2
+                     <input type="radio" name="DERAJAT" {if $tf.DERAJAT eq '3'} checked {/if} value="3">3
+                  </td>
+                  <td>Catatan </td>
+                  <td>
+                    <input type="text" name="CAT1" style="width:100% ;" value="{$tf.CAT1}">
+                  </td>
+               </tr>
+               
+
+                     <tr class="submit-box">
+                                <td colspan="4">
+                                    <div style="font-weight: bold;">
+                                        *Bismillahirohmanirrohim, saya dengan sadar dan penuh tanggung jawab mengisikan formulir ini dengan data yang benar
+                                    </div>
+                                    <br>
+                                    <input type="submit" name="save" value="Simpan" class="edit-button"/>
+                                </td>
+                            </tr>
+            </form>
+            </div>
+      <script>
+ 
+ 
+  </script>     
+
+
+ 

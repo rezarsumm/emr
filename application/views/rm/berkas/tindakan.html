@@ -1,0 +1,88 @@
+ 
+<div class="breadcrum">
+    <p>
+        <a href="#">Catatan Rawat Inap</a><span></span>
+        <a href="{$config->site_url('inap/kep/')}">Rencana Keperawatan</a><span></span>
+       
+    </p>
+    <div class="clear"></div>
+</div>
+<div class="content-entry">
+ 
+    <form action="{$config->site_url('inap/kep/add_tindakan_process')}" method="post">
+        <input name="FS_KD_REG" type="hidden" value="{$rs_pasien.NO_REG}" />
+        <input name="FS_MR" type="hidden" value="{$rs_pasien.NO_MR}" />
+        <table class="table-info" width="60%">
+            <tr class="headrow">
+                <th colspan="2">Add Rencana Keperawatan</th>
+            </tr>
+            <tr>
+                <td>NAMA</td>
+                <td>
+                    {$rs_pasien.NAMA_PASIEN}
+                </td>
+            </tr>
+            <tr>
+                <td>NO MR</td>
+                <td>
+                    {$rs_pasien.NO_MR}
+                </td>
+            </tr>
+            <tr>
+                <td>TANGGAL LAHIR</td>
+                <td>
+                    {$rs_pasien.TGL_LAHIR|date_format:"%d %b %Y"}
+                </td>
+            </tr>
+            <tr>
+                <td>ALAMAT</td>
+                <td>{$rs_pasien.ALAMAT}</td>
+            </tr>
+            
+        </table>
+     
+</form>
+</div>
+<div class="navigation">
+    <div class="pageRow">
+        <div class="pageNav">
+            <ul>
+                <li class="info"></li>
+            </ul>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="navigation-button">
+        <ul>
+            <li><a href="{$config->site_url('rm/rawat_inap/cetak_rm/'|cat:$rs_pasien.NO_REG|cat:'/'|cat:'8')}" target="_blank"><img src="{$BASEURL}resource/doc/images/icon/printer-icon.png" alt="" /> Print</a></li>
+        </ul>
+    </div>
+    <div class="clear"></div>
+</div>
+<table class="table-view" width="100%">
+    <tr>
+        <th width="5%">No</th>
+        <th width="10%">Tanggal / Jam</th>
+        <th>Tindakan</th>
+        <th>Tindakan 2</th>
+        <th width="10%">Waktu Tindakan</th>
+        <th width="10%">Aksi</th>
+    </tr>
+    {foreach $result as $data}
+    {assign var=rs_rincian value=$m_kep->get_rincian_kep_by_id(array($data.FS_KD_TRS))}
+    <tr {if ($no % 2) <> 1}class="blink-row"{/if}>
+        <td>{$no++}</td>
+        <td>{$data.mdd} {$data.mdd_time|date_format:'%H:%M'}</td>
+        <td>{$data.FS_TINDKAN_KEP}</td>
+        <td>{$data.FS_NM_KEP_TINDAKAN}</td>
+        <td>{$data.FD_TGL_TINDKAN_KEP} {$data.FD_JAM_TINDKAN_KEP|date_format:'%H:%M'}</td>
+        <TD>
+
+        {if $data.mdd >= $tgl_kemarin || $com_user.role_nm eq 'Admin E-MR'}   
+        <a  href="{$config->site_url('inap/kep/edit_tindakan/'|cat:$data.FS_KD_TRS|cat:'/'|cat:$data.FS_KD_REG)}" class="button-edit" title="Tambah Catatan" >Edit</a>               
+        <a href="{$config->site_url('inap/kep/delete_process_tindakan/'|cat:$data.FS_KD_TRS|cat:'/'|cat:$data.FS_KD_REG)}" class="button-hapus" title="Tambah Catatan" onclick="return confirm('Apakah Anda Yakin Akan Menghapus?');">Hapus</a>
+        {/if}
+        </TD>
+    </tr>
+    {/foreach}
+</table>

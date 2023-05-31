@@ -1,0 +1,648 @@
+<!-- include javascript -->
+{include file="inap/ass_jatuh/add_script_js.html"}
+<!-- end of include javascript-->
+<script type="text/javascript">
+    $(document).ready(function () {
+        score();
+        $("#op1").change(function () {
+            var sc = $(this).val();
+            $("#sc1").html(sc);
+            score();
+        });
+        $("#op2").change(function () {
+            var sc = $(this).val();
+            $("#sc2").html(sc);
+            score();
+        });
+        $("#op3").change(function () {
+            var sc = $(this).val();
+            $("#sc3").html(sc);
+            score();
+        });
+        $("#op4").change(function () {
+            var sc = $(this).val();
+            $("#sc4").html(sc);
+            score();
+        });
+        $("#op5").change(function () {
+            var sc = $(this).val();
+            $("#sc5").html(sc);
+            score();
+        });
+        $("#op6").change(function () {
+            var sc = $(this).val();
+            $("#sc6").html(sc);
+            score();
+        });
+        $("#op7").change(function () {
+            var sc = $(this).val();
+            $("#sc7").html(sc);
+            score();
+        });
+        score();
+        
+        $("#op8").change(function () {
+            var scd = $(this).val();
+            $("#sc8").html(scd);
+            scored();
+        });
+        $("#op9").change(function () {
+            var scd = $(this).val();
+            $("#sc9").html(scd);
+            scored();
+        });
+        $("#op10").change(function () {
+            var scd = $(this).val();
+            $("#sc10").html(scd);
+            scored();
+        });
+        $("#op11").change(function () {
+            var scd = $(this).val();
+            $("#sc11").html(scd);
+            scored();
+        });
+        $("#op12").change(function () {
+            var scd = $(this).val();
+            $("#sc12").html(scd);
+            scored();
+        });
+        $("#op13").change(function () {
+            var scd = $(this).val();
+            $("#sc13").html(scd);
+            scored();
+        });
+        
+    });
+</script>
+<script type="text/javascript">
+    function score() {
+        var sc = parseInt($("#sc1").text()) + parseInt($("#sc2").text()) + parseInt($("#sc3").text()) + parseInt($("#sc4").text()) + parseInt($("#sc5").text()) + parseInt($("#sc6").text()) + parseInt($("#sc7").text());
+        $("#totalsc").html(sc);
+        if (sc >= 7 && sc <= 11) {
+            $("#rjtkesimpulan").html("RISIKO RENDAH");
+        } else if (sc >= 12) {
+            $("#rjtkesimpulan").html("RISIKO TINGGI");
+        }
+    }
+    function scored() {
+        var scd = parseInt($("#sc8").text()) + parseInt($("#sc9").text()) + parseInt($("#sc10").text()) + parseInt($("#sc11").text()) + parseInt($("#sc12").text()) + parseInt($("#sc13").text());
+        $("#totalscd").html(scd);
+        if (scd >= 0 && scd <= 24) {
+            $("#rjtkesimpuland").html("RISIKO RENDAH");
+        } else if (scd >= 25 && scd <= 45) {
+            $("#rjtkesimpuland").html("RISIKO SEDANG");
+        } else if (scd > 45) {
+            $("#rjtkesimpuland").html("RISIKO TINGGI");
+        }
+    }
+    
+</script>
+<div class="breadcrum">
+    <p>
+        <a href="#">Catatan Rawat Inap</a><span></span>
+        <a href="{$config->site_url('inap/ass_jatuh/')}">Asesmen Jatuh</a><span></span>
+        <small>Add Data</small>
+    </p>
+    <div class="clear"></div>
+</div>
+<div class="content-entry">
+    <!-- notification template -->
+    {include file="base/templates/notification.html"}
+    <!-- end of notification template-->
+    <form action="{$config->site_url('inap/ass_jatuh/add_process')}" method="post">
+        <input name="FS_KD_REG" type="hidden" value="{$rs_pasien.fs_kd_reg}" />
+        <input name="FS_MR" type="hidden" value="{$rs_pasien.fs_mr}" />
+
+        <table class="table-info" width="100%">
+            <tr class="headrow">
+                <th colspan="2">Add Asesmen Jatuh</th>
+            </tr>
+                        <tr>
+                <td>Nama</td>
+                <td>
+                    {$rs_pasien.fs_nm_pasien}
+                </td>
+            </tr>
+            <tr>
+                <td>No RM</td>
+                <td>
+                    {$rs_pasien.fs_mr}
+                </td>
+            </tr>
+            <tr>
+                <td>Tanggal Lahir</td>
+                <td>
+                    {$rs_pasien.FD_TGL_LAHIR|date_format:"%d %b %Y"} ({$rs_pasien.fs_umur})
+                </td>
+            </tr>
+            <tr>
+                <td>Alamat</td>
+                <td>{$rs_pasien.FS_ALM_PASIEN}</td>
+            </tr>
+            <tr>
+                <td>Status Sosial / Pekerjaan / Pendidikan</td>
+            <td>
+                {$rs_pasien.FS_NM_PEKERJAAN_DK} / {$rs_pasien.FS_NM_PENDIDIKAN_DK}
+            </td>
+            </tr>
+            <tr>
+                <td>Agama</td>
+            <td>
+                {$rs_pasien.FS_NM_AGAMA}
+            </td>
+            </tr>
+        </table>
+        <table class="table-input" width="100%">
+            {if $rs_pasien.fn_umur <= 14}
+            <tr class="headrow">
+                <th colspan="4">Asesmen Jatuh Anak</th>
+            <input type="hidden" name="FS_TIPE_RISIKO_JATUH" value='1'/>
+            </tr>
+            <tr>
+                <td width='20%'>Usia</td>
+                <td width='30%'>
+                    <select name="FS_PARAM_1" class="select2" style="width: 250px;" id="op1">
+                        <option value="">--Pilih Data--</option>
+                        <option value="4">< 3 Tahun</option>
+                        <option value="3">3-7 Tahun</option>
+                        <option value="2">7-13 Tahun</option>
+                        <option value="1">>= 13 Tahun</option>
+
+                    </select>
+                    <span id="sc1"></span>
+                </td>
+                <td width='20%'>Kesimpulan</td>
+                <td width='30%'><b><span id="rjtkesimpulan"></span></b></td>
+            </tr>
+            <tr>
+                <td width='20%'>Jenis Kelamin</td>
+                <td width='30%'>
+                    <select name="FS_PARAM_2" class="select2" style="width: 250px;" id="op2">
+                        <option value="">--Pilih Data--</option>
+                        <option value="2">Laki-Laki</option>
+                        <option value="1">Perempuan</option>
+                    </select>
+                    <span id="sc2"></span>
+                </td>
+                <td></td>
+                <td>
+                </td>
+            </tr>
+            <tr>
+                <td>Diagnosis</td>
+                <td>
+                    <select name="FS_PARAM_3" class="select2" style="width: 250px;" id="op3">
+                        <option value="">--Pilih Data--</option>
+                        <option value="4">Diagnosis Neurologi</option>
+                        <option value="3">Perubahan Oksigenasi</option>
+                        <option value="2">Gangguan Perilaku/Psikiatri</option>
+                        <option value="1">Diagnosis Lainnya</option>
+                    </select>
+                    <span id="sc3"></span>
+                </td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Gangguan Kognitif</td>
+                <td>
+                    <select name="FS_PARAM_4" class="select2" style="width: 250px;" id="op4">
+                        <option value="">--Pilih Data--</option>
+                        <option value="3">Tidak Menyadari keterbatasan dirinya</option>
+                        <option value="2">Lupa akan adanya keterbatasan</option>
+                        <option value="1">Orientasi baik terhadap diri sendiri</option>
+                    </select>
+                    <span id="sc4"></span>
+                </td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Faktor Lingkungan</td>
+                <td>
+                    <select name="FS_PARAM_5" class="select2" style="width: 250px;" id="op5">
+                        <option value="">--Pilih Data--</option>
+                        <option value="4">Riwayat jatuh/bayi diletakkan di tempat tidur dewasa</option>
+                        <option value="3">Pasien Menggunakanalat bantu/bayi diletakkan dalam tempat tifur bayi/perabot rumah</option>
+                        <option value="2">Pasien diletakkan di tempat tidur</option>
+                        <option value="1">Area diluar rumah sakit</option>
+                    </select>
+                    <span id="sc5"></span>
+                </td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Respon Terhadap Pembedahan / Sedasi / Anestesi</td>
+                <td>
+                    <select name="FS_PARAM_6" class="select2" style="width: 250px;" id="op6">
+                        <option value="">--Pilih Data--</option>
+                        <option value="3">Dalam 24 jam</option>
+                        <option value="2">Dalam 48 jam</option>
+                        <option value="1">> 48 jam atau tidak menjalani pembedahan / sedasi/anastesi</option>
+                    </select>
+                    <span id="sc6"></span>
+                </td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Respon Terhadap Penggunaan medikamentosa</td>
+                <td>
+                    <select name="FS_PARAM_7" class="select2" style="width: 250px;" id="op7">
+                        <option value="">--Pilih Data--</option>
+                        <option value="3">Penggunaan multipel</option>
+                        <option value="2">Penggunaan salah satu obat</option>
+                        <option value="1">Penggunaan medikasi lainnya/tidak ada medikasi</option>
+                    </select>
+                    <span id="sc7"></span>
+                </td>
+                <td></td>
+                <td></td>
+            </tr>
+            {elseif $rs_pasien.fn_umur >= 15 && $rs_pasien.fn_umur <= 60}
+             <tr class="headrow">
+                <th colspan="4">Asesmen Jatuh Dewasa Morse Fall Scale</th>
+            <input type="hidden" name="FS_TIPE_RISIKO_JATUH" value='2'/>
+            </tr>
+            <tr>
+                <td width='20%'>Riwayat Jatuh</td>
+                <td width='30%'>
+                    <select name="FS_PARAM_1" class="select2" style="width: 250px;" id="op8">
+                        <option value="">--Pilih Data--</option>
+                        <option value="25">< 3 bulan</option>
+                        <option value="0">tidak ada atau > 3 bulan</option>
+
+                    </select>
+                    <span id="sc8"></span>
+                </td>
+                <td width='20%'>Kesimpulan</td>
+                <td width='30%'><b><span id="rjtkesimpuland"></span></b></td>
+            </tr>
+             <tr>
+                <td>Kondisi kesehatan</td>
+                <td>
+                    <select name="FS_PARAM_2" class="select2" style="width: 250px;" id="op9">
+                        <option value="">--Pilih Data--</option>
+                        <option value="15">> 1 diagnosa penyakit</option>
+                        <option value="0"><= 1 diagnosa penyakit</option>
+                    </select>
+                    <span id="sc9"></span>
+                </td>
+                <td></td>
+                <td></td>
+            </tr>
+             <tr>
+                <td>Bantuan ambulasi</td>
+                <td>
+                    <select name="FS_PARAM_3" class="select2" style="width: 250px;" id="op10">
+                        <option value="">--Pilih Data--</option>
+                        <option value="30">Perabot</option>
+                        <option value="15">Tongkat / penopang</option>
+                        <option value="0">Tidak ada / Tirah baring</option>
+                    </select>
+                    <span id="sc10"></span>
+                </td>
+                <td></td>
+                <td></td>
+            </tr>
+             <tr>
+                <td>Terapi IV / anti koagulan</td>
+                <td>
+                    <select name="FS_PARAM_4" class="select2" style="width: 250px;" id="op11">
+                        <option value="">--Pilih Data--</option>
+                        <option value="20">Terapi IV terus menerus</option>
+                        <option value="0">Tidak</option>
+                    </select>
+                    <span id="sc11"></span>
+                </td>
+                <td></td>
+                <td></td>
+            </tr>
+             <tr>
+                <td>Gaya berjalan</td>
+                <td>
+                    <select name="FS_PARAM_5" class="select2" style="width: 250px;" id="op12">
+                        <option value="">--Pilih Data--</option>
+                        <option value="20">Kerusakan (Terganggu)</option>
+                        <option value="10">Lemah</option>
+                        <option value="0">Normal / Tirah baring</option>
+                    </select>
+                    <span id="sc12"></span>
+                </td>
+                <td></td>
+                <td></td>
+            </tr>
+             <tr>
+                <td>Status Mental</td>
+                <td>
+                    <select name="FS_PARAM_6" class="select2" style="width: 250px;" id="op13">
+                        <option value="">--Pilih Data--</option>
+                        <option value="15">Lupa keterbatasan</option>
+                        <option value="0">Sadar kemampuan diri</option>
+                    </select>
+                    <span id="sc13"></span>
+                </td>
+                <td></td>
+                <td></td>
+            </tr>
+            {else $rs_pasien.fn_umur > 60}
+             <tr class="headrow">
+                <th colspan="4">Asesmen Jatuh Lanjut Usia (ontario Modified Stratify - Sydney Scoring)</th>
+            <input type="hidden" name="FS_TIPE_RISIKO_JATUH" value='3'/>
+            </tr>
+            <tr class="headrow">
+                <th colspan="4">Riwayat Jatuh</th>
+            </tr>
+            <tr>
+                <td width='30%'>Apakah pasien datang ke RS karena jatuh?</td>
+                <td width='70%' colspan="3">
+                    <select name="FS_PARAM_1" class="select2" style="width: 250px;">
+                        <option value="">--Pilih Data--</option>
+                        <option value="1">Ya</option>
+                        <option value="0">Tidak</option>
+                    </select>
+                </td>
+            </tr>
+             <tr>
+                <td>Jika Tidak, apakah pasien mengalami jatuh dalam 2 bulan terakhir ini?</td>
+                <td colspan="3">
+                    <select name="FS_PARAM_2" class="select2" style="width: 250px;">
+                        <option value="">--Pilih Data--</option>
+                        <option value="1">Ya</option>
+                        <option value="0">Tidak</option>
+                    </select>
+                </td>
+            </tr>
+             <tr class="headrow">
+                <th colspan="4">Status Mental</th>
+            </tr>
+            <tr>
+                <td>Apakah pasien delirium?</td>
+                <td colspan="3">
+                    <select name="FS_PARAM_3" class="select2" style="width: 250px;">
+                        <option value="">--Pilih Data--</option>
+                        <option value="1">Ya</option>
+                        <option value="0">Tidak</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Apakah pasien disorientasi?</td>
+                <td colspan="3">
+                    <select name="FS_PARAM_4" class="select2" style="width: 250px;">
+                        <option value="">--Pilih Data--</option>
+                        <option value="1">Ya</option>
+                        <option value="0">Tidak</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Apakah pasien mengalami agitasi?</td>
+                <td colspan="3">
+                    <select name="FS_PARAM_5" class="select2" style="width: 250px;">
+                        <option value="">--Pilih Data--</option>
+                        <option value="1">Ya</option>
+                        <option value="0">Tidak</option>
+                    </select>
+                </td>
+            </tr>
+             <tr class="headrow">
+                <th colspan="4">Pengelihatan</th>
+            </tr>
+            <tr>
+                <td>Apakah pasien memakai kacamata?</td>
+                <td colspan="3">
+                    <select name="FS_PARAM_6" class="select2" style="width: 250px;">
+                        <option value="">--Pilih Data--</option>
+                        <option value="1">Ya</option>
+                        <option value="0">Tidak</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Apakah pasien mengeluh adanya pengelihatan buram?</td>
+                <td colspan="3">
+                    <select name="FS_PARAM_7" class="select2" style="width: 250px;">
+                        <option value="">--Pilih Data--</option>
+                        <option value="1">Ya</option>
+                        <option value="0">Tidak</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Apakah pasien mempunyai glaukoma? katarak / degenerasi makula?</td>
+                <td colspan="3">
+                    <select name="FS_PARAM_8" class="select2" style="width: 250px;">
+                        <option value="">--Pilih Data--</option>
+                        <option value="1">Ya</option>
+                        <option value="0">Tidak</option>
+                    </select>
+                </td>
+            </tr>
+            <tr class="headrow">
+                <th colspan="4">Kebiasaan berkemih</th>
+            </tr>
+            <tr>
+                <td>Apakah terdapat perubahan perilaku berkemih? (frekuensi,urgensi,inkontinensia,nokturia)</td>
+                <td colspan="3">
+                    <select name="FS_PARAM_9" class="select2" style="width: 250px;">
+                        <option value="">--Pilih Data--</option>
+                        <option value="1">Ya</option>
+                        <option value="0">Tidak</option>
+                    </select>
+                </td>
+            </tr>
+             <tr class="headrow">
+                <th colspan="4">Transfer (dari tempat tidur ke kursi dan kembali lagi ke tempat tidur)</th>
+            </tr>
+             <tr>
+                <td>Transfer (dari tempat tidur ke kursi dan kembali lagi ke tempat tidur)</td>
+                <td colspan="3">
+                    <select name="FS_PARAM_10" class="select2" style="width: 250px;">
+                        <option value="">--Pilih Data--</option>
+                        <option value="0">Mandiri (Boleh memakai alat bantu jalan)</option>
+                        <option value="1">Memerlukan sedikit bantuan (1 orang) / dalam pengawasan</option>
+                        <option value="2">Memerlukan sedikit bantuan yang nyata (2 orang)</option>
+                        <option value="3">Tidak dapat duduk dengan seimbang, perlu bantuan total</option>
+                    </select>
+                </td>
+            </tr>
+            <tr class="headrow">
+                <th colspan="4">Mobilitas</th>
+            </tr>
+            <tr>
+                <td>Mobilitas</td>
+                <td colspan="3">
+                    <select name="FS_PARAM_11" class="select2" style="width: 250px;">
+                        <option value="">--Pilih Data--</option>
+                        <option value="0">Mandiri (Boleh memakai alat bantu jalan)</option>
+                        <option value="1">Berjalan dengan bantuan 1 orang (verbal/fisik)</option>
+                        <option value="2">Menggunakan kursi Roda</option>
+                        <option value="3">Imobilisasi</option>
+                    </select>
+                </td>
+            </tr>
+            {/if}
+             <tr>
+                <td>Pencegahan Jatuh</td>
+                <td colspan="3">
+                   <select name="tujuan[]" multiple id="tujuan" style="width:250px">
+                    <option></option>
+                </select>
+                </td>
+            </tr>
+            <tr class="submit-box">
+                <td colspan="4">
+                     <div style="font-weight: bold;">
+                    *Bismillahirohmanirrohim, saya dengan sadar dan penuh tanggung jawab mengisikan formulir ini dengan data yang benar
+                </div>
+                <br>
+                    <input type="submit" name="save" value="Simpan" class="edit-button"/>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+<div class="navigation">
+    <div class="pageRow">
+        <div class="pageNav">
+            <ul>
+                <li class="info"></li>
+            </ul>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="navigation-button">
+        <ul>
+            <li><a href="{$config->site_url('rm/rawat_inap/cetak_rm/'|cat:$rs_pasien.fs_kd_reg|cat:'/'|cat:'6')}" target="_blank"><img src="{$BASEURL}resource/doc/images/icon/printer-icon.png" alt="" /> Print</a></li>
+        </ul>
+    </div>
+    <div class="clear"></div>
+</div>
+<table class="table-view" width="100%">
+    <tr class="headrow">
+        <th colspan="5">List Data Asesmen Resiko Jatuh</th>
+    </tr>
+    <tr>
+        <th width="7%">Tanggal</th>
+        <th>Deskripsi</th>
+        <th>Pencegahan Jatuh</th>
+        <th width="15%">Aksi</th>
+    </tr>
+    {if $rs_pasien.fn_umur <= 14}
+    {foreach $rs_result_anak as $data_anak}
+    {assign var=rs_pencegahan value=$m_ass_jatuh->get_pencegahan_jatuh_by_id(array($data_anak.FS_KD_TRS2))}
+    <tr>
+        <td>{$data_anak.mdd}/{$data_anak.mdd_time|date_format:'%H:%M'}</td>
+        <td>
+            
+            {assign var="jatuh_anak" value="{$data_anak.FS_PARAM_1+$data_anak.FS_PARAM_2+$data_anak.FS_PARAM_3+$data_anak.FS_PARAM_4+$data_anak.FS_PARAM_5+$data_anak.FS_PARAM_6+$data_anak.FS_PARAM_7}"}
+            {if $jatuh_anak >= '7' && $jatuh_anak <= '11'}
+            <b>RISIKO RENDAH</b>
+            {elseif $jatuh_anak >= '12'}
+            <b>RISIKO TINGGI</b>
+            {/if}
+        </td>
+        <td>
+             {foreach $rs_pencegahan as $data2}
+            -{$data2.FS_NM_PENCEGAHAN_JATUH}<br>
+            {/foreach}
+        </td>
+        <td>
+           <!-- <a href="{$config->site_url('inap/cppt/edit/'|cat:$cppt.FS_KD_REG|cat:'/'|cat:$cppt.FS_KD_TRS)}" class="button-edit">Edit</a>  
+            <a href="{$config->site_url('inap/cppt/delete_process/'|cat:$cppt.FS_KD_REG|cat:'/'|cat:$cppt.FS_KD_TRS)}" onclick="return confirm('Apakah Anda Yakin Akan Menghapus?');" class="button-hapus">Hapus</a> --> 
+        </td>
+    </tr>
+    {/foreach}
+    {elseif $rs_pasien.fn_umur >= '14' && $rs_pasien.fn_umur <= '60'}
+    {foreach $rs_result_dewasa as $data}
+    {assign var=rs_pencegahan value=$m_ass_jatuh->get_pencegahan_jatuh_by_id(array($data.FS_KD_TRS2))}
+    <tr>
+        <td>{$data.mdd}/{$data.mdd_time|date_format:'%H:%M'}</td>
+        <td>
+            {assign var="jatuh_dewasa" value="{$data.FS_PARAM_1+$data.FS_PARAM_2+$data.FS_PARAM_3+$data.FS_PARAM_4+$data.FS_PARAM_5+$data.FS_PARAM_6+$data.FS_PARAM_7}"}
+            {if ($jatuh_dewasa >= '0') && ($jatuh_dewasa <= '24')}
+            <b>RISIKO RENDAH</b>
+            {elseif ($jatuh_dewasa >= '25') && ($jatuh_dewasa <= '45')}
+            <b>RISIKO SEDANG</b>
+            {elseif $jatuh_dewasa > '45'}
+            <b>RISIKO TINGGI</b>
+            {/if}
+        </td>
+        <td>
+             {foreach $rs_pencegahan as $data2}
+            -{$data2.FS_NM_PENCEGAHAN_JATUH}<br>
+            {/foreach}
+        </td>
+        <td>
+            <!--<a href="{$config->site_url('inap/cppt/edit/'|cat:$cppt.FS_KD_REG|cat:'/'|cat:$cppt.FS_KD_TRS)}" class="button-edit">Edit</a>  
+            <a href="{$config->site_url('inap/cppt/delete_process/'|cat:$cppt.FS_KD_REG|cat:'/'|cat:$cppt.FS_KD_TRS)}" onclick="return confirm('Apakah Anda Yakin Akan Menghapus?');" class="button-hapus">Hapus</a>-->  
+        </td>
+    </tr>
+    {/foreach}
+    {elseif $rs_pasien.fn_umur > '60'}
+    {foreach $rs_result_dewasa2 as $data}
+    {assign var=rs_pencegahan value=$m_ass_jatuh->get_pencegahan_jatuh_by_id(array($data.FS_KD_TRS2))}
+    <tr>
+        <td>{$data.mdd}/{$data.mdd_time|date_format:'%H:%M'}</td>
+        <td>
+            {assign var="jatuh" value="{$data.FS_PARAM_1+$data.FS_PARAM_2}"}
+            {assign var="mental" value="{$data.FS_PARAM_3+$data.FS_PARAM_4+$data.FS_PARAM_5}"}
+            {assign var="pengelihatan" value="{$data.FS_PARAM_6+$data.FS_PARAM_7+$data.FS_PARAM_8}"}
+            {assign var="kemih" value="{$data.FS_PARAM_9}"}
+            {assign var="transmob" value="{$data.FS_PARAM_10+$data.FS_PARAM_11}"}
+            
+            {if $jatuh >= '1'}
+            {assign var="jatuh" value="6"}
+            {else}
+            {assign var="jatuh" value="0"}
+            {/if}
+            
+            {if $mental >= '1'}
+            {assign var="mental" value="14"}
+            {else}
+            {assign var="mental" value="0"}
+            {/if}
+            
+            {if $pengelihatan >= '1'}
+            {assign var="pengelihatan" value="1"}
+            {else}
+            {assign var="pengelihatan" value="0"}
+            {/if}
+            
+            {if $kemih >= '1'}
+            {assign var="kemih" value="2"}
+            {else}
+            {assign var="kemih" value="0"}
+            {/if}
+            
+            {if $transmob >= '0' && $transmob <= '3'}
+            {assign var="transmob" value="0"}
+            {elseif $transmob >= '4'}
+            {assign var="transmob" value="7"}
+            {/if}
+            
+             {assign var="sydneyscore" value="{$jatuh+$mental+$pengelihatan+$kemih+$transmob}"}
+             
+             {if $sydneyscore >= '0' && $sydneyscore <= '5'}
+             <b>RISIKO RENDAH</b>
+             {elseif $sydneyscore >= '6' && $sydneyscore <= '16'}
+             <b>RISIKO SEDANG</b>
+             {elseif $sydneyscore >= '17' && $sydneyscore <= '30'}
+             <b>RISIKO TINGGI</b>
+             {/if}
+        </td>
+        <td>
+             {foreach $rs_pencegahan as $data2}
+            -{$data2.FS_NM_PENCEGAHAN_JATUH}<br>
+            {/foreach}
+        </td>
+        <td>
+            <!--<a href="{$config->site_url('inap/cppt/edit/'|cat:$cppt.FS_KD_REG|cat:'/'|cat:$cppt.FS_KD_TRS)}" class="button-edit">Edit</a>  
+            <a href="{$config->site_url('inap/cppt/delete_process/'|cat:$cppt.FS_KD_REG|cat:'/'|cat:$cppt.FS_KD_TRS)}" onclick="return confirm('Apakah Anda Yakin Akan Menghapus?');" class="button-hapus">Hapus</a>-->  
+        </td>
+    </tr>
+    {/foreach}
+    {/if}
+</table>

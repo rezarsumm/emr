@@ -1,0 +1,298 @@
+<!-- include javascript -->
+{include file="mutu/insiden/add_script_js.html"}
+<!-- end of include javascript-->
+<div class="breadcrum">
+    <p>
+        <a href="#">Mutu</a><span></span>
+        <a href="{$config->site_url('mutu/insiden/cari')}">Laporan Insiden</a><span></span>
+        <small>Add Data</small>
+    </p>
+    <div class="clear"></div>
+</div>
+<div class="content-entry">
+    <!-- notification template -->
+    {include file="base/templates/notification.html"}
+    <!-- end of notification template-->
+    <form action="{$config->site_url('mutu/insiden/edit_process')}" method="post">
+        <input name="FS_KD_LAP_INVESTIGASI" type="hidden" value="{$result.FS_KD_LAP_INVESTIGASI}" />
+         <table class="table-info" width="100%">
+            <tr class="headrow">
+                <th colspan="2">Add Identitas Pasien</th>
+            </tr>
+            <tr>
+                <td>NAMA</td>
+                <td>
+                    {$result.fs_nm_pasien}
+                </td>
+            </tr>
+            <tr>
+                <td>NO MR</td>
+                <td>
+                    {$result.fs_mr}
+                </td>
+            </tr>
+            <tr>
+                <td>TANGGAL LAHIR</td>
+                <td>
+                    {$result.FD_TGL_LAHIR|date_format:"%d %b %Y"}
+                </td>
+            </tr>
+            <tr>
+                <td>ALAMAT</td>
+                <td>{$result.FS_ALM_PASIEN}</td>
+            </tr>
+            <tr>
+                <td>TANGGAL MASUK</td>
+                <td>{$result.fd_tgl_masuk|date_format:"%d %b %Y"}</td>
+            </tr>
+            <tr>
+                <td>TANGGAL KELUAR</td>
+                <td>{$result.fd_tgl_keluar|date_format:"%d %b %Y"}</td>
+            </tr>
+            <tr>
+                <td>LAYANAN AKHIR</td>
+                <td>
+                    {$result.layanan_akhir}
+                </td>
+            </tr>
+        </table>
+        <table class="table-input" width="100%">
+            <tr>
+                <th colspan="2">LAPORAN INSIDEN KESELAMATAN PASIEN</th>
+            </tr>
+            <tr>
+                <td>Tanggal Insiden</td>
+                <td>
+                    <input name="FD_TGL_KEJADIAN" value="{$result.FD_TGL_KEJADIAN}" type="text" size="10" maxlength="10" class="tanggal" readonly="readonly" style="text-align: center;" />
+                </td>
+            </tr>
+            <tr>
+                <td>Insiden</td>
+                <td>
+                    <input type="text" name="FS_KASUS" size="50" value="{$result.FS_KASUS}">
+                    <em>*wajib diisi</em>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Grade Risiko
+                </td>
+                <td>
+                    <select name="FS_KD_GRADE_RISIKO" id="surat_dari" class="select2" style="width: 300px;">
+                        <option value=""></option>
+                        <option value="1" {if $result.FS_KD_GRADE_RISIKO eq '1'}selected="selected"{/if}>Biru</option>
+                        <option value="2" {if $result.FS_KD_GRADE_RISIKO eq '2'}selected="selected"{/if}>Hijau</option>
+                        <option value="3" {if $result.FS_KD_GRADE_RISIKO eq '3'}selected="selected"{/if}>Kuning</option>
+                        <option value="4" {if $result.FS_KD_GRADE_RISIKO eq '4'}selected="selected"{/if}>Merah</option>
+                    </select>
+                     <em>*wajib diisi</em>
+                </td>
+            </tr>
+            <tr>
+                <td>Kronologis Kejadian</td>
+                <td> 
+                    <textarea name="FS_KRONOLOGIS" rows="3" cols="36">{$result.FS_KRONOLOGIS}</textarea>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Jenis Insiden
+                <td>
+                    <select name="FS_IKP" id="surat_dari" class="select2" style="width: 300px;">
+                        <option value=""></option>
+                        <option value="1" {if $result.FS_IKP eq '1'}selected="selected"{/if}>KNC</option>
+                        <option value="2" {if $result.FS_IKP eq '2'}selected="selected"{/if}>KTD</option>
+                        <option value="3" {if $result.FS_IKP eq '3'}selected="selected"{/if}>Sentinel</option>
+                        <option value="4" {if $result.FS_IKP eq '4'}selected="selected"{/if}>KTC</option>
+                        <option value="5" {if $result.FS_IKP eq '5'}selected="selected"{/if}>KPC</option>
+                    </select>
+                     <em>*wajib diisi</em>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Pemberi Laporan
+                </td>
+                <td>
+                    <select name="FS_PEMBERI_LAPORAN" id="surat_dari" class="select2" style="width: 300px;">
+                        <option value=""></option>
+                        <option value="1" {if $result.FS_PEMBERI_LAPORAN eq '1'}selected="selected"{/if}>Karyawan : Dokter/Perawat/Petugas Lainnya</option>
+                        <option value="2" {if $result.FS_PEMBERI_LAPORAN eq '2'}selected="selected"{/if}>Pasien</option>
+                        <option value="3" {if $result.FS_PEMBERI_LAPORAN eq '3'}selected="selected"{/if}>Keluarga / Pendamping Pasien</option>
+                        <option value="4" {if $result.FS_PEMBERI_LAPORAN eq '4'}selected="selected"{/if}>Pengunjung</option>
+                        <option value="5" {if $result.FS_PEMBERI_LAPORAN eq '5'}selected="selected"{/if}>Lainnya</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Lokasi Kejadian
+                </td>
+                <td>
+                    <select name="FS_KD_LAYANAN" id="surat_dari" class="select2" style="width: 300px;">
+                        <option value=""></option>
+                        {foreach from=$rs_unit item=data2}
+                        <option value="{$data2.FS_KD_LAYANAN}"{if $result.FS_KD_LAYANAN eq $data2.FS_KD_LAYANAN}selected="selected"{/if}>{$data2.FS_NM_LAYANAN}</option>
+                        {/foreach}
+                    </select>
+                    <em>*wajib diisi</em>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Insiden Terjadi Pada
+                </td>
+                <td>
+                    <select name="FS_KD_SMF" id="surat_dari" class="select2" style="width: 300px;">
+                        <option value=""></option>
+                        {foreach from=$rs_smf item=data2}
+                        <option value="{$data2.FS_KD_SMF}" {if $result.FS_KD_SMF eq $data2.FS_KD_SMF}selected="selected"{/if}>{$data2.FS_NM_SMF}</option>
+                        {/foreach}
+                    </select>
+                     <em>*wajib diisi</em>
+                </td>
+            </tr>
+             <tr>
+                <td>
+                    Unit Kerja Penyebab
+                </td>
+                <td>
+                    <select name="FS_KD_LAYANAN_PENYEBAB" id="surat_dari" class="select2" style="width: 300px;">
+                        <option value=""></option>
+                        {foreach from=$rs_unit item=data2}
+                        <option value="{$data2.FS_KD_LAYANAN}" {if $result.FS_KD_LAYANAN_PENYEBAB eq $data2.FS_KD_LAYANAN}selected="selected"{/if}>{$data2.FS_NM_LAYANAN}</option>
+                        {/foreach}
+                    </select>
+                     <em>*wajib diisi</em>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Dampak pada pasien
+                </td>
+                <td>
+                    <select name="FS_KD_DAMPAK_PASIEN" id="surat_dari" class="select2" style="width: 300px;">
+                        <option value=""></option>
+                        <option value="1" {if $result.FS_KD_DAMPAK_PASIEN eq '1'}selected="selected"{/if}>Kematian</option>
+                        <option value="2" {if $result.FS_KD_DAMPAK_PASIEN eq '2'}selected="selected"{/if}>Cedera Berat</option>
+                        <option value="3" {if $result.FS_KD_DAMPAK_PASIEN eq '3'}selected="selected"{/if}>Cedera Sedang</option>
+                        <option value="4" {if $result.FS_KD_DAMPAK_PASIEN eq '4'}selected="selected"{/if}>Cedera Ringan</option>
+                        <option value="5" {if $result.FS_KD_DAMPAK_PASIEN eq '5'}selected="selected"{/if}>Tidak Ada Cedera</option>
+                    </select>
+                     <em>*wajib diisi</em>
+                </td>
+            </tr>
+            <!--<tr>
+                <td>
+                    Sasaran Keselamatan Pasien
+                <td>
+                    <select name="FS_KD_SASARAN" id="surat_dari" class="select2" style="width: 300px;">
+                        <option value=""></option>
+                        {foreach from=$rs_sasaran item=data3}
+                        <option value="{$data3.FS_KD_SASARAN}" {if $result.FS_KD_SASARAN eq $data3.FS_KD_SASARAN}selected="selected"{/if}>{$data3.FS_NM_SASARAN}</option>
+                        {/foreach}
+                    </select>
+                    <em>*wajib diisi</em>
+                </td>
+            </tr>-->
+             <tr>
+                <td>Tindakan Yang Telah Dilakukan</td>
+                <td>
+                    <textarea name="FS_TINDAKAN" rows="3" cols="36"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td>Tindakan Dilakukan Oleh</td>
+                <td>
+                    <textarea name="FS_TINDAKAN_OLEH" rows="3" cols="36"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td>Insiden serupa pernah terjadi</td>
+                <td>
+                    <textarea name="FS_INSIDEN_SERUPA" rows="3" cols="36"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td>Analisa RCA</td>
+                <td>
+                    <textarea name="FS_ANALISA_RCA" rows="3" cols="36"></textarea>
+                </td>
+            </tr>
+            <!--
+            <tr>
+                <td>Mengapa 1</td>
+                <td>
+                    <textarea name="FS_PENYEBAB_LANGSUNG" rows="3" cols="36">{$result.FS_PENYEBAB_LANGSUNG}</textarea>
+                </td>
+            </tr>
+            <tr>
+                <td>Mengapa 2</td>
+                <td>
+                    <textarea name="FS_PENYEBAB_LATAR_BELAKANG" rows="3" cols="36">{$result.FS_PENYEBAB_LATAR_BELAKANG}</textarea>
+                </td>
+            </tr>
+            <tr>
+                <td>Mengapa 3</td>
+                <td>
+                    <textarea name="FS_MENGAPA3" rows="3" cols="36">{$result.FS_MENGAPA3}</textarea>
+                </td>
+            </tr>
+            <tr>
+                <td>Mengapa 4</td>
+                <td>
+                    <textarea name="FS_MENGAPA4" rows="3" cols="36">{$result.FS_MENGAPA4}</textarea>
+                </td>
+            </tr>
+            <tr>
+                <td>Mengapa 5</td>
+                <td>
+                    <textarea name="FS_MENGAPA5" rows="3" cols="36">{$result.FS_MENGAPA5}</textarea>
+                </td>
+            </tr>
+            <tr>
+                <td>Rekomendasi & Rencana Tindak Lanjut</td>
+                <td>
+                    <textarea name="FS_REKOMENDASI" rows="3" cols="36">{$result.FS_REKOMENDASI}</textarea>
+                </td>
+            </tr>
+            
+            <tr>
+                <td>Tanggal Kejadian</td>
+                <td>
+                    <input name="FD_TGL_KEJADIAN" type="text" size="10" maxlength="10" value="{$result.FD_TGL_KEJADIAN|default:''}" class="tanggal" readonly="readonly" style="text-align: center;" />
+                </td>
+            </tr>
+            <tr>
+                <td>Tanggal Mulai Investigasi</td>
+                <td>
+                    <input name="FD_TGL_MULAI" type="text" size="10" maxlength="10" value="{$result.FD_TGL_MULAI|default:''}" class="tanggal" readonly="readonly" style="text-align: center;" />
+                </td>
+            </tr>
+            <tr>
+                <td>Tanggal Selesai Investigasi</td>
+                <td>
+                    <input name="FD_TGL_SELESAI" type="text" size="10" maxlength="10" value="{$result.FD_TGL_SELESAI|default:''}" class="tanggal" readonly="readonly" style="text-align: center;" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Penanggung Jawab
+                </td>
+                <td>
+                    <select name="FS_KD_PEG" id="surat_dari" class="select2" style="width: 300px;">
+                        <option value=""></option>
+                        {foreach from=$rs_peg item=data}
+                        <option value="{$data.FS_KD_PEG}" {if $result.FS_KD_PEG eq $data.FS_KD_PEG}selected="selected"{/if}>{$data.FS_NM_PEG}</option>
+                        {/foreach}
+                    </select>
+                </td>
+            </tr>-->
+            <tr class="submit-box">
+                <td colspan="2">
+                    <input type="submit" name="save" value="Simpan" class="edit-button"/>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>

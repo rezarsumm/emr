@@ -1,0 +1,87 @@
+{include file="inap/aplusan/add_script_js.html"}
+<div class="breadcrum">
+    <p>
+        <a href="#">Report</a>
+        <small>Aplusan</small>
+    </p>
+    <div class="clear"></div>
+</div>
+<div class="search-box">
+    <h3><a href="#">Search</a></h3>
+    <form action="{$config->site_url('inap/aplusan/proses_cari')}" method="post">
+        <table class="table-search" width="100%" >
+            <tr>
+                <td>
+                    Layanan :
+                    <select name="layanan">
+                        <option value="">--</option>
+                        {foreach from=$rs_layanan item=layanan}
+                        <option value="{$layanan.KODE_BANGSAL}" {if $search.layanan|default:'' eq {$layanan.KODE_BANGSAL}}selected="selected"{/if}>{$layanan.NAMA_BANGSAL}</option>
+                        {/foreach}
+                    </select>
+                </td>
+                <td>
+                    Periode :
+                    <input name="tanggal" type="text" size="10" maxlength="10" value="{$search.tanggal|default:''}" class="tanggal" readonly="readonly" style="text-align: center;" />
+
+                </td>
+                <td>
+                    <input class="button" type="submit" value="SEARCH" name="save" />
+                    <input class="button" type="submit" value="RESET" name="save" />
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+<div class="dashboard-container">
+    <table class="table-view" width="100%">
+        <tr>
+            <th width="4%">No</th>
+            <th>Tanggal</th>
+            <th>Shift</th>
+            <th>Nama/No RM/Km/Bed</th>
+            <th>Kondisi pasien</th>
+            <th>Catatan lainnya</th>
+            <th>PPJP</th>
+            <th>AKSI</th>
+        </tr>
+        {foreach from=$rs_id item=result}
+        <tr {if ($no % 2) <> 1}class="blink-row"{/if}>
+            <td align="center">{$no++}.</td>
+            <td align="center">{$result.mdd|date_format:"%d %b %Y"}</td>
+            <td align="center">
+                {if $result.FS_SHIFT eq 1}
+                PAGI
+                {elseif $result.FS_SHIFT eq 2}
+                SORE
+                {elseif $result.FS_SHIFT eq 3}
+                MALAM
+                {else}
+                {$result.FS_SHIFT}
+                {/if}
+            </td>
+            <td>{$result.NAMA_PASIEN}/{$result.NO_MR}/{$result.NAMA_RUANG}</td>
+            <td>{$result.FS_KONDISI_PASIEN}</td>
+            <td>{$result.FS_CATATAN}</td>
+            <td>{$result.NAMALENGKAP}</td>
+            <td align="center">
+                {if $com_user.user_name eq $result.mdb}
+                <a href="{$config->site_url('inap/aplusan/edit/'|cat:$result.FS_KD_APULSAN|cat:'/'|cat:$result.NO_REG)}" class="button-edit">Edit</a>
+                {else}
+                   {if $result.penerima neq ''}
+                   diterima oleh {$result.penerima} ({$result.tgl_terima})
+                   {else}
+                          <a href="{$config->site_url('inap/aplusan/terima/'|cat:$result.FS_KD_APULSAN|cat:'/'|cat:$result.NO_REG)}" class="button-edit">Terima</a>
+                
+                     {/if}
+                {/if}
+            </td>
+
+        </tr>
+        {foreachelse}
+        <tr>
+            <td colspan="5">Data not found!</td>
+        </tr>
+        {/foreach}
+    </table>
+</div>

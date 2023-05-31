@@ -1,0 +1,665 @@
+{include file="inap/ass_awal_bidan/add_script_js.html"}
+
+ 
+
+<div class="breadcrum">
+    <p> 
+        <a href="#">IGD</a><span></span>
+         <small>Add Data Asesmen Medis IGD</small>
+    </p>
+    <div class="clear"></div>
+</div> 
+<div class="content-entry">
+    <!-- notification template -->
+     <!-- end of notification template-->
+    <form action="{$config->site_url('igd/medis/add_process')}" method="post" onkeypress="return event.keyCode != 13">
+        <input name="FS_KD_REG" id="FS_KD_REG" type="hidden" value="{$rs_pasien.NO_REG}" />
+        <input name="FS_MR" type="hidden" value="{$rs_pasien.NO_MR}" />
+        <input name="FS_KD_LAYANAN" type="hidden" value="{$rs_pasien.KODE_BANGSAL}" />
+        <input name="FS_KD_PETUGAS_MEDIS" type="hidden" value="{$rs_pasien.fs_kd_medis}" />
+
+        <table class="table-info" width="100%">
+            <tr class="headrow">
+                <th colspan="2"></th>
+            </tr>
+            <tr>
+                <td>NAMA</td>
+                <td>
+                    {$rs_pasien.NAMA_PASIEN}
+                </td>
+            </tr>
+            <tr>
+                <td>NO MR</td>
+                <td>
+                    {$rs_pasien.NO_MR}
+                </td>
+            </tr>
+            <tr>
+                <td>TANGGAL LAHIR</td>
+                <td>
+                    {$rs_pasien.TGL_LAHIR|date_format:"%d %b %Y"}
+                </td>
+            </tr>
+            <tr>
+                <td>ALAMAT</td>
+                <td>{$rs_pasien.ALAMAT}</td>
+            </tr>
+            <tr>
+                <td>UMUR</td>
+                <td>{$rs_pasien.fn_umur} Tahun</td>
+            </tr>
+        </table>
+       
+        <table class="table-input" width="100%">
+            <tr>
+               <td>Kendaraan</td>
+               <td>  
+                     <input type="radio" name="KENDARAAN" {if $rs_triase.CARA_MASUK eq 'Brandkar'} checked {/if} value="Pribadi"  /> Pribadi 
+                      <input type="radio" name="KENDARAAN" {if $rs_triase.CARA_MASUK eq 'Kursi Roda'} checked {/if} value="Ambulance"  /> Ambulance
+                 </td></tr>  
+             <tr>
+                <td>Rujukan Dari</td>
+                <td> <input type="text" name="RUJUKAN" size="40" value="{$rs_triase.rujukan_dari}">  </td></tr>  
+                
+                <tr class="headrow">
+                    <th colspan="4">I. SUBYEKTIF  </th>
+                    
+                </tr>
+            <tr>
+                <td>Keluhan Utama</td>
+                <td colspan="3"><textarea style="width: 600px;" name="FS_ANAMNESA"  >{if $perawat.KEL_UTAMA neq ''}{$perawat.KEL_UTAMA}{else}{$bidan.FS_ANAMNESA}{/if}</textarea></td>
+                
+            </tr>
+            <tr> 
+                <td width='20%'>Riwayat Penyakit Sekarang</td>
+                <td width='40%'>
+                    <textarea style="width: 300px;" name="RIW_PENYAKIT_NOW"  >{if $perawat.KEL_SEKARANG neq ''}{$perawat.KEL_SEKARANG}{/if} </textarea>
+
+                </td>
+               
+                <td width='20%'>Riwayat Penyakit dahulu</td>
+                <td width='40%'>
+                    <input type="text" name="FS_RIW_PENYAKIT_DAHULU" value="{$perawat.RIWAYAT_SAKIT|default:'-'}" size="32">
+                </td>
+            </tr>
+            <tr>
+                <td width='20%'>Riwayat Perawatan Sebelumnya</td>
+                <td width='40%'>
+                    <input type="text" name="RIW_PERAWATAN" value="{$result3.FS_RIW_PENYAKIT_DAHULU|default:'-'}" size="32">
+                </td>
+                <td width='20%'>Terapi & Tindakan yang pernah dilakukan</td>
+                <td width='30%'>
+                    <input type="text" name="RIW_TINDAKAN" value="{$result3.FS_RIW_PENYAKIT_DAHULU2|default:'-'}" size="32">
+                </td>
+                <!-- <td width='20%'>Riwayat penyakit keluarga</td>
+                <td width='30%'>
+                    <input type="text" name="FS_RIW_PENYAKIT_DAHULU2" value="{$result3.FS_RIW_PENYAKIT_DAHULU2|default:'-'}" size="32">
+                </td> -->
+            </tr>
+ 
+            <tr>
+                <td width='20%'>Riwayat Alergi</td>
+                <td width='30%'>
+                    <input type="text" name="FS_ALERGI" {if $perawat.RIWAYAT_ALERGI_MAKANAN neq ''} value="{$perawat.RIWAYAT_ALERGI_MAKANAN}" {else}  value="{$result3.FS_ALERGI}" {/if}>
+                    <em style="color:red">* Wajib Diisi</em>
+                </td>
+                <td width='20%'>Reaksi Alergi</td>
+                <td width='30%'>
+                    <input type="text" name="FS_REAK_ALERGI"  value="{$result3.FS_REAK_ALERGI}">
+                    <em style="color:red">* Wajib Diisi</em>
+                </td>
+            </tr>
+
+            <tr><td colspan="4"> <br><br>Bio Sosio Kultural</td></tr>
+            <tr>
+                <td width='20%'>Status Pernikahan  </td>
+                <td width='30%'> 
+                    <input type="radio" name="PERNIKAHAN"  {if $perawat.MENIKAH eq 'Belum'} checked {/if}   value="Belum">Belum
+                    <input type="radio" name="PERNIKAHAN" {if $perawat.MENIKAH eq 'Menikah'} checked {/if}   value="Menikah">Menikah
+                    <input type="radio" name="PERNIKAHAN"  {if $perawat.MENIKAH eq 'Janda/Duda'} checked {/if}  value="Janda/Duda">Janda/Duda
+                 </td>
+                <td width='20%'>Pekerjaan    </td>
+                <td width='30%'>
+                     <input type="text" name="JOB" value="{$perawat.JOB}"  value=" "> 
+                </td>
+            </tr>
+
+            <tr>
+                <td width='20%'>Agama</td>
+                <td width='30%'>
+                    <select name="FS_AGAMA" id="surat_dari" class="select2" style="width: 190px;">
+                        <option value="1">Islam</option>
+                        <option value="2">Kristen</option>
+                        <option value="3">Katholik</option>
+                        <option value="4">Hindu</option>
+                        <option value="5">Buda</option>
+                        <option value="6">Konghucu</option>
+                    </select>
+                </td>
+                <td width='20%'>Suku    </td>
+                <td>
+                    <input type="text" name="SUKU"  value="{$perawat.SUKU}"> 
+
+                </td>
+             </tr>
+
+             <tr class="headrow">
+                <th colspan="4">II. OBJEKTIF  </th>
+                
+            </tr>
+            <tr>
+                <td width='20%'>Status Psikologis</td>
+                <td width='30%'>
+                    <select name="FS_STATUS_PSIK">
+                        <option value=""  {if $ases2.FS_STATUS_PSIK eq ''} selected="" {/if}  onclick='document.getElementById("civstaton3").disabled = true'>--Pilih Data--</option>
+                        <option value="1" {if $ases2.FS_STATUS_PSIK eq '1'} selected="" {/if} onclick='document.getElementById("civstaton3").disabled = true'>Tenang</option>
+                        <option value="2" {if $ases2.FS_STATUS_PSIK eq '2'} selected="" {/if} onclick='document.getElementById("civstaton3").disabled = true'>Cemas</option>
+                        <option value="3" {if $ases2.FS_STATUS_PSIK eq '3'} selected="" {/if} onclick='document.getElementById("civstaton3").disabled = true'>Takut</option>
+                        <option value="4" {if $ases2.FS_STATUS_PSIK eq '4'} selected="" {/if} onclick='document.getElementById("civstaton3").disabled = true'>Marah</option>
+                        <option value="5" {if $ases2.FS_STATUS_PSIK eq '5'} selected="" {/if} onclick='document.getElementById("civstaton3").disabled = true'>Sedih</option>
+                        <option value="6" {if $ases2.FS_STATUS_PSIK neq '' &&  $ases2.FS_STATUS_PSIK neq '1' && $ases2.FS_STATUS_PSIK neq '2'&& $ases2.FS_STATUS_PSIK neq '3'&& $ases2.FS_STATUS_PSIK neq '4'&& $ases2.FS_STATUS_PSIK neq '5'}selected="" {/if}onclick='document.getElementById("civstaton3").disabled = false'>Lainnya</option>
+                    </select>
+                    <br><br>
+                    <!-- <input type="text" name="FS_STATUS_PSIK2" id="civstaton3" {if $ases2.FS_STATUS_PSIK2 eq '0'}disabled=""{/if} size="27" value="{$ases2.FS_STATUS_PSIK2}"> -->
+                </td>
+                <td width='20%'>Status Mental</td>
+                <td width='30%'>
+                    <select name="MENTAL">
+                         <option value="Kooperatif" {if $ases2.MENTAL eq '1'} selected="" {/if} 
+                         onclick='document.getElementById("civstaton3").disabled = true'>Kooperatif</option>
+                         <option value="Tidak Kooperatif" {if $ases2.MENTAL eq '1'} selected="" {/if} 
+                         onclick='document.getElementById("civstaton3").disabled = true'>Tidak Kooperatif</option>
+                         <option value="Gelisah" {if $ases2.MENTAL eq '1'} selected="" {/if} 
+                         onclick='document.getElementById("civstaton3").disabled = true'>Gelisah</option>
+                       </select>
+                    <br><br>
+                 </td>
+                <!-- <td width='39%'>Hubungan dengan anggota keluarga</td>
+                <td width='30%'>
+                    <select name="FS_HUB_KELUARGA" id="surat_dari" class="select2" style="width: 170px;">
+                        <option value="" {if $ases2.FS_HUB_KELUARGA eq ''} selected="" {/if}>--Pilih Data--</option>
+                        <option value="1" {if $ases2.FS_HUB_KELUARGA eq '1'} selected="" {/if}>Baik</option>
+                        <option value="2" {if $ases2.FS_HUB_KELUARGA eq '2'} selected="" {/if}>Tidak Baik</option>
+    
+                    </select>
+                </td> -->
+            </tr>
+            <tr><td width='40%'>Tanda Tanda Vital  </td>
+                <td width='40%'>
+                    <textarea name="PEMERIKSAAN_FISIK" rows="10" style="width:250px;">
+                        Kesadaran : {if $perawat.KESADARAN neq ''}{$perawat.KESADARAN}{else}{$bidan.SADAR}{/if}      
+                        Suhu      : {if $perawat.S neq ''}{$perawat.S}{else}{$bidan.S}{/if}C
+                        Nadi      : {if $perawat.N neq ''}{$vs.N}{else}{$bidan.N}{/if}x/menit            
+                        R         : {if $perawat.R neq ''}{$perawat.R}{else}{$bidan.R}{/if} x/menit      
+                        TD        : {if $perawat.TD neq ''}{$perawat.TD}{else}{$bidan.TD}{/if}MmHg
+                        TB        : {if $perawat.TB neq ''}{$perawat.TB}{else}{$bidan.TB}{/if}cm                
+                        BB        : {if $perawat.BB neq ''}{$perawat.BB}{else}{$bidan.BB}{/if}kg           
+                        GCS       : {$perawat.GCS}   
+                 </textarea>
+                </td>
+                <td colspan="2">
+                    <table>
+                        <tr>  <td>  Lingkar Kepala</td><td><input type="text" name="LINGKAR_KEPALA" value="{$perawat.LINGKAR_KEPALA}"></td></tr>
+                      
+                         <tr>  <td> Skor Nyeri</td><td>  <input type="text" name="NYERIS" value="{$nyeri.NYERIS}"></td></tr>
+                         <tr>  <td> Alat Bantu</td><td>  <input type="text" name="ALAT_BANTU" value="{$nyeri.NYERIS}"></td></tr>
+                         <tr>  <td>    Cacat Tubuh</td><td>  <input type="text" name="CACAT" value="{$nyeri.NYERIS}"></td></tr>
+                         <tr>  <td>    ADL</td><td>  <input type="text" name="ADL" value="{$nyeri.NYERIS}"></td></tr>
+                       
+                         
+                    </table>
+                   
+                  
+                </td>
+            </tr>
+            <tr>  <td>  Status Gizi</td>
+                  <td> 
+                    <input type="radio" name="STATUS_GIZI" checked value="Baik">Baik
+                    <input type="radio" name="STATUS_GIZI" value="Cukup">Cukup
+                    <input type="radio" name="STATUS_GIZI" value="Kurang">Kurang
+                </td> 
+                 <td>    Resiko Jatuh</td><td>  
+                    <input type="radio" name="RESIKO_JATUH" checked value="Ringan">Ringan
+                    <input type="radio" name="RESIKO_JATUH" value="Sedang">Sedang
+                    <input type="radio" name="RESIKO_JATUH" value="Berat">Berat
+                </td></tr>
+       
+ <tr class="headrow">
+            <th colspan="4"> </th> 
+        </tr>
+        <tr>
+            <td width='40%'>Konjungtiva  </td>
+            <td width='40%'>
+                <input type="radio" name="KONJUNGTIVA" {if $medis.KONJUNGTIVA eq 'Pucat'} checked="" {/if} value="Pucat">Pucat
+                <input type="radio" name="KONJUNGTIVA" {if $medis.KONJUNGTIVA eq 'Pink'} checked="" {/if} value="Pink">Pink
+                <input type="hidden" name="KONJUNGTIVA" value="">
+            </td>
+            <td width='40%'>Deviasi Trakea  </td>
+            <td width='40%'>
+                <input type="radio" name="DEVIASI" {if $medis.DEVIASI eq 'Kanan'} checked="" {/if}  value="Kanan">Kanan
+                <input type="radio" name="DEVIASI" {if $medis.DEVIASI eq 'Kiri'} checked="" {/if} value="Kiri"> Kiri
+                <input type="radio" name="DEVIASI" {if $medis.DEVIASI eq ''} checked="" {/if} value=""> Tidak Ada
+                <input type="hidden" name="DEVIASI" value="">
+                
+            </td>
+         </tr>
+         <tr>
+            <td width='20%'>Skelera  </td>
+            <td width='40%'>
+                <input type="radio" name="SKELERA" {if $medis.SKELERA eq 'Ikterik'} checked="" {/if} value="Ikterik">Ikterik
+                <input type="radio" name="SKELERA" {if $medis.SKELERA eq 'Tidak'} checked="" {/if} value="Tidak"> Tidak Ikterik
+                <input type="hidden" name="SKELERA" value="">
+                
+            </td>
+            <td width='20%'>JVP  </td>
+            <td width='40%'>
+                <input type="radio" name="JVP" {if $medis.JVP eq 'Meningkat'} checked="" {/if}  value="Meningkat">Meningkat
+                <input type="radio" name="JVP" {if $medis.JVP eq 'Tidak'} checked="" {/if}   value="Tidak"> Tidak 
+                <input type="hidden" name="JVP" value="">
+            
+         </tr>
+         <tr>
+            <td width='20%'>Bibir/Lidah  </td>
+            <td width='40%'>
+                <input type="radio" name="BIBIR" {if $medis.BIBIR eq 'Sianosis'} checked="" {/if}  value="Sianosis">Sianosis
+                <input type="radio" name="BIBIR" {if $medis.BIBIR eq 'Tidak'} checked="" {/if}  value="Tidak"> Tidak
+                <input type="hidden" name="BIBIR" value="">
+                
+            </td>
+         </tr>
+         <tr>
+            <td width='20%'>Mukosa </td>
+            <td width='40%'>
+                <input type="radio" name="MUKOSA" {if $medis.MUKOSA eq 'Kering'} checked="" {/if}  value="Kering">Kering
+                <input type="radio" name="MUKOSA" {if $medis.MUKOSA eq 'Tidak'} checked="" {/if}  value="Tidak"> Basah
+                <input type="hidden" name="MUKOSA" value="">
+          
+            </td>
+         </tr>
+
+         <tr class="headrow">
+            <th colspan="2">THORAX  </th>
+            <th colspan="2"> JANTUNG </th>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <textarea cols="80" rows="1" name="THORAX"> {$medis.THORAX}</textarea>
+            </td>
+            <td colspan="2">
+                <textarea cols="80" rows="1" name="JANTUNG">{$medis.JANTUNG}</textarea>
+
+            </td>
+        </tr>
+
+        <tr class="headrow">
+            <th colspan="2">PARU  </th>
+            <th colspan="2"> ABDOMEN & PINGGANG </th>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <textarea cols="80" rows="1" name="ABDOMEN">{$medis.ABDOMEN} </textarea>
+            </td>
+            <td colspan="2">
+                <textarea cols="80" rows="1" name="PINGGANG"> {$medis.PINGGANG} </textarea>
+
+            </td>
+        </tr>
+
+        <tr class="headrow">
+            <th colspan="4">EKSTREMITAS  </th> 
+        </tr>
+        <tr>
+            <td colspan="2"> Atas
+                <textarea cols="75" rows="1" name="EKS_ATAS">{$medis.EKS_ATAS} </textarea>
+            </td>
+            <td colspan="2">Bawah
+                <textarea cols="73" rows="1" name="EKS_BAWAH">{$medis.EKS_BAWAH} </textarea>
+
+            </td>
+        </tr>
+             
+        <tr class="headrow">
+            <th colspan="4">  Pemeriksaan Penunjang</th>
+        </tr>
+        <tr>
+            <td>Laboratorium</td>
+            <td><select name="rlab[]" multiple id="rlab" style="width:250px">
+                <option></option>
+                </select></td>
+            <td>Radiologi</td>
+            <td>   <select name="rrad[]" multiple id="rrad" style="width:200px">
+                <option></option>
+            </select></td>
+        </tr>
+    
+
+
+            <tr class="headrow">
+                <th colspan="2">Daftar Masalah</th>
+                <th colspan="2">Diagnosa</th>
+            </tr>
+            <tr>
+                <td colspan="2">
+                      <textarea cols="80" rows="3"  name="MASALAH_KES">
+                       {$medis.FS_DAFTAR_MASALAH}
+                    </textarea>
+
+                </td>
+                <td colspan="2">
+                    <textarea cols="80" rows="1" name="FS_DIAGNOSA">{$medis.FS_DIAGNOSA}  </textarea><br>
+                        Kode ICD 10 ( bila terdiagnosa TBC)
+                        <select name="kode_icd_x"  class="select2" id="kode" style="width:300px">
+                         <option value=""></option>
+                         {foreach $icd as $kode} 
+                         <option value="{$kode.KODE}">{$kode.KET} | {$kode.KODE}</option>
+                         {/foreach}
+                         </select>
+                   
+
+                </td>
+            </tr>
+            <tr class="headrow">
+                    <th colspan="2">Rencana Tindakan</th>
+                    <th colspan="2">Diet</th>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <textarea cols="80" rows="1" name="RENCANA">{$result2.FS_TINDAKAN}</textarea>
+                 </td>
+                 <td colspan="2">
+                    <textarea cols="80" rows="1" name="DIET"> </textarea>
+                 </td>
+            </tr>
+         
+               <tr class="headrow">
+                <th colspan="2">Resep</th>
+                <th colspan="2">  KONSUL DPJP</th>
+            </tr>
+            <tr>
+                <td colspan="2">   
+                     <table>
+                    <tr>
+                        <td> Nama Obat </td>
+                        <td> Numero </td>
+                        <td> Signa </td>
+                    </tr>
+                     <tr> 
+                            <td>  <select name="namaobat[]" class="namaobat select2"   multiple id="namaobat" cols="80" style="width:210px">
+                                 <option></option> 
+                              </select>
+                            </td>
+                            <td ><input cols="5" type="text" class="numero" name="numero" style="width: 40px;" onkeypress="handleKeyPress(event)" ></td>
+                            <td><input cols="20" type="text" name="dosis" class="dosis" style="width: 50px;" onkeypress="handleKeyPress(event)"></td>
+                        </tr>
+                   </table>
+
+
+                    <textarea rows="15" class="form-control resep"  cols="60" name="FS_TERAPI"> 
+                        {$data.FS_TERAPI}
+                        
+                    </textarea> 
+                </td> 
+               <td colspan="2"> Dokter Spesialis
+                <select name="KD_DOKTER_KONSUL" id="surat_dari" class="select2" style="width: 300px;">
+                    <option value=""></option>
+                    {foreach from=$rs_dokter_sp item=data}
+                    <option value="{$data.NAMAUSER}">{$data.NAMALENGKAP}</option>
+                    {/foreach}
+                </select>
+                <br><br>Uraian Konsul (Tanggal, Jam, Instruksi) <br><br>
+                <textarea rows="14" class="form-control"  cols="60" name="KONSUL"> </textarea>
+                
+               </td>
+               
+            </tr>
+
+            <tr>
+                <td>Edukasi</td>
+                <td colspan="4">
+                   <input type="text" name="EDUKASI" style="width: 250px;">
+                </td></tr>
+           <tr>
+                 <td>Discharge Planning</td>
+                <td colspan="1">
+                 <input type="radio" name="D_PLANNING" checked class="rad" value="Pulang"> Pulang
+                 <input type="radio" name="D_PLANNING" class="rad" value="Inap"> Inap
+                 <input type="radio" name="D_PLANNING" class="rad" value="Kontrol"> Kontrol Poli
+                 <input type="radio" name="D_PLANNING" class="rad" value="Rujuk"> Rujuk
+                 </td>
+                 </tr>
+            <tr id="form2" style="display: none;">
+                <td  > Alasan Rujuk   <input type="text" name="ALASAN_RUJUK"></td>
+                <td >  Transport keluar<br>  
+                         <input type="radio" name="TRANSPORT_KELUAR" value="Ambulance RS">Ambulance RS <br>
+                     <input type="radio" name="TRANSPORT_KELUAR" value="Ambulance 118">Ambulance 118<br>
+                     <input type="radio" checked name="TRANSPORT_KELUAR" value="Pribadi">Pribadi <br>
+                    </td>
+                  
+           </tr>
+           <tr>
+            <td>Kondisi Akhir Pasien</td>
+            <td>
+               <input type="radio" checked name="KONDISI_AKHIR" value="Membaik">Membaik
+               <input type="radio" name="KONDISI_AKHIR" value="Tetap">Tetap
+               <input type="radio" name="KONDISI_AKHIR" value="Memburuk">Memburuk
+               <input type="radio" name="KONDISI_AKHIR" value="Meninggal">Meninggal
+            </td>
+            <td>Jam Selesai diperiksa</td>
+            <td><input type="time" name="JAM_SELESAI"></td>
+       </tr>
+
+ 
+           
+
+          <tr class="submit-box">
+                <td colspan="4">
+                    <input type="submit" name="save" value="Simpan" class="edit-button"/>
+                </td>
+            </tr>
+           
+
+
+
+        </table>
+    </form>
+</div>
+
+ 
+
+<script type="text/javascript"> 
+    var user = $("#user").val(); 
+           
+    $(".select2").select2({
+            placeholder: "Pilih",
+            allowClear: true
+        });
+            $("#namaobat").select2({});
+    
+     
+//rencana lab
+           $('#rlab').select2('data', null);
+            $('#rlab').select2('data', null);
+            $("#rlab").removeAttr("disabled");
+            jQuery("#rlab").html('');
+            $.ajax({
+            type: "POST",
+                    url: "{$config->site_url('medis/rawat_jalan/list_pemeriksaan_rlab/')}",
+                    data: "user=" + user,
+                    dataType: 'json',
+                    success: function(data) {
+                    var showData;
+                            jQuery.each(data, function(index, result) {
+                            if (result.value == 0) {
+                            } else {
+                            showData += "<option value='" + result.value + "'>" + result.label + "</option>";
+                            }
+                            })
+                            jQuery("#rlab").html(showData);
+                    }
+            });
+             $("#rlab").select2({});
+
+
+
+             //rencana radiologi
+               $('#rrad').select2('data', null);
+            $('#rrad').select2('data', null);
+            $("#rrad").removeAttr("disabled");
+            jQuery("#rrad").html('');
+            $.ajax({
+            type: "POST",
+                    url: "{$config->site_url('medis/rawat_jalan/list_pemeriksaan_rrad/')}",
+                    data: "user=" + user,
+                    dataType: 'json',
+                    success: function(data) {
+                    var showData;
+                            jQuery.each(data, function(index, result) {
+                            if (result.value == 0) {
+                            } else {
+                            showData += "<option value='" + result.value + "'>" + result.label + "</option>";
+                            }
+                            })
+                            jQuery("#rrad").html(showData);
+                    }
+            });
+             $("#rrad").select2({});
+</script>
+
+
+<script>
+        var namaa = $(".namaa").val();
+               $('.namaa').val(namaa+'\n R/ \t   no. \n S                    \n ----------------------------------------\n '); 
+       
+       
+                $('.resepracik').val('\n /R');
+ 
+
+               function tambahkop(e){
+                   var yhr= new XMLHttpRequest();
+                var key=e.keyCode || e.which;
+                 if (key==13){
+                               var resepracik = $(".resepracik").val(); 
+                                   $('.resepracik').val(resepracik+'S                 \n ---------------------------------------- \n \n'+'R/  '); // Close / Tutup Modal Dialog
+                 //    // alert(namaa);
+                 }
+               }
+        
+       
+       
+   function handleKeyPress(e){
+                   var yhr= new XMLHttpRequest();
+                var key=e.keyCode || e.which;
+                 if (key==13){
+                               var namaobat = $("#namaobat").val();
+                               var numero = $(".numero").val();
+                               var dosis = $(".dosis").val();
+                             var kolomresep= document.getElementById("kolomresep");
+                              var resep = $(".resep").val();
+       
+       $('.resep').val(resep+'\n /R   '+namaobat+'   no. '+numero+'\n S    '+dosis+'\n ----------------------------------------------- \n '); 
+               //    alert(namaobat+numero+dosis);
+                  $('#namaobat').select2('data', null);
+                  $('.numero').val(null);
+                  $('.dosis').val(null);
+        
+               //    $("#namaobat").select2({}).focus();
+                  $("#namaobat").select2('open');
+        
+                 }
+               }
+
+var x=event.key;
+if(x=='a'||x=='A'){
+    alert("hore");
+}
+           
+
+ function handle2(e){
+                   var key=e.keyCode || e.which;
+                 if (key==13){
+                               var namaobat1 = $("#namaobat1").val();
+                               var numero1 = $(".numero1").val();
+                            //    var dosis1 = $(".dosis1").val();
+                                var resepracik = $(".resepracik").val();
+       
+       $('.resepracik').val(resepracik+'    '+namaobat1+'   no. '+numero1+'\n     '); 
+               //    alert(namaobat+numero+dosis);
+                  $('#namaobat1').select2('data', null);
+                  $('.numero1').val(null);
+                  $('.dosis1').val(null);
+        
+               //    $("#namaobat").select2({}).focus();
+                  $("#namaobat1").select2('open');
+        
+                 }
+               }
+ 
+       
+    </script> 
+       
+       
+       <script type="text/javascript"> 
+           var user = $("#user").val(); 
+       
+           $('#namaobat').select2('data', null);
+                   $('#namaobat').select2('data', null);
+                   $("#namaobat").removeAttr("disabled");
+       
+                   jQuery("#namaobat").html('');
+                   $.ajax({
+                   type: "POST", 
+                           url: "{$config->site_url('medis/rawat_jalan/list_nama_obat/')}",
+                           data: "user=" + user,
+                           dataType: 'json',
+                           success: function(data) {
+                           var showData;
+                                   jQuery.each(data, function(index, result) {
+                                   if (result.value == 0) {
+                                   } else {
+                                   showData += "<option value='" + result.value + "'>" + result.label + "</option>";
+                                   }
+                                   })
+                                   jQuery("#namaobat").html(showData);
+                           }
+                   });
+                   //tags
+                  
+
+                   $('#namaobat1').select2('data', null);
+                   $('#namaobat1').select2('data', null);
+                   $("#namaobat1").removeAttr("disabled");
+       
+                   jQuery("#namaobat1").html('');
+                   $.ajax({
+                   type: "POST", 
+                           url: "{$config->site_url('medis/rawat_jalan/list_nama_obat/')}",
+                           data: "user=" + user,
+                           dataType: 'json',
+                           success: function(data) {
+                           var showData;
+                                   jQuery.each(data, function(index, result) {
+                                   if (result.value == 0) {
+                                   } else {
+                                   showData += "<option value='" + result.value + "'>" + result.label + "</option>";
+                                   }
+                                   })
+                                   jQuery("#namaobat1").html(showData);
+                           }
+                   });
+
+                    $("#namaobat1").select2({});
+
+
+               
+      $(":radio.rad").click(function(){
+        $("#form2").hide(); 
+
+        if($(this).val() == "Rujuk"){
+          $("#form2").show(); 
+        }else{
+          $("#form2").hide(); 
+        }
+      });
+
+
+       </script>

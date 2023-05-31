@@ -1,0 +1,308 @@
+ 
+<div class="breadcrum">
+    <p>
+        <a href="#">Medical Record</a><span></span>
+        <small>Berkas</small>
+    </p>
+    <div class="clear"></div>
+</div>
+ 
+<div class="dashboard-container" style="margin:30px; font-size: 15px;">
+
+    <table class="table-info" width="80%">
+        <tr class="headrow">
+            <th colspan="4"> <h3>Data Pasien</h3></th>
+        </tr>
+        <tr>
+            <td width='15%'>No RM</td>
+            <td width='35%'>{$result.NO_MR}</td>
+            <td width='15%'>Nama</td>
+            <td width='35%'>{$result.NAMA_PASIEN|default:''}</td>
+        </tr>
+        <tr>
+            <td>Alamat</td>
+            <td>{$result.ALAMAT|default:''}</td>
+            <td>Tanggal Lahir</td>
+            <td>{$result.TGL_LAHIR|default:''}</td>
+        </tr>
+        <tr>
+            <td>Jenis Kelamin</td>
+            <td>{if $result.JENIS_KELAMIN eq 'P'}
+                Perempuan
+                {else}
+                Laki-Laki
+                {/if}</td>
+            <td></td>
+            <td>
+                
+            </td>
+        </tr>
+       
+    </table> 
+
+
+<div class="row">
+    <div class="col-md-6">
+    
+         <table class="table-view" width="80%" border="0" style="font-size: 13px;">
+        <thead>
+            <tr>
+              
+                <th>Nama Berkas</th>
+                <th>Aksi</th>
+            </tr>
+        </thead>
+        <tbody> 
+            <!-- <tr>
+              
+                <td>
+                     <a href="javascript:void(0);" onclick="window.open('{$config->site_url('rm/rawat_jalan/cetak_rm/'|cat:$result.NO_REG|cat:'/11')}', 'nama_window_pop_up', 'scrollbars=yes,resizeable=no')" class="button-download">
+                    Asesmen IGD
+                     </a>
+                     </td>
+                
+                    </tr>
+            <tr> -->
+               
+                <td>  Asesmen Awal Medis Rawat Inap    </td> 
+                 <td> 
+                    {if $ases_medis.mdd neq ''}
+
+                         <a href="javascript:void(0);" onclick="window.open('{$config->site_url('rm/rawat_inap/cetak_rm/'|cat:$result.NO_REG|cat:'/11')}', 'nama_window_pop_up', 'scrollbars=yes,resizeable=no')" class="button-download"> Cetak 
+                        </a>
+                    {/if}
+
+                    {if $ases_medis.mdd >= $tgl_kemarin || $com_user.role_nm eq 'Admin E-MR'}   
+                            <a href="{$config->site_url('medis/rawat_inap/edit_umum/'|cat:$ases_medis.FS_KD_REG|default:'')}" class="button-edit"> Edit</a> 
+                    {/if}
+                </td> 
+                 </tr>
+            <tr> 
+                
+                <td>   Asesmen Awal Keperawatan Rawat Inap   </td>
+                <td>
+                    {if $ases_perawat.mdd neq ''}
+
+
+                    <a href="javascript:void(0);" onclick="window.open('{$config->site_url('rm/rawat_inap/cetak_rm/'|cat:$result.NO_REG|cat:'/5')}', 'nama_window_pop_up', 'scrollbars=yes,resizeable=no')" class="button-download"> Cetak </a>
+
+                    {/if}
+                    {if $ases_perawat.mdd >= $tgl_kemarin || $com_user.role_nm eq 'Admin E-MR'}   
+                        <a href="{$config->site_url('inap/ass_awal/edit/'|cat:$ases_perawat.FS_KD_REG|default:'')}" class="button-edit"> Edit</a> 
+                    {/if}
+
+                </td></tr>
+           <tr>
+           
+            <td>  Asesmen Awal Kebidanan Rawat Inap  </td> 
+                <td>
+                    {if $ases_bidan.mdd neq ''}
+
+                         <a href="javascript:void(0);" onclick="window.open('{$config->site_url('rm/rawat_inap/cetak_rm/'|cat:$result.NO_REG|cat:'/12')}', 'nama_window_pop_up', 'scrollbars=yes,resizeable=no')" class="button-download"> Cetak </a>
+
+                     {/if}
+
+                    {if $ases_bidan.mdd >= $tgl_kemarin || $com_user.role_nm eq 'Admin E-MR'}   
+                        <a href="{$config->site_url('inap/ass_awal_bidan/edit/'|cat:$ases_bidan.FS_KD_REG|default:'')}" class="button-edit"> Edit</a> 
+                    {/if}
+
+                </td>
+            </tr>
+            
+            <tr>
+               
+                <td>   Rencana Keperawatan  </td> 
+                <td>  
+                    
+                    <a href="{$config->site_url('rm/berkas/detail_rencana/'|cat:$result.NO_REG|default:'')}"  class="button-show">Detail</a>  
+                 
+       
+                </td>
+            </tr>
+            <tr>
+              
+                <td>   Tindakan Keperawatan   </td>
+                <td>  
+                  
+                    <a href="{$config->site_url('rm/berkas/detail_tindakan/'|cat:$result.NO_REG|default:'')}"  class="button-show">Detail</a>  
+                 
+       
+                </td>
+            </tr>
+            <tr>
+               
+                <td>   Catatan Pemberian Obat    </td>
+                     <td>  
+                         
+                        <a href="{$config->site_url('rm/berkas/detail_obat/'|cat:$rencana.FS_KD_REG|default:'')}"  class="button-show">Detail</a>  
+                       
+           
+                    </td>
+                 </tr>
+
+           
+               
+                <td>  CPPT  </td>
+                    <td>  
+                          
+                        <a href="{$config->site_url('rm/berkas/detail_cppt/'|cat:$result.NO_REG|default:'')}"  class="button-show">Detail</a>  
+                       
+           
+                    </td>
+                 </tr>
+
+                 <tr>
+              
+                    <td>  Catatan Edukasi 
+                        </td>
+                        <td> 
+                             <a href="javascript:void(0);" onclick="window.open('{$config->site_url('rm/rawat_inap/cetak_rm/'|cat:$result.NO_REG|cat:'/4')}', 'nama_window_pop_up', 'scrollbars=yes,resizeable=no')" class="button-download"> Cetak
+                            </a>
+                          </td>
+                      </tr>
+                <tr>
+
+                <tr> 
+                 <td>  EWS
+                        </td>
+                        <td> 
+                             <a href="{$config->site_url('rm/berkas/detail_ews/'|cat:$result.NO_REG|default:'')}"  class="button-show">Detail</a>    </td>
+                      </tr>
+                <tr>
+                   
+                    <td>  Asesmen Jatuh  
+                         </td> 
+                    <td>
+
+                         <a href="javascript:void(0);" onclick="window.open('{$config->site_url('rm/rawat_inap/cetak_rm/'|cat:$result.NO_REG|cat:'/'|cat:'6')}', 'nama_window_pop_up', 'scrollbars=yes,resizeable=no')" class="button-download"> Cetak </a>
+                        </td>
+                      
+
+                    </tr>
+
+                      <tr>
+                   
+                    <td>  Rencana Pulang Pasien   
+                         </td> 
+                    <td>
+                        {if $rencana_pulang.MDD neq ''}
+                         <a href="javascript:void(0);" onclick="window.open('{$config->site_url('igd/ews/cetak_pulang/'|cat:$result.NO_REG|cat:'/'|cat:'6')}', 'nama_window_pop_up', 'scrollbars=yes,resizeable=no')" class="button-download"> Cetak </a>
+                        </td>
+                      {/if}
+
+                    </tr>
+
+                <tr>
+
+
+                  {if $dataop  neq '0'}
+           <tr>
+                
+                <td>
+                    <a href="javascript:void(0);" onclick="window.open('{$config->site_url('rm/rawat_inap/cetak_rm_ok/'|cat:$result.NO_REG|cat:'/1')}', 'nama_window_pop_up', 'scrollbars=yes,resizeable=no')" class="button-download">
+
+                  Catatan Operasi
+                     </a>
+                     </td></tr>
+          
+                {/if}
+                        <!-- <tr>
+                                <td>9</td>
+                                <td>
+                                    <a href="#" class="button-download">
+                                    Asuhan Gizi
+                                    </a>
+                                    </td>
+                                
+                        
+                        </tr>-->
+           
+
+            <tr>
+               
+                <td> Hasil laboratorium dan Radiologi </td>
+                <td>
+
+                    <a href="javascript:void(0);" onclick="window.open('{$config->site_url('rm/rawat_inap/cetak_rm/'|cat:$result.NO_REG|cat:'/10')}', 'nama_window_pop_up', 'scrollbars=yes,resizeable=no')" class="button-download"> Cetak </a>
+                </td>
+                   
+                </tr>
+            <tr>
+                
+                <td>  Resume Pasien Pulang     </td>
+                <td>
+                    {if $rs_resume.mdd_update neq ''}
+
+
+                    <a href="javascript:void(0);" onclick="window.open('{$config->site_url('rm/rawat_inap/cetak_rm/'|cat:$result.NO_REG|cat:'/2')}', 'nama_window_pop_up', 'scrollbars=yes,resizeable=no')" class="button-download"> Cetak </a>
+                    {/if}
+                    {if $rs_resume.mdd_update >= $tgl_kemarin || $com_user.role_nm eq 'Admin E-MR'}   
+                        <a href="{$config->site_url('inap/resume/edit/'|cat:$rs_resume.FS_KD_REG|default:'')}" class="button-edit"> Edit</a> 
+                    {/if}
+                </td>
+            </tr>
+            
+                <!--<tr>
+                    <td>13</td>
+                    <td>
+                        <a href="javascript:void(0);" onclick="window.open('{$config->site_url('rm/rawat_inap/cetak_rm/'|cat:$result.NO_REG|cat:'/9')}', 'nama_window_pop_up', 'scrollbars=yes,resizeable=no')" class="button-download">
+                        Rekonsiliasi Obat
+                        </a>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td>13</td>
+                    <td>
+                        <a href="javascript:void(0);" onclick="window.open('{$config->site_url('rm/rawat_inap/cetak_rm/'|cat:$result.NO_REG|cat:'/12')}', 'nama_window_pop_up', 'scrollbars=yes,resizeable=no')" class="button-download">
+                        HHC
+                        </a>
+                    </td>
+                </tr>-->
+        
+            </tbody>
+        </table>
+    </div>
+    <div class="col-md-6">
+
+        <br><br> 
+        File Scan 
+        <table class="table-view" width="80%" border="0">
+            <thead>
+                <tr>
+                    <th width='10%'>Tanggal Upload</th>
+                    <th>Kode Reg</th>
+                    <th>Jenis Berkas</th>
+                    <th>Nama Berkas</th>
+                    <th width='10%'>Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                {foreach from=$rs_berkas item=data}
+                <tr>
+                    <td>{$data.mdd|date_format :"%d %B %Y"}</td>
+                    <td>{$data.FS_KD_REG}</td>
+                    <td>
+                        {if $data.FS_JENIS_BERKAS eq '1'}
+                        Form Scan
+                        {elseif $data.FS_JENIS_BERKAS eq '2'}
+                        Rujukan
+                        {/if}
+                    </td> 
+                    <td align='center'>
+                        <a class="button-approve" href="{$config->site_url('rm/upload/download/'|cat:$data.att_name|default:'')}">
+                            <b>{$data.att_name}</b>
+                        </a>
+                    </td>
+                    <td>
+            <center>
+                <a href="{$config->site_url('rm/upload/delete_process/'|cat:$data.FS_KD_TRS|cat:'/'|cat:$data.FS_KD_REG)}" onclick="return confirm('Tenan Meh Mbok Hapus???');" class="button-hapus">Hapus</a>
+            </center>     
+            </td>
+            </tr>
+            {/foreach}
+            </tbody>
+        </table>
+      </div>
+    </div>
+</div>

@@ -1,0 +1,260 @@
+<!-- include javascript -->
+{include file="inap/covid/add_script_js.html"}
+<!-- end of include javascript-->
+<script type="text/javascript">
+    $(document).ready(function () {
+        score();
+        $("#op1").change(function () {
+            var sc = $(this).val();
+            $("#sc1").html(sc);
+            score();
+        });
+        $("#op2").change(function () {
+            var sc = $(this).val();
+            $("#sc2").html(sc);
+            score();
+        });
+        $("#op3").change(function () {
+            var sc = $(this).val();
+            $("#sc3").html(sc);
+            score();
+        });
+        $("#op4").change(function () {
+            var sc = $(this).val();
+            $("#sc4").html(sc);
+            score();
+        });
+        $("#op5").change(function () {
+            var sc = $(this).val();
+            $("#sc5").html(sc);
+            score();
+        });
+        $("#op6").change(function () {
+            var sc = $(this).val();
+            $("#sc6").html(sc);
+            score();
+        });
+        $("#op7").change(function () {
+            var sc = $(this).val();
+            $("#sc7").html(sc);
+            score();
+        });
+    });
+</script>
+
+<script type="text/javascript">
+    function score() {
+        var sc = parseInt($("#sc1").text()) + parseInt($("#sc2").text()) + parseInt($("#sc3").text()) + parseInt($("#sc4").text()) + parseInt($("#sc5").text()) + parseInt($("#sc6").text()) + parseInt($("#sc7").text());
+        $("#totalsc").html(sc);
+        if (sc == 7) {
+            $("#rjtkesimpulan").html("<input type='text' name='FS_KESIMPULAN' size='15' value='OTG' readonly=''/>");
+        } else if (sc == 9) {
+            $("#rjtkesimpulan").html("<input type='text' name='FS_KESIMPULAN' size='15' value='ODP' readonly=''/>");
+        }else if (sc == 11) {
+            $("#rjtkesimpulan").html("<input type='text' name='FS_KESIMPULAN' size='15' value='ODP' readonly=''/>");
+        }else if (sc == 8) {
+            $("#rjtkesimpulan").html("<input type='text' name='FS_KESIMPULAN' size='15' value='PDP' readonly=''/>");
+        }else if (sc == 10) {
+            $("#rjtkesimpulan").html("<input type='text' name='FS_KESIMPULAN' size='15' value='PDP' readonly=''/>");
+        }else if (sc == 12) {
+            $("#rjtkesimpulan").html("<input type='text' name='FS_KESIMPULAN' size='15' value='PDP' readonly=''/>");
+        }else if (sc == 13) {
+            $("#rjtkesimpulan").html("<input type='text' name='FS_KESIMPULAN' size='15' value='PDP' readonly=''/>");
+        }else if (sc == 15) {
+            $("#rjtkesimpulan").html("<input type='text' name='FS_KESIMPULAN' size='15' value='PDP' readonly=''/>");
+        }else if (sc == 16) {
+            $("#rjtkesimpulan").html("<input type='text' name='FS_KESIMPULAN' size='15' value='PDP' readonly=''/>");
+        }else {
+            $("#rjtkesimpulan").html("<input type='text' name='FS_KESIMPULAN' size='15' value='NONCOVID' readonly=''/>");
+        }
+    }
+    
+</script>
+<div class="breadcrum">
+    <p>
+        <a href="#">Catatan Rawat Inap</a><span></span>
+        <a href="{$config->site_url('inap/covid/')}">Asesmen Covid</a><span></span>
+        <small>Edit Data</small>
+    </p>
+    <div class="clear"></div>
+</div>
+<!-- notification template -->
+{include file="base/templates/notification.html"}
+<!-- end of notification template-->
+<form action="{$config->site_url('inap/covid/edit_process')}" method="post">
+    <input type="hidden" name="FS_KD_TRS" value="{$result_covid.FS_KD_TRS}" />
+    <input type="hidden" name="FS_KD_REG" value="{$rs_pasien.fs_kd_reg}" />
+
+        <table class="table-info" width="100%">
+        <tr class="headrow">
+            <th colspan="2">Edit Asesmen Covid</th>
+        </tr>
+        <tr>
+            <td>Nama</td>
+            <td>
+                {$rs_pasien.fs_nm_pasien}
+            </td>
+        </tr>
+        <tr>
+            <td>No RM</td>
+            <td>
+                {$rs_pasien.fs_mr}
+            </td>
+        </tr>
+        <tr>
+            <td>Tanggal Lahir</td>
+            <td>
+                {$rs_pasien.FD_TGL_LAHIR|date_format:"%d %b %Y"} ({$rs_pasien.fs_umur})
+            </td>
+        </tr>
+        <tr>
+            <td>Alamat</td>
+            <td>{$rs_pasien.FS_ALM_PASIEN}</td>
+        </tr>
+        <tr>
+            <td>Status Sosial / Pekerjaan / Pendidikan</td>
+            <td>
+                {$rs_pasien.FS_NM_PEKERJAAN_DK} / {$rs_pasien.FS_NM_PENDIDIKAN_DK}
+            </td>
+        </tr>
+        <tr>
+            <td>Agama</td>
+            <td>
+                {$rs_pasien.FS_NM_AGAMA}
+            </td>
+        </tr>
+        <tr>
+            <td>Dokter</td>
+            <td>
+                {$rs_pasien.fs_nm_medis2}
+            </td>
+        </tr>
+    </table>
+    <div class="notification red">
+        <p><strong>High Risk :</strong> {$rs_pasien.FS_HIGH_RISK|default:'-'} </p>
+        <p><strong>Alergi :</strong> {$rs_pasien.FS_ALERGI|default:'-'} ({$rs_pasien.FS_REAK_ALERGI|default:'-'})</p>
+        <p><strong>Warning :</strong></p>
+        <div class="clear"></div>
+    </div>
+    <table class="table-input" width="100%">
+        <tr class="headrow">
+            <th colspan="3">Pemeriksaan</th>
+        </tr>
+        <tr>
+            <td width='40%'>Demam > 38 Drajat / Riwayat demam dalam 2 minggu terakhir</td>
+            <td width='60%'>
+                <select name="FS_PARAM_1" id="op1">
+                    <option value="">--Pilih Data--</option>
+                    <option value="0" {if $result_covid.FS_PARAM_1 eq '0'}selected=""{/if}>Tidak</option>
+                    <option value="1" {if $result_covid.FS_PARAM_1 eq '1'}selected=""{/if}>Ya</option>
+                </select>
+                <span id="sc1"></span>
+                Suhu : <input type="text" name="FS_SUHU" size="10" value="{$result_covid.FS_SUHU}"/>
+            </td>
+        </tr>
+        <tr>
+            <td>Batuk / pilek / nyeri tenggorokan dalam 2 minggu terakhir</td>
+            <td>
+                <select name="FS_PARAM_2" id="op2">
+                    <option value="0">--Pilih Data--</option>
+                    <option value="0" {if $result_covid.FS_PARAM_2 eq '0'}selected=""{/if}>Tidak</option>
+                    <option value="2" {if $result_covid.FS_PARAM_2 eq '2'}selected=""{/if}>Ya</option>
+                </select>
+                <span id="sc2"></span>
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>ISPA berat / Pneumonia berat, dengan tanda / gejala :
+                <br>
+                o Remaja atau dewasa : RR > 30 Kali/menit,distress pernafasan saturasi O2 < 90%
+                <br>
+                o Anak : Batuk / sesak nafas disertai salah satu atau lebih dari : 
+                <br>
+                - Sianosis sentral, saturasi O2 < 90 %
+                 <br>
+                - Distress pernafasan berat (tarikan dinding dada yang berat atau mendengkur)
+                <br>
+                - Tanda pneumonia berat (ketidak mampuan menyusu / minum, letargi, penurunan kesadaran / kejang)
+                <br>
+                - Tanda lain pneumonia (tarikan dinding dada, takipnea= < 2 bln >= 60 x/mnt,2-11 bln >= 50x/mnt, 1-5 th >= 40x/mnt, > 5 th >= 30x/mnt)
+            </td>
+            <td>
+                <select name="FS_PARAM_3" id="op3">
+                    <option value="0">--Pilih Data--</option>
+                    <option value="0" {if $result_covid.FS_PARAM_3 eq '0'}selected=""{/if}>Tidak</option>
+                    <option value="3" {if $result_covid.FS_PARAM_3 eq '3'}selected=""{/if}>Ya</option>
+                </select>
+                <span id="sc3"></span>
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Tidak ada penyebab lain berdasarkan gambaran klinis yang meyakinkan</td>
+            <td>
+                <select name="FS_PARAM_4" id="op4">
+                    <option value="0">--Pilih Data--</option>
+                    <option value="0" {if $result_covid.FS_PARAM_4 eq '0'}selected=""{/if}>Tidak</option>
+                    <option value="4" {if $result_covid.FS_PARAM_4 eq '4'}selected=""{/if}>Ya</option>
+                </select>
+                <span id="sc4"></span>
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Riwayat perjalanan / tinggal diluar negri dalam waktu 14 hari sebelum timbul gejala</td>
+            <td>
+                <select name="FS_PARAM_5" id="op5">
+                    <option value="0">--Pilih Data--</option>
+                    <option value="0" {if $result_covid.FS_PARAM_5 eq '0'}selected=""{/if}>Tidak</option>
+                    <option value="5" {if $result_covid.FS_PARAM_5 eq '5'}selected=""{/if}>Ya</option>
+                </select>
+                <span id="sc5"></span>
+                Dari : <input type="text" name="FS_LOKASI" size="15" value="{$result_covid.FS_LOKASI}"/>
+                Tgl Berangkat : <input type="text" name="FD_TGL_BERANGKAT" class="tanggal" size="10" value="{$result_covid.FD_TGL_BERANGKAT}"/>
+                Tgl pulang : <input type="text" name="FD_TGL_PULANG" class="tanggal" size="10" value="{$result_covid.FD_TGL_PULANG}"/>
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Riwayat perjalanan / tinggal di area transmisi lokal dalam waktu 14 hari sebelum timbul gejala</td>
+            <td>
+                <select name="FS_PARAM_6" id="op6">
+                    <option value="0">--Pilih Data--</option>
+                    <option value="0" {if $result_covid.FS_PARAM_6 eq '0'}selected=""{/if}>Tidak</option>
+                    <option value="6" {if $result_covid.FS_PARAM_6 eq '6'}selected=""{/if}>Ya</option>
+                </select>
+                <span id="sc6"></span>
+                Dari : <input type="text" name="FS_LOKASI2" size="15" value="{$result_covid.FS_LOKASI2}"/>
+                Tgl Berangkat : <input type="text" name="FD_TGL_BERANGKAT2" class="tanggal" size="10" value="{$result_covid.FD_TGL_BERANGKAT2}"/>
+                Tgl pulang : <input type="text" name="FD_TGL_PULANG2" class="tanggal" size="10" value="{$result_covid.FD_TGL_PULANG2}"/>
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Dalam 14 hari sebelum sakit memiliki riwayat kontak dengan orang-orang yang sakit saluran pernafasan seperti demam,batuk, atau pneumonia</td>
+            <td>
+                <select name="FS_PARAM_7" id="op7">
+                    <option value="0">--Pilih Data--</option>
+                    <option value="0" {if $result_covid.FS_PARAM_7 eq '0'}selected=""{/if}>Tidak</option>
+                    <option value="7" {if $result_covid.FS_PARAM_7 eq '7'}selected=""{/if}>Ya</option>
+                </select>
+                <span id="sc7"></span>
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><b>Kesimpulan</b></td>
+            <td>
+                <b><span id="rjtkesimpulan"></span></b>
+                
+            </td>
+            <td></td>
+        </tr>
+        <tr class="submit-box">
+            <td colspan="3">
+                <input type="submit" name="save" value="Simpan" class="edit-button" /> 
+            </td>
+        </tr>
+    </table>
+</form>

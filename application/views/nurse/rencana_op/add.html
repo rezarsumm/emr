@@ -1,0 +1,142 @@
+
+ 
+<div class="breadcrum">
+    <p>
+        <a href="#">Data Operasi </a><span></span>
+        <a href="{$config->site_url('op/laporan/')}">Jadwal Operasi</a><span></span>
+        <small>Add Data</small>
+    </p>
+    <div class="clear"></div>
+</div> 
+<div class="content-entry">
+    <!-- notification template -->
+    
+    <!-- end of notification template-->
+    <form action="{$config->site_url('nurse/rencana_op/add_process1')}" method="post" onkeypress="return event.keyCode != 13">
+        <input name="FS_KD_REG" id="FS_KD_REG" type="hidden" value="{$rs_pasien.NO_REG}" />  
+            <input name="TGL_LAHIR" id="TGL_LAHIR" type="hidden" value="{$rs_pasien.TGL_LAHIR}" /> 
+        <input name="FS_MR" type="hidden" value="{$rs_pasien.NO_MR}" />
+        <input name="idoperasi" type="hidden" value="{$idoperasi}" />
+        
+        <input name="FS_KD_LAYANAN" type="hidden" value="{$rs_pasien.KODE_BANGSAL}" />
+        <input name="FS_KD_PETUGAS_MEDIS" type="hidden" value="{$rs_pasien.fs_kd_medis}" />
+ 
+        <table class="table-input" width="100%" style="text-align: justify;">
+         
+
+          
+
+            <tr>
+           
+
+            
+                <td width="20%">Nama Pasien</td>
+                <td width="20%">
+                    <select name="FS_KD_REG" id="surat_dari" class="select2"   style="width: 600px;">
+                        <option value=""></option>
+                        {foreach from=$rs_pasien_bangsal item=data}
+                        <option value="{$data.NO_REG}">{$data.NAMA_PASIEN} |   {$data.NO_MR}  </option>
+                        {/foreach}
+                    </select>
+                </td>
+            </tr>
+            <tr> 
+                <td width="20%">Nama Dokter Bedah </td>
+                <td width="20%">
+                    <select name="Kode_Dokter" id="surat_dari"    class="select2" style="width: 300px;">
+                        <option value="" ></option>
+                        {foreach from=$rs_dokter_sp item=data}
+                        <option value="{$data.NAMAUSER}">{$data.NAMALENGKAP}</option>
+                        {/foreach}
+                    </select>
+                </td>
+            </tr>
+
+
+            
+         
+            <tr>
+                <td width="20%">Nama Operasi</td>
+                <td width="60%">
+                    <input type="text" name="nmtindakan" required value="{$rs_op.nmtindakan}" style="width: 300px;" class="form-control">
+                </td>
+             </tr>
+
+             <tr>
+                <td width="20%">Tanggal Operasi</td>
+                <td width="20%">
+                    <input type="date" name="tanggalop"   required class="form-control">
+                </td>
+             </tr>
+
+             <input type="hidden" name="STATUS_OP" value="Belum" checked class="form-control"> 
+
+             <!-- <tr>
+                <td width="20%">Status Operasi</td>
+                <td width="20%">
+                    <input type="radio" name="STATUS_OP" value="Belum" checked class="form-control">Belum
+                    <input type="radio" name="STATUS_OP" value="Terlaksana"  class="form-control">Terlaksana
+                    <br>
+                    <br>
+                </td>
+             </tr> -->
+           
+          
+           <tr class="submit-box">
+            <td colspan="4">
+                <div style="font-weight: bold;">
+                    *Bismillahirohmanirrohim, saya dengan sadar dan penuh tanggung jawab mengisikan formulir ini dengan data yang benar
+                </div>
+                <br>
+                <input type="submit" name="save" value="Simpan" class="edit-button"/>
+            </td>
+        </tr>
+
+        </table>
+    </form>
+</div>
+ 
+
+<br>
+<table class="table-view" width="100%" border="0">
+    <thead>
+        <tr>
+            <th width='2%'>No</th>
+            <th>No MR</th>
+            <th>Nama Pasien</th>
+            <th>Alamat</th> 
+            <th>Tindakan</th> 
+            <th>Dokter</th> 
+            <th>Status</th>
+            <th width='18%'>Detail</th>
+        </tr>
+    </thead>
+    <tbody>{$no=1}
+        {foreach from=$rs_pasien item=data}
+        <tr>
+            <td>{$no++}</td>
+            <td>{$data.No_MR}</td>
+            <td>{$data.Nama_Pasien}</td>
+            <td>{$data.Alamat}</td>  
+            <td>{$data.nmtindakan}</td>  
+            <td>{$data.Nama_Dokter}</td>  
+            <td>{$data.STATUS_OP}</td>  
+            <td>
+                          
+            </td>
+        </tr>
+        {/foreach}
+    </tbody>
+</table>
+
+<script>
+       $(".select2").select2({
+            placeholder: "Pilih",
+            allowClear: true
+        });
+</script>
+
+
+
+
+  

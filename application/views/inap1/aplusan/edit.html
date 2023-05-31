@@ -1,0 +1,99 @@
+<!-- include javascript -->
+<script>
+    function hitungkarakter(field, sisa, maksimal) {
+//                menambahkan atribute maxlength pada field sesuai jumlah maksimal
+        field.maxLength = maksimal;
+//                menghitung sisa karakter, maksimal dikurangi panjang karakter pada field
+        sisa.value = maksimal - field.value.length;
+    }
+//            parameter hitung karakter :
+//            - field adalah name dari input yang diisi
+//            - sisa adalah name dari input sisa karakter
+//            - maksimal adalah jumlah karakter maksimal yg bisa diinput, sesuaikan dengan
+//              atribute value pada input dengan name sisa
+</script>
+{include file="inap/aplusan/add_script_js.html"}
+<!-- end of include javascript-->
+<div class="breadcrum">
+    <p>
+        <a href="#">Data Arsip</a>
+        <a href="{$config->site_url('surat/apulsan')}"></a>
+        <small>Edit Data</small>
+    </p>
+    <div class="clear"></div>
+</div>
+<div class="content-entry">
+    <!-- notification template -->
+    {include file="base/templates/notification.html"}
+    <!-- end of notification template-->
+    <form action="{$config->site_url('inap/aplusan/edit_process')}" method="post">
+        <input name="FS_KD_APULSAN" type="hidden" value="{$result.FS_KD_APULSAN|default:''}" />
+        <input name="FS_KD_APULSAN_ADMIN" type="hidden" value="{$result.fs_kd_apulsan|default:''}" />
+        <input name="FS_MR" type="hidden" value="{$rs_pasien.NO_MR}" />
+        <input name="FS_KD_REG" type="hidden" value="{$rs_pasien.NO_REG}" />
+        <table class="table-info" width="100%">
+            <tr class="headrow">
+                
+                <th colspan="2">Edit Aplusan</th>
+            </tr>
+             <tr>
+                <td>NAMA</td>
+                <td>
+                    {$rs_pasien.NAMA_PASIEN}
+                </td>
+            </tr>
+            <tr>
+                <td>NO MR</td>
+                <td>
+                    {$rs_pasien.NO_MR}
+                </td>
+            </tr>
+            <tr>
+                <td>TANGGAL LAHIR</td>
+                <td>
+                    {$rs_pasien.TGL_LAHIR|date_format:"%d %b %Y"}
+                </td>
+            </tr>
+            <tr>
+                <td>ALAMAT</td>
+                <td>{$rs_pasien.ALAMAT}</td>
+            </tr>
+        </table>
+        <table class="table-input" width="100%">
+            <tr class="headrow">
+                <th colspan="2">Edit Apulsan</th>
+            </tr>
+            <tr>
+                <td>Shift</td>
+                <td>
+                    <select name="FS_SHIFT" id="surat_dari" class="select2" style="width: 400px;">
+                        <option value=""></option>
+                        <option value="1" {if $result.FS_SHIFT eq '1'}selected="selected"{/if}>PAGI</option>
+                        <option value="2" {if $result.FS_SHIFT eq '2'}selected="selected"{/if}>SORE</option>
+                        <option value="3" {if $result.FS_SHIFT eq '3'}selected="selected"{/if}>MALAM</option>
+                    </select>
+                    <em>* wajib diisi</em>
+                </td>
+            </tr>
+            <tr>
+                <td>Kondisi Pasien</td>
+                <td>
+                    <textarea cols="50" name="FS_KONDISI_PASIEN">{$result.FS_KONDISI_PASIEN}</textarea>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Catatan Lainnya</td>
+                <td>
+                    <textarea cols="50" name="FS_CATATAN">{$result.FS_CATATAN}</textarea>
+                </td>
+            </tr>
+
+            <tr class="submit-box">
+                <td colspan="2">
+                    <input type="submit" name="save" value="Edit" class="edit-button" />
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>

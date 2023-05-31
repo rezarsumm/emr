@@ -1,0 +1,387 @@
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".tanggal").datepicker({
+            changeMonth: true,
+            changeYear: true,
+            showOn: "both",
+            buttonImage: "{$BASEURL}/resource/doc/images/icon/calendar.gif",
+            buttonImageOnly: true,
+            dateFormat: 'yy-mm-dd'
+        });
+        // timepicker
+        $('.waktu').timepicker({
+            timeFormat: 'HH:mm:ss',
+            showOn: "both",
+            buttonImage: "{$BASEURL}/resource/doc/images/icon/clock.png",
+            buttonImageOnly: true
+        });
+        $(".select2").select2({
+            placeholder: "Pilih",
+            allowClear: true
+        });
+
+        $(".opendialogadd").click(function () {
+            $("#ModalAdd").dialog('open');
+        });
+
+        $("#ModalAdd").dialog({
+            autoOpen: false,
+            resizable: false,
+            height: 230,
+            width: 600,
+            modal: true
+        });
+
+        $("#ModalHapus").dialog({
+            autoOpen: false,
+            resizable: false,
+            height: 200,
+            width: 600,
+            modal: true
+        });
+
+        $("#loadingDiag").hide();
+        $("#loading-hapus").hide();
+
+        var FS_KD_REG2 = $('#FS_KD_REG').val();
+        var FS_KD_LAYANAN = $('#FS_KD_LAYANAN').val();
+        var FN_URUT = $('#FN_URUT').val();
+        tampil_data_diag(FS_KD_REG2);
+        tampil_data_pro(FS_KD_REG2);
+
+        function tampil_data_diag(FS_KD_REG2) {
+            $.ajax({
+                type: "POST",
+                url: '{$config->site_url("rm/morbid/list_diag")}',
+                async: false,
+                data: '&FS_KD_REG2=' + FS_KD_REG2,
+                dataType: 'json',
+                beforeSend: function (e) {
+                    if (e && e.overrideMimeType) {
+                        e.overrideMimeType("application/json;charset=UTF-8");
+                    }
+                },
+                success: function (data) {
+                    var html = '';
+                    var i;
+                    for (i = 0; i < data.length; i++) {
+                        html += '<tr>' +
+                                '<td><center>' + data[i].FN_URUT + '</center></td>' +
+                                '<td><center>' + data[i].FS_KD_DIAGNOSA + '</center></td>' +
+                                '<td><center>' + data[i].FB_UTAMA + '</center></td>' +
+                                '<td><center>' +
+                                '<a href="javascript:;" class="btn-red item_hapus" data="' + data[i].FS_KD_TRS + '">Hapus</a>' +
+                                '</center></td>' +
+                                '</tr>';
+                    }
+                    $('#show_data').html(html);
+                },
+                error: function (xhr, ajaxOptions, thrownError) { // Ketika ada error
+                    alert(xhr.responseText);
+                }
+
+            });
+        }
+
+        $("#btn-add").click(function () {
+            $("#loadingDiag").show();
+            //Simpan Barang
+            var FS_KD_REG = $('#FS_KD_REG').val();
+            var FS_KD_DIAGNOSA = $('#FS_KD_DIAGNOSA').val();
+            var FS_KD_LAYANAN = $('#FS_KD_LAYANAN').val();
+            var FB_UTAMA = $('#FB_UTAMA').val();
+
+            var dataString = '&FS_KD_REG=' + FS_KD_REG + '&FS_KD_DIAGNOSA=' + FS_KD_DIAGNOSA + '&FS_KD_LAYANAN=' + FS_KD_LAYANAN + '&FB_UTAMA=' + FB_UTAMA;
+
+            $.ajax({
+                type: "POST",
+                url: "{$config->site_url('rm/morbid/add_process_diag')}",
+                dataType: "JSON",
+                data: dataString,
+                beforeSend: function (e) {
+                    if (e && e.overrideMimeType) {
+                        e.overrideMimeType("application/json;charset=UTF-8");
+                    }
+                },
+                success: function (data) {
+                    $("#loadingDiag").hide();
+                    $('#ModalAdd').dialog('close');
+                    $('[name="FS_KD_DIAGNOSA"]').val("");
+                    $('[name="FB_UTAMA"]').val("");
+                    $('[name="FS_KET_ICD2"]').val("");
+                    tampil_data_diag(FS_KD_REG2);
+                    // set textbox dengan id jenis kelamin
+                },
+                error: function (xhr, ajaxOptions, thrownError) { // Ketika ada error
+                    alert(xhr.responseText);
+                }
+            });
+        });
+
+        $('#show_data').on('click', '.item_hapus', function () {
+            var id = $(this).attr('data');
+            $("#ModalHapus").dialog('open');
+            $('[name="kode"]').val(id);
+        });
+
+        $('#btn_hapus').on('click', function () {
+            $("#loading-hapus").show();
+            var kode = $('#textkode').val();
+            var dataString = '&kode=' + kode
+            $.ajax({
+                type: "POST",
+                url: "{$config->site_url('rm/morbid/delete_process_diag')}",
+                dataType: "JSON",
+                data: dataString,
+                beforeSend: function (e) {
+                    if (e && e.overrideMimeType) {
+                        e.overrideMimeType("application/json;charset=UTF-8");
+                    }
+                },
+                success: function (data) {
+                    $("#loading-hapus").hide();
+                    $('#ModalHapus').dialog('close');
+                    tampil_data_diag(FS_KD_REG2);
+                }
+            });
+        });
+
+        $(".opendialogaddProsedur").click(function () {
+            $("#ModalAddProsedur").dialog('open');
+        });
+
+        $("#ModalAddProsedur").dialog({
+            autoOpen: false,
+            resizable: false,
+            height: 225,
+            width: 600,
+            modal: true
+        });
+
+        $("#ModalHapusPro").dialog({
+            autoOpen: false,
+            resizable: false,
+            height: 200,
+            width: 600,
+            modal: true
+        });
+
+        $("#loadingProAdd").hide();
+        $("#loading-hapus-pro").hide();
+        
+         $("#btn-addPro").click(function () {
+            $("#loadingProAdd").show();
+            //Simpan Barang
+            var FS_KD_REG = $('#FS_KD_REG').val();
+            var FS_KD_DIAGNOSAICD9CM = $('#FS_KD_DIAGNOSAICD9CM').val();
+
+            var dataString = '&FS_KD_REG=' + FS_KD_REG + '&FS_KD_DIAGNOSAICD9CM=' + FS_KD_DIAGNOSAICD9CM;
+
+            $.ajax({
+                type: "POST",
+                url: "{$config->site_url('rm/morbid/add_process_pro')}",
+                dataType: "JSON",
+                data: dataString,
+                beforeSend: function (e) {
+                    if (e && e.overrideMimeType) {
+                        e.overrideMimeType("application/json;charset=UTF-8");
+                    }
+                },
+                success: function (data) {
+                    $("#loadingProAdd").hide();
+                    $('#ModalAddProsedur').dialog('close');
+                    $('[name="FS_KD_DIAGNOSAICD9CM"]').val("");
+                    $('[name="FS_KET_ICD9CM"]').val("");
+                    tampil_data_pro(FS_KD_REG2);
+                    // set textbox dengan id jenis kelamin
+                },
+                error: function (xhr, ajaxOptions, thrownError) { // Ketika ada error
+                    alert(xhr.responseText);
+                }
+            });
+        });
+
+        function tampil_data_pro(FS_KD_REG2) {
+            $.ajax({
+                type: "POST",
+                url: '{$config->site_url("rm/morbid/list_pro")}',
+                async: false,
+                data: '&FS_KD_REG2=' + FS_KD_REG2,
+                dataType: 'json',
+                beforeSend: function (e) {
+                    if (e && e.overrideMimeType) {
+                        e.overrideMimeType("application/json;charset=UTF-8");
+                    }
+                },
+                success: function (data) {
+                    var html = '';
+                    var i;
+                    for (i = 0; i < data.length; i++) {
+                        html += '<tr>' +
+                                '<td><center>' + data[i].FN_URUT + '</center></td>' +
+                                '<td><center>' + data[i].FS_KD_DIAGNOSAICD9CM + '</center></td>' +
+                                '<td><center>' +
+                                '<a href="javascript:;" class="btn-red item_hapus_pro" data="' + data[i].FS_KD_TRS + '">Hapus</a>' +
+                                '</center></td>' +
+                                '</tr>';
+                    }
+                    $('#show_data_pro').html(html);
+                },
+                error: function (xhr, ajaxOptions, thrownError) { // Ketika ada error
+                    alert(xhr.responseText);
+                }
+
+            });
+        }
+        
+        $('#show_data_pro').on('click', '.item_hapus_pro', function () {
+            var id = $(this).attr('data');
+            $("#ModalHapusPro").dialog('open');
+            $('[name="kodePro"]').val(id);
+        });
+
+        $('#btn_hapus_pro').on('click', function () {
+            $("#loading-hapus-pro").show();
+            var kode = $('#textkodePro').val();
+            var dataString = '&kode=' + kode
+            $.ajax({
+                type: "POST",
+                url: "{$config->site_url('rm/morbid/delete_process_pro')}",
+                dataType: "JSON",
+                data: dataString,
+                beforeSend: function (e) {
+                    if (e && e.overrideMimeType) {
+                        e.overrideMimeType("application/json;charset=UTF-8");
+                    }
+                },
+                success: function (data) {
+                    $("#loading-hapus-pro").hide();
+                    $('#ModalHapusPro').dialog('close');
+                    tampil_data_pro(FS_KD_REG2);
+                }
+            });
+        });
+
+        
+        $(document).ready(function () {
+            $("#loading").hide(); // Sembunyikan loadingnya
+
+            $("#btn-search").click(function () { // Ketika user mengklik tombol Cari
+                search(); // Panggil function search
+            });
+            $("#FS_KD_ICD").keyup(function () { // Ketika user menekan tombol di keyboard
+                if (event.keyCode == 13) { // Jika user menekan tombol ENTER
+                    search(); // Panggil function search
+                }
+            });
+
+            $("#loading2").hide(); // Sembunyikan loadingnya
+
+            $("#btn-search2").click(function () { // Ketika user mengklik tombol Cari
+                search2(); // Panggil function search
+            });
+            $("#FS_KD_DIAGNOSA").keyup(function () { // Ketika user menekan tombol di keyboard
+                if (event.keyCode == 13) { // Jika user menekan tombol ENTER
+                    search2(); // Panggil function search
+                }
+            });
+
+            $("#loadingPro").hide(); // Sembunyikan loadingnya
+
+            $("#btn-search-pro").click(function () { // Ketika user mengklik tombol Cari
+                searchPro(); // Panggil function search
+            });
+            $("#FS_KD_DIAGNOSAICD9CM").keyup(function () { // Ketika user menekan tombol di keyboard
+                if (event.keyCode == 13) { // Jika user menekan tombol ENTER
+                    searchPro(); // Panggil function search
+                }
+            });
+        });
+
+
+        function search() {
+            $("#loading").show(); // Tampilkan loadingnya
+
+            $.ajax({
+                type: "POST", // Method pengiriman data bisa dengan GET atau POST
+                url: "{$config->site_url('rm/morbid/icd')}", // Isi dengan url/path file php yang dituju
+                data: "FS_KD_ICD=" + $("#FS_KD_ICD").val(), // data yang akan dikirim ke file proses
+                dataType: "json",
+                beforeSend: function (e) {
+                    if (e && e.overrideMimeType) {
+                        e.overrideMimeType("application/json;charset=UTF-8");
+                    }
+                },
+                success: function (response) { // Ketika proses pengiriman berhasil
+                    $("#loading").hide(); // Sembunyikan loadingnya
+
+                    if (response.status == "success") { // Jika isi dari array status adalah success
+                        $("#FS_KET_ICD").val(response.FS_KET_ICD); // set textbox dengan id jenis kelamin
+                    } else { // Jika isi dari array status adalah failed
+                        alert("Data Tidak Ditemukan");
+                    }
+                },
+                error: function (xhr, ajaxOptions, thrownError) { // Ketika ada error
+                    alert(xhr.responseText);
+                }
+            });
+        }
+
+        function search2() {
+            $("#loading2").show(); // Tampilkan loadingnya
+
+            $.ajax({
+                type: "POST", // Method pengiriman data bisa dengan GET atau POST
+                url: "{$config->site_url('rm/morbid/icd')}", // Isi dengan url/path file php yang dituju
+                data: "FS_KD_ICD=" + $("#FS_KD_DIAGNOSA").val(), // data yang akan dikirim ke file proses
+                dataType: "json",
+                beforeSend: function (e) {
+                    if (e && e.overrideMimeType) {
+                        e.overrideMimeType("application/json;charset=UTF-8");
+                    }
+                },
+                success: function (response) { // Ketika proses pengiriman berhasil
+                    $("#loading2").hide(); // Sembunyikan loadingnya
+
+                    if (response.status == "success") { // Jika isi dari array status adalah success
+                        $("#FS_KET_ICD2").val(response.FS_KET_ICD); // set textbox dengan id jenis kelamin
+                    } else { // Jika isi dari array status adalah failed
+                        alert("Data Tidak Ditemukan");
+                    }
+                },
+                error: function (xhr, ajaxOptions, thrownError) { // Ketika ada error
+                    alert(xhr.responseText);
+                }
+            });
+        }
+
+        function searchPro() {
+            $("#loadingPro").show(); // Tampilkan loadingnya
+
+            $.ajax({
+                type: "POST", // Method pengiriman data bisa dengan GET atau POST
+                url: "{$config->site_url('rm/morbid/icd9')}", // Isi dengan url/path file php yang dituju
+                data: "FS_KD_ICD=" + $("#FS_KD_DIAGNOSAICD9CM").val(), // data yang akan dikirim ke file proses
+                dataType: "json",
+                beforeSend: function (e) {
+                    if (e && e.overrideMimeType) {
+                        e.overrideMimeType("application/json;charset=UTF-8");
+                    }
+                },
+                success: function (response) { // Ketika proses pengiriman berhasil
+                    $("#loadingPro").hide(); // Sembunyikan loadingnya
+
+                    if (response.status == "success") { // Jika isi dari array status adalah success
+                        $("#FS_KET_ICD9CM").val(response.FS_NM_ICD9CM); // set textbox dengan id jenis kelamin
+                    } else { // Jika isi dari array status adalah failed
+                        alert("Data Tidak Ditemukan");
+                    }
+                },
+                error: function (xhr, ajaxOptions, thrownError) { // Ketika ada error
+                    alert(xhr.responseText);
+                }
+            });
+        }
+
+    });
+</script>

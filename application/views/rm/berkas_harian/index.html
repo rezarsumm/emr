@@ -1,0 +1,145 @@
+{include file="nurse/rawat_jalan/add_script_js.html"}
+<div class="breadcrum">
+    <p>
+        <a href="#">Medical Record</a><span></span>
+        <small>Berkas Rekam Medis Harian</small>
+    </p>
+    <div class="clear"></div>
+</div>
+<div class="search-box">
+    <h3><a href="#">Search</a></h3>
+    <form action="{$config->site_url('rm/berkas_harian/proses_cari')}" method="post">
+        <table class="table-search" width="100%">
+            <tr>
+                <th width="10%" aligh="left">Dokter</th>
+                <td>
+                    <select name="FS_KD_PEG" id="surat_dari" class="select2" style="width: 300px;">
+                        <option value=""></option>
+                        {foreach from=$rs_dokter item=data}
+                        <option value="{$data.KODE_DOKTER}" {if $search.FS_KD_PEG eq $data.KODE_DOKTER} selected="selected"{/if}>{$data.NAMA_DOKTER}</option>
+                        {/foreach}
+                    </select>
+                    <th width="10%" aligh="left">Periode</th>
+                    <td width="75%">
+                        <input name="FD_TGL_MASUK" value="{$search.FD_TGL_MASUK}" class="tanggal" size="10" style="text-align: center;"/>
+                        <input name="save" type="submit" value="Tampilkan" />
+                        <input name="save" type="submit" value="Reset" />
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+<!-- notification template -->
+{include file="base/templates/notification.html"}
+<!-- end of notification template-->
+<div class="dashboard-container">
+    <table class="table-view" width="100%" border="0">
+        <thead>
+            <tr>
+                <th width='3%'>No</th>
+                <th>No MR</th>
+                <th>Nama Psien</th>
+                <th>Alamat</th>
+                <th>Status</th>
+                <th width='33%'>Aksi</th>
+            </tr>
+        </thead>
+        <tbody>
+         {foreach from=$rs_pasien item=data}
+            <!--{assign var=cek_lab value=$m_rawat_jalan->cek_data_order_lab_by_rg2(array($data.NO_REG))}
+                {assign var=cek_rad value=$m_rawat_jalan->cek_data_order_rad_by_rg2(array($data.NO_REG))}-->
+                    <tr {if ($data.NOMOR % 2) <> 1}class="blink-row"{/if}>
+                        <td>{$data.NOMOR}</td>
+                        <td>{$data.NO_MR}</td>
+                        <td>{$data.NAMA_PASIEN}</td>
+                        <td>{$data.ALAMAT}</td> 
+                        <td>
+                            {if $data.FS_STATUS eq ''}
+                            <img src="{$BASEURL}resource/doc/images/icon/icon.waiting.png" alt="" />
+                             Perawat
+                            {elseif $data.FS_STATUS eq '1'}
+                            <img src="{$BASEURL}resource/doc/images/icon/icon.waiting.dokter.png" alt="" />
+                             Dokter
+                            {elseif $data.FS_STATUS eq '2'}
+                            {if $data.FS_TERAPI eq '' OR $data.FS_TERAPI eq '<p>-</p>'}
+                            <img src="{$BASEURL}resource/doc/images/icon/icon.approve.png" alt="" />
+                            Selesai
+                            {else}
+                            <img src="{$BASEURL}resource/doc/images/icon/icon.waiting.farmasi.png" alt="" />
+                            Farmasi
+                            {/if}
+
+                            {/if}
+                        </td> 
+                        <td> 
+                             <a href="javascript:void(0);" onclick="window.open('{$config->site_url('rm/rawat_jalan/cetak_rm/'|cat:$data.NO_REG|cat:'/'|cat:$data.FS_KD_TRS|cat:'/'|cat:$data.FS_FORM)}', 'nama_window_pop_up', 'scrollbars=yes,resizeable=no')" class="button-download">RM</a>
+
+                            <!-- <a href="{$config->site_url('rm/berkas_harian/history/'|cat:$data.NO_MR|cat:'/'|cat:$search.FS_KD_PEG)}" class="button-edit"></a>                  -->
+                          
+                          <!-- perbaikan jika masih 2x24 jam -->
+                            {assign var=cek_ases_perawat value=$m_rawat_jalan->cek_ases_perawat_by_rg(array($data.NO_REG))}
+
+                            {if $data.TANGGAL >= $tgl_kemarin || $com_user.role_nm eq 'Admin E-MR'}
+                                    <a href="{$config->site_url('nurse/rawat_jalan/edit/'|cat:$data.NO_REG|default:'')}" class="button-edit"> Perawat</a>
+                               
+
+                                {if $data.Kode_Dokter eq $x} 
+                                   
+                                    <a href="{$config->site_url('medis/rawat_jalan/edit/'|cat:$data.NO_REG|cat:'/'|cat:$data.FS_KD_TRS|cat:'/'|cat:$data.FS_KD_TRS_KP)}" class="button-edit">  Dokter</a>
+                                  
+                               {/if}
+                        
+                            
+                           {/if} 
+
+                          <!-- tutup perbaikan jika masih 2x24 jam -->
+
+                          
+                            {if $data.FS_CARA_PULANG == '1'}
+                           <a  href="javascript:void(0);" onclick="window.open('{$config->site_url('medis/rawat_jalan/cetak_prb/'|cat:$data.NO_REG|cat:'/'|cat:$data.FS_KD_TRS)}', 'nama_window_pop_up', 'scrollbars=yes,resizeable=no')" class="button-edit">RB</a>
+                           {else}
+                           {/if}
+                           {if $data.FS_CARA_PULANG == '2'}
+                           <a  href="javascript:void(0);" onclick="window.open('{$config->site_url('rm/rawat_jalan/cetak_skdp/'|cat:$data.NO_REG|cat:'/'|cat:$data.FS_KD_TRS)}', 'nama_window_pop_up', 'scrollbars=yes,resizeable=no')" class="button-edit">SKDP</a>
+                           {else}
+                           {/if}
+                           {if $data.FS_CARA_PULANG == '3'}
+                            <a  href="javascript:void(0);" onclick="window.open('{$config->site_url('rm/rawat_inap/cetak_asesmen_awal_medis/'|cat:$data.NO_REG)}', 'nama_window_pop_up', 'scrollbars=yes,resizeable=no')" class="button-download">Rawat Inap</a>
+                           {else}
+                           {/if}
+                           {if $data.FS_CARA_PULANG eq '4'}
+                           <a  href="javascript:void(0);" onclick="window.open('{$config->site_url('rm/rawat_jalan/cetak_rujukan/'|cat:$data.NO_REG|cat:'/'|cat:$data.FS_KD_TRS)}', 'nama_window_pop_up', 'scrollbars=yes,resizeable=no')" class="button-edit">Rujukan RS</a>
+                           {else}
+                           {/if}
+                           {if $data.FS_CARA_PULANG == '5'}
+                           <a  href="javascript:void(0);" onclick="window.open('{$config->site_url('rm/rawat_jalan/cetak_prb/'|cat:$data.NO_REG|cat:'/'|cat:$data.FS_KD_TRS)}', 'nama_window_pop_up', 'scrollbars=yes,resizeable=no')" class="button-edit">PRB/Prolanis</a>
+                           {else}
+                           {/if}
+                           {if $data.FS_CARA_PULANG eq '6'}
+                           <a  href="javascript:void(0);" onclick="window.open('{$config->site_url('rm/rawat_jalan/cetak_rujukan/'|cat:$data.NO_REG|cat:'/'|cat:$data.FS_KD_TRS)}', 'nama_window_pop_up', 'scrollbars=yes,resizeable=no')" class="button-edit">Rujukan Internal</a>
+                           {else}
+                           {/if}
+                           {if $cek_lab neq ''}
+                           <a  href="javascript:void(0);" onclick="window.open('{$config->site_url('rm/rawat_jalan/cetak_rujukan_lab/'|cat:$data.NO_REG|cat:'/'|cat:$data.FS_KD_TRS)}', 'nama_window_pop_up', 'scrollbars=yes,resizeable=no')" class="button-edit">Lab</a>
+                           {else}
+                           {/if}
+                           {if $cek_rad neq ''}
+                           <a  href="javascript:void(0);" onclick="window.open('{$config->site_url('rm/rawat_jalan/cetak_rujukan_rad/'|cat:$data.NO_REG|cat:'/'|cat:$data.FS_KD_TRS)}', 'nama_window_pop_up', 'scrollbars=yes,resizeable=no')" class="button-edit">Radiologi</a>
+                           {else}
+                           {/if}
+                           {if $data.FS_TERAPI eq '' OR $data.FS_TERAPI eq '<p>-</p>'}
+                           {else}
+                           <a href="javascript:void(0);" onclick="window.open('{$config->site_url('medis/rawat_jalan/cetak_resep/'|cat:$data.NO_REG|cat:'/'|cat:$data.FS_KD_TRS)}', 'nama_window_pop_up', 'scrollbars=yes,resizeable=no')" class="button-edit">Resep</a>
+                           {/if}
+
+                           {if $data.KODEREKANAN == '032'}
+
+                       <a href="{$config->site_url('rm/rawat_jalan/lembar_verif/'|cat:$data.NO_REG|cat:'/'|cat:$data.FS_NO_MR)}" class="button-download"> Lmbr Verif</a>
+
+                    {/if}
+                       </td>
+                   </tr>
+                   {/foreach}
+               </tbody>
+           </table>
+       </div>

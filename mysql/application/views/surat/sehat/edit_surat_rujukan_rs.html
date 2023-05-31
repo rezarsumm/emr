@@ -1,0 +1,101 @@
+{include file="nurse/rawat_jalan/add_script_js.html"}
+<div class="breadcrum">
+    <p>
+        <a href="#">Surat Keterangan Medis</a><span></span>
+        <a href="{$config->site_url('surat/sehat/')}">Surat Keterangan</a><span></span>
+        <small>Add Data</small>
+    </p>
+    <div class="clear"></div>
+</div>
+<div class="navigation">
+    <div class="navigation-button">
+        <ul>
+            <li><a href="{$config->site_url('surat/sehat/')}"><img src="{$BASEURL}resource/doc/images/icon/back-icon.png" alt="" />  Back</a></li>
+        </ul>
+    </div>
+    <div class="clear"></div>
+</div>
+<!-- notification template -->
+{include file="base/templates/notification.html"}
+<!-- end of notification template-->
+<form action="{$config->site_url('surat/sehat/edit_surat_rujuk_process')}" method="post">
+    <input type="hidden" name="FS_KD_TRS" value="{$FS_KD_TRS}" />
+    <table class="table-info" width="100%">
+        <tr class="headrow">
+            <th colspan="2">Add Surat</th>
+        </tr>
+        <tr>
+            <td>Nama</td>
+            <td>
+                {$rs_pasien.fs_nm_pasien}
+            </td>
+        </tr>
+        <tr>
+            <td>No RM</td>
+            <td>
+                {$rs_pasien.fs_mr}
+            </td>
+        </tr>
+        <tr>
+            <td>Tanggal Lahir</td>
+            <td>
+                {$rs_pasien.FD_TGL_LAHIR|date_format:"%d %b %Y"} ({$rs_pasien.fs_umur})
+            </td>
+        </tr>
+        <tr>
+            <td>Alamat</td>
+            <td>{$rs_pasien.FS_ALM_PASIEN}</td>
+        </tr>
+        <tr>
+            <td>Status Sosial / Pekerjaan / Pendidikan</td>
+            <td>
+                {$rs_pasien.FS_NM_PEKERJAAN_DK} / {$rs_pasien.FS_NM_PENDIDIKAN_DK}
+            </td>
+        </tr>
+        <tr>
+            <td>Agama</td>
+            <td>
+                {$rs_pasien.FS_NM_AGAMA}
+            </td>
+        </tr>
+    </table>
+    <table class="table-input" width="100%">
+        <tr class="headrow">
+            <th colspan="4">Data Surat</th>
+        </tr>
+        <tr>
+            <td>Kepada</td>
+            <td>
+                <input name="FS_KETERANGAN1" size="50"  value="{$result.FS_KETERANGAN1}"/>
+            </td>
+        </tr>
+        <tr>
+            <td>Rumah Sakit Tujuan</td>
+            <td>
+                <input name="FS_KETERANGAN2" size="50"  value="{$result.FS_KETERANGAN2}"/>
+            </td>
+        </tr>
+        <tr>
+            <td>Alasan Dirujuk</td>
+            <td>
+                <textarea cols="47" rows="2" name="FS_KETERANGAN3">{$result.FS_KETERANGAN3}</textarea>
+            </td>
+        </tr>
+        <tr>
+            <td>Dokter Perujuk</td>
+            <td>
+                <select name="FS_KD_MEDIS" id="surat_dari" class="select2" style="width: 350px;">
+                    <option value=""></option>
+                    {foreach from=$rs_medis item=data}
+                    <option value="{$data.FS_KD_PEG}" {if $result.FS_KD_MEDIS eq $data.FS_KD_PEG} selected="" {/if}>{$data.FS_NM_PEG}</option>
+                    {/foreach}
+                </select>
+            </td>
+        </tr>
+        <tr class="submit-box">
+            <td colspan="4">
+                <input type="submit" name="save" value="Simpan" class="edit-button" /> 
+            </td>
+        </tr>
+    </table>
+</form>

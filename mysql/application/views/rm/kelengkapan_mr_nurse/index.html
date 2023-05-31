@@ -1,0 +1,49 @@
+{include file="rm/kelengkapan_mr_nurse/add_script_js.html"}
+<div class="breadcrum">
+    <p>
+        <a href="#">Medical Record</a><span></span>
+        <small>Kelengkapan RM</small>
+    </p>
+    <div class="clear"></div>
+</div>
+<!-- notification template -->
+{include file="base/templates/notification.html"}
+<!-- end of notification template-->
+<div class="dashboard-container">
+    <table  class="table-view" width="100%">
+        <tr>
+            <th>MR</th>
+            <th>REG</th>
+            <th>NAMA</th>
+            <th>TGL MASUK</th>
+            <th>TGL KELUAR</th>
+            <th>DPJP</th>
+            <th>LAYANAN</th>
+            <th></th>
+        </tr>
+        {foreach from=$rs_pasien item=data}
+        {assign var=rs_kelengkapan_mr_nurse value=$m_kelengkapan_mr_nurse->get_all_kelengkapan_mr(array($data.fs_kd_reg))}
+        <tr {if ($no % 2) <> 1}class="blink-row"{/if}>
+            <td>{$data.FS_MR}</td>
+            <td>{$data.fs_kd_reg}</td>
+            <td>{$data.fs_nm_pasien}</td>
+            <td>{$data.fd_tgl_masuk}</td>
+            <td>{$data.fd_tgl_keluar}</td>
+            <td>{$data.fs_nm_peg}</td>
+            <td>{$data.fs_nm_layanan}</td>
+            <td>
+                {if $data.fs_kd_reg eq $rs_kelengkapan_mr_nurse.FS_KD_REG}
+                <a href="{$config->site_url('rm/kelengkapan_mr_nurse/edit/'|cat:$data.fs_kd_reg)}" class="button-edit">Edit</a>
+                {else}
+                <a href="{$config->site_url('rm/kelengkapan_mr_nurse/add/'|cat:$data.fs_kd_reg)}" class="button-edit">Add</a>
+                {/if}
+            </td>
+        </tr>
+        {foreachelse}
+        <tr>
+            <td colspan="7">Data not found!</td>
+        </tr>
+        {/foreach}
+    </table>
+    <div class="clear"></div>
+</div>

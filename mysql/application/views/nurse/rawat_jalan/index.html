@@ -1,0 +1,152 @@
+{include file="nurse/rawat_jalan/add_script_js.html"}
+<div class="breadcrum">
+    <p>
+        <a href="#">Nursing Record</a><span></span>
+        <small>Rawat Jalan</small>
+    </p>
+    <div class="clear"></div>
+</div>
+<div class="search-box">
+    <h3><a href="#">Search</a></h3>
+    <form action="{$config->site_url('nurse/rawat_jalan/proses_cari')}" method="post">
+        <table class="table-search" width="100%">
+            <tr>
+                <th width="10%" aligh="left">Dokter</th>
+                <td>
+                    <select name="FS_KD_PEG" id="surat_dari" class="select2" style="width: 300px;">
+                        <option value=""></option>
+                        {foreach from=$rs_dokter item=data}
+                        <option value="{$data.FS_KD_PEG}" {if $search.FS_KD_PEG eq $data.FS_KD_PEG} selected="selected"{/if}>{$data.FS_NM_PEG}</option>
+                        {/foreach}
+                    </select>
+                    <th width="10%" aligh="left"></th>
+                    <td width="75%">
+                        <input name="save" type="submit" value="Tampilkan" />
+                        <input name="save" type="submit" value="Reset" />
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+    <!-- notification template -->
+    {include file="base/templates/notification.html"}
+    <!-- end of notification template-->
+    <div class="dashboard-container">
+        <table class="table-view" width="100%" border="0">
+            <thead>
+                <tr>
+                    <td colspan="6">
+                        <b><span style="color:red;">*</span> Pasien dengan umur lebih dari 70 tahun</b> <br>
+                         <img src="{$BASEURL}resource/doc/images/icon/icon.star.png" alt="" width="15" /><b>Pasien Poli Eksekutif</b>
+                    </td>
+                </tr>
+                <tr>
+                    <th width='5%'>Nomor Antrian</th>
+                    <th>No MR</th>
+                    <th>Nama Pasien</th>
+                    <th>Alamat</th>
+                    <th>Status</th>
+                    <th width='28%'>Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                {foreach from=$rs_pasien item=data}
+             <!--{assign var=cek_lab value=$m_rawat_jalan->cek_data_order_lab_by_rg2(array($data.FS_KD_REG))}
+        {assign var=cek_rad value=$m_rawat_jalan->cek_data_order_rad_by_rg2(array($data.FS_KD_REG))}
+        {assign var=cek_resep value=$m_rawat_jalan->get_data_cek_resep_kp(array($data.FS_KD_KP))}-->
+        <tr {if ($data.FN_NO_URUT % 2) <> 1}class="blink-row"{/if}>
+            <td>{$data.FN_NO_URUT}</td>
+            <td>{$data.FS_MR}</td>
+            <td>
+                {$data.FS_NM_PASIEN}
+                {if $data.fn_umur >= '70'}
+                <b style="color:red;">*</b>
+                {/if}
+                {if $data.FS_KD_LAYANAN eq 'P064'}
+                <img src="{$BASEURL}resource/doc/images/icon/icon.star.png" alt="" width="15" />
+                {else}
+                {/if}
+            </td>
+            <td>{$data.FS_ALM_PASIEN}</td> 
+            <td>
+
+
+                {if $data.FS_STATUS eq ''}
+                <img src="{$BASEURL}resource/doc/images/icon/icon.waiting.png" alt="" />
+                Periksa Perawat
+                {elseif $data.FS_STATUS eq '1'}
+                <img src="{$BASEURL}resource/doc/images/icon/icon.waiting.dokter.png" alt="" />
+                Periksa Dokter
+                {elseif $data.FS_STATUS eq '2'}
+                {if $data.FS_TERAPI eq '' OR $data.FS_TERAPI eq '<p>-</p>'}
+                <img src="{$BASEURL}resource/doc/images/icon/icon.approve.png" alt="" />
+                Selesai
+                {else}
+                <img src="{$BASEURL}resource/doc/images/icon/icon.waiting.farmasi.png" alt="" />
+                Farmasi
+                {/if}
+
+                {/if}
+
+            </td> 
+            <td>
+
+                {if $data.FS_STATUS >= '1'}
+                <a href="{$config->site_url('nurse/rawat_jalan/history/'|cat:$data.FS_MR|cat:'/'|cat:$search.FS_KD_PEG)}" class="button-edit">Entry</a>
+                <a href="javascript:void(0);" onclick="window.open('{$config->site_url('rm/rawat_jalan/kendali/'|cat:$data.FS_KD_REG)}', 'nama_window_pop_up', 'scrollbars=yes,resizeable=no')" class="button-edit">Kendali</a>
+
+                {if $data.FS_CARA_PULANG == '1'}
+                <a  href="javascript:void(0);" onclick="window.open('{$config->site_url('rm/rawat_jalan/cetak_rb/'|cat:$data.FS_KD_REG|cat:'/'|cat:$data.FS_KD_TRS)}', 'nama_window_pop_up', 'scrollbars=yes,resizeable=no')" class="button-edit">RB</a>
+                {else}
+                {/if}
+                {if $data.FS_CARA_PULANG == '2'}
+                <a  href="javascript:void(0);" onclick="window.open('{$config->site_url('rm/rawat_jalan/cetak_skdp/'|cat:$data.FS_KD_REG|cat:'/'|cat:$data.FS_KD_TRS|cat:'/'|cat:$data.FS_KD_KP)}', 'nama_window_pop_up', 'scrollbars=yes,resizeable=no')" class="button-edit">SKDP</a>
+                {else}
+                {/if}
+                {if $data.FS_CARA_PULANG == '3'}
+                <a  href="javascript:void(0);" onclick="window.open('{$config->site_url('rm/rawat_inap/cetak_rm/'|cat:$data.FS_KD_REG|cat:'/11')}', 'nama_window_pop_up', 'scrollbars=yes,resizeable=no')" class="button-edit">Rawat Inap</a>
+                {else}
+                {/if}
+                {if $data.FS_CARA_PULANG eq '4'}
+                <a  href="javascript:void(0);" onclick="window.open('{$config->site_url('rm/rawat_jalan/cetak_rujukan/'|cat:$data.FS_KD_REG|cat:'/'|cat:$data.FS_KD_TRS)}', 'nama_window_pop_up', 'scrollbars=yes,resizeable=no')" class="button-edit">Rujukan RS</a>
+                {else}
+                {/if}
+                {if $data.FS_CARA_PULANG == '5'}
+                <a  href="javascript:void(0);" onclick="window.open('{$config->site_url('rm/rawat_jalan/cetak_prb/'|cat:$data.FS_KD_REG|cat:'/'|cat:$data.FS_KD_TRS|cat:'/'|cat:$data.FS_KD_KP)}', 'nama_window_pop_up', 'scrollbars=yes,resizeable=no')" class="button-edit">PRB/Prolanis</a>
+                {else}
+                {/if}
+                {if $data.FS_CARA_PULANG eq '6'}
+                <a  href="javascript:void(0);" onclick="window.open('{$config->site_url('rm/rawat_jalan/cetak_rujukan/'|cat:$data.FS_KD_REG|cat:'/'|cat:$data.FS_KD_TRS)}', 'nama_window_pop_up', 'scrollbars=yes,resizeable=no')" class="button-edit">Rujukan Internal</a>
+                {else}
+                {/if}
+                {if $data.FS_CARA_PULANG eq '7'}
+                <a  href="javascript:void(0);" onclick="window.open('{$config->site_url('rm/rawat_jalan/cetak_sehat_covid/'|cat:$data.FS_KD_REG|cat:'/'|cat:$data.FS_KD_TRS)}', 'nama_window_pop_up', 'scrollbars=yes,resizeable=no')" class="button-edit">Sehat C19</a>
+                {else}
+                {/if}
+                {if $cek_lab neq ''}
+                <a  href="javascript:void(0);" onclick="window.open('{$config->site_url('rm/rawat_jalan/cetak_rujukan_lab/'|cat:$data.FS_KD_REG|cat:'/'|cat:$data.FS_KD_TRS)}', 'nama_window_pop_up', 'scrollbars=yes,resizeable=no')" class="button-edit">Lab</a>
+                {else}
+                {/if}
+                {if $cek_rad neq ''}
+                <a  href="javascript:void(0);" onclick="window.open('{$config->site_url('rm/rawat_jalan/cetak_rujukan_rad/'|cat:$data.FS_KD_REG|cat:'/'|cat:$data.FS_KD_TRS)}', 'nama_window_pop_up', 'scrollbars=yes,resizeable=no')" class="button-edit">Radiologi</a>
+                {else}
+                {/if}
+
+                {if $cek_resep >= '1'}
+                <a href="javascript:void(0);" onclick="window.open('{$config->site_url('rm/rawat_inap/cetak_resep/'|cat:$data.FS_KD_KP)}', 'nama_window_pop_up', 'scrollbars=yes,resizeable=no')" class="button-edit">Resep</a>
+                {/if}
+
+                {if $data.FS_TERAPI eq '' OR $data.FS_TERAPI eq '<p>-</p>'}
+                {else}
+                <a href="javascript:void(0);" onclick="window.open('{$config->site_url('rm/rawat_jalan/cetak_resep/'|cat:$data.FS_KD_REG|cat:'/'|cat:$data.FS_KD_TRS)}', 'nama_window_pop_up', 'scrollbars=yes,resizeable=no')" class="button-edit">Resep</a>
+                {/if}
+                {else}
+                <a href="{$config->site_url('nurse/rawat_jalan/history/'|cat:$data.FS_MR|cat:'/'|cat:$search.FS_KD_PEG)}" class="button-edit">Entry</a>
+                <a href="javascript:void(0);" onclick="window.open('{$config->site_url('rm/rawat_jalan/kendali/'|cat:$data.FS_KD_REG)}', 'nama_window_pop_up', 'scrollbars=yes,resizeable=no')" class="button-edit">Kendali</a>
+                {/if}
+            </td>
+        </tr>
+        {/foreach}
+    </tbody>
+</table>
+</div>

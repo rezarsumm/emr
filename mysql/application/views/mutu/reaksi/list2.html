@@ -1,0 +1,63 @@
+<!-- include javascript -->
+{include file="mutu/reaksi/add_script_js.html"}
+<!-- end of include javascript-->
+<div class="breadcrum">
+    <p>
+        <a href="#">Farmasi</a><span></span>
+        <a href="{$config->site_url('mutu/reaksi/cari')}">Laporan Kejadian Reaksi</a><span></span>
+        <small>Add Data</small>
+    </p>
+    <div class="clear"></div>
+</div>
+<div class="search-box">
+    <h3><a href="#">Search</a></h3>
+    <form action="{$config->site_url('mutu/reaksi/cari_process')}" method="post">
+        <table class="table-search" width="100%">
+            <tr>
+                <th width="10%">NO MR</th>
+                <td width="10%">
+                    <input type="text" size="15" name="FS_MR" value="{$search.FS_MR}">
+                </td>
+                <td width="80%">
+                    <input name="save" type="submit" value="Tampilkan" />
+                    <input name="save" type="submit" value="Reset" />
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+<div class="content-entry">
+    <!-- notification template -->
+    {include file="base/templates/notification.html"}
+    <!-- end of notification template-->
+    <table class="table-view" width="100%">
+        <tr>
+            <th>NOMOR MR</th>
+            <th>NOMOR REG</th>
+            <th>NAMA</th>
+            <th>TGL MASUK</th>
+            <th>TGL KELUAR</th>
+            <th>LAYANAN</th>
+            <th width="8%"></th>
+        </tr>
+        {foreach from=$rs_pasien item=data}
+        <!--{assign var=rs_resume value=$m_mutu_reaksi->get_all_reaksi(array($data.FS_KD_REG))}-->
+        <tr>
+            <td>{$data.fs_mr}</td>
+            <td>{$data.FS_KD_REG}</td>
+            <td>{$data.FS_NM_PASIEN}</td>
+            <td>{$data.fd_tgl_masuk}</td>
+            <td>{$data.fd_tgl_keluar}</td>
+            <td>{$data.FS_NM_LAYANAN}</td>
+            <td>
+                {if $data.FS_KD_REG eq $rs_resume.FS_KD_REG}
+                <a href="{$config->site_url('mutu/reaksi/edit/'|cat:$rs_resume.FS_KD_TRANS_DARAH)}" class="button-edit" title="Edit">Edit</a>
+                {else}
+                <a href="{$config->site_url('mutu/reaksi/add/'|cat:$data.FS_KD_REG)}" class="button-edit" title="Tambah">Add</a>
+                {/if}
+            </td>
+        </tr>
+        {/foreach}
+    </table>
+</form>
+</div>

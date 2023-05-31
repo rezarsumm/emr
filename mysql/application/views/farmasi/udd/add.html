@@ -1,0 +1,248 @@
+<!-- include javascript -->
+{include file="farmasi/udd/add_script_js.html"}
+<!-- end of include javascript-->
+<div class="breadcrum">
+    <p>
+        <a href="{$config->site_url('inap/form_rm/lists')}">Form RM</a><span></span>
+        <a href="{$config->site_url('farmasi/udd/cari')}">UDD</a><span></span>
+        <small>Add Data</small>
+    </p>
+    <div class="clear"></div>
+</div>
+<div class="head-content">
+    <div class="head-content-nav">
+        <ul>
+            <li><a href="{$config->site_url('farmasi/udd/add/'|cat:$rs_pasien.fs_kd_reg)}" class="active">Data Umum</a></li>
+            <!--<li><a href="{$config->site_url('farmasi/udd/add_catatan/'|cat:$rs_pasien.fs_kd_reg)}">Data Check List Obat</a></li>-->
+        </ul>
+        <div class="clear"></div>
+    </div>
+    <div class="clear"></div>
+</div>
+<div class="content-entry">
+    <!-- notification template -->
+    {include file="base/templates/notification.html"}
+    <!-- end of notification template-->
+    <form action="{$config->site_url('farmasi/udd/add_process')}" method="post">
+        <input name="FS_KD_REG" type="hidden" value="{$rs_pasien.fs_kd_reg}" />
+        <table class="table-info" width="100%">
+            <tr class="headrow">
+                <th colspan="2">Add Catatan Pemberian Obat</th>
+            </tr>
+            <tr>
+                <td>NAMA</td>
+                <td>
+                    {$rs_pasien.fs_nm_pasien}
+                </td>
+            </tr>
+            <tr>
+                <td>NO MR</td>
+                <td>
+                    {$rs_pasien.fs_mr}
+                </td>
+            </tr>
+            <tr>
+                <td>TANGGAL LAHIR</td>
+                <td>
+                    {$rs_pasien.FD_TGL_LAHIR|date_format:"%d %b %Y"}
+                </td>
+            </tr>
+            <tr>
+                <td>ALAMAT</td>
+                <td>{$rs_pasien.FS_ALM_PASIEN}</td>
+            </tr>
+        </table>
+        <!--<table class="table-input" width="100%">
+            <tr>
+                <th colspan="2">DATA UMUM</th>
+            </tr>
+            <tr>
+                <td>
+                    Tanggal
+                </td>
+                <td>
+                    <input name="FD_TGL_PEMBERIAN_OBAT" type="text" size="10" maxlength="10" value="{$result.FS_TANGGAL|default:''}" class="tanggal" style="text-align: center;" />
+                    <em>* Wajib Diisi</em>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Jenis Obat
+                </td>
+                <td>
+                    <select name="FS_JENIS_OBAT" id="surat_dari" class="select2" style="width: 300px;">
+                        <option value=""></option>
+                        <option value="1">TABLET</option>
+                        <option value="2">INJEKSI</option>
+                        <option value="3">SALEP</option>
+                        <option value="4">LL</option>
+                        <option value="5">KAPLET</option>
+                        <option value="6">KAPSUL</option>
+                        <option value="7">INFUS</option>
+                        <option value="8">NEBULIZER</option>
+                        <option value="9">SYRUP</option>
+                        <option value="10">RACIKAN (PUYER)</option>
+                        <option value="11">RACIKAN (KAPSUL)</option>
+                        <option value="12">SUPOSITORIA</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Nama Obat</td>
+                <td>
+                    <select name="FS_NAMA_OBAT" id="surat_dari" class="select2" style="width: 300px;">
+                        <option value=""></option>
+                        {foreach from=$rs_obat item=data2}
+                        <option value="{$data2.FS_NM_BARANG}">{$data2.FS_NM_BARANG}</option>
+                        {/foreach}
+                    </select>
+                    <!--<input type="text" name="FS_NAMA_OBAT" size="40">
+                </td>
+            </tr>
+            <tr>
+                <td>Dosis</td>
+                <td>
+                    <input type="text" name="FS_DOSIS_OBAT" size="40">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Rute
+                </td>
+                <td>
+                    <select name="FS_RUTE" id="surat_dari" class="select2" style="width: 300px;">
+                        <option value=""></option>
+                        <option value="1">ORAL</option>
+                        <option value="2">TOPIKAL</option>
+                        <option value="3">TETES MATA</option>
+                        <option value="4">IV</option>
+                        <option value="5">IM</option>
+                        <option value="6">SC</option>
+                        <option value="7">IC</option>
+                        <option value="8">TETES TELINGA</option>
+                        <option value="9">IV DRIP</option>
+                        <option value="10">INHALASI</option>
+                        <option value="11">TETES HIDUNG</option>
+                        <option value="12">PEREKTAL</option>
+                        <option value="13">PERVAGINAL</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Interval</td>
+                <td>
+                    <input type="text" name="FS_INTERVAL" size="40">
+                </td>
+            </tr>
+            <tr>
+                <td>Keterangan</td>
+                <td>
+                    <input type="text" name="FS_KET" size="40">
+                </td>
+            </tr>
+            <tr class="submit-box">
+                <td colspan="2">
+                     <div style="font-weight: bold;">
+                    *Bismillahirohmanirrohim, saya dengan sadar dan penuh tanggung jawab mengisikan formulir ini dengan data yang benar
+                </div>
+                <br>
+                    <input type="submit" name="save" value="Simpan" class="edit-button"/>
+                </td>
+            </tr>
+        </table>-->
+    </form>
+    <!--<div class="navigation">
+    <div class="pageRow">
+        <div class="pageNav">
+            <ul>
+                <li class="info"></li>
+            </ul>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="navigation-button">
+       <ul>
+           <li><a href="{$config->site_url('rm/rawat_inap/cetak_rm/'|cat:{$rs_pasien.fs_kd_reg}|cat:'/'|cat:'3')}" target="_blank"><img src="{$BASEURL}resource/doc/images/icon/printer-icon.png" alt="" /> Print</a></li>
+        </ul>
+    </div>
+    <div class="clear"></div>
+</div>-->
+    <div class="content-entry search-box">
+        <form action="{$config->site_url('farmasi/udd/proses_cari2')}" method="post">
+            <input name="FS_KD_REG" type="hidden" value="{$rs_pasien.fs_kd_reg}" />
+            <!--<table class="table-search" width="100%" >
+                <tr>
+                    <td> 
+                        Periode
+                        <input name="tanggal" type="text" size="10" maxlength="10" value="{$search.tanggal|default:''}" class="tanggal" readonly="readonly" style="text-align: center;" />
+                        s/d
+                        <input name="tanggal2" type="text" size="10" maxlength="10" value="{$search.tanggal2|default:''}" class="tanggal" readonly="readonly" style="text-align: center;" />
+                    </td>
+                    <td>
+                        <input class="button" type="submit" value="SEARCH" name="save" />
+                        <input class="button" type="submit" value="RESET" name="save" />
+                    </td>
+                </tr>
+            </table>-->
+        </form>
+    </div>
+    
+    <table class="table-view" width="100%">
+        <tr>
+            <th colspan="7">Program Pemberian Obat</th>
+        </tr>
+        <tr>
+            <th WIDTH="7%"><center>TANGGAL</center></th>
+        
+        <th><center>NAMA OBAT</center></th>
+        <th><center>DOSIS</center></th>
+        <th><center>RUTE</center></th>
+        <th><center>INTERVAL</center></th>
+        <th><center>KETERANGAN</center></th>
+        <th width="20%"><center>AKSI</center></th>
+        </tr>
+        {foreach from=$rs_rm17 item=data}
+        <tr>
+            <td>{$data.FD_TGL_PEMBERIAN_OBAT}</td>
+            <td>{$data.FS_NAMA_OBAT}</td>
+            <td>{$data.FS_DOSIS_OBAT}</td>
+            <td>
+                {if $data.FS_RUTE eq 1}
+                ORAL
+                {elseif $data.FS_RUTE eq 2}
+                TOPIKAL
+                {elseif $data.FS_RUTE eq 3}
+                TETES MATA
+                {elseif $data.FS_RUTE eq 4}
+                IV
+                {elseif $data.FS_RUTE eq 5}
+                IM
+                {elseif $data.FS_RUTE eq 6}
+                SC
+                {elseif $data.FS_RUTE eq 7}
+                IC
+                {elseif $data.FS_RUTE eq 8}
+                TETES TELINGA
+                {elseif $data.FS_RUTE eq 9}
+                IV DRIP
+                {elseif $data.FS_RUTE eq 10}
+                INHALASI
+                {elseif $data.FS_RUTE eq 11}
+                TETES HIDUNG
+                {/if}
+            </td>
+            <td>{$data.FS_INTERVAL}</td>
+            <td>{$data.FS_KET}</td>
+            <td>
+        <center>
+            <a href="{$config->site_url('rm/rawat_inap/cetak_etiket_udd/'|cat:$data.FS_KD_REG|cat:'/'|cat:$data.FS_KD_RM17)}" class="button-edit" target="_blank"> Cetak Etiket</a>
+       </center>
+        </td>
+        </tr>
+        {foreachelse}
+        <tr>
+            <td colspan="6">Data not found!</td>
+        </tr>
+        {/foreach}
+    </table>
+</div>

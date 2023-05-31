@@ -1,0 +1,158 @@
+ 
+<div class="breadcrum">
+    <p>
+        <a href="{$config->site_url('inap/form_rm/lists')}">Form RM</a><span></span>
+        <a href="{$config->site_url('inap/rm17/cari')}">RM 17 CATATAN PEMBERIAN OBAT</a><span></span>
+      
+    </p>
+    <div class="clear"></div>
+</div>
+ 
+<div class="content-entry">
+ 
+    <form action="{$config->site_url('inap/rm17/add_process')}" method="post">
+        <input name="FS_KD_REG" type="hidden" value="{$rs_pasien.NO_REG}" />
+        <table class="table-info" width="100%">
+            <tr class="headrow">
+                <th colspan="4">Add Catatan Pemberian Obat</th>
+            </tr>
+            <tr>
+                <td>NAMA</td>
+                <td>
+                    {$rs_pasien.NAMA_PASIEN}
+                </td>
+                 <td>TANGGAL LAHIR</td>
+                <td>
+                    {$rs_pasien.TGL_LAHIR|date_format:"%d %b %Y"}
+                </td>
+            </tr>
+            <tr>
+                <td>NO MR</td>
+                <td>
+                    {$rs_pasien.NO_MR}
+                </td>
+           
+                <td>ALAMAT</td>
+                <td>{$rs_pasien.ALAMAT}</td>
+            </tr>
+        </table>
+     
+</form>
+ 
+<div class="navigation">
+    <div class="pageRow">
+        <div class="pageNav">
+            <ul>
+                <li class="info"></li>
+            </ul>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="navigation-button">
+     <ul>
+         <li><a href="{$config->site_url('rm/rawat_inap/cetak_rm/'|cat:{$rs_pasien.NO_REG}|cat:'/'|cat:'3')}" target="_blank"><img src="{$BASEURL}resource/doc/images/icon/printer-icon.png" alt="" /> Print</a></li>
+     </ul>
+ </div>
+ <div class="clear"></div>
+</div>
+    
+    <table class="table-view" width="100%">
+        <tr>
+            <th colspan="9">Program Pemberian Obat</th>
+        </tr>
+        <tr>
+            <th WIDTH="7%"><center>TANGGAL</center></th>
+
+            <th><center>NAMA OBAT</center></th>
+            <th><center>DOSIS</center></th>
+            <th><center>RUTE</center></th>
+            <th><center>INTERVAL</center></th>
+            <th><center>KET</center></th>
+            <th><center>STATUS </center></th>
+            <th><center>Catatan Pemberian </center></th>
+            <th width="20%"><center>AKSI</center></th>
+        </tr>
+        {foreach from=$rs_rm17 item=data}
+        <tr 
+        {if $data.FS_KET2 eq 1}
+        style="color:red;"
+        {/if}
+        >
+        <td>{$data.FD_TGL_PEMBERIAN_OBAT}</td>
+        <td>{$data.FS_NAMA_OBAT}
+           
+        </td>
+        <td>{$data.FS_DOSIS_OBAT}</td>
+        <td>
+            {if $data.FS_RUTE eq 1}
+            ORAL
+            {elseif $data.FS_RUTE eq 2}
+            TOPIKAL
+            {elseif $data.FS_RUTE eq 3}
+            TETES MATA
+            {elseif $data.FS_RUTE eq 4}
+            IV
+            {elseif $data.FS_RUTE eq 5}
+            IM
+            {elseif $data.FS_RUTE eq 6}
+            SC
+            {elseif $data.FS_RUTE eq 7}
+            IC
+            {elseif $data.FS_RUTE eq 8}
+            TETES TELINGA
+            {elseif $data.FS_RUTE eq 9}
+            IV DRIP
+            {elseif $data.FS_RUTE eq 10}
+            INHALASI
+            {elseif $data.FS_RUTE eq 11}
+            TETES HIDUNG
+            {/if}
+        </td>
+        <td>{$data.FS_INTERVAL}</td>
+        <td>{$data.FS_KET}</td>
+        <td>
+            {if $data.FS_KET2 eq 1}
+            Stop
+            {else}
+            -
+            {/if}
+        </td>
+        <td>
+            <table border="0" style="padding: 1px;">
+                 {$no=1}
+                {foreach from=$detail item=d}
+               
+                {if $d.FS_KD_RM17 eq $data.FS_KD_RM17}
+                   <tr style="padding: 1px;">
+                    <td style="color: green ; padding: 1px;">{$no++}. Perawat :{$d.FS_KD_PEG},{$d.FS_KD_PEG2} </td>
+                    <td style="color: blue"> Farmasi :{$d.FS_KD_PEG3} </td>
+                    <td> Dosis :{$d.FS_CHK_DOSIS} </td>
+                    <td> Rute :{$d.FS_CHK_RUTE} </td>
+                    <td style="color: "> Waktu :{$d.wkt}, {$d.FD_WAKTU} </td>
+                   
+                    </tr>
+                {/if}
+                {/foreach}
+
+                
+            </table>
+        </td>
+        <td>
+            <center>
+                {if $data.mdd >= $tgl_kemarin || $com_user.role_nm eq 'Admin E-MR'}           
+                <a href="{$config->site_url('inap/rm17/add_catatan/'|cat:$data.FS_KD_REG|cat:'/'|cat:$data.FS_KD_RM17)}" class="button-edit" title="Tambah Catatan" >Catat Pemberian</a>
+                <a href="{$config->site_url('inap/rm17/edit/'|cat:$data.FS_KD_RM17)}" class="button-edit" title="Tambah Catatan" >Edit</a>
+
+                      
+                <a href="{$config->site_url('inap/rm17/delete_process/'|cat:$data.FS_KD_RM17|cat:'/'|cat:$data.FS_KD_REG)}" class="button-hapus" title="Tambah Catatan" onclick="return confirm('Apakah Anda Yakin Akan Menghapus?');">Hapus</a>
+                {/if}
+            </center>
+        </td>
+    </tr>
+    {foreachelse}
+    <tr>
+        <td colspan="6">Data not found!</td>
+    </tr>
+    {/foreach}
+</table>
+</div>

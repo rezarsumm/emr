@@ -1,0 +1,942 @@
+<!-- include javascript -->
+{include file="inap/ass_awal/add_script_js.html"}
+<!-- end of include javascript-->
+<div class="breadcrum">
+    <p>
+        <a href="#">Data Arsip</a><span></span>
+        <a href="{$config->site_url('inap/ass_awal/cari')}">Asesmen Awal Rawat Inap</a><span></span>
+        <small>Add Data</small>
+    </p>
+    <div class="clear"></div>
+</div>
+<div class="navigation">
+    <div class="navigation-button">
+        <ul>
+            <li><a href="{$config->site_url('inap/ass_awal/')}"><img src="{$BASEURL}resource/doc/images/icon/back-icon.png" alt="" />  Back</a></li>
+        </ul>
+    </div>
+    <div class="clear"></div>
+</div>
+<div class="content-entry">
+    <!-- notification template -->
+    {include file="base/templates/notification.html"}
+    <!-- end of notification template-->
+    <form action="{$config->site_url('inap/ass_awal/add_process')}" method="post">
+        <input type="hidden" name="FS_KD_REG" value="{$rs_pasien.NO_REG}" />
+        <input type="hidden" name="FS_KD_MEDIS" value="{$FS_KD_MEDIS}" />
+        <input type="hidden" name="FS_KD_LAYANAN" value="{$rs_pasien.KODE_BANGSAL}" />
+        <input type="hidden" name="FS_MR" value="{$rs_pasien.NO_MR}" />
+
+        <table class="table-info" width="100%">
+            <tr class="headrow">
+                <th colspan="2">Add Asesmen Awal Rawat Inap</th>
+            </tr>
+           <tr>
+                <td>NAMA</td>
+                <td>
+                    {$rs_pasien.NAMA_PASIEN}
+                </td>
+            </tr>
+            <tr>
+                <td>NO MR</td>
+                <td>
+                    {$rs_pasien.NO_MR}
+                </td>
+            </tr>
+            <tr>
+                <td>TANGGAL LAHIR</td>
+                <td>
+                    {$rs_pasien.TGL_LAHIR|date_format:"%d %b %Y"}
+                </td>
+            </tr>
+            <tr>
+                <td>ALAMAT</td>
+                <td>{$rs_pasien.ALAMAT}</td>
+            </tr>
+            
+        </table>
+        <div class="notification red">
+            <p><strong>High Risk :</strong> {$rs_pasien.FS_HIGH_RISK|default:'-'} </p>
+            <p><strong>Alergi :</strong> {$rs_pasien.FS_ALERGI|default:'-'} ({$rs_pasien.FS_REAK_ALERGI|default:'-'})</p>
+            <div class="clear"></div>
+        </div>
+        <table class="table-input" width="100%">
+            <tr class="headrow">
+                <th colspan="2">Anamnesa/Riwayat Masuk Rumah Sakit</th>
+                <th colspan="2">Pemeriksaan Fisik</th>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <textarea cols="50" name="FS_ANAMNESA">-</textarea>
+                </td>
+                <td colspan="2">
+                    <textarea cols="50" name="FS_PEMERIKSAAN_FISIK">-</textarea>
+
+                </td>
+            </tr>
+            <tr>
+                <td width='20%'><b>  Bio Sosio  </b>  </td>
+               </tr> 
+            <tr>
+                <td width='20%'>  Status Pernikahan  </td>
+                <td width='30%'>
+                   <input type="radio" name="MENIKAH" value="Belum" {if $data.MENIKAH eq 'Belum'} checked {/if}  size="32"> Belum 
+                   <input type="radio" name="MENIKAH" value="Menikah" {if $data.MENIKAH eq 'Menikah'} checked {/if}  size="32">Menikah
+                   <input type="radio" name="MENIKAH" required="" value="Janda/Duda" {if $data.MENIKAH eq 'Janda/Duda'} checked {/if} size="32">Janda/Duda
+                </td>
+                <td>Pekerjaan</td>
+                <td><input type="text" name="JOB" required="" value="{$data.JOB}">  </td>
+              </tr>
+              <tr>
+                <td width='20%'>    Suku  </td>
+                <td><input type="text" name="SUKU" required="" value="{$data.SUKU}">  </td>
+                <td>Agama</td>
+                <td>
+                    <input type="radio" name="AGAMA" required value="1" {if $data.AGAMA eq '1'} checked {/if}> Islam
+                    <input type="radio" name="AGAMA" value="2"  {if $data.AGAMA eq '2'} checked {/if}> Kristen
+                    <input type="radio" name="AGAMA" value="3" {if $data.AGAMA eq '3'} checked {/if}> Katolik
+                    <input type="radio" name="AGAMA" value="5" {if $data.AGAMA eq '5'} checked {/if}> Budha
+                    <input type="radio" name="AGAMA" value="4" {if $data.AGAMA eq '4'} checked {/if}> Hindu
+                    <input type="radio" name="AGAMA" value="6" {if $data.AGAMA eq '6'} checked {/if}> Khonghucu
+                 </td>
+              </tr>
+              <tr class="headrow">
+                <th colspan="4">OBJEKTIF</th>
+              </tr>
+              <tr>
+                       
+                <td>Kesadaran</td>
+                <td> 
+                    <input type="radio" name="KESADARAN" {if $data.KESADARAN eq 'Compos metis'} checked {/if} required value="Compos metis"> Compos metis
+                    <input type="radio" name="KESADARAN"  {if $data.KESADARAN eq 'Somnolen'} checked {/if} value="Somnolen">  Somnolen
+                    <input type="radio" name="KESADARAN" required="" {if $data.KESADARAN eq 'Apatis'} checked {/if} value="Apatis">  Apatis
+                    <input type="radio" name="KESADARAN" {if $data.KESADARAN eq 'Sopor'} checked {/if} value="Sopor">  Sopor
+                    <input type="radio" name="KESADARAN" {if $data.KESADARAN eq 'Coma'} checked {/if}  value="Coma">  Coma
+                    
+                   </td> 
+           
+               <td> GCS   </td>
+                 <td>   <input type="text" value="{$data.GCS}" required="" name="GCS"> </td>
+                 </tr>
+
+            <tr class="headrow">
+                <th colspan="4">Vital Sign</th>
+            </tr>
+            <tr>
+                <td width='20%'>Suhu</td>
+                <td width='30%'><input type="text" name="FS_SUHU" required=""  size="10" value="{$vs.FS_ANAMNESA|default:'-'}"/></td>
+                <td width='20%'>Nadi</td>
+                <td width='30%'><input type="text" name="FS_NADI"  required="" size="10" value="{$vs.FS_ANAMNESA|default:'-'}"/> x/menit</td>
+            </tr>
+            <tr>
+                <td>R</td>
+                <td><input type="text" name="FS_R" size="10" required="" value="{$vs.FS_ANAMNESA|default:'-'}"/> x/menit</td>
+                <td>TD</td>
+                <td><input type="text" name="FS_TD" size="10" required="" value="{$vs.FS_ANAMNESA|default:'-'}"/> mmHg</td>
+            </tr>
+            <tr>
+                <td>Tinggi Badan</td>
+                <td><input type="text" name="FS_TB" size="10" required=""  value="{$vs.FS_ANAMNESA|default:'-'}"/> cm</td>
+                <td>Berat Badan</td>
+                <td><input type="text" name="FS_BB" size="10" required="" value="{$vs.FS_ANAMNESA|default:'-'}"/> Kg</td>
+            </tr>
+
+        </table>
+
+
+        <table class="table-input" width="100%">
+            <tr class="headrow">
+                <th colspan="4">   </th>
+            </tr>
+            <tr>
+                <td style="width: 200px;">B1 (Breathing</td>
+                <td colspan="3">
+                    <table>
+                        <tr>
+                            <td>Irama Nafas</td>
+                            <td><input type="radio" name="IRAMA_NAFAS" required="" {if $data.IRAMA_NAFAS eq 'Teratur'} checked {/if} value="Teratur">Teratur </td>
+                            <td><input type="radio" name="IRAMA_NAFAS" {if $data.IRAMA_NAFAS eq 'Tidak'} checked {/if}  value="Tidak">Tidak Teratur </td>
+                        </tr>
+                        <tr>
+                            <td> Batuk  </td>
+                            <td><input type="radio" name="BATUK" required="" {if $data.BATUK eq 'Tidak'} checked {/if} value="Tidak">Tidak   </td>
+                            <td><input type="radio" name="BATUK"  {if $data.BATUK eq 'Ada'} checked {/if} value="Ada">Ada </td>
+                           
+                        </tr>
+                        <tr>
+                            <td> Pola Pernafasan  </td> 
+                            <td><input type="radio" name="POLA_NAFAS" required="" {if $data.POLA_NAFAS eq 'Tidak'} checked {/if} value="Tidak">Tidak ada  </td>
+                            <td><input type="radio" name="POLA_NAFAS" {if $data.POLA_NAFAS eq 'Dypsnoe'} checked {/if} value="Dypsnoe">  Dypsnoe  </td>
+                            <td><input type="radio" name="POLA_NAFAS" {if $data.POLA_NAFAS eq 'Kusmaul'} checked {/if} value="Kusmaul">  Kusmaul  </td>
+                            <td><input type="radio" name="POLA_NAFAS" {if $data.POLA_NAFAS eq 'Cheyne Stoke'} checked {/if} value="Cheyne Stoke">  Cheyne Stoke  </td>
+                        </tr>
+                        <tr>
+                            <td> Suara Nafas  </td>
+                            <td><input type="radio" name="SUARA_NAFAS" required="" {if $data.SUARA_NAFAS eq 'Gargling'} checked {/if} value="Gargling">Gargling  </td>
+                            <td><input type="radio" name="SUARA_NAFAS" {if $data.SUARA_NAFAS eq 'Snoring'} checked {/if} value="Snoring"> Snoring </td>
+                            <td><input type="radio" name="SUARA_NAFAS" {if $data.SUARA_NAFAS eq 'Stidor'} checked {/if} value="Stidor">Stidor</td>
+                            <td><input type="radio" name="SUARA_NAFAS" {if $data.SUARA_NAFAS eq 'Tidak'} checked {/if} value="Tidak">  Tidak Ada  </td>
+                        </tr>
+                        <tr>
+                            <td> Alat Bantu Nafas  </td>
+                            <td><input type="radio" name="BANTU_NAFAS" required="" {if $data.BANTU_NAFAS eq 'Tidak'} checked {/if} class="rad" value="Tidak">Tidak   </td>
+                            <td><input type="radio" name="BANTU_NAFAS" {if $data.BANTU_NAFAS neq 'Tidak'} checked {/if}  class="rad" value="Ada">Ya 
+                                <input type="text"  id="form2" {if $data.BANTU_NAFAS neq 'Tidak'} style="display:show" value="{$data.BANTU_NAFAS}" {/if}  style="display:none" name="BANTU_NAFAS2">    
+                            </td>
+                           
+                        </tr>
+                      </table> 
+                </td>
+            </tr>
+            </table>
+
+            <table class="table-input" width="100%">
+                <tr class="headrow">
+                    <th colspan="4">   </th>
+                </tr>
+                <tr>
+                    <td style="width: 200px;">B2 (Blood)</td>
+                    <td colspan="3">
+                        <table>
+                            <tr>
+                                <td>Nyeri Dada  </td>
+                                <td><input type="radio" name="NYERI_DADA" required="" {if $data.NYERI_DADA eq 'Tidak'} checked {/if}  value="Tidak">Tidak Ada </td>
+                                <td><input type="radio" name="NYERI_DADA" {if $data.NYERI_DADA eq 'Ada'} checked {/if}  value="Ada">Ada </td>
+                             
+                            </tr>
+                            <tr>
+                                <td> Akral  </td>
+                                <td><input type="radio" name="AKRAL" required="" {if $data.AKRAL eq 'Hangat'} checked {/if}  value="Hangat">Hangat </td> 
+                                <td><input type="radio" name="AKRAL"  {if $data.AKRAL eq 'Kering'} checked {/if}  value="Kering">Kering </td> 
+                                <td><input type="radio" name="AKRAL" {if $data.AKRAL eq 'Dingin'} checked {/if}  value="Dingin">Dingin </td> 
+                            </tr>
+                            <tr>
+                                <td> Perdarahan    </td> 
+                                <td><input type="radio" class="radp" required="" {if $data.PERDARAHAN eq 'Tidak'} checked {/if}  name="PERDARAHAN" value="Tidak">Tidak ada  </td> 
+                                <td><input type="radio" class="radp" {if $data.PERDARAHAN eq 'Ada'} checked {/if}   name="PERDARAHAN" value="Ada">  ada
+                                   <input type="text"  id="formp" {if $data.PERDARAHAN neq 'Tidak'} style="display: show;" value="{$data.PERDARAHAN}" {/if} style="display:none" name="PERDARAHAN2">    
+                                </td> 
+
+                            </tr>
+                            <tr>
+                                <td>   Cyanosis  </td>
+                                <td><input type="radio" name="CYANOSIS" required="" {if $data.CYANOSIS eq 'Tidak'} checked {/if} value="Tidak">Tidak Ada  </td> 
+                                <td><input type="radio" name="CYANOSIS" {if $data.CYANOSIS eq 'Ada'} checked {/if} value="Ada">Ada  </td> 
+                             
+                            </tr>
+                            <tr>
+                                <td> CRT  </td>
+                                <td><input type="radio" name="CRT" required="" {if $data.CRT eq '1-2'} checked {/if} value="1-2">1-2 </td>
+                                <td><input type="radio" name="CRT" {if $data.CRT eq '>2'} checked {/if} value=">2">>2   </td>
+                            </tr>
+                            <tr>
+                                <td> Turgor  </td>
+                                <td><input type="radio" name="TURGOR" required="" {if $data.TURGOR eq 'Elastis'} checked {/if} value="Elastis">Elastis </td>
+                                <td><input type="radio" name="TURGOR" {if $data.TURGOR eq 'Tidak'} checked {/if} value="Tidak">>Tidak Elastis   </td>
+                            </tr>
+                          </table> 
+                    </td>
+                </tr>
+                </table>
+    
+                <table class="table-input" width="100%">
+                    <tr class="headrow">
+                        <th colspan="4">   </th>
+                    </tr>
+                    <tr>
+                        <td style="width: 200px;">B3 (Brain)</td>
+                        <td colspan="3">
+                            <table>
+                               
+                                <tr>
+                                    <td> Reflek Cahaya  </td>
+                                    <td><input type="radio" name="REFLEK_CAHAYA" required="" {if $data.REFLEK_CAHAYA eq 'Positif'} checked {/if} value="Positif"> Positif </td>  
+                                    <td><input type="radio" name="REFLEK_CAHAYA" {if $data.REFLEK_CAHAYA eq 'Negatif'} checked {/if} value="Negatif"> Negatif </td>  
+                                </tr>
+                                <tr>
+                                    <td> Pupil    </td> 
+                                    <td><input type="radio" name="PUPIL" required="" {if $data.PUPIL eq 'Isokor'} checked {/if} value="Isokor">Isokor  </td> 
+                                    <td><input type="radio" name="PUPIL" {if $data.PUPIL eq 'Anisokor'} checked {/if}  value="Anisokor">  Anisokor  </td> 
+                                </tr>
+                                <tr>
+                                    <td>   Kelumpuhan  </td>
+                                    <td><input type="radio" name="LUMPUH" required="" {if $data.LUMPUH eq 'Tidak'} checked {/if} value="Tidak">Tidak Ada  </td> 
+                                    <td><input type="radio" name="LUMPUH" {if $data.LUMPUH eq 'Ada'} checked {/if} value="Ada">Ada  </td> 
+                                    
+                                </tr>
+                                <tr>
+                                    <td> Pusing  </td>
+                                    <td><input type="radio" name="PUSING" required="" {if $data.PUSING eq 'Tidak'} checked {/if} value="Tidak">Tidak Ada  </td> 
+                                    <td><input type="radio" name="PUSING"  {if $data.PUSING eq 'Ada'} checked {/if} value="Ada">Ada  </td> 
+                                   
+                                </tr>
+                               
+                              </table> 
+                        </td>
+                    </tr>
+                    </table>
+        
+                    <table class="table-input" width="100%">
+                        <tr class="headrow">
+                            <th colspan="4">   </th>
+                        </tr>
+                        <tr>
+                            <td style="width: 200px;">B4 (BAK)</td>
+                            <td colspan="3">
+                                <table>
+                                   
+                                   
+                                    <tr>
+                                        <td>   BAK  </td>
+                                        <td><input type="radio" name="BAK" required="" {if $data.BAK eq 'Spontak'} checked {/if} value="Spontak">Spontak  </td> 
+                                        <td><input type="radio" name="BAK" {if $data.BAK eq 'Tidak'} checked {/if}  value="Tidak">Tidak  Spontak  </td> 
+                                    </tr>
+                                    <tr>
+                                        <td> Nyeri Tekan  </td>
+                                        <td><input type="radio" name="BAK_TEKAN" required="" {if $data.BAK_TEKAN eq 'Ada'} checked {/if} value="Ada">Ada  </td> 
+                                        <td><input type="radio" name="BAK_TEKAN" {if $data.BAK_TEKAN eq 'Tidak'} checked {/if} value="Tidak">Tidak Ada  </td> 
+                                    </tr>
+                                    <tr>
+                                        <td> Produksi Urine    </td>
+                                        <td><input type="text" name="URINE" value="{$data.URINE}"></td>
+                                        </tr>
+                                   
+                                  </table> 
+                            </td>
+                        </tr>
+                        </table>
+
+             <table class="table-input" width="100%">
+                        <tr class="headrow">
+                            <th colspan="4">   </th>
+                        </tr>
+                        <tr>
+                            <td style="width: 200px;">B5 (Bowel)</td>
+                            <td colspan="3">
+                                <table>
+                                   
+                                   
+                                    <tr>
+                                        <td>   BAB  </td>
+                                        <td><input type="radio" name="BAB" required="" value="Normal" {if $data.BAB eq 'Normal'} checked {/if}>Normal  </td>  
+                                        <td><input type="radio" name="BAB"  value="Cair" {if $data.BAB eq 'Cair'} checked {/if}>Cair  </td>  
+                                        <td><input type="radio" name="BAB" value="Konstipasi"  {if $data.BAB eq 'Konstipasi'} checked {/if}>Konstipasi  </td>  
+                                    </tr>
+                                    <tr>
+                                        <td>   Abdomen  </td>
+                                        <td><input type="radio" required="" name="ABDOMEN" value="Supel" {if $data.ABDOMEN eq 'Supel'} checked {/if}>Supel  </td>  
+                                        <td><input type="radio" name="ABDOMEN" value="Kembang" {if $data.ABDOMEN eq 'Kembang'} checked {/if}>Kembang  </td>  
+                                        <td><input type="radio" name="ABDOMEN" value="Ascites" {if $data.ABDOMEN eq 'Ascites'} checked {/if}>Ascites  </td>  
+                                        <td><input type="radio" name="ABDOMEN" value="Tegang" {if $data.ABDOMEN eq 'Tegang'} checked {/if}>Tegang  </td>  
+                                    </tr>
+                                    <tr>
+                                        <td> Nyeri Tekan  </td>
+                                        <td><input type="radio" required="" name="BAB_TEKAN" value="Tidak" {if $data.BAB_TEKAN eq 'Tidak'} checked {/if}>Tidak Ada  </td> 
+                                        <td><input type="radio" name="BAB_TEKAN" value="Ada" {if $data.BAB_TEKAN eq 'Ada'} checked {/if}>Ada  </td> 
+                                       
+                                    </tr> 
+                                     
+                                    <tr>
+                                        <td> Jejas Abdomen    </td>
+                                        <td><input type="radio" required="" name="JEJAS_ABDOMEN" value="Tidak" {if $data.JEJAS_ABDOMEN eq 'Tidak'} checked {/if}>Tidak Ada  </td> 
+                                        <td><input type="radio" name="JEJAS_ABDOMEN" value="Ada" {if $data.JEJAS_ABDOMEN eq 'Ada'} checked {/if}>Ada  </td> 
+                                       
+                                    </tr> 
+                                   
+                                  </table> 
+                            </td>
+                        </tr>
+                        </table>
+
+
+                          <table class="table-input" width="100%">
+                        <tr class="headrow">
+                            <th colspan="4">   </th>
+                        </tr>
+                        <tr>
+                            <td style="width: 200px;">B6 (Bone)</td>
+                            <td colspan="3">
+                                <table>
+                                   
+                                   
+                                    <tr>
+                                        <td>   Pergerakan Sendi  </td>
+                                        <td><input type="radio" required="" name="SENDI" value="Bebas" {if $data.SENDI eq 'Bebas'} checked {/if}>Bebas  </td>  
+                                        <td><input type="radio" name="SENDI" value="Terbatas" {if $data.SENDI eq 'Terbatas'} checked {/if}>Terbatas  </td>   
+                                    </tr>
+                                    <tr>
+                                        <td>   DIslokasi  </td>
+                                        <td><input type="radio" required="" name="DISLOK" value="Tidak" {if $data.DISLOK eq 'Tidak'} checked {/if}>Tidak Ada  </td>   
+                                        <td><input type="radio" name="DISLOK" value="Ada" {if $data.DISLOK eq 'Ada'} checked {/if}>Ada  </td>   
+                                      
+                                    </tr>
+                                    <tr>
+                                        <td> Fraktur    </td>
+                                        <td><input type="radio" required="" name="FRAKTUR" class="radf" {if $data.FRAKTUR eq 'Tidak'} checked {/if} value="Tidak">Tidak Ada  </td> 
+                                        <td><input type="radio" name="FRAKTUR" class="radf" {if $data.FRAKTUR neq 'Tidak'} checked {/if} value="Ada">Ada  
+                                           <input type="text"  id="formf" {if $data.FRAKTUR neq 'Tidak'} style="display: show;" value="{$data.FRAKTUR}" {/if} style="display:none" name="FRAKTUR2">    
+                                            </td> 
+                                        
+                                    </tr> 
+                                     
+                                    <tr>
+                                        <td> Luka      </td>
+                                        <td><input type="radio" name="LUKA" required="" value="Tidak" {if $data.LUKA eq 'Tidak'} checked {/if}>Tidak Ada  </td> 
+                                        <td><input type="radio" name="LUKA" value="Ada" {if $data.LUKA eq 'Ada'} checked {/if}>Ada  </td> 
+                                       
+                                        <td><input type="radio" name="LUKA" required="" value="Bersih" {if $data.BAK_TEKAN eq 'Bersih'} checked {/if}>Bersih  </td> 
+                                        <td><input type="radio" name="LUKA" value="Kotor" {if $data.BAK_TEKAN eq 'Kotor'} checked {/if}>Kotor  </td> 
+
+                                    </tr> 
+                                   
+                                  </table> 
+                            </td>
+                        </tr>
+                        </table>
+
+        <table class="table-input" width="100%">
+            <tr class="headrow">
+                <th colspan="4">Asesmen Nyeri</th>
+            </tr>
+            <tr>
+                <td width='20%'>Ada Nyeri ?</td>
+                <td width='30%'>
+                    <select name="FS_NYERI" id="surat_dari" class="select2" style="width: 190px;">
+                        <option value="0">Tidak</option>
+                        <option value="1">Ya</option>
+                    </select>
+                </td>
+                <td width='20%'></td>
+                <td width='30%'></td>
+            </tr>
+            <tr>
+                <td>Provokatif</td>
+                <td>
+                    <select name="FS_NYERIP" id="surat_dari" class="select2" style="width: 190px;">
+                        <option value="0">Tidak Ada Nyeri</option>
+                        <option value="2">Biologik</option>
+                        <option value="3">Kimiawi</option>
+                        <option value="4">Mekanik / Rudapaksa</option>
+                    </select>
+                </td>
+                <td>Quality</td>
+                <td>
+                    <select name="FS_NYERIQ" id="surat_dari" class="select2" style="width: 190px;">
+                        <option value="0">Tidak Ada</option>
+                        <option value="1">Seperti Di Tusuk-Tusuk</option>
+                        <option value="2">Seperti Terbakar</option>
+                        <option value="3">Seperti Tertimpa Beb</option>
+                        <option value="4">Ngilu</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Regio</td>
+                <td>
+                    <input type="text" name="FS_NYERIR" size="10" value="{$vs.FS_ANAMNESA|default:'-'}"/>
+                </td>
+                <td>Severity</td>
+                <td>
+                    <select name="FS_NYERIS" id="surat_dari" class="select2" style="width: 190px;">
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Time</td>
+                <td>
+                    <select name="FS_NYERIT" id="surat_dari" class="select2" style="width: 190px;">
+                        <option value="0">Tidak Ada</option>
+                        <option value="1">Kadang-kadang</option>
+                        <option value="2">Sering</option>
+                        <option value="3">Menetap</option>
+                    </select>
+                </td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+        <input type="hidden" name="FS_SCORE">
+        <!-- <table>
+            <table class="table-input" width="100%">
+                <tr class="headrow">
+                    <th colspan="4">Risiko Jatuh</th>
+                </tr>
+                {if $rs_pasien.fn_umur < '15'}
+                <tr>
+                    <td width='20%'>Humty Dumpty Scale</td>
+                    <td width='30%'>
+                        <select name="FS_SCORE" id="surat_dari" class="select2" style="width: 190px;">
+                            <option value="0">-Pilih Data-</option>
+                            <option value="1">7-11 (Risiko Rendah)</option>
+                            <option value="2"> >12 (Risiko Tinggi)</option>
+
+                        </select>
+                    </td>
+                    <td width='20%'></td>
+                    <td width='30%'></td>
+                </tr>
+                {elseif $rs_pasien.fn_umur >= '15' && $rs_pasien.fn_umur <= '60'}
+                <tr>
+                    <td width='20%'>Morse Fall Scale</td>
+                    <td width='30%'>
+                        <select name="FS_SCORE" id="surat_dari" class="select2" style="width: 190px;">
+                            <option value="0">-Pilih Data-</option>
+                            <option value="3">0-24  (Risiko Rendah)</option>
+                            <option value="4">25-45 (Risiko Sedang)</option>
+                            <option value="5">>45   (Risiko Tinggi)</option>
+
+                        </select>
+                    </td>
+                    <td width='20%'></td>
+                    <td width='30%'></td>
+                </tr>
+                {elseif $rs_pasien.fn_umur > '60'}
+                <tr>
+                    <td width='20%'>Ontario modified Stratify - Sydney Scoring</td>
+                    <td width='30%'>
+                        <select name="FS_SCORE" id="surat_dari" class="select2" style="width: 190px;">
+                            <option value="0">-Pilih Data-</option>
+                            <option value="6">0-5  (Risiko Rendah)</option>
+                            <option value="7">6-16 (Risiko Sedang)</option>
+                            <option value="8">17-30   (Risiko Tinggi)</option>
+
+                        </select>
+                    </td>
+                    <td width='20%'></td>
+                    <td width='30%'></td>
+                </tr>
+                {/if}
+            </table>  -->
+            <table class="table-input" width="100%">
+                <tr class="headrow">
+                    <th colspan="4">Riwayat Alergi</th>
+                </tr>
+                <tr>
+                    <td width='20%'>Riwayat Alergi</td>
+                    <td width='30%'>
+                        <input type="text" name="FS_ALERGI" size="35" value="{$rs_pasien.FS_ALERGI|default:'-'}">
+                        <em style="color:red">* Wajib Diisi</em>
+                    </td>
+                    <td width='20%'>Reaksi Alergi</td>
+                    <td width='30%'>
+                        <input type="text" name="FS_REAK_ALERGI" size="35" value="{$rs_pasien.FS_REAK_ALERGI|default:'-'}">
+                        <em style="color:red">* Wajib Diisi</em>
+                    </td>
+                </tr>
+                <tr>
+                    <td width='20%'>  Status Kehamilan  </td>
+                    <td width='30%'>
+                       <input type="radio" name="HAMIL" class="radh" value="Tidak"  required=""    size="32">Tidak
+                       <input type="radio" name="HAMIL"  class="radh" value="Ya"     size="32">Ya
+                       <input type="text"  id="formh" {if $data.HAMIL neq 'Tidak'} style="display:show;"  value="{$data.HAMIL}" {/if}    name="HAMIL2">    
+                    </td>
+                </tr>
+            </table>
+            <table class="table-input" width="100%">
+        <tr class="headrow">
+            <th colspan="4">Riwayat Kesehatan</th>
+        </tr>
+        <tr>
+            <td width='20%'>Riweayat Penyakit dahulu</td>
+            <td width='30%'>
+               <input type="text" name="FS_RIW_PENYAKIT_DAHULU" value="{$rs_pasien.FS_RIW_PENYAKIT_DAHULU|default:'-'}" size="32">
+            </td>
+            <td width='20%'>Riwayat penyakit keluarga</td>
+            <td width='30%'>
+                <input type="text" name="FS_RIW_PENYAKIT_DAHULU2" value="{$rs_pasien.FS_RIW_PENYAKIT_DAHULU|default:'-'}" size="32">
+            
+            </td>
+        </tr>
+            </table>
+            <table class="table-input" width="100%">
+                <tr class="headrow">
+                    <th colspan="2">Status Psikologis</th>
+                    <th colspan="2">Status Sosial</th>
+                </tr>
+                <tr>
+                    <td width='20%'>Status Psikologis</td>
+                    <td width='30%'>
+                        <select name="FS_STATUS_PSIK">
+                            <option value="1" onclick='document.getElementById("civstaton3").disabled = true'>Tenang</option>
+                            <option value="2" onclick='document.getElementById("civstaton3").disabled = true'>Cemas</option>
+                            <option value="3" onclick='document.getElementById("civstaton3").disabled = true'>Takut</option>
+                            <option value="4" onclick='document.getElementById("civstaton3").disabled = true'>Marah</option>
+                            <option value="5" onclick='document.getElementById("civstaton3").disabled = true'>Sedih</option>
+                            <option VALUE="6" onclick='document.getElementById("civstaton3").disabled = false'>Lainnya</option>
+                        </select>
+                        <br><br>
+                        <input type="hidden" name="FS_STATUS_PSIK2" id="civstaton3" disabled="" size="32">
+                    </td>
+                    <td width='20%'>Hubungan dengan anggota keluarga</td>
+                    <td width='30%'>
+                        <select name="FS_HUB_KELUARGA" id="surat_dari" class="select2" style="width: 190px;">
+                            <option value="1">Baik</option>
+                            <option value="2">Tidak Baik</option>
+
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Status Mental</td>
+                    <td>
+                        <input type="radio" required name="MENTAL" value="Kooperatif" {if $data.MENTAL eq 'Kooperatif'} checked {/if}> Kooperatif
+                        <input type="radio" name="MENTAL" value="tidak" {if $data.MENTAL eq 'tidak'} checked {/if}> Tidak Kooperatif
+                        <input type="radio" name="MENTAL" value="Gelisah" {if $data.MENTAL eq 'Gelisah'} checked {/if}>  Gelisah 
+                     </td>
+                </tr>
+            </table>
+            <table class="table-input" width="100%">
+                <tr class="headrow">
+                    <th colspan="4">Kebutuhan Fungsional</th>
+                </tr>
+                <tr>
+                    <td width='20%'>Makan</td>
+                    <td width='30%'>
+                        <select name="FS_FUNGSIONAL1" id="op1" class="select2" required style="width: 190px;">
+                            <option value="">--Pilih Data--</option>
+                            <option value="0">Tidak Mampu</option>
+                            <option value="1">Butuh bantuan</option>
+                            <option value="2">Mandiri</option>
+                        </select>
+                         <span id="sc1"></span>
+                    </td>
+                    <td width='20%'>Kesimpulan</td>
+                    <td width='30%'><b><span id="rjtkesimpulan"></span></b></td>
+                </tr>
+                <tr>
+                    <td>Mandi</td>
+                    <td>
+                        <select name="FS_FUNGSIONAL2" id="op2" class="select2" required style="width: 190px;">
+                            <option value="">--Pilih Data--</option>
+                            <option value="0">Tergantung orang lain</option>
+                            <option value="1">Mandiri</option>
+                        </select>
+                        <span id="sc2"></span>
+                    </td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Perawatan diri</td>
+                    <td>
+                        <select name="FS_FUNGSIONAL3" id="op3" class="select2" required style="width: 190px;">
+                            <option value="">--Pilih Data--</option>
+                            <option value="0">Membutuhkan bantuan orang lain</option>
+                            <option value="1">Mandiri</option>
+                        </select>
+                        <span id="sc3"></span>
+                    </td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Berpakaian</td>
+                    <td>
+                        <select name="FS_FUNGSIONAL4" id="op4" class="select2" required style="width: 190px;">
+                            <option value="">--Pilih Data--</option>
+                            <option value="0">Tergantung orang lain</option>
+                            <option value="1">Sebagian dibantu</option>
+                            <option value="2">Mandiri</option>
+                        </select>
+                        <span id="sc4"></span>
+                    </td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Buang air kecil</td>
+                    <td>
+                        <select name="FS_FUNGSIONAL5" id="op5" class="select2"  required style="width: 190px;">
+                            <option value="">--Pilih Data--</option>
+                            <option value="0">Tidak terkontrol atau pakai kateter</option>
+                            <option value="1">Kadang inkontensia</option>
+                            <option value="2">Kontensia / teratur (lebih dari 7 hari)</option>
+                        </select>
+                        <span id="sc5"></span>
+                    </td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Buang air besar</td>
+                    <td>
+                        <select name="FS_FUNGSIONAL6" id="op6" class="select2" required style="width: 190px;">
+                            <option value="">--Pilih Data--</option>
+                            <option value="0">Inkontensia (Tidak teratur atau perlu)</option>
+                            <option value="1">Kadang inkontensia (sekali seminggu)</option>
+                            <option value="2">Kontensia (teratur)</option>
+                        </select>
+                        <span id="sc6"></span>
+                    </td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Penggunaan toilet</td>
+                    <td>
+                        <select name="FS_FUNGSIONAL7" id="op7" class="select2" required style="width: 190px;">
+                            <option value="">--Pilih Data--</option>
+                            <option value="0">Tergantung</option>
+                            <option value="1">Membutuhkan bantuan, tapi dapat melakukan beberapa hal sendiri</option>
+                            <option value="2">Mandiri</option>
+                        </select>
+                        <span id="sc7"></span>
+                    </td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Transfer</td>
+                    <td>
+                        <select name="FS_FUNGSIONAL8" id="op8" class="select2" required style="width: 190px;">
+                            <option value="">--Pilih Data--</option>
+                            <option value="0">Tidak mampu</option>
+                            <option value="1">Butuh bantuan untuk bisa duduk (2 Orang)</option>
+                            <option value="2">Bantuan kecil (1 orang)</option>
+                            <option value="3">Mandiri</option>
+                        </select>
+                        <span id="sc8"></span>
+                    </td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Mobilitas</td>
+                    <td>
+                        <select name="FS_FUNGSIONAL9" id="op9" class="select2" required style="width: 190px;">
+                            <option value="">--Pilih Data--</option>
+                            <option value="0">Immobile (tidak mampu)</option>
+                            <option value="1">Menggunakan kursi roda</option>
+                            <option value="2">Berjalan dengan bantuan satu orang</option>
+                            <option value="3">Mandiri (meskipun menggunakan alat bantu seperti tongkat)</option>
+                        </select>
+                        <span id="sc9"></span>
+                    </td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Naik turun tangga</td>
+                    <td>
+                        <select name="FS_FUNGSIONAL10" id="op10" required class="select2" style="width: 190px;">
+                            <option value="">--Pilih Data--</option>
+                            <option value="0">Tidak mampu</option>
+                            <option value="1">Membutuhkan bantuan (alat bantu)</option>
+                            <option value="2">Mandiri</option>
+                        </select>
+                        <span id="sc10"></span>
+                    </td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </table>
+
+            
+            <table class="table-input" width="100%">
+                <tr class="headrow">
+                    <th colspan="4">Asesmen Resiko Dekubitus</th>
+                </tr>
+                <tr>
+                    <td width='20%'>Apakah Pasien menggunakan kursi roda/mmembutuhkan bantuan ?</td>
+                    <td width='30%'>
+                        <select name="KURSI_RODA" class="select2" style="width: 190px;" id="op1">
+                            <option value="">--Pilih Data--</option>
+                            <option {if $data.KURSI_RODA neq 'Ya'} selected {/if} value="Tidak">TIDAK</option>
+                            <option {if $data.KURSI_RODA eq 'Ya'} selected {/if} value="Ya">YA</option>
+        
+                        </select>
+                  
+                    </td>
+                     
+                </tr>
+                <tr>
+                    <td width='20%'>Apakah ada inkontinensiauri / alvi?</td>
+                    <td width='30%'>
+                        <select name="ALVI" class="select2" style="width: 190px;" id="op2">
+                            <option value="">--Pilih Data--</option>
+                            <option {if $data.ALVI neq 'Ya'} selected {/if} value="Tidak">TIDAK</option>
+                            <option {if $data.ALVI eq 'Ya'} selected {/if} value="Ya">YA</option>
+                        </select>
+                        <span id="sc2"></span>
+                    </td> 
+                </tr>
+                <tr>
+                    <td>Apakah ada  riwayat dekubitus atau luka dekubitus? </td>
+                    <td>
+                        <select name="RIWAYAT_DEKUBITUS" class="select2" style="width: 190px;" id="op3">
+                            <option value="">--Pilih Data--</option>
+                            <option {if $data.RIWAYAT_DEKUBITUS neq 'Ya'} selected {/if} value="Tidak">TIDAK</option>
+                            <option {if $data.RIWAYAT_DEKUBITUS eq 'Ya'} selected {/if} value="Ya">YA</option>
+                        </select>
+                        <span id="sc3"></span>
+                    </td>
+                    
+                </tr>
+                <tr>
+                    <td>Apakah Usia diatas 65 tahun? </td>
+                    <td>
+                        <select name="USIA65" class="select2" style="width: 190px;" id="op3">
+                            <option value="">--Pilih Data--</option>
+                            <option {if $data.USIA65 neq 'Ya'} selected {/if} value="Tidak">TIDAK</option>
+                            <option {if $data.USIA65 eq 'Ya'} selected {/if} value="Ya">YA</option>
+                        </select>
+                        <span id="sc3"></span>
+                    </td>
+                    
+                </tr>
+                <tr>
+                    <td>Apakah Ekstremitas dan badan tidak sesuai dengan usia perkembangan </td>
+                    <td>
+                        <select name="ANAK_SESUAI_UMUR" class="select2" style="width: 190px;" id="op3">
+                            <option value="">--Pilih Data--</option>
+                            <option {if $data.ANAK_SESUAI_UMUR neq 'Ya'} selected {/if} value="Tidak">TIDAK</option>
+                            <option {if $data.ANAK_SESUAI_UMUR eq 'Ya'} selected {/if} value="Ya">YA</option>
+                        </select>
+                        <span id="sc3"></span>
+                    </td>
+                    
+                </tr>
+            </table>
+
+
+            <table class="table-input" width="100%">
+                <tr class="headrow">
+                    <th colspan="4">Skrining Nutrisi</th>
+                </tr>
+                <tr>
+                    <td width='20%'>Penurunan berat badan yang tidak diinginkan selama 6 bulan terakhir</td>
+                    <td width='30%'>
+                        <select name="FS_NUTRISI1" class="select2" style="width: 190px;" id="sn1">
+                            <option value="">--Pilih Data--</option>
+                            <option value="0">Tidak</option>
+                            <option value="2">Tidak Yakin</option>
+                            <option value="1">Ya (1-5 Kg)</option>
+                            <option value="3">Ya (6-10 Kg)</option>
+                            <option value="4">Ya (11-15 Kg)</option>
+                            <option value="5">Ya (>15 Kg)</option>
+
+                        </select>
+                        <span id="snh1"></span>
+                    </td>
+                    <td width='20%'>Kesimpulan</td>
+                    <td width='30%'><b><span id="kesimpulannutrisi"></span></b></td>
+                </tr>
+                <tr>
+                    <td>Asupan makanan menurun dikarenakan adanya penurunan nafsu makan</td>
+                    <td>
+                        <select name="FS_NUTRISI2" class="select2" style="width: 190px;" id="sn2">
+                            <option value="">--Pilih Data--</option>
+                            <option value="0">Tidak</option>
+                            <option value="1">Ya</option>
+                        </select>
+                        <span id="snh2"></span>
+                    </td>
+                    <td></td>
+                    <td>
+                    </td>
+                </tr>
+            </table>
+            <table class="table-input" width="100%">
+                <tr class="headrow">
+                    <th colspan="4">Spiritual dan Kultural pasien</th>
+                </tr>
+                <tr>
+                    <td width='20%'>Agama</td>
+                    <td width='30%'>
+                        <select name="FS_AGAMA" id="surat_dari" class="select2" style="width: 190px;">
+                            <option value="1">Islam</option>
+                            <option value="2">Kristen</option>
+                            <option value="3">Katholik</option>
+                            <option value="4">Hindu</option>
+                            <option value="5">Buda</option>
+                            <option value="6">Konghucu</option>
+                        </select>
+                    </td>
+                    <td width='20%'>Nilai/Kepercayaan khusus</td>
+                    <td width='30%'>
+                        <select name="FS_NILAI_KHUSUS">
+                            <option value="1" onclick='document.getElementById("civstaton4").disabled = true'>Tidak Ada</option>
+                            <option VALUE="2" onclick='document.getElementById("civstaton4").disabled = false'>Ada</option>
+                        </select>
+                        <br><br>
+                        <input type="text" name="FS_NILAI_KHUSUS2" id="civstaton4" disabled="" size="32">
+                    </td>
+                </tr>
+                <tr>
+                    <td>Bantuan Pemenuhan Kebutuhan Spiritual</td>
+                    <td>
+                        <select name="keb_spirit[]" multiple id="spiritual" style="width:250px">
+                            <option></option>
+                        </select>
+                    </td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </table>
+            <table class="table-input" width="100%">
+                <tr class="headrow">
+                    <th colspan="4">Kebutuhan Edukasi</th>
+                </tr>
+                <tr>
+                    <td width='20%'>Edukasi</td>
+                    <td width='30%'>
+                        <select name="edukasi[]" multiple id="edukasi" style="width:250px">
+                            <option></option>
+                        </select>
+                    </td>
+                    <td width='20%'></td>
+                    <td width='30%'></td>
+                </tr>
+            </table>
+            <table class="table-input" width="100%">
+                <tr class="headrow">
+                    <th colspan="4">Scrinning Discharge Planning</th>
+                </tr>
+                <tr>
+                    <td width='20%'>Discharge Planning</td>
+                    <td width='30%'>
+                        <select name="planning[]" multiple id="planning" style="width:250px">
+                            <option></option>
+                        </select>
+                    </td>
+                    <td width='20%'></td>
+                    <td width='30%'></td>
+                </tr>
+            </table>
+            <table class="table-input" width="100%">
+                <tr class="headrow">
+                    <th colspan="4">Keperawatan</th>
+                </tr>
+                <tr>
+                    <td width='20%'>Masalah Keperawatan</td>
+                    <td width='30%'>
+                        <select name="tujuan[]" multiple id="tujuan" style="width:250px">
+                            <option></option>
+                        </select>
+                    </td>
+                    <td width='20%'></td>
+                    <td width='30%'></td>
+                </tr>
+                <tr class="submit-box">
+                    <td colspan="4">
+                        <div style="font-weight: bold;">
+                            *Bismillahirohmanirrohim, saya dengan sadar dan penuh tanggung jawab mengisikan formulir ini dengan data yang benar
+                        </div>
+                        <br>
+                        <input type="submit" name="save" value="Simpan" class="edit-button"/>
+                    </td>
+                </tr>
+            </table>
+    </form>
+</div>

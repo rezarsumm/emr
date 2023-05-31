@@ -1,0 +1,79 @@
+{include file="mutu/poli/add_script_js.html"}
+<div class="breadcrum">
+    <p>
+        <a href="#">Mutu</a><span></span>
+        <a href="{$config->site_url('mutu/poli/')}">Laporan Waktu Tunggu Rawat Jalan</a><span></span>
+        <small>List Data</small>
+    </p>
+    <div class="clear"></div>
+</div>
+<div class="search-box">
+    <h3><a href="#">Search</a></h3>
+    <form action="{$config->site_url('mutu/poli/proses_cari')}" method="post">
+        <table class="table-search" width="100%" >
+            <tr>
+                <td>
+                    Periode :
+                    <input name="tanggal" type="text" size="10" maxlength="10" value="{$search.tanggal|default:''}" class="tanggal" readonly="readonly" style="text-align: center;" />
+
+                </td>
+
+                <td>
+                    <input class="button" type="submit" value="SEARCH" name="save" />
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+<div class="dashboard-container">
+    <div class="clear"></div>
+    <!-- notification template -->
+    {include file="base/templates/notification.html"}
+    <!-- end of notification template-->
+    <table class="table-view" width="100%" border="0">
+        <thead>
+            <tr>
+                <th colspan="2">
+                    Daftar Laporan Waktu Tunggu Rawat Jalan All
+                    {foreach from=$rs_bulan key=i item=bulan}
+                    {if $search.bulan|default:'' eq $i}
+                    Bulan {$bulan}
+                    {/if}
+                    {/foreach} {$search.tahun}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Jumlah kumulatif waktu tunggu pasien rawat jalan yang disurvey</td>
+                <td align="right"><b>{$rs_waktu.WAKTU/$rs_pasien.TOTAL_DAFTAR_RJ} Menit</b></td>
+            </tr>
+            <tr>
+                <td>Jumlah seluruh pasien rawat jalan yang disurvey</td>
+                <td align="right"><b>{$rs_pasien.TOTAL_DAFTAR_RJ} Pasien</b></td>
+            </tr>
+        </tbody>
+    </table>
+    <br>
+    <table class="table-view" width="100%" border="0">
+        <thead>
+            <tr>
+                <th colspan="2">
+                    Daftar Laporan Waktu Tunggu Rawat Jalan Poli Syaraf
+                    {foreach from=$rs_bulan key=i item=bulan}
+                    {if $search.bulan|default:'' eq $i}
+                    Bulan {$bulan}
+                    {/if}
+                    {/foreach} {$search.tahun}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Jumlah kumulatif waktu tunggu pasien rawat jalan yang disurvey</td>
+                <td align="right"><b>{$rs_waktu_saraf.WAKTU/$rs_pasien.TOTAL_DAFTAR_RJ} Menit</b></td>
+            </tr>
+            <tr>
+                <td>Jumlah seluruh pasien rawat jalan yang disurvey</td>
+                <td align="right"><b>{$rs_pasien_saraf.TOTAL_DAFTAR_RJ} Pasien</b></td>
+            </tr>
+        </tbody>
+    </table>

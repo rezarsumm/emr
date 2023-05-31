@@ -1,0 +1,413 @@
+{include file="medis/igd/edit_script_js.html"}
+<div class="breadcrum">
+    <p>
+        <a href="#">Pemeriksaan Dokter</a><span></span>
+        <a href="#">History Pasien</a><span></span>
+        <a href="{$config->site_url('nurse/igd/')}">Rawat Jalan</a><span></span>
+        <small>Add Data</small>
+    </p>
+    <div class="clear"></div>
+</div>
+<div class="navigation">
+    <div class="navigation-button">
+        <ul>
+            <li><a href="{$config->site_url('nurse/igd/history/'|cat:$result.FS_MR)}"><img src="{$BASEURL}resource/doc/images/icon/back-icon.png" alt="" />  Back</a></li>
+        </ul>
+    </div>
+    <div class="clear"></div>
+</div>
+<!-- notification template -->
+{include file="base/templates/notification.html"}
+<!-- end of notification template-->
+<form action="{$config->site_url('nurse/igd/edit_covid2_process')}" method="post">
+    <input type="hidden" name="FS_KD_REG" id="FS_KD_REG" value="{$result.FS_KD_REG}" />
+    <table class="table-info" width="100%">
+        <tr class="headrow">
+            <th colspan="4">Data Pasien</th>
+        </tr>
+        <tr>
+            <td width='15%'>Kode Reg</td>
+            <td width='35%'>{$result.FS_KD_REG}</td>
+            <td width='15%'>No RM</td>
+            <td width='35%'>{$result.FS_MR}</td>
+        </tr>
+        <tr>
+            <td>Nama</td>
+            <td>{$result.FS_NM_PASIEN|default:''}</td>
+            <td>Alamat</td>
+            <td>{$result.FS_ALM_PASIEN|default:''}</td>
+        </tr>
+        <tr>
+            <td>Umur</td>
+            <td>{$result.fn_umur|default:''} Tahun</td>
+            <td>Jenis Kelamin</td>
+            <td>
+                {if $result.FS_JNS_KELAMIN eq '1'}
+                Perempuan
+                {else}
+                Laki-Laki
+                {/if}
+            </td>
+        </tr>
+        <tr>
+            <td>Jaminan</td>
+            <td>{$result.FS_NM_JAMINAN|default:''}</td>
+            <td>Dokter</td>
+            <td>{$result.FS_NM_PEG|default:''}</td>
+        </tr>
+    </table>
+    <table class="table-input" width="100%">
+        <tr class="headrow">
+            <th colspan="2">Form ODP dan PDP</th>
+        </tr>
+    </table>
+    <table class="table-input" width="100%">
+         <thead>
+        <tr class="headrow">
+            <th colspan="4">Setelah Sakit Kontak Erat Dengan : <em style="color: red;"><b>*Wajib diisi untuk bisa menyimpan data</b></em></th>
+        </tr>
+        <tr>
+            <th colspan="4">
+                <a href="javascript:;" class="btn-blue item_add">Data Kontak Erat</a>
+            </th>
+        </tr>
+       
+        <tr>
+            <th>Nama</th>
+            <th>Domisili</th>
+            <th>No Handphone</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody id="show_data_kontak"></tbody>
+    </table>
+    <table class="table-input" width="100%">
+        <tr class="headrow">
+            <th colspan="2">Riwayat perawatan pasien dalam pengawasan covid</th>
+        </tr>
+        <tr>
+            <td width='25%'>Waktu kunjungan</td>
+            <td width='75%'>
+                <input type="text" name="FD_TGL_KUNJUNG" class="tanggal" size="10" value="{$result3.FD_TGL_KUNJUNG}"/>
+            </td>
+
+        </tr>
+        <tr>
+            <td>Tempat kunjungan</td>
+            <td>
+                <input type="text" name="FS_TEMPAT_KUNJUNG" value="{$result3.FS_TEMPAT_KUNJUNG}"/>
+            </td>
+
+        </tr>
+        <tr>
+            <td>Apakah orang tersebut tersangka atau terinfeksi Covid 19 (Penumonia berat) ?</td>
+            <td>
+                <select name="FS_INFEKSI" class="select2" style="width: 150px;">
+                    <option value="0" {if $result3.FS_INFEKSI eq '0'}selected=""{/if}>TIDAK</option>
+                    <option value="1" {if $result3.FS_INFEKSI eq '1'}selected=""{/if}>YA</option>
+                </select>
+            </td>
+
+        </tr>
+        <tr>
+            <td>Apakah orang anggota keluarga pasien yang sakitnya sama ?</td>
+            <td>
+                <select name="FS_INFEKSI2" class="select2" style="width: 150px;">
+                    <option value="0" {if $result3.FS_INFEKSI2 eq '0'}selected=""{/if}>TIDAK</option>
+                    <option value="1" {if $result3.FS_INFEKSI2 eq '1'}selected=""{/if}>YA</option>
+                </select>
+            </td>
+
+        </tr>
+         <tr class="headrow">
+            <th colspan="2">Penyakit komorbid</th>
+        </tr>
+        <tr>
+            <td>Penyakit kardiovaskular / Hypertensi ?</td>
+            <td>
+                <select name="FS_KOMORBID1" class="select2" style="width: 150px;">
+                    <option value="0" {if $result4.FS_KOMORBID1 eq '0'}selected=""{/if}>TIDAK</option>
+                    <option value="1" {if $result4.FS_KOMORBID1 eq '1'}selected=""{/if}>YA</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Diabetes Mellitus ?</td>
+            <td>
+                <select name="FS_KOMORBID2" class="select2" style="width: 150px;">
+                     <option value="0" {if $result4.FS_KOMORBID2 eq '0'}selected=""{/if}>TIDAK</option>
+                     <option value="1" {if $result4.FS_KOMORBID2 eq '1'}selected=""{/if}>YA</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Liver ?</td>
+            <td>
+                <select name="FS_KOMORBID3" class="select2" style="width: 150px;">
+                    <option value="0" {if $result4.FS_KOMORBID3 eq '0'}selected=""{/if}>TIDAK</option>
+                    <option value="1" {if $result4.FS_KOMORBID3 eq '1'}selected=""{/if}>YA</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Kronik Neurologi atau Neuromuskular ?</td>
+            <td>
+                <select name="FS_KOMORBID4" class="select2" style="width: 150px;">
+                    <option value="0" {if $result4.FS_KOMORBID4 eq '0'}selected=""{/if}>TIDAK</option>
+                    <option value="1" {if $result4.FS_KOMORBID4 eq '1'}selected=""{/if}>YA</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Immunodefisiensi / HIV ?</td>
+            <td>
+                <select name="FS_KOMORBID5" class="select2" style="width: 150px;">
+                     <option value="0" {if $result4.FS_KOMORBID5 eq '0'}selected=""{/if}>TIDAK</option>
+                     <option value="1" {if $result4.FS_KOMORBID5 eq '1 '}selected=""{/if}>YA</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Penyakit Paru Kronik ?</td>
+            <td>
+                <select name="FS_KOMORBID6" class="select2" style="width: 150px;">
+                    <option value="0" {if $result4.FS_KOMORBID6 eq '0'}selected=""{/if}>TIDAK</option>
+                    <option value="1" {if $result4.FS_KOMORBID6 eq '1'}selected=""{/if}>YA</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Penyakit Ginjal ?</td>
+            <td>
+                <select name="FS_KOMORBID7" class="select2" style="width: 150px;">
+                    <option value="0" {if $result4.FS_KOMORBID7 eq '0'}selected=""{/if}>TIDAK</option>
+                    <option value="1" {if $result4.FS_KOMORBID7 eq '1'}selected=""{/if}>YA</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Tanggal onset gejala (panas)</td>
+            <td>
+                <input type="text" name="FD_TGL_PANAS" class="tanggal" size="10" value="{$result4.FD_TGL_PANAS}"/>
+            </td>
+        </tr>
+        <tr class="headrow">
+            <th colspan="2">Spesimen</th>
+        </tr>
+        <tr>
+            <td>Spesimen yang diambil</td>
+            <td>
+                <select name="tujuan[]" multiple id="tujuan" style="width:250px">
+                    <option></option>
+                </select>
+                <input type="text" name="FD_SPES_TANGGAL" class="tanggal" size="10" value="{$result6.FD_SPES_TANGGAL}"/>
+            </td>
+        </tr>
+        <tr>
+            <td>Pengirim Spesimen</td>
+            <td>
+                <select name="FS_SPES_PENGIRIM" class="select2" style="width: 150px;">
+                    <option value="0" {if $result6.FS_SPES_PENGIRIM eq '0'}selected=""{/if}>Rumah Sakit</option>
+                    <option value="1" {if $result6.FS_SPES_PENGIRIM eq '1'}selected=""{/if}>Dinas Kesehatan</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Dinas Kesehatan Kab / Kota</td>
+            <td>
+                <input type="text" name="FS_SPES_DINAS" value="{$result6.FS_SPES_DINAS}" size="10"/>
+                Provinsi
+                <input type="text" name="FS_SPES_PROV" value="{$result6.FS_SPES_PROV}" size="20"/>
+            </td>
+        </tr>
+        <tr>
+            <td>Rumah Sakit</td>
+            <td>
+                <input type="text" name="FS_SPES_RS" value="{$result6.FS_SPES_RS}" size="40"/>
+                Kab / Kota
+                <input type="text" name="RS_SPES_RS_KOTA" value="{$result6.RS_SPES_RS_KOTA}" size="20"/>
+            </td>
+        </tr>
+        <tr>
+            <td>Dokter Penanggung Jawab</td>
+            <td>
+                <input type="text" name="FS_SPES_DPJP" value="{$result6.FS_SPES_DPJP}" size="40"/>
+                No Telp / Hp
+                <input type="text" name="FS_SPES_HP" value="{$result6.FS_SPES_HP}" size="30"/>
+            </td>
+        </tr>
+         <tr class="headrow">
+            <th colspan="2">Tanda dan gejala saat spesimen diambil</th>
+        </tr>
+        <tr>
+            <td>Panas atau riwayat panas >=38 C</td>
+            <td>
+                <select name="FS_SPES_GEJALA1" class="select2" style="width: 150px;">
+                    <option value="0" {if $result7.FS_SPES_GEJALA1 eq '0'}selected=""{/if}>TIDAK</option>
+                    <option value="1" {if $result7.FS_SPES_GEJALA1 eq '1'}selected=""{/if}>YA</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Batuk</td>
+            <td>
+                <select name="FS_SPES_GEJALA2" class="select2" style="width: 150px;">
+                    <option value="0" {if $result7.FS_SPES_GEJALA2 eq '0'}selected=""{/if}>TIDAK</option>
+                    <option value="1" {if $result7.FS_SPES_GEJALA2 eq '1'}selected=""{/if}>YA</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Sakit tenggorokan</td>
+            <td>
+                <select name="FS_SPES_GEJALA3" class="select2" style="width: 150px;">
+                    <option value="0" {if $result7.FS_SPES_GEJALA3 eq '0'}selected=""{/if}>TIDAK</option>
+                    <option value="1" {if $result7.FS_SPES_GEJALA3 eq '1'}selected=""{/if}>YA</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Sesak Napas</td>
+            <td>
+                <select name="FS_SPES_GEJALA4" class="select2" style="width: 150px;">
+                    <option value="0" {if $result7.FS_SPES_GEJALA4 eq '0'}selected=""{/if}>TIDAK</option>
+                    <option value="1" {if $result7.FS_SPES_GEJALA4 eq '1'}selected=""{/if}>YA</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Pilek</td>
+            <td>
+                <select name="FS_SPES_GEJALA5" class="select2" style="width: 150px;">
+                    <option value="0" {if $result7.FS_SPES_GEJALA5 eq '0'}selected=""{/if}>TIDAK</option>
+                    <option value="1" {if $result7.FS_SPES_GEJALA5 eq '1'}selected=""{/if}>YA</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Lesu</td>
+            <td>
+                <select name="FS_SPES_GEJALA6" class="select2" style="width: 150px;">
+                    <option value="0" {if $result7.FS_SPES_GEJALA6 eq '0'}selected=""{/if}>TIDAK</option>
+                    <option value="1" {if $result7.FS_SPES_GEJALA6 eq '1'}selected=""{/if}>YA</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Sakit kepala</td>
+            <td>
+                <select name="FS_SPES_GEJALA7" class="select2" style="width: 150px;">
+                    <option value="0" {if $result7.FS_SPES_GEJALA7 eq '0'}selected=""{/if}>TIDAK</option>
+                    <option value="1" {if $result7.FS_SPES_GEJALA7 eq '1'}selected=""{/if}>YA</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Diare</td>
+            <td>
+                <select name="FS_SPES_GEJALA8" class="select2" style="width: 150px;">
+                    <option value="0" {if $result7.FS_SPES_GEJALA8 eq '0'}selected=""{/if}>TIDAK</option>
+                    <option value="1" {if $result7.FS_SPES_GEJALA8 eq '1'}selected=""{/if}>YA</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Mual Muntah</td>
+            <td>
+                <select name="FS_SPES_GEJALA9" class="select2" style="width: 150px;">
+                    <option value="0" {if $result7.FS_SPES_GEJALA9 eq '0'}selected=""{/if}>TIDAK</option>
+                    <option value="1" {if $result7.FS_SPES_GEJALA9 eq '1'}selected=""{/if}>YA</option>
+                </select>
+            </td>
+        </tr>
+         <tr class="headrow">
+            <th colspan="2">Pemeriksaan Penunjang</th>
+        </tr>
+         <tr>
+            <td>X Ray Paru</td>
+            <td>
+                <select name="FS_PEN_XRAY" class="select2" style="width: 150px;">
+                    <option value="0" {if $result8.FS_PEN_XRAY eq '0'}selected=""{/if}>TIDAK</option>
+                    <option value="1" {if $result8.FS_PEN_XRAY eq '1'}selected=""{/if}>YA</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Ventilator</td>
+            <td>
+                <select name="FS_PEN_VENT" class="select2" style="width: 150px;">
+                    <option value="0" {if $result8.FS_PEN_VENT eq '0'}selected=""{/if}>TIDAK</option>
+                    <option value="1" {if $result8.FS_PEN_VENT eq '1'}selected=""{/if}>YA</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Tindak Lanjut</td>
+            <td>
+                <select name="FS_TINDAK_LANJUT" class="select2" style="width: 150px;">
+                    <option value="0">--Pilih Data--</option>
+                    <option value="1" {if $result1.FS_TINDAK_LANJUT eq '1'}selected=""{/if}>Rawat Inap</option>
+                    <option value="2" {if $result1.FS_TINDAK_LANJUT eq '2'}selected=""{/if}>Dirujuk</option>
+                    <option value="3" {if $result1.FS_TINDAK_LANJUT eq '3'}selected=""{/if}>Dipulangkan</option>
+                </select>
+            </td>
+        </tr>
+        <tr class="submit-box">
+            <td colspan="2">
+                <input type="submit" name="save" value="Simpan" class="edit-button" /> 
+            </td>
+        </tr>
+    </table>
+</form>
+
+<div id="ModalAdd">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <table class="table-input" width="100%">
+                <tr >
+                    <th colspan="2">Add Data <span id="loading">LOADING...</span></th>
+                </tr>
+                <tr>
+                    <td>Nama</td>
+                    <td>
+                        <input name="FS_NM_KONTAK" id="FS_NM_KONTAK" class="form-control" type="text" size="40">
+                    </td>
+                </tr>
+                <tr>
+                    <td>Domisili</td>
+                    <td>
+                        <input name="FS_NM_DOMISILI" id="FS_NM_DOMISILI" class="form-control" type="text" size="40">
+                </tr>
+                <tr>
+                    <td>No Handphone</td>
+                    <td>
+                        <input name="FS_NO_HP" id="FS_NO_HP" class="form-control" type="text" size="40">
+                    </td>
+                </tr>
+                
+                <tr class="submit-box">
+                    <td colspan="2">
+                        <button type="button" id="btn-add" class="btn-blue">Tambah</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div id="ModalHapus">
+    <table class="table-input" width="100%">
+        <tr>
+            <th colspan="2">Hapus Data <span id="loading-hapus">LOADING...</span></th>
+        </tr>
+        <tr>
+        <input type="hidden" name="FS_KD_TRS" id="FS_KD_TRS" value="" />
+        <td><div class="alert alert-warning"><p>Apakah Anda yakin mau menghapus barang ini?</p></div></td>
+        </tr>
+        <tr class="submit-box">
+            <td colspan="2">
+                <button type="button" id="btn_hapus" class="btn-red">Hapus</button>
+            </td>
+        </tr>
+    </table>
+</div>

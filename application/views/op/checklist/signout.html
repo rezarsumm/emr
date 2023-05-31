@@ -1,0 +1,782 @@
+ 
+ 
+<div class="breadcrum">
+    <p>
+        <a href="#">Catatan Operasi </a><span></span>
+        <a href="{$config->site_url('op/laporan/')}">Check List Keselamatan Operasi</a><span></span>
+        <small>Add Data</small>
+    </p>
+    <div class="clear"></div>
+</div> 
+<div class="content-entry">
+    <!-- notification template -->
+    {include file="base/templates/notification.html"}
+    <!-- end of notification template-->
+    <form action="{$config->site_url('op/checklist/add_process4')}" method="post" onkeypress="return event.keyCode != 13">
+        <input name="FS_KD_REG" id="FS_KD_REG" type="hidden" value="{$rs_pasien.NO_REG}" />  
+        <input name="id"  type="hidden" id="idchecklist" value="{$id}" />  
+            <input name="TGL_LAHIR" id="TGL_LAHIR" type="hidden" value="{$rs_pasien.TGL_LAHIR}" /> 
+        <input name="FS_MR" type="hidden" value="{$rs_pasien.NO_MR}" />
+        <input name="FS_KD_LAYANAN" type="hidden" value="{$rs_pasien.KODE_BANGSAL}" />
+        <input name="FS_KD_PETUGAS_MEDIS" type="hidden" value="{$rs_pasien.fs_kd_medis}" />
+
+        <table class="table-info" width="100%">
+            <tr class="headrow">
+                <th colspan="2">Add Check List Keselamatan Operasi </th>
+            </tr>
+            <tr>
+                <td>NAMA</td>
+                <td>
+                    {$rs_pasien.NAMA_PASIEN}
+                </td>
+            </tr>
+            <tr>
+                <td>NO MR</td>
+                <td>
+                    {$rs_pasien.NO_MR}
+                </td>
+            </tr>
+            <tr>
+                <td>TANGGAL LAHIR</td>
+                <td>
+                    {$rs_pasien.TGL_LAHIR|date_format:"%d %b %Y"}
+                </td>
+            </tr>
+            <tr>
+                <td>ALAMAT</td>
+                <td>{$rs_pasien.ALAMAT}</td>
+            </tr>
+        </table>
+   
+        <!-- <div class="notification red">
+            <p><strong>High Risk :</strong> {$rs_pasien.FS_HIGH_RISK|default:'-'} </p>
+            <p><strong>Alergi :</strong> {$rs_pasien.FS_ALERGI|default:'-'} ({$rs_pasien.FS_REAK_ALERGI|default:'-'})</p>
+            <div class="clear"></div>
+        </div> -->
+        <table class="table-input" width="100%" style="text-align: justify;">
+         
+
+          
+
+          
+            <tr><td colspan="2"><B><h3> SIGN OUT (sebelum tim bedah keluar kamar operasi )</h3></B></td></tr>
+  
+               
+            <tr><td><b>Data penggunaan Benda Tajam</b></td></tr>
+             
+            <tr>
+                <td colspan="4">
+                    <table border="1">
+                        <tr>
+                            <td> Nama benda </td>
+                            <td> Hitungan pertama </td>
+                            <td> Tambahan </td>
+                         </tr>
+                         
+                         {foreach $benda_tajam  as $b}
+
+                         {if $b.kdbarang eq 'b1'}
+                         <tr>
+                            <td > {$b.namabarang} </td>
+                            <td><input type="text"  value="{$b.hit1}" class="hit1_b1" class="hit1_b1" name="hit1_mata_pisau" > </td>
+                            <td><input type="text" class="tamb_b1" value="{$b.tambahan}" name="tam_mata_pisau"  > </td>
+                        </tr>
+                        {else if $b.kdbarang eq 'b2'}
+                        <tr>
+                           <td > {$b.namabarang} </td>
+                           <td><input type="text" value="{$b.hit1}" class="hit1_b2" name="hit1_mata_pisau" > </td>
+                           <td><input type="text" class="tamb_b2" value="{$b.tambahan}" name="tam_mata_pisau"  > </td>
+                        </tr>
+                        {else if $b.kdbarang eq 'b3'}
+                        <tr>
+                           <td > {$b.namabarang} </td>
+                           <td><input type="text" value="{$b.hit1}" class="hit1_b3" name="hit1_mata_pisau" > </td>
+                           <td><input type="text" class="tamb_b3" value="{$b.tambahan}" name="tam_mata_pisau"  > </td>
+                       </tr>
+
+                       {else if $b.kdbarang eq 'b4'}
+                       <tr>
+                          <td > {$b.namabarang} </td>
+                          <td><input type="text" value="{$b.hit1}" class="hit1_b4" name="hit1_mata_pisau" > </td>
+                          <td><input type="text" class="tamb_b4" value="{$b.tambahan}" name="tam_mata_pisau"  > </td>
+                      </tr>
+
+                      {else if $b.kdbarang eq 'b5'}
+                      <tr>
+                         <td > {$b.namabarang} </td>
+                         <td><input type="text" value="{$b.hit1}" class="hit1_b5" name="hit1_mata_pisau" > </td>
+                         <td><input type="text" class="tamb_b5" value="{$b.tambahan}" name="tam_mata_pisau"  > </td>
+                     </tr>
+
+                     {else if $b.kdbarang eq 'b6'}
+                     <tr>
+                        <td > {$b.namabarang} </td>
+                        <td><input type="text" value="{$b.hit1}" class="hit1_b6" name="hit1_mata_pisau" > </td>
+                        <td><input type="text" class="tamb_b6" value="{$b.tambahan}" name="tam_mata_pisau"  > </td>
+                    </tr>
+
+                    {else if $b.kdbarang eq 'b7'}
+                    <tr>
+                       <td > {$b.namabarang} </td>
+                       <td><input type="text" value="{$b.hit1}" class="hit1_b7" name="hit1_mata_pisau" > </td>
+                       <td><input type="text" class="tamb_b7" value="{$b.tambahan}" name="tam_mata_pisau"  > </td>
+                   </tr>
+
+                   {else if $b.kdbarang eq 'b8'}
+                   <tr>
+                      <td > {$b.namabarang} </td>
+                      <td><input type="text" value="{$b.hit1}" class="hit1_b8" name="hit1_mata_pisau" > </td>
+                      <td><input type="text" class="tamb_b8" value="{$b.tambahan}" name="tam_mata_pisau"  > </td>
+                  </tr>
+
+                  {else if $b.kdbarang eq 'b9'}
+                  <tr>
+                     <td > {$b.namabarang} </td>
+                     <td><input type="text" value="{$b.hit1}" class="hit1_b9" name="hit1_mata_pisau" > </td>
+                     <td><input type="text" class="tamb_b9" value="{$b.tambahan}" name="tam_mata_pisau"  > </td>
+                 </tr>
+
+                 {else if $b.kdbarang eq 'b10'}
+                 <tr>
+                    <td > {$b.namabarang} </td>
+                    <td><input type="text" value="{$b.hit1}" class="hit1_b10" name="hit1_mata_pisau" > </td>
+                    <td><input type="text" class="tamb_b10" value="{$b.tambahan}" name="tam_mata_pisau"  > </td>
+                </tr>
+
+                {else if $b.kdbarang eq 'b11'}
+                <tr>
+                   <td > {$b.namabarang} </td>
+                   <td><input type="text" value="{$b.hit1}" class="hit1_b11" name="hit1_mata_pisau" > </td>
+                   <td><input type="text" class="tamb_b11" value="{$b.tambahan}" name="tam_mata_pisau"  > </td>
+               </tr>
+
+               {else if $b.kdbarang eq 'b12'}
+               <tr>
+                  <td > {$b.namabarang} </td>
+                  <td><input type="text" value="{$b.hit1}" class="hit1_b12" name="hit1_mata_pisau" > </td>
+                  <td><input type="text" class="tamb_b12" value="{$b.tambahan}" name="tam_mata_pisau"  > </td>
+              </tr>
+
+              
+
+                       {else if $b.kdbarang eq 'b13'}
+                            <tr>
+                                <td > <input type="text" class="nm_b13" value="{$b.namabarang}" name="namabarang" > </td>
+                                <td><input type="text" class="hit1_b1" value="{$b.hit1}" class="hit1_b13" name="hit1_mata_pisau" > </td>
+                                <td><input type="text" class="tamb_b13" value="{$b.tambahan}" name="tam_mata_pisau"  > </td>
+                            </tr>
+                         {else if $b.kdbarang eq 'b14'}
+                         <tr>
+                             <td > <input type="text" class="nm_b14" value="{$b.namabarang}" name="namabarang" > </td>
+                             <td><input type="text" class="hit1_b1" value="{$b.hit1}" class="hit1_b14" name="hit1_mata_pisau" > </td>
+                             <td><input type="text" class="tamb_b14" value="{$b.tambahan}" name="tam_mata_pisau"  > </td>
+                         </tr>
+                         {else if $b.kdbarang eq 'b15'}
+                         <tr>
+                             <td > <input type="text" class="nm_b14" value="{$b.namabarang}" name="namabarang" > </td>
+                             <td><input type="text" class="hit1_b1" value="{$b.hit1}" class="hit1_b15" name="hit1_mata_pisau" > </td>
+                             <td><input type="text" class="tamb_b15" value="{$b.tambahan}" name="tam_mata_pisau"  > </td>
+                         </tr>
+                         {else}
+                        {/if}
+                         
+                        {/foreach}
+
+                    </table>
+                </td>
+            </tr>
+            </table>
+            <table class="table-input" width="100%" style="text-align: justify;">
+
+            <tr>
+                <td colspan="2">Apakah nama tindakan dicatat ?</td>
+                <td width="20%">
+                    <input type="text" style="width:350px" name="OUT_CATAT_TINDAKAN" value="{$rs_sign_in2.OUT_CATAT_TINDAKAN}"  class="form-control">            
+                </td>
+             </tr>
+
+            <tr>
+                <td colspan="2">Apakah Instrumen benda tajam dan kasa lengkap ?</td>
+                <td width="20%">
+                    <input type="text" style="width:350px" name="OUT_INSTRUMEN_LENGKAP" value="{$rs_sign_in2.OUT_INSTRUMEN_LENGKAP}"  class="form-control"> 
+                </td>
+             </tr>
+
+            <tr>
+               <td colspan="2">Penanganan jaringan yang akan dikirim ke PA</td>
+               <td width="20%">
+                   <input type="text" style="width:350px" name="OUT_INSTRUMEN_LENGKAP"  value="{$rs_sign_in2.OUT_INSTRUMEN_LENGKAP}" class="form-control"> 
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">apakah ada masalah peralatan</td>
+                <td width="20%">
+                    <input type="checkbox" name="OUT_MASALAH_ALAT"  value="Ya" class="form-control">ya 
+                    <input type="checkbox" name="OUT_MASALAH_ALAT" value="Tidak" class="form-control">Tidak
+                </td>
+             </tr>
+             <tr>
+                <td colspan="2">apakah ada yang menjadi perhatian khusus pada pemulihan pasien ?</td>
+                <td width="20%">
+                    <input type="checkbox" name="OUT_PERHATIAN" value="Ya" class="form-control">ya 
+                    <input type="checkbox" name="OUT_PERHATIAN" value="Tidak" class="form-control">Tidak
+                </td>
+             </tr>
+         
+            <tr>
+                <td>
+                    Waktu Input 
+                </td>
+                <td>
+                    <input type="datetime-local" name="OUT_WAKTU_ISI" required>
+                </td>
+            </tr>
+                
+            <tr class="submit-box">
+            <td colspan="4">
+                <div style="font-weight: bold;">
+                    *Bismillahirohmanirrohim, saya dengan sadar dan penuh tanggung jawab mengisikan formulir ini dengan data yang benar
+                </div>
+                <br>
+                <input type="submit" name="save" value="Simpan" class="edit-button"/>
+            </td>
+        </tr>
+        </table>
+    </form>
+</div>
+
+<table class="table-view" width="100%">
+    <tr class="headrow">
+        <th colspan="6">List Data </th>
+    </tr>
+    <tr>
+        <th width="25%">Tanggal</th>
+        <th width="10%">Nama Operasi </th>
+        <th width="10%"> Sign In</th>
+        <th width="10%"> Time Out</th>
+        <th width="10%"> Sign Out</th>
+        <th width="15%">Petugas</th>
+      
+    </tr>
+    {foreach $rs_sign_in  as $cppt}
+    <tr>
+        <td>{$cppt.TGL}  
+            <a href="javascript:void(0);" onclick="window.open('{$config->site_url('rm/rawat_inap/cetak_checklist/'|cat:$cppt.FS_KD_REG|cat:'/'|cat:$cppt.id)}', 'nama_window_pop_up', 'scrollbars=yes,resizeable=no')" class="button-download">{$data.TANGGAL|date_format :"%d %B %Y"}</a> 
+        </td>
+        <td> Pra : {$cppt.NAMA_OP}  </td>
+        <td>{if $cppt.NAMA_OP neq ''} Selesai {/if}</td> 
+        <td>{if $cppt.TIME_PERKENALAN_ANGGOTA neq ''} Selesai  {/if}
+           
+            <a href="{$config->site_url('op/checklist/timeout/'|cat:$cppt.FS_KD_REG|cat:'/'|cat:$cppt.id)}"  class="button-edit">{$data.TANGGAL|date_format :"%d %B %Y"}</a> 
+            
+
+        </td> 
+         <td>{if $cppt.OUT_MASALAH_ALAT neq ''}Selesai  {/if}
+            <a href="{$config->site_url('op/checklist/signout/'|cat:$cppt.FS_KD_REG|cat:'/'|cat:$cppt.id)}"   class="button-edit">{$data.TANGGAL|date_format :"%d %B %Y"}</a> 
+           </td>
+         <td>{$cppt.NAMALENGKAP} </td>
+  
+  
+    </tr>
+    {/foreach}
+</table>
+<script>
+       $(".select2").select2({
+            placeholder: "Pilih",
+            allowClear: true
+        });
+
+        var idchecklist=$('#idchecklist').val();
+    
+        $('.hit1_b1').on('keyup', function(){
+            var mp=$('.hit1_b1').val();
+            var kdbarang='b1';
+             $.ajax({
+                    type: "POST",
+                    url: "{$config->site_url('op/checklist/benda_tajam1')}",
+                    data: { 
+                        kdbarang: kdbarang,
+                        hit1: mp,
+                        idchecklist: idchecklist
+                    }
+                    
+                    }).done(function(o) {  });
+        });
+
+
+        $('.hit1_b13').on('keyup', function(){
+            var mp=$('.hit1_b13').val();
+            var kdbarang='b13';
+             $.ajax({
+                    type: "POST",
+                    url: "{$config->site_url('op/checklist/benda_tajam1')}",
+                    data: { 
+                        kdbarang: kdbarang,
+                        hit1: mp,
+                        idchecklist: idchecklist
+                    }
+                    
+                    }).done(function(o) {  });
+        });
+
+
+        $('.hit1_b14').on('keyup', function(){
+            var mp=$('.hit1_b14').val();
+            var kdbarang='b14';
+             $.ajax({
+                    type: "POST",
+                    url: "{$config->site_url('op/checklist/benda_tajam1')}",
+                    data: { 
+                        kdbarang: kdbarang,
+                        hit1: mp,
+                        idchecklist: idchecklist
+                    }
+                    
+                    }).done(function(o) {  });
+        });
+
+
+        $('.hit1_b15').on('keyup', function(){
+            var mp=$('.hit1_b15').val();
+            var kdbarang='b15';
+             $.ajax({
+                    type: "POST",
+                    url: "{$config->site_url('op/checklist/benda_tajam1')}",
+                    data: { 
+                        kdbarang: kdbarang,
+                        hit1: mp,
+                        idchecklist: idchecklist
+                    }
+                    
+                    }).done(function(o) {  });
+        });
+
+
+
+     
+
+        $('.hit1_b2').on('keyup', function(){
+            var mp=$('.hit1_b2').val();
+            var kdbarang='b2';
+             $.ajax({
+                    type: "POST",
+                    url: "{$config->site_url('op/checklist/benda_tajam1')}",
+                    data: { 
+                        kdbarang: kdbarang,
+                        hit1: mp,
+                        idchecklist: idchecklist
+                    }
+                     }).done(function(o) {  });
+        });
+
+
+        $('.hit1_b3').on('keyup', function(){
+            var mp=$('.hit1_b3').val();
+            var kdbarang='b3';
+             $.ajax({
+                    type: "POST",
+                    url: "{$config->site_url('op/checklist/benda_tajam1')}",
+                    data: { 
+                        kdbarang: kdbarang,
+                        hit1: mp,
+                        idchecklist: idchecklist
+                    }
+                     }).done(function(o) {  });
+        });
+
+
+        $('.hit1_b4').on('keyup', function(){
+            var mp=$('.hit1_b4').val();
+            var kdbarang='b4';
+             $.ajax({
+                    type: "POST",
+                    url: "{$config->site_url('op/checklist/benda_tajam1')}",
+                    data: { 
+                        kdbarang: kdbarang,
+                        hit1: mp,
+                        idchecklist: idchecklist
+                    }
+                     }).done(function(o) {  });
+        });
+
+        $('.hit1_b5').on('keyup', function(){
+            var mp=$('.hit1_b5').val();
+            var kdbarang='b5';
+             $.ajax({
+                    type: "POST",
+                    url: "{$config->site_url('op/checklist/benda_tajam1')}",
+                    data: { 
+                        kdbarang: kdbarang,
+                        hit1: mp,
+                        idchecklist: idchecklist
+                    }
+                     }).done(function(o) {  });
+        });
+
+
+        $('.hit1_b6').on('keyup', function(){
+            var mp=$('.hit1_b6').val();
+            var kdbarang='b6';
+             $.ajax({
+                    type: "POST",
+                    url: "{$config->site_url('op/checklist/benda_tajam1')}",
+                    data: { 
+                        kdbarang: kdbarang,
+                        hit1: mp,
+                        idchecklist: idchecklist
+                    }
+                     }).done(function(o) {  });
+        });
+
+
+        $('.hit1_b7').on('keyup', function(){
+            var mp=$('.hit1_b7').val();
+            var kdbarang='b7';
+             $.ajax({
+                    type: "POST",
+                    url: "{$config->site_url('op/checklist/benda_tajam1')}",
+                    data: { 
+                        kdbarang: kdbarang,
+                        hit1: mp,
+                        idchecklist: idchecklist
+                    }
+                     }).done(function(o) {  });
+        });
+
+
+        $('.hit1_b8').on('keyup', function(){
+            var mp=$('.hit1_b8').val();
+            var kdbarang='b8';
+             $.ajax({
+                    type: "POST",
+                    url: "{$config->site_url('op/checklist/benda_tajam1')}",
+                    data: { 
+                        kdbarang: kdbarang,
+                        hit1: mp,
+                        idchecklist: idchecklist
+                    }
+                     }).done(function(o) {  });
+        });
+
+        $('.hit1_b9').on('keyup', function(){
+            var mp=$('.hit1_b9').val();
+            var kdbarang='b9';
+             $.ajax({
+                    type: "POST",
+                    url: "{$config->site_url('op/checklist/benda_tajam1')}",
+                    data: { 
+                        kdbarang: kdbarang,
+                        hit1: mp,
+                        idchecklist: idchecklist
+                    }
+                     }).done(function(o) {  });
+        });
+
+
+        $('.hit1_b10').on('keyup', function(){
+            var mp=$('.hit1_b10').val();
+            var kdbarang='b10';
+             $.ajax({
+                    type: "POST",
+                    url: "{$config->site_url('op/checklist/benda_tajam1')}",
+                    data: { 
+                        kdbarang: kdbarang,
+                        hit1: mp,
+                        idchecklist: idchecklist
+                    }
+                     }).done(function(o) {  });
+        });
+
+        $('.hit1_b11').on('keyup', function(){
+            var mp=$('.hit1_b11').val();
+            var kdbarang='b11';
+             $.ajax({
+                    type: "POST",
+                    url: "{$config->site_url('op/checklist/benda_tajam1')}",
+                    data: { 
+                        kdbarang: kdbarang,
+                        hit1: mp,
+                        idchecklist: idchecklist
+                    }
+                     }).done(function(o) {  });
+        });
+
+        $('.hit1_b12').on('keyup', function(){
+            var mp=$('.hit1_b12').val();
+            var kdbarang='b12';
+             $.ajax({
+                    type: "POST",
+                    url: "{$config->site_url('op/checklist/benda_tajam1')}",
+                    data: { 
+                        kdbarang: kdbarang,
+                        hit1: mp,
+                        idchecklist: idchecklist
+                    }
+                     }).done(function(o) {  });
+        });
+
+
+
+        $('.tamb_b1').on('keyup', function(){
+            var mp=$('.tamb_b1').val();
+            var kdbarang='b1';
+             $.ajax({
+                    type: "POST",
+                    url: "{$config->site_url('op/checklist/benda_tajam2')}",
+                    data: { 
+                        kdbarang: kdbarang,
+                        tambahan: mp,
+                        idchecklist: idchecklist
+                    }
+                     }).done(function(o) {  });
+        });
+
+
+        $('.tamb_b2').on('keyup', function(){
+            var mp=$('.tamb_b2').val();
+            var kdbarang='b2';
+             $.ajax({
+                    type: "POST",
+                    url: "{$config->site_url('op/checklist/benda_tajam2')}",
+                    data: { 
+                        kdbarang: kdbarang,
+                        tambahan: mp,
+                        idchecklist: idchecklist
+                    }
+                     }).done(function(o) {  });
+        });
+
+        $('.tamb_b3').on('keyup', function(){
+            var mp=$('.tamb_b3').val();
+            var kdbarang='b3';
+             $.ajax({
+                    type: "POST",
+                    url: "{$config->site_url('op/checklist/benda_tajam2')}",
+                    data: { 
+                        kdbarang: kdbarang,
+                        tambahan: mp,
+                        idchecklist: idchecklist
+                    }
+                     }).done(function(o) {  });
+        });
+
+        $('.tamb_b4').on('keyup', function(){
+            var mp=$('.tamb_b4').val();
+            var kdbarang='b4';
+             $.ajax({
+                    type: "POST",
+                    url: "{$config->site_url('op/checklist/benda_tajam2')}",
+                    data: { 
+                        kdbarang: kdbarang,
+                        tambahan: mp,
+                        idchecklist: idchecklist
+                    }
+                     }).done(function(o) {  });
+        });
+
+        $('.tamb_b5').on('keyup', function(){
+            var mp=$('.tamb_b5').val();
+            var kdbarang='b5';
+             $.ajax({
+                    type: "POST",
+                    url: "{$config->site_url('op/checklist/benda_tajam2')}",
+                    data: { 
+                        kdbarang: kdbarang,
+                        tambahan: mp,
+                        idchecklist: idchecklist
+                    }
+                     }).done(function(o) {  });
+        });
+
+        $('.tamb_b6').on('keyup', function(){
+            var mp=$('.tamb_b6').val();
+            var kdbarang='b6';
+             $.ajax({
+                    type: "POST",
+                    url: "{$config->site_url('op/checklist/benda_tajam2')}",
+                    data: { 
+                        kdbarang: kdbarang,
+                        tambahan: mp,
+                        idchecklist: idchecklist
+                    }
+                     }).done(function(o) {  });
+        });
+
+        $('.tamb_b7').on('keyup', function(){
+            var mp=$('.tamb_b7').val();
+            var kdbarang='b7';
+             $.ajax({
+                    type: "POST",
+                    url: "{$config->site_url('op/checklist/benda_tajam2')}",
+                    data: { 
+                        kdbarang: kdbarang,
+                        tambahan: mp,
+                        idchecklist: idchecklist
+                    }
+                     }).done(function(o) {  });
+        });
+
+        $('.tamb_b8').on('keyup', function(){
+            var mp=$('.tamb_b8').val();
+            var kdbarang='b8';
+             $.ajax({
+                    type: "POST",
+                    url: "{$config->site_url('op/checklist/benda_tajam2')}",
+                    data: { 
+                        kdbarang: kdbarang,
+                        tambahan: mp,
+                        idchecklist: idchecklist
+                    }
+                     }).done(function(o) {  });
+        });
+
+        $('.tamb_b9').on('keyup', function(){
+            var mp=$('.tamb_b9').val();
+            var kdbarang='b9';
+             $.ajax({
+                    type: "POST",
+                    url: "{$config->site_url('op/checklist/benda_tajam2')}",
+                    data: { 
+                        kdbarang: kdbarang,
+                        tambahan: mp,
+                        idchecklist: idchecklist
+                    }
+                     }).done(function(o) {  });
+        });
+
+        $('.tamb_b10').on('keyup', function(){
+            var mp=$('.tamb_b10').val();
+            var kdbarang='b10';
+             $.ajax({
+                    type: "POST",
+                    url: "{$config->site_url('op/checklist/benda_tajam2')}",
+                    data: { 
+                        kdbarang: kdbarang,
+                        tambahan: mp,
+                        idchecklist: idchecklist
+                    }
+                     }).done(function(o) {  });
+        });
+
+        $('.tamb_b11').on('keyup', function(){
+            var mp=$('.tamb_b11').val();
+            var kdbarang='b11';
+             $.ajax({
+                    type: "POST",
+                    url: "{$config->site_url('op/checklist/benda_tajam2')}",
+                    data: { 
+                        kdbarang: kdbarang,
+                        tambahan: mp,
+                        idchecklist: idchecklist
+                    }
+                     }).done(function(o) {  });
+        });
+
+        $('.tamb_b12').on('keyup', function(){
+            var mp=$('.tamb_b12').val();
+            var kdbarang='b12';
+             $.ajax({
+                    type: "POST",
+                    url: "{$config->site_url('op/checklist/benda_tajam2')}",
+                    data: { 
+                        kdbarang: kdbarang,
+                        tambahan: mp,
+                        idchecklist: idchecklist
+                    }
+                     }).done(function(o) {  });
+        });
+
+        $('.tamb_b13').on('keyup', function(){
+            var mp=$('.tamb_b13').val();
+            var kdbarang='b13';
+             $.ajax({
+                    type: "POST",
+                    url: "{$config->site_url('op/checklist/benda_tajam2')}",
+                    data: { 
+                        kdbarang: kdbarang,
+                        tambahan: mp,
+                        idchecklist: idchecklist
+                    }
+                     }).done(function(o) {  });
+        });
+
+
+        $('.tamb_b14').on('keyup', function(){
+            var mp=$('.tamb_b14').val();
+            var kdbarang='b14';
+             $.ajax({
+                    type: "POST",
+                    url: "{$config->site_url('op/checklist/benda_tajam2')}",
+                    data: { 
+                        kdbarang: kdbarang,
+                        tambahan: mp,
+                        idchecklist: idchecklist
+                    }
+                     }).done(function(o) {  });
+        });
+
+        $('.tamb_b15').on('keyup', function(){
+            var mp=$('.tamb_b15').val();
+            var kdbarang='b15';
+             $.ajax({
+                    type: "POST",
+                    url: "{$config->site_url('op/checklist/benda_tajam2')}",
+                    data: { 
+                        kdbarang: kdbarang,
+                        tambahan: mp,
+                        idchecklist: idchecklist
+                    }
+                     }).done(function(o) {  });
+        });
+
+
+        $('.nm_b13').on('keyup', function(){
+            var mp=$('.nm_b13').val();
+            var kdbarang='b13';
+        
+             $.ajax({
+                    type: "POST",
+                    url: "{$config->site_url('op/checklist/benda_tajam3')}",
+                    data: { 
+                        kdbarang: kdbarang,
+                        nm_barang: mp,
+                        idchecklist: idchecklist
+                    }
+                     }).done(function(o) {  });
+        });
+
+        $('.nm_b14').on('keyup', function(){
+            var mp=$('.nm_b14').val();
+            var kdbarang='b14';
+        
+             $.ajax({
+                    type: "POST",
+                    url: "{$config->site_url('op/checklist/benda_tajam3')}",
+                    data: { 
+                        kdbarang: kdbarang,
+                        nm_barang: mp,
+                        idchecklist: idchecklist
+                    }
+                     }).done(function(o) {  });
+        });
+
+        $('.nm_b15').on('keyup', function(){
+            var mp=$('.nm_b15').val();
+            var kdbarang='b15';
+        
+             $.ajax({
+                    type: "POST",
+                    url: "{$config->site_url('op/checklist/benda_tajam3')}",
+                    data: { 
+                        kdbarang: kdbarang,
+                        nm_barang: mp,
+                        idchecklist: idchecklist
+                    }
+                     }).done(function(o) {  });
+        });
+</script>
+
+
+
+
+  

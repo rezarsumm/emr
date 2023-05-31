@@ -1,0 +1,164 @@
+{include file="nurse/rawat_jalan/add_script_js.html"}
+
+<div class="breadcrum">
+    <p>
+        <a href="#">Nursing Record</a><span></span>
+        <a href="{$config->site_url('nurse/rawat_jalan/')}">Rawat Jalan</a><span></span>
+        <small>Add Data</small>
+    </p>
+    <div class="clear"></div>
+</div>
+<div class="navigation">
+    <div class="navigation-button">
+        <ul>
+            <li><a href="{$config->site_url('nurse/antenatal/')}"><img src="{$BASEURL}resource/doc/images/icon/back-icon.png" alt="" />  Back</a></li>
+        </ul>
+    </div>
+    <div class="clear"></div>
+</div>
+<!-- notification template -->
+{include file="base/templates/notification.html"}
+<!-- end of notification template-->
+<form action="{$config->site_url('nurse/antenatal/add_antenatal_process')}" method="post">
+    <input type="hidden" name="FS_KD_REG" value="{$result.FS_KD_REG}" />
+    <input type="hidden" name="FS_KD_MEDIS" value="{$FS_KD_MEDIS}" />
+    <input type="hidden" name="FS_KD_LAYANAN" value="{$result.FS_KD_LAYANAN}" />
+    <input type="hidden" name="FS_JNS_ASESMEN" value="{$FS_JNS_ASESMEN}" />
+    <table class="table-info" width="100%">
+        <tr class="headrow">
+            <th colspan="4">Data Pasien</th>
+        </tr>
+        <tr>
+            <td width='20%'>Kode Reg</td>
+            <td width='30%'>{$result.FS_KD_REG}</td>
+            <td width='20%'>No RM</td>
+            <td width='30%'>{$result.FS_MR}</td>
+        </tr>
+        <tr>
+            <td>Nama</td>
+            <td>{$result.FS_NM_PASIEN|default:''}</td>
+            <td>Alamat</td>
+            <td>{$result.FS_ALM_PASIEN|default:''}</td>
+        </tr>
+        <tr>
+            <td>Umur</td>
+            <td>{$result.fn_umur|default:''} Tahun</td>
+            <td>Jenis Kelamin</td>
+            <td>
+                {if $result.FS_JNS_KELAMIN eq '1'}
+                Perempuan
+                {else}
+                Laki-Laki
+                {/if}
+            </td>
+        </tr>
+        <tr>
+            <td>Jaminan</td>
+            <td>{$result.FS_NM_JAMINAN|default:''}</td>
+            <td>Dokter</td>
+            <td>{$result.FS_NM_PEG|default:''}</td>
+        </tr>
+    </table>
+       <div class="navigation">
+    <div class="pageRow">
+        <div class="pageNav">
+            <ul>
+                <li class="info"></li>
+            </ul>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="navigation-button">
+        <ul>
+            <li><a href="javascript:void(0);" onclick="window.open('{$config->site_url('rm/rawat_jalan/resume/'|cat:$result.FS_MR)}', 'nama_window_pop_up', 'scrollbars=yes,resizeable=no')"><img src="{$BASEURL}resource/doc/images/icon/printer-icon.png" alt="" /> Profil Ringkas Medis Rawat Jalan</a></li>
+        </ul>
+    </div>
+    <div class="clear"></div>
+</div>
+    
+        <table class="table-input" width="100%">
+        <tr class="headrow">
+            <th colspan="4">Anamnesa</th>
+        </tr>
+        <tr>
+            <td>Anamnesa</td>
+            <td>
+                <textarea cols="50" name="FS_ANAMNESA"></textarea>
+            </td>
+            <td>High Risk</td>
+            <td>
+                <textarea cols="50" name="FS_HIGH_RISK">{$result.FS_HIGH_RISK}</textarea><br><em>*Jika Pasien ditemukan high risk</em>
+            </td>
+        </tr>
+        <tr>
+            <td>HMT</td>
+            <td>
+                <input type="text" name="FS_HMT" size="35" />
+            </td>
+            <td>Usia Kehamilan</td>
+            <td>
+               <input type="text" name="FS_USIA_KEHAMILAN" size="35" /> 
+            </td>
+        </tr>
+        <tr class="headrow">
+            <th colspan="4">Vital Sign</th>
+        </tr>
+        <tr>
+            <td width='20%'>Suhu</td>
+            <td width='30%'><input type="text" name="FS_SUHU" size="10"/></td>
+            <td width='20%'>Nadi</td>
+            <td width='30%'><input type="text" name="FS_NADI" size="10"/> x/menit</td>
+        </tr>
+        <tr>
+            <td>R</td>
+            <td><input type="text" name="FS_R" size="10" /> x/menit</td>
+            <td>TD</td>
+            <td><input type="text" name="FS_TD" size="10" /> mmHg</td>
+        </tr>
+        <tr>
+            <td>Tinggi Badan</td>
+            <td><input type="text" name="FS_TB" size="10" /> cm</td>
+            <td>Berat Badan</td>
+            <td><input type="text" name="FS_BB" size="10" /> Kg</td>
+        </tr>
+        <tr>
+            <td>Komplikasi</td>
+            <td>
+                <input type="text" name="FS_KOMPLIKASI" size="35">
+            </td>
+            <td>HB</td>
+            <td>
+                <input type="text" name="FS_HB" size="35">
+            </td>
+        </tr>
+        <tr>
+            <td>K1</td>
+            <td>
+                <input type="text" name="FS_K1" size="35">
+            </td>
+            <td>K4</td>
+            <td>
+                <input type="text" name="FS_K4" size="35">
+            </td>
+        </tr>
+        <tr>
+            <td>Status TT</td>
+            <td>
+                <input type="text" name="FS_STATUS_TT" size="35">
+            </td>
+            <td>Buku KIA</td>
+            <td>
+                <input type="text" name="FS_BUKU_KIA" size="35">
+            </td>
+        </tr>
+        <tr class="submit-box">
+            <td colspan="4">
+                 <div style="font-weight: bold;">
+                    *Bismillahirohmanirrohim, saya dengan sadar dan penuh tanggung jawab mengisikan formulir ini dengan data yang benar
+                </div>
+                <br>
+                <input type="submit" name="save" value="Simpan" class="edit-button" /> 
+            </td>
+        </tr>
+    </table>
+</form>

@@ -1,0 +1,50 @@
+<!-- include javascript -->
+{include file="surat/undangan/add_script_js.html"}
+{include file="surat/maintenance/add_foto_js.html"}
+<!-- end of include javascript-->
+<div class="breadcrumb">
+    <ul>
+        <li><a href="#">Data Arsip</a></li>
+        <li><a href="{$config->site_url('surat/form_rm/lists')}">Form RM</a></li>
+        <li><a href="{$config->site_url('surat/rm17/cari')}">RM 17 CATATAN PEMBERIAN OBAT</a></li>
+        <li class="active"><a href="#">Add Data</a></li>
+    </ul>
+    <div class="clear"></div>
+</div>
+<div class="content-entry">
+    <!-- notification template -->
+    {include file="base/templates/notification.html"}
+    <!-- end of notification template-->
+        <table class="table-input" width="100%">
+            <tr>
+                <th>NOMOR MR</th>
+                <th>NOMOR REG</th>
+                <th>NAMA</th>
+                <th>TGL MASUK</th>
+                <th>TGL KELUAR</th>
+                <th>LAYANAN</th>
+                <th width="8%"></th>
+            </tr>
+            {foreach from=$rs_pasien item=data}
+            {assign var=rs_resume value=$m_rm17->get_all_resume(array($data.FS_KD_REG))}
+            <tr>
+                <td>{$data.fs_mr}</td>
+                <td>{$data.FS_KD_REG}</td>
+                <td>{$data.FS_NM_PASIEN}</td>
+                <td>{$data.fd_tgl_masuk}</td>
+                <td>{$data.fd_tgl_keluar}</td>
+                <td>{$data.FS_NM_LAYANAN}</td>
+                <td>
+                    {if $data.FS_KD_REG eq $rs_resume.FS_KD_REG}
+                    <a href="{$config->site_url('surat/rm17/add/'|cat:$data.FS_KD_REG)}" class="btn-blue" title="Edit Asesmen Awal"><span class="icon-edit"></span></a>
+                    <a href="{$config->site_url('surat/rm17/selesai/'|cat:$data.FS_KD_REG)}" class="btn-red" title="Cetak Asesmen Awal"><span class="icon-print-small"></span></a>
+                    
+                    {else}
+                    <a href="{$config->site_url('surat/rm17/add/'|cat:$data.FS_KD_REG)}" class="btn-blue" title="Tambah Asesmen Awal"><span class="icon-add"></span></a>
+                    {/if}
+                </td>
+            </tr>
+            {/foreach}
+        </table>
+    </form>
+</div>

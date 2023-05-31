@@ -1,0 +1,279 @@
+{include file="mutu/kelengkapan_mr/add_script_js.html"}
+<div class="breadcrum">
+    <p>
+        <a href="#">Medical Record</a><span></span>
+        <small>Kelengkapan RM</small>
+    </p>
+    <div class="clear"></div>
+</div>
+<div class="head-content">
+    <div class="head-content-nav">
+        <ul>
+            <li><a href="{$config->site_url('mutu/kelengkapan_mr')}" >Laporan Rekap</a></li>
+            <li><a href="{$config->site_url('mutu/kelengkapan_mr/index_2')}" class="active">Laporan Rekap</a></li>
+            <li><a href="{$config->site_url('mutu/kelengkapan_mr/index_3')}">Laporan Dokter</a></li>
+            <li><a href="{$config->site_url('mutu/kelengkapan_mr/index_4')}">Laporan Detail</a></li>
+        </ul>
+        <div class="clear"></div>
+    </div>
+    <div class="clear"></div>
+</div>
+<div class="search-box">
+    <h3><a href="#">Search</a></h3>
+    <form action="{$config->site_url('mutu/kelengkapan_mr/proses_cari2')}" method="post">
+        <table class="table-search" width="100%" >
+            <tr>
+                <td> 
+                    Periode
+                    <input name="tanggal" type="text" size="10" maxlength="10" value="{$search.tanggal|default:''}" class="tanggal" readonly="readonly" style="text-align: center;" />
+                    s/d
+                    <input name="tanggal2" type="text" size="10" maxlength="10" value="{$search.tanggal2|default:''}" class="tanggal" readonly="readonly" style="text-align: center;" />
+                    <!--<select name="bulan">
+                        <option value="">Bulan</option>
+                        {foreach from=$rs_bulan key=i item=bulan}
+                        <option value="{$i}" {if $search.bulan|default:'' eq $i}selected="selected"{$bulan_name=$bulan}{/if}>{$bulan}</option>
+                        {/foreach}
+                    </select>
+                    <select name="tahun">
+                        <option value="">Tahun</option>
+                        {foreach from=$rs_tahun item=tahun}
+                        <option value="{$tahun}" {if $search.tahun|default:'' eq $tahun}selected="selected"{/if}>{$tahun}</option>
+                        {/foreach}
+                    </select>-->
+                </td>
+                <td>
+                    <input class="button" type="submit" value="SEARCH" name="save" />
+                    <input class="button" type="submit" value="RESET" name="save" />
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+<div class="content-entry">
+    <div class="action">
+        <a class="btn-blue" href="{$config->site_url('mutu/kelengkapan_mr/print_all')}"><span class="icon-print-small"></span> Cetak Laporan Detail</a>
+        <a class="btn-blue" href="{$config->site_url('mutu/kelengkapan_mr/print_all2')}"><span class="icon-print-small"></span> Cetak Laporan Diagnosa dan Tindakan</a>
+    </div>
+    <div class="clear"></div>
+    <!-- notification template -->
+    {include file="base/templates/notification.html"}
+    <!-- end of notification template-->
+    <div class="box-head">
+        <h3>
+            Daftar Laporan Kelengkapan MR
+            {foreach from=$rs_bulan key=i item=bulan}
+            {if $search.bulan|default:'' eq $i}
+            Bulan {$bulan}
+            {/if}
+            {/foreach} {$search.tahun}
+        </h3>
+        <div class="clear"></div>
+    </div>
+    <table class="table-info" width="100%" style='font-size: 9px !important;'>
+        <tr>
+            <th>No</th>
+            <th>No RM</th>
+            <th>Nama Pasien</th>
+            <th>Layanan</th>
+            <th>Tanggal Pulang</th>
+            <th>Diagnosa Utama</th>
+            <th>LEMBAR IGD</th>
+            <th>ASESMEN AWAL RAWAT INAP</th>
+            <th>CPPT</th>
+            <th>LEMBAR EDUKASI</th>
+            <th>DISCHARGE PLANNING</th>
+            <th>ASESMEN AWAL KEPERAWATAN</th>
+            <th>LEMBAR ORIENTASI</th>
+            <th>CATATAN OPERASI</th>
+            <th>CATATAN ANESTESI</th>
+            <th>RESUME MEDIS</th>
+            <th>PERSETUJUAN UMUM</th>
+            <th>INFORMED CONCENT TINDAKAN MEDIS</th>
+            <th>INFORMED CONCERN PEMBIUSAN</th>
+            <th>HHC</th>
+        </tr>
+        {foreach from=$rs_id item=result}
+        {assign var=rs_det_1 value=$m_kelengkapan_mr->get_total_kelengkapanmr_det_1(array($result.FS_KD_REG,$search.tanggal,$search.tanggal2))}
+        {assign var=rs_det_2 value=$m_kelengkapan_mr->get_total_kelengkapanmr_det_2(array($result.FS_KD_REG,$search.tanggal,$search.tanggal2))}
+        {assign var=rs_det_3 value=$m_kelengkapan_mr->get_total_kelengkapanmr_det_3(array($result.FS_KD_REG,$search.tanggal,$search.tanggal2))}
+        {assign var=rs_det_4 value=$m_kelengkapan_mr->get_total_kelengkapanmr_det_4(array($result.FS_KD_REG,$search.tanggal,$search.tanggal2))}
+        {assign var=rs_det_5 value=$m_kelengkapan_mr->get_total_kelengkapanmr_det_5(array($result.FS_KD_REG,$search.tanggal,$search.tanggal2))}
+        {assign var=rs_det_6 value=$m_kelengkapan_mr->get_total_kelengkapanmr_det_6(array($result.FS_KD_REG,$search.tanggal,$search.tanggal2))}
+        {assign var=rs_det_7 value=$m_kelengkapan_mr->get_total_kelengkapanmr_det_7(array($result.FS_KD_REG,$search.tanggal,$search.tanggal2))}
+        {assign var=rs_det_8 value=$m_kelengkapan_mr->get_total_kelengkapanmr_det_8(array($result.FS_KD_REG,$search.tanggal,$search.tanggal2))}
+        {assign var=rs_det_9 value=$m_kelengkapan_mr->get_total_kelengkapanmr_det_9(array($result.FS_KD_REG,$search.tanggal,$search.tanggal2))}
+        {assign var=rs_det_10 value=$m_kelengkapan_mr->get_total_kelengkapanmr_det_10(array($result.FS_KD_REG,$search.tanggal,$search.tanggal2))}
+        {assign var=rs_det_11 value=$m_kelengkapan_mr->get_total_kelengkapanmr_det_11(array($result.FS_KD_REG,$search.tanggal,$search.tanggal2))}
+        {assign var=rs_det_12 value=$m_kelengkapan_mr->get_total_kelengkapanmr_det_12(array($result.FS_KD_REG,$search.tanggal,$search.tanggal2))}
+        {assign var=rs_det_13 value=$m_kelengkapan_mr->get_total_kelengkapanmr_det_13(array($result.FS_KD_REG,$search.tanggal,$search.tanggal2))}
+        {assign var=rs_det_14 value=$m_kelengkapan_mr->get_total_kelengkapanmr_det_14(array($result.FS_KD_REG,$search.tanggal,$search.tanggal2))}
+        <tr {if ($no % 2) <> 1}class="blink-row"{/if}>
+            <td align="center">{$no++}.</td>
+            <td>{$result.FS_MR}</td>
+            <td>{$result.FS_NM_PASIEN}</td>
+            <td>{$result.FS_NM_LAYANAN}</td>
+            <td align="center">{$result.FD_TGL_KELUAR|date_format:"%d %b %Y"}</td>
+            <td>{$result.FS_DIAG_UTAMA}</td>
+            <td align="center">
+                {if $rs_det_1.FS_HASIL == '1'}
+                <span style='color: blue'>v</span>
+                {elseif $rs_det_1.FS_HASIL == '2'}
+                <span style='color: red'>x</span>
+                {elseif $rs_det_1.FS_HASIL == '3'}
+                -
+                {else}
+                -
+                {/if}
+            </td>
+            <td align="center">
+                {if $rs_det_2.FS_HASIL == '1'}
+                <span style='color: blue'>v</span>
+                {elseif $rs_det_2.FS_HASIL == '2'}
+                <span style='color: red'>x</span>
+                {elseif $rs_det_2.FS_HASIL == '3'}
+                -
+                {else}
+                -
+                {/if}
+            </td>
+            <td align="center">
+                {if $rs_det_3.FS_HASIL == '1'}
+                <span style='color: blue'>v</span>
+                {elseif $rs_det_3.FS_HASIL == '2'}
+                <span style='color: red'>x</span>
+                {elseif $rs_det_3.FS_HASIL == '3'}
+                -
+                {else}
+                -
+                {/if}
+            </td>
+            <td align="center">
+                {if $rs_det_4.FS_HASIL == '1'}
+                <span style='color: blue'>v</span>
+                {elseif $rs_det_4.FS_HASIL == '2'}
+                <span style='color: red'>x</span>
+                {elseif $rs_det_4.FS_HASIL == '3'}
+                -
+                {else}
+                -
+                {/if}
+            </td>
+            <td align="center">
+                {if $rs_det_5.FS_HASIL == '1'}
+                <span style='color: blue'>v</span>
+                {elseif $rs_det_5.FS_HASIL == '2'}
+                <span style='color: red'>x</span>
+                {elseif $rs_det_5.FS_HASIL == '3'}
+                -
+                {else}
+                -
+                {/if}
+            </td>
+            <td align="center">
+                {if $rs_det_13.FS_HASIL == '1'}
+                <span style='color: blue'>v</span>
+                {elseif $rs_det_13.FS_HASIL == '2'}
+                <span style='color: red'>x</span>
+                {elseif $rs_det_13.FS_HASIL == '3'}
+                -
+                {else}
+                -
+                {/if}
+            </td>
+            <td align="center">
+                {if $rs_det_6.FS_HASIL == '1'}
+                <span style='color: blue'>v</span>
+                {elseif $rs_det_6.FS_HASIL == '2'}
+                <span style='color: red'>x</span>
+                {elseif $rs_det_6.FS_HASIL == '3'}
+                -
+                {else}
+                -
+                {/if}
+            </td>
+            <td align="center">
+                {if $rs_det_14.FS_HASIL == '1'}
+                <span style='color: blue'>v</span>
+                {elseif $rs_det_14.FS_HASIL == '2'}
+                <span style='color: red'>x</span>
+                {elseif $rs_det_14.FS_HASIL == '3'}
+                -
+                {else}
+                -
+                {/if}
+            </td>
+            <td align="center">
+                {if $rs_det_7.FS_HASIL == '1'}
+                <span style='color: blue'>v</span>
+                {elseif $rs_det_7.FS_HASIL == '2'}
+                <span style='color: red'>x</span>
+                {elseif $rs_det_7.FS_HASIL == '3'}
+                -
+                {else}
+                -
+                {/if}
+            </td>
+            <td align="center">
+                {if $rs_det_8.FS_HASIL == '1'}
+                <span style='color: blue'>v</span>
+                {elseif $rs_det_8.FS_HASIL == '2'}
+                <span style='color: red'>x</span>
+                {elseif $rs_det_8.FS_HASIL == '3'}
+                -
+                {else}
+                -
+                {/if}
+            </td>
+            <td align="center">
+                {if $rs_det_9.FS_HASIL == '1'}
+                <span style='color: blue'>v</span>
+                {elseif $rs_det_9.FS_HASIL == '2'}
+                <span style='color: red'>x</span>
+                {elseif $rs_det_9.FS_HASIL == '3'}
+                -
+                {else}
+                -
+                {/if}
+            </td>
+            <td align="center">
+                {if $rs_det_10.FS_HASIL == '1'}
+                <span style='color: blue'>v</span>
+                {elseif $rs_det_10.FS_HASIL == '2'}
+                <span style='color: red'>x</span>
+                {elseif $rs_det_10.FS_HASIL == '3'}
+                -
+                {else}
+                -
+                {/if}
+            </td>
+            <td align="center">
+                {if $rs_det_11.FS_HASIL == '1'}
+                <span style='color: blue'>v</span>
+                {elseif $rs_det_11.FS_HASIL == '2'}
+                <span style='color: red'>x</span>
+                {elseif $rs_det_11.FS_HASIL == '3'}
+                -
+                {else}
+                -
+                {/if}
+            </td>
+            <td align="center">
+                {if $rs_det_12.FS_HASIL == '1'}
+                <span style='color: blue'>v</span>
+                {elseif $rs_det_12.FS_HASIL == '2'}
+                <span style='color: red'>x</span>
+                {elseif $rs_det_12.FS_HASIL == '3'}
+                -
+                {else}
+                -
+                {/if}
+            </td>
+        </tr>
+        {foreachelse}
+        <tr>
+            <td colspan="5">Data not found!</td>
+        </tr>
+        {/foreach}
+    </table>
+    <div class="clear"></div>
+</div>

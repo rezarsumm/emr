@@ -1,0 +1,255 @@
+<!-- include javascript -->
+{include file="inap/ass_awal_bidan/add_script_js.html"}
+<!-- end of include javascript-->
+<div class="breadcrum">
+    <p>
+        <a href="#">Data Arsip</a><span></span>
+        <a href="{$config->site_url('inap/ass_awal_bidan/cari')}">Asesmen Awal Kebidanan Rawat Inap</a><span></span>
+        <small>Add Data</small>
+    </p>
+    <div class="clear"></div>
+</div>
+
+<div class="head-content">
+    <div class="head-content-nav">
+        <ul>
+            <li><a href="{$config->site_url('inap/ass_awal_bidan/add/'|cat:$rs_pasien.NO_REG)}" >Asesmen</a></li>
+            <li><a href="{$config->site_url('inap/ass_awal_bidan/riwayat_hamil/'|cat:$rs_pasien.NO_REG)}" class="active"> Riwayat Kehamilan</a></li>
+        </ul>
+        <div class="clear"></div>
+    </div>
+    <div class="clear"></div>
+</div>
+
+
+<div class="navigation">
+    <div class="navigation-button">
+        <ul>
+            <li><a href="{$config->site_url('inap/ass_awal_bidan/')}"><img src="{$BASEURL}resource/doc/images/icon/back-icon.png" alt="" />  Back</a></li>
+        </ul>
+    </div>
+    <div class="clear"></div> 
+</div>
+<div class="content-entry">
+    <!-- notification template -->
+    {include file="base/templates/notification.html"}
+    <!-- end of notification template-->
+  <!--   <form action="{$config->site_url('inap/ass_awal_bidan/add_process')}" method="post">
+        <input type="hidden" name="FS_KD_REG" value="{$rs_pasien.NO_REG}" />
+        <input type="hidden" name="FS_KD_MEDIS" value="{$FS_KD_MEDIS}" />
+        <input type="hidden" name="FS_KD_LAYANAN" value="{$rs_pasien.KODE_BANGSAL}" />
+        <input type="hidden" name="FS_MR" value="{$rs_pasien.NO_MR}" /> -->
+
+        <table class="table-info" width="100%">
+            <tr class="headrow">
+                <th colspan="2">Add Asesmen Awal Kebidanan Rawat Inap</th>
+            </tr>
+           <tr>
+                <td>NAMA</td>
+                <td>
+                    {$rs_pasien.NAMA_PASIEN}
+                </td>
+            </tr>
+            <tr>
+                <td>NO MR</td>
+                <td>
+                    {$rs_pasien.NO_MR}
+                </td>
+            </tr>
+            <tr>
+                <td>TANGGAL LAHIR</td>
+                <td>
+                    {$rs_pasien.TGL_LAHIR|date_format:"%d %b %Y"}
+                </td>
+            </tr>
+            <tr>
+                <td>ALAMAT</td>
+                <td>{$rs_pasien.ALAMAT}</td>
+            </tr>
+            
+        </table>
+       <table class="table-info" width="100%">
+           <thead>
+             <tr>
+                <th>No</th>
+                <th>Tanggal Partus</th>
+                <th>Tempat Partus</th>
+                <th>Usia Kehamilan</th>
+                <th>Jenis Persalinan</th>
+                <th>Penolong Persalinan</th>
+                <th>  Penyulit</th>
+                <th>  Anak JK/BB</th>
+                <th>  Keadaan Anak Sekarang</th>
+                <th>   Aksi  </th>
+            </tr>
+            </thead>
+            <tbody> 
+{$no=1}
+    {foreach from=$data_hamil item=data}   
+    
+    <tr> 
+        <td>{$no} </td>  
+        <td>{$data.TGL_PARTUS}</td>  
+        <td>{$data.TEMPAT_PARTUS}</td>  
+        <td>{$data.USIA_HAMIL}</td>  
+        <td>{$data.JENIS_LAHIRAN}</td>  
+        <td>{$data.PENOLONG_LAHIRAN}</td>  
+        <td>{$data.PENYULIT}</td>  
+        <td>{$data.ANAK_JK_BB}</td>  
+        <td>{$data.KEADAAN_ANAK_NOW}</td> 
+        <td>
+           <a href="javascript:;" class="btn-red item_hapus" style="background-color: yellow;" data="{$data.FS_KD_RIWAYAT_HAMIL}">Hapus</a>
+
+         </td>  
+    </tr>
+    {$no=$no+1}
+   {/foreach}
+
+                 
+ 
+ </tbody>
+        </table>
+    <a href="javascript:;" class="btn-blue item_add">Tambah Data</a>
+
+<!-- <button class="btn btn-primary btn-sm fa fa-pencil" data-toggle="modal" data-target="#tambahanakModal"> Tambah Data </button> -->
+        <br><br>
+  
+<!--     </form> -->
+ 
+
+</div>
+
+
+<div id="ModalAdd">
+    <div class="modal-dialog">
+        <div class="modal-content">
+           <form action="{$config->site_url('inap/ass_awal_bidan/add_process_hamil')}" method="post">
+                <input type="hidden" name="FS_KD_REG" value="{$rs_pasien.NO_REG}" />
+                <input type="hidden" name="FS_MR" value="{$rs_pasien.NO_MR}" />
+             <table class="table-input" width="100%">
+                <tr >
+                    <th colspan="2">Tambah Data Riwayat Kehamilan <span id="loading">LOADING...</span></th>
+                </tr>
+
+                  <tr>
+                    <td>Tanggal Partus</td>
+                    <td>
+                        <input name="TGL_PARTUS"  class="form-control" type="date"  ></td>
+                     <!--    <em style="color:red;">* Masukkan Angka</em> -->
+                </tr>
+
+                <tr>
+                    <td>Tempat Partus</td>
+                    <td>
+                        <input name="TEMPAT_PARTUS"  class="form-control" type="text"  ></td>
+                     <!--    <em style="color:red;">* Masukkan Angka</em> -->
+                </tr>
+
+                  <tr>
+                    <td>Usia Kehamilan</td>
+                    <td>
+                        <input name="USIA_HAMIL"  class="form-control" type="text"  ></td>
+                     <!--    <em style="color:red;">* Masukkan Angka</em> -->
+                </tr>
+
+                 <tr>
+                    <td>Jenis Lahiran</td>
+                    <td>
+                        <input name="JENIS_LAHIRAN"  class="form-control" type="text"  ></td>
+                     <!--    <em style="color:red;">* Masukkan Angka</em> -->
+                </tr>
+
+                 <tr>
+                    <td>Penolong Lahiran</td>
+                    <td>
+                        <input name="PENOLONG_LAHIRAN"  class="form-control" type="text"  ></td>
+                     <!--    <em style="color:red;">* Masukkan Angka</em> -->
+                </tr>
+
+                 <tr>
+                    <td>Penyulit Lahiran</td>
+                    <td>
+                        <input name="PENYULIT"  class="form-control" type="text"  ></td>
+                     <!--    <em style="color:red;">* Masukkan Angka</em> -->
+                </tr>
+
+                 <tr>
+                    <td> Anak JK/BB</td>
+                    <td>
+                        <input name="ANAK_JK_BB"  class="form-control" type="text"  ></td>
+                     <!--    <em style="color:red;">* Masukkan Angka</em> -->
+                </tr>
+                  <tr>
+                    <td>Keadaan Anak Saat Ini </td>
+                    <td>
+                        <input name="KEADAAN_ANAK_NOW"  class="form-control" type="text"  ></td>
+                     <!--    <em style="color:red;">* Masukkan Angka</em> -->
+                </tr>
+ 
+              
+
+                <tr class="submit-box">
+                    <td colspan="2">
+                        <input type="submit" name="save" value="Simpan" class="edit-button"/>
+                         </td>
+                </tr>
+            
+            </table>
+</form>
+        </div>
+    </div>
+</div>
+
+
+<div id="ModalHapus">
+    <table class="table-input" width="100%">
+        <tr>
+            <th colspan="2">Hapus Data  </th>
+        </tr>
+        <tr>
+        <form action="{$config->site_url('inap/ass_awal_bidan/hapus_anak')}" method="post">
+                <input type="hidden" name="FS_KD_REG" value="{$rs_pasien.NO_REG}" />
+                <input type="hidden" name="FS_MR" value="{$rs_pasien.NO_MR}" />
+           <input type="hidden" name="FS_KD_RIWAYAT_HAMIL" id="FS_KD_RIWAYAT_HAMIL" value="" />
+                  <input type="submit" name="save" value="Hapus" class="edit-button"/>
+               
+            </form>
+        </tr>
+
+    </table>
+</div>
+
+
+<script type="text/javascript">
+    
+      $(".item_add").click(function () {
+            $("#ModalAdd").dialog('open');
+        });
+
+
+        $(".item_hapus").click(function () {
+              var id = $(this).attr('data');
+            $("#ModalHapus").dialog('open');
+            $('[name="FS_KD_RIWAYAT_HAMIL"]').val(id);
+        });
+
+   $("#loading").hide();
+
+       $("#ModalAdd").dialog({
+            autoOpen: false,
+            resizable: false,
+            height: 400,
+            width: 700,
+            modal: true
+        });
+
+         $("#ModalHapus").dialog({
+            autoOpen: false,
+            resizable: false,
+            height: 200,
+            width: 400,
+            modal: true
+        });
+
+</script>
+  

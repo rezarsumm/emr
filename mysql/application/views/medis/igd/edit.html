@@ -1,0 +1,273 @@
+<script>
+    tinymce.init({
+        selector: "textarea",
+        theme: "modern",
+        plugins: [
+            "advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker",
+            "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
+            "save table contextmenu directionality emoticons template paste textcolor importcss colorpicker textpattern"
+        ],
+        external_plugins: {
+//"moxiemanager": "/moxiemanager-php/plugin.js"
+        },
+        content_css: "css/development.css",
+        add_unload_trigger: false,
+        toolbar: "bold italic | alignleft aligncenter alignright alignjustify",
+        image_advtab: true,
+        setup: function (ed) {
+            /*ed.on(
+             'Init PreInit PostRender PreProcess PostProcess BeforeExecCommand ExecCommand Activate Deactivate ' +
+             'NodeChange SetAttrib Load Save BeforeSetContent SetContent BeforeGetContent GetContent Remove Show Hide' +
+             'Change Undo Redo AddUndo BeforeAddUndo', function(e) {
+             console.log(e.type, e);
+             });*/
+        },
+        spellchecker_callback: function (method, data, success) {
+            if (method == "spellcheck") {
+                var words = data.match(this.getWordCharPattern());
+                var suggestions = {};
+
+                for (var i = 0; i < words.length; i++) {
+                    suggestions[words[i]] = ["First", "second"];
+                }
+
+                success();
+            }
+
+            if (method == "addToDictionary") {
+                success();
+            }
+        }
+    });
+</script>
+<div class="breadcrum">
+    <p>
+        <a href="#">Pemeriksaan Dokter</a><span></span>
+        <a href="{$config->site_url('medis/igd/')}">Rawat Jalan</a><span></span>
+        <small>Edit Data</small>
+    </p>
+    <div class="clear"></div>
+</div>
+<div class="navigation">
+    <div class="navigation-button">
+        <ul>
+            <li><a href="{$config->site_url('medis/igd/history/'|cat:$result.FS_MR)}"><img src="{$BASEURL}resource/doc/images/icon/back-icon.png" alt="" />  Back</a></li>
+        </ul>
+    </div>
+    <div class="clear"></div>
+</div>
+<!-- notification template -->
+{include file="base/templates/notification.html"}
+<!-- end of notification template-->
+<form action="{$config->site_url('medis/igd/edit_process')}" method="post">
+    <input type="hidden" name="FS_KD_KP" value="{$medis.FS_KD_KP}" />
+    <input type="hidden" name="FS_KD_LAYANAN" value="{$result.FS_KD_LAYANAN}" />
+    <input type="hidden" name="FS_KD_PETUGAS_MEDIS" value="{$result.FS_KD_MEDIS}" />
+    <input type="hidden" name="FS_KD_REG" value="{$result.FS_KD_REG}" />
+    <input type="hidden" name="FS_MR" value="{$medis.FS_MR}" />
+    <input type="hidden" name="FS_KD_TRS" value="{$medis.FS_KD_TRS}" />
+    <table class="table-info" width="100%">
+        <tr class="headrow">
+            <th colspan="4">Data Pasien</th>
+        </tr>
+        <tr>
+            <td width='15%'>Kode Reg</td>
+            <td width='35%'>{$result.FS_KD_REG}</td>
+            <td width='15%'>No RM</td>
+            <td width='35%'>{$result.FS_MR}</td>
+        </tr>
+        <tr>
+            <td>Nama</td>
+            <td>{$result.FS_NM_PASIEN|default:''}</td>
+            <td>Alamat</td>
+            <td>{$result.FS_ALM_PASIEN|default:''}</td>
+        </tr>
+        <tr>
+            <td>Umur</td>
+            <td>{$result.fn_umur|default:''} Tahun</td>
+            <td>Jenis Kelamin</td>
+            <td>
+                {if $result.FS_JNS_KELAMIN eq '1'}
+                Perempuan
+                {else}
+                Laki-Laki
+                {/if}
+            </td>
+        </tr>
+        <tr>
+            <td>Jaminan</td>
+            <td>{$result.FS_NM_JAMINAN|default:''}</td>
+            <td>Dokter</td>
+            <td>1. {$result.FS_NM_PEG|default:''}<br> 2. {$result.DOK2}</td>
+        </tr>
+    </table>
+            <table class="table-info" width="100%">
+        <tr class="headrow">
+            <th colspan="5">Riwayat Rawat Inap</th>
+        </tr>
+        <tr>
+            <td width='10%'><b>No</b></td>
+            <td width='25%'><b>Operasi</b></td>
+            <td width='15%'><b>Tanggal Operasi</b></td>
+            <td width='15%'><b>Tanggal Pulang</b></td>
+            <td width='35%'><b>Diagnosa Pulang</b></td>
+        </tr>
+        {foreach $rs_pasien_inap as $operasi}
+        <tr>
+            <td>{$no++}</td>
+            <td>{$operasi.FS_NM_TARIF|default:"-"}</td>
+            <td>{$operasi.FD_TGL_TRS|default:"-"}</td>
+            <td>{$operasi.FD_TGL_KELUAR|default:"-"}</td>
+            <td>{$operasi.FS_KET_ICD}</td>
+        </tr>
+        {foreachelse}
+        <tr>
+            <td colspan="5">Tidak ada riwayat rawat inap</td>
+        </tr>
+        {/foreach}
+    </table>
+    <div class="navigation">
+        <div class="pageRow">
+            <div class="pageNav">
+                <ul>
+                    <li class="info"></li>
+                </ul>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="navigation-button">
+            <ul>
+                <li><a href="javascript:void(0);" onclick="window.open('{$config->site_url('rm/rawat_jalan/resume/'|cat:$result.FS_MR)}', 'nama_window_pop_up', 'scrollbars=yes,resizeable=no')"><img src="{$BASEURL}resource/doc/images/icon/printer-icon.png" alt="" /> Resume Rawat Jalan</a></li>
+            </ul>
+        </div>
+        <div class="clear"></div>
+    </div>
+        <div class="notification red">
+        <p><strong>High Risk :</strong> {$result.FS_HIGH_RISK|default:'-'} </p>
+        <p><strong>Alergi :</strong> {$result.FS_ALERGI|default:'-'} ({$result.FS_REAK_ALERGI|default:'-'})</p>
+        <p><strong>Warning :</strong></p>
+        <div class="clear"></div>
+    </div>
+    <table class="table-input" width="100%">
+        <tr class="headrow">
+            <th colspan="4">Pemeriksaan Dokter</th>
+        </tr>
+        <tr>
+            <td width='15%'>Anamnesa (S)</td>
+            <td width='35%'>
+                <textarea rows="3" cols="50" name="FS_ANAMNESA">{$medis.FS_ANAMNESA}</textarea>
+            </td>
+            <td width='15%'>Daftar Masalah</td>
+            <td width='35%'>
+                <textarea rows="3" cols="50" name="FS_DAFTAR_MASALAH">
+                    {$medis.FS_DAFTAR_MASALAH}
+                </textarea>
+            </td>
+        </tr>
+        <tr>
+            <td>Pemeriksaan Fisik (O)</td>
+            <td>
+                <textarea rows="3" cols="50" name='FS_CATATAN_FISIK'>{$medis.FS_CATATAN_FISIK}</textarea>
+            </td>
+            <td>Tindakan (P)</td>
+            <td>
+                <textarea rows="3" cols="50" name="FS_TINDAKAN">{$medis.FS_TINDAKAN}</textarea>
+            </td>
+        </tr>
+        <tr>
+            <td>Diagnosa (A)</td>
+            <td>
+                <textarea rows="3" cols="50" name="FS_DIAGNOSA">{$medis.FS_DIAGNOSA}</textarea>
+            </td>
+            <td>
+                Terapi
+            </td>
+            <td>
+                <textarea rows="5" cols="60" name="FS_TERAPI">{$medis.FS_TERAPI}</textarea>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <p style="font-size: 12px;">High Risk <input type="text" name="FS_HIGH_RISK" size="55" value="{$result.FS_HIGH_RISK}"/></p>
+                <p style="font-size: 12px;">Alergi <input type="text" name="FS_ALERGI" size="55" value="{$result.FS_ALERGI}"/></p>
+                </td>
+         </tr>
+       
+        <tr>
+             <td>
+                Kondisi Pulang
+            </td>
+            <td>
+                <select name="FS_CARA_PULANG">
+                    <option value="0">--Pilih Cara Pulang--</option>
+                    <option value="7" {if $result.FS_CARA_PULANG eq '7'}selected=""{/if}>Surat Sehat Covid</option>
+                    <option value="8" {if $result.FS_CARA_PULANG eq '8'}selected=""{/if}>Surat Rapid Covid</option>
+                </select>
+                <br>
+                <em><b>*Wajib Diisi Untuk Pembuatan SKDP Elektronik</b></em>
+            </td>
+        </tr>
+        <tr class="submit-box">
+            <td colspan="4">
+                <input type="submit" name="save" value="Simpan" class="edit-button" /> 
+            </td>
+        </tr>
+    </table>
+</form>
+<table class="table-view" width="100%" border="0">
+    <thead>
+        <tr>
+            <th colspan="5" style="font-size: 14px;">History Kunjungan<br><em>* untuk melihat history kunjungan klik tanggal di bawah ini</em></th>
+        </tr>
+    </thead>
+    <thead>
+        <tr>
+            <th width='17%'>Tanggal Kunjungan</th>
+            <th>Kode Reg</th>
+            <th>Dokter</th>
+            <th>Layanan</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        {foreach from=$rs_pasien item=data}
+        <!--{assign var=form_rm value=$m_igd->get_berkas_by_rg(array($data.FS_KD_REG))}-->
+        <tr>
+            <td>
+                {if $form_rm.FS_JENIS_BERKAS eq '1'}
+                <a href="{$config->site_url('rm/upload/download/'|cat:$form_rm.att_name)}" class="button-download">Operasi</a>  
+                {/if}
+                {if $data.FS_KD_JENIS_REG eq '0'}
+    <a href="javascript:void(0);" onclick="window.open('{$config->site_url('rm/rawat_jalan/cetak_rm/'|cat:$data.FS_KD_REG|cat:'/'|cat:$data.FS_KD_TRS|cat:'/'|cat:$data.FS_FORM)}', 'nama_window_pop_up', 'scrollbars=yes,resizeable=no')" class="button-download"> {$data.FD_TGL_MASUK|date_format :"%d %B %Y"}</a>  
+    {elseif $data.FS_KD_JENIS_REG eq '1'}
+    <a href="javascript:void(0);" onclick="window.open('{$config->site_url('rm/rawat_inap/cetak_rm/'|cat:$data.FS_KD_REG|cat:'/'|cat:$data.FS_KD_TRS)}', 'nama_window_pop_up', 'scrollbars=yes,resizeable=no')" class="button-download"> {$data.FD_TGL_MASUK|date_format :"%d %B %Y"}</a>  
+    {elseif $data.FS_KD_JENIS_REG eq '3'}
+    {/if}
+               
+            </td>
+            <td>{$data.FS_KD_REG}</td>
+            <td>
+                {$data.FS_NM_PEG}<br>
+                {$data.DOK2}
+            </td> 
+            <td>
+                {$data.FS_NM_LAYANAN}<br>
+                {$data.LAYANAN2}
+            </td> 
+            <td>
+    <center>
+        <b>
+            {if $data.FS_KD_JENIS_REG eq '0'}
+            <div style="color: blue;">Rawat Jalan</div>
+            {elseif $data.FS_KD_JENIS_REG eq '1'}
+            <div style="color: green;">Rawat Inap</div>
+            {elseif $data.FS_KD_JENIS_REG eq '3'}
+            <div style="color: red;">Rawat Darurat</div>
+            {/if}
+        </b>
+    </center>
+</td> 
+</tr>
+{/foreach}
+</tbody>
+</table>

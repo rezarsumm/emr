@@ -1,0 +1,228 @@
+ 
+ 
+<div class="breadcrum">
+    <p>
+        <a href="#">Catatan Operasi </a><span></span>
+        <a href="{$config->site_url('op/laporan/')}">Check List Keselamatan Operasi</a><span></span>
+        <small>Add Data</small>
+    </p>
+    <div class="clear"></div>
+</div> 
+<div class="content-entry"> 
+    <!-- notification template -->
+    {include file="base/templates/notification.html"}
+    <!-- end of notification template-->
+    <form action="{$config->site_url('op/checklist/add_process3')}" method="post" onkeypress="return event.keyCode != 13">
+        <input name="FS_KD_REG" id="FS_KD_REG" type="hidden" value="{$rs_pasien.NO_REG}" />  
+        <input name="id"  type="hidden" value="{$id}" />  
+            <input name="TGL_LAHIR" id="TGL_LAHIR" type="hidden" value="{$rs_pasien.TGL_LAHIR}" /> 
+        <input name="FS_MR" type="hidden" value="{$rs_pasien.NO_MR}" />
+        <input name="FS_KD_LAYANAN" type="hidden" value="{$rs_pasien.KODE_BANGSAL}" />
+        <input name="FS_KD_PETUGAS_MEDIS" type="hidden" value="{$rs_pasien.fs_kd_medis}" />
+
+        <table class="table-info" width="100%">
+            <tr class="headrow">
+                <th colspan="2">Add Check List Keselamatan Operasi</th>
+            </tr>
+            <tr>
+                <td>NAMA</td>
+                <td>
+                    {$rs_pasien.NAMA_PASIEN}
+                </td>
+            </tr>
+            <tr>
+                <td>NO MR</td>
+                <td>
+                    {$rs_pasien.NO_MR}
+                </td>
+            </tr>
+            <tr>
+                <td>TANGGAL LAHIR</td>
+                <td>
+                    {$rs_pasien.TGL_LAHIR|date_format:"%d %b %Y"}
+                </td>
+            </tr>
+            <tr>
+                <td>ALAMAT</td>
+                <td>{$rs_pasien.ALAMAT}</td>
+            </tr>
+        </table>
+   
+        <div class="notification red">
+            <p><strong>High Risk :</strong> {$rs_pasien.FS_HIGH_RISK|default:'-'} </p>
+            <p><strong>Alergi :</strong> {$rs_pasien.FS_ALERGI|default:'-'} ({$rs_pasien.FS_REAK_ALERGI|default:'-'})</p>
+            <div class="clear"></div>
+        </div>
+        <table class="table-input" width="100%" style="text-align: justify;">
+         
+
+          
+
+            <tr>
+                <td width="20%"><b>TIME OUT</b></td>
+                <td width="20%">
+                   
+                </td>
+                <td width="20%"> </td>
+                <td width="20%">
+                 
+                </td>
+            </tr>
+            <tr><td><B> TIME out (sebelum memulai tindakan )</B></td></tr>
+ 
+            <tr>
+               <td colspan="2">Apakah semua anggota memperkenalkan diri ?</td>
+               <td width="20%">
+                   <input type="checkbox" name="TIME_PERKENALAN_ANGGOTA" value="Ya"  class="form-control">ya 
+               </td>
+            </tr>
+            
+            
+            
+            <tr>
+               <td colspan="2">Berapa banyak kehilangan darah diantisipasi ?</td>
+               <td width="20%">
+                   <input type="text" style="width:350px" name="TIME_ANTISIPASI_HILANG_DARAH" value="{$rs_sign_in2.TIME_ANTISIPASI_HILANG_DARAH}" class="form-control"> 
+               </td>
+            </tr>
+            
+            <tr>
+               <td colspan="2">Apakah ada persyaratan peralatan khusus ?</td>
+               <td width="20%">
+                   <input type="text" style="width:350px" name="TIME_ALAT_KHUSUS" value="{$rs_sign_in2.TIME_ALAT_KHUSUS}" class="form-control"> 
+               </td>
+            </tr>
+            
+            <tr>
+               <td colspan="2">Apakah ada persyaratan peralatan khusus ?</td>
+               <td width="20%">
+                   <input type="text" style="width:350px" name="TIME_ALAT_KHUSUS" value="{$rs_sign_in2.TIME_ALAT_KHUSUS}" class="form-control"> 
+               </td>
+            </tr>
+            <tr>
+               <td colspan="2">Apakah ada langkah kritis ? anda ingin kami bantu?</td>
+               <td width="20%">
+                   <input type="text" style="width:350px" name="TIME_LANGKAH_KRITIS" value="{$rs_sign_in2.TIME_LANGKAH_KRITIS}" class="form-control"> 
+               </td>
+            </tr>
+            <tr>
+               <td colspan="2">Apakah ada masalah spesifik pasien?</td>
+               <td width="20%">
+                   <input type="text" style="width:350px" name="TIME_MASALAH_SPESIFIK" value="{$rs_sign_in2.TIME_MASALAH_SPESIFIK}" class="form-control"> 
+               </td>
+            </tr>
+            <tr>
+               <td colspan="2">Derajat ASA pasien?</td>
+               <td width="20%">
+                   <input type="text" style="width:350px" name="TIME_DERAJAT_ASA" value="{$rs_sign_in2.TIME_DERAJAT_ASA}"  class="form-control"> 
+               </td>
+            </tr>
+            
+            <tr>
+               <td colspan="2">Apa pemantauan alat khusus diperlukan ?</td>
+               <td width="20%">
+                   <input type="text" style="width:350px" name="TIME_PANTAU_ALAT" value="{$rs_sign_in2.TIME_PANTAU_ALAT}" class="form-control"> 
+               </td>
+            </tr>
+            
+            
+            <tr>
+               <td colspan="2">Apakah sterilitas instrumentasi dikonfirmasi ?</td>
+               <td width="20%">
+                   <input type="text" style="width:350px" name="TIME_STERIL_INSTRUMEN" value="{$rs_sign_in2.TIME_STERIL_INSTRUMEN}"  class="form-control"> 
+               </td>
+            </tr>
+            
+            <tr>
+               <td colspan="2">Apakah ada masalah peralatan ?</td>
+               <td width="20%">
+                   <input type="text" style="width:350px" name="TIME_MASALAH_ALAT" value="{$rs_sign_in2.TIME_MASALAH_ALAT}" class="form-control"> 
+               </td>
+            </tr>
+            
+            
+            <tr>
+               <td colspan="2">Apakah luka infeksi telah ditangani ?</td>
+               <td width="20%">
+                   <input type="checkbox" name="TIME_LOKASI_LUKA" value="Ya" class="form-control">ya 
+               </td>
+            </tr>
+            <tr>
+               <td colspan="2">Apakah Profilaksi telah dilakukan ?</td>
+               <td width="20%">
+                   <input type="checkbox" name="TIME_PROFILAKSI" value="Ya" class="form-control">ya 
+               </td>
+            </tr>
+            
+            <tr>
+               <td colspan="2">Apakah Hasil Radiologi dipasang ?</td>
+               <td width="20%">
+                   <input type="checkbox" name="TIME_PROFILAKSI" value="Ya" class="form-control">ya 
+               </td>
+            </tr>
+            <tr>
+                <td>
+                    Waktu Input 
+                </td>
+                <td>
+                    <input type="datetime-local" name="TIME_WAKTU_ISI" required>
+                </td>
+            </tr>
+            
+            <tr class="submit-box">
+            <td colspan="4">
+                <div style="font-weight: bold;">
+                    *Bismillahirohmanirrohim, saya dengan sadar dan penuh tanggung jawab mengisikan formulir ini dengan data yang benar
+                </div>
+                <br>
+                <input type="submit" name="save" value="Simpan" class="edit-button"/>
+            </td>
+        </tr>
+        </table>
+    </form>
+</div>
+
+<table class="table-view" width="100%">
+    <tr class="headrow">
+        <th colspan="6">List Data </th>
+    </tr>
+    <tr>
+        <th width="25%">Tanggal</th>
+        <th width="10%">Nama Operasi </th>
+        <th width="10%"> Sign In</th>
+        <th width="10%"> Time Out</th>
+        <th width="10%"> Sign Out</th>
+        <th width="15%">Petugas</th>
+      
+    </tr>
+    {foreach $rs_sign_in  as $cppt}
+    <tr>
+        <td>{$cppt.TGL}  
+            <a href="javascript:void(0);" onclick="window.open('{$config->site_url('rm/rawat_inap/cetak_checklist/'|cat:$cppt.FS_KD_REG|cat:'/'|cat:$cppt.id)}', 'nama_window_pop_up', 'scrollbars=yes,resizeable=no')" class="button-download">{$data.TANGGAL|date_format :"%d %B %Y"}</a> 
+        </td>
+        <td> Pra : {$cppt.NAMA_OP}  </td>
+        <td>{if $cppt.NAMA_OP neq ''} Selesai {/if}</td> 
+        <td>{if $cppt.TIME_PERKENALAN_ANGGOTA neq ''} Selesai  {/if}
+            <a href="{$config->site_url('op/checklist/timeout/'|cat:$cppt.FS_KD_REG|cat:'/'|cat:$cppt.id)}"  class="button-edit">{$data.TANGGAL|date_format :"%d %B %Y"}</a> 
+           
+        </td> 
+         <td>{if $cppt.OUT_MASALAH_ALAT neq ''} Selesai  {/if}
+            <a href="{$config->site_url('op/checklist/signout/'|cat:$cppt.FS_KD_REG|cat:'/'|cat:$cppt.id)}"   class="button-edit">{$data.TANGGAL|date_format :"%d %B %Y"}</a> 
+             </td>
+         <td>{$cppt.NAMALENGKAP} </td>
+  
+  
+    </tr>
+    {/foreach}
+</table>
+<script>
+       $(".select2").select2({
+            placeholder: "Pilih",
+            allowClear: true
+        });
+</script>
+
+
+
+
+  

@@ -1,0 +1,455 @@
+ 
+ 
+{if $rolenya eq 'Perawat OK'} 
+<div class="navigation">
+    <div class="navigation-button">
+        <ul>
+            <li><a href="{$config->site_url('op/jadwal/add')}"><img src="{$BASEURL}resource/doc/images/icon/add-icon.png" alt="" />  Tambah Data</a></li>
+        </ul>
+    </div>
+    <div class="clear"></div>
+</div>
+{/if}
+
+
+<!-- <p>Gambar yang akan dirender : </p> -->
+<!-- <img id="scream" style="display:  ;" src="https://www.w3schools.com/html/img_the_scream.jpg" alt="The Scream" width="220" height="277"> -->
+
+<!-- <p><button onclick="renderImage()">Render</button></p> -->
+
+<canvas id="myCanvas" width="755" height="550" style="border:1px solid black; display: ;">
+
+ 
+
+</canvas>
+<div class="dashboard-container">
+    <table class="table-view" width="100%" border="0">
+        <thead>
+            <tr>
+                <th width='2%'>No</th>
+                <th>No MR</th>
+                <th>Nama Pasien</th>
+                <th>Alamat</th> 
+                <th>Tindakan</th> 
+                <th>Dokter</th> 
+                <th>Status</th>
+                <th width='18%'>Detail</th>
+            </tr>
+        </thead>
+        <tbody>{$no=1}
+            {foreach from=$rs_pasien item=data}
+            <tr>
+                <td>{$no++}</td>
+                <td>{$data.No_MR}</td>
+                <td>{$data.Nama_Pasien}</td>
+                <td>{$data.Alamat}</td>  
+                <td>{$data.nmtindakan}</td>  
+                <td>{$data.Nama_Dokter}</td>  
+                <td>{$data.STATUS_OP}</td>  
+                <td>
+                    {if $rolenya eq 'Perawat OK'} 
+                    <a href="{$config->site_url('op/jadwal/edit/'|cat:$data.id)}" class="button-edit">Edit</a>
+                    {/if}
+                    <a href="{$config->site_url('op/jadwal/detail/'|cat:$data.id|cat:'/'|cat:$data.No_Reg|default:'')}" class="button-edit">Entry</a>
+                               
+                </td>
+            </tr>
+            {/foreach}
+        </tbody>
+    </table>
+ </div>
+<script>
+    var canvas = document.getElementById("myCanvas");
+    var ctx = canvas.getContext("2d");
+    // ctx.fillRect(10,10,1,1);
+  
+    // ctx.beginPath();
+    // ctx.moveTo(10,10);
+    // ctx.lineTo(15,5);
+    // ctx.lineTo(20,10);
+    // ctx.stroke();
+
+
+
+    
+    // ctx.strokeRect(10,10,100,100);
+    // ctx.fillRect(120,10,100,100);
+    // ctx.clearRect(5,5,20,20);
+    
+//segitiga
+    // ctx.beginPath();
+    // ctx.moveTo(100,100);
+    // ctx.lineTo(100,300);
+    // ctx.lineTo(300,300);
+    // ctx.closePath();
+    // ctx.stroke();
+
+    //lingkaran
+    // ctx.beginPath();
+    // ctx.arc(95,50,40,0,2*Math.PI);
+    // ctx.stroke();
+
+
+    //sisip text
+    ctx.font="10px arial";
+    ctx.fillText("PKL",0,10);
+    ctx.fillText("O2",10,40);
+    ctx.fillText("N2O",10,70);
+    ctx.fillText("S",10,100);
+     ctx.fillText("E",10,130);
+    ctx.fillText("240",10,160);
+    ctx.fillText("220",10,190);
+    ctx.fillText("200",10,220);
+    ctx.fillText("180",10,250);
+    ctx.fillText("160",10,280);
+    ctx.fillText("140",10,310);
+    ctx.fillText("120",10,340);
+    ctx.fillText("100",10,370);
+    ctx.fillText("80",10,400);
+    ctx.fillText("60",10,430);
+    ctx.fillText("40",10,460);
+    ctx.fillText("20",10,490);
+    ctx.fillText("0",10,520);
+    ctx.fillText("C",10,540);
+    ctx.font="14 px Arial";
+    // ctx.strokeText("ANisa",10,120);
+
+
+    //tekanan atas ||     RUMUS : 520, -5, 520 (titik Y) (berkurang 15) ->naik 1 garis ->     nilai 10 = 505, 500,505
+    //                  menit ke -0 = 30, 35, 40 (nambah 15 titik X)      ->tambah 1 garis->    menit ke-5 =  45, 50, 55 
+    ctx.beginPath();
+    ctx.moveTo(30,520);
+    ctx.lineTo(35,515);
+    ctx.lineTo(40,520); 
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.moveTo(45,505);
+    ctx.lineTo(50,500);
+    ctx.lineTo(55,505); 
+    ctx.stroke();
+
+     //tekanan bawah
+     ctx.beginPath();
+    ctx.moveTo(30,290);
+    ctx.lineTo(35,295);
+    ctx.lineTo(40,290); 
+    ctx.stroke();
+  //lingkaran
+  //respirasi
+    ctx.beginPath();
+    ctx.arc(45,260,3,0,2*Math.PI);
+    ctx.stroke();
+
+    //nadi
+    ctx.beginPath();
+    ctx.arc(35,160,3,0,2*Math.PI);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.arc(35,160,2,0,2*Math.PI);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.arc(35,160,1,0,2*Math.PI);
+    ctx.stroke();
+    // ctx.fillRect(120,10,100,100);
+
+    var co ="755";
+    var jam1="10.00";
+    ctx.fillText(jam1,20,10);
+    ctx.fillText(jam1,50,10);
+    ctx.fillText(jam1,80,10);
+
+//garis atas
+    ctx.beginPath();
+    ctx.moveTo(0,20);
+    ctx.lineTo(co,20);
+    ctx.stroke();
+//garis o2
+ctx.beginPath();
+    ctx.moveTo(35,35);
+    ctx.lineTo(co,35);
+    ctx.stroke();
+ ctx.beginPath();
+    ctx.moveTo(35,50);
+    ctx.lineTo(co,50);
+    ctx.stroke();
+//garis n20
+ctx.beginPath();
+    ctx.moveTo(35,65);
+    ctx.lineTo(co,65);
+    ctx.stroke();
+ctx.beginPath();
+    ctx.moveTo(35,80);
+    ctx.lineTo(co,80);
+    ctx.stroke();
+    //garis S
+ctx.beginPath();
+    ctx.moveTo(35,95);
+    ctx.lineTo(co,95);
+    ctx.stroke();
+ctx.beginPath();
+    ctx.moveTo(35,110);
+    ctx.lineTo(co,110);
+    ctx.stroke(); 
+ // garis E
+ctx.beginPath();
+    ctx.moveTo(35,125);
+    ctx.lineTo(co,125);
+    ctx.stroke();      
+ctx.beginPath();
+    ctx.moveTo(35,140);
+    ctx.lineTo(co,140);
+    ctx.stroke();
+
+    for(x=155; x<=755; x+=15){
+        ctx.beginPath();
+        ctx.moveTo(35,x);
+        ctx.lineTo(co,x);
+        ctx.stroke();
+    }
+
+    ctx.beginPath();
+        ctx.moveTo(35,545);
+        ctx.lineTo(co,545);
+        ctx.stroke();
+
+//     240
+// ctx.beginPath();
+//     ctx.moveTo(35,115);
+//     ctx.lineTo(co,115);
+//     ctx.stroke();
+
+//     //230
+// ctx.beginPath();
+//     ctx.moveTo(35,125);
+//     ctx.lineTo(co,125);
+//     ctx.stroke();
+//     //220
+// ctx.beginPath();
+//     ctx.moveTo(35,135);
+//     ctx.lineTo(co,135);
+//     ctx.stroke();  
+//     //210
+// ctx.beginPath();
+//     ctx.moveTo(35,145);
+//     ctx.lineTo(co,145);
+//     ctx.stroke(); 
+//     //200
+// ctx.beginPath();
+//     ctx.moveTo(35,155);
+//     ctx.lineTo(co,155);
+//     ctx.stroke();  
+//     //190
+// ctx.beginPath();
+//     ctx.moveTo(35,165);
+//     ctx.lineTo(co,165);
+//     ctx.stroke();  
+//     //180
+// ctx.beginPath();
+//     ctx.moveTo(35,175);
+//     ctx.lineTo(co,175);
+//     ctx.stroke();  
+//     //170
+// ctx.beginPath();
+//     ctx.moveTo(35,185);
+//     ctx.lineTo(co,185);
+//     ctx.stroke();  
+//     //160
+// ctx.beginPath();
+//     ctx.moveTo(35,195);
+//     ctx.lineTo(co,195);
+//     ctx.stroke();  
+//     //150
+// ctx.beginPath();
+//     ctx.moveTo(35,205);
+//     ctx.lineTo(co,205);
+//     ctx.stroke();  
+//     //140
+// ctx.beginPath();
+//     ctx.moveTo(35,215);
+//     ctx.lineTo(co,215);
+//     ctx.stroke();  
+//     //130
+// ctx.beginPath();
+//     ctx.moveTo(35,225);
+//     ctx.lineTo(co,225);
+//     ctx.stroke();  
+//     //120
+// ctx.beginPath();
+//     ctx.moveTo(35,235);
+//     ctx.lineTo(co,235);
+//     ctx.stroke();  
+//     //110
+// ctx.beginPath();
+//     ctx.moveTo(35,245);
+//     ctx.lineTo(co,245);
+//     ctx.stroke();  
+//     //100
+// ctx.beginPath();
+//     ctx.moveTo(35,255);
+//     ctx.lineTo(co,255);
+//     ctx.stroke();  
+//     //90
+// ctx.beginPath();
+//     ctx.moveTo(35,265);
+//     ctx.lineTo(co,265);
+//     ctx.stroke();  
+//     //80
+// ctx.beginPath();
+//     ctx.moveTo(35,275);
+//     ctx.lineTo(co,275);
+//     ctx.stroke();  
+//     //70
+// ctx.beginPath();
+//     ctx.moveTo(35,285);
+//     ctx.lineTo(co,285);
+//     ctx.stroke();  
+//     //60
+// ctx.beginPath();
+//     ctx.moveTo(35,295);
+//     ctx.lineTo(co,295);
+//     ctx.stroke();  
+//     //50
+// ctx.beginPath();
+//     ctx.moveTo(35,305);
+//     ctx.lineTo(co,305);
+//     ctx.stroke();  
+//     //40
+// ctx.beginPath();
+//     ctx.moveTo(35,315);
+//     ctx.lineTo(co,315);
+//     ctx.stroke();  
+//     //30
+// ctx.beginPath();
+//     ctx.moveTo(35,325);
+//     ctx.lineTo(co,325);
+//     ctx.stroke();    
+//     //20
+// ctx.beginPath();
+//     ctx.moveTo(35,335);
+//     ctx.lineTo(co,335);
+//     ctx.stroke();  
+//     //10
+// ctx.beginPath();
+//     ctx.moveTo(35,345);
+//     ctx.lineTo(co,345);
+//     ctx.stroke();  
+//     //0
+// ctx.beginPath();
+//     ctx.moveTo(35,355);
+//     ctx.lineTo(co,355);
+//     ctx.stroke();
+// //c
+//     ctx.beginPath();
+//     ctx.moveTo(35,545);
+//     ctx.lineTo(co,545);
+//     ctx.stroke();
+  
+
+//garis kebawah
+      for(x=35; x<=755; x+=15){
+        ctx.beginPath();
+        ctx.moveTo(x,20);
+        ctx.lineTo(x,545);
+        ctx.stroke();
+    }
+
+//penebal gari 15 menit
+//1
+    ctx.beginPath();
+    ctx.moveTo(35,20);
+    ctx.lineTo(35,545);
+    ctx.stroke();
+
+//2
+    ctx.beginPath();
+    ctx.moveTo(80,20);
+    ctx.lineTo(80,545);
+    ctx.stroke();
+//3
+    ctx.beginPath();
+    ctx.moveTo(125,20);
+    ctx.lineTo(125,545);
+    ctx.stroke();
+//4
+    ctx.beginPath();
+    ctx.moveTo(170,20);
+    ctx.lineTo(170,545);
+    ctx.stroke();
+//5
+    ctx.beginPath();
+    ctx.moveTo(215,20);
+    ctx.lineTo(215,545);
+    ctx.stroke();
+//6
+    ctx.beginPath();
+    ctx.moveTo(260,20);
+    ctx.lineTo(260,545);
+    ctx.stroke();
+//7
+    ctx.beginPath();
+    ctx.moveTo(305,20);
+    ctx.lineTo(305,545);
+    ctx.stroke();
+ //8
+    ctx.beginPath();
+    ctx.moveTo(350,20);
+    ctx.lineTo(350,545);
+    ctx.stroke();
+ //9
+ ctx.beginPath();
+    ctx.moveTo(395,20);
+    ctx.lineTo(395,545);
+    ctx.stroke();
+ //10
+    ctx.beginPath();
+    ctx.moveTo(440,20);
+    ctx.lineTo(440,545);
+    ctx.stroke();
+ //11
+    ctx.beginPath();
+    ctx.moveTo(485,20);
+    ctx.lineTo(485,545);
+    ctx.stroke();
+ //12
+    ctx.beginPath();
+    ctx.moveTo(530,20);
+    ctx.lineTo(530,545);
+    ctx.stroke();
+ //13
+    ctx.beginPath();
+    ctx.moveTo(575,20);
+    ctx.lineTo(575,545);
+    ctx.stroke();
+ //14
+    ctx.beginPath();
+    ctx.moveTo(620,20);
+    ctx.lineTo(620,545);
+    ctx.stroke();
+ //15
+    ctx.beginPath();
+    ctx.moveTo(665,20);
+    ctx.lineTo(665,545);
+    ctx.stroke();
+ //16
+    ctx.beginPath();
+    ctx.moveTo(710,20);
+    ctx.lineTo(710,545);
+    ctx.stroke();
+ //17
+    ctx.beginPath();
+    ctx.moveTo(755,20);
+    ctx.lineTo(755,545);
+    ctx.stroke();
+    //gambar di render
+ function renderImage(){
+    var canvas = document.getElementById("myCanvas");
+    var ctx = canvas.getContext("2d");
+
+    var img=document.getElementById("scream");
+
+    ctx.drawImage(img,10,10);
+ }
+
+    
+</script>

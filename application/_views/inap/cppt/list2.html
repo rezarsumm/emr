@@ -1,0 +1,48 @@
+<!-- include javascript -->
+{include file="inap/cppt/add_script_js.html"}
+<!-- end of include javascript-->
+<div class="breadcrum">
+    <p>
+        <a href="#">Data Arsip</a><span></span>
+        <a href="{$config->site_url('inap/cppt/cari')}">Resume Pasien Pulang</a><span></span>
+        <small>Add Data</small>
+    </p>
+    <div class="clear"></div>
+</div>
+<div class="content-entry">
+    <!-- notification template -->
+    {include file="base/templates/notification.html"}
+    <!-- end of notification template-->
+        <table class="table-view" width="100%">
+            <tr>
+                <th>NOMOR MR</th>
+                <th>NOMOR REG</th>
+                <th>NAMA</th>
+                <th>TGL MASUK</th>
+                <th>TGL KELUAR</th>
+                <th>LAYANAN</th>
+                <th width="11%"></th>
+            </tr>
+            {foreach from=$rs_pasien item=data}
+            {assign var=rs_resume value=$m_cppt->get_all_resume(array($data.FS_KD_REG))}
+            <tr>
+                <td>{$data.fs_mr}</td>
+                <td>{$data.FS_KD_REG}</td>
+                <td>{$data.FS_NM_PASIEN}</td>
+                <td>{$data.fd_tgl_masuk}</td>
+                <td>{$data.fd_tgl_keluar}</td>
+                <td>{$data.FS_NM_LAYANAN}</td>
+                <td>
+                    {if $data.FS_KD_REG eq $rs_resume.FS_KD_REG}
+                    <a href="{$config->site_url('surat/resume/edit/'|cat:$data.FS_KD_REG)}" class="btn-blue" title="Edit Asesmen Awal"><span class="icon-edit"></span></a>
+                    <a href="{$config->site_url('surat/resume/verif/'|cat:$data.FS_KD_REG)}" class="btn-green" title="Verifikasi Data"><span class="icon-finish"></span></a>
+                    <a href="{$config->site_url('surat/resume/selesai/'|cat:$data.FS_KD_REG)}" class="btn-red" title="Cetak Asesmen Awal"><span class="icon-print-small"></span></a>
+                    {elseif $data.FS_KD_REG neq $rs_resume.FS_KD_REG}
+                    <a href="{$config->site_url('surat/resume/add/'|cat:$data.FS_KD_REG)}" class="btn-blue" title="Tambah Asesmen Awal"><span class="icon-add"></span></a>
+                    {/if}
+                </td>
+            </tr>
+            {/foreach}
+        </table>
+    </form>
+</div>

@@ -1,0 +1,271 @@
+<!-- include javascript -->
+{include file="inap/kep/add_script_js.html"}
+<!-- end of include javascript-->
+<div class="breadcrum">
+    <p>
+        <a href="#">Catatan Rawat Inap</a><span></span>
+       
+        <small>Add Data</small>
+    </p>
+    <div class="clear"></div>
+</div>
+<div class="content-entry">
+    <!-- notification template -->
+    {include file="base/templates/notification.html"}
+    <!-- end of notification template-->
+    <form action="{$config->site_url('inap/rencana_pulang/add_process')}" method="post">
+        <input name="FS_KD_REG" type="hidden" value="{$rs_pasien.NO_REG}" />
+        <input name="FS_MR" type="hidden" value="{$rs_pasien.NO_MR}" />
+
+        <table class="table-info" width="100%">
+            <tr class="headrow">
+                <th colspan="2"></th>
+            </tr>
+            <tr>
+                <td>NAMA</td>
+                <td>
+                    {$rs_pasien.NAMA_PASIEN}
+                </td>
+            </tr>
+            <tr>
+                <td>NO MR</td>
+                <td>
+                    {$rs_pasien.NO_MR}
+                </td>
+            </tr>
+            <tr>
+                <td>TANGGAL LAHIR</td>
+                <td>
+                    {$rs_pasien.TGL_LAHIR|date_format:"%d %b %Y"}
+                </td>
+            </tr>
+            <tr>
+                <td>ALAMAT</td>
+                <td>{$rs_pasien.ALAMAT}</td>
+            </tr>
+        </table>
+        <div class="head-content">
+            <div class="head-content-nav">
+                <ul>
+                    <!-- <li><a href="{$config->site_url('inap/kep/add_tindakan/'|cat:$rs_pasien.NO_REG)}" class="active">Tindakan Keperawatan</a></li> -->
+                </ul>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        
+        <div class="content-entry">
+            <table class="table-input" width="100%">
+
+                <tr class="headrow">
+                    <th colspan="4">Renana Pemulangan Pasien (DISCHARGE PLANNING)</th>
+                </tr>
+                <tr>
+                    <td> Diagnosa  </td>
+                    <td colspan="2">
+                        <input name="DIAGNOSA" type="text" value="{$rp.DIAGNOSA}"  style="width: 400px;"/>
+                    </td>
+                </tr>
+            <tr>
+                <td>Tanggal MRS</td>
+                <td colspan="2">
+                    <input name="TGL_MRS" type="text" size="30" maxlength="10" value="{date('Y-m-d', strtotime($rp.TGL_MRS))}" class="tanggal" style="text-align: center; width:80px ;" />
+                Jam MRS 
+                    <input name="JAM_MRS" type="time" style="time" value="{date('d-m-Y', strtotime($rp.JAM_MRS))}"   maxlength="10" />
+                </td>
+            </tr>
+           
+            <tr>
+                <td> Alasan MRS   </td>
+                <td colspan="2">
+                    <input name="ALASAN_MRS" type="text" value="{$rp.ALASAN_MRS}"    style="width: 400px;" />
+                </td>
+            </tr>
+          
+            <tr>
+                <td>Tanggal Rencana Pemulangan</td>
+                <td colspan="2">
+                    <input name="TGL_RENCANA_PULANG" type="date" size="30" value="{date('Y-m-d', strtotime($rp.TGL_RENCANA_PULANG))}"   class="tanggal" style="text-align: center; width:80px ;" />
+                 Jam Rencana Pemulangan 
+                    <input name="JAM_RENCANA_PULANG" type="time" style="time" value="{date('H:i', strtotime($rp.JAM_RENCANA_PULANG))}"   maxlength="30" />
+                </td>
+            </tr>
+
+            <tr>
+                <td>Estimasi Tanggal Pemulangan</td>
+                <td colspan="2">
+                    <input name="ESTIMASI_TGL" type="date" size="30" maxlength="10" value="{date('Y-m-d', strtotime($rp.ESTIMASI_TGL))}" class="tanggal" style="text-align: center; width:80px ;" />
+                </td>
+            </tr>
+
+
+ </table>
+
+        <table class="table-input" width="100%">
+            <tr class="headrow">
+                <th colspan="4"> KETERANGAN RENCANA PEMULANGAN</th> 
+            </tr>
+            <tr>
+                <td> Pengaruh Rawat Inap Terhadap Pasien  </td>
+                <td colspan="3">
+                    <input type="radio" name="PENGARUH_P" {if $rp.PENGARUH_P eq 'Tidak'} checked {/if} value="Tidak">Tidak
+                    <input type="radio" name="PENGARUH_P" {if $rp.PENGARUH_P neq 'Tidak'} checked {/if}  value="Ya">Ya
+                  
+                </td>
+                
+            </tr>
+            <tr>
+                <td> Pengaruh Rawat Inap Terhadap Pekerjaan  </td>
+                <td colspan="3">
+                    <input type="radio" name="PENGARUH_JOB" {if $rp.PENGARUH_JOB eq 'Tidak'} checked {/if} value="Tidak">Tidak
+                    <input type="radio" name="PENGARUH_JOB"  {if $rp.PENGARUH_JOB neq 'Tidak'} checked {/if} value="Ya">Ya
+                  
+                </td>
+                
+            </tr>
+            <tr>
+                <td> Pengaruh Rawat Inap Terhadap Keuangan  </td>
+                <td colspan="3">
+                    <input type="radio" name="PENGARUH_K" {if $rp.PENGARUH_K eq 'Tidak'} checked {/if} value="Tidak">Tidak
+                    <input type="radio" name="PENGARUH_K" {if $rp.PENGARUH_K neq 'Tidak'} checked {/if}  value="Ya">Ya
+                  
+                </td>
+                
+            </tr>
+
+            <tr>
+                <td> Antisipasi Terhadap Masalah ketika pulang  </td>
+                <td colspan="3">
+                   
+                    <input type="radio" name="ANTI" {if $rp.ANTI eq 'Tidak'} checked {/if} value="Tidak">Tidak
+                    <input type="radio" name="ANTI" {if $rp.ANTI neq 'Tidak'} checked {/if}  value="Ya">Ya
+                    <input type="text" name="ANTI2" value="{$rp.ANTI}" >
+                </td>
+                
+            </tr>
+
+            <tr>
+                <td> Bantuan diperlukan dalam hal </td>
+                <td  colspan="3">
+                    <input type="text" name="BANTUAN" style="width: 400px;" value="{$rp.BANTUAN}" >  
+                </td>
+            </tr>
+
+            <tr>
+                <td  > Adakah yang membantu keperluan tersebut  </td>
+                <td  >
+                    <input type="radio" name="PEMBANTU" value="Tidak" {if $rp.PEMBANTU eq 'Tidak'} checked {/if}>Tidak
+                       <input type="radio" name="PEMBANTU" value="Ya" {if $rp.PEMBANTU neq 'Tidak'} checked {/if}>Ya
+                       <input type="text" name="PEMBANTU2" value="{$rp.PEMBANTU}" >  
+                 
+                </td>
+                
+            </tr>
+            <tr>
+                <td  > Apakah pasien hidup sendiri saat pulang dari rumah sakit  </td>
+                <td  >  
+                    <input type="radio" name="TINGGAL" value="Tidak" {if $rp.TINGGAL eq 'Tidak '} checked {/if}>Tidak
+                    <input type="radio" name="TINGGAL" value="Ya" {if $rp.TINGGAL eq 'Ya '} checked {/if}>Ya
+                    <input type="text" name="TINGGAL2" value="{$rp.TINGGAL}" >  
+                </td>
+                
+            </tr>
+
+            <tr>
+                <td  > Apakah pasien menggunakan alat medis setelah keluar rs  </td>
+                <td  >   
+                    <input type="radio" name="ALAT_MEDIS" value="Tidak" {if $rp.ALAT_MEDIS eq 'Tidak '} checked {/if}>Tidak
+                    <input type="radio" name="ALAT_MEDIS" value="Ya" {if $rp.ALAT_MEDIS eq 'Ya '} checked {/if}>Ya
+                    <input type="text" name="ALAT_MEDIS2"  value="{$rp.ALAT_MEDIS}">
+                </td>
+                
+            </tr>
+
+            <tr>
+                <td  > Apakah pasien memerlukan alat bantu saat keluar dari rs  </td>
+                <td  >  
+                    <input type="radio" name="ALAT_BANTU" value="Tidak" {if $rp.ALAT_BANTU eq 'Tidak '} checked {/if}>Tidak
+                    <input type="radio" name="ALAT_BANTU" value="Ya" {if $rp.ALAT_BANTU eq 'Ya '} checked {/if}>Ya
+                    <input type="text" name="ALAT_BANTU2"  >
+                </td>
+                
+            </tr>
+
+
+            <tr>
+                <td  > Apakah pasien memerlukan bantuan perawatan saat keluar dari rs </td>
+                <td  >  
+                    <input type="radio" name="BANTU_KHUSUS" value="Tidak"  {if $rp.BANTU_KHUSUS eq 'Tidak '} checked {/if}>Tidak
+                    <input type="radio" name="BANTU_KHUSUS" value="Ya"  {if $rp.BANTU_KHUSUS eq 'Ya '} checked {/if}>Ya
+                    <input type="text" name="BANTU_KHUSUS2" value="{$rp.BANTU_KHUSUS}">
+                </td>
+                
+            </tr>
+
+            <tr>
+                <td  > Apakah pasien bermasalah dalam memenuhi kebutuhan pribadi setelah keluar dari rs </td>
+                <td  >  
+                    <input type="radio" name="K_PRIBADI" value="Tidak" {if $rp.K_PRIBADI eq 'Tidak'} checked {/if}>Tidak
+                    <input type="radio" name="K_PRIBADI" value="Ya" {if $rp.K_PRIBADI eq 'Ya'} checked {/if}>Ya
+                    <input type="text" name="K_PRIBADI2" value="{$rp.K_PRIBADI2}">
+                </td>
+                
+            </tr>
+
+            <tr>
+                <td  > Apakah pasien memiliki nyeri kronis dan kelelahan saat keluar dari rs </td>
+                <td  >  
+                    <input type="radio" name="NYERI" value="Tidak" {if $rp.NYERI eq 'Tidak '} checked {/if}>Tidak
+                    <input type="radio" name="NYERI" value="Ya" {if $rp.NYERI eq 'Ya '} checked {/if}>Ya
+                    <input type="text" name="NYERI2" value="{$rp.NYERI}">
+                </td>
+                
+            </tr>
+
+            <tr>
+                <td  > Apakah pasien dan keluarga memerlukan edukasi saat keluar dari rs </td>
+                <td  >  
+                    <input type="radio" name="EDUKASI" value="Tidak" {if $rp.EDUKASI eq 'Tidak '} checked {/if}>Tidak
+                    <input type="radio" name="EDUKASI" value="Ya" {if $rp.EDUKASI eq 'Ya '} checked {/if}>Ya
+                    <input type="text" name="EDUKASI2" value="{$rp.EDUKASI}">>
+                </td>
+                
+            </tr>
+            <tr>
+                <td  > Apakah pasien dan keluarga memerlukan keterampilan khusus saat keluar dari rs </td>
+                <td  >  
+                    <input type="radio" name="KETR" value="Tidak" {if $rp.KETR eq 'Tidak '} checked {/if}>Tidak
+                    <input type="radio" name="KETR" value="Ya" {if $rp.KETR eq 'Ya '} checked {/if}>Ya
+                    <input type="text" name="KETR2" value="{$rp.KETR}">>
+                </td>
+                
+            </tr>
+         
+            <tr class="submit-box">
+                <td colspan="4">
+                   <div style="font-weight: bold;">
+                    *Bismillahirohmanirrohim, saya dengan sadar dan penuh tanggung jawab mengisikan formulir ini dengan data yang benar
+                </div>
+                <br>
+                <input type="submit" name="save" value="Simpan" class="edit-button"/>
+            </td>
+        </tr>
+    </table>
+</form>
+</div>
+<div class="navigation">
+    <div class="pageRow">
+        <div class="pageNav">
+            <ul>
+                <li class="info"></li>
+            </ul>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="navigation-button">
+        <ul>
+            <li><a href="{$config->site_url('igd/ews/cetak_pulang/'|cat:$rs_pasien.NO_REG|cat:'/'|cat:'15')}" target="_blank"><img src="{$BASEURL}resource/doc/images/icon/printer-icon.png" alt="" /> Print</a></li>
+        </ul>
+    </div>
+    <div class="clear"></div>
+</div> 

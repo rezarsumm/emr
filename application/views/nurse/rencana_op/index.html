@@ -1,0 +1,59 @@
+ 
+    <br>
+    <p style="font-size: 19px;">  Data Pasien Rencana Operasi   </p>
+    <br>
+ 
+
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
+
+  
+<a href="{$config->site_url('nurse/rencana_op/add')}">
+                <button class="btn btn-success btn-xs fa fa-pencil"> Tambah Data </button></a></li>
+  <br>
+  <br>
+ 
+{include file="base/templates/notification.html"}
+<div class="dashboard-container">
+    <table class="table-view" width="100%" border="0">
+        <thead>
+            <tr>
+                <th width='2%'>No</th>
+                <th>No MR</th>
+                <th>Nama Pasien</th>
+                <th>Alamat</th> 
+                <th>Tindakan</th> 
+                <th>Dokter</th> 
+                <th>Status</th>
+                <th width='18%'>Detail</th>
+            </tr>
+        </thead>
+        <tbody>{$no=1}
+            {foreach from=$rs_pasien item=data}
+            <tr>
+                <td>{$no++}</td>
+                <td>{$data.No_MR}</td>
+                <td>{$data.Nama_Pasien}</td>
+                <td>{$data.Alamat}</td>  
+                <td>{$data.nmtindakan}</td>  
+                <td>{$data.Nama_Dokter}</td>  
+                <td {if $data.STATUS_OP eq 'Belum'} style="color: blue;" {else} style="color: green;" {/if}>  {$data.STATUS_OP}</td>  
+                <td>
+                    {if $data.STATUS_OP eq 'Belum'} 
+                    <a href="{$config->site_url('nurse/rencana_op/edit/'|cat:$data.id)}" class="button-edit">Edit</a>
+                     
+                    <a href="{$config->site_url('nurse/rencana_op/entry/'|cat:$data.No_Reg|cat:'/'|cat:$data.id|default:'')}" class="button-edit">Entry</a>
+                     
+                    {/if}
+                    {if $cek_umum_pra neq 0}
+                    <a href="javascript:void(0);" onclick="window.open('{$config->site_url('rm/rawat_inap/cetak_data_umum_pra2/'|cat:$FS_RG|cat:'/'|cat:$id|default:'')}', 'nama_window_pop_up', 'scrollbars=yes,resizeable=no')" class="button-download"> Cetak </a>
+                    {/if}
+
+                </td>
+            </tr>
+            {/foreach}
+        </tbody>
+    </table>
+ </div>

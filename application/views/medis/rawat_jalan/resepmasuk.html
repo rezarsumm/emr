@@ -1,0 +1,46 @@
+
+<div class="breadcrum">
+List Data Resep Masuk
+    <div class="clear"></div>
+</div>
+
+<div class="navigation">
+    <div class="pageRow">
+        <div class="pageNav">
+            <ul>
+                <li class="info"></li>
+            </ul>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="navigation-button">
+     <!--    <ul>
+            <li><a href="javascript:void(0);" onclick="window.open('{$config->site_url('rm/rawat_jalan/resume/'|cat:$result.NO_MR)}', 'nama_window_pop_up', 'scrollbars=yes,resizeable=no')"><img src="{$BASEURL}resource/doc/images/icon/printer-icon.png" alt="" /> Resume Rawat Jalan</a></li>
+        </ul> -->
+    </div>
+    <div class="clear"></div>
+</div>
+<table class="table-view" width="100%" border="0">
+    <thead>
+        <tr>
+            <th width='10%'>Kode Register</th>
+            <th>NO MR</th>
+            <th>Nama Pasien</th>
+            <th>Alamat</th>
+            <th>Dokter</th>
+            <th width='24%'>Aksi</th>
+        </tr>
+    </thead>
+    <tbody>
+        {foreach from=$listresep item=data}
+    <tr>
+        <td>{$data.FS_KD_REG}</td> 
+        <td>{$data.No_MR}</td> 
+        <td>{$data.Nama_Pasien}</td> 
+        <td>{$data.Alamat}</td> 
+        <td>{$data.Nama_Dokter}</td> 
+        <td> <a href="javascript:void(0);" onclick="window.open('{$config->site_url('medis/rawat_jalan/cetak_resep/'|cat:$data.FS_KD_REG|cat:'/'|cat:$data.FS_KD_TRS)}', 'nama_window_pop_up', 'scrollbars=yes,resizeable=no')" class="button-edit">Cetak Resep</a></td>
+    </tr>
+{/foreach}
+</tbody>
+</table>

@@ -1,0 +1,174 @@
+ 
+ 
+<div class="breadcrum">
+    <p>
+        <a href="#">Catatan Rawat Inap</a><span></span>
+        <a href="{$config->site_url('inap/cppt/')}">CPPT</a><span></span>
+    
+    </p>
+    <div class="clear"></div>
+</div> 
+<div class="content-entry"> 
+    <form action="{$config->site_url('inap/cppt/add_process2')}" method="post" onkeypress="return event.keyCode != 13">
+        <input name="FS_KD_REG" id="FS_KD_REG" type="hidden" value="{$rs_pasien.NO_REG}" />
+        <input name="FS_MR" type="hidden" value="{$rs_pasien.NO_MR}" />
+        <input name="FS_KD_LAYANAN" type="hidden" value="{$rs_pasien.KODE_BANGSAL}" />
+        <input name="FS_KD_PETUGAS_MEDIS" type="hidden" value="{$rs_pasien.fs_kd_medis}" />
+<div class="navigation">
+    <div class="pageRow">
+        <div class="pageNav">
+            <ul>
+                <li class="info"></li>
+            </ul>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="navigation-button">
+        <ul>
+            <li> <a href="javascript:void(0);" onclick="window.open('{$config->site_url('rm/rawat_inap/cetak_rm/'|cat:$rs_pasien.NO_REG|cat:'/1')}', 'nama_window_pop_up', 'scrollbars=yes,resizeable=no')" class="button-download">
+                  <img src="{$BASEURL}resource/doc/images/icon/printer-icon.png" alt="" /> Print</a></li>
+        </ul>
+    </div>
+    <div class="clear"></div>
+</div>
+        <table class="table-info" width="100%">
+            <tr class="headrow">
+                <th colspan="4">  CPPT</th>
+            </tr>
+            <tr>
+                <td>NAMA</td>
+                <td>
+                    {$rs_pasien.NAMA_PASIEN}
+                </td>
+            
+                <td>NO MR</td>
+                <td>
+                    {$rs_pasien.NO_MR}
+                </td>
+            </tr>
+            <tr>
+                <td>TANGGAL LAHIR</td>
+                <td>
+                    {$rs_pasien.TGL_LAHIR|date_format:"%d %b %Y"}
+                </td>
+           
+                <td>ALAMAT</td>
+                <td>{$rs_pasien.ALAMAT}</td>
+            </tr>
+            <tr>
+                <td>UMUR</td>
+                <td>{$rs_pasien.fn_umur} tahun</td>
+            </tr>
+        </table>
+      
+       
+    </form>
+</div>
+ 
+
+
+
+<table class="table-view" width="100%">
+    <tr class="headrow">
+        <th colspan="6">List CPPT </th>
+    </tr>
+    <tr>
+        <th width="7%">Tanggal</th>
+        <th>SOAP/ADIME/SBAR</th>
+        <th width="15%">PPA</th>          
+        <th width="10%">Aksi</th>
+    </tr>
+    {foreach $rs_cppt as $cppt}
+     <tr  {if ($cppt.TGL % 2) <> 1 && $cppt.role_id == '5' || $cppt.role_id == '9'}
+        style="background-color:#ffe6ff;color:red;"
+        {elseif ($cppt.TGL % 2) <> 1 && $cppt.role_id == '11'}
+        style="background-color:#ffe6ff;color:green;"
+        {elseif ($cppt.TGL % 2) <> 1 && $cppt.role_id == '12'}
+        style="background-color:#ffe6ff;color:blue;"
+        {/if}
+        {if $cppt.role_id == '5' || $cppt.role_id == '9'}
+        style="color:red;"
+        {elseif $cppt.role_id == '11'}
+        style="color:green;"
+        {elseif $cppt.role_id == '12'}
+        style="color:blue;"
+        {/if}
+         
+        >
+        <td> 
+            {$cppt.mdd_date}/{$cppt.mdd_time}
+           
+        </td>
+        <td>
+            S / A / S : {$cppt.FS_CPPT_S|strip_tags}<br>
+            O / D / B : {$cppt.FS_CPPT_O|strip_tags}<br>
+            A / I / A : {$cppt.FS_CPPT_A|strip_tags}<br>
+            P / ME / R : {$cppt.FS_CPPT_P}<br>
+            Resep :  <br> 
+             {$cppt['FS_CPPT_TERAPI']}
+         
+          {if $cppt.FS_LAB neq ''} 
+               <a href="javascript:void(0);" onclick="window.open('{$config->site_url('lab/lab_inap/cetak_plab/'|cat:$cppt.FS_KD_TRS)}', 'nama_window_pop_up', 'scrollbars=yes,resizeable=no')" class="button-edit">Permintaan Lab </a>
+               {/if}
+
+                 {if $cppt.FS_RAD neq ''} 
+               <a href="javascript:void(0);" onclick="window.open('{$config->site_url('rad/rad_inap/cetak_prad/'|cat:$cppt.FS_KD_TRS)}', 'nama_window_pop_up', 'scrollbars=yes,resizeable=no')" class="button-edit">Permintaan Radiologi </a>
+               {/if}
+            <hr>
+           
+        </td>
+        <td>{$cppt.NAMALENGKAP}</td>
+        
+        {if $role_id eq '12' OR $role_id eq '6'}
+        <!-- <td>
+            
+        </td> -->
+        {else}
+        {/if}
+        {if $role_id == '5' || $role_id == '6' || $role_id == '9'}
+        <!-- <td>
+
+            {if $cppt.FS_KD_MEDIS_VERIF_DATE eq '3000-01-01' AND $cppt.mdb neq $com_user.user_name}
+            <a href="{$config->site_url('inap/cppt/verif/'|cat:$cppt.FS_KD_REG|cat:'/'|cat:$cppt.FS_KD_TRS)}" class="button-download">Verifikasi</a>  
+            {else}
+            DOKTER : {$cppt.FS_NM_MEDIS_VERIF}<br><br>
+            CATATAN : {$cppt.FS_KET_VERIF} <br><br>
+              {if $cppt.FS_KD_MEDIS_VERIF_DATE eq '3000-01-01'}
+                 {else}
+
+                  {$cppt.FS_KD_MEDIS_VERIF_DATE}<br>{$cppt.FS_KD_MEDIS_VERIF_TIME}
+                  {/if}
+            {/if}
+        </td> -->
+        {else}
+        {/if}
+       <td>  
+         {if $cppt.mdd_date >= $tgl_kemarin || $com_user.role_nm eq 'Admin E-MR'}
+            {if $role_id == '5' || $role_id == '6' || $role_id == '9'}
+            
+                {if $cppt.FS_KD_MEDIS_VERIF_DATE eq '3000-01-01' AND $cppt.mdb neq $com_user.user_name}
+                <a href="{$config->site_url('inap/cppt/verif/'|cat:$cppt.FS_KD_REG|cat:'/'|cat:$cppt.FS_KD_TRS)}" class="button-download">Verifikasi</a>  
+                {else}
+                DOKTER : {$cppt.FS_NM_MEDIS_VERIF}<br><br>
+                CATATAN : {$cppt.FS_KET_VERIF} <br><br>
+                {if $cppt.FS_KD_MEDIS_VERIF_DATE eq '3000-01-01'}
+                    {else}
+
+                    {$cppt.FS_KD_MEDIS_VERIF_DATE}<br>{$cppt.FS_KD_MEDIS_VERIF_TIME}
+                    {/if}
+                {/if}
+             
+            {/if}
+                 {if $x eq $cppt.mdb}
+                    <br><br><a href="{$config->site_url('inap/cppt/edit/'|cat:$cppt.FS_KD_TRS|cat:'/'|cat:$cppt.FS_KD_REG|cat:'/'|cat:$data.FS_KD_TRS_KP)}" class="button-edit">  Edit</a><br><br>
+                    <a href="{$config->site_url('inap/cppt/delete/'|cat:$cppt.FS_KD_TRS|cat:'/'|cat:$cppt.FS_KD_REG|cat:'/'|cat:$data.FS_KD_TRS_KP)}" class="button-hapus">  Hapus</a><br>
+                 {/if}
+        {/if}
+       </td>
+    </tr>
+    {/foreach}
+</table>
+ 
+
+
+ 

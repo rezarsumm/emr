@@ -1,0 +1,233 @@
+ 
+<div class="breadcrum">
+   
+    <div class="clear"></div>
+</div> 
+<div class="content-entry">
+    <!-- notification template -->
+     <!-- end of notification template-->
+   <form action="{$config->site_url('igd/ppdftr/edit_process')}" method="post" onkeypress="return event.keyCode != 13">
+            
+         <input name="FS_MR" type="hidden" value="{$rs_pasien.NO_MR}" />
+        <input name="FS_KD_LAYANAN" type="hidden" value="{$rs_pasien.KODE_BANGSAL}" />
+        <input name="FS_KD_PETUGAS_MEDIS" type="hidden" value="{$rs_pasien.fs_kd_medis}" />
+
+        <center>Form Edit Pendaftaran Pasien IGD</center>
+        <br>
+        <br>
+         <table class="table-input" width="100%" style="text-align: justify;">
+         
+            <tr>
+                <td colspan="2"> Pasien telah terdaftar 
+                    <input type="radio" name="status"  class="rad" required value="Tidak" {if $rs_pasien.FS_KD_REG eq ''} checked="" {/if} class="form-control">Belum
+                    <input type="radio" name="status" class="rad" {if $rs_pasien.FS_KD_REG neq ''} checked="" {/if}  required value="Ya" class="form-control">Sudah
+                    <br>
+                    <br>
+                    <div id="form2" {if $rs_pasien.FS_KD_REG neq ''} style="display: show" {/if} style="display:none"  >
+                          <table>
+                            <tr>
+                                <td width="20%">Nama Pasien </td>
+                                <td width="20%">
+                                    <select name="FS_KD_REG" id="surat_dari" class="select2" style="width: 400px;">
+                                        <option value=""></option>
+                                        {foreach from=$rs_pasien2 item=data}
+                                        <option {if $rs_pasien.FS_KD_REG eq $data.No_Reg} selected {/if} value="{$data.No_Reg}">{$data.Nama_Pasien} | {$data.No_MR}</option>
+                                        {/foreach}
+                                    </select>
+                                </td>
+                            </tr>
+                          </table>
+                        </div>
+
+                        <div id="form3" {if $rs_pasien.FS_KD_REG eq ''}  style="display: show" {/if} style="display:none"  >
+                            <table>
+                              <tr>
+                                  <td width="20%">Nama Pasien </td>
+                                  <td width="20%">
+                                    <input type="text" name="Nama" value="{$rs_pasien.Nama}" style="width: 400px;" class="form-control">
+                                  </td>
+                              </tr>
+                              <tr>
+                                <td width="20%">  Alamat </td>
+                                <td width="20%">
+                                  <input type="text" name="alamat" class="form-control" value="{$rs_pasien.alamat}" style="width: 400px;">
+                                </td>
+                            </tr>
+                            </table>
+                          </div>
+            
+                </td>
+            </tr>
+            
+                                   <tr>
+                                        <td width="20%">  Umur </td>
+                                        <td width="20%">
+                                          <input type="text" name="umur" class="form-control" value="{$rs_pasien.umur}" style="width: 400px;">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="20%">  Perawatan </td>
+                                        <td width="20%">
+                                            <input type="radio" name="JENIS_RAWAT" {if $rs_pasien.JENIS_RAWAT eq 'Rawat Jalan'} checked {/if} value="Rawat Jalan" >Rawat Jalan
+                                            <input type="radio" name="JENIS_RAWAT" {if $rs_pasien.JENIS_RAWAT eq 'Rawat Inap'} checked {/if} value="Rawat Inap" >Rawat Inap
+                                        </td>
+                                    </tr>
+                                   
+
+                                     <tr>
+                                        <td width="20%">  Rekanan </td>
+                                        <td width="80%">
+                                            <input type="radio" name="REKANAN"  {if $rs_pasien.REKANAN eq 'BPJS'} checked {/if} value="BPJS" >BPJS
+                                             <input type="radio" name="REKANAN"  {if $rs_pasien.REKANAN eq 'BPJS'} checked {/if} value="UMUM" >Umum
+                                            <input type="radio" name="REKANAN" {if $rs_pasien.REKANAN eq 'DANA SEHAT'} checked {/if} value="DANA SEHAT">Dana Sehat
+                                            <input type="radio" name="REKANAN" {if $rs_pasien.REKANAN eq 'LAINNYA'} checked {/if} value="LAINNYA">Lainnya
+                                            <!-- <input type="text" name="REKANAN" value="" class="form-control" style="width: 100px ;"> -->
+                                        </td>
+                                    </tr>  
+                                    <tr>
+                                        <td width="20%">  Unit 1</td>
+                                        <td width="20%">
+                                            <select class="select2" name="UNIT1" style="width:400px">
+                                                <option></option>
+                                                <option value="Penyakit Saraf" {if $rs_pasien.UNIT1 eq 'Penyakit Saraf'} selected {/if}>Penyakit Saraf</option>
+                                                <option value="Penyakit Dalam" {if $rs_pasien.UNIT1 eq 'Penyakit Dalam'} selected {/if}>Penyakit Dalam</option>
+                                                <option value="Perawatan Anak" {if $rs_pasien.UNIT1 eq 'Perawatan Anak'} selected {/if}>Perawatan Anak </option>
+                                                <option value="Kebidanan" {if $rs_pasien.UNIT1 eq 'Kebidanan'} selected {/if}> Kebidanan </option>
+                                                <option value="Bedah" {if $rs_pasien.UNIT1 eq 'Bedah'} selected {/if}> Bedah </option>
+                                                <option value="Perina" {if $rs_pasien.UNIT1 eq 'Perina'} selected {/if}> Perinatologi </option>
+                                                <option value="ICU" {if $rs_pasien.UNIT1 eq 'ICU'} selected {/if}> ICU </option>
+                                                <option value="Imunokompromised" {if $rs_pasien.UNIT1 eq 'Imunokompromised'} selected {/if}> Imunokompromised </option>
+                                                <option value="Kohort" {if $rs_pasien.UNIT1 eq 'Kohort'} selected {/if}> Kohort</option>
+                 
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="20%">  Ruang 1</td>
+                                        <td width="20%">
+                                            <select name="RUANG1" id="surat_dari" class="select2" style="width: 400px;">
+                                                <option value=""></option>
+                                                {foreach from=$ruang item=gata}
+                                                {if $gata.Kode_Ruang eq $rs_pasien.RUANG1}
+                                                <option value="{$gata.Kode_Ruang}" selected>{$gata.Nama_Ruang} </option>
+                                                {else}
+                                                <option value="{$gata.Kode_Ruang}">{$gata.Nama_Ruang} </option>
+                                                {/if}
+                                                {/foreach}
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="20%">  DPJP 1</td>
+                                        <td width="20%">
+                                            <select name="KD_DOKTER1" id="surat_dari" class="select2" style="width: 400px;">
+                                                <option value=""></option>
+                                                {foreach from=$rs_dokter item=gata}
+                                                {if $rs_pasien.KD_DOKTER1 eq $gata.NAMAUSER}
+                                                <option value="{$gata.NAMAUSER}" selected>{$gata.NAMALENGKAP} </option>
+                                                {else}
+                                                <option value="{$gata.NAMAUSER}">{$gata.NAMALENGKAP} </option>
+                                                {/if}
+                                                {/foreach}
+                                            </select>
+                                        </td>
+                                    </tr>
+
+                                    <tr><td><br><br></td></tr>
+                                    <tr>
+                                        <td width="20%">  Unit 2</td>
+                                        <td width="20%">
+                                            <select class="select2" name="UNIT2" style="width:400px">
+                                                <option></option>
+                                                <option value="Penyakit Saraf" {if $rs_pasien.UNIT2 eq 'Penyakit Saraf'} selected {/if}>Penyakit Saraf</option>
+                                                <option value="Penyakit Dalam" {if $rs_pasien.UNIT2 eq 'Penyakit Dalam'} selected {/if}>Penyakit Dalam</option>
+                                                <option value="Perawatan Anak" {if $rs_pasien.UNIT2 eq 'Perawatan Anak'} selected {/if}>Perawatan Anak </option>
+                                                <option value="Kebidanan" {if $rs_pasien.UNIT2 eq 'Kebidanan'} selected {/if}> Kebidanan </option>
+                                                <option value="Bedah" {if $rs_pasien.UNIT2 eq 'Bedah'} selected {/if}> Bedah </option>
+                                                <option value="Perina" {if $rs_pasien.UNIT2 eq 'Perina'} selected {/if}> Perinatologi </option>
+                                                <option value="ICU" {if $rs_pasien.UNIT2 eq 'ICU'} selected {/if}> ICU </option>
+                                                <option value="Imunokompromised" {if $rs_pasien.UNIT2 eq 'Imunokompromised'} selected {/if}> Imunokompromised </option>
+                                                <option value="Kohort" {if $rs_pasien.UNIT2 eq 'Kohort'} selected {/if}> Kohort</option>
+                 
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="20%">  Ruang 2</td>
+                                        <td width="20%">
+                                            <select name="RUANG2" id="surat_dari" class="select2" style="width: 400px;">
+                                                <option value=""></option>
+                                                {foreach from=$bangsal item=gata}
+                                                {if $rs_pasien.RUANG2 eq $gata.Kode_Bangsal}
+                                                <option value="{$gata.Kode_Bangsal}" selected>{$gata.Nama_Bangsal} </option>
+                                                {else}
+                                                <option value="{$gata.Kode_Bangsal}">{$gata.Nama_Bangsal} </option>
+                                                {/if}
+                                                {/foreach}
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="20%">  DPJP 2</td>
+                                        <td width="20%">
+                                            <select name="KD_DOKTER2" id="surat_dari" class="select2" style="width: 400px;">
+                                                <option value=""></option>
+                                                {foreach from=$rs_dokter item=gata}
+                                                {if $rs_pasien.KD_DOKTER2 eq $gata.NAMAUSER}
+                                                <option value="{$gata.NAMAUSER}" selected>{$gata.NAMALENGKAP} </option>
+                                                {else}
+                                                <option value="{$gata.NAMAUSER}">{$gata.NAMALENGKAP} </option>
+                                                {/if}
+                                                {/foreach}
+                                            </select>
+                                        </td>
+                                    </tr>
+                    <input type="hidden" name="id" value="{$rs_pasien.id}">
+
+
+                                    </table>
+                                  </div>
+                    
+                        </td>
+                    </tr>
+                  <tr>
+                    <td>
+
+
+
+                      
+                
+                      <button type="submit" class="btn btn-primary btn-sm">
+                            <i class="ti ti-save"></i> Simpan
+                        </button>
+                    <button type="button" class="btn btn-warning btn-sm" data-dismiss="modal">Batal</button>
+
+                </td>
+            </tr>
+               </form>
+
+
+
+
+ 
+<script>
+       $(".select2").select2({
+            placeholder: "Pilih",
+            allowClear: true
+        });
+
+        $(function(){
+      $(":radio.rad").click(function(){
+        $("#form2").hide();
+        $("#form3").hide();
+
+        if($(this).val() == "Ya"){
+          $("#form2").show();
+          $("#form3").hide()
+        }else if($(this).val() == "Tidak"){
+          $("#form2").hide();
+          $("#form3").show()
+        }
+      });
+    });
+</script>}

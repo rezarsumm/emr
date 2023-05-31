@@ -1,0 +1,346 @@
+{include file="inap/rm17/add_script_js.html"}
+<div class="breadcrum">
+    <p>
+        <a href="{$config->site_url('inap/form_rm/lists')}">Form RM</a><span></span>
+        <a href="{$config->site_url('inap/rm17/cari')}">RM 17 CATATAN PEMBERIAN OBAT</a><span></span>
+        <small>Add Data</small>
+    </p>
+    <div class="clear"></div>
+</div>
+
+<div class="head-content">
+    <div class="head-content-nav">
+        <ul>
+            <li><a href="{$config->site_url('inap/rm17/add/'|cat:$rs_pasien.NO_REG)}" >Data Umum</a></li>
+            <li><a href="{$config->site_url('inap/rm17/add_catatan/'|cat:$rs_pasien.NO_REG)}" class="active">Data Check List Obat</a></li>
+        </ul>
+        <div class="clear"></div>
+    </div>
+    <div class="clear"></div>
+</div>
+<div class="content-entry">
+    <!-- notification template -->
+    {include file="base/templates/notification.html"}
+    <!-- end of notification template-->
+    <table class="table-info" width="100%">
+        <tr class="headrow"> 
+            <th colspan="2">Add Catatan Pemberian Obat</th>
+        </tr>
+        <tr>
+                <td>NAMA</td>
+                <td>
+                    {$rs_pasien.NAMA_PASIEN}
+                </td>
+            </tr>
+            <tr>
+                <td>NO MR</td>
+                <td>
+                    {$rs_pasien.NO_MR}
+                </td>
+            </tr>
+            <tr>
+                <td>TANGGAL LAHIR</td>
+                <td>
+                    {$rs_pasien.TGL_LAHIR|date_format:"%d %b %Y"}
+                </td>
+            </tr>
+            <tr>
+                <td>ALAMAT</td>
+                <td>{$rs_pasien.ALAMAT}</td>
+            </tr>
+    </table>
+ <form action="{$config->site_url('inap/rm17/add_catatan_process')}" method="post">
+        <input name="FS_KD_REG" type="hidden" value="{$rs_pasien.NO_REG}" />
+        <input name="FS_KD_RM17" type="hidden" value="{$rs_rm17.FS_KD_RM17}" />
+        <table class="table-input" width="100%">
+            <tr>
+                <th colspan="2">Tambah Data Catatan Pemberian Obat</th>
+            </tr>
+            <tr>
+                <td width="25%">Obat</td>
+                <td width="75%">
+                    <input type="text" name="FS_CHK_OBAT" size="40"  value="{$result.FS_NAMA_OBAT|default:''}">
+                </td>
+            </tr>
+            <tr>
+                <td>Dosis</td>
+                <td>
+                    <input type="text" name="FS_CHK_DOSIS" size="40" value="{$result.FS_DOSIS_OBAT|default:''}">
+                </td>
+            </tr>
+            <tr>
+                <td>Pasien</td>
+                <td>
+                    <input type="text" name="FS_CHK_PASIEN" size="40" value="{$rs_pasien.NAMA_PASIEN|default:''}">
+                </td>
+            </tr>
+            <tr>
+                <td>Rute</td>
+                <td>
+                    <select name="FS_CHK_RUTE" id="surat_dari" class="select2" style="width: 300px;">
+                        <option value=""></option>
+                        <option value="1" {if $result.FS_RUTE eq 1} selected="selected" {/if}>ORAL</option>
+                        <option value="2" {if $result.FS_RUTE eq 2} selected="selected" {/if}>TOPIKAL</option>
+                        <option value="3" {if $result.FS_RUTE eq 3} selected="selected" {/if}>TETES MATA</option>
+                        <option value="4" {if $result.FS_RUTE eq 4} selected="selected" {/if}>IV</option>
+                        <option value="5" {if $result.FS_RUTE eq 5} selected="selected" {/if}>IM</option>
+                        <option value="6" {if $result.FS_RUTE eq 6} selected="selected" {/if}>SC</option>
+                        <option value="7" {if $result.FS_RUTE eq 7} selected="selected" {/if}>IC</option>
+                        <option value="8" {if $result.FS_RUTE eq 8} selected="selected" {/if}>TETES TELINGA</option>
+                        <option value="9" {if $result.FS_RUTE eq 9} selected="selected" {/if}>IV DRIP</option>
+                        <option value="10" {if $result.FS_RUTE eq 10} selected="selected" {/if}>INHALASI</option>
+                        <option value="11" {if $result.FS_RUTE eq 11} selected="selected" {/if}>TETES HIDUNG</option>
+                        <option value="12" {if $result.FS_RUTE eq 12} selected="selected" {/if}>PEREKTAL</option>
+                        <option value="13" {if $result.FS_RUTE eq 13} selected="selected" {/if}>PERVAGINAL</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Waktu</td>
+                <td>
+                    <input type="text" name="FD_WAKTU" size="10">
+                </td>
+            </tr>
+            <tr>
+                <td>Perawat 1</td>
+                <td>
+                    <select name="FS_KD_PEG" id="surat_dari" class="select2" style="width: 300px;">
+                        <option value=""></option>
+                        {foreach from=$rs_perawat item=data}
+                        <option value="{$data.NAMAUSER}">{$data.NAMALENGKAP}</option>
+                        {/foreach}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Perawat 2</td>
+                <td>
+                    <select name="FS_KD_PEG2" id="surat_dari" class="select2" style="width: 300px;">
+                        <option value=""></option>
+                        {foreach from=$rs_perawat item=data2}
+                        <option value="{$data2.NAMAUSER}">{$data2.NAMALENGKAP}</option>
+                        {/foreach}
+
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Farmasi</td>
+                <td>
+                    <select name="FS_KD_PEG3" id="surat_dari" class="select2" style="width: 300px;">
+                        <option value=""></option>
+                        {foreach from=$rs_perawat item=data2}
+                        <option value="{$data2.NAMAUSER}">{$data2.NAMALENGKAP}</option>
+                        {/foreach}
+
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <em>* PASTIKAN OBAT DIBERIKAN DENGAN BENAR</em>
+                </td>
+            </tr>
+            <tr class="submit-box">
+                <td colspan="2">
+                     <div style="font-weight: bold;">
+                    *Bismillahirohmanirrohim, saya dengan sadar dan penuh tanggung jawab mengisikan formulir ini dengan data yang benar
+                </div>
+                <br>
+                    <input type="submit" name="save" value="Simpan" class="edit-button" >
+                </td>
+            </tr>
+        </table>
+    </form>
+    <table class="table-view" width="100%">
+        <tr>
+            <th colspan="10">Catatan Pemberian Obat</th>
+        </tr>
+        <tr>
+            <th><center><b>Tanggal Entry</b></center></th>
+            <th><center><b>Obat</b></center></th>
+        <th><center><b>Dosis</b></center></th>
+        <th><center><b>Pasien</b></center></th>
+        <th><center><b>Rute</b></center></th>
+        <th><center><b>Waktu</b></center></th>
+        <th><center><b>Perawat 1</b></center></th>
+        <th><center><b>Perawat 2</b></center></th>
+        <th><center><b>Farmasi</b></center></th>
+        <th><center><b>Aksi</b></center></th>
+        </tr>
+
+        {foreach from=$rs_catatan_obat item=data}
+        <tr>
+            <td><center>
+            {$data.mdd}
+        </center></td>
+            <td><center>
+            {if $data.FS_CHK_OBAT eq 1}
+            v
+            {else}
+            {$data.FS_CHK_OBAT}
+            {/if}
+        </center></td>
+        <td><center>
+            {$data.FS_CHK_DOSIS}
+        </center></td>
+        <td><center>
+            {if $data.FS_CHK_PASIEN eq 1}
+            v
+            {else}
+            {$data.FS_CHK_PASIEN}
+            {/if}
+        </center></td>
+        <td>
+            <center>
+            
+            {if $data.FS_CHK_RUTE eq 1}
+                ORAL
+                {elseif $data.FS_CHK_RUTE eq 2}
+                TROPIK
+                {elseif $data.FS_CHK_RUTE eq 3}
+                TETES MATA
+                {elseif $data.FS_CHK_RUTE eq 4}
+                IV
+                {elseif $data.FS_CHK_RUTE eq 5}
+                IM
+                {elseif $data.FS_CHK_RUTE eq 6}
+                SC
+                {elseif $data.FS_CHK_RUTE eq 7}
+                IC
+                {elseif $data.FS_CHK_RUTE eq 8}
+                TETES TELINGA
+                {elseif $data.FS_CHK_RUTE eq 9}
+                IV DRIP
+                {elseif $data.FS_CHK_RUTE eq 10}
+                INHALASI
+                {elseif $data.FS_CHK_RUTE eq 11}
+                TETES HIDUNG
+                {elseif $data.FS_CHK_RUTE eq 12}
+                PEREKTAL
+                {elseif $data.FS_CHK_RUTE eq 13}
+                PERVAGINAL
+                {/if}
+        </center></td>
+        <td><center>{$data.FD_WAKTU}</center></td>
+        <td><center>{$data.FS_KD_PEG}</center></td>
+        <td><center>{$data.FS_KD_PEG2}</center></td>
+        <td><center>{$data.FS_KD_PEG3}</center></td>
+        <td><center>
+            <a href="{$config->site_url('inap/rm17/delete_process_catatan/'|cat:$data.FS_KD_RM17_DETAIL|cat:'/'|cat:$data.FS_KD_REG|cat:'/'|cat:$data.FS_KD_RM17)}" class="button-hapus" title="Hapus Catatan"  onclick="return confirm('Apakah Anda Yakin Akan Menghapus?');">Hapus</a>
+       
+            </center></td>
+        </tr>
+        {/foreach}
+    </table>
+    <table class="table-input" width="100%">
+        <tr>
+            <td colspan="8">
+                <a href="{$config->site_url('inap/rm17/add/'|cat:$rs_pasien.NO_REG)}" class="btn-red" style="float:left;"/>Kembali</a>
+            </td>
+        </tr>
+    </table>
+</form>
+</div>
+
+<!-------------------------------->
+<!--open dialog form----->
+<!-------------------------------->
+<div id="dialog-form" title="Add Data Check List Obat">
+    <!-- notification template -->
+    {include file="base/templates/notification.html"}
+    <!-- end of notification template-->
+    <form action="{$config->site_url('inap/rm17/add_catatan_process')}" method="post">
+        <input name="FS_KD_REG" type="hidden" value="{$rs_pasien.fs_kd_reg}" />
+        <input name="FS_KD_RM17" type="hidden" value="{$rs_rm17.FS_KD_RM17}" />
+        <table class="table-input" width="100%">
+            <tr>
+                <th colspan="2">Tambah Data</th>
+            </tr>
+            <tr>
+                <td width="25%">Obat</td>
+                <td width="75%">
+                    <input type="text" name="FS_CHK_OBAT" size="40"  value="{$result.FS_NAMA_OBAT|default:''}">
+                </td>
+            </tr>
+            <tr>
+                <td>Dosis</td>
+                <td>
+                    <input type="text" name="FS_CHK_DOSIS" size="40" value="{$result.FS_DOSIS_OBAT|default:''}">
+                </td>
+            </tr>
+            <tr>
+                <td>Pasien</td>
+                <td>
+                    <input type="text" name="FS_CHK_PASIEN" size="40" value="{$rs_pasien.fs_nm_pasien|default:''}">
+                </td>
+            </tr>
+            <tr>
+                <td>Rute</td>
+                <td>
+                    <select name="FS_CHK_RUTE" id="surat_dari" class="select2" style="width: 300px;">
+                        <option value=""></option>
+                        <option value="1" {if $result.FS_RUTE eq 1} selected="selected" {/if}>ORAL</option>
+                        <option value="2" {if $result.FS_RUTE eq 2} selected="selected" {/if}>TOPIKAL</option>
+                        <option value="3" {if $result.FS_RUTE eq 3} selected="selected" {/if}>TETES MATA</option>
+                        <option value="4" {if $result.FS_RUTE eq 4} selected="selected" {/if}>IV</option>
+                        <option value="5" {if $result.FS_RUTE eq 5} selected="selected" {/if}>IM</option>
+                        <option value="6" {if $result.FS_RUTE eq 6} selected="selected" {/if}>SC</option>
+                        <option value="7" {if $result.FS_RUTE eq 7} selected="selected" {/if}>IC</option>
+                        <option value="8" {if $result.FS_RUTE eq 8} selected="selected" {/if}>TETES TELINGA</option>
+                        <option value="9" {if $result.FS_RUTE eq 9} selected="selected" {/if}>IV DRIP</option>
+                        <option value="10" {if $result.FS_RUTE eq 10} selected="selected" {/if}>INHALASI</option>
+                        <option value="11" {if $result.FS_RUTE eq 11} selected="selected" {/if}>TETES HIDUNG</option>
+                        <option value="12" {if $result.FS_RUTE eq 12} selected="selected" {/if}>PEREKTAL</option>
+                        <option value="13" {if $result.FS_RUTE eq 13} selected="selected" {/if}>PERVAGINAL</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Waktu</td>
+                <td>
+                    <input type="text" name="FD_WAKTU" size="10">
+                </td>
+            </tr>
+            <tr>
+                <td>Perawat 1</td>
+                <td>
+                    <select name="FS_KD_PEG" id="surat_dari" class="select2" style="width: 300px;">
+                        <option value=""></option>
+                        {foreach from=$rs_perawat item=data}
+                        <option value="{$data.FS_KD_PEG}">{$data.FS_NM_PEG}</option>
+                        {/foreach}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Perawat 2</td>
+                <td>
+                    <select name="FS_KD_PEG2" id="surat_dari" class="select2" style="width: 300px;">
+                        <option value=""></option>
+                        {foreach from=$rs_perawat item=data2}
+                        <option value="{$data2.FS_KD_PEG}">{$data2.FS_NM_PEG}</option>
+                        {/foreach}
+
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <em>* PASTIKAN OBAT DIBERIKAN DENGAN BENAR</em>
+                </td>
+            </tr>
+            <tr class="submit-box">
+                <td colspan="2">
+                     <div style="font-weight: bold;">
+                    *Bismillahirohmanirrohim, saya dengan sadar dan penuh tanggung jawab mengisikan formulir ini dengan data yang benar
+                </div>
+                <br>
+                    <input type="submit" name="save" value="Simpan" class="edit-button" >
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>

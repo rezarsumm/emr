@@ -1,0 +1,66 @@
+{include file="nurse/rawat_jalan/add_script_js.html"}
+<div class="breadcrum">
+    <p>
+        <a href="#">Medical Record</a><span></span>
+        <small>Gabung Berkas Rawat Inap</small>
+    </p>
+    <div class="clear"></div>
+</div>
+<div class="search-box">
+    <h3><a href="#">Search</a></h3>
+    <form action="{$config->site_url('rm/gabung_ri/proses_cari')}" method="post">
+        <table class="table-search" width="100%">
+            <tr>
+                <th width="10%" aligh="left">No Rekam Medis</th>
+                <td width="90%">
+                    <input name="FS_MR" value="{$search.FS_MR}" size="25" style="text-align: center;" maxlength="15"/>
+                    <input name="save" type="submit" value="Tampilkan" />
+                    <input name="save" type="submit" value="Reset" />
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+
+<!-- notification template -->
+{include file="base/templates/notification.html"}
+<!-- end of notification template-->
+<div class="dashboard-container">
+    <table class="table-view" width="100%" border="0">
+        <thead>
+            <tr>
+                <th width='10%'>Tanggal Kunjungan</th>
+                <th>Kode Reg</th>
+                <th>Dokter</th>
+                <th>Layanan</th>
+                <th>Status</th>
+                <th width='15%'>Aksi</th>
+            </tr>
+        </thead>
+        {foreach from=$rs_pasien item=data}
+        <tbody>
+            
+            <tr>
+                <td>{$data.FD_TGL_MASUK|date_format :"%d %B %Y"}</td>
+                <td>{$data.FS_KD_REG}</td>
+                <td>{$data.FS_NM_PEG}</td> 
+                <td>{$data.FS_NM_LAYANAN}</td> 
+                <td>
+        <center>
+            <b>
+                {if $data.FS_STATUS eq '1'}
+                <div style="color: blue;">Belum Digabung</div>
+                {elseif $data.FS_STATUS eq '2'}
+                <div style="color: green;">Sudah Di Gabung</div>
+                {/if}
+            </b>
+        </center>
+        </td> 
+        <td>
+            <a href="{$config->site_url('rm/gabung_ri/gabung_ri_process/'|cat:$data.FS_KD_REG|cat:'/'|cat:$data.FS_MR|cat:'/'|cat:$data.FS_STATUS)}" class="button-edit">Gabung Berkas RI</a>
+        </td>
+        </tr>
+        </tbody>
+        {/foreach}
+    </table>
+</div>

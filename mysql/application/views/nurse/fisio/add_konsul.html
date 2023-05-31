@@ -1,0 +1,80 @@
+{include file="medis/rawat_jalan/add_script_js.html"}
+<script type="text/javascript">
+    
+</script>
+<div class="breadcrum">
+    <p>
+        <a href="#">Nurse Record</a><span></span>
+        <a href="#">History Pasien</a><span></span>
+        <a href="{$config->site_url('nurse/rawat_jalan/')}">Rawat Jalan</a><span></span>
+        <small>Add Data</small>
+    </p>
+    <div class="clear"></div>
+</div>
+<div class="navigation">
+    <div class="navigation-button">
+        <ul>
+            <li><a href="{$config->site_url('nurse/fisio/history/'|cat:$result.FS_MR)}"><img src="{$BASEURL}resource/doc/images/icon/back-icon.png" alt="" />  Back</a></li>
+        </ul>
+    </div>
+    <div class="clear"></div>
+</div>
+<!-- notification template -->
+{include file="base/templates/notification.html"}
+<!-- end of notification template-->
+<form action="{$config->site_url('nurse/fisio/add_konsul_process')}" method="post">
+    <input type="hidden" name="FS_KD_TRS" value="{$result.FS_KD_TRS}" />
+    <input type="hidden" name="FS_KD_REG" value="{$result.FS_KD_REG}" />
+    <table class="table-info" width="100%">
+        <tr class="headrow">
+            <th colspan="4">Data Pasien</th>
+        </tr>
+        <tr>
+            <td width='15%'>Kode Reg</td>
+            <td width='35%'>{$result.FS_KD_REG}</td>
+            <td width='15%'>No RM</td>
+            <td width='35%'>{$result.FS_MR}</td>
+        </tr>
+        <tr>
+            <td>Nama</td>
+            <td>{$result.FS_NM_PASIEN|default:''}</td>
+            <td>Alamat</td>
+            <td>{$result.FS_ALM_PASIEN|default:''}</td>
+        </tr>
+        <tr>
+            <td>Umur</td>
+            <td>{$result.fn_umur|default:''} Tahun</td>
+            <td>Jenis Kelamin</td>
+            <td>
+                {if $result.FS_JNS_KELAMIN eq '1'}
+                Perempuan
+                {else}
+                Laki-Laki
+                {/if}
+            </td>
+        </tr>
+        <tr>
+            <td>Jaminan</td>
+            <td>{$result.FS_NM_JAMINAN|default:''}</td>
+            <td>Dokter</td>
+            <td>{$result.FS_NM_PEG|default:''}</td>
+        </tr>
+    </table>
+    <table class="table-input" width="100%">
+        <tr class="headrow">
+            <th colspan="4">Surat Keterangan Dalam Perawatan</th>
+        </tr>
+        <tr>
+            <td width='20%'>Bahwa Pasien tersebut membutuhkan konsultasi dengan alasan</td>
+            <td width='80%'>
+                <input type="text" name="FS_SKDP_KET" size="65"/>
+            </td>
+
+        </tr>
+        <tr class="submit-box">
+            <td colspan="4">
+                <input type="submit" name="save" value="Simpan" class="edit-button" /> 
+            </td>
+        </tr>
+    </table>
+</form>

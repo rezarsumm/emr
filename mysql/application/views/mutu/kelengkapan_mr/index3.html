@@ -1,0 +1,205 @@
+{include file="mutu/kelengkapan_mr/add_script_js.html"}
+<div class="breadcrum">
+    <p>
+        <a href="#">Medical Record</a><span></span>
+        <small>Kelengkapan RM</small>
+    </p>
+    <div class="clear"></div>
+</div>
+<div class="head-content">
+    <div class="head-content-nav">
+        <ul>
+            <li><a href="{$config->site_url('mutu/kelengkapan_mr')}" >Laporan Rekap</a></li>
+            <li><a href="{$config->site_url('mutu/kelengkapan_mr/index_2')}" >Laporan Rekap</a></li>
+            <li><a href="{$config->site_url('mutu/kelengkapan_mr/index_3')}" class="active">Laporan Dokter</a></li>
+            <li><a href="{$config->site_url('mutu/kelengkapan_mr/index_4')}" >Laporan Detail</a></li>
+        </ul>
+        <div class="clear"></div>
+    </div>
+    <div class="clear"></div>
+</div>
+<div class="search-box">
+    <h3><a href="#">Search</a></h3>
+    <form action="{$config->site_url('mutu/kelengkapan_mr/proses_cari3')}" method="post">
+        <table class="table-search" width="100%" >
+            <tr>
+                <td>Periode</td>
+                <td>
+                    <input name="tanggal" type="text" size="10" maxlength="10" value="{$search.tanggal|default:''}" class="tanggal" readonly="readonly" style="text-align: center;" />
+                    s/d
+                    <input name="tanggal2" type="text" size="10" maxlength="10" value="{$search.tanggal2|default:''}" class="tanggal" readonly="readonly" style="text-align: center;" />
+                </td>
+                <td>
+                    <input class="button" type="submit" value="SEARCH" name="save" />
+                    <input class="button" type="submit" value="RESET" name="save" />
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+<div class="content-entry">
+    <!--<div class="action">
+        <a class="btn-blue" href="{$config->site_url('mutu/surveilens_infeksi_rs/print_all')}"><span class="icon-print-small"></span> Cetak Laporan</a>
+    </div>-->
+    <div class="clear"></div>
+    <!-- notification template -->
+    {include file="base/templates/notification.html"}
+    <!-- end of notification template-->
+    <div class="content-inner">
+        <div class="row">
+            <div class="report-map">
+                <table width="100%" class="table-info">
+                    <tbody>
+                        <tr>
+                            <td colspan="4">
+                                <h4>Rekap Lembar Resume Medis Tidak Terisi Per Dokter</h4>
+                                <h5 align="right"><a href="{$config->site_url('mutu/kelengkapan_mr/index_4')}">Detail..</a></h5>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th width="70%">Nama Dokter</th>
+                            <th width="10%">Tidak Lengkap</th>
+                            <th width="10%">Lengkap</th>
+                            <th width="10%">Total</th>
+                        </tr>
+                        {foreach from=$rs_dok_res item=result4}
+                        {assign var=total_rm value=$m_kelengkapan_mr->get_total_rm(array($search.tanggal,$search.tanggal2,$result4.FS_KD_PEG))}
+                        <tr>
+                            <td>{$result4.FS_NM_PEG}</td>
+                            <td align="right"><b>{$result4.TOTAL}</b></td>
+                            <td align="right"><b>{$total_rm.TOTAL-$result4.TOTAL}</b></td>
+                            <td align="right"><b>{$total_rm.TOTAL}</b></td>
+                        </tr>
+                        {/foreach}
+                    </tbody>
+                </table> 
+                <table width="100%" class="table-info">
+                    <tbody>
+                        <tr>
+                            <td colspan="4">
+                                <h4>Rekap Lembar IGD Tidak Terisi Per Dokter</h4>
+                                <h5 align="right"><a href="{$config->site_url('mutu/kelengkapan_mr/index_4')}">Detail..</a></h5>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th width="70%">Nama Dokter</th>
+                            <th width="10%">Tidak Lengkap</th>
+                            <th width="10%">Lengkap</th>
+                            <th width="10%">Total</th>
+                        </tr>
+                        {foreach from=$rs_dok_igd item=result2}
+                        {assign var=total_igd value=$m_kelengkapan_mr->get_total_igd(array($search.tanggal,$search.tanggal2,$result2.FS_KD_PEG))}
+                        <tr>
+                            <td>{$result2.FS_NM_PEG}</td>
+                            <td align="right"><b>{$result2.TOTAL}</b></td>
+                            <td align="right"><b>{$total_igd.TOTAL-$result2.TOTAL}</b></td>
+                            <td align="right"><b>{$total_igd.TOTAL}</b></td>
+                        </tr>
+                        {/foreach}
+                    </tbody>
+                </table> 
+                <table width="100%" class="table-info">
+                    <tbody>
+                        <tr>
+                            <td colspan="4">
+                                <h4>Rekap Lembar Catatan Anestesi Tidak Terisi Per Dokter</h4>
+                                <h5 align="right"><a href="{$config->site_url('mutu/kelengkapan_mr/index_4')}">Detail..</a></h5>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th width="70%">Nama Dokter</th>
+                            <th width="10%">Tidak Lengkap</th>
+                            <th width="10%">Lengkap</th>
+                            <th width="10%">Total</th>
+                        </tr>
+                        {foreach from=$rs_dok_an item=result3}
+                        {assign var=total_an value=$m_kelengkapan_mr->get_total_an(array($search.tanggal,$search.tanggal2,$result3.FS_KD_PEG))}
+                        <tr>
+                            <td>{$result3.FS_NM_PEG}</td>
+                            <td align="right"><b>{$result3.TOTAL}</b></td>
+                            <td align="right"><b>{$total_an.TOTAL-$result3.TOTAL}</b></td>
+                            <td align="right"><b>{$total_an.TOTAL}</b></td>
+                        </tr>
+                        {/foreach}
+                    </tbody>
+                </table> 
+                <table width="100%" class="table-info">
+                    <tbody>
+                        <tr>
+                            <td colspan="4">
+                                <h4>Rekap Lembar Catatan Operasi Tidak Terisi Per Dokter</h4>
+                                <h5 align="right"><a href="{$config->site_url('mutu/kelengkapan_mr/index_4')}">Detail..</a></h5>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th width="70%">Nama Dokter</th>
+                            <th width="10%">Tidak Lengkap</th>
+                            <th width="10%">Lengkap</th>
+                            <th width="10%">Total</th>
+                        </tr>
+                        {foreach from=$rs_dok_op item=result1}
+                        {assign var=total_co value=$m_kelengkapan_mr->get_total_co(array($search.tanggal,$search.tanggal2,$result1.FS_KD_PEG))}
+                        <tr>
+                            <td>{$result1.FS_NM_PEG}</td>
+                            <td align="right"><b>{$result1.TOTAL}</b></td>
+                            <td align="right"><b>{$total_co.TOTAL-$result1.TOTAL}</b></td>
+                            <td align="right"><b>{$total_co.TOTAL}</b></td>
+                        </tr>
+                        {/foreach}
+                    </tbody>
+                </table> 
+                <table width="100%" class="table-info">
+                    <tbody>
+                        <tr>
+                            <td colspan="4">
+                                <h4>Rekap Lembar Persetujuan umum Tidak Terisi Petugas</h4>
+                                <h5 align="right"><a href="{$config->site_url('mutu/kelengkapan_mr/index_4')}">Detail..</a></h5>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th width="70%">Nama Petugas</th>
+                            <th width="10%">Tidak Lengkap</th>
+                            <th width="10%">Lengkap</th>
+                            <th width="10%">Total</th>
+                        </tr>
+                        {foreach from=$rs_peg_pu item=result5}
+                        {assign var=total_pu value=$m_kelengkapan_mr->get_total_pu(array($search.tanggal,$search.tanggal2,$result5.FS_KD_PEG))}
+                        <tr>
+                            <td>{$result5.FS_NM_PEG}</td>
+                            <td align="right"><b>{$result5.TOTAL}</b></td>
+                            <td align="right"><b>{$total_pu.TOTAL-$result5.TOTAL}</b></td>
+                            <td align="right"><b>{$total_pu.TOTAL}</b></td>
+                        </tr>
+                        {/foreach}
+                    </tbody>
+                </table> 
+                <table width="100%" class="table-info">
+                    <tbody>
+                        <tr>
+                            <td colspan="4">
+                                <h4>HHC</h4>
+                                <h5 align="right"><a href="{$config->site_url('mutu/kelengkapan_mr/index_4')}">Detail..</a></h5>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th width="70%">Bangsal</th>
+                            <th width="10%">Tidak Lengkap</th>
+                            <th width="10%">Lengkap</th>
+                            <th width="10%">Total</th>
+                        </tr>
+                        {foreach from=$rs_bang_hhc item=result6}
+                        {assign var=total_hhc value=$m_kelengkapan_mr->get_total_hhc(array($search.tanggal,$search.tanggal2,$result6.FS_KD_LAYANAN))}
+                        <tr>
+                            <td>{$result6.FS_NM_LAYANAN}</td>
+                            <td align="right"><b>{$result6.TOTAL}</b></td>
+                            <td align="right"><b>{$total_hhc.TOTAL-$result6.TOTAL}</b></td>
+                            <td align="right"><b>{$total_hhc.TOTAL}</b></td>
+                        </tr>
+                        {/foreach}
+                    </tbody>
+                </table> 
+            </div>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>

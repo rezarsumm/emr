@@ -1,0 +1,124 @@
+{include file="medis/rawat_jalan/add_script_js.html"}
+<div class="breadcrum">
+    <p>
+        <a href="#">Pemeriksaan Medis</a><span></span>
+        <small>Rawat Jalan</small>
+    </p>
+    <div class="clear"></div>
+</div>
+<!--<div class="search-box">
+    <h3><a href="#">Search</a></h3>
+    <form action="{$config->site_url('medis/rawat_jalan/proses_cari')}" method="post">
+        <table class="table-search" width="100%">
+            <tr>
+                <th width="10%" aligh="left">Periode</th>
+                <td width="75%">
+                    <input name="FD_TGL_MASUK" value="{$search.FD_TGL_MASUK}" class="tanggal" size="10" style="text-align: center;"/>
+                    <input name="save" type="submit" value="Tampilkan" />
+                    <input name="save" type="submit" value="Reset" />
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>-->
+<!-- notification template -->
+{include file="base/templates/notification.html"}
+<!-- end of notification template
+<table class="table-info" width="100%">
+    <tr class="headrow">
+        <th colspan="4">Data Harian</th>
+    </tr>
+    <tr>
+        <td width='15%'>Jumlah Pasien</td>
+        <td width='35%'>{$rs_jmlpx.TOTAL} Pasien</td>
+        <td width='15%'></td>
+        <td width='35%'></td>
+    </tr>
+    <tr>
+        <td>Jumlah Pasien BPJS</td>
+        <td>{$rs_jmlpx_bpjs.TOTAL|default:''} Pasien</td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Jumlah Pasien Umum</td>
+        <td>{$rs_jmlpx_umum.TOTAL} Pasien</td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Jumlah Pasien Relasi</td>
+        <td>{$rs_jmlpx.TOTAL-($rs_jmlpx_bpjs.TOTAL+$rs_jmlpx_umum.TOTAL)} Pasien</td>
+        <td></td>
+        <td></td>
+    </tr>
+</table>-->
+<div class="dashboard-container">
+    <table class="table-view" width="100%" border="0">
+        <thead>
+            <tr>
+                <td colspan="6">
+                    <b><span style="color:red;">*</span> Pasien dengan umur lebih dari 70 tahun</b> <br>
+                    <img src="{$BASEURL}resource/doc/images/icon/icon.star.png" alt="" width="15" /><b>Pasien Poli Eksekutif</b>
+                </td>
+            </tr>
+            <tr>
+                <th width='4%'>Nomor</th>
+                <th>No MR</th>
+                <th>Nama Psien</th>
+                <th>Alamat</th>
+                <th>Dokter</th>
+                <th>Status</th>
+                <th width='14%'>Aksi</th>
+            </tr>
+        </thead>
+        <tbody>
+            {foreach from=$rs_pasien item=data}
+            <!--{assign var=cek_resep value=$m_rawat_jalan->get_data_cek_resep_kp(array($data.FS_KD_KP))}-->
+            <tr>
+                <td>{$data.FN_NO_URUT}</td>
+                <td>{$data.FS_MR}</td>
+                <td>{$data.FS_NM_PASIEN}
+                    {if $data.fn_umur >= '70'}
+                    <b style="color:red;">*</b>
+                    {/if}
+                    {if $data.FS_KD_LAYANAN eq 'P064'}
+                    <img src="{$BASEURL}resource/doc/images/icon/icon.star.png" alt="" width="15" />
+                    {else}
+                    {/if}
+                </td>
+                <td>{$data.FS_ALM_PASIEN}</td> 
+                <td>{$data.FS_NM_PEG}</td> 
+                <td>
+                    {if $data.FS_STATUS eq ''}
+                    <img src="{$BASEURL}resource/doc/images/icon/icon.waiting.png" alt="" />
+                    Periksa Perawat
+                    {elseif $data.FS_STATUS eq '1'}
+                    <img src="{$BASEURL}resource/doc/images/icon/icon.waiting.dokter.png" alt="" />
+                    Periksa Dokter
+                    {elseif $data.FS_STATUS eq '2'}
+                    {if $data.FS_TERAPI eq '' OR $data.FS_TERAPI eq '<p>-</p>'}
+                    <img src="{$BASEURL}resource/doc/images/icon/icon.approve.png" alt="" />
+                    Selesai
+                    {else}
+                    <img src="{$BASEURL}resource/doc/images/icon/icon.waiting.farmasi.png" alt="" />
+                    Farmasi
+                    {/if}
+                    
+                    {/if}
+                </td> 
+                <td>
+                    <a href="{$config->site_url('medis/rawat_jalan/history/'|cat:$data.FS_MR|default:'')}" class="button-edit">Entry</a>
+                    {if $cek_resep >= '1'}
+                    <a href="javascript:void(0);" onclick="window.open('{$config->site_url('rm/rawat_inap/cetak_resep/'|cat:$data.FS_KD_KP)}', 'nama_window_pop_up', 'scrollbars=yes,resizeable=no')" class="button-edit">Resep</a>
+                    {/if}
+                    {if $data.FS_TERAPI eq '' OR $data.FS_TERAPI eq '<p>-</p>'}
+                    {else}
+                    <a href="javascript:void(0);" onclick="window.open('{$config->site_url('rm/rawat_jalan/cetak_resep/'|cat:$data.FS_KD_REG|cat:'/'|cat:$data.FS_KD_TRS)}', 'nama_window_pop_up', 'scrollbars=yes,resizeable=no')" class="button-edit">Resep</a>
+                    {/if}
+                </td>
+            </tr>
+            {/foreach}
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,156 @@
+ {include file="nurse/rawat_jalan/add_script_js.html"}
+<div class="breadcrum">
+    <p>
+        <a href="#">Medical Record</a><span></span>
+        <small>Berkas</small>
+    </p>
+    <div class="clear"></div>
+</div>
+<div class="search-box">
+    <h3><a href="#">Search</a></h3>
+    <form action="{$config->site_url('rm/berkas/proses_cari')}" method="post">
+        <table class="table-search" width="100%">
+            <tr>
+                <th width="10%" aligh="left">No Rekam Medis</th>
+                <td width="90%">
+                    <input name="FS_MR" value="{$search.FS_MR}" size="25" style="text-align: center;" maxlength="15"/>
+                    <!-- <select name="FS_KD_JENIS_REG">
+                        <option value='J' {if $search.FS_KD_JENIS_REG eq 'J'} selected="" {/if}> Rawat Jalan</option>
+                        <option value='I' {if $search.FS_KD_JENIS_REG eq 'I'} selected="" {/if}> Rawat Inap</option>
+                        <option value='G' {if $search.FS_KD_JENIS_REG eq 'G'} selected="" {/if}> Rawat Darurat</option>
+                    </select>-->
+                    <input name="save" type="submit" value="Tampilkan" />
+                    <input name="save" type="submit" value="Reset" />
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+
+<!-- notification template -->
+{include file="base/templates/notification.html"}
+<!-- end of notification template-->
+<div class="navigation">
+    <div class="pageRow">
+        <div class="pageNav">
+            <ul>
+                <li class="info"></li>
+            </ul>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="navigation-button">
+        <ul>
+            <li><a href="javascript:void(0);" onclick="window.open('{$config->site_url('rm/rawat_jalan/resume/'|cat:$result.NO_MR)}', 'nama_window_pop_up', 'scrollbars=yes,resizeable=no')"><img src="{$BASEURL}resource/doc/images/icon/printer-icon.png" alt="" /> Profil Ringkas Medis Rawat Jalan</a></li>
+        </ul>
+    </div>
+    <div class="clear"></div>
+</div>
+<div class="dashboard-container">
+     <table class="table-info" width="100%">
+        <tr class="headrow">
+            <th colspan="4">Data Pasien</th>
+        </tr>
+        <tr>
+            <td width='15%'>No RM</td>
+            <td width='35%'>{$result.NO_MR}</td>
+            <td width='15%'>Nama</td>
+            <td width='35%'>{$result.NAMA_PASIEN|default:''}</td>
+        </tr>
+        <tr>
+            <td>Alamat</td>
+            <td>{$result.ALAMAT|default:''}</td>
+            <td>Tanggal Lahir</td>
+            <td>{$result.TGL_LAHIR|default:''}</td>
+        </tr>
+        <tr>
+            <td>Jenis Kelamin</td>
+            <td>{if $result.JENIS_KELAMIN eq 'P'}
+                Perempuan
+                {else}
+                Laki-Laki
+                {/if}</td>
+            <td></td>
+            <td>
+                
+            </td>
+        </tr>
+       
+    </table>
+    <table class="table-view" width="100%" border="0">
+        <thead>
+            <tr>
+                <th width='9%'>Tanggal </th>
+                <th>Kode Reg</th>
+                <th>Dokter</th>
+                <th>Layanan</th>
+                <th>Status</th>
+                <th width='35%'>Aksi</th>
+            </tr>
+        </thead>
+        <tbody>
+            {foreach from=$rs_pasien item=data}
+            <!--{assign var=form_rm value=$m_rawat_jalan->get_berkas_by_rg(array($data.FS_KD_REG))}-->
+            <tr>
+                <td>{$data.TANGGAL|date_format :"%d %b %Y"} {$data.TGL_KELUAR|date_format :"%d %B %Y"}</td>
+                <td>{$data.NO_REG}</td>
+                <td>{$data.NAMA_DOKTER}  </td> 
+                <td>{$data.NAMA_RUANG}</td> 
+                <td>
+        <center>
+            <b>
+                {if $data.MEDIS eq 'RAWAT JALAN'}
+                <div style="color: blue;">Rawat Jalan</div>
+                {else}
+                <div style="color: green;">Rawat Inap </div>
+                {/if}
+            </b>
+        </center>
+        </td>  
+        <td>
+
+           
+           
+            {if $data.KODEREKANAN == '032'}
+                 <a href="{$config->site_url('rm/rawat_jalan/lembar_verif/'|cat:$data.NO_REG|cat:'/'|cat:$search.FS_NO_MR)}" class="button-download">  Verif</a>
+             {/if}
+
+
+
+            {if $data.MEDIS eq 'RAWAT JALAN'} 
+                <a href="{$config->site_url('rm/berkas/file/'|cat:$data.NO_REG|cat:'/'|cat:$search.FS_KD_PEG)}" class="button-download"> Scan</a>
+                <a href="javascript:void(0);" onclick="window.open('{$config->site_url('rm/rawat_jalan/cetak_rm/'|cat:$data.NO_REG|cat:'/'|cat:$data.FS_KD_TRS|cat:'/'|cat:$data.FS_FORM)}', 'nama_window_pop_up', 'scrollbars=yes,resizeable=no')" class="button-download">RM</a>
+
+            
+
+           {else}
+            <a href="{$config->site_url('rm/berkas/detail/'|cat:$data.NO_REG|default:'')}"  class="button-info">Detail</a>             
+            {/if}
+
+
+             
+            <!-- {if $data.FS_CARA_PULANG == '2'}
+                    <a  href="javascript:void(0);" onclick="window.open('{$config->site_url('rm/rawat_jalan/cetak_skdp/'|cat:$data.NO_REG|cat:'/'|cat:$data.FS_KD_TRS)}', 'nama_window_pop_up', 'scrollbars=yes,resizeable=no')" class="button-edit">SKDP</a>
+                    {else}
+                    {/if}
+                    {if $data.FS_CARA_PULANG == '1'}
+                    <a  href="javascript:void(0);" onclick="window.open('{$config->site_url('rm/rawat_jalan/cetak_prb/'|cat:$data.NO_REG|cat:'/'|cat:$data.FS_KD_TRS)}', 'nama_window_pop_up', 'scrollbars=yes,resizeable=no')" class="button-edit">PRB</a>
+                    {else}
+                    {/if}
+                    {if $data.FS_CARA_PULANG eq '4'}
+                    <a  href="javascript:void(0);" onclick="window.open('{$config->site_url('rm/rawat_jalan/cetak_rujukan/'|cat:$data.NO_REG|cat:'/'|cat:$data.FS_KD_TRS)}', 'nama_window_pop_up', 'scrollbars=yes,resizeable=no')" class="button-edit">Rujukan RS</a>
+                    {else}
+                    {/if}
+                    {if $data.FS_TERAPI eq '' OR $data.FS_TERAPI eq '<p>-</p>'}
+                    {else}
+                    <a href="javascript:void(0);" onclick="window.open('{$config->site_url('medis/rawat_jalan/cetak_resep/'|cat:$data.NO_REG|cat:'/'|cat:$data.FS_KD_TRS)}', 'nama_window_pop_up', 'scrollbars=yes,resizeable=no')" class="button-edit">Resep</a>
+                    {/if} -->
+
+                   
+                       
+        </td>
+        </tr>
+        {/foreach}
+        </tbody>
+    </table>
+</div>

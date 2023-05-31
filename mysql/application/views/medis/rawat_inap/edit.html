@@ -1,0 +1,172 @@
+<script>
+    tinymce.init({
+    selector: "textarea",
+            theme: "modern",
+            plugins: [
+            ],
+            external_plugins: {
+//"moxiemanager": "/moxiemanager-php/plugin.js"
+            },
+            content_css: "css/development.css",
+            add_unload_trigger: false,
+            toolbar: "bold italic | alignleft aligncenter alignright alignjustify",
+            image_advtab: true,
+            setup: function (ed) {
+            /*ed.on(
+             'Init PreInit PostRender PreProcess PostProcess BeforeExecCommand ExecCommand Activate Deactivate ' +
+             'NodeChange SetAttrib Load Save BeforeSetContent SetContent BeforeGetContent GetContent Remove Show Hide' +
+             'Change Undo Redo AddUndo BeforeAddUndo', function(e) {
+             console.log(e.type, e);
+             });*/
+            },
+            spellchecker_callback: function (method, data, success) {
+            if (method == "spellcheck") {
+            var words = data.match(this.getWordCharPattern());
+                    var suggestions = {};
+                    for (var i = 0; i < words.length; i++) {
+            suggestions[words[i]] = ["First", "second"];
+            }
+
+            success();
+            }
+
+            if (method == "addToDictionary") {
+            success();
+            }
+            }
+    });</script>
+<div class="breadcrum">
+    <p>
+        <a href="#">Nursing Record</a><span></span>
+        <a href="{$config->site_url('medis/rawat_inap/')}">Asesmen Awal Rawat Inap</a><span></span>
+        <small>Edit Data</small>
+    </p>
+    <div class="clear"></div>
+</div>
+<div class="navigation">
+    <div class="navigation-button">
+        <ul>
+            <li><a href="{$config->site_url('medis/rawat_inap/')}"><img src="{$BASEURL}resource/doc/images/icon/back-icon.png" alt="" />  Back</a></li>
+        </ul>
+    </div>
+    <div class="clear"></div>
+</div>
+<!-- notification template -->
+{include file="base/templates/notification.html"}
+<!-- end of notification template-->
+<form action="{$config->site_url('medis/rawat_inap/edit_process')}" method="post">
+    <input type="hidden" name="FS_KD_REG" value="{$rs_pasien.fs_kd_reg}" />
+    <table class="table-info" width="100%">
+        <tr class="headrow">
+            <th colspan="2">Edit Asesmen Awal Rawat Inap</th>
+        </tr>
+                    <tr>
+                <td>Nama</td>
+                <td>
+                    {$rs_pasien.fs_nm_pasien}
+                </td>
+            </tr>
+            <tr>
+                <td>No RM</td>
+                <td>
+                    {$rs_pasien.fs_mr}
+                </td>
+            </tr>
+            <tr>
+                <td>Tanggal Lahir</td>
+                <td>
+                    {$rs_pasien.FD_TGL_LAHIR|date_format:"%d %b %Y"} ({$rs_pasien.fs_umur})
+                </td>
+            </tr>
+            <tr>
+                <td>Alamat</td>
+                <td>{$rs_pasien.FS_ALM_PASIEN}</td>
+            </tr>
+            <tr>
+                <td>Status Sosial / Pekerjaan / Pendidikan</td>
+            <td>
+                {$rs_pasien.FS_NM_PEKERJAAN_DK} / {$rs_pasien.FS_NM_PENDIDIKAN_DK}
+            </td>
+            </tr>
+            <tr>
+                <td>Agama</td>
+            <td>
+                {$rs_pasien.FS_NM_AGAMA}
+            </td>
+            </tr>
+    </table>
+    <table class="table-input" width="100%">
+        <tr class="headrow">
+            <th colspan="2">Anamnesa</th>
+            <th colspan="2">Pemeriksaan Fisik</th>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <textarea cols="50" name="FS_ANAMNESA">{$result.FS_ANAMNESA}</textarea>
+            </td>
+            <td colspan="2">
+                <textarea cols="50" name="FS_CATATAN_FISIK">{$result.FS_CATATAN_FISIK}</textarea>
+
+            </td>
+        </tr>
+        <tr class="headrow">
+            <th colspan="2">Hasil Pemeriksaan Penunjang</th>
+            <th colspan="2">Diagnosa</th>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <textarea cols="50" name="FS_HASIL_PEMERIKSAAN_PENUNJANG">{$result.FS_HASIL_PEMERIKSAAN_PENUNJANG}</textarea>
+            </td>
+            <td colspan="2">
+                <textarea cols="50" name="FS_DIAGNOSA">{$result.FS_DIAGNOSA}</textarea>
+
+            </td>
+        </tr>
+        <tr class="headrow">
+            <th colspan="2">Daftar Masalah</th>
+            <th colspan="2">Rencana Tindakan</th>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <textarea cols="50" name="FS_DAFTAR_MASALAH">{$result.FS_DAFTAR_MASALAH}</textarea>
+            </td>
+            <td colspan="2">
+                <textarea cols="50" name="FS_TINDAKAN">{$result.FS_TINDAKAN}</textarea>
+
+            </td>
+        </tr>
+        <tr class="headrow">
+            <th colspan="2">Rencana Pemeriksaan Penunjang Lab</th>
+            <th colspan="2">Rencana Pemeriksaan Penunjang Radiologi</th>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <textarea cols="50" name="FS_PLANNING">{$result.FS_PLANNING_LAB}</textarea>
+            </td>
+            <td colspan="2">
+                <textarea cols="50" name="FS_TERAPI">{$result.FS_TERAPI_RAD}</textarea>
+
+            </td>
+        </tr>
+        <tr class="headrow">
+            <th colspan="2">Terapi</th>
+            <th colspan="2"></th>
+        </tr>
+        <tr>
+            
+            <td colspan="2">
+                <textarea cols="50" name="FS_TERAPI">{$result.FS_TERAPI}</textarea>
+
+            </td>
+            <td colspan="2">
+                
+            </td>
+        </tr>
+
+        <tr class="submit-box">
+            <td colspan="4">
+                <input type="submit" name="save" value="Simpan" class="edit-button"/>
+            </td>
+        </tr>
+    </table>
+</form>

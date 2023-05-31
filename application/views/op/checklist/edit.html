@@ -1,0 +1,282 @@
+
+ 
+<div class="breadcrum">
+    <p>
+        <a href="{$config->site_url('op/jadwal')}">Catatan Operasi </a><span></span>
+        <a href="{$config->site_url('op/jadwal')}">Check List Keselamatan Operasi</a><span></span>
+        <small>Edit Data</small>
+    </p>
+    <div class="clear"></div>
+</div> 
+<div class="content-entry">
+    <!-- notification template -->
+    {include file="base/templates/notification.html"}
+    <!-- end of notification template-->
+    <form action="{$config->site_url('op/checklist/edit_process')}" method="post" onkeypress="return event.keyCode != 13">
+        <input name="FS_KD_REG" id="FS_KD_REG" type="hidden" value="{$rs_pasien.NO_REG}" />  
+            <input name="TGL_LAHIR" id="TGL_LAHIR" type="hidden" value="{$rs_pasien.TGL_LAHIR}" /> 
+        <input name="FS_MR" type="hidden" value="{$rs_pasien.NO_MR}" />
+        <input name="idoperasi" type="hidden" value="{$idoperasi}" />
+        
+        <input name="FS_KD_LAYANAN" type="hidden" value="{$rs_pasien.KODE_BANGSAL}" />
+        <input name="FS_KD_PETUGAS_MEDIS" type="hidden" value="{$rs_pasien.fs_kd_medis}" />
+
+        <table class="table-info" width="100%">
+            <tr class="headrow">
+                <th colspan="2">Add Check List Keselamatan Operasi</th>
+            </tr>
+            <tr>
+                <td>NAMA</td>
+                <td>
+                    {$rs_pasien.NAMA_PASIEN}
+                </td>
+            </tr>
+            <tr>
+                <td>NO MR</td>
+                <td>
+                    {$rs_pasien.NO_MR}
+                </td>
+            </tr>
+            <tr>
+                <td>TANGGAL LAHIR</td>
+                <td>
+                    {$rs_pasien.TGL_LAHIR|date_format:"%d %b %Y"}
+                </td>
+            </tr>
+            <tr>
+                <td>ALAMAT</td>
+                <td>{$rs_pasien.ALAMAT}</td>
+            </tr>
+        </table>
+   
+        <!-- <div class="notification red">
+            <p><strong>High Risk :</strong> {$rs_pasien.FS_HIGH_RISK|default:'-'} </p>
+            <p><strong>Alergi :</strong> {$rs_pasien.FS_ALERGI|default:'-'} ({$rs_pasien.FS_REAK_ALERGI|default:'-'})</p>
+            <div class="clear"></div>
+        </div> -->
+        <table class="table-input" width="100%" style="text-align: justify;">
+         
+
+          
+
+            <tr>
+                <!-- <td width="20%">Nama Dokter Bedah </td>
+                <td width="20%">
+                    <select name="KD_OPERATOR" id="surat_dari" class="select2" style="width: 300px;">
+                        <option value=""></option>
+                        {foreach from=$rs_dokter_sp item=data}
+                        <option value="{$data.NAMAUSER}">{$data.NAMALENGKAP}</option>
+                        {/foreach}
+                    </select>
+                </td> -->
+                <td width="20%">Nama Dokter Anestesi</td>
+               <td><input type="text" name="KD_AHLI_ANESTESI" value="dr. Yusnita Debora, Sp.An" disabled>
+                <input type="hidden" name="KD_AHLI_ANESTESI" value="dr. Yusnita Debora, Sp.An" ></td> 
+                <!-- <td width="20%">Nama Dokter Anestesi</td>
+                <td width="20%">
+                    <select name="KD_AHLI_ANESTESI" id="surat_dari" class="select2" style="width: 300px;">
+                        <option value=""></option>
+                        {foreach from=$rs_dokter_sp item=data}
+                        <option value="{$data.NAMAUSER}">{$data.NAMALENGKAP}</option>
+                        {/foreach}
+                    </select>
+                </td> -->
+            </tr>
+
+
+            
+         
+            <tr>
+                <td width="20%">Nama Operasi</td>
+                <td width="20%">
+                    <input type="text" name="NAMA_OP" value="{$rs_sign_in2.NAMA_OP}" class="form-control">
+                </td>
+             </tr>
+
+             <tr><td><B> SIGN IN (sebelum Induksi Anestesi )</B></td></tr>
+
+             <tr>
+                <td colspan="2">Apakah Pasien telah dikonfirmasi <b>Identitas, lokasi operasi dan tindakan operasi dan informed consent ? </b></td>
+                <td width="20%">
+                    <input type="radio" name="IN_KONFIR_IDENTITAS" {if $rs_sign_in2.IN_KONFIR_IDENTITAS eq 'Ya'} checked {/if} value="Ya" class="form-control">ya
+                </td>
+             </tr>
+
+             <tr>
+                <td colspan="2">Apakah lokasi operasi diberi tanda ?</td>
+                <td width="20%">
+ 
+                    <input type="radio" name="IN_TANDA_LOKASI" {if $rs_sign_in2.IN_TANDA_LOKASI eq 'Tidak'} checked {/if} class="rad" value="Tidak" class="form-control">Tidak
+                    <input type="radio" name="IN_TANDA_LOKASI" {if $rs_sign_in2.IN_TANDA_LOKASI neq 'Tidak'} checked {/if} class="rad" value="Ya" class="form-control">Ya
+                    <input type="text" name="IN_TANDA_LOKASI" {if $rs_sign_in2.IN_TANDA_LOKASI neq 'Tidak'}   style="display:show" value="{$rs_sign_in2.IN_TANDA_LOKASI}" {/if}  id="form2"  class="form-control">
+ 
+                </td>
+             </tr>
+
+             <tr>
+                <td colspan="2">Apakah mesin anestesi dan obat obatan dicek lengkap ?</td>
+                <td width="20%">
+                    <input type="radio" name="IN_MESIN_LENGKAP" value="Ya" {if $rs_sign_in2.IN_MESIN_LENGKAP eq 'Ya'} checked {/if} class="form-control">ya
+                    <input type="radio" name="IN_MESIN_LENGKAP" value="Tidak" class="form-control">Tidak
+                </td>
+             </tr>
+
+             <tr>
+                <td colspan="2">Apakah Pasien memiliki alergi ?</td>
+                <td width="20%">
+                      <input type="radio" name="IN_RIWAYAT_ALERGI" {if $rs_sign_in2.IN_RIWAYAT_ALEGI eq 'Tidak'} checked {/if} class="radal" value="Tidak" class="form-control">Tidak
+                    <input type="radio" name="IN_RIWAYAT_ALERGI" {if $rs_sign_in2.IN_RIWAYAT_ALEGI neq 'Tidak'} checked {/if} class="radal" value="Ya" class="form-control">Ya
+                    <input type="text" name="IN_RIWAYAT_ALERGI1" {if $rs_sign_in2.IN_RIWAYAT_ALEGI neq 'Tidak'}   style="display:show" value="{$rs_sign_in2.IN_RIWAYAT_ALEGI}" {/if}  id="formal"  class="form-control">
+ 
+                </td>
+             </tr>
+
+             <tr>
+                <td colspan="2">Apakah Pasien memiliki asma ?</td>
+                <td width="20%">
+                    <input type="radio" name="IN_RIWAYAT_ASMA" {if $rs_sign_in2.IN_RIWAYAT_ASMA eq 'Tidak'} checked {/if} class="radas" value="Tidak" class="form-control">Tidak
+                    <input type="radio" name="IN_RIWAYAT_ASMA" {if $rs_sign_in2.IN_RIWAYAT_ASMA neq 'Tidak'} checked {/if} class="radas" value="Ya" class="form-control">Ya
+                    <input type="text" name="IN_RIWAYAT_ASMA" {if $rs_sign_in2.IN_RIWAYAT_ASMA neq 'Tidak'}   style="display:show" value="{$rs_sign_in2.IN_RIWAYAT_ASMA}" {/if}  id="formas"  class="form-control">
+ 
+
+                   
+                </td>
+             </tr>
+
+             <tr>
+                <td colspan="2">Adakah rencana pemasangan implant ?</td>
+                <td width="20%">
+                    <input type="radio" name="IN_RENCANA_IMPLANT"  class="radim" value="Tidak" {if $rs_sign_in2.IN_RENCANA_IMPLANT eq 'Tidak'} checked {/if}   class="form-control">Tidak
+                    <input type="radio" name="IN_RENCANA_IMPLANT" class="radim" value="Ya" {if $rs_sign_in2.IN_RENCANA_IMPLANT neq 'Tidak'} checked {/if}  class="form-control">Ya
+                    <input type="text" name="IN_RENCANA_IMPLANT1" id="formim" {if $rs_sign_in2.IN_RENCANA_IMPLANT neq 'Tidak'}   style="display:show" value="{$rs_sign_in2.IN_RENCANA_IMPLANT}" {/if}   style="display:none"  class="form-control">
+
+                </td>
+             </tr>
+
+             <tr>
+                <td colspan="2">Resiko Kehilangan Darah > 500ml ?</td>
+                <td width="20%">
+                    <input type="radio" name="IN_RESIKO_HILANG_DARAH" value="Ya" {if $rs_sign_in2.IN_RESIKO_HILANG_DARAH eq 'Ya'} checked {/if} class="form-control">ya
+                    <input type="radio" name="IN_RESIKO_HILANG_DARAH" value="Tidak" class="form-control">Tidak
+                </td>
+             </tr>
+
+             <tr>
+                <td>
+                    Waktu Input 
+                </td>
+                <td>
+                    <input type="datetime-local" name="IN_WAKTU_ISI" required>
+                </td>
+            </tr>
+
+
+            <tr class="submit-box">
+            <td colspan="4">
+                <div style="font-weight: bold;">
+                    *Bismillahirohmanirrohim, saya dengan sadar dan penuh tanggung jawab mengisikan formulir ini dengan data yang benar
+                </div>
+                <br>
+                <input type="submit" name="save" value="Simpan" class="edit-button"/>
+            </td>
+        </tr>
+        </table>
+    </form>
+</div>
+
+<table class="table-view" width="100%">
+    <tr class="headrow">
+        <th colspan="6">List Data </th>
+    </tr>
+    <tr>
+        <th width="25%">Tanggal</th>
+        <th width="10%">Nama Operasi </th> 
+        <th width="10%"> Sign In</th>
+        <th width="10%"> Time Out</th>
+        <th width="10%"> Sign Out</th>
+        <th width="15%">Petugas</th>
+      
+    </tr>
+    {foreach $rs_sign_in  as $cppt}
+    <tr>
+        <td>{$cppt.TGL}  
+            <a href="javascript:void(0);" onclick="window.open('{$config->site_url('rm/rawat_inap/cetak_checklist/'|cat:$cppt.FS_KD_REG|cat:'/'|cat:$cppt.id)}', 'nama_window_pop_up', 'scrollbars=yes,resizeable=no')" class="button-download">{$data.TANGGAL|date_format :"%d %B %Y"}</a> 
+        </td>
+        <td> Pra : {$cppt.NAMA_OP}  </td>
+        <td>{if $cppt.NAMA_OP neq ''} Selesai {/if}</td> 
+        <td>{if $cppt.TIME_PERKENALAN_ANGGOTA neq ''} Selesai   {/if}
+            <a href="{$config->site_url('op/checklist/timeout/'|cat:$cppt.FS_KD_REG|cat:'/'|cat:$cppt.id)}"  class="button-edit">{$data.TANGGAL|date_format :"%d %B %Y"}</a> 
+          
+        </td> 
+         <td>{if $cppt.OUT_MASALAH_ALAT neq ''} Selesai   {/if}
+          
+            <a href="{$config->site_url('op/checklist/signout/'|cat:$cppt.FS_KD_REG|cat:'/'|cat:$cppt.id)}"   class="button-edit">{$data.TANGGAL|date_format :"%d %B %Y"}</a> 
+            </td>
+         <td>{$cppt.NAMALENGKAP} </td>
+  
+  
+    </tr>
+    {/foreach}
+</table>
+<script>
+       $(".select2").select2({
+            placeholder: "Pilih",
+            allowClear: true
+        });
+</script>
+
+
+<script type="text/javascript">
+    $(function(){
+      $(":radio.rad").click(function(){
+        $("#form2").hide()
+        if($(this).val() == "Ya"){
+          $("#form2").show();
+        }else if($(this).val() == "Tidak"){
+          $("#form2").hide();
+        }
+      });
+    });
+
+
+    $(function(){
+      $(":radio.radal").click(function(){
+        $("#formal").hide()
+        if($(this).val() == "Ya"){
+          $("#formal").show();
+        }else if($(this).val() == "Tidak"){
+          $("#formal").hide();
+        }
+      });
+    });
+
+
+    $(function(){
+      $(":radio.radas").click(function(){
+        $("#formas").hide()
+        if($(this).val() == "Ya"){
+          $("#formas").show();
+        }else if($(this).val() == "Tidak"){
+          $("#formas").hide();
+        }
+      });
+    });
+
+    $(function(){
+      $(":radio.radim").click(function(){
+        $("#formim").hide()
+        if($(this).val() == "Ya"){
+          $("#formim").show();
+        }else if($(this).val() == "Tidak"){
+          $("#formim").hide();
+        }
+      });
+    });
+  </script> 
+
+
+
+  
+
+
+  

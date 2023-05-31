@@ -1,0 +1,128 @@
+{include file="inap/konsul_medis/edit_script_js.html"}
+<div class="breadcrum">
+    <p>
+        <a href="#">Nursing Record</a><span></span>
+        <a href="{$config->site_url('nurse/rawat_jalan/')}">Rawat Jalan</a><span></span>
+        <small>Add Data</small>
+    </p>
+    <div class="clear"></div>
+</div>
+<div class="navigation">
+    <div class="navigation-button">
+        <ul>
+            <li><a href="{$config->site_url('nurse/rawat_jalan/')}"><img src="{$BASEURL}resource/doc/images/icon/back-icon.png" alt="" />  Back</a></li>
+        </ul>
+    </div>
+    <div class="clear"></div>
+</div>
+<!-- notification template -->
+{include file="base/templates/notification.html"}
+<!-- end of notification template-->
+<form action="{$config->site_url('inap/konsul_medis/edit_process')}" method="post">
+    <input type="hidden" name="FS_KD_REG" value="{$rs_pasien.fs_kd_reg}" />
+    <input type="hidden" name="FS_KD_TRS" value="{$result.FS_KD_TRS}" />
+    <table class="table-info" width="100%">
+        <tr class="headrow">
+            <th colspan="4">Data Pasien</th>
+        </tr>
+        <tr>
+            <td>Nama</td>
+            <td>
+                {$rs_pasien.fs_nm_pasien}
+            </td>
+        </tr>
+        <tr>
+            <td>No RM</td>
+            <td>
+                {$rs_pasien.fs_mr}
+            </td>
+        </tr>
+        <tr>
+            <td>Tanggal Lahir</td>
+            <td>
+                {$rs_pasien.FD_TGL_LAHIR|date_format:"%d %b %Y"} ({$rs_pasien.fs_umur})
+            </td>
+        </tr>
+        <tr>
+            <td>Alamat</td>
+            <td>{$rs_pasien.FS_ALM_PASIEN}</td>
+        </tr>
+        <tr>
+            <td>Status Sosial / Pekerjaan / Pendidikan</td>
+            <td>
+                {$rs_pasien.FS_NM_PEKERJAAN_DK} / {$rs_pasien.FS_NM_PENDIDIKAN_DK}
+            </td>
+        </tr>
+        <tr>
+            <td>Agama</td>
+            <td>
+                {$rs_pasien.FS_NM_AGAMA}
+            </td>
+        </tr>
+    </table>
+    <div class="navigation">
+        <div class="pageRow">
+            <div class="pageNav">
+                <ul>
+                    <li class="info"></li>
+                </ul>
+            </div>
+            <div class="clear"></div>
+        </div>
+       <div class="navigation-button">
+            <ul>
+                <li><a href="javascript:void(0);" onclick="window.open('{$config->site_url('rm/rawat_inap/cetak_rm/'|cat:$rs_pasien.fs_kd_reg|cat:'/1')}', 'nama_window_pop_up', 'scrollbars=yes,resizeable=no')"><img src="{$BASEURL}resource/doc/images/icon/printer-icon.png" alt="" /> CPPT</a></li>
+                <li><a href="javascript:void(0);" onclick="window.open('{$config->site_url('rm/rawat_inap/cetak_rm/'|cat:$rs_pasien.fs_kd_reg|cat:'/10')}', 'nama_window_pop_up', 'scrollbars=yes,resizeable=no')"><img src="{$BASEURL}resource/doc/images/icon/printer-icon.png" alt="" /> Hasil Penunjang</a></li>
+            </ul>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="notification red">
+        <p><strong>High Risk :</strong> {$rs_pasien.FS_HIGH_RISK|default:'-'} </p>
+        <p><strong>Alergi :</strong> {$rs_pasien.FS_ALERGI|default:'-'} ({$rs_pasien.FS_REAK_ALERGI|default:'-'})</p>
+        <div class="clear"></div>
+    </div>
+    <table class="table-input" width="100%">
+
+        <tr class="headrow">
+            <th colspan="2">Add Data</th>
+        </tr>
+        <tr>
+            <td>Kepada teman sejawat:</td>
+            <td>
+                 <select name="tujuan" class="select2" style="width: 250px;" id="op2">
+                        <option value="">--Pilih Data--</option>
+                        {foreach from=$rs_dokter item=data}
+                        <option value="{$data.FS_KD_PEG}" {if $data.FS_KD_PEG eq $result.FS_KD_PEG} selected="" {/if}>{$data.FS_NM_PEG}</option>
+                        {/foreach}
+                    </select>
+                <!--<select name="tujuan[]" multiple id="tujuan" style="width:250px">
+                    <option></option>
+                </select>-->
+            </td>
+        </tr>
+        <tr>
+            <td>Ikhtisar klinis dan pemeriksaan hasil penunjang</td>
+            <td colspan="2">
+                <textarea cols="50" name="FS_KET1">{$result.FS_KET1}</textarea>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Konsultasi yang diminta:
+            </td>
+            <td>
+                <textarea cols="50" name="FS_KET2">{$result.FS_KET2}</textarea>
+            </td>
+        </tr>
+        <tr class="submit-box">
+            <td colspan="4">
+                <div style="font-weight: bold;">
+                    *Bismillahirohmanirrohim, saya dengan sadar dan penuh tanggung jawab mengisikan formulir ini dengan data yang benar
+                </div>
+                <br>
+                <input type="submit" name="save" value="Simpan" class="edit-button" /> 
+            </td>
+        </tr>
+    </table>
+</form>

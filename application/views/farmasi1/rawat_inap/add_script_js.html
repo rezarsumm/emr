@@ -1,0 +1,196 @@
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".select2").select2({
+            placeholder: "Pilih",
+            allowClear: true
+        });
+
+        $("#opendialogadd").button().click(function () {
+            $("#ModalAdd").dialog('open');
+        });
+
+        $("#ModalAdd").dialog({
+            autoOpen: false,
+            resizable: false,
+            height: 400,
+            width: 700,
+            modal: true
+        });
+
+        $("#ModalHapus").dialog({
+            autoOpen: false,
+            resizable: false,
+            height: 200,
+            width: 400,
+            modal: true
+        });
+
+        $("#loading").hide();
+        $("#loading-hapus").hide();
+        var FS_KD_REG2 = $('#FS_KD_REG').val();
+        
+        $("#FS_KD_BARANG").change(function () {
+            var FS_KD_BARANG = $("#FS_KD_BARANG").val();
+            
+            var dataString = '&FS_KD_BARANG=' + FS_KD_BARANG + '&FS_KD_REG2=' + FS_KD_REG2;
+            
+            $.ajax({
+                type: "POST",
+                url: '{$config->site_url("farmasi/rawat_jalan/QtyBarang")}',
+                data: dataString,
+                async: false,
+               dataType: 'json',
+                beforeSend: function (e) {
+                    if (e && e.overrideMimeType) {
+                        e.overrideMimeType("application/json;charset=UTF-8");
+                    }
+                },
+                success: function (data) {
+                    var html = '';
+                    var i;
+                    for (i = 0; i < data.length; i++) {
+                        html += '<tr>'+
+                                '<td>Qty Barang</td>'+
+                                '<td>' +
+                                '<input id="FN_QTY_BARANG" name="FN_QTY_BARANG" value="' + data[i].FN_QTY_BARANG + '" class="form-control" type="text" disabled="disabled">'+
+                                '</td>'+
+                                '</tr>'+
+                                '<tr>' +
+                                '<td>Satuan</td>' +
+                                '<td>'+
+                                '<input id="FS_KD_SATUAN" name="FS_KD_SATUAN" value="' + data[i].FS_KD_SATUAN + '" class="form-control" type="text" disabled="disabled">'+
+                                '</tr>';
+                     }
+                    $("#show_data_obat").html(html);
+                },
+                error: function (xhr, ajaxOptions, thrownError) { // Ketika ada error
+                    alert(xhr.responseText);
+                }
+            });
+        });
+        
+        tampil_data_barang(FS_KD_REG2);
+
+        function tampil_data_barang(FS_KD_REG2) {
+            $.ajax({
+                type: "POST",
+                url: '{$config->site_url("farmasi/rawat_jalan/list_copy_resep")}',
+                async: false,
+                data: '&FS_KD_REG2=' + FS_KD_REG2,
+                dataType: 'json',
+                beforeSend: function (e) {
+                    if (e && e.overrideMimeType) {
+                        e.overrideMimeType("application/json;charset=UTF-8");
+                    }
+                },
+                success: function (data) {
+                    var html = '';
+                    var i;
+                    for (i = 0; i < data.length; i++) {
+                        html += '<tr>' +
+                                '<td>' + data[i].FS_NM_BARANG + '</td>' +
+                                '<td><center>' + data[i].FN_QTY_BARANG + '</center></td>' +
+                                '<td><center>' + data[i].FS_KD_SATUAN + '</center></td>' +
+                                '<td><center>' + data[i].FN_DET_ORIG + '</center></td>' +
+                                '<td><center>' + data[i].FN_DET + '</center></td>' +
+                                '<td><center>' + data[i].FN_NEDET + '</center></td>' +
+                                '<td><center>' + data[i].FS_KETERANGAN + '</center></td>' +
+                                '<td><center>' +
+                                '<a href="javascript:;" class="btn-red item_hapus" data="' + data[i].FS_KD_TRS + '">Hapus</a>' +
+                                '</center></td>' +
+                                '</tr>';
+                    }
+                    $('#show_data').html(html);
+                },
+                error: function (xhr, ajaxOptions, thrownError) { // Ketika ada error
+                    alert(xhr.responseText);
+                }
+
+            });
+        }
+
+        $("#btn-add").click(function () {
+            $("#loading").show();
+            //Simpan Barang
+            var FS_KD_REG = $('#FS_KD_REG').val();
+            var FS_KD_BARANG = $('#FS_KD_BARANG').val();
+            var FN_QTY_BARANG = $('#FN_QTY_BARANG').val();
+            var FS_KD_SATUAN = $('#FS_KD_SATUAN').val();
+            var FN_DET_ORIG = $('#FN_DET_ORIG').val();
+            var FN_DET = $('#FN_DET').val();
+            var FN_NEDET = $('#FN_NEDET').val();
+            var FS_KETERANGAN = $('#FS_KETERANGAN').val();
+            
+
+            var dataString = 
+                    '&FS_KD_REG=' + FS_KD_REG +
+                    '&FS_KD_BARANG=' + FS_KD_BARANG + 
+                    '&FN_QTY_BARANG=' + FN_QTY_BARANG + 
+                    '&FS_KD_SATUAN=' + FS_KD_SATUAN + 
+                    '&FN_DET_ORIG=' + FN_DET_ORIG+
+                    '&FN_DET=' + FN_DET+
+                    '&FN_NEDET=' + FN_NEDET+
+                    '&FS_KETERANGAN=' + FS_KETERANGAN;
+
+            $.ajax({
+                type: "POST",
+                url: "{$config->site_url('farmasi/rawat_jalan/add_process')}",
+                dataType: "JSON",
+                data: dataString,
+                beforeSend: function (e) {
+                    if (e && e.overrideMimeType) {
+                        e.overrideMimeType("application/json;charset=UTF-8");
+                    }
+                },
+                success: function (data) {
+                    $("#loading").hide();
+                    $('#ModalAdd').dialog('close');
+                    $('[name="FS_KD_BARANG"]').val("");
+                    $('[name="FN_QTY_BARANG"]').val("");
+                    $('[name="FS_KD_SATUAN"]').val("");
+                    $('[name="FN_DET_ORIG"]').val("");
+                    $('[name="FN_DET"]').val("");
+                    $('[name="FN_NEDET"]').val("");
+                    $('[name="FS_KETERANGAN"]').val("");
+                    tampil_data_barang(FS_KD_REG2);
+                    // set textbox dengan id jenis kelamin
+
+                },
+                error: function (xhr, ajaxOptions, thrownError) { // Ketika ada error
+                    alert(xhr.responseText);
+                }
+            });
+
+
+        });
+
+        $('#show_data').on('click', '.item_hapus', function () {
+            var id = $(this).attr('data');
+            $("#ModalHapus").dialog('open');
+            $('[name="kode"]').val(id);
+        });
+
+
+        $('#btn_hapus').on('click', function () {
+            $("#loading-hapus").show();
+            var kode = $('#textkode').val();
+            var dataString = '&kode=' + kode
+            $.ajax({
+                type: "POST",
+                url: "{$config->site_url('farmasi/rawat_jalan/delete_process')}",
+                dataType: "JSON",
+                data: dataString,
+                beforeSend: function (e) {
+                    if (e && e.overrideMimeType) {
+                        e.overrideMimeType("application/json;charset=UTF-8");
+                    }
+                },
+                success: function (data) {
+                    $("#loading-hapus").hide();
+                    $('#ModalHapus').dialog('close');
+                    tampil_data_barang(FS_KD_REG2);
+                }
+            });
+        });
+    });
+</script>

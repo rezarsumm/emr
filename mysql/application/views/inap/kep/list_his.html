@@ -1,0 +1,46 @@
+<!-- include javascript -->
+{include file="inap/kep/add_script_js.html"}
+<!-- end of include javascript-->
+<div class="breadcrum">
+    <p>
+        <a href="#">Data Arsip</a><span></span>
+        <a href="{$config->site_url('inap/kep/cari')}">Rencana Kerepawatan dan Tindakan</a><span></span>
+        <small>Add Data</small>
+    </p>
+    <div class="clear"></div>
+</div>
+<div class="head-content">
+    <div class="head-content-nav">
+        <ul>
+            <li><a href="{$config->site_url('inap/kep/')}" >Cari Data</a></li>
+            <li><a href="{$config->site_url('inap/kep/cari2')}" class="active">Cari History</a></li>
+        </ul>
+        <div class="clear"></div>
+    </div>
+    <div class="clear"></div>
+</div>
+<div class="content-entry">
+    <!-- notification template -->
+    {include file="base/templates/notification.html"}
+    <!-- end of notification template-->
+    <form action="{$config->site_url('inap/kep/cari_process2')}" method="post">
+        <!--<input name="masuk_id" type="hidden" value="{$result.masuk_id|default:''}" />-->
+        <table class="table-input" width="100%">
+            <tr class="headrow">
+                <th colspan="4">Rencana Kerepawatan dan Tindakan</th>
+            </tr>
+            <tr>
+                <td>NO MR</td>
+                <td colspan="3">
+                    <input name="FS_MR" type="text">
+                    <em>* wajib diisi</em>
+                </td>
+            </tr>
+            <tr class="submit-box">
+                <td colspan="4">
+                    <input type="submit" name="save" value="Cari" class="edit-button" />
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>

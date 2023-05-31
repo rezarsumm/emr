@@ -1,0 +1,54 @@
+<div class="breadcrum">
+    <p>
+        <a href="#">Data Arsip</a><span></span>
+        <small>Print Out</small>
+    </p>
+    <div class="clear"></div>
+</div>
+<div class="content-entry">
+    <!-- notification template -->
+    {include file="base/templates/notification.html"}
+    <!-- end of notification template-->
+    <table class="table-info" width="100%">
+        <tbody>
+            <tr class="headrow">
+                <th colspan="3">CETAK RESUME PASIEN PULANG</th>
+            </tr>
+            <tr>
+                <td>NAMA</td>
+                <td><span class="blue">{$rs_pasien.fs_nm_pasien}</span></td>
+                <td width="20%" rowspan="7">
+                    <a class="btn-red" target="_blank" href="{$config->site_url('rm/rawat_inap/cetak_rm/'|cat:{$rs_pasien.fs_kd_reg}|cat:'/'|cat:'2')}" title="Print">
+                        <span class="icon-print"></span>
+                    </a>
+                </td>
+            </tr>   
+            <tr>
+                <td>NO MR</td>
+                <td>
+                    <span class="blue">{$rs_pasien.fs_mr}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>TANGGAL LAHIR</td>
+                <td>
+                    <span class="blue">{$rs_pasien.FD_TGL_LAHIR|date_format:"%d %b %Y"}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>ALAMAT</td>
+                <td><span class="blue">{$rs_pasien.FS_ALM_PASIEN}</span></td>
+            </tr>
+            <tr>
+                <td>TANGGAL MASUK</td>
+                <td><span class="blue">{$rs_pasien.fd_tgl_masuk|date_format:"%d %b %Y"}</span></td>
+            </tr>
+            <tr>
+                <td>VERIFIKATOR</td>
+                <td>
+                    <span class="blue">{$rs_pasien.fs_nm_peg}</span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

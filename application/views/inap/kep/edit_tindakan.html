@@ -1,0 +1,109 @@
+<!-- include javascript -->
+{include file="inap/kep/add_script_js.html"}
+<!-- end of include javascript-->
+<div class="breadcrum">
+    <p>
+        <a href="#">Catatan Rawat Inap</a><span></span>
+        <a href="{$config->site_url('inap/kep/')}">Rencana Keperawatan</a><span></span>
+        <small>button-edit Data</small>
+    </p>
+    <div class="clear"></div>
+</div>
+<div class="content-entry">
+    <!-- notification template -->
+    {include file="base/templates/notification.html"}
+    <!-- end of notification template-->
+    <form action="{$config->site_url('inap/kep/edit_tindakan_process')}" method="post">
+        <input name="FS_KD_REG" type="hidden" value="{$rs_pasien.NO_REG}" />
+        <input name="FS_KD_TRS" type="hidden" value="{$data.FS_KD_TRS}" />
+        <input name="FS_MR" type="hidden" value="{$rs_pasien.NO_MR}" />
+
+        <table class="table-info" width="100%">
+            <tr class="headrow">
+                <th colspan="2">Edit Tindakan Keperawatan</th>
+            </tr>
+            <tr>
+                <td>NAMA</td>
+                <td>
+                    {$rs_pasien.NAMA_PASIEN}
+                </td>
+            </tr>
+            <tr>
+                <td>NO MR</td>
+                <td>
+                    {$rs_pasien.NO_MR}
+                </td>
+            </tr>
+            <tr>
+                <td>TANGGAL LAHIR</td>
+                <td>
+                    {$rs_pasien.TGL_LAHIR|date_format:"%d %b %Y"}
+                </td>
+            </tr>
+            <tr>
+                <td>ALAMAT</td>
+                <td>{$rs_pasien.ALAMAT}</td>
+            </tr>
+        </table>
+      
+        <div class="content-entry">
+            <table class="table-input" width="100%">
+
+                <tr class="headrow">
+                    <th colspan="4">Edit Tindakan Keperawatan</th>
+                </tr>
+                <tr>
+                    <td width='20%'>Tindakan</td>
+                    <td width='80%' colspan="2">
+                       <select name="FS_KD_TRS_KEP_TINDAKAN" class="select2" style="width: 300px;">
+                        <option value="0">--Pilih Data--</option>.
+                        {foreach from=$rs_kep_tind item=ata}
+                        <option value="{$ata.FS_KD_TRS}" {if $ata.FS_KD_TRS eq $data.FS_KD_TRS_KEP_TINDAKAN} selected {/if} >{$ata.FS_NM_KEP_TINDAKAN}</option>
+                        {/foreach}
+                    </select>
+                    <textarea cols="80" name="FS_TINDKAN_KEP">{$data.FS_TINDKAN_KEP}</textarea>
+                </td>
+
+            </tr>
+
+            <tr>
+                <td>Tanggal Tindakan</td>
+                <td colspan="2">
+                    <input name="FD_TGL_TINDKAN_KEP" type="text" size="10" maxlength="10" value="{$data.FD_TGL_TINDKAN_KEP}" class="tanggal" style="text-align: center;" />
+                </td>
+            </tr>
+            <tr>
+                <td>Jam Tindakan</td>
+                <td colspan="2">
+                    <input name="FD_JAM_TINDKAN_KEP" type="text" value="{$data.FD_JAM_TINDKAN_KEP}" size="10" class="waktu" maxlength="10" style="text-align: center"/>
+                </td>
+            </tr>
+            <tr class="submit-box">
+                <td colspan="4">
+                   <div style="font-weight: bold;">
+                    *Bismillahirohmanirrohim, saya dengan sadar dan penuh tanggung jawab mengisikan formulir ini dengan data yang benar
+                </div>
+                <br>
+                <input type="submit" name="save" value="update" class="edit-button"/>
+            </td>
+        </tr>
+    </table>
+</form>
+</div>
+<div class="navigation">
+    <div class="pageRow">
+        <div class="pageNav">
+            <ul>
+                <li class="info"></li>
+            </ul>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="navigation-button">
+        <ul>
+            <li><a href="{$config->site_url('rm/rawat_inap/cetak_rm/'|cat:$rs_pasien.NO_REG|cat:'/'|cat:'8')}" target="_blank"><img src="{$BASEURL}resource/doc/images/icon/printer-icon.png" alt="" /> Print</a></li>
+        </ul>
+    </div>
+    <div class="clear"></div>
+</div>
+ 

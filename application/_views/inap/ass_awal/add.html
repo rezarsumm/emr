@@ -1,0 +1,440 @@
+<!-- include javascript -->
+{include file="inap/ass_awal/add_script_js.html"}
+<!-- end of include javascript-->
+<div class="breadcrum">
+    <p>
+        <a href="#">Data Arsip</a><span></span>
+        <a href="{$config->site_url('inap/ass_awal/cari')}">Asesmen Awal Rawat Inap</a><span></span>
+        <small>Add Data</small>
+    </p>
+    <div class="clear"></div>
+</div>
+<div class="navigation">
+    <div class="navigation-button">
+        <ul>
+            <li><a href="{$config->site_url('inap/ass_awal/')}"><img src="{$BASEURL}resource/doc/images/icon/back-icon.png" alt="" />  Back</a></li>
+        </ul>
+    </div>
+    <div class="clear"></div>
+</div>
+<div class="content-entry">
+    <!-- notification template -->
+    {include file="base/templates/notification.html"}
+    <!-- end of notification template-->
+    <form action="{$config->site_url('inap/ass_awal/add_process')}" method="post">
+        <input type="hidden" name="FS_KD_REG" value="{$rs_pasien.fs_kd_reg}" />
+        <input type="hidden" name="FS_KD_MEDIS" value="{$FS_KD_MEDIS}" />
+        <input type="hidden" name="FS_KD_LAYANAN" value="{$rs_pasien.fs_kd_layanan}" />
+
+        <table class="table-info" width="100%">
+            <tr class="headrow">
+                <th colspan="2">Add Asesmen Awal Rawat Inap</th>
+            </tr>
+            <tr>
+                <td>NAMA</td>
+                <td>
+                    {$rs_pasien.fs_nm_pasien}
+                </td>
+            </tr>
+            <tr>
+                <td>NO MR</td>
+                <td>
+                    {$rs_pasien.fs_mr}
+                </td>
+            </tr>
+            <tr>
+                <td>TANGGAL LAHIR</td>
+                <td>
+                    {$rs_pasien.FD_TGL_LAHIR|date_format:"%d %b %Y"}
+                </td>
+            </tr>
+            <tr>
+                <td>ALAMAT</td>
+                <td>{$rs_pasien.FS_ALM_PASIEN}</td>
+            </tr>
+        </table>
+        
+        <table class="table-input" width="100%">
+             <tr class="headrow">
+                <th colspan="2">Anamnesa/Riwayat Masuk Rumah Sakit</th>
+                <th colspan="2">Pemeriksaan Fisik</th>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <textarea cols="50" name="FS_ANAMNESA"></textarea>
+                </td>
+                <td colspan="2">
+                    <textarea cols="50" name="FS_PEMERIKSAAN_FISIK"></textarea>
+                    
+                </td>
+            </tr>
+            <tr class="headrow">
+                <th colspan="4">Vital Sign</th>
+            </tr>
+            <tr>
+                <td width='20%'>Suhu</td>
+                <td width='30%'><input type="text" name="FS_SUHU" size="10"/></td>
+                <td width='20%'>Nadi</td>
+                <td width='30%'><input type="text" name="FS_NADI" size="10"/> x/menit</td>
+            </tr>
+            <tr>
+                <td>R</td>
+                <td><input type="text" name="FS_R" size="10" /> x/menit</td>
+                <td>TD</td>
+                <td><input type="text" name="FS_TD" size="10" /> mmHg</td>
+            </tr>
+            <tr>
+                <td>Tinggi Badan</td>
+                <td><input type="text" name="FS_TB" size="10" /> cm</td>
+                <td>Berat Badan</td>
+                <td><input type="text" name="FS_BB" size="10" /> Kg</td>
+            </tr>
+             
+        </table>
+        <table class="table-input" width="100%">
+        <tr class="headrow">
+            <th colspan="4">Asesmen Nyeri</th>
+        </tr>
+        <tr>
+            <td width='20%'>Ada Nyeri ?</td>
+            <td width='30%'>
+                <select name="FS_NYERI" id="surat_dari" class="select2" style="width: 190px;">
+                    <option value="0">Tidak</option>
+                    <option value="1">Ya</option>
+                </select>
+            </td>
+            <td width='20%'></td>
+            <td width='30%'></td>
+        </tr>
+        <tr>
+            <td>Provokatif</td>
+            <td>
+                <select name="FS_NYERIP" id="surat_dari" class="select2" style="width: 190px;">
+                    <option value="0">Tidak Ada Nyeri</option>
+                    <option value="2">Biologik</option>
+                    <option value="3">Kimiawi</option>
+                    <option value="4">Mekanik / Rudapaksa</option>
+                </select>
+            </td>
+            <td>Quality</td>
+            <td>
+                <select name="FS_NYERIQ" id="surat_dari" class="select2" style="width: 190px;">
+                    <option value="0">Tidak Ada</option>
+                    <option value="1">Seperti Di Tusuk-Tusuk</option>
+                    <option value="2">Seperti Terbakar</option>
+                    <option value="3">Seperti Tertimpa Beb</option>
+                    <option value="4">Ngilu</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Regio</td>
+            <td>
+                <input type="text" name="FS_NYERIR" size="10" />
+            </td>
+            <td>Severity</td>
+            <td>
+                <select name="FS_NYERIS" id="surat_dari" class="select2" style="width: 190px;">
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Time</td>
+            <td>
+                <select name="FS_NYERIT" id="surat_dari" class="select2" style="width: 190px;">
+                    <option value="0">Tidak Ada</option>
+                    <option value="1">Kadang-kadang</option>
+                    <option value="2">Sering</option>
+                    <option value="3">Menetap</option>
+                </select>
+            </td>
+            <td></td>
+            <td></td>
+        </tr>
+    </table>
+        <table>
+            <table class="table-input" width="100%">
+        <tr class="headrow">
+            <th colspan="4">Risiko Jatuh</th>
+        </tr>
+        {if $rs_pasien.fn_umur < '15'}
+        <tr>
+            <td width='20%'>Humty Dumpty Scale</td>
+            <td width='30%'>
+                <select name="FS_SCORE" id="surat_dari" class="select2" style="width: 190px;">
+                    <option value="0">-Pilih Data-</option>
+                    <option value="1">7-11 (Risiko Rendah)</option>
+                    <option value="2"> >12 (Risiko Tinggi)</option>
+
+                </select>
+            </td>
+            <td width='20%'></td>
+            <td width='30%'></td>
+        </tr>
+        {elseif $rs_pasien.fn_umur >= '15' && $rs_pasien.fn_umur <= '60'}
+        <tr>
+            <td width='20%'>Morse Fall Scale</td>
+            <td width='30%'>
+                <select name="FS_SCORE" id="surat_dari" class="select2" style="width: 190px;">
+                    <option value="0">-Pilih Data-</option>
+                    <option value="3">0-24  (Risiko Rendah)</option>
+                    <option value="4">25-45 (Risiko Sedang)</option>
+                    <option value="5">>45   (Risiko Tinggi)</option>
+
+                </select>
+            </td>
+            <td width='20%'></td>
+            <td width='30%'></td>
+        </tr>
+        {elseif $rs_pasien.fn_umur > '60'}
+        <tr>
+            <td width='20%'>Ontario modified Stratify - Sydney Scoring</td>
+            <td width='30%'>
+                <select name="FS_SCORE" id="surat_dari" class="select2" style="width: 190px;">
+                    <option value="0">-Pilih Data-</option>
+                    <option value="6">0-5  (Risiko Rendah)</option>
+                    <option value="7">6-16 (Risiko Sedang)</option>
+                    <option value="8">17-30   (Risiko Tinggi)</option>
+
+                </select>
+            </td>
+            <td width='20%'></td>
+            <td width='30%'></td>
+        </tr>
+        {/if}
+        </table>
+        <table class="table-input" width="100%">
+        <tr class="headrow">
+            <th colspan="4">Riwayat Alergi</th>
+        </tr>
+        <tr>
+            <td width='20%'>Riwayat Alergi</td>
+            <td width='30%'>
+                <select name="FS_ALERGI">
+                    <option value="1" onclick='document.getElementById("civstaton5").disabled = true'>Belum diketahui</option>
+                    <option value="2" onclick='document.getElementById("civstaton5").disabled = true'>Tidak Ada</option>
+                    <option VALUE="3" onclick='document.getElementById("civstaton5").disabled = false'>Ada</option>
+                </select>
+                <br><br>
+                <input type="text" name="FS_ALERGI2" id="civstaton5" disabled="" size="32">
+            </td>
+            <td width='20%'>Reaksi Alergi</td>
+            <td width='30%'>
+                <input type="text" name="FS_REAK_ALERGI" size="35">
+            </td>
+        </tr>
+    </table>
+        <table class="table-input" width="100%">
+        <tr class="headrow">
+            <th colspan="2">Status Psikologis</th>
+            <th colspan="2">Status Sosial</th>
+        </tr>
+        <tr>
+            <td width='20%'>Status Psikologis</td>
+            <td width='30%'>
+                <select name="FS_STATUS_PSIK">
+                    <option value="1" onclick='document.getElementById("civstaton3").disabled = true'>Tenang</option>
+                    <option value="2" onclick='document.getElementById("civstaton3").disabled = true'>Cemas</option>
+                    <option value="3" onclick='document.getElementById("civstaton3").disabled = true'>Takut</option>
+                    <option value="4" onclick='document.getElementById("civstaton3").disabled = true'>Marah</option>
+                    <option value="5" onclick='document.getElementById("civstaton3").disabled = true'>Sedih</option>
+                    <option VALUE="6" onclick='document.getElementById("civstaton3").disabled = false'>Lainnya</option>
+                </select>
+                <br><br>
+                <input type="text" name="FS_STATUS_PSIK2" id="civstaton3" disabled="" size="32">
+            </td>
+            <td width='20%'>Hubungan dengan anggota keluarga</td>
+            <td width='30%'>
+                <select name="FS_HUB_KELUARGA" id="surat_dari" class="select2" style="width: 190px;">
+                    <option value="1">Baik</option>
+                    <option value="2">Tidak Baik</option>
+
+                </select>
+            </td>
+        </tr>
+    </table>
+            <table class="table-input" width="100%">
+        <tr class="headrow">
+            <th colspan="4">Status Fungsional</th>
+        </tr>
+        <tr>
+            <td width='20%'>Pemenuhan ADL</td>
+            <td width='30%'>
+                <select name="FS_ST_FUNGSIONAL" id="surat_dari" class="select2" style="width: 190px;">
+                    <option value="1">Mandiri</option>
+                    <option value="2">Perlu Bantuan</option>
+
+                </select>
+            </td>
+            <td width='20%'>Pengelihatan</td>
+            <td width='30%'>
+                <select name="FS_PENGELIHATAN" id="surat_dari" class="select2" style="width: 190px;">
+                    <option value="1">Normal</option>
+                    <option value="2">Kabur</option>
+                    <option value="3">Kaca Mata</option>
+                    <option value="4">Lensa Kontak</option>
+
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Penciuman</td>
+            <td>
+                <select name="FS_PENCIUMAN" id="surat_dari" class="select2" style="width: 190px;">
+                    <option value="1">Normal</option>
+                    <option value="2">Tidak Normal</option>
+
+                </select>
+            </td>
+            <td>Pendengaran</td>
+            <td>
+                <select name="FS_PENDENGARAN" id="surat_dari" class="select2" style="width: 190px;">
+                    <option value="1">Normal</option>
+                    <option value="2">Tidak Normal (Kanan)</option>
+                    <option value="3">Tidak Normal (Kiri)</option>
+                    <option value="4">Tidak Normal (Kanan & Kiri)</option>
+                    <option value="5">Alat Bantu Dengar (Kanan)</option>
+                    <option value="6">Alat Bantu Dengar (Kiri)</option>
+                    <option value="7">Alat Bantu Dengar (Kanan & Kiri)</option>
+
+                </select>
+            </td>
+        </tr>
+    </table>
+         <table class="table-input" width="100%">
+        <tr class="headrow">
+            <th colspan="4">Skrining Nutrisi</th>
+        </tr>
+        <tr>
+            <td width='20%'>Penurunan berat badan yang tidak diinginkan selama 6 bulan terakhir</td>
+            <td width='30%'>
+                <select name="FS_NUTRISI1" class="select2" style="width: 190px;" id="sn1">
+                    <option value="">--Pilih Data--</option>
+                    <option value="0">Tidak</option>
+                    <option value="1">Tidak Yakin</option>
+                    <option value="2">Ya (1-5 Kg)</option>
+                    <option value="3">Ya (6-10 Kg)</option>
+                    <option value="4">Ya (11-15 Kg)</option>
+                    <option value="5">Ya (>15 Kg)</option>
+
+                </select>
+                <span id="snh1"></span>
+            </td>
+            <td width='20%'>Kesimpulan</td>
+            <td width='30%'><b><span id="kesimpulansn"></span></b></td>
+        </tr>
+        <tr>
+            <td>Asupan makanan menurun dikarenakan adanya penurunan nafsu makan</td>
+            <td>
+                <select name="FS_NUTRISI2" class="select2" style="width: 190px;" id="sn2">
+                    <option value="">--Pilih Data--</option>
+                    <option value="0">Tidak</option>
+                    <option value="1">Ya</option>
+                </select>
+                <span id="snh2"></span>
+            </td>
+            <td></td>
+            <td>
+            </td>
+        </tr>
+    </table>
+        <table class="table-input" width="100%">
+        <tr class="headrow">
+            <th colspan="4">Spiritual dan Kultural pasien</th>
+        </tr>
+        <tr>
+            <td width='20%'>Agama</td>
+            <td width='30%'>
+                <select name="FS_AGAMA" id="surat_dari" class="select2" style="width: 190px;">
+                    <option value="1">Islam</option>
+                    <option value="2">Kristen</option>
+                    <option value="3">Katholik</option>
+                    <option value="4">Hindu</option>
+                    <option value="5">Buda</option>
+                    <option value="6">Konghucu</option>
+                </select>
+            </td>
+            <td width='20%'>Nilai/Kepercayaan khusus</td>
+            <td width='30%'>
+                <select name="FS_NILAI_KHUSUS">
+                    <option value="1" onclick='document.getElementById("civstaton4").disabled = true'>Tidak Ada</option>
+                    <option VALUE="2" onclick='document.getElementById("civstaton4").disabled = false'>Ada</option>
+                </select>
+                <br><br>
+                <input type="text" name="FS_NILAI_KHUSUS2" id="civstaton4" disabled="" size="32">
+            </td>
+        </tr>
+        <tr>
+            <td>Bantuan Pemenuhan Kebutuhan Spiritual</td>
+            <td>
+                <select name="keb_spirit[]" multiple id="spiritual" style="width:250px">
+                    <option></option>
+                </select>
+            </td>
+            <td></td>
+            <td></td>
+        </tr>
+    </table>
+         <table class="table-input" width="100%">
+        <tr class="headrow">
+            <th colspan="4">Kebutuhan Edukasi</th>
+        </tr>
+        <tr>
+            <td width='20%'>Edukasi</td>
+            <td width='30%'>
+                <select name="edukasi[]" multiple id="edukasi" style="width:250px">
+                    <option></option>
+                </select>
+            </td>
+            <td width='20%'></td>
+            <td width='30%'></td>
+        </tr>
+         </table>
+         <table class="table-input" width="100%">
+        <tr class="headrow">
+            <th colspan="4">Scrinning Discharge Planning</th>
+        </tr>
+        <tr>
+            <td width='20%'>Discharge Planning</td>
+            <td width='30%'>
+                <select name="planning[]" multiple id="planning" style="width:250px">
+                    <option></option>
+                </select>
+            </td>
+            <td width='20%'></td>
+            <td width='30%'></td>
+        </tr>
+         </table>
+        <table class="table-input" width="100%">
+        <tr class="headrow">
+            <th colspan="4">Keperawatan</th>
+        </tr>
+        <tr>
+            <td width='20%'>Masalah Keperawatan</td>
+            <td width='30%'>
+                <select name="tujuan[]" multiple id="tujuan" style="width:250px">
+                    <option></option>
+                </select>
+            </td>
+            <td width='20%'></td>
+            <td width='30%'></td>
+        </tr>
+        <tr class="submit-box">
+            <td colspan="4">
+                <input type="submit" name="save" value="Simpan" class="edit-button"/>
+            </td>
+        </tr>
+        </table>
+    </form>
+</div>

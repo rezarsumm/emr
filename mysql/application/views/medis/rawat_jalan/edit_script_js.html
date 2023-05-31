@@ -1,0 +1,540 @@
+<script type="text/javascript">
+    $(document).ready(function() {
+        // date picker
+        $(".tanggal").datepicker({
+            changeMonth: true,
+            changeYear: true,
+            showOn: "both",
+            buttonImage: "{$BASEURL}/resource/doc/images/icon/calendar.gif",
+            buttonImageOnly: true,
+            dateFormat: 'yy-mm-dd'
+        });
+        $(".select2").select2({
+            placeholder: "Pilih",
+            allowClear: true
+        });
+        // dialog form
+        $("#opendialogpengirim")
+        .button()
+        .click(function() {
+            $("#dialog-form").dialog('open');
+        });
+        $("#opendialogklas")
+        .button()
+        .click(function() {
+            $("#dialog-klas").dialog('open');
+        });
+        $("#dialog-form").dialog({
+            autoOpen: false,
+            resizable: false,
+            height: 300,
+            width: 750,
+            modal: true
+        });
+        $("#dialog-klas").dialog({
+            autoOpen: false,
+            resizable: false,
+            height: 300,
+            width: 750,
+            modal: true
+        });
+         // auto select bukti kualitas
+         $("#notes_judul").change(function(){
+            var notes_id  =$("#notes_judul").val();
+            // nilai kualitas
+            $.ajax({
+                type: 'POST',
+                data: '&notes_id=' + notes_id,
+                url: '{$config->site_url("surat/draft_st/notes_deskripsi")}',
+                success: function(result) {
+                    $("#notes_draft").val(result);
+                }
+            });
+        });
+        // chain select
+        // tujuan
+        var user = $("#user").val();
+        $('#tujuan').select2('data', null);
+//            $('#tujuan').select2('data', null);
+if (user == '') {
+    $("#tujuan").attr("disabled", "disabled");
+} else {
+    $("#tujuan").removeAttr("disabled");
+    jQuery("#tujuan").html('');
+    $.ajax({
+        type: "POST",
+        url: "{$config->site_url('medis/rawat_jalan/list_pemeriksaan_lab/')}",
+        data: "user=" + user,
+        dataType: 'json',
+        success: function(data) {
+            var showData;
+            jQuery.each(data, function(index, result) {
+                if (result.value == 0) {
+                } else {
+                    showData += "<option value='" + result.value + "'>" + result.label + "</option>";
+                }
+            })
+            jQuery("#tujuan").html(showData);
+            $('#tujuan').select2('val', [{$rs_tujuan}]);
+        }
+    });
+}
+$("#user").change(function() {
+    user = $(this).val();
+            //get icao code by airlines_id
+//            $.ajax({
+//                type: "POST",
+//                url: "{$config->site_url('angud/ijin_rute/get_airlines_by_id/')}",
+//                data: "user=" + user,
+//                dataType: 'json',
+//                success: function(data) {
+//
+//                    $('input[name="airlines_icao_cd"]').val(user);
+//                }
+//            });
+$('#tujuan').select2('data', null);
+if (user == '') {
+    $("#tujuan").attr("disabled", "disabled");
+} else {
+    $("#tujuan").removeAttr("disabled");
+    jQuery("#tujuan").html('');
+    $.ajax({
+        type: "POST",
+        url: "{$config->site_url('medis/rawat_jalan/list_pemeriksaan_lab/')}",
+        data: "user=" + user,
+        dataType: 'json',
+        success: function(data) {
+            var showData;
+            jQuery.each(data, function(index, result) {
+                if (result.value == 0) {
+                } else {
+                    showData += "<option value='" + result.value + "'>" + result.label + "</option>";
+                }
+            })
+            jQuery("#tujuan").html(showData);
+        }
+    });
+}
+});
+        //tags
+        $("#tujuan").select2({});
+    });
+</script>
+{if isset($result)}
+{foreach from=$result key=key item=i}
+{if $key eq 'tujuan_loop[]'}
+{assign var=tujuan_loop value=$i}
+{$tujuan_var=""}
+{foreach from=$tujuan_loop key=key item=i}
+{$tujuan_var=$tujuan_var|cat:"'"|cat:$i|cat:"',"}
+{/foreach}
+{assign var=tujuan_loop value=$tujuan_var}
+<script type="text/javascript">
+    $(document).ready(function() {
+        // date picker
+        $(".tanggal").datepicker({
+            changeMonth: true,
+            changeYear: true,
+            showOn: "both",
+            buttonImage: "{$BASEURL}/resource/doc/images/icon/calendar.gif",
+            buttonImageOnly: true,
+            dateFormat: 'yy-mm-dd'
+        });
+        // chain select
+        var user = $("#user").val();
+        $('#tujuan').select2('data', null);
+//        if (user == '') {
+//            $("#tujuan").attr("disabled", "disabled");
+//        } else {
+    $("#tujuan").removeAttr("disabled");
+    jQuery("#tujuan").html('');
+    $.ajax({
+        type: "POST",
+        url: "{$config->site_url('medis/rawat_jalan/list_pemeriksaan_lab/')}",
+        data: "user=" + user,
+        dataType: 'json',
+        success: function(data) {
+            var showData;
+            jQuery.each(data, function(index, result) {
+                if (result.value == 0) {
+                } else {
+                    showData += "<option value='" + result.value + "'>" + result.label + "</option>";
+                }
+            })
+            jQuery("#tujuan").html(showData);
+            $('#tujuan').select2('val', [{$tujuan_loop}]);
+
+        }
+    });
+//        }
+$("#user").change(function() {
+    user = $(this).val();
+    $('#tujuan').select2('data', null);
+//            if (user == '') {
+//                $("#tujuan").attr("disabled", "disabled");
+//            } else {
+    $("#tujuan").removeAttr("disabled");
+    jQuery("#tujuan").html('');
+    $.ajax({
+        type: "POST",
+        url: "{$config->site_url('medis/rawat_jalan/list_pemeriksaan_lab/')}",
+        data: "user=" + user,
+        dataType: 'json',
+        success: function(data) {
+            var showData;
+            jQuery.each(data, function(index, result) {
+                if (result.value == 0) {
+                } else {
+                    showData += "<option value='" + result.value + "'>" + result.label + "</option>";
+                }
+            })
+            jQuery("#tujuan").html(showData);
+        }
+    });
+//            }
+});
+        //tags
+        $("#tujuan").select2({});
+    });
+</script>
+{/if}
+{/foreach}
+
+{/if}
+
+
+<!--Tembusan-->
+<script type="text/javascript">
+    $(document).ready(function() {
+        // chain select
+        // tembusan
+        var user = $("#user").val();
+        $('#tembusan').select2('data', null);
+        if (user == '') {
+            $("#tembusan").attr("disabled", "disabled");
+        } else {
+//            $('#tembusan').select2('data', null);
+$("#tembusan").removeAttr("disabled");
+jQuery("#tembusan").html('');
+$.ajax({
+    type: "POST",
+    url: "{$config->site_url('medis/rawat_jalan/list_pemeriksaan_rad/')}",
+    data: "user=" + user,
+    dataType: 'json',
+    success: function(data) {
+        var showData;
+        jQuery.each(data, function(index, result) {
+            if (result.value == 0) {
+            } else {
+                showData += "<option value='" + result.value + "'>" + result.label + "</option>";
+            }
+        })
+        jQuery("#tembusan").html(showData);
+        $('#tembusan').select2('val', [{$rs_tembusan}]);
+    }
+});
+}
+$("#user").change(function() {
+    user = $(this).val();
+            //get icao code by airlines_id
+//            $.ajax({
+//                type: "POST",
+//                url: "{$config->site_url('angud/ijin_rute/get_airlines_by_id/')}",
+//                data: "user=" + user,
+//                dataType: 'json',
+//                success: function(data) {
+//
+//                    $('input[name="airlines_icao_cd"]').val(user);
+//                }
+//            });
+$('#tembusan').select2('data', null);
+if (user == '') {
+    $("#tembusan").attr("disabled", "disabled");
+} else {
+    $("#tembusan").removeAttr("disabled");
+    jQuery("#tembusan").html('');
+    $.ajax({
+        type: "POST",
+        url: "{$config->site_url('medis/rawat_jalan/list_pemeriksaan_rad/')}",
+        data: "user=" + user,
+        dataType: 'json',
+        success: function(data) {
+            var showData;
+            jQuery.each(data, function(index, result) {
+                if (result.value == 0) {
+                } else {
+                    showData += "<option value='" + result.value + "'>" + result.label + "</option>";
+                }
+            })
+            jQuery("#tembusan").html(showData);
+        }
+    });
+}
+});
+        //tags
+        $("#tembusan").select2({});
+    });
+</script>
+{if isset($result)}
+{foreach from=$result key=key item=i}
+{if $key eq 'tembusan_loop[]'}
+{assign var=tembusan_loop value=$i}
+{$tembusan_var=""}
+{foreach from=$tembusan_loop key=key item=i}
+{$tembusan_var=$tembusan_var|cat:"'"|cat:$i|cat:"',"}
+{/foreach}
+{assign var=tembusan_loop value=$tembusan_var}
+<script type="text/javascript">
+    $(document).ready(function() {
+        // date picker
+        $(".tanggal").datepicker({
+            changeMonth: true,
+            changeYear: true,
+            showOn: "both",
+            buttonImage: "{$BASEURL}/resource/doc/images/icon/calendar.gif",
+            buttonImageOnly: true,
+            dateFormat: 'yy-mm-dd'
+        });
+        // chain select
+        var user = $("#user").val();
+        $('#tembusan').select2('data', null);
+//        if (user == '') {
+//            $("#tujuan").attr("disabled", "disabled");
+//        } else {
+    $("#tembusan").removeAttr("disabled");
+    jQuery("#tembusan").html('');
+    $.ajax({
+        type: "POST",
+        url: "{$config->site_url('medis/rawat_jalan/list_pemeriksaan_rad/')}",
+        data: "user=" + user,
+        dataType: 'json',
+        success: function(data) {
+            var showData;
+            jQuery.each(data, function(index, result) {
+                if (result.value == 0) {
+                } else {
+                    showData += "<option value='" + result.value + "'>" + result.label + "</option>";
+                }
+            })
+            jQuery("#tembusan").html(showData);
+            $('#tembusan').select2('val', [{$tembusan_loop}]);
+
+        }
+    });
+//        }
+$("#user").change(function() {
+    user = $(this).val();
+    $('#tembusan').select2('data', null);
+//            if (user == '') {
+//                $("#tujuan").attr("disabled", "disabled");
+//            } else {
+    $("#tembusan").removeAttr("disabled");
+    jQuery("#tembusan").html('');
+    $.ajax({
+        type: "POST",
+        url: "{$config->site_url('medis/rawat_jalan/list_pemeriksaan_rad/')}",
+        data: "user=" + user,
+        dataType: 'json',
+        success: function(data) {
+            var showData;
+            jQuery.each(data, function(index, result) {
+                if (result.value == 0) {
+                } else {
+                    showData += "<option value='" + result.value + "'>" + result.label + "</option>";
+                }
+            })
+            jQuery("#tembusan").html(showData);
+        }
+    });
+//            }
+});
+        //tags
+        $("#tembusan").select2({});
+    });
+</script>
+{/if}
+{/foreach}
+
+{/if}
+
+<script type="text/javascript">
+    $(document).ready(function() {
+       $(".item_add").click(function () {
+        $("#ModalAdd").dialog('open');
+    });
+
+       $("#ModalAdd").dialog({
+        autoOpen: false,
+        resizable: false,
+        height: 300,
+        width: 700,
+        modal: true
+    });
+
+       $("#ModalHapus").dialog({
+        autoOpen: false,
+        resizable: false,
+        height: 200,
+        width: 400,
+        modal: true
+    });
+
+       $("#loading").hide();
+       $("#loading-hapus").hide();
+
+       var FS_KD_KP = $('#FS_KD_KP').val();
+
+       tampil_resep(FS_KD_KP);
+
+       $("#FS_KD_BARANG").change(function () {
+        var FS_KD_BARANG = $("#FS_KD_BARANG").val();
+
+        var dataString = '&FS_KD_BARANG=' + FS_KD_BARANG;
+
+        $.ajax({
+            type: "POST",
+            url: '{$config->site_url("medis/rawat_jalan/SatBarang")}',
+            data: dataString,
+            async: false,
+            dataType: 'json',
+            beforeSend: function (e) {
+                if (e && e.overrideMimeType) {
+                    e.overrideMimeType("application/json;charset=UTF-8");
+                }
+            },
+            success: function (data) {
+                var html = '';
+                var i;
+                for (i = 0; i < data.length; i++) {
+                    html +=
+                    '<input id="FS_KD_SATUAN" name="FS_KD_SATUAN" value="' + data[i].FS_KD_SAT_JUAL + '" class="form-control" type="text" disabled="disabled">' +
+                    '<input id="FS_NM_BARANG" name="FS_NM_BARANG" value="' + data[i].FS_NM_BARANG + '" type="hidden">';
+
+                }
+                $("#show_data_obat").html(html);
+            },
+                error: function (xhr, ajaxOptions, thrownError) { // Ketika ada error
+                    alert(xhr.responseText);
+                }
+            });
+    });
+
+       function tampil_resep(FS_KD_KP) {
+        $.ajax({
+            type: "POST",
+            url: '{$config->site_url("medis/rawat_jalan/list_resep_baru_edit")}',
+            async: false,
+            data: '&FS_KD_KP=' + FS_KD_KP,
+            dataType: 'json',
+            beforeSend: function (e) {
+                if (e && e.overrideMimeType) {
+                    e.overrideMimeType("application/json;charset=UTF-8");
+                }
+            },
+            success: function (data) {
+                var html = '';
+                var i;
+                for (i = 0; i < data.length; i++) {
+                    html += '<tr>' +
+                    '<tr>' +
+                    '<td>' + data[i].FS_NM_BARANG + '</td>' +
+                    '<td><center>' + data[i].FN_QTY_BARANG + '</center></td>' +
+                    '<td><center>' + data[i].FS_KD_SATUAN + '</center></td>' +
+                    '<td><center>' + data[i].FN_ETIKET_QTY + ' x '+data[i].FN_ETIKET_HARI+'</center></td>' +
+                    '<td><center>' +
+                    '<a href="javascript:;" class="btn-red item_hapus" data="' + data[i].FS_KD_TRS2 + '">Hapus</a>' +
+                    '</center></td>' +
+                    '</tr>';
+                }
+                $('#show_data_resep_baru').html(html);
+            },
+                error: function (xhr, ajaxOptions, thrownError) { // Ketika ada error
+                    alert(xhr.responseText);
+                }
+
+            });
+    }
+
+    $("#btn-add").click(function () {
+        $("#loading").show();
+            //Simpan Barang
+            var FS_KD_KP = $('#FS_KD_KP').val();
+            var FS_KD_BARANG = $('#FS_KD_BARANG').val();
+            var FS_NM_BARANG = $('#FS_NM_BARANG').val();
+            var FS_KD_SATUAN = $('#FS_KD_SATUAN').val();
+            var FN_QTY_BARANG = $('#FN_QTY_BARANG').val();
+            var FS_ETIKET_QTY = $('#FS_ETIKET_QTY').val();
+            var FN_ETIKET_HARI = $('#FN_ETIKET_HARI').val();
+            var FS_ETIKET_CATATAN = $('#FS_ETIKET_CATATAN').val();
+
+
+            var dataString =
+            '&FS_KD_KP=' + FS_KD_KP +
+            '&FS_KD_BARANG=' + FS_KD_BARANG +
+            '&FS_NM_BARANG=' + FS_NM_BARANG +
+            '&FS_KD_SATUAN=' + FS_KD_SATUAN +
+            '&FN_QTY_BARANG=' + FN_QTY_BARANG +
+            '&FS_ETIKET_QTY=' + FS_ETIKET_QTY +
+            '&FN_ETIKET_HARI=' + FN_ETIKET_HARI +
+            '&FS_ETIKET_CATATAN=' + FS_ETIKET_CATATAN;
+
+
+            $.ajax({
+                type: "POST",
+                url: "{$config->site_url('medis/rawat_jalan/add_process_resep_edit')}",
+                dataType: "JSON",
+                data: dataString,
+                beforeSend: function (e) {
+                    if (e && e.overrideMimeType) {
+                        e.overrideMimeType("application/json;charset=UTF-8");
+                    }
+                },
+                success: function (data) {
+                    $("#loading").hide();
+                    $('#ModalAdd').dialog('close');
+                    $('[name="FS_KD_BARANG"]').val("");
+                    $('[name="FS_KD_SATUAN"]').val("");
+                    $('[name="FS_NM_BARANG"]').val("");
+                    $('[name="FN_QTY_BARANG"]').val("");
+                    $('[name="FS_ETIKET_QTY"]').val("");
+                    $('[name="FN_ETIKET_HARI"]').val("");
+                    $('[name="FS_ETIKET_CATATAN"]').val("");
+                    
+                    tampil_resep(FS_KD_KP);
+                },
+                error: function (xhr, ajaxOptions, thrownError) { // Ketika ada error
+                    alert(xhr.responseText);
+                }
+            });
+        });
+
+    $('#show_data_resep_baru').on('click', '.item_hapus', function () {
+        var id = $(this).attr('data');
+        $("#ModalHapus").dialog('open');
+        $('[name="FS_KD_TRS2"]').val(id);
+    });
+
+    $('#btn_hapus').on('click', function () {
+        $("#loading-hapus").show();
+        var kode = $('#FS_KD_TRS2').val();
+        var dataString = '&kode=' + kode
+        $.ajax({
+            type: "POST",
+            url: "{$config->site_url('medis/rawat_jalan/delete_resep_process')}",
+            dataType: "JSON",
+            data: dataString,
+            beforeSend: function (e) {
+                if (e && e.overrideMimeType) {
+                    e.overrideMimeType("application/json;charset=UTF-8");
+                }
+            },
+            success: function (data) {
+                $("#loading-hapus").hide();
+                $('#ModalHapus').dialog('close');
+                tampil_resep(FS_KD_KP);
+            }
+        });
+    });
+
+});
+</script>

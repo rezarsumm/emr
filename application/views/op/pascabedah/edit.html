@@ -1,0 +1,213 @@
+ 
+<div class="breadcrum">
+    <p>
+        <a href="#">Catatan Operasi </a><span></span>
+        <a href="">Asesmen Pasca Operasi </a><span></span>
+        <small>Edit Data</small>
+    </p>
+    <div class="clear"></div>
+</div> 
+<div class="content-entry">
+    <!-- notification template -->
+    {include file="base/templates/notification.html"}
+    <!-- end of notification template-->
+    <form action="{$config->site_url('op/pascabedah/edit_process')}" method="post" onkeypress="return event.keyCode != 13">
+        <input name="FS_KD_REG" id="FS_KD_REG" type="hidden" value="{$rs_pasien.NO_REG}" />
+        <input name="FS_MR" type="hidden" value="{$rs_pasien.NO_MR}" />
+        <input name="idoperasi" type="hidden" value="{$idoperasi}" />
+        <input name="FS_KD_LAYANAN" type="hidden" value="{$rs_pasien.KODE_BANGSAL}" />
+        <input name="FS_KD_PETUGAS_MEDIS" type="hidden" value="{$rs_pasien.fs_kd_medis}" />
+
+        <table class="table-info" width="100%">
+            <tr class="headrow">
+                <th colspan="2">Add Asesmen Pasca Operasi</th>
+            </tr>
+            <tr>
+                <td>NAMA</td>
+                <td>
+                    {$rs_pasien.NAMA_PASIEN}
+                </td>
+            </tr>
+            <tr>
+                <td>NO MR</td>
+                <td>
+                    {$rs_pasien.NO_MR}
+                </td>
+            </tr>
+            <tr>
+                <td>TANGGAL LAHIR</td>
+                <td>
+                    {$rs_pasien.TGL_LAHIR|date_format:"%d %b %Y"}
+                </td>
+            </tr>
+            <tr>
+                <td>ALAMAT</td>
+                <td>{$rs_pasien.ALAMAT}</td>
+            </tr>
+        </table>
+        <!-- <table class="table-info" width="100%" style="text-align: justify;">
+            <tr class="headrow">
+                <th colspan="3">Asesmen Awal Medik</th>
+            </tr>
+            <tr>
+                <td width="18%">Anamnesa</td>
+                <td width="1%">:</td>
+                <td width="80%"> {$rs_ases_medis.FS_ANAMNESA}
+                </td>
+            </tr>
+            <tr>
+               <td width="18%">Diagnosa</td>
+                <td width="2%">:</td>
+                <td width="80%">  {$rs_ases_medis.FS_DIAGNOSA}
+                </td>
+            </tr>
+            <tr>
+                <td width="18%">Hasil Pemeriksaan Penunjang</td>
+                <td width="2%">:</td>
+                <td width="80%">  {$rs_ases_medis.FS_HASIL_PEMERIKSAAN_PENUNJANG}
+                </td>
+            </tr>
+            <tr>
+                 <td width="18%"> Pemeriksaan Fisik</td>
+                <td width="2%">:</td>
+                <td width="80%">   {$rs_ases_medis.FS_CATATAN_FISIK}
+                </td>
+            </tr>
+            <tr>
+                <td width="18%">Daftar Masalah</td>
+                <td width="2%">:</td>
+                <td width="80%"> {$rs_ases_medis.FS_DAFTAR_MASALAH}
+                </td>
+            </tr>
+            <tr>
+                 <td width="18%">Rencana Tindakan</td>
+                <td width="2%">:</td>
+                <td width="80%">  {$rs_ases_medis.FS_TINDAKAN}
+                </td>
+            </tr>
+            <tr>
+                <td width="18%">Rencana Pemeriksaan Penunjang</td>
+                <td width="2%">:</td>
+                <td width="80%">  {$rs_ases_medis.FS_PLANNING}
+                </td>
+            </tr>
+          
+            <tr>
+                <td width="18%">Waktu Asesmen</td>
+                <td width="2%">:</td>
+                <td width="80%"> {$rs_ases_medis.mdd} / {$rs_ases_medis.FS_JAM_TRS}
+                </td>
+            </tr>
+        </table> -->
+        <div class="notification red">
+            <p><strong>High Risk :</strong> {$rs_pasien.FS_HIGH_RISK|default:'-'} </p>
+            <p><strong>Alergi :</strong> {$rs_pasien.FS_ALERGI|default:'-'} ({$rs_pasien.FS_REAK_ALERGI|default:'-'})</p>
+            <div class="clear"></div>
+        </div>
+        <table class="table-input" width="100%" style="text-align: justify;">
+         
+
+
+            
+           <tr>
+            <td>Tanggal Operasi</td>
+            <td >
+                <input type="date" name="TGL_OP" rows="1" value="{$tgl}" style="width: 150px;" > </input>
+                </td>
+            <td>Tingkat Perawatan Medis</td>
+                <td>
+                    <input type="radio" name="TINGKAT_PERAWATAN" {if $rs_pasca_op3.TINGKAT_PERAWATAN eq 'Tinggi'} checked {/if}  VALUE="Tinggi">Tinggi (ICU) <br>
+                    <input type="radio" name="TINGKAT_PERAWATAN" {if $rs_pasca_op3.TINGKAT_PERAWATAN eq 'Sedang'} checked {/if}  VALUE="Sedang">Sedang (HCU) <br>
+                    <input type="radio" name="TINGKAT_PERAWATAN" {if $rs_pasca_op3.TINGKAT_PERAWATAN eq 'Rendah'} checked {/if} VALUE="Rendah">Rendah (Ruang rawat/pulang) 
+                </td>
+            </tr> 
+
+
+            <tr>
+                 <td>Monitor TD, Nadi, RR, Suhu Setiap </td>
+                 <td >
+                    <input type="text" name="PERIODE_MONITOR" value="{$rs_pasca_op3.PERIODE_MONITOR}" rows="1" style="width: 350px;" > </input>
+                  </td>
+                  <td>Sampai </td>
+                  <td >
+                     <input type="text" name="PERIODE_MONITOR2" rows="1" style="width: 150px;" > </input>
+                   </td>
+                          
+            </tr> 
+            <tr>
+                <td>Konsultasi pemberi layanan lain </td>
+                <td >
+                   <textarea name="KONSUL_LAYANAN_LAIN" rows="3" style="width: 350px;" > {$rs_pasca_op3.KONSUL_LAYANAN_LAIN}</textarea>
+                 </td>
+                </tr>
+            <tr>
+                    <td>Pengobatan yang diperlukan </td>
+                    <td >
+                       <textarea name="TERAPI" rows="3" style="width: 350px;" >{$rs_pasca_op3.TERAPI} </textarea>
+                     </td>
+             </tr>
+        
+            <tr class="submit-box">
+            <td colspan="4">
+                <div style="font-weight: bold;">
+                    *Bismillahirohmanirrohim, saya dengan sadar dan penuh tanggung jawab mengisikan formulir ini dengan data yang benar
+                </div>
+                <br>
+                <input type="submit" name="save" value="Simpan" class="edit-button"/>
+            </td>
+        </tr>
+        </table>
+    </form>
+</div>
+ <table class="table-input" width="100%">
+     <tr>
+                <th colspan="4">Shortcut Navigation</th>
+            </tr>
+<tr class="submit-box">
+                <td colspan="5">
+                    <a href="javascript:void(0);" onclick="window.open('{$config->site_url('medis/rawat_inap/cari_process_cppt/'|cat:$rs_pasien.NO_REG)}', 'nama_window_pop_up', 'width=1000,height=1000,scrollbars=yes,resizeable=no')" class="btn-green">Asesmen Awal Medis Rawat Inap</a>
+                    <a href="javascript:void(0);" onclick="window.open('{$config->site_url('inap/ass_awal/cari_process_cppt/'|cat:$rs_pasien.NO_REG)}', 'nama_window_pop_up', 'width=1000,height=1000,scrollbars=yes,resizeable=no')" class="btn-red2">Asesmen Awal Keperawatan</a>
+                    <a href="javascript:void(0);" onclick="window.open('{$config->site_url('inap/ass_jatuh/cari_process_cppt/'|cat:$rs_pasien.NO_REG)}', 'nama_window_pop_up', 'width=1000,height=1000,scrollbars=yes,resizeable=no')" class="btn-blue2">Asesmen Jatuh</a>
+                    <a href="javascript:void(0);" onclick="window.open('{$config->site_url('inap/kep/cari_process_cppt/'|cat:$rs_pasien.NO_REG)}', 'nama_window_pop_up', 'width=1000,height=1000,scrollbars=yes,resizeable=no')" class="btn-green2">Rencana dan Tindakan Keperawatan</a>
+                    <a href="javascript:void(0);" onclick="window.open('{$config->site_url('inap/rm10/cari_process_cppt/'|cat:$rs_pasien.NO_REG)}', 'nama_window_pop_up', 'width=1000,height=1000,scrollbars=yes,resizeable=no')" class="btn-orange">Catatan Edukasi</a>
+                    <a href="javascript:void(0);" onclick="window.open('{$config->site_url('inap/rm17/cari_process_cppt/'|cat:$rs_pasien.NO_REG)}', 'nama_window_pop_up', 'width=1000,height=1000,scrollbars=yes,resizeable=no')" class="btn-pink">Catatan Pemberian Obat</a>
+                    <!--<a href="javascript:void(0);" onclick="window.open('{$config->site_url('inap/dp/cari_process_cppt/'|cat:$rs_pasien.NO_REG)}', 'nama_window_pop_up', 'width=1000,height=1000,scrollbars=yes,resizeable=no')" class="btn-brown">Discharge Planning</a>
+                    <a href="javascript:void(0);" onclick="window.open('{$config->site_url('farmasi/rekon/cari_process_cppt/'|cat:$rs_pasien.NO_REG)}', 'nama_window_pop_up', 'width=1000,height=1000,scrollbars=yes,resizeable=no')" class="btn-yellow">Rekonsiliasi Obat</a>
+                    -->
+                    <a href="javascript:void(0);" onclick="window.open('{$config->site_url('inap/resume/cari_process_cppt/'|cat:$rs_pasien.NO_REG)}', 'nama_window_pop_up', 'width=1000,height=1000,scrollbars=yes,resizeable=no')" class="btn-red">Resume Pasien Pulang</a>
+                    <!--<a href="javascript:;" class="btn-green item_status_add">Status Pasien</a>-->
+                    <a href="javascript:void(0);" onclick="window.open('{$config->site_url('rm/rawat_inap/cetak_rm/'|cat:$rs_pasien.NO_REG|cat:'/10')}', 'nama_window_pop_up', 'width=1000,height=1000,scrollbars=yes,resizeable=no')" class="btn-red2">Hasil Penunjang</a>
+                    <a href="javascript:void(0);" onclick="window.open('{$config->site_url('rm/rawat_jalan/resume/'|cat:$rs_pasien.NO_MR)}', 'nama_window_pop_up', 'width=1000,height=1000,scrollbars=yes,resizeable=no')" class="btn-blue2">Resume Rawat Jalan</a>
+                </td> 
+            </tr>
+ </table>
+<table class="table-view" width="100%">
+    <tr class="headrow">
+        <th colspan="6">List Laporan OP</th>
+    </tr>
+    <tr>
+        <th width="8%">Tanggal</th>
+        <th width="8%">Tingkat perawtan</th>
+        <th width="12%">Periode Monitor </th>
+        <th width="20%">Konsul</th>
+        <th width="27%">Terapi</th>
+        <th width="12%">Dokter</th>
+      
+    </tr>
+    {foreach $rs_pasca_op as $cppt}
+    <tr>
+        <td>{$cppt.TGL_OP} </td>
+        <td>{$cppt.TINGKAT_PERAWATAN} </td>
+        <td>{$cppt.PERIODE_MONITOR} </td>
+        <td>{$cppt.KONSUL_LAYANAN_LAIN} </td>
+        <td>{$cppt.TERAPI} </td>
+        <td>{$cppt.NAMALENGKAP} </td>
+        </td>
+ 
+     
+    </tr>
+    {/foreach}
+</table>
+
+
+ 

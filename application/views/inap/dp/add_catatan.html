@@ -1,0 +1,245 @@
+<!-- include javascript -->
+{include file="inap/dp/add_script_js.html"}
+<!-- end of include javascript-->
+<script>
+    tinymce.init({
+    selector: "textarea",
+            theme: "modern",
+            plugins: [
+            ],
+            external_plugins: {
+//"moxiemanager": "/moxiemanager-php/plugin.js"
+            },
+            content_css: "css/development.css",
+            add_unload_trigger: false,
+            toolbar: "bold italic",
+            image_advtab: true,
+            setup: function (ed) {
+            /*ed.on(
+             'Init PreInit PostRender PreProcess PostProcess BeforeExecCommand ExecCommand Activate Deactivate ' +
+             'NodeChange SetAttrib Load Save BeforeSetContent SetContent BeforeGetContent GetContent Remove Show Hide' +
+             'Change Undo Redo AddUndo BeforeAddUndo', function(e) {
+             console.log(e.type, e);
+             });*/
+            },
+            spellchecker_callback: function (method, data, success) {
+            if (method == "spellcheck") {
+            var words = data.match(this.getWordCharPattern());
+                    var suggestions = {};
+                    for (var i = 0; i < words.length; i++) {
+            suggestions[words[i]] = ["First", "second"];
+            }
+
+            success();
+            }
+
+            if (method == "addToDictionary") {
+            success();
+            }
+            }
+    });</script>
+<div class="breadcrum">
+    <p>
+        <a href="#">Catatan Rawat Inap</a><span></span>
+        <a href="{$config->site_url('inap/cppt/')}">Discharge Planning</a><span></span>
+        <small>Add Data</small>
+    </p>
+    <div class="clear"></div>
+</div>
+<div class="content-entry">
+    <!-- notification template -->
+    {include file="base/templates/notification.html"}
+    <!-- end of notification template-->
+    <form action="{$config->site_url('inap/dp/add_process')}" method="post">
+        <input name="FS_KD_REG" id="FS_KD_REG" type="hidden" value="{$rs_pasien.fs_kd_reg}" />
+        <input name="FS_MR" type="hidden" value="{$rs_pasien.fs_mr}" />
+        <input name="FS_KD_LAYANAN" type="hidden" value="{$rs_pasien.fs_kd_layanan}" />
+        <input name="FS_KD_PETUGAS_MEDIS" type="hidden" value="{$rs_pasien.fs_kd_medis}" />
+
+        <table class="table-info" width="100%">
+            <tr class="headrow">
+                <th colspan="2">Add CPPT</th>
+            </tr>
+            <tr>
+                <td>NAMA</td>
+                <td>
+                    {$rs_pasien.fs_nm_pasien}
+                </td>
+            </tr>
+            <tr>
+                <td>NO MR</td>
+                <td>
+                    {$rs_pasien.fs_mr}
+                </td>
+            </tr>
+            <tr>
+                <td>TANGGAL LAHIR</td>
+                <td>
+                    {$rs_pasien.FD_TGL_LAHIR|date_format:"%d %b %Y"}
+                </td>
+            </tr>
+        </table>
+        <div class="notification red">
+            <p><strong>High Risk :</strong> {$rs_pasien.FS_HIGH_RISK|default:'-'} </p>
+            <p><strong>Alergi :</strong> {$rs_pasien.FS_ALERGI|default:'-'} ({$rs_pasien.FS_REAK_ALERGI|default:'-'})</p>
+            <div class="clear"></div>
+        </div>
+        <table class="table-input" width="100%">
+            <tr>
+                <th colspan="4">CPPT</th>
+            </tr>
+            <tr class="submit-box">
+                <td colspan="5">
+                    <a href="javascript:;" class="btn-blue item_add">Tambah Resep</a>
+                    <a href="{$config->site_url('medis/rawat_inap/cari_process_cppt/'|cat:$rs_pasien.fs_kd_reg)}" target="_blank" class="btn-pink">Asesmen Awal Rawat Inap</a>
+                    <a href="javascript:;" class="btn-yellow item_status_add">Status Pasien</a>
+                    <a href="javascript:void(0);" onclick="window.open('{$config->site_url('rm/rawat_inap/cetak_rm/'|cat:$rs_pasien.fs_kd_reg|cat:'/10')}', 'nama_window_pop_up', 'width=1000,height=1000,scrollbars=yes,resizeable=no')" class="btn-green">Hasil Penunjang</a>
+                    <a href="javascript:void(0);" onclick="window.open('{$config->site_url('rm/rawat_jalan/resume/'|cat:$rs_pasien.fs_mr)}', 'nama_window_pop_up', 'width=1000,height=1000,scrollbars=yes,resizeable=no')"class="btn-red">Resume Rawat Jalan</a>
+                </td> 
+            </tr>
+            <tr>
+                <td colspan="5">
+                    <table width='100%'>
+                        <thead>
+                            <tr class="headrow">
+                                <th colspan="6"><center>Resep Dokter</center></th>
+            </tr>
+            <tr class="headrow">
+                <th><center>Nama Obat</center></th>
+            <th><center>Jumlah</center></th>
+            <th><center>Satuan</center></th>
+            <th><center>Waktu Pemberian</center></th>
+            <th><center>Catatan Lain</center></th>
+            <th><center>Aksi</center></th>
+
+            </tr>
+            </thead>
+            <tbody id="show_data_resep_baru"></tbody>
+        </table>
+
+        </td>
+        </tr>
+        </table>
+    </form>
+</div>
+
+<div id="ModalAdd">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <input name="FN_ITER_BARANG" id="FN_ITER_BARANG" value="0" type="hidden" size="2">
+            <table class="table-input" width="100%">
+                <tr >
+                    <th colspan="2">Add Data <span id="loading">LOADING...</span></th>
+                </tr>
+                <tr>
+                    <td>Nama Barang</td>
+                    <td>
+                        <select name="FS_KD_BARANG" class="select2" style="width: 320px;" id="FS_KD_BARANG">
+                            <option value="">--Pilih Data--</option>
+                            {foreach $rs_resep as $data}
+                            <option value="{$data.FS_KD_BARANG}">{$data.FS_NM_BARANG}</option>
+                            {/foreach}
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Jumlah</td>
+                    <td>
+                        <input name="FN_QTY_BARANG" id="FN_QTY_BARANG" class="form-control" type="text" size="2">
+                        <em style="color:red;">* Masukkan Angka</em>
+                </tr>
+                <tr>
+                    <td>Satuan</td>
+                    <td>
+                        <div id="show_data_obat"></div>
+                </tr>
+                <tr>
+                    <td>Waktu Pemberian</td>
+                    <td>
+                        <input name="FN_ETIKET_QTY" id="FN_ETIKET_QTY" class="form-control" type="text" size="2">
+                        x 
+                        <input name="FN_ETIKET_HARI" id="FN_ETIKET_HARI" class="form-control" type="text" size="2">
+                        Per Hari
+                        <em style="color:red;">* Masukkan Angka</em>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Catatan Lain</td>
+                    <td>
+                        <input name="FS_ETIKET_CATATAN" id="FS_ETIKET_CATATAN" class="form-control" type="text">
+                    </td>
+                </tr>
+                <!--<tr>
+                    <td>Iter</td>
+                    <td>
+                        <input name="FN_ITER_BARANG" id="FN_ITER_BARANG" value="0" type="text" size="2">
+                </tr>-->
+
+                <tr class="submit-box">
+                    <td colspan="2">
+                        <button type="button" id="btn-add" class="btn-blue">Tambah</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div id="ModalHapus">
+    <table class="table-input" width="100%">
+        <tr>
+            <th colspan="2">Hapus Data <span id="loading-hapus">LOADING...</span></th>
+        </tr>
+        <tr>
+        <input type="hidden" name="FS_KD_TRS2" id="FS_KD_TRS2" value="" />
+        <td><div class="alert alert-warning"><p>Apakah Anda yakin mau menghapus barang ini?</p></div></td>
+        </tr>
+        <tr class="submit-box">
+            <td colspan="2">
+                <button type="button" id="btn_hapus" class="btn-red">Hapus</button>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<div id="ModalAddStatus">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <table class="table-input" width="100%">
+                <tr >
+                    <th colspan="2">Add Data <span id="loadingStatus">LOADING...</span></th>
+                </tr>
+                <tr>
+                    <td>Cara Pulang</td>
+                    <td>
+                        <select name="FS_CARA_PULANG" class="select2" style="width: 320px;" id="FS_CARA_PULANG">
+                            <option value="">-- Pilih --</option>
+                            <option value="1">Sembuh</option>
+                            <option value="2">Tampak Masih Sakit</option>
+                            <option value="3">Pulang Atas Permintaan Sendiri</option>
+                            <option value="4">Meninggal</option>
+                            <option value="5">Pindah Rumah Sakit</option>
+                        </select>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td>Diagnosa Utama</td>
+                    <td>
+                        <input type="text" name="FS_DIAG_UTAMA" id="FS_DIAG_UTAMA" size="70">
+
+                </tr>
+                <tr>
+                    <td>Diagnosa Sekunder</td>
+                    <td>
+                        <input type="text" name="FS_DIAG_SEK" id="FS_DIAG_SEK" size="70">
+                </tr>
+                <tr class="submit-box">
+                    <td colspan="2">
+                        <button type="button" id="btn-addStatus" class="btn-blue">Tambah</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>

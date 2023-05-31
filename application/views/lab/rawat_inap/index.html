@@ -1,0 +1,59 @@
+{include file="nurse/rawat_jalan/add_script_js.html"}
+<div class="breadcrum">
+    <p>
+        <a href="#">Lab</a><span></span>
+        <small>Rawat Inap</small>
+    </p>
+    <div class="clear"></div>
+</div>
+ 
+<div class="search-box">
+    <h3><a href="#">Search</a></h3>
+    <form action="{$config->site_url('lab/lab_inap/proses_cari')}" method="post">
+        <table class="table-search" width="100%">
+            <tr>
+                <th width="10%" aligh="left">Tanggal Pelayanan</th>
+                <td width="90%">
+                    <input name="FD_TGL_TRS" value="{$search.FD_TGL_TRS}" class="tanggal" size="10" style="text-align: center;"/>
+                    <input name="save" type="submit" value="Tampilkan" />
+                    <input name="save" type="submit" value="Reset" />
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+<!-- notification template -->
+{include file="base/templates/notification.html"}
+<!-- end of notification template-->
+<div class="dashboard-container">
+    <table class="table-view" width="100%" border="0">
+        <thead>
+            <tr>
+                <th>Jam Order</th>
+                 <th>No MR</th>
+                <th>Layanan</th>
+                <th>Nama Psien</th>
+                <th>Dokter/Perawat</th>
+                  <th>Pemeriksaaan</th>
+                  <th>Waktu Tujuan</th>
+                  <th>  Aksi</th>
+            </tr>
+        </thead> 
+        <tbody>
+            {foreach from=$rs_pasien item=data}
+            <tr>
+                <td>{$data.mdd_time}</td>
+               <td>{$data.No_MR}</td>
+                <td>{$data.Nama_Ruang}</td>
+                <td>{$data.Nama_Pasien}</td>
+                <td>{$data.NamaLengkap}</td> 
+                <td>{$data.FS_LAB}</td> 
+                <td>{$data.TGL_TUJUAN_LAB}</td> 
+                 <td>
+                    <a href="javascript:void(0);" onclick="window.open('{$config->site_url('lab/lab_inap/cetak_plab/'|cat:$data.FS_KD_TRS)}', 'nama_window_pop_up', 'scrollbars=yes,resizeable=no')" class="button-edit">Cetak </a>
+                </td>
+            </tr>
+            {/foreach}
+        </tbody>
+    </table>
+</div>

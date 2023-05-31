@@ -1,0 +1,455 @@
+<!-- include javascript -->
+{include file="mutu/imut/add_script_js.html"}
+<!-- end of include javascript-->
+<div class="breadcrum">
+    <p>
+        <a href="#">Mutu</a><span></span>
+        <a href="{$config->site_url('mutu/imut/cari')}">Rekap Indikator Mutu Sismadak</a><span></span>
+        <small>Add Data</small>
+    </p>
+    <div class="clear"></div>
+</div>
+<div class="content-entry">
+    <!-- notification template -->
+    {include file="base/templates/notification.html"}
+    <!-- end of notification template-->
+    <div class="search-box">
+        <h3><a href="#">Search</a></h3>
+        <form action="{$config->site_url('mutu/imut/cari_process')}" method="post">
+            <table class="table-search" width="100%">
+                <tr>
+                    <th width="10%" aligh="left">Tahun</th>
+                    <td>
+                        <select name='tahun'>
+                            {foreach $rs_tahun as $tahun}
+                            <option value='{$tahun}' {if $search.tahun|default:'' eq $tahun}selected="selected"{/if}>{$tahun}</option>
+                            {/foreach}
+                        </select>
+                    </td>
+                    <th width="10%" aligh="left">Unit</th>
+                    <td>
+                        <select name='unit'>
+                            {foreach $rs_unit as $data}
+                            <option value='{$data.department_id}' {if $search.unit|default:'' eq $data.department_id}selected="selected"{/if}>{$data.department_name}</option>
+                            {/foreach}
+                        </select>
+                    </td>
+                    <th width="10%" aligh="left"></th>
+                    <td width="75%">
+                        <input name="save" type="submit" value="Tampilkan" />
+                        <input name="save" type="submit" value="Reset" />
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
+<div class="dashboard-container">
+    <table class="table-view" width="100%" border="0">
+        <thead>
+            <tr>
+                <th colspan="15">Indikator Mutu Nasional</th>
+            </tr>
+            <tr>
+                <th width='2%'>No</th>
+                <th width='18%'>Indikator</th>
+                <th width='6%'>Standar</th>
+                <th width='6%'>JAN</th>
+                <th width='6%'>FEB</th>
+                <th width='6%'>MAR</th>
+                <th width='6%'>APR</th>
+                <th width='6%'>MEI</th>
+                <th width='6%'>JUN</th>
+                <th width='6%'>JUL</th>
+                <th width='6%'>AGT</th>
+                <th width='6%'>SEP</th>
+                <th width='6%'>OKT</th>
+                <th width='6%'>NOV</th>
+                <th width='6%'>DES</th>
+            </tr>
+        </thead>
+        <tbody>
+            {foreach from=$rs_imut_wajib item=r}
+            <!--
+              {assign var=jan value=$m_imut->get_data_imut_wajib_jan(array($search.tahun,$r.indicator_id,$search.unit))}
+              {assign var=feb value=$m_imut->get_data_imut_wajib_feb(array($search.tahun,$r.indicator_id,$search.unit))}
+              {assign var=mar value=$m_imut->get_data_imut_wajib_mar(array($search.tahun,$r.indicator_id,$search.unit))}
+              {assign var=apr value=$m_imut->get_data_imut_wajib_apr(array($search.tahun,$r.indicator_id,$search.unit))}
+              {assign var=mei value=$m_imut->get_data_imut_wajib_mei(array($search.tahun,$r.indicator_id,$search.unit))}
+              {assign var=jun value=$m_imut->get_data_imut_wajib_jun(array($search.tahun,$r.indicator_id,$search.unit))}
+              {assign var=jul value=$m_imut->get_data_imut_wajib_jul(array($search.tahun,$r.indicator_id,$search.unit))}
+              {assign var=agt value=$m_imut->get_data_imut_wajib_agt(array($search.tahun,$r.indicator_id,$search.unit))}
+              {assign var=sep value=$m_imut->get_data_imut_wajib_sep(array($search.tahun,$r.indicator_id,$search.unit))}
+              {assign var=okt value=$m_imut->get_data_imut_wajib_okt(array($search.tahun,$r.indicator_id,$search.unit))}
+              {assign var=nov value=$m_imut->get_data_imut_wajib_nov(array($search.tahun,$r.indicator_id,$search.unit))}
+              {assign var=des value=$m_imut->get_data_imut_wajib_des(array($search.tahun,$r.indicator_id,$search.unit))}
+            -->
+            <tr {if ($no % 2) <> 1}class="blink-row"{/if}>
+                <td><center>{$no++}</center></td>
+        <td>{$r.indicator_element}</a></td>
+        <td><center><b>{$r.indicator_target}</b></center></td>
+        <td>
+        <center>
+            <a href="{$config->site_url('mutu/imut/verif/'|cat:$r.indicator_id|cat:'/'|cat:$search.unit|cat:'/'|cat:'01'|cat:'/'|cat:$search.tahun)}">
+                {$jan.pencapaian|default:0.00}
+            </a>
+            <hr>
+            {if $jan.result_verif_status == '0'}
+            <b style="color: red;">TL</b>
+            {elseif $jan.result_verif_status == '1'}
+            <b style="color: green;">L</b>
+            {/if}
+        </center>
+        </td>
+        <td>
+        <center>
+            <a href="{$config->site_url('mutu/imut/verif/'|cat:$r.indicator_id|cat:'/'|cat:$search.unit|cat:'/'|cat:'02'|cat:'/'|cat:$search.tahun)}">
+                {$feb.pencapaian|default:0.00}
+            </a>
+            <hr>
+            {if $feb.result_verif_status == '0'}
+            <b style="color: red;">TL</b>
+            {elseif $feb.result_verif_status == '1'}
+            <b style="color: green;">L</b>
+            {/if}
+        </center>
+        </td>
+        <td>
+        <center>
+            <a href="{$config->site_url('mutu/imut/verif/'|cat:$r.indicator_id|cat:'/'|cat:$search.unit|cat:'/'|cat:'03'|cat:'/'|cat:$search.tahun)}">
+                {$mar.pencapaian|default:0.00}
+            </a>
+            <hr>
+            {if $mar.result_verif_status == '0'}
+            <b style="color: red;">TL</b>
+            {elseif $mar.result_verif_status == '1'}
+            <b style="color: green;">L</b>
+            {/if}
+        </center>
+        </td>
+        <td>
+        <center>
+            <a href="{$config->site_url('mutu/imut/verif/'|cat:$r.indicator_id|cat:'/'|cat:$search.unit|cat:'/'|cat:'04'|cat:'/'|cat:$search.tahun)}">
+                {$apr.pencapaian|default:0.00}
+            </a>
+            <hr>
+            {if $apr.result_verif_status == '0'}
+            <b style="color: red;">TL</b>
+            {elseif $apr.result_verif_status == '1'}
+            <b style="color: green;">L</b>
+            {/if}
+        </center>
+        </td>
+        <td>
+        <center>
+            <a href="{$config->site_url('mutu/imut/verif/'|cat:$r.indicator_id|cat:'/'|cat:$search.unit|cat:'/'|cat:'05'|cat:'/'|cat:$search.tahun)}">
+                {$mei.pencapaian|default:0.00}
+            </a>
+            <hr>
+            {if $mei.result_verif_status == '0'}
+            <b style="color: red;">TL</b>
+            {elseif $mei.result_verif_status == '1'}
+            <b style="color: green;">L</b>
+            {/if}
+        </center>
+        </td>
+        <td>
+        <center>
+            <a href="{$config->site_url('mutu/imut/verif/'|cat:$r.indicator_id|cat:'/'|cat:$search.unit|cat:'/'|cat:'06'|cat:'/'|cat:$search.tahun)}">
+                {$jun.pencapaian|default:0.00}
+            </a>
+            <hr>
+            {if $jun.result_verif_status == '0'}
+            <b style="color: red;">TL</b>
+            {elseif $jun.result_verif_status == '1'}
+            <b style="color: green;">L</b>
+            {/if}
+        </center>
+        </td>
+        <td>
+        <center>
+            <a href="{$config->site_url('mutu/imut/verif/'|cat:$r.indicator_id|cat:'/'|cat:$search.unit|cat:'/'|cat:'07'|cat:'/'|cat:$search.tahun)}">
+                {$jul.pencapaian|default:0.00}
+            </a>
+            <hr>
+            {if $jul.result_verif_status == '0'}
+            <b style="color: red;">TL</b>
+            {elseif $jul.result_verif_status == '1'}
+            <b style="color: green;">L</b>
+            {/if}
+        </center>
+        </td>
+        <td>
+        <center>
+            <a href="{$config->site_url('mutu/imut/verif/'|cat:$r.indicator_id|cat:'/'|cat:$search.unit|cat:'/'|cat:'08'|cat:'/'|cat:$search.tahun)}">
+                {$agt.pencapaian|default:0.00}
+            </a>
+            <hr>
+            {if $agt.result_verif_status == '0'}
+            <b style="color: red;">TL</b>
+            {elseif $agt.result_verif_status == '1'}
+            <b style="color: green;">L</b>
+            {/if}
+        </center>
+        </td>
+        <td>
+        <center>
+            <a href="{$config->site_url('mutu/imut/verif/'|cat:$r.indicator_id|cat:'/'|cat:$search.unit|cat:'/'|cat:'09'|cat:'/'|cat:$search.tahun)}">
+                {$sep.pencapaian|default:0.00}
+            </a>
+            <hr>
+            {if $sep.result_verif_status == '0'}
+            <b style="color: red;">TL</b>
+            {elseif $sep.result_verif_status == '1'}
+            <b style="color: green;">L</b>
+            {/if}
+        </center>
+        </td>
+        <td>
+        <center>
+            <a href="{$config->site_url('mutu/imut/verif/'|cat:$r.indicator_id|cat:'/'|cat:$search.unit|cat:'/'|cat:'10'|cat:'/'|cat:$search.tahun)}">
+                {$okt.pencapaian|default:0.00}
+            </a>
+            <hr>
+            {if $okt.result_verif_status == '0'}
+            <b style="color: red;">TL</b>
+            {elseif $okt.result_verif_status == '1'}
+            <b style="color: green;">L</b>
+            {/if}
+        </center>
+        </td>
+        <td>
+        <center>
+            <a href="{$config->site_url('mutu/imut/verif/'|cat:$r.indicator_id|cat:'/'|cat:$search.unit|cat:'/'|cat:'11'|cat:'/'|cat:$search.tahun)}">
+                {$nov.pencapaian|default:0.00}
+            </a>
+            <hr>
+            {if $nov.result_verif_status == '0'}
+            <b style="color: red;">TL</b>
+            {elseif $nov.result_verif_status == '1'}
+            <b style="color: green;">L</b>
+            {/if}
+        </center>
+        </td>
+        <td>
+        <center>
+            <a href="{$config->site_url('mutu/imut/verif/'|cat:$r.indicator_id|cat:'/'|cat:$search.unit|cat:'/'|cat:'12'|cat:'/'|cat:$search.tahun)}">
+                {$des.pencapaian|default:0.00}
+            </a>
+            <hr>
+            {if $des.result_verif_status == '0'}
+            <b style="color: red;">TL</b>
+            {elseif $des.result_verif_status == '1'}
+            <b style="color: green;">L</b>
+            {/if}
+        </center>
+        </td>
+        </tr>
+        {/foreach}
+        </tbody>
+    </table>
+    <br>
+    <table class="table-view" width="100%" border="0">
+        <thead>
+            <tr>
+                <th colspan="15">Indikator Mutu Lokal</th>
+            </tr>
+            <tr>
+                <th width='2%'>No</th>
+                <th width='18%'>Indikator</th>
+                <th width='6%'>Standar</th>
+                <th width='6%'>JAN</th>
+                <th width='6%'>FEB</th>
+                <th width='6%'>MAR</th>
+                <th width='6%'>APR</th>
+                <th width='6%'>MEI</th>
+                <th width='6%'>JUN</th>
+                <th width='6%'>JUL</th>
+                <th width='6%'>AGT</th>
+                <th width='6%'>SEP</th>
+                <th width='6%'>OKT</th>
+                <th width='6%'>NOV</th>
+                <th width='6%'>DES</th>
+            </tr>
+        </thead>
+        <tbody>
+            {foreach from=$rs_imut_lokal item=r}
+            <!--
+              {assign var=jan value=$m_imut->get_data_imut_lokal_jan(array($search.tahun,$r.indicator_id,$search.unit))}
+              {assign var=feb value=$m_imut->get_data_imut_lokal_feb(array($search.tahun,$r.indicator_id,$search.unit))}
+              {assign var=mar value=$m_imut->get_data_imut_lokal_mar(array($search.tahun,$r.indicator_id,$search.unit))}
+              {assign var=apr value=$m_imut->get_data_imut_lokal_apr(array($search.tahun,$r.indicator_id,$search.unit))}
+              {assign var=mei value=$m_imut->get_data_imut_lokal_mei(array($search.tahun,$r.indicator_id,$search.unit))}
+              {assign var=jun value=$m_imut->get_data_imut_lokal_jun(array($search.tahun,$r.indicator_id,$search.unit))}
+              {assign var=jul value=$m_imut->get_data_imut_lokal_jul(array($search.tahun,$r.indicator_id,$search.unit))}
+              {assign var=agt value=$m_imut->get_data_imut_lokal_agt(array($search.tahun,$r.indicator_id,$search.unit))}
+              {assign var=sep value=$m_imut->get_data_imut_lokal_sep(array($search.tahun,$r.indicator_id,$search.unit))}
+              {assign var=okt value=$m_imut->get_data_imut_lokal_okt(array($search.tahun,$r.indicator_id,$search.unit))}
+              {assign var=nov value=$m_imut->get_data_imut_lokal_nov(array($search.tahun,$r.indicator_id,$search.unit))}
+              {assign var=des value=$m_imut->get_data_imut_lokal_des(array($search.tahun,$r.indicator_id,$search.unit))}
+            -->
+            <tr {if ($no2 % 2) <> 1}class="blink-row"{/if}>
+                <td><center>{$no2++}</center></td>
+        <td>{$r.indicator_element}</a></td>
+        <td><center><b>{$r.indicator_target}</b></center></td>
+        <td>
+        <center>
+            <a href="{$config->site_url('mutu/imut/verif_lokal/'|cat:$r.indicator_id|cat:'/'|cat:$search.unit|cat:'/'|cat:'01'|cat:'/'|cat:$search.tahun)}">
+                {$jan.pencapaian}
+            </a>
+            <hr>
+            {if $jan.result_verif_status == '0'}
+            <b style="color: red;">TL</b>
+            {elseif $jan.result_verif_status == '1'}
+            <b style="color: green;">L</b>
+            {/if}
+        </center>
+        </td>
+        <td>
+        <center>
+            <a href="{$config->site_url('mutu/imut/verif_lokal/'|cat:$r.indicator_id|cat:'/'|cat:$search.unit|cat:'/'|cat:'02'|cat:'/'|cat:$search.tahun)}">
+                {$feb.pencapaian}
+            </a>
+            <hr>
+            {if $feb.result_verif_status == '0'}
+            <b style="color: red;">TL</b>
+            {elseif $feb.result_verif_status == '1'}
+            <b style="color: green;">L</b>
+            {/if}
+        </center>
+        </td>
+        <td>
+        <center>
+            <a href="{$config->site_url('mutu/imut/verif_lokal/'|cat:$r.indicator_id|cat:'/'|cat:$search.unit|cat:'/'|cat:'03'|cat:'/'|cat:$search.tahun)}">
+                {$mar.pencapaian}
+            </a>
+            <hr>
+            {if $mar.result_verif_status == '0'}
+            <b style="color: red;">TL</b>
+            {elseif $mar.result_verif_status == '1'}
+            <b style="color: green;">L</b>
+            {/if}
+        </center>
+        </td>
+        <td>
+        <center>
+            <a href="{$config->site_url('mutu/imut/verif_lokal/'|cat:$r.indicator_id|cat:'/'|cat:$search.unit|cat:'/'|cat:'04'|cat:'/'|cat:$search.tahun)}">
+                {$apr.pencapaian}
+            </a>
+            <hr>
+            {if $apr.result_verif_status == '0'}
+            <b style="color: red;">TL</b>
+            {elseif $apr.result_verif_status == '1'}
+            <b style="color: green;">L</b>
+            {/if}
+        </center>
+        </td>
+        <td>
+        <center>
+            <a href="{$config->site_url('mutu/imut/verif_lokal/'|cat:$r.indicator_id|cat:'/'|cat:$search.unit|cat:'/'|cat:'05'|cat:'/'|cat:$search.tahun)}">
+                {$mei.pencapaian}
+            </a>
+            <hr>
+            {if $mei.result_verif_status == '0'}
+            <b style="color: red;">TL</b>
+            {elseif $mei.result_verif_status == '1'}
+            <b style="color: green;">L</b>
+            {/if}
+        </center>
+        </td>
+        <td>
+        <center>
+            <a href="{$config->site_url('mutu/imut/verif_lokal/'|cat:$r.indicator_id|cat:'/'|cat:$search.unit|cat:'/'|cat:'06'|cat:'/'|cat:$search.tahun)}">
+                {$jun.pencapaian}
+            </a>
+            <hr>
+            {if $jun.result_verif_status == '0'}
+            <b style="color: red;">TL</b>
+            {elseif $jun.result_verif_status == '1'}
+            <b style="color: green;">L</b>
+            {/if}
+        </center>
+        </td>
+        <td>
+        <center>
+            <a href="{$config->site_url('mutu/imut/verif_lokal/'|cat:$r.indicator_id|cat:'/'|cat:$search.unit|cat:'/'|cat:'07'|cat:'/'|cat:$search.tahun)}">
+                {$jul.pencapaian}
+            </a>
+            <hr>
+            {if $jul.result_verif_status == '0'}
+            <b style="color: red;">TL</b>
+            {elseif $jul.result_verif_status == '1'}
+            <b style="color: green;">L</b>
+            {/if}
+        </center>
+        </td>
+        <td>
+        <center>
+            <a href="{$config->site_url('mutu/imut/verif_lokal/'|cat:$r.indicator_id|cat:'/'|cat:$search.unit|cat:'/'|cat:'08'|cat:'/'|cat:$search.tahun)}">
+                {$agt.pencapaian}
+            </a>
+            <hr>
+            {if $agt.result_verif_status == '0'}
+            <b style="color: red;">TL</b>
+            {elseif $agt.result_verif_status == '1'}
+            <b style="color: green;">L</b>
+            {/if}
+        </center>
+        </td>
+        <td>
+        <center>
+            <a href="{$config->site_url('mutu/imut/verif_lokal/'|cat:$r.indicator_id|cat:'/'|cat:$search.unit|cat:'/'|cat:'09'|cat:'/'|cat:$search.tahun)}">
+                {$sep.pencapaian}
+            </a>
+            <hr>
+            {if $sep.result_verif_status == '0'}
+            <b style="color: red;">TL</b>
+            {elseif $sep.result_verif_status == '1'}
+            <b style="color: green;">L</b>
+            {/if}
+        </center>
+        </td>
+        <td>
+        <center>
+            <a href="{$config->site_url('mutu/imut/verif_lokal/'|cat:$r.indicator_id|cat:'/'|cat:$search.unit|cat:'/'|cat:'10'|cat:'/'|cat:$search.tahun)}">
+                {$okt.pencapaian}
+            </a>
+            <hr>
+            {if $okt.result_verif_status == '0'}
+            <b style="color: red;">TL</b>
+            {elseif $okt.result_verif_status == '1'}
+            <b style="color: green;">L</b>
+            {/if}
+        </center>
+        </td>
+        <td>
+        <center>
+            <a href="{$config->site_url('mutu/imut/verif_lokal/'|cat:$r.indicator_id|cat:'/'|cat:$search.unit|cat:'/'|cat:'11'|cat:'/'|cat:$search.tahun)}">
+                {$nov.pencapaian}
+            </a>
+            <hr>
+            {if $nov.result_verif_status == '0'}
+            <b style="color: red;">TL</b>
+            {elseif $nov.result_verif_status == '1'}
+            <b style="color: green;">L</b>
+            {/if}
+        </center>
+        </td>
+        <td>
+        <center>
+            <a href="{$config->site_url('mutu/imut/verif_lokal/'|cat:$r.indicator_id|cat:'/'|cat:$search.unit|cat:'/'|cat:'12'|cat:'/'|cat:$search.tahun)}">
+                {$des.pencapaian}
+            </a>
+            <hr>
+            {if $des.result_verif_status == '0'}
+            <b style="color: red;">TL</b>
+            {elseif $des.result_verif_status == '1'}
+            <b style="color: green;">L</b>
+            {/if}
+        </center>
+        </td>
+        </tr>
+        {/foreach}
+        </tbody>
+    </table>
+</div>

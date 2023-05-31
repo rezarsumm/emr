@@ -1,0 +1,83 @@
+    <!-- include javascript -->
+    {include file="mutu/imut/add_script_js.html"}
+    <!-- end of include javascript-->
+    <div class="breadcrum">
+        <p>
+            <a href="#">Mutu</a><span></span>
+            <a href="{$config->site_url('mutu/imut/')}">Rekap Indikator Mutu</a><span></span>
+            <small>Add Data</small>
+        </p>
+        <div class="clear"></div>
+    </div>
+    <div class="content-entry">
+        <!-- notification template -->
+        {include file="base/templates/notification.html"}
+        <!-- end of notification template-->
+        <form action="{$config->site_url('mutu/imut/verif_process')}" method="post">
+            <input name="indicator_id" type="hidden" value="{$rs_imut.indicator_id}" />
+            <input name="department_id" type="hidden" value="{$rs_imut.department_id}" />
+            <input name="bulan" type="hidden" value="{$bulan}" />
+            <input name="tahun" type="hidden" value="{$tahun}" />
+
+            <table class="table-info" width="100%">
+                <tr class="headrow">
+                    <th colspan="2">Add Verifikasi Indikator Mutu</th>
+                </tr>
+                <tr>
+                    <td>Nama Indikator</td>
+                    <td>
+                        {$rs_imut.indicator_element}
+                    </td>
+                </tr>
+                <tr>
+                    <td>Unit</td>
+                    <td>
+                        {$rs_imut.department_name}
+                    </td>
+                </tr>
+                <tr>
+                    <td>Periode</td>
+                    <td>
+                        {$bulan}-{$tahun}
+                    </td>
+                </tr>
+            </table>
+            <table class="table-input" width="100%">
+                <tr>
+                    <th colspan="4">Rekap Laporan Indikator Mutu</th>
+                </tr>
+                <tr>
+                    <th><center>Periode</center></th>
+                <th><center>Numerator</center></th>
+                <th><center>Denumerator</center></th>
+                <th><center>Hasil</center></th>
+                </tr>
+                {foreach $rs_result as $data}
+                <tr>
+                    <td><center>{$data.result_period}</center></td>
+                <td><center>{$data.result_numerator_value}</center></td>
+                <td><center>{$data.result_denumerator_value}</center></td>
+                <td><center>{$data.hasil}</center></td>
+                </tr>
+                {/foreach}
+                <tr>
+                    <td>
+                        Supervisi
+                    </td>
+                    <td colspan="2">
+                         <select name='verif_status'>
+                            
+                            <option value='1' {if $verif.result_verif_status eq '1'}selected="selected"{/if}>Lengkap</option>
+                            <option value='0' {if $verif.result_verif_status eq '0'}selected="selected"{/if}>Tidak Lengkap</option>
+                            
+                        </select>
+                    </td>
+                </tr>
+                <tr class="submit-box">
+                    <td colspan="4">
+                        <input type="submit" name="save" value="Submit" class="edit-button"/>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>

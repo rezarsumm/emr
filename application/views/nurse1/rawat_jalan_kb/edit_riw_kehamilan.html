@@ -1,0 +1,121 @@
+{include file="nurse/rawat_jalan/add_script_js.html"}
+<div class="breadcrum">
+    <p>
+        <a href="#">Nursing Record</a><span></span>
+        <a href="{$config->site_url('nurse/rawat_jalan_kb/')}">Rawat Jalan</a><span></span>
+        <small>Add Data</small>
+    </p>
+    <div class="clear"></div>
+</div>
+<div class="navigation">
+    <div class="navigation-button">
+        <ul>
+            <li><a href="{$config->site_url('nurse/rawat_jalan_kb/')}"><img src="{$BASEURL}resource/doc/images/icon/back-icon.png" alt="" />  Back</a></li>
+        </ul>
+    </div>
+    <div class="clear"></div>
+</div>
+<!-- notification template -->
+{include file="base/templates/notification.html"}
+<!-- end of notification template-->
+<form action="{$config->site_url('nurse/rawat_jalan_kb/edit_riw_kehamilan_process')}" method="post">
+    <input type="hidden" name="FS_KD_TRS" value="{$riwayat.FS_KD_TRS}" />
+    <input type="hidden" name="FS_KD_REG" value="{$result.NO_REG}" />
+     <table class="table-info" width="100%">
+        <tr class="headrow">
+            <th colspan="4">Data Pasien</th>
+        </tr>
+        <tr>
+            <td width='15%'>No RM</td>
+            <td width='35%'>{$result.NO_MR}</td>
+            <td width='15%'>Nama</td>
+            <td width='35%'>{$result.NAMA_PASIEN|default:''}</td>
+        </tr>
+        <tr>
+            <td>Alamat</td>
+            <td>{$result.ALAMAT|default:''}</td>
+            <td>Tanggal Lahir</td>
+            <td>{$result.TGL_LAHIR|default:''}</td>
+        </tr>
+        <tr>
+            <td>Jenis Kelamin</td>
+            <td>{if $result.JENIS_KELAMIN eq 'P'}
+                Perempuan
+                {else}
+                Laki-Laki
+            {/if}</td>
+            <td></td>
+            <td></td>
+        </tr>
+    </table>
+    <table class="table-input" width="100%">
+        <tr class="headrow">
+            <th colspan="4">Riwayat Kehamilan,Persalinan dan Nifas Yang Lalu</th>
+        </tr>
+        <tr>
+            <td width='20%'>Tahun Partus</td>
+            <td width='30%'>
+                <input type="text" name="FS_RIW_KEHAMILAN_THN_PARTUS" size="35" value="{$riwayat.FS_RIW_KEHAMILAN_THN_PARTUS}"/>
+            </td>
+            <td width='20%'>Tempat Partus</td>
+            <td width='30%'>
+                <input type="text" name="FS_RIW_KEHAMILAN_TMPT_PARTUS" size="35" value="{$riwayat.FS_RIW_KEHAMILAN_TMPT_PARTUS}"/>
+            </td>
+        </tr>
+        <tr>
+            <td>Umur Hamil</td>
+            <td><input type="text" name="FS_RIW_KEHAMILAN_UMUR_HAMIL" size="35" value="{$riwayat.FS_RIW_KEHAMILAN_UMUR_HAMIL}"/></td>
+            <td>Jenis Persalinan</td>
+            <td><input type="text" name="FS_RIW_KEHAMILAN_JNS_PERSALINAN" size="35" value="{$riwayat.FS_RIW_KEHAMILAN_JNS_PERSALINAN}"/></td>
+        </tr>
+        <tr>
+            <td>Penolong Persalinan</td>
+            <td><input type="text" name="FS_RIW_KEHAMILAN_PENOLONG_PERSALINAN" size="35" value="{$riwayat.FS_RIW_KEHAMILAN_PENOLONG_PERSALINAN}"/></td>
+            <td>Penyulit</td>
+            <td><input type="text" name="FS_RIW_KEHAMILAN_PENYULIT" size="35" value="{$riwayat.FS_RIW_KEHAMILAN_PENYULIT}"/></td>
+        </tr>
+        <tr>
+            <td>Jenis Kelamin / Berat Lahir</td>
+            <td><input type="text" name="FS_RIW_KEHAMILAN_JK" size="35"  value="{$riwayat.FS_RIW_KEHAMILAN_JK}"/></td>
+            <td>Keadaan Anak Sekarang</td>
+            <td><input type="text" name="FS_RIW_KEHAMILAN_KEADAAN_ANAK" size="35" value="{$riwayat.FS_RIW_KEHAMILAN_KEADAAN_ANAK}"/></td>
+        </tr>
+        <tr class="submit-box">
+            <td colspan="4">
+                <input type="submit" name="save" value="Edit" class="edit-button" /> 
+            </td>
+        </tr>
+    </table>
+</form>
+ <table class="table-info" width="100%">
+        <tr class="headrow">
+            <th colspan="10">Data</th>
+        </tr>
+        <tr>
+            <td align='center'>No</td>
+            <td align='center'>Tahun Partus</td>
+            <td align='center'>No RM</td>
+            <td align='center'>Umur Hamil</td>
+            <td align='center'>Jenis Persalinan</td>
+            <td align='center'>Penolong Persalinan</td>
+            <td align='center'>Penyulit</td>
+            <td align='center'>Jenis Kelamin / Berat Lahir</td>
+            <td align='center'>Keadaan Anak Sekarang</td>
+            <td align='center'>Aksi</td>
+        </tr>  
+        {foreach from=$rs_riw_kehamilan item=data}
+        <tr>
+            <td>{$no++}</td>
+            <td>{$data.FS_RIW_KEHAMILAN_THN_PARTUS}</td>
+            <td>{$data.FS_RIW_KEHAMILAN_TMPT_PARTUS}</td>
+            <td>{$data.FS_RIW_KEHAMILAN_UMUR_HAMIL}</td>
+            <td>{$data.FS_RIW_KEHAMILAN_JNS_PERSALINAN}</td>
+            <td>{$data.FS_RIW_KEHAMILAN_PENOLONG_PERSALINAN}</td>
+            <td>{$data.FS_RIW_KEHAMILAN_PENYULIT}</td>
+            <td>{$data.FS_RIW_KEHAMILAN_JK}</td>
+            <td>{$data.FS_RIW_KEHAMILAN_KEADAAN_ANAK}</td>
+            <td align='center'><a href="{$config->site_url('nurse/rawat_jalan_kb/edit_riw_kehamilan/'|cat:$data.FS_KD_TRS|cat:'/'|cat:$data.FS_KD_REG)}">Edit</a>
+            <a href="{$config->site_url('nurse/rawat_jalan_kb/delete_riw_kehamilan_process/'|cat:$data.FS_KD_TRS|cat:'/'|cat:$data.FS_KD_REG)}">Hapus</a></td>
+        </tr>
+        {/foreach}
+    </table>

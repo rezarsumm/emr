@@ -1,0 +1,322 @@
+
+ 
+<div class="breadcrum">
+    <p>
+        <a href="#">Catatan Operasi </a><span></span>
+        <a href="">DAta Umum Pra Bedah</a><span></span>
+        <small>edit Data</small>
+    </p>
+    <div class="clear"></div>
+</div> 
+<div class="content-entry">
+ 
+    <form action="{$config->site_url('inap/rencana_op/entry_process')}" method="post" onkeypress="return event.keyCode != 13">
+        <input name="FS_KD_REG" id="FS_KD_REG" type="hidden" value="{$rs_pasien.NO_REG}" />  
+            <input name="TGL_LAHIR" id="TGL_LAHIR" type="hidden" value="{$rs_pasien.TGL_LAHIR}" /> 
+            <input name="idoperasi" type="hidden" value="{$idoperasi}" />
+            <input name="FS_MR" type="hidden" value="{$rs_pasien.NO_MR}" />
+        <input name="FS_KD_LAYANAN" type="hidden" value="{$rs_pasien.KODE_BANGSAL}" />
+        <input name="FS_KD_PETUGAS_MEDIS" type="hidden" value="{$rs_pasien.fs_kd_medis}" />
+
+        <table class="table-info" width="100%">
+            <tr class="headrow">
+                <th colspan="2">Add Umum Pra Op</th>
+            </tr>
+            <tr>
+                <td>NAMA</td>
+                <td>
+                    {$rs_pasien.NAMA_PASIEN}
+                </td>
+            </tr>
+            <tr>
+                <td>NO MR</td>
+                <td>
+                    {$rs_pasien.NO_MR}
+                </td>
+            </tr>
+            <tr>
+                <td>TANGGAL LAHIR</td>
+                <td>
+                    {$rs_pasien.TGL_LAHIR|date_format:"%d %b %Y"}
+                </td>
+            </tr>
+            <tr>
+                <td>ALAMAT</td>
+                <td>{$rs_pasien.ALAMAT}</td>
+            </tr>
+        </table>
+   
+        <!-- <div class="notification red">
+            <p><strong>High Risk :</strong> {$rs_pasien.FS_HIGH_RISK|default:'-'} </p>
+            <p><strong>Alergi :</strong> {$rs_pasien.FS_ALERGI|default:'-'} ({$rs_pasien.FS_REAK_ALERGI|default:'-'})</p>
+            <div class="clear"></div>
+        </div> -->
+        <table class="table-input" width="100%" style="text-align: justify;">
+         
+
+          
+            <input type="hidden" name="KD_OPERATOR" value="{$rs_op.Kode_Dokter}">
+            
+
+            <tr>
+                <td width="20%">Diagnosa Pre-</td>
+                <td width="20%">
+                    <input type="text" name="DIAGNOSA" {if $rs_umum_pra.DIAGNOSA eq ''}  value="{$ases2.FS_DIAGNOSA}"  {else} value="{$rs_umum_pra.DIAGNOSA}"  {/if} class="form-control">
+                </td>
+
+                <td width="20%">Jenis Operasi</td>
+                <td width="20%">
+                    <input type="text" name="JENIS_OP"   value="{$rs_umum_pra.JENIS_OP}"  class="form-control">
+                </td>
+            </tr>
+
+            <tr>
+                <td width="20%">Makan Minum Terakhir /Puasa Jam</td>
+                <td width="20%">
+                    <input type="time" name="MAKAN_TERAKHIR"  value="{$rs_umum_pra.MAKAN_TERAKHIR}"  class="form-control">
+                    <input type="hidden" name="PUASA_JAM"  value="{$rs_umum_pra.PUASA_JAM}"  class="form-control">
+                </td>
+
+               
+            </tr>
+
+
+            <tr>
+                <td width="20%">Riwayat Asma</td>
+                <td width="20%">
+                    <input type="text" name="RIWAYAT_ASMA"  value="{$rs_umum_pra.RIWAYAT_ASMA}"  class="form-control">
+                </td>
+ 
+            </tr>
+            <tr> 
+                <td width="20%">Riwayat Alergi</td>
+                <td width="20%">
+                    <input type="radio" name="RIWAYAT_ALERGI" {if $rs_umum_pra.RIWAYAT_ALERGI eq 'Tidak'} checked {/if} class="radal" value="Tidak" class="form-control">Tidak
+                    <input type="radio" name="RIWAYAT_ALERGI" {if $rs_umum_pra.RIWAYAT_ALERGI neq 'Tidak'} checked {/if} class="radal" value="Ya" class="form-control">Ya
+                    <input type="text" name="RIWAYAT_ALERGI1" {if $rs_umum_pra.RIWAYAT_ALERGI eq ''}  value="{$alergi.FS_ALERGI}"  {else} {if $rs_umum_pra.RIWAYAT_ALERGI neq 'Tidak'}   style="display:show"   value="{$rs_umum_pra.RIWAYAT_ALERGI}" {/if} {/if}  id="formal"  class="form-control">
+ 
+                </td>
+            </tr>
+            <input type="hidden" name="KD_OPERATOR" value="{$rs_op.Kode_Dokter}">
+
+            <tr>
+            <td width="20%">Antibiotik </td>
+            <td width="20%">
+                <input type="text" name="ANTIBIOTIK"  value="{$rs_umum_pra.ANTIBIOTIK}"  class="form-control">
+            </td>
+
+          
+        </tr>
+
+
+        <tr><td><b>PEMERIKSAAN FISIK </b></td></tr>
+        <tr>
+             <td colspan="4">
+               <table>
+                  <tr>
+                     <td>   Tinggi </td><td>: <input type="text" required name="TB" {if $rs_umum_pra.TB eq ''}  value="{$vs.FS_TB}"  {else}  value="{$rs_umum_pra.TB}" {/if} class="form-control" style="width: 60px;"></td>
+                     <td>   Berat </td><td>: <input type="text" required name="BB" {if $rs_umum_pra.BB eq ''}  value="{$vs.FS_BB}"  {else}  value="{$rs_umum_pra.BB}" {/if} class="form-control" style="width: 60px;"></td>
+                     <td>     Tekanan Darah </td><td>: <input type="text" required name="TD" {if $rs_umum_pra.TD eq ''}  value="{$vs.FS_TD}"  {else}    value="{$rs_umum_pra.TD}" {/if}  class="form-control" style="width: 60px;"></td>
+                  
+                    <td>   Nadi </td><td>: <input type="text" name="ND" required {if $rs_umum_pra.ND eq ''}  value="{$vs.FS_NADI}"  {else} value="{$rs_umum_pra.ND}" {/if} class="form-control" style="width: 60px;"></td>
+                    <td>     Pernafasan</td><td> : <input type="text" required name="P" {if $rs_umum_pra.P eq ''}  value="{$vs.FS_DIAGNOSA}"  {else} value="{$rs_umum_pra.P}" {/if} class="form-control" style="width: 60px;"></td>
+                    <td>     Suhu</td><td> : <input type="text" required name="SH" {if $rs_umum_pra.SH eq ''}  value="{$vs.FS_SUHU}"  {else} value="{$rs_umum_pra.SH}" {/if} class="form-control" style="width: 60px;"></td>
+                    <td>     SPO2</td><td> : <input type="text" required name="SPO2" {if $rs_umum_pra.SPO2 eq ''}  value="{$vs.FS_DIAGNOSA}"  {else}  value="{$rs_umum_pra.SPO2_umum_pra}" {/if}  class="form-control" style="width: 60px;"></td>
+                    
+                    <td>  </td><td></td>
+                 </tr>
+               </table>
+               </td>
+     </tr>
+
+     <tr><td><b>Persiapan Pre Operasi</b></td></tr>
+
+     <tr>
+        <td colspan="2">
+        <table>
+            <tr><td>Melapor ke Dokter Bedah</td><td><input type="radio" name="LAPOR_DOKTER" VALUE="Ya" checked>Ya </td><td><input type="radio" name="LAPOR_DOKTER" VALUE="Tidak">Tidak </td></tr>
+            <tr><td>Melapor ke Kamar Bedah</td> <td><input type="radio" name="LAPOR_OK" VALUE="Ya" checked>Ya </td><td><input type="radio" name="LAPOR_OK" VALUE="Tidak">Tidak </td></tr>
+            <tr><td>Mengisi Surat Izin Pembedahan </td> <td><input type="radio" name="SURAT_IZIN" VALUE="Ya" checked>Ya </td><td><input type="radio" name="SURAT_IZIN" VALUE="Tidak">Tidak </td></tr>
+            <tr><td>Menandai Daerah OP </td> <td><input type="radio" name="TANDA_LOKASI" VALUE="Ya" checked>Ya </td><td><input type="radio" name="TANDA_LOKASI" VALUE="Tidak">Tidak </td></tr>
+            <tr><td>Memakai Gelang Pasien </td> <td><input type="radio" name="GELANG" VALUE="Ya" checked>Ya </td><td><input type="radio" name="GELANG" VALUE="Tidak">Tidak </td></tr>
+            <tr><td> Melepas Gigi Palsu, aksesoris</td> <td><input type="radio" name="LEPAS_BEHEL" VALUE="Ya" checked>Ya </td><td><input type="radio" name="LEPAS_BEHEL" VALUE="Tidak">Tidak </td></tr>
+            <tr><td> Menghapus Lipstik</td> <td><input type="radio" name="HAPUS_LIPS" VALUE="Ya" checked>Ya </td><td><input type="radio" name="HAPUS_LIPS" VALUE="Tidak">Tidak </td></tr>
+            <tr><td> Melakukan Oral Hygiene </td> <td><input type="radio" name="ORAL_HYG" VALUE="Ya" checked>Ya </td><td><input type="radio" name="ORAL_HYG" VALUE="Tidak">Tidak </td></tr>
+        </table>    
+        </td>
+        <td colspan="2">
+            <table>
+                <tr><td>Memasang Bidai, Fiksasi Leher</td><td><input type="radio" name="FIKS_LEHER" VALUE="Ya" checked>Ya </td><td><input type="radio" name="FIKS_LEHER" VALUE="Tidak">Tidak </td></tr>
+                <tr><td>Memasang Infus</td> <td><input type="radio" name="INFUS" VALUE="Ya" checked>Ya </td><td><input type="radio" name="INFUS" VALUE="Tidak">Tidak </td></tr>
+                <tr><td>Memasang DC</td> <td><input type="radio" name="PASANG_DC" VALUE="Ya" checked>Ya </td><td><input type="radio" name="PASANG_DC" VALUE="Tidak">Tidak </td></tr>
+                <tr><td>Memasang NGT</td> <td><input type="radio" name="NGT" VALUE="Ya" checked>Ya </td><td><input type="radio" name="NGT" VALUE="Tidak">Tidak </td></tr>
+                <tr><td>Memasang Drainage</td> <td><input type="radio" name="DRAINAGE" VALUE="Ya" checked>Ya </td><td><input type="radio" name="DRAINAGE" VALUE="Tidak">Tidak </td></tr>
+                <tr><td>Memasang WSD</td> <td><input type="radio" name="WSD" VALUE="Ya" checked>Ya </td><td><input type="radio" name="WSD" VALUE="Tidak">Tidak </td></tr>
+                <tr><td>Mencukur Daerah OP</td> <td><input type="radio" name="CUKUR" VALUE="Ya" checked>Ya </td><td><input type="radio" name="CUKUR" VALUE="Tidak">Tidak </td></tr>
+                <tr><td>Lain-lain</td> <td colspan="2"><input type="text" name="LAIN" VALUE=" ">  </td> </tr>
+             </table>    
+            </td>
+         </tr>
+        <tr><td></td></tr>
+
+        <tr>
+            <td width="20%">Sakit Kronis</td>
+            <td width="20%">
+                <textarea name="SAKIT_KRONIS" value="" required class="form-control" rows="2" style="width: 350px;">{if $rs_umum_pra.SAKIT_KRONIS eq ''}  {$alergi.FS_RIW_PENYAKIT_DAHULU} {else} {$rs_umum_pra.SAKIT_KRONIS} {/if}</textarea> 
+            </td>
+
+        </tr>
+
+             <tr>
+                <td width="20%">Premedikasi</td>
+                <td width="20%">
+                    <input type="text" name="PREMEDIKASI" required  value="{$rs_umum_pra.PREMEDIKASI}"  class="form-control">
+                </td>
+
+                <td width="20%">IVFD</td>
+                <td width="20%">
+                    <input type="text" name="IVFD" required  value="{$rs_umum_pra.IVFD}"  class="form-control">
+                </td>
+            </tr>
+
+            <tr>
+                <td width="20%">DC No</td>
+                <td width="20%">
+                    <input type="text" name="DC"   value="{$rs_umum_pra.DC}"  class="form-control">
+                </td>
+
+                <td width="20%">Yang disertakan dengan Pasien</td>
+                <td width="20%">
+                    <input type="checkbox" name="LAMPIRAN[]" value="Asesmen Pra Bedah" value="{$rs_umum_pra.DIAGNOSA}" checked class="form-control">Asesmen Pra Bedah<br>
+                    <input type="checkbox" name="LAMPIRAN[]" value="Edukasi Anestesi" value="{$rs_umum_pra.DIAGNOSA}" checked class="form-control">Edukasi Anestesi<br>
+                    <input type="checkbox" name="LAMPIRAN[]" value="Informed Consent Bedah" value="{$rs_umum_pra.DIAGNOSA}" checked class="form-control"> Informed Consent Bedah
+                </td>
+            </tr>
+            <tr>
+                <td width="20%">Gol Darah</td>
+                <td width="20%">
+                    <input type="text" name="DARAH"  style="width: 20px;"  value="{$rs_umum_pra.DARAH}"  class="form-control"> Sebanyak <input type="text" name="JUM_DARAH"   value="{$rs_umum_pra.JUM_DARAH}"  class="form-control">
+                </td>
+
+                <td width="20%">Foto Rontgen</td>
+                <td width="20%">
+                    <input type="text" name="RONTGEN"  value="{$rs_umum_pra.RONTGEN}"  class="form-control">
+                </td>
+            </tr>
+            <tr>
+                <td width="20%">Obat Obat</td>
+                <td width="20%">
+                    <textarea name="OBAT" value="" required  class="form-control" rows="2" style="width: 350px;">{$rs_umum_pra.OBAT}</textarea> 
+                </td>
+
+                <td width="20%">Waktu Penginputan Data</td>
+                <td width="20%">
+                    <input type="datetime-local" required name="Time_input_umum_pra"   value="{$rs_umum_pra.Time_input_umum_pra}"  class="form-control">
+                </td>
+ 
+            </tr>
+   
+            <tr class="submit-box">
+            <td colspan="4">
+                <div style="font-weight: bold;">
+                    *Bismillahirohmanirrohim, saya dengan sadar dan penuh tanggung jawab mengisikan formulir ini dengan data yang benar
+                </div>
+                <br>
+                <input type="submit" name="save" value="Simpan" class="edit-button"/>
+            </td>
+        </tr>
+        </table>
+    </form>
+</div>
+ <table class="table-input" width="100%">
+     <tr>
+                <th colspan="4">Shortcut Navigation</th>
+            </tr>
+<tr class="submit-box">
+                <td colspan="5">
+                    <a href="javascript:void(0);" onclick="window.open('{$config->site_url('medis/rawat_inap/cari_process_cppt/'|cat:$rs_pasien.NO_REG)}', 'nama_window_pop_up', 'width=1000,height=1000,scrollbars=yes,resizeable=no')" class="btn-green">Asesmen Awal Medis Rawat Inap</a>
+                    <a href="javascript:void(0);" onclick="window.open('{$config->site_url('inap/ass_awal/cari_process_cppt/'|cat:$rs_pasien.NO_REG)}', 'nama_window_pop_up', 'width=1000,height=1000,scrollbars=yes,resizeable=no')" class="btn-red2">Asesmen Awal Keperawatan</a>
+                    <a href="javascript:void(0);" onclick="window.open('{$config->site_url('inap/ass_jatuh/cari_process_cppt/'|cat:$rs_pasien.NO_REG)}', 'nama_window_pop_up', 'width=1000,height=1000,scrollbars=yes,resizeable=no')" class="btn-blue2">Asesmen Jatuh</a>
+                    <a href="javascript:void(0);" onclick="window.open('{$config->site_url('inap/kep/cari_process_cppt/'|cat:$rs_pasien.NO_REG)}', 'nama_window_pop_up', 'width=1000,height=1000,scrollbars=yes,resizeable=no')" class="btn-green2">Rencana dan Tindakan Keperawatan</a>
+                    <a href="javascript:void(0);" onclick="window.open('{$config->site_url('inap/rm10/cari_process_cppt/'|cat:$rs_pasien.NO_REG)}', 'nama_window_pop_up', 'width=1000,height=1000,scrollbars=yes,resizeable=no')" class="btn-orange">Catatan Edukasi</a>
+                    <a href="javascript:void(0);" onclick="window.open('{$config->site_url('inap/rm17/cari_process_cppt/'|cat:$rs_pasien.NO_REG)}', 'nama_window_pop_up', 'width=1000,height=1000,scrollbars=yes,resizeable=no')" class="btn-pink">Catatan Pemberian Obat</a>
+                    <!--<a href="javascript:void(0);" onclick="window.open('{$config->site_url('inap/dp/cari_process_cppt/'|cat:$rs_pasien.NO_REG)}', 'nama_window_pop_up', 'width=1000,height=1000,scrollbars=yes,resizeable=no')" class="btn-brown">Discharge Planning</a>
+                    <a href="javascript:void(0);" onclick="window.open('{$config->site_url('farmasi/rekon/cari_process_cppt/'|cat:$rs_pasien.NO_REG)}', 'nama_window_pop_up', 'width=1000,height=1000,scrollbars=yes,resizeable=no')" class="btn-yellow">Rekonsiliasi Obat</a>
+                    -->
+                    <a href="javascript:void(0);" onclick="window.open('{$config->site_url('inap/resume/cari_process_cppt/'|cat:$rs_pasien.NO_REG)}', 'nama_window_pop_up', 'width=1000,height=1000,scrollbars=yes,resizeable=no')" class="btn-red">Resume Pasien Pulang</a>
+                    <!--<a href="javascript:;" class="btn-green item_status_add">Status Pasien</a>-->
+                    <a href="javascript:void(0);" onclick="window.open('{$config->site_url('rm/rawat_inap/cetak_rm/'|cat:$rs_pasien.NO_REG|cat:'/10')}', 'nama_window_pop_up', 'width=1000,height=1000,scrollbars=yes,resizeable=no')" class="btn-red2">Hasil Penunjang</a>
+                    <a href="javascript:void(0);" onclick="window.open('{$config->site_url('rm/rawat_jalan/resume/'|cat:$rs_pasien.NO_MR)}', 'nama_window_pop_up', 'width=1000,height=1000,scrollbars=yes,resizeable=no')" class="btn-blue2">Resume Rawat Jalan</a>
+                </td> 
+            </tr>
+ </table>
+
+ <table class="table-view" width="100%">
+    <tr class="headrow">
+        <th colspan="6">List Data Umum Pra OP</th>
+    </tr>
+    <tr>
+        <th width="25%">Tanggal</th>
+        <th width="10%">Diagnosa </th>
+        <th width="30%"> Data Umum</th>
+        <th width="20%">Sakit Kronis </th>
+        <th width="15%">Petugas Anestesi</th>
+      
+    </tr>
+    {foreach $rs_umum_pra3  as $cppt}
+    <tr>
+        <td>{$cppt.TGL}  
+            <a href="javascript:void(0);" onclick="window.open('{$config->site_url('rm/rawat_inap/cetak_data_umum_pra/'|cat:$cppt.FS_KD_REG|cat:'/'|cat:$cppt.id)}', 'nama_window_pop_up', 'scrollbars=yes,resizeable=no')" class="button-download">{$data.TANGGAL|date_format :"%d %B %Y"}</a> 
+        </td>
+        <td> {$cppt.DIAGNOSA}</td>
+        <td>
+            Jenis Op : {$cppt.JENIS_OP} <br>
+            Puasa Jam : {$cppt.PUASA} <br>
+            Antibiotik : {$cppt.ANTIBIOTIK} <br>
+        <td>{$cppt.SAKIT_KRONIS} </td>
+        <td> {strtoupper($cppt.KD_PERAWAT)} </td>
+  
+
+    </tr>
+    {/foreach}
+</table> 
+<script>
+       $(".select2").select2({
+            placeholder: "Pilih",
+            allowClear: true
+        });
+</script>
+<script type="text/javascript">
+    $(function(){
+      $(":radio.rad").click(function(){
+        $("#form2").hide()
+        if($(this).val() == "Ya"){
+          $("#form2").show();
+        }else if($(this).val() == "Tidak"){
+          $("#form2").hide();
+        }
+      });
+    });
+
+
+    $(function(){
+      $(":radio.radal").click(function(){
+        $("#formal").hide()
+        if($(this).val() == "Ya"){
+          $("#formal").show();
+        }else if($(this).val() == "Tidak"){
+          $("#formal").hide();
+        }
+      });
+    });
+  </script>   
+
+
+
+
+  
+
+
+
+
+  

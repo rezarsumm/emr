@@ -1,0 +1,206 @@
+<!-- include javascript -->
+{include file="inap/rm10/add_script_js.html"}
+<!-- end of include javascript-->
+<div class="breadcrum">
+    <p>
+        <a href="{$config->site_url('inap/rm10/cari')}">Catatan Edukasi</a><span></span>
+        <small>Edit Data</small>
+    </p>
+    <div class="clear"></div>
+</div>
+<div class="content-entry">
+    <!-- notification template -->
+    {include file="base/templates/notification.html"}
+    <!-- end of notification template-->
+    <form action="{$config->site_url('inap/rm10/edit_catatan_process')}" method="post">
+        <input name="FS_KD_REG" type="hidden" value="{$rs_pasien.fs_kd_reg}" />
+        <input name="FS_KD_RM_10_1" type="hidden" value="{$rs_rm10_1.FS_KD_RM_10_1}" />
+
+        <table class="table-info" width="100%">
+            <tr class="headrow">
+                <th colspan="2">Edit Catatan Edukasi</th>
+            </tr>
+            <tr>
+                <td>NAMA</td>
+                <td>
+                    {$rs_pasien.fs_nm_pasien}
+                </td>
+            </tr>
+            <tr>
+                <td>NO MR</td>
+                <td>
+                    {$rs_pasien.fs_mr}
+                </td>
+            </tr>
+            <tr>
+                <td>TANGGAL LAHIR</td>
+                <td>
+                    {$rs_pasien.FD_TGL_LAHIR|date_format:"%d %b %Y"}
+                </td>
+            </tr>
+            <tr>
+                <td>ALAMAT</td>
+                <td>{$rs_pasien.FS_ALM_PASIEN}</td>
+            </tr>
+            <tr>
+                <td>TANGGAL MASUK</td>
+                <td>{$rs_pasien.fd_tgl_masuk|date_format:"%d %b %Y"}</td>
+            </tr>
+            <tr>
+                <td>TANGGAL KELUAR</td>
+                <td>{$rs_pasien.fd_tgl_keluar|date_format:"%d %b %Y"}</td>
+            </tr>
+            <tr>
+                <td>LAYANAN AKHIR</td>
+                <td>
+                    {$rs_pasien.layanan_akhir}
+                </td>
+            </tr>
+        </table>
+       <table class="table-input" width="100%">
+            <tr>
+                <th colspan="2">Edit Data</th>
+            </tr>
+            <tr>
+                <td width="25%">Topik Edukasi</td>
+                <td width="75%">
+                    <input type="text" name="FS_TOPIK" size="40" value="{$rs_rm10_1.FS_TOPIK}">
+                </td>
+            </tr>
+            <tr>
+                <td>Diberikan Kepada</td>
+                <td>
+                    <input type="text" name="FS_DIBERIKAN" size="40" value="{$rs_rm10_1.FS_DIBERIKAN}">
+                </td>
+            </tr>
+            <tr>
+                <td>Tanggal</td>
+                <td>
+                    <input name="FS_TANGGAL" type="text" size="10" maxlength="10" value="{$rs_rm10_1.FS_TANGGAL|default:''}" class="tanggal" style="text-align: center;" />
+                </td>
+            </tr>
+            <tr>
+                <td>Jam Mulai</td>
+                <td>
+                    <input name="FS_JAM_MULAI" type="text" size="10" maxlength="10" value="{$rs_rm10_1.FS_JAM_MULAI|default:''}" class="waktu" readonly="readonly" style="text-align: center;" />
+                </td>
+            </tr>
+            <tr>
+                <td>Jam Selesai</td>
+                <td>
+                    <input name="FS_JAM_SELESAI" type="text" size="10" maxlength="10" value="{$rs_rm10_1.FS_JAM_SELESAI|default:''}" class="waktu2" readonly="readonly" style="text-align: center;" />
+                </td>
+            </tr>
+            <tr>
+                <td>Kebutuhan Edukasi</td>
+                <td>
+                    <select name="FS_KEBUTUHAN" id="surat_dari" class="select2" style="width: 300px;">
+                        <option value=""></option>
+                        <option value="1" {if $rs_rm10_1.FS_KEBUTUHAN eq 1} selected="selected" {/if}>TINDAKAN PENCEGAHAN</option>
+                        <option value="2" {if $rs_rm10_1.FS_KEBUTUHAN eq 2} selected="selected" {/if}>INTERVENSI DIET</option>
+                        <option value="3" {if $rs_rm10_1.FS_KEBUTUHAN eq 3} selected="selected" {/if}>PERALATAN KHUSUS</option>
+                        <option value="4" {if $rs_rm10_1.FS_KEBUTUHAN eq 4} selected="selected" {/if}>PENCEGAHAN RISIKO JATUH</option>
+                        <option value="5" {if $rs_rm10_1.FS_KEBUTUHAN eq 5} selected="selected" {/if}>MANAJEMEN NYERI</option>
+                        <option value="6" {if $rs_rm10_1.FS_KEBUTUHAN eq 6} selected="selected" {/if}>PENYAKIT KHUSUS</option>
+                        <option value="7" {if $rs_rm10_1.FS_KEBUTUHAN eq 7} selected="selected" {/if}>PENGOBATAN</option>
+                        <option value="8" {if $rs_rm10_1.FS_KEBUTUHAN eq 8} selected="selected" {/if}>EDUKASI DIABETES</option>
+                        <option value="9" {if $rs_rm10_1.FS_KEBUTUHAN eq 9} selected="selected" {/if}>TRANFUSI DARAH</option>
+                        <option value="10" {if $rs_rm10_1.FS_KEBUTUHAN eq 10} selected="selected" {/if}>VAKSINASI</option>
+                        <option value="11" {if $rs_rm10_1.FS_KEBUTUHAN eq 11} selected="selected" {/if}>AKSES PELAYANAN</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Tujuan</td>
+                <td>
+                    <select name="FS_TUJUAN" id="surat_dari" class="select2" style="width: 300px;">
+                        <option value=""></option>
+                        <option value="1" {if $rs_rm10_1.FS_TUJUAN eq 1} selected="selected" {/if}>MULAI MENGGUNAKAN INFORMASI YANG DIDAPAT</option>
+                        <option value="2" {if $rs_rm10_1.FS_TUJUAN eq 2} selected="selected" {/if}>DAPAT MENGUNGKAPKAN SECARA LISAN INFORMASI YANG DIDAPAT</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Kemampuan</td>
+                <td>
+                    <select name="FS_KEMAMPUAN" id="surat_dari" class="select2" style="width: 300px;">
+                        <option value=""></option>
+                        <option value="1" {if $rs_rm10_1.FS_KEMAMPUAN eq 1} selected="selected" {/if}>DAPAT MENGUBAH PERILAKU</option>
+                        <option value="2" {if $rs_rm10_1.FS_KEMAMPUAN eq 2} selected="selected" {/if}>DAPAT MENGUASAI INFORMASI</option>
+                        <option value="3" {if $rs_rm10_1.FS_KEMAMPUAN eq 3} selected="selected" {/if}>TIDAK JELAS PADA SAAT INI</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Kesiapan</td>
+                <td>
+                    <select name="FS_KESIAPAN" id="surat_dari" class="select2" style="width: 300px;">
+                        <option value=""></option>
+                        <option value="1" {if $rs_rm10_1.FS_KESIAPAN eq 1} selected="selected" {/if}>SIAP</option>
+                        <option value="2" {if $rs_rm10_1.FS_KESIAPAN eq 2} selected="selected" {/if}>TERTARIK</option>
+                        <option value="3" {if $rs_rm10_1.FS_KESIAPAN eq 3} selected="selected" {/if}>TIDAK TERTARIK / TIDAK MAMPU</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Hambatan</td>
+                <td>
+                    <select name="FS_HAMBATAN" id="surat_dari" class="select2" style="width: 300px;">
+                        <option value=""></option>
+                        <option value="1" {if $rs_rm10_1.FS_HAMBATAN eq 1} selected="selected" {/if}>TIDAK ADA</option>
+                        <option value="2" {if $rs_rm10_1.FS_HAMBATAN eq 2} selected="selected" {/if}>TAKUT</option>
+                        <option value="3" {if $rs_rm10_1.FS_HAMBATAN eq 3} selected="selected" {/if}>TIDAK TERTARIK</option>
+                        <option value="4" {if $rs_rm10_1.FS_HAMBATAN eq 4} selected="selected" {/if}>NYERI / TIDAK NYAMAN</option>
+                        <option value="5" {if $rs_rm10_1.FS_HAMBATAN eq 5} selected="selected" {/if}>GANGGUAN KOGNITIF</option>
+                        <option value="6" {if $rs_rm10_1.FS_HAMBATAN eq 6} selected="selected" {/if}>HAMBATAN BAHASA</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Intervensi</td>
+                <td>
+                    <select name="FS_INTERVENSI" id="surat_dari" class="select2" style="width: 300px;">
+                        <option value=""></option>
+                        <option value="1" {if $rs_rm10_1.FS_INTERVENSI eq 1} selected="selected" {/if}>TIDAK ADA</option>
+                        <option value="2" {if $rs_rm10_1.FS_INTERVENSI eq 2} selected="selected" {/if}>MEMBATASI MATERI</option>
+                        <option value="3" {if $rs_rm10_1.FS_INTERVENSI eq 3} selected="selected" {/if}>MENGGUNAKAN PENTERJEMAH</option>
+                        <option value="4" {if $rs_rm10_1.FS_INTERVENSI eq 4} selected="selected" {/if}>MENGULANGI EDUKASI</option>
+                        <option value="5" {if $rs_rm10_1.FS_INTERVENSI eq 5} selected="selected" {/if}>MENGEDUKASI KELUARGA</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Metode Pembelajaran</td>
+                <td>
+                    <select name="FS_METODE" id="surat_dari" class="select2" style="width: 300px;">
+                        <option value=""></option>
+                        <option value="1" {if $rs_rm10_1.FS_METODE eq 1} selected="selected" {/if}>DEMONSTRASI</option>
+                        <option value="2" {if $rs_rm10_1.FS_METODE eq 2} selected="selected" {/if}>DISKUSI</option>
+                        <option value="3" {if $rs_rm10_1.FS_METODE eq 3} selected="selected" {/if}>LEAFLET / HAND OUT</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Hasil</td>
+                <td>
+                    <select name="FS_HASIL" id="surat_dari" class="select2" style="width: 300px;">
+                        <option value=""></option>
+                        <option value="1" {if $rs_rm10_1.FS_HASIL eq 1} selected="selected" {/if}>MENUNJUKKAN TINGKAT PENGETAHUAN YANG DIHARAPKAN</option>
+                        <option value="2" {if $rs_rm10_1.FS_HASIL eq 2} selected="selected" {/if}>MEMBUTUHKAN PETUNJUK TAMBAHAN</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Catatan (Apabila Ada)</td>
+                <td>
+                   <textarea name="FS_CATATAN" rows="3" cols="43">{$rs_rm10_1.FS_CATATAN}</textarea>
+                </td>
+            </tr>
+            <tr class="submit-box">
+                <td colspan="2">
+                    <input type="submit" name="save" value="Edit" class="edit-button" >
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>

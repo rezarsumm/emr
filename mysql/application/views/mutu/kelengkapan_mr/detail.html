@@ -1,0 +1,46 @@
+<div class="breadcrumb">
+    <ul>
+        <li><a href="#">Laporan</a></li>
+        <li><a href="{$config->site_url('laporan/data_komputer')}">Laporan Data Komputer</a></li>
+        <li class="active"><a href="#">Detail</a></li>
+    </ul>
+    <div class="clear"></div>
+</div>
+<div class="content-entry">
+    <!-- notification template -->
+    {include file="base/templates/notification.html"}
+    <!-- end of notification template-->
+    <table class="table-view" width="100%">
+        <tr class="headrow">
+            <th colspan="2">Laporan Data Komputer</th>
+        </tr>
+        <tr>
+            <td width='15%'>IP Komputer</td>
+            <td width='65%'><span class="blue">{$result.FS_IP_KOMPUTER}</span></td>
+        </tr>
+        <tr>
+            <td>Layanan</td>
+            <td><span class="blue">{$result.FS_NM_LAYANAN|default:'-'}</span></td>
+        </tr>
+
+    </table>
+    <table class="table-view" width="100%">
+        <tr class="headrow">
+            <th colspan="6">DATA SPESIFIKASI KOMPUTER</th>
+        </tr>
+        <tr class="headrow">
+            <th>No</th>
+            <th>Uraian</th>
+            <th>Keterangan</th>
+        </tr>
+        {$no = 1}
+        {foreach from=$rs_params_komputer item=data}
+        <tr>
+            <td>{$no++}</td>
+            <td>{$data.FS_NM_PARAMETER_KOMPUTER|default:''}</td>
+            <td>{$data.FS_KETERANGAN|default:''}</td>
+        </tr>
+        {/foreach}
+    </table>
+    </table>
+</div>

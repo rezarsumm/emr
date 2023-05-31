@@ -1,0 +1,43 @@
+{include file="medis/rawat_jalan/add_script_js.html"}
+<div class="breadcrum">
+    <p>
+        <a href="#">Pemeriksaan Medis</a><span></span>
+        <small>Rawat Jalan</small>
+    </p>
+    <div class="clear"></div>
+</div> 
+<div class="dashboard-container">
+    <table class="table-view"  width="100%" border="0">
+        <thead>
+            <tr>
+                <th width='2%'>No</th>
+                <th width='5%'>No MR</th>
+                <th width='25%'>Nama Psien</th>
+                <th width='30%'>Alamat</th>
+                 <th width='38%'>Aksi</th>
+            </tr>
+        </thead>
+        <tbody>
+            {foreach from=$rs_pasien item=data}
+            {assign var=ceksuratsakit value=$m_rawat_jalan->cek_surat_sakit(array($data.NO_REG))}
+            {assign var=cekskd value=$m_rawat_jalan->cek_skd(array($data.NO_REG))}
+
+            <tr>
+                <td>{$data.NOMOR}</td>
+                <td>{$data.NO_MR}</td>
+                <td>{$data.NAMA_PASIEN}</td>
+                <td>{$data.ALAMAT}</td> 
+                 <td>
+                    <a href="{$config->site_url('medis/surat_sakit/create_suratsakit/'|cat:$data.NO_REG|default:'')}" class="button-edit">Surat Sakit</a>
+                    {if $ceksuratsakit >= '1'}
+                    - <a href="javascript:void(0);" class="button-download" onclick="window.open('{$config->site_url('medis/surat_sakit/cetak_suratsakit/'|cat:$data.NO_REG|cat:'/'|cat:$data.FS_KD_TRS|cat:'/'|cat:$data.FS_FORM)}', 'nama_window_pop_up', 'scrollbars=yes,resizeable=no')" >Cetak Surat Sakit</a>
+                    {/if}
+                  
+                
+                </td>
+            </tr>
+            {/foreach}
+        </tbody>
+    </table> 
+</div>
+ 

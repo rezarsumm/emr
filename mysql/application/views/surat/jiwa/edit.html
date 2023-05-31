@@ -1,0 +1,105 @@
+{include file="nurse/rawat_jalan/add_script_js.html"}
+<div class="breadcrum">
+    <p>
+        <a href="#">Surat Keterangan Medis</a><span></span>
+        <a href="{$config->site_url('surat/jiwa/')}">Surat Sehat Jiwa</a><span></span>
+        <small>Add Data</small>
+    </p>
+    <div class="clear"></div>
+</div>
+<div class="navigation">
+    <div class="navigation-button">
+        <ul>
+            <li><a href="{$config->site_url('surat/jiwa/')}"><img src="{$BASEURL}resource/doc/images/icon/back-icon.png" alt="" />  Back</a></li>
+        </ul>
+    </div>
+    <div class="clear"></div>
+</div>
+<!-- notification template -->
+{include file="base/templates/notification.html"}
+<!-- end of notification template-->
+<form action="{$config->site_url('surat/jiwa/edit_process')}" method="post">
+    <input type="hidden" name="FS_KD_TRS" value="{$rs_surat.FS_KD_TRS}" />
+    <input type="hidden" name="FS_KD_REG" value="{$result.FS_KD_REG}" />
+
+    <table class="table-info" width="100%">
+        <tr class="headrow">
+            <th colspan="4">Data Pasien</th>
+        </tr>
+        <tr>
+            <td width='20%'>Kode Reg</td>
+            <td width='30%'>{$result.FS_KD_REG}</td>
+            <td width='20%'>No RM</td>
+            <td width='30%'>{$result.FS_MR}</td>
+        </tr>
+        <tr>
+            <td>Nama</td>
+            <td>{$result.FS_NM_PASIEN|default:''}</td>
+            <td>Alamat</td>
+            <td>{$result.FS_ALM_PASIEN|default:''}</td>
+        </tr>
+        <tr>
+            <td>Umur</td>
+            <td>{$result.fn_umur|default:''} Tahun</td>
+            <td>Jenis Kelamin</td>
+            <td>
+                {if $result.FS_JNS_KELAMIN eq '1'}
+                Perempuan
+                {else}
+                Laki-Laki
+                {/if}
+            </td>
+        </tr>
+        <tr>
+            <td>Jaminan</td>
+            <td>{$result.FS_NM_JAMINAN|default:''}</td>
+            <td>Dokter</td>
+            <td>{$result.FS_NM_PEG|default:''}</td>
+        </tr>
+    </table>
+
+    <table class="table-input" width="100%">
+        <tr class="headrow">
+            <th colspan="4">Data Surat</th>
+        </tr>
+        <tr>
+            <td>
+                Hasil Pemeriksaan Psikiatrik
+            </td>
+            <td>
+                <select name="FS_KETERANGAN3" id="surat_dari" class="select2" style="width: 190px;">
+                    <option value="Ditemukan" {if $rs_surat.FS_KETERANGAN3 eq 'Ditemukan'} selected=""{/if}>Ditemukan</option>
+                    <option value="Tidak Ditemukan" {if $rs_surat.FS_KETERANGAN3 eq 'Tidak Ditemukan'} selected=""{/if}>Tidak Ditemukan</option>
+                </select>
+            </td>
+            <td>
+                Kesimpulan
+            </td>
+            <td>
+                <select name="FS_KETERANGAN2" id="surat_dari" class="select2" style="width: 190px;">
+                    <option value="Tidak Sehat" {if $rs_surat.FS_KETERANGAN2 eq 'Tidak Sehat'} selected=""{/if}>Tidak Sehat</option>
+                    <option value="Sehat" {if $rs_surat.FS_KETERANGAN2 eq 'Sehat'} selected=""{/if}>Sehat</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Keperluan
+            </td>
+            <td>
+                <textarea cols="50" name="FS_KETERANGAN1">{$rs_surat.FS_KETERANGAN1}</textarea>
+            </td>
+            <td>
+
+            </td>
+            <td>
+
+            </td>
+        </tr>
+        <tr class="submit-box">
+            <td colspan="4">
+                <input type="submit" name="save" value="Simpan" class="edit-button" /> 
+            </td>
+        </tr>
+    </table>
+</form>

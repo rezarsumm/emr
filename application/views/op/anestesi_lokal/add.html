@@ -1,0 +1,332 @@
+<html> 
+    <head><link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
+</head>
+<body>
+<div class="breadcrum">
+    
+    <p>
+        <a href="#">Catatan Operasi </a><span></span>
+        <a href="{$config->site_url('op/jadwal/detail/'|cat:$idoperasi|cat:'/'|cat:$rs_pasien.NO_REG|default:'')}"> Detail</a><span></span>
+        <small>FORM PEMANTAUAN DENGAN ANESTESI LOKAL </small>
+    </p>
+    <div class="clear"></div>
+</div> 
+<div class="content-entry">
+    <!-- notification template --> 
+    <!-- end of notification template-->
+    <table>
+        <tr>
+            <td width="50%">
+                <form action="{$config->site_url('op/anestesi_lokal/add_process')}" method="post" onkeypress="return event.keyCode != 13">
+                    <input name="FS_KD_REG" id="FS_KD_REG" type="hidden" value="{$rs_pasien.NO_REG}" />  
+                        <input name="TGL_LAHIR" id="TGL_LAHIR" type="hidden" value="{$rs_pasien.TGL_LAHIR}" /> 
+                    <input name="FS_MR" type="hidden" value="{$rs_pasien.NO_MR}" />
+                    <input name="idoperasi" type="hidden" value="{$idoperasi}" />
+            
+                    <input name="FS_KD_LAYANAN" type="hidden" value="{$rs_pasien.KODE_BANGSAL}" />
+                    <input name="FS_KD_PETUGAS_MEDIS" type="hidden" value="{$rs_pasien.fs_kd_medis}" />
+            
+                    <table class="table-info" width="100%">
+                        <tr class="headrow">
+                            <th colspan="2">PEMANTAUAN DENGAN ANESTESI LOKAL</th>
+                        </tr>
+                        <tr>
+                            <td>NAMA</td>
+                            <td>
+                                {$rs_pasien.NAMA_PASIEN}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>NO MR</td>
+                            <td>
+                                {$rs_pasien.NO_MR}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>TANGGAL LAHIR</td>
+                            <td>
+                                {$rs_pasien.TGL_LAHIR|date_format:"%d %b %Y"}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>ALAMAT</td>
+                            <td>{$rs_pasien.ALAMAT}</td>
+                        </tr>
+                        <tr>
+                            <td>UMUR</td>
+                            <td>{$rs_pasien.fn_umur} Tahun</td>
+                        </tr>
+                    </table>
+                <table>
+                    <tr>
+                        <td>
+                            <table class="table-input" width="100%" style="text-align: justify;">
+                      
+             
+                                 <tr>
+                                       <td><b> PRA BEDAH </b></td>
+                                     <td colspan="3" > 
+                                        </td>  </tr>
+                              <tr>
+                                 <td> Tanggal Tindakan </td>
+                               <td>  <input type="date" name="Tgl" > 
+                                  Jam 
+                                  <input type="time" name="Jam"> 
+                                 </td>   </tr>
+                             <tr> 
+                                <td>   Diagnosa </td>
+                               <td>  <input type="text" name="diagnosa"> 
+                                   </td>  </tr>
+                             <tr>
+                                   <td>   Nama Tindakan </td>
+                                   <td>  <input type="text" name="nm_tindakan"> 
+                                   </td>    </tr>
+                             <tr>
+                                   <td>   Dokter Bedah   </td>
+                                   <td>  
+                                     <input type="text" name="dokter" value="{$data_operasi.Nama_Dokter}" style="width: 200px;" readonly> 
+                                   </td>    </tr>     
+                                 <tr>
+                                         <td>   Riwayat Sakit/OP </td>
+                                         <td >
+                                           <textarea name="riwayat_op" rows="1" style="width: 350px;" > -</textarea>
+                                          </td>
+                                    </tr> 
+                                    <tr>
+                                       <td>   Riwayat Alergi  : </td>
+                                       <td >
+                                         <textarea name="riwayat_alergi" rows="1" style="width: 350px;" > -</textarea>
+                                        </td>
+                                  </tr> 
+                     
+                                 </table>
+                            <br>
+                           
+                          
+                              
+                        </td>
+            
+            
+            
+            
+                    </tr>
+                    <tr>
+                        <td>
+                            <table class="table-input" width="100%">
+                                <tr> <td><b>PASCA BEDAH </b></td></tr>
+                   
+                   
+                                <tr>
+                                        <td>   Kesadaran </td>
+                                        <td >
+                                         <input type="text" name="pasca_SADAR"> 
+                                         </td>
+                                   </tr> 
+                                   <tr>
+                                      <td>    Tekanan Darah : </td>
+                                      <td >
+                                       <input type="text" name="pasca_TD"> MmHg
+                                       </td>
+                                 </tr> 
+                                 <tr>
+                                   <td>    Nadi : </td>
+                                   <td >
+                                    <input type="text" name="pasca_N"> x/menit
+                                    </td>
+                              </tr> 
+                              <tr>
+                               <td>    Respirasi : </td>
+                               <td >
+                                <input type="text" name="pasca_R"> 
+                                </td>
+                                 </tr> 
+                                 <tr>
+                                   <td>   Suhu: </td>
+                                   <td >
+                                   <input type="text" name="pasca_S"> C
+                                   </td>
+                             </tr> 
+                             <tr>
+                               <td>    Reaksi Alergi : </td>
+                               <td >
+                                 <textarea name="pasca_ALERGI" rows="1" style="width: 350px;" > -</textarea>
+                               </td>
+                           </tr> 
+                           <tr>
+                             <td>     Komplikasi Lain   : </td>
+                             <td >
+                               <textarea name="pasca_KOMPLI" rows="1" style="width: 350px;" > -</textarea>
+                             </td>
+                         </tr> 
+                              
+                    
+                   
+                           <tr class="submit-box">
+                               <td colspan="4">
+                                   <div style="font-weight: bold;">
+                                       *Bismillahirohmanirrohim, saya dengan sadar dan penuh tanggung jawab mengisikan formulir ini dengan data yang benar
+                                   </div>
+                                   <br>
+                                   <input type="submit" name="save" value="Simpan" class="edit-button"/>
+                               </td>
+                           </tr>
+                           </table>
+                        </td>
+                    </tr>
+                </table>
+                  
+                  
+                </form>
+
+            </td>
+            
+            
+            <td width="50%" style="padding-left: 20px; position:fixed;">
+                <table class="table-input"  width="100%" style="text-align: justify; ">
+                    <tr><td colspan="2">PEMANTAUAN STATUS FISIOLOGIS
+                        <button class="btn btn-primary btn-sm fa fa-pencil" data-toggle="modal" data-target="#tambahanakModal"> Add  </button>
+                       </td></tr>
+                    
+                    <tr>
+                        <td colspan="2">
+                            <table >
+                                <tr>
+                                    <td style="width:80px ;">Tanggal</td>
+                                    <td style="width:50px ;">Waktu</td>
+                                    <td style="width:50px ;">Sadar</td>
+                                    <td style="width:30px ;">TD</td>
+                                    <td style="width:30px ;">N</td>
+                                    <td style="width:30px ;">R</td>
+                                    <td style="width:30px ;">S</td>
+                                    <td style="width:50px ;">Obat</td>
+                                    <td style="width:50px ;">Cairan</td>
+                                    <td style="width:50px ;">Ket</td>
+                                </tr>
+                                {foreach $status as $row}  <tr>
+                                    <td>{$row.Tgl}</td>
+                                    <td>{date('H:i',strtotime($row.Jam))}</td>
+                                    <td>{$row.SADAR}    </td>
+                                    <td>{$row.TD}    </td>
+                                    <td>{$row.N}    </td>
+                                    <td>{$row.R}    </td>
+                                    <td>{$row.S}    </td>
+                                    <td>{$row.OBAT}    </td>
+                                    <td>{$row.CAIRAN}    </td>
+                                    <td>{$row.KET}    </td>
+                                </tr>  {/foreach}
+                               
+                                
+                            </table>
+                    
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+  
+</div>
+
+
+
+
+<!-- tambah modal      -->
+<div class="modal fade" id="tambahanakModal" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+               <div class="modal-header" >
+            <button type="button" class="close"   data-dismiss="modal">&times;</button>
+            <center><font ><h3>PEMANTAUAN STATUS FISIOLOGIS</h3></font> </center>
+                 
+            </div>
+          <div class="modal-body" style="padding:40px 50px;" width>
+            <div class="login-block"> 
+                <form action="{$config->site_url('op/anestesi_lokal/simpan_catatan')}" method="post" onkeypress="return event.keyCode != 13">
+                     <input name="FS_MR" type="hidden" value="{$rs_pasien.NO_MR}" />
+                    <input name="idoperasi" type="hidden" value="{$idoperasi}" />
+                     <input name="FS_KD_REG" id="FS_KD_REG" type="hidden" value="{$rs_pasien.NO_REG}" />  
+
+                
+                     <div class="form-group row">
+                        <label for="exampleInputUsername2"  class="col-sm-3 col-form-label">Tanggal, Jam</label>
+                        <div class="col-sm-4">
+                         <input type="date" name="Tgl" required class="form-control">
+                        </div> <div class="col-sm-4">
+                         <input type="time" name="Jam" required class="form-control">
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Kesadaran</label>
+                        <div class="col-sm-9">
+                         <input type="text" name="SADAR"   class="form-control">
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Tekanan Darah</label>
+                        <div class="col-sm-4">
+                         <input type="text" name="TD"    class="form-control">
+                        </div>
+                       
+                      </div>
+                      <div class="form-group row">
+                        <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Nadi</label>
+                        <div class="col-sm-4">
+                         <input type="text" name="N"   class="form-control">
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Respirasi</label>
+                        <div class="col-sm-4">
+                         <input type="text" name="R"    class="form-control">
+                        </div>
+                      </div>
+                      
+                      <div class="form-group row">
+                        <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Suhu</label>
+                        <div class="col-sm-4">
+                         <input type="text" name="S"   class="form-control">
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Obat</label>
+                        <div class="col-sm-9">
+                         <input type="text" name="OBAT"   class="form-control">
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Cairan</label>
+                        <div class="col-sm-9">
+                         <input type="text" name="CAIRAN" class="form-control">
+                        </div>
+                      </div>
+                  
+                      
+                      
+                      
+                      
+                      <div class="form-group row">
+                        <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Keterangan</label>
+                        <div class="col-sm-9">
+                        <textarea name="KET" rows="3" cols="50" ></textarea>
+                        </div>
+                      </div>
+                
+                      <button type="submit" class="btn btn-primary btn-sm">
+                            <i class="ti ti-save"></i> Simpan
+                        </button>
+                    <button type="button" class="btn btn-warning btn-sm" data-dismiss="modal">Batal</button>
+               </form>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+<!-- end tambah modal-->
+</body>
+</html>
+
+
+ 

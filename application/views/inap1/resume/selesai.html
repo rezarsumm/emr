@@ -1,0 +1,50 @@
+<div class="breadcrum">
+    <p>
+        <a href="#">Data Arsip</a><span></span>
+        <small>Print Out</small>
+    </p>
+    <div class="clear"></div>
+</div>
+<div class="content-entry">
+    <!-- notification template -->
+    {include file="base/templates/notification.html"}
+    <!-- end of notification template-->
+    <table class="table-info" width="100%">
+        <tbody>
+            <tr class="headrow">
+                <th colspan="3">CETAK RESUME PASIEN PULANG</th>
+            </tr>
+            <tr>
+                <td></td>
+                <td><span class="blue"></span></td>
+                <td width="20%" rowspan="7">
+                    <a class="btn-red" target="_blank" href="{$config->site_url('rm/rawat_inap/cetak_rm/'|cat:{$rs_pasien.NO_REG}|cat:'/'|cat:'2')}" title="Print">
+                        <span class="icon-print"></span>
+                    </a>
+                </td>
+            </tr>   
+            <tr>
+                <td>NAMA</td>
+                <td>
+                    {$rs_pasien.NAMA_PASIEN}
+                </td>
+            </tr>
+            <tr>
+                <td>NO MR</td>
+                <td>
+                    {$rs_pasien.NO_MR}
+                </td>
+            </tr>
+            <tr>
+                <td>TANGGAL LAHIR</td>
+                <td>
+                    {$rs_pasien.TGL_LAHIR|date_format:"%d %b %Y"}
+                </td>
+            </tr>
+            <tr>
+                <td>ALAMAT</td>
+                <td>{$rs_pasien.ALAMAT}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

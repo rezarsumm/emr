@@ -1,0 +1,86 @@
+<!-- include javascript -->
+{include file="rm/berkas/add_script_js.html"}
+<!-- end of include javascript-->
+<div class="breadcrum">
+    <p>
+        <a href="{$config->site_url('rm/berkas/')}">Medical Record</a><span></span>
+        <small>Pinjam RM</small>
+    </p>
+    <div class="clear"></div>
+</div>
+<div class="content-entry">
+    <!-- notification template -->
+    {include file="base/templates/notification.html"}
+    <!-- end of notification template-->
+    <form action="{$config->site_url('rm/berkas/pinjam_process')}" method="post">
+        <input name="FS_KD_REG" type="hidden" value="{$rs_pasien.FS_KD_REG}" />
+
+        <table class="table-info" width="100%">
+            <tr class="headrow">
+                <th colspan="2">Add Pinjam Berkas</th>
+            </tr>
+            <tr>
+                <td>NAMA</td>
+                <td>
+                    {$rs_pasien.FS_NM_PASIEN}
+                </td>
+            </tr>
+            <tr>
+                <td>NO MR</td>
+                <td>
+                    {$rs_pasien.FS_MR}
+                </td>
+            </tr>
+            <tr>
+                <td>TANGGAL LAHIR</td>
+                <td>
+                    {$rs_pasien.FD_TGL_LAHIR|date_format:"%d %b %Y"}
+                </td>
+            </tr>
+            <tr>
+                <td>ALAMAT</td>
+                <td>{$rs_pasien.FS_ALM_PASIEN}</td>
+            </tr>
+        </table>
+        <table class="table-input" width="100%">
+            <tr>
+                <th colspan="2">Pinjam Berkas</th>
+            </tr>
+            <tr>
+                <td width='20%'>
+                    Tanggal Pinjam
+                </td>
+                <td width='80%'>
+                    <input name="FD_TGL_PINJAM" type="text" size="10" maxlength="10" value="{$result.FD_TGL_UND|default:''}" class="tanggal" style="text-align: center;" />
+                
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                   Tanggal Expired
+                </td>
+                <td>
+                    <input name="FD_TGL_EXPIRED" type="text" size="10" maxlength="10" value="{$result.FD_TGL_UND|default:''}" class="tanggal" style="text-align: center;" />
+                
+
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Tujuan Peminjaman
+                </td>
+                <td>
+                    <select name="tujuan[]" multiple id="tujuan" style="width:350px">
+                        <option></option>
+                    </select>
+                </td>
+            </tr>
+            <tr class="submit-box">
+                <td colspan="2">
+                    <input type="submit" name="save" value="Simpan" class="edit-button"/>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>

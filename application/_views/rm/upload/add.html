@@ -1,0 +1,95 @@
+<div class="breadcrum">
+    <p>
+        <a href="#">Medical Record</a><span></span>
+        <a href="{$config->site_url('rm/upload')}">Upload Berkas</a><span></span>
+        <small>Add Data</small>
+    </p>
+    <div class="clear"></div>
+</div>
+<div class="navigation">
+    <div class="navigation-button">
+        <ul>
+            <li><a href="{$config->site_url('rm/upload')}"><img src="{$BASEURL}resource/doc/images/icon/back-icon.png" alt="" />  Back</a></li>
+        </ul>
+    </div>
+    <div class="clear"></div>
+</div>
+<!-- notification template -->
+{include file="base/templates/notification.html"}
+<!-- end of notification template-->
+<form action="{$config->site_url('rm/upload/add_process')}" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="FS_KD_REG" value="{$FS_KD_REG}"/>
+    <table class="table-input" width="100%">
+        <tr class="headrow">
+            <th colspan="4">Add Data</th>
+        </tr>
+        <tr>
+            <td width="15%">Upload File</td>
+            <td width="35%">
+                {if $result.att_name neq NULL}
+                <label><a href="{$config->site_url('rm/upload/download/'|cat:$result.att_name|default:'')}">
+                        <img src="{$BASEURL}resource/doc/images/icon/pdf.png" alt="" height="15"/>
+                        <b>{$result.att_name} ({$result.att_size}K)</b></a>
+                </label>
+                <br />
+                {/if}
+                <br />
+                <input type="file" name="att_name" id="upload_file1" readonly="true"/>
+                <em>* pdf only</em>
+            </td>
+            <td width="15%">Jenis Berkas</td>
+            <td width="35%">
+                <select name="FS_JENIS_BERKAS">
+                    <option value="0">--Pilih Data--</option>
+                    <option value="1">Form Kamar Operasi</option>
+                    <option value="2">Rujukan</option>
+                </select> 
+                <em>* wajib diisi</em>
+            </td>
+        </tr>
+        <tr class="submit-box">
+            <td colspan="4">
+                <input type="submit" name="save" value="Simpan" class="edit-button" tabindex="11"/>
+                <input type="reset" name="save" value="Reset" class="edit-button" tabindex="12"/>
+            </td>
+        </tr>
+    </table>
+</form>
+<div class="dashboard-container">
+    <table class="table-view" width="100%" border="0">
+        <thead>
+            <tr>
+                <th width='10%'>Tanggal Upload</th>
+                <th>Kode Reg</th>
+                <th>Jenis Berkas</th>
+                <th>Nama Berkas</th>
+                <th width='10%'>Aksi</th>
+            </tr>
+        </thead>
+        <tbody>
+            {foreach from=$rs_berkas item=data}
+            <tr>
+                <td>{$data.mdd|date_format :"%d %B %Y"}</td>
+                <td>{$data.FS_KD_REG}</td>
+                <td>
+                    {if $data.FS_JENIS_BERKAS eq '1'}
+                    Form Kamar operasi
+                    {elseif $data.FS_JENIS_BERKAS eq '2'}
+                    Rujukan
+                    {/if}
+                </td> 
+                <td align='center'>
+                    <a class="button-approve" href="{$config->site_url('rm/upload/download/'|cat:$data.att_name|default:'')}">
+                        <b>{$data.att_name}</b>
+                    </a>
+                </td>
+                <td>
+        <center>
+            <a href="{$config->site_url('rm/upload/delete_process/'|cat:$data.FS_KD_TRS|cat:'/'|cat:$data.FS_KD_REG)}" onclick="return confirm('Tenan Meh Mbok Hapus???');" class="button-hapus">Hapus</a>
+        </center>     
+        </td>
+        </tr>
+        {/foreach}
+        </tbody>
+    </table>
+</div>

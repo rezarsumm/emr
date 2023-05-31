@@ -1,0 +1,364 @@
+<script type="text/javascript">
+    $(document).ready(function() {
+        //var htmlobjek;
+//apabila terjadi event onchange terhadap object <select id=propinsi>
+        $("#skdp_alasan").change(function () {
+            var skdp_alasan = $("#skdp_alasan").val();
+            $.ajax({
+                type: "POST",
+                url: '{$config->site_url("medis/rawat_jalan/skdp_rencana")}',
+                data: "skdp_alasan=" + skdp_alasan,
+                cache: false,
+                success: function (msg) {
+//jika data sukses diambil dari server kita tampilkan
+//di <select id=kota>
+                    $("#kota").html(msg);
+                }
+            });
+        });
+    $(".tanggal").datepicker({
+    changeMonth: true,
+            changeYear: true,
+            showOn: "both",
+            buttonImage: "{$BASEURL}/resource/doc/images/icon/calendar.gif",
+            buttonImageOnly: true,
+            dateFormat: 'yy-mm-dd'
+    });
+            // timepicker
+    $('.waktu').timepicker({
+            timeFormat: 'HH:mm:ss',
+            showOn: "both",
+            buttonImage: "{$BASEURL}/resource/doc/images/icon/clock.png",
+            buttonImageOnly: true
+    });
+            $(".select2").select2({
+            placeholder: "Pilih",
+            allowClear: true
+    });    
+       // tujuan
+            var user = $("#user").val();
+            $('#tujuan').select2('data', null);
+            $('#tujuan').select2('data', null);
+            $("#tujuan").removeAttr("disabled");
+            jQuery("#tujuan").html('');
+            $.ajax({
+            type: "POST",
+                    url: "{$config->site_url('medis/rawat_jalan/list_pemeriksaan_lab/')}",
+                    data: "user=" + user,
+                    dataType: 'json',
+                    success: function(data) {
+                    var showData;
+                            jQuery.each(data, function(index, result) {
+                            if (result.value == 0) {
+                            } else {
+                            showData += "<option value='" + result.value + "'>" + result.label + "</option>";
+                            }
+                            })
+                            jQuery("#tujuan").html(showData);
+                    }
+            });
+            //tags
+            $("#tujuan").select2({});
+
+    });
+
+</script>
+{if isset($result)}
+{foreach from=$result key=key item=i}
+{if $key eq 'tujuan_loop[]'}
+{assign var=tujuan_loop value=$i}
+{$tujuan_var=""}
+{foreach from=$tujuan_loop key=key item=i}
+{$tujuan_var=$tujuan_var|cat:"'"|cat:$i|cat:"',"}
+{/foreach}
+{assign var=tujuan_loop value=$tujuan_var}
+<script type="text/javascript">
+            $(document).ready(function() {
+    // date picker
+    $(".tanggal").datepicker({
+    changeMonth: true,
+            changeYear: true,
+            showOn: "both",
+            buttonImage: "{$BASEURL}/resource/doc/images/icon/calendar.gif",
+            buttonImageOnly: true,
+            dateFormat: 'yy-mm-dd'
+    });
+            // chain select
+            var user = $("#user").val();
+            $('#tujuan').select2('data', null);
+//        if (operator == '') {
+//            $("#tipe_pesawat").attr("disabled", "disabled");
+//        } else {
+            $("#tujuan").removeAttr("disabled");
+            jQuery("#tujuan").html('');
+            $.ajax({
+            type: "POST",
+                    url: "{$config->site_url('medis/rawat_jalan/list_pemeriksaan_lab/')}",
+                    data: "user=" + user,
+                    dataType: 'json',
+                    success: function(data) {
+                    var showData;
+                            jQuery.each(data, function(index, result) {
+                            if (result.value == 0) {
+                            } else {
+                            showData += "<option value='" + result.value + "'>" + result.label + "</option>";
+                            }
+                            })
+                            jQuery("#tujuan").html(showData);
+                            $('#tujuan').select2('val', [{$tujuan_loop}]);
+                    }
+            });
+//        }
+            $("#user").change(function() {
+    user = $(this).val();
+            $('#tujuan').select2('data', null);
+//            if (user == '') {
+//                $("#tipe_pesawat").attr("disabled", "disabled");
+//            } else {
+            $("#tujuan").removeAttr("disabled");
+            jQuery("#tujuan").html('');
+            $.ajax({
+            type: "POST",
+                    url: "{$config->site_url('medis/rawat_jalan/list_pemeriksaan_lab/')}",
+                    data: "user=" + user,
+                    dataType: 'json',
+                    success: function(data) {
+                    var showData;
+                            jQuery.each(data, function(index, result) {
+                            if (result.value == 0) {
+                            } else {
+                            showData += "<option value='" + result.value + "'>" + result.label + "</option>";
+                            }
+                            })
+                            jQuery("#tujuan").html(showData);
+                    }
+            });
+//            }
+    });
+            //tags
+            $("#tujuan").select2({});
+    });</script>
+{/if}
+{/foreach}
+
+{/if}
+
+ 
+<!--Tembusan-->
+<script type="text/javascript">
+            $(document).ready(function() {
+    // chain select
+    // tembusan
+    var user = $("#user").val();
+            $('#tembusan').select2('data', null);
+            $('#tembusan').select2('data', null);
+            $("#tembusan").removeAttr("disabled");
+            jQuery("#tembusan").html('');
+            $.ajax({
+            type: "POST", 
+                    url: "{$config->site_url('medis/rawat_jalan/list_pemeriksaan_rad/')}",
+                    data: "user=" + user,
+                    dataType: 'json',
+                    success: function(data) {
+                    var showData;
+                            jQuery.each(data, function(index, result) {
+                            if (result.value == 0) {
+                            } else {
+                            showData += "<option value='" + result.value + "'>" + result.label + "</option>";
+                            }
+                            })
+                            jQuery("#tembusan").html(showData);
+                    }
+            });
+            //tags
+            $("#tembusan").select2({});
+    });</script>
+{if isset($result)}
+{foreach from=$result key=key item=i}
+{if $key eq 'tembusan_loop[]'}
+{assign var=tembusan_loop value=$i}
+{$tembusan_var=""}
+{foreach from=$tembusan_loop key=key item=i}
+{$tembusan_var=$tembusan_var|cat:"'"|cat:$i|cat:"',"}
+{/foreach}
+{assign var=tembusan_loop value=$tembusan_var}
+<script type="text/javascript">
+            $(document).ready(function() {
+    // date picker
+    $(".tanggal").datepicker({
+    changeMonth: true,
+            changeYear: true,
+            showOn: "both",
+            buttonImage: "{$BASEURL}/resource/doc/images/icon/calendar.gif",
+            buttonImageOnly: true,
+            dateFormat: 'yy-mm-dd'
+    });
+            // chain select
+            var user = $("#user").val();
+            $('#tembusan').select2('data', null);
+//        if (operator == '') {
+//            $("#tipe_pesawat").attr("disabled", "disabled");
+//        } else {
+            $("#tembusan").removeAttr("disabled");
+            jQuery("#tembusan").html('');
+            $.ajax({
+            type: "POST",
+                    url: "{$config->site_url('medis/rawat_jalan/list_pemeriksaan_rad/')}",
+                    data: "user=" + user,
+                    dataType: 'json',
+                    success: function(data) {
+                    var showData;
+                            jQuery.each(data, function(index, result) {
+                            if (result.value == 0) {
+                            } else {
+                            showData += "<option value='" + result.value + "'>" + result.label + "</option>";
+                            }
+                            })
+                            jQuery("#tembusan").html(showData);
+                            $('#tembusan').select2('val', [{$tembusan_loop}]);
+                    }
+            });
+//        }
+            $("#user").change(function() {
+    user = $(this).val();
+            $('#tembusan').select2('data', null);
+//            if (user == '') {
+//                $("#tipe_pesawat").attr("disabled", "disabled");
+//            } else {
+            $("#tembusan").removeAttr("disabled");
+            jQuery("#tembusan").html('');
+            $.ajax({
+            type: "POST",
+                    url: "{$config->site_url('medis/rawat_jalan/list_pemeriksaan_rad/')}",
+                    data: "user=" + user,
+                    dataType: 'json',
+                    success: function(data) {
+                    var showData;
+                            jQuery.each(data, function(index, result) {
+                            if (result.value == 0) {
+                            } else {
+                            showData += "<option value='" + result.value + "'>" + result.label + "</option>";
+                            }
+                            })
+                            jQuery("#tembusan").html(showData);
+                    }
+            });
+//            }
+    });
+            //tags
+            $("#tembusan").select2({});
+    });</script>
+{/if}
+{/foreach}
+
+{/if}
+
+
+<!--Tujuan Eksternal-->
+<script type="text/javascript">
+            $(document).ready(function() {
+    // chain select
+    // tembusan
+    var user = $("#user").val();
+            $('#tujuan_eks').select2('data', null);
+            $('#tujuan_eks').select2('data', null);
+            $("#tujuan_eks").removeAttr("disabled");
+            jQuery("#tujuan_eks").html('');
+            $.ajax({
+            type: "POST",
+                    url: "{$config->site_url('surat/undangan/list_eksternal/')}",
+                    data: "user=" + user,
+                    dataType: 'json',
+                    success: function(data) {
+                    var showData;
+                            jQuery.each(data, function(index, result) {
+                            if (result.value == 0) {
+                            } else {
+                            showData += "<option value='" + result.value + "'>" + result.label + "</option>";
+                            }
+                            })
+                            jQuery("#tujuan_eks").html(showData);
+                    }
+            });
+            //tags
+            $("#tujuan_eks").select2({});
+    });</script>
+{if isset($result)}
+{foreach from=$result key=key item=i}
+{if $key eq 'tujuan_eks_loop[]'}
+{assign var=tujuan_eks_loop value=$i}
+{$tujuan_eks_var=""}
+{foreach from=$tujuan_eks_loop key=key item=i}
+{$tujuan_eks_var=$tujuan_eks_var|cat:"'"|cat:$i|cat:"',"}
+{/foreach}
+{assign var=tujuan_eks_loop value=$tujuan_eks_var}
+<script type="text/javascript">
+            $(document).ready(function() {
+    // date picker
+    $(".tanggal").datepicker({
+    changeMonth: true,
+            changeYear: true,
+            showOn: "both",
+            buttonImage: "{$BASEURL}/resource/doc/images/icon/calendar.gif",
+            buttonImageOnly: true,
+            dateFormat: 'yy-mm-dd'
+    });
+            // chain select
+            var user = $("#user").val();
+            $('#tujuan_eks').select2('data', null);
+//        if (operator == '') {
+//            $("#tipe_pesawat").attr("disabled", "disabled");
+//        } else {
+            $("#tujuan_eks").removeAttr("disabled");
+            jQuery("#tujuan_eks").html('');
+            $.ajax({
+            type: "POST",
+                    url: "{$config->site_url('surat/undangan/list_eksternal/')}",
+                    data: "user=" + user,
+                    dataType: 'json',
+                    success: function(data) {
+                    var showData;
+                            jQuery.each(data, function(index, result) {
+                            if (result.value == 0) {
+                            } else {
+                            showData += "<option value='" + result.value + "'>" + result.label + "</option>";
+                            }
+                            })
+                            jQuery("#tujuan_eks").html(showData);
+                            $('#tujuan_eks').select2('val', [{$tembusan_loop}]);
+                    }
+            });
+//        }
+            $("#user").change(function() {
+    user = $(this).val();
+            $('#tujuan_eks').select2('data', null);
+//            if (user == '') {
+//                $("#tipe_pesawat").attr("disabled", "disabled");
+//            } else {
+            $("#tujuan_eks").removeAttr("disabled");
+            jQuery("#tujuan_eks").html('');
+            $.ajax({
+            type: "POST",
+                    url: "{$config->site_url('surat/undangan/list_eksternal/')}",
+                    data: "user=" + user,
+                    dataType: 'json',
+                    success: function(data) {
+                    var showData;
+                            jQuery.each(data, function(index, result) {
+                            if (result.value == 0) {
+                            } else {
+                            showData += "<option value='" + result.value + "'>" + result.label + "</option>";
+                            }
+                            })
+                            jQuery("#tujuan_eks").html(showData);
+                    }
+            });
+//            }
+    });
+            //tags
+            $("#tujuan_eks").select2({});
+    });</script>
+{/if}
+{/foreach}
+
+{/if}

@@ -1,0 +1,173 @@
+<!-- include javascript -->
+{include file="farmasi/rekon/add_script_js.html"}
+<!-- end of include javascript-->
+<div class="breadcrum">
+    <p>
+        <a href="#">Farmasi</a><span></span>
+        <a href="{$config->site_url('farmasi/rekon/')}">Rekonsiliasi Obat</a><span></span>
+        <small>Add Data</small>
+    </p>
+    <div class="clear"></div>
+</div>
+<div class="content-entry">
+    <!-- notification template -->
+    {include file="base/templates/notification.html"}
+    <!-- end of notification template-->
+
+</div>
+<input name="FS_KD_REG" id="FS_KD_REG" type="hidden" value="{$rs_pasien.fs_kd_reg}" />
+<input name="FS_MR" type="hidden" value="{$rs_pasien.fs_mr}" />
+<input name="FS_KD_LAYANAN" type="hidden" value="{$rs_pasien.fs_kd_layanan}" />
+<input name="FS_KD_PETUGAS_MEDIS" type="hidden" value="{$rs_pasien.fs_kd_medis}" />
+
+<table class="table-info" width="100%">
+    <tr class="headrow">
+        <th colspan="2">Add Rekonsiliasi Obat</th>
+    </tr>
+    <tr>
+        <td>NAMA</td>
+        <td>
+            {$rs_pasien.fs_nm_pasien}
+        </td>
+    </tr>
+    <tr>
+        <td>NO MR</td>
+        <td>
+            {$rs_pasien.fs_mr}
+        </td>
+    </tr>
+    <tr>
+        <td>TANGGAL LAHIR</td>
+        <td>
+            {$rs_pasien.FD_TGL_LAHIR|date_format:"%d %b %Y"}
+        </td>
+    </tr>
+</table>
+<div class="navigation">
+    <div class="pageRow">
+        <div class="pageNav">
+            <ul>
+                <li class="info"><a href="javascript:;" class="btn-blue opendialogadd"> Tambah Data</a></li>
+            </ul>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="navigation-button">
+        <ul>
+            <li><a href="{$config->site_url('rm/rawat_inap/cetak_rm/'|cat:$rs_pasien.fs_kd_reg|cat:'/'|cat:'9')}" target="_blank"><img src="{$BASEURL}resource/doc/images/icon/printer-icon.png" alt="" /> Print</a></li>
+        </ul>
+    </div>
+    <div class="clear"></div>
+</div>
+<table class="table-view" width="100%">
+
+    <thead>
+        <tr>
+            <th width="7%">Tanggal</th>
+            <th>Rekonsiliasi</th>
+            <th>Nama Obat</th>
+            <th>Dosis</th>
+            <th>Satuan</th>
+            <th>Frekuensi</th>
+            <th>Cara Pemberian</th>
+            <th>Tindak Lanjut</th>
+            <th>Perubahan Aturan Pakai</th>
+            <th>Aksi</th>
+        </tr>
+    </thead>
+    <tbody id="show_data">
+
+    </tbody>
+</table>
+
+<div id="ModalAdd">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <table class="table-input" width="100%">
+                <tr >
+                    <th colspan="2">Add Data <span id="loading">LOADING...</span></th>
+                </tr>
+                <tr>
+                    <td>Jenis Rekon</td>
+                    <td>
+                        <select name="FS_STATUS" class="select2" style="width: 300px;" id="FS_STATUS">
+                            <option value="">--Pilih Data--</option>
+                            <option value="1">Admisi</option>
+                            <option value="2">Transfer</option>
+                            <option value="3">Discharge</option>
+                        </select>
+                </tr>
+                <tr>
+                    <td>Nama Obat</td>
+                    <td>
+                        <select name="FS_KD_OBAT" class="select2" style="width: 300px;" id="FS_KD_OBAT">
+                            <option value="">--Pilih Data--</option>
+                            {foreach $rs_resep as $data}
+                            <option value="{$data.FS_KD_BARANG}">{$data.FS_NM_BARANG}</option>
+                            {/foreach}
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Dosis</td>
+                    <td>
+                        <input name="FS_DOSIS" id="FS_DOSIS" class="form-control" type="text" size="2">
+                </tr>
+                <tr>
+                    <td>Satuan</td>
+                    <td>
+                        <div id="show_data_obat"></div>
+                </tr>
+                <tr>
+                    <td>Frekuensi</td>
+                    <td>
+                        <input name="FS_FREKUENSI" id="FS_FREKUENSI" class="form-control" type="text">
+                    </td>
+                </tr>
+                <tr>
+                    <td>Cara Pemberian</td>
+                    <td>
+                        <input name="FS_CARA_PEMBERIAN" id="FS_CARA_PEMBERIAN" class="form-control" type="text">
+                </tr>
+                <tr>
+                    <td>Tindak Lanjut</td>
+                    <td>
+                        <select name="FS_TINDAK_LANJUT" class="select2" style="width: 300px;" id="FS_TINDAK_LANJUT">
+                            <option value="">--Pilih Data--</option>
+                            <option value="1">Lanjut Aturan Pakai Sama</option>
+                            <option value="2">Lanjut Aturan Pakai Berubah</option>
+                            <option value="3">Stop</option>
+                        </select>
+                </tr>
+                <tr>
+                    <td>Perubahan Aturan Pakai</td>
+                    <td>
+                        <input name="FS_PERUBAHAN" id="FS_PERUBAHAN" class="form-control" type="text">
+                </tr>
+
+                <tr class="submit-box">
+                    <td colspan="2">
+                        <button type="button" id="btn-add" class="btn-blue">Tambah</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div id="ModalHapus">
+    <table class="table-input" width="100%">
+        <tr>
+            <th colspan="2">Hapus Data <span id="loading-hapus">LOADING...</span></th>
+        </tr>
+        <tr>
+        <input type="hidden" name="FS_KD_TRS" id="FS_KD_TRS" value="" />
+        <td><div class="alert alert-warning"><p>Apakah Anda yakin mau menghapus barang ini?</p></div></td>
+        </tr>
+        <tr class="submit-box">
+            <td colspan="2">
+                <button type="button" id="btn_hapus" class="btn-red">Hapus</button>
+            </td>
+        </tr>
+    </table>
+</div>

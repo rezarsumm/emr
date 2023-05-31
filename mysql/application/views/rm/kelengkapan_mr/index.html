@@ -1,0 +1,71 @@
+{include file="rm/kelengkapan_mr/add_script_js.html"}
+<div class="breadcrum">
+    <p>
+        <a href="#">Medical Record</a><span></span>
+        <small>Kelengkapan RM</small>
+    </p>
+    <div class="clear"></div>
+</div>
+<div class="search-box">
+    <h3><a href="#">Search</a></h3>
+    <form action="{$config->site_url('rm/kelengkapan_mr/proses_cari')}" method="post">
+        <table class="table-search">
+            <tbody>
+                <tr>
+                    <td>
+                        Nomor RM :<input placeHolder="Nomor RM" name="fs_mr" type="text" value="{$search.fs_mr|default:''}" size="25" maxlength="10"/>
+                    </td>
+                    <td>
+                        Tanggal Pulang :
+                        <input name="tanggal" type="text" size="10" maxlength="10" value="{$search.tanggal|default:''}" class="tanggal" readonly="readonly" style="text-align: center;" />
+                    </td>
+                    <td>
+                        <input class="button" type="submit" value="SEARCH" name="save" />
+                        <input class="button" type="submit" value="RESET" name="save" />
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+</div>
+<!-- notification template -->
+{include file="base/templates/notification.html"}
+<!-- end of notification template-->
+<div class="dashboard-container">
+    <table  class="table-view" width="100%">
+        <tr>
+            <th>MR</th>
+            <th>REG</th>
+            <th>NAMA</th>
+            <th>TGL MASUK</th>
+            <th>TGL KELUAR</th>
+            <th>DPJP</th>
+            <th>LAYANAN</th>
+            <th></th>
+        </tr>
+        {foreach from=$rs_pasien item=data}
+        {assign var=rs_kelengkapan_mr value=$m_kelengkapan_mr->get_all_kelengkapan_mr(array($data.FS_KD_REG))}
+        <tr {if ($no % 2) <> 1}class="blink-row"{/if}>
+            <td>{$data.FS_MR}</td>
+            <td>{$data.FS_KD_REG}</td>
+            <td>{$data.FS_NM_PASIEN}</td>
+            <td>{$data.FD_TGL_MASUK}</td>
+            <td>{$data.FD_TGL_KELUAR}</td>
+            <td>{$data.FS_NM_PEG}</td>
+            <td>{$data.FS_NM_LAYANAN}</td>
+            <td>
+                {if $data.FS_KD_REG eq $rs_kelengkapan_mr.FS_KD_REG}
+                <a href="{$config->site_url('rm/kelengkapan_mr/edit/'|cat:$data.FS_KD_REG)}" class="button-edit">Edit</a>
+                {else}
+                <a href="{$config->site_url('rm/kelengkapan_mr/add/'|cat:$data.FS_KD_REG)}" class="button-edit">Add</a>
+                {/if}
+            </td>
+        </tr>
+        {foreachelse}
+        <tr>
+            <td colspan="7">Data not found!</td>
+        </tr>
+        {/foreach}
+    </table>
+    <div class="clear"></div>
+</div>

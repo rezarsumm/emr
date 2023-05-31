@@ -1,0 +1,408 @@
+<html>
+    
+<head>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
+
+</head>
+<body>
+    <br>
+    
+  <p style="font-size: 15px;">  Data Hasil Uji Lab TCM </p>
+{if $rolenya neq 'Perawat IGD'} 
+ 
+            <!-- <button class="btn btn-success btn-xs fa fa-pencil" data-toggle="modal" data-target="#tambahanakModal"> Tambah Data  </button> -->
+
+   
+{/if}
+ <br>
+ <br>
+<div class="dashboard-container">
+    <table class="table-view" width="100%" border="0" style="font-size: 12px;">
+        <thead>
+            <tr>
+                <th width='2%'>No</th>
+                <th style="width:3%;padding:6px 1px">No MR</th>
+                <th style="width:15% ; padding:6px 5px">Nama Pasien</th>
+                <th style="width:10%;padding:6px 5px">Alamat</th> 
+                <!-- <th style="width:10%;padding:6px 5px">Tanggal  </th>  -->
+                <th style="width:10%;padding:6px 5px">Sebelum Pengobatan</th> 
+                <th style="width:10%;padding:6px 5px;">Progres</th> 
+                <th style="width:10%;padding:6px 5px;">Akhir Pengobatan</th> 
+                <th width='2%'>Aksi</th>
+            </tr>
+        </thead>
+        <tbody>{$no=1}
+            {foreach from=$rs_pasien item=data}
+            <tr>
+                <td>{$no++}</td>
+                <td>{$data.No_MR}</td>
+                <td>{$data.Nama_Pasien}</td>
+                <td>{$data.Alamat}</td>  
+                <td>
+                     Mikroskopis : {$data.sebelum_pengobatan_hasil_mikroskopis} <br>
+                     TCM : {$data.sebelum_pengobatan_hasil_tes_cepat} <br>
+                     Biakan : {$data.sebelum_pengobatan_hasil_biakan} 
+
+                </td>  
+                <td>
+                    Bulan 2 : {$data.hasil_mikroskopis_bulan_2} <br> 
+                    Bulan 3 : {$data.hasil_mikroskopis_bulan_2} <br> 
+                    Bulan 5 : {$data.hasil_mikroskopis_bulan_5}  
+
+               </td>  
+               <td>
+               Hasil Lab Akhir : {$data.akhir_pengobatan_hasil_mikroskopis} <br> 
+               Tgl Akhir : {$data.tanggal_hasil_akhir_pengobatan} </td>  
+                <!-- <td> Permintaan : {date('d-m-Y', strtotime($data.tglp))}<br> Hasil : {$data.Tgl_hasil_muncul}
+                </td>   -->
+                <!-- <td>{if $data.Jenis eq '1'} TCM {/if} {if $data.Jenis eq '2'} Mikroskopis {/if}</td>   -->
+                
+                 <td>
+                    <button class="btn btn-primary btn-xs fa fa-pencil" data-toggle="modal" data-target="#etambahanakModal{$data.idlab}"> Edit  </button>
+                </td>
+            </tr>
+            {/foreach}
+        </tbody>
+    </table>
+ </div>
+
+
+ 
+ <div class="modal fade" id="tambahanakModal" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+               <div class="modal-header" >
+            <button type="button" class="close"   data-dismiss="modal">&times;</button>
+            <center><font ><h3>Tambah Data <br>Pengantar Pendaftaran Rawat Inap dan Rawat Jalan </h3></font> </center>
+                 
+            </div>
+          <div class="modal-body" style="padding:40px 50px;" width>
+            <div class="login-block"> 
+                <form action="{$config->site_url('igd/ppdftr/add_process')}" method="post" onkeypress="return event.keyCode != 13">
+                
+                    <tr>
+                        <td colspan="2">
+                             <!-- Pasien telah mendaftar 
+                            <input type="radio" name="status"  class="rad" required value="Tidak" class="form-control">Belum
+                            <input type="radio" name="status" class="rad" required value="Ya" class="form-control">Sudah
+                            <br> -->
+                            <br>
+                            <!-- <div id="form2" style="display:"  >
+                                  <table>
+                                    <tr>
+                                        <td width="40%">Nama Pasien </td>
+                                        <td width="40%">
+                                            <select name="FS_KD_REG" id="surat_dari" class="select2" style="width: 400px;">
+                                                <option value=""></option>
+                                                {foreach from=$rs_pasien2 item=data}
+                                                <option value="{$data.No_Reg}">{$data.Nama_Pasien} | {$data.No_MR}</option>
+                                                {/foreach}
+                                            </select>
+                                        </td>
+                                    </tr>
+                                  </table>
+                                </div> -->
+        
+                                <div id="form3" style="display:"  >
+                                    <table>
+                                      <tr>
+                                          <td width="40%">Nama Pasien </td>
+                                          <td width="40%">
+                                            <input type="text" name="Nama" style="width: 400px;" class="form-control">
+                                          </td>
+                                      </tr>
+                                      <tr>
+                                        <td width="40%">  Alamat </td>
+                                        <td width="40%">
+                                          <input type="text" name="alamat" class="form-control" style="width: 400px;">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="40%">  Umur </td>
+                                        <td width="40%">
+                                          <input type="text" name="umur" class="form-control" style="width: 400px;">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="40%">  Perawatan </td>
+                                        <td width="40%">
+                                            <input type="radio" name="JENIS_RAWAT" value="Rawat Jalan" checked>Rawat Jalan
+                                            <input type="radio" name="JENIS_RAWAT" value="Rawat Inap" >Rawat Inap
+                                        </td>
+                                    </tr>
+                                    <input type="hidden" name="REKANAN" value="Umum" checked >Umum
+
+                                    <!-- <tr>
+                                        <td width="40%">  Rekanan </td>
+                                        <td width="80%">
+                                            <input type="radio" name="REKANAN" value="Umum" checked >Umum
+                                            <input type="radio" name="REKANAN" value="BPJS" >BPJS
+                                            <input type="radio" name="REKANAN" value="DANA SEHAT">Dana Sehat
+                                            <input type="radio" name="REKANAN" value="LAINNYA">Lainnya
+                                            <!-- <input type="text" name="REKANAN" value="" class="form-control" style="width: 100px ;"> -->
+                                        </td>
+                                    </tr> -->
+                                    <tr>
+                                        <td width="40%">  Unit 1</td>
+                                        <td width="40%">
+                                            <select class="select2" name="UNIT1">
+                                                <option></option>
+                                                <option value="Penyakit Saraf" >Penyakit Saraf</option>
+                                                <option value="Penyakit Dalam" >Penyakit Dalam</option>
+                                                <option value="Perawatan Anak" >Perawatan Anak </option>
+                                                <option value="Kebidanan" > Kebidanan </option>
+                                                <option value="Bedah" > Bedah </option>
+                                                <option value="Perina" > Perinatologi </option>
+                                                <option value="ICU" > ICU </option>
+                                                <option value="Imunokompromised" > Imunokompromised </option>
+                                                <option value="Kohort" > Kohort</option>
+                 
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="40%">  Ruang 1 </td>
+                                        <td width="40%">
+                                            <select name="RUANG1" id="surat_dari" class="select2" style="width: 400px;">
+                                                <option value=""></option>
+                                                {foreach from=$ruang item=gata}
+                                                
+                                                <option value="{$gata.Kode_Ruang}">{$gata.Nama_Ruang} </option>
+                                              
+                                                {/foreach}
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="40%">  DPJP 1</td>
+                                        <td width="40%">
+                                            <select name="KD_DOKTER1" id="surat_dari" class="select2" style="width: 400px;">
+                                                <option value=""></option>
+                                                {foreach from=$rs_dokter item=data}
+                                                <option value="{$data.NAMAUSER}">{$data.NAMALENGKAP} </option>
+                                                {/foreach}
+                                            </select>
+                                        </td>
+                                    </tr>
+
+                                    <tr><td><br><br></td></tr>
+                                    <tr>
+                                        <td width="40%">  Unit 2</td>
+                                        <td width="40%">
+                                            <select class="select2" name="UNIT2">
+                                                <option></option>
+                                                <option value="Penyakit Saraf" >Penyakit Saraf</option>
+                                                <option value="Penyakit Dalam" >Penyakit Dalam</option>
+                                                <option value="Perawatan Anak" >Perawatan Anak </option>
+                                                <option value="Kebidanan" > Kebidanan </option>
+                                                <option value="Bedah" > Bedah </option>
+                                                <option value="Perina" > Perinatologi </option>
+                                                <option value="ICU" > ICU </option>
+                                                <option value="Imunokompromised" > Imunokompromised </option>
+                                                <option value="Kohort" > Kohort</option>
+                 
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="40%">  Ruang 2 </td>
+                                        <td width="40%">
+                                            <select name="RUANG2" id="surat_dari" class="select2" style="width: 400px;">
+                                                <option value=""></option>
+                                                {foreach from=$ruang item=gata}
+                                                
+                                                <option value="{$gata.Kode_Ruang}">{$gata.Nama_Ruang} </option>
+                                              
+                                                {/foreach}
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="40%">  DPJP 2</td>
+                                        <td width="40%">
+                                            <select name="KD_DOKTER2" id="surat_dari" class="select2" style="width: 400px;">
+                                                <option value=""></option>
+                                                {foreach from=$rs_dokter item=data}
+                                                <option value="{$data.NAMAUSER}">{$data.NAMALENGKAP} </option>
+                                                {/foreach}
+                                            </select>
+                                        </td>
+                                    </tr>
+
+
+                                    </table>
+                                  </div>
+                    
+                        </td>
+                    </tr>
+                    <br>
+                    <br>
+                 
+
+
+
+                      
+                
+                      <button type="submit" class="btn btn-primary btn-sm">
+                            <i class="ti ti-save"></i> Simpan
+                        </button>
+                    <button type="button" class="btn btn-warning btn-sm" data-dismiss="modal">Batal</button>
+               </form>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  
+ {foreach from=$rs_pasien item=data}
+
+
+ <div class="modal fade" id="etambahanakModal{$data.idlab}" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+               <div class="modal-header" >
+            <button type="button" class="close"   data-dismiss="modal">&times;</button>
+            <center><font ><h3>Edit Data Hasil Uji Lab </h3></font> </center>
+                 
+            </div>
+          <div class="modal-body" style="padding:10px 20px;" width>
+            <div class="login-block"> 
+                <form action="{$config->site_url('lab/tcm/edit_process')}" method="post" onkeypress="return event.keyCode != 13">
+                   
+                    <input type="hidden" name="idpasientb" value="{$data.idlab}">
+                    <input type="hidden" name="tanggal_mulai_pengobatan" value="{$data.tanggal_mulai_pengobatan}">
+                    <input type="hidden" name="paduan_oat" value="{$data.paduan_oat}">
+                    <input type="hidden" name="kode_icd_x" value="{$data.kode_icd_x}">
+                    <input type="hidden" name="id_tb_03" value="{$data.id_tb_03}">
+                    <input type="hidden" name="nik" value="{$data.nik}">
+                    <input type="hidden" name="alamat_lengkap" value="{$data.alamat_lengkap}">
+                    <input type="hidden" name="id_propinsi_pasien" value="{$data.id_propinsi_pasien}">
+                    <input type="hidden" name="kd_kabupaten_pasien" value="{$data.kd_kabupaten_pasien}">  
+                    <input type="hidden" name="jenis_kelamin" value="{$data.jenis_kelamin}">
+                    <input type="hidden" name="klasifikasi_lokasi_anatomi" value="{$data.klasifikasi_lokasi_anatomi}">
+                    <input type="hidden" name="tgl_lahir" value="{$data.tgl_lahir}">
+                    <input type="hidden" name="FS_KD_REG" value="{$data.No_Reg}">
+                    
+                   <table>              
+                                      <tr>
+                                          <td width="40%">Nama Pasien    </td>
+                                          <td width="20%">
+                                            <input type="text" name="Nama" style="width: 400px;" value="{$data.Nama_Pasien}" readonly class="form-control">
+                                          </td>
+                                      </tr>
+                                      <tr>
+                                        <td width="40%">  Alamat </td>
+                                        <td width="20%">
+                                          <input type="text" name="Alamat" class="form-control" value="{$data.Alamat}" readonly style="width: 400px;">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="40%">No  MR    </td>
+                                        <td width="20%">
+                                          <input type="text" name="No_MR" style="width: 400px;" value="{$data.No_MR}" readonly class="form-control">
+                                        </td>
+                                    </tr>
+                                    
+                                    
+                                    <tr>
+                                        <td width="40%">Mikroskopis Sebelum   </td>
+                                        <td width="20%">
+                                            <input type="text" name="sebelum_pengobatan_hasil_mikroskopis" style="width: 400px;" value="{$data.sebelum_pengobatan_hasil_mikroskopis}"   class="form-control">
+                                          </td>
+                                    </tr>
+                                   
+                                    <tr>
+                                        <td width="40%">TCM Sebelum   </td>
+                                        <td width="20%">
+                                            <input type="text" name="sebelum_pengobatan_hasil_tes_cepat" style="width: 400px;" value="{$data.sebelum_pengobatan_hasil_tes_cepat}"   class="form-control">
+                                         </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="40%">Biakan Sebelum   </td>
+                                        <td width="20%">
+                                            <input type="text" name="sebelum_pengobatan_hasil_biakan" style="width: 400px;" value="{$data.sebelum_pengobatan_hasil_biakan}"   class="form-control">
+                                            
+                                         </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="40%">Mikroskopis Bulan-2   </td>
+                                        <td width="20%">
+                                            <input type="text" name="hasil_mikroskopis_bulan_2" style="width: 400px;" value="{$data.hasil_mikroskopis_bulan_2}"   class="form-control">
+
+                                         </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="40%">Mikroskopis Bulan-3   </td>
+                                        <td width="20%">
+                                            <input type="text" name="hasil_mikroskopis_bulan_3" style="width: 400px;" value="{$data.hasil_mikroskopis_bulan_3}"   class="form-control">
+
+                                         </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="40%">Mikroskopis Bulan-5   </td>
+                                        <td width="20%">
+                                            <input type="text" name="hasil_mikroskopis_bulan_5" style="width: 400px;" value="{$data.hasil_mikroskopis_bulan_5}"   class="form-control">
+
+                                         </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="40%">Mikroskopis Akhir   </td>
+                                        <td width="20%">
+                                            <input type="text" name="akhir_pengobatan_hasil_mikroskopis" style="width: 400px;" value="{$data.akhir_pengobatan_hasil_mikroskopis}"   class="form-control">
+
+                                         </td>
+                                    </tr>
+                                    </table>
+                                  
+                     
+                    <br>
+                    <br>
+                 
+                
+                      <button type="submit" class="btn btn-primary btn-sm">
+                            <i class="ti ti-save"></i> Simpan
+                        </button>
+                    <button type="button" class="btn btn-warning btn-sm" data-dismiss="modal">Batal</button>
+               </form>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+
+  {/foreach}
+
+
+ </body>
+ </html>
+ 
+
+ <script>
+    $(".select2").select2({
+         placeholder: "Pilih",
+         allowClear: true
+     });
+
+   
+   $(":radio.rad").click(function(){
+    //  $("#form2").hide();
+    //  $("#form3").hide();
+
+    //  if($(this).val() == "Ya"){
+    //    $("#form2").show();
+    //    $("#form3").hide()
+    //  }else if($(this).val() == "Tidak"){
+    //    $("#form2").hide();
+    //    $("#form3").show()
+    //  }
+    alert("h");
+   });
+
+ </script>

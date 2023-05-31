@@ -1,0 +1,266 @@
+ 
+<div class="breadcrum">
+    <p>
+        <a href="#">Catatan Operasi </a><span></span>
+        <a href=" ">Asesmen Pra Bedah</a><span></span>
+        <small>Edit Data</small>
+    </p>
+    <div class="clear"></div>
+</div> 
+<div class="content-entry">
+    <!-- notification template --> 
+    <!-- end of notification template-->
+    <form action="{$config->site_url('op/prabedah/edit_process')}" method="post" onkeypress="return event.keyCode != 13">
+        <input name="FS_KD_REG" id="FS_KD_REG" type="hidden" value="{$rs_pasien.NO_REG}" />  
+            <input name="TGL_LAHIR" id="TGL_LAHIR" type="hidden" value="{$rs_pasien.TGL_LAHIR}" /> 
+        <input name="FS_MR" type="hidden" value="{$rs_pasien.NO_MR}" />
+        <input name="idoperasi" type="hidden" value="{$idoperasi}" />
+        <input name="FS_KD_LAYANAN" type="hidden" value="{$rs_pasien.KODE_BANGSAL}" />
+        <input name="FS_KD_PETUGAS_MEDIS" type="hidden" value="{$rs_pasien.fs_kd_medis}" />
+
+        <table class="table-info" width="100%">
+            <tr class="headrow">
+                <th colspan="2">Add Asesmen Pra Bedah </th>
+            </tr>
+            <tr>
+                <td>NAMA</td>
+                <td>
+                    {$rs_pasien.NAMA_PASIEN}
+                </td>
+            </tr>
+            <tr>
+                <td>NO MR</td>
+                <td>
+                    {$rs_pasien.NO_MR}
+                </td>
+            </tr>
+            <tr>
+                <td>TANGGAL LAHIR</td>
+                <td>
+                    {$rs_pasien.TGL_LAHIR|date_format:"%d %b %Y"}
+                </td>
+            </tr>
+            <tr>
+                <td>ALAMAT</td>
+                <td>{$rs_pasien.ALAMAT}</td>
+            </tr>
+        </table>
+    
+      
+        <table class="table-input" width="100%" style="text-align: justify;">
+         
+
+          
+
+ 
+                    <!-- <select name="KD_PERAWAT" id="surat_dari" class="select2" style="width: 300px;">
+                        <option value=""></option>
+                        {foreach from=$rs_perawat item=data}
+                        <option value="{$data.NAMALENGKAP}">{$data.NAMALENGKAP}</option>
+                        {/foreach}
+                    </select> -->
+               
+        <input type="hidden" name="KD_OPERATOR" value="{$rs_pra3.KD_OPERATOR}">
+        <input type="hidden" name="KD_PERAWAT" value="{$rs_pra3.KD_PERAWAT}">
+                    
+
+                    {if $rolenya eq 'Perawat OK'}
+                    <input type="hidden" name="DATA_S" value="{$rs_pra3.DATA_S}" >
+                    <input type="hidden" name="DATA_O" value="{$rs_pra3.DATA_O}" >
+                    <input type="hidden" name="DIAGNOSA_PRA" value="{$rs_pra3.DIAGNOSA_PRA}">
+                {/if}
+    
+ 
+                {if $rolenya eq 'Dokter'}
+    
+                <tr>
+                 <td>Data Subjektif (Anamnesis)</td>
+                 <td >
+                     <textarea name="DATA_S" rows="2" style="width: 350px;" >{$rs_pra3.DATA_S} </textarea>
+                     </td>
+                </tr>
+                <tr>
+                   <td>Data Objektif (Pemeriksaan Fisik)</td>
+                   <td >
+                       <textarea name="DATA_O" rows="2" style="width: 350px;" > {$rs_pra3.DATA_O}</textarea> </td>
+                    </tr>
+                   <tr>
+                      <td>Diagnosa Pra Bedah </td>
+                      <td >
+                          <textarea name="DIAGNOSA_PRA" rows="1" style="width: 350px;" >{$rs_pra3.DIAGNOSA_PRA} </textarea>
+                          </td>
+                         
+                   </tr>
+    {/if} 
+    
+      
+    
+                <tr>
+                   <td>Verifikasi Pra Bedah</td>
+                        
+                       <td width="20%">  
+                        <input type="checkbox" name="V_STATUS_PASIEN" {if $rs_pra3.V_STATUS_PASIEN eq 'Ya'} checked {/if} value="Ya"> Status Pasien <br> 
+                        <input type="checkbox" name="V_INFORMED_BEDAH" {if $rs_pra3.V_INFORMED_BEDAH eq 'Ya'} checked {/if} value="Ya"> Informed Consent Bedah <br>
+                        <input type="checkbox" name="V_PRA_ANESTESI" {if $rs_pra3.V_PRA_ANESTESI eq 'Ya'} checked {/if} value="Ya"> Asesmen Pra Anestesi <br> 
+                       <input type="checkbox" name="V_ASES_PRA_LOK" {if $rs_pra3.V_ASES_PRA_LOK eq 'Ya'} checked {/if} value="Ya"> Asesmen PraBedah  <br> 
+                       <input type="checkbox" name="V_INFORMED_ANESTESI" {if $rs_pra3.V_INFORMED_ANESTESI eq 'Ya'} checked {/if} value="Ya"> Informed Consent Anestesi <br>
+                       <input type="checkbox" name="V_EDU_ANESTESI" {if $rs_pra3.V_EDU_ANESTESI eq 'Ya'} checked {/if} value="Ya"> Edukasi Anestesi <br>
+  
+                        </td>
+                        <td></td>
+                   </tr>
+
+                   
+
+
+
+
+  
+                   <tr>
+                    <td >Hasil Pemeriksaan Penunjang </td>
+                    <td  colspan="3">
+                       <table>
+                          <tr>
+                             <td>   Hb </td><td>: <input type="text" name="HB"  {foreach $hasil_lab as $x} {if $x.Pemeriksaan eq 'Hemoglobin'} value="{$x.Hasil}"  {/if} {/foreach} class="form-control"></td>
+                             <td>   Trombosit </td><td>: <input type="text" name="TROMBOSIT"  {foreach $hasil_lab as $x} {if $x.Pemeriksaan eq 'Trombosit'} value="{$x.Hasil}"  {/if} {/foreach} class="form-control"></td>
+                             <td>     BT </td><td>: <input type="text" name="BT"  {foreach $hasil_lab as $x} {if $x.Pemeriksaan eq 'BT'} value="{$x.Hasil}"  {/if} {/foreach} class="form-control"></td>
+                          </tr>
+                          <tr>
+                            <td>   Leukosit </td><td>: <input type="text" name="LEUKOSIT"  {foreach $hasil_lab as $x} {if $x.Pemeriksaan eq 'Leukosit'} value="{$x.Hasil}"  {/if} {/foreach}  value="" class="form-control"></td>
+                            <td>     Hematokrit</td><td> : <input type="text" name="HEMATOKRIT"  {foreach $hasil_lab as $x} {if $x.Pemeriksaan eq 'Hematrokit'} value="{$x.Hasil}"  {/if} {/foreach} class="form-control"></td>
+                            <td>   CT </td><td>: <input type="text" name="CT"  {foreach $hasil_lab as $x} {if $x.Pemeriksaan eq 'CT'} value="{$x.Hasil}"  {/if} {/foreach}  class="form-control"></td>
+                         </tr>
+                       </table>
+                       </td>
+             </tr>
+              
+          
+
+
+        
+      
+
+          
+            <tr>
+                    <td>   Rontgen : </td>
+                    <td >
+                   
+                      <textarea name="RONTGEN" rows="6" style="width: 350px;" > {$rs_pra3.RONTGEN}</textarea>
+                     </td>
+               </tr> 
+               <tr>
+                  <td>   EKG : </td>
+                  <td >
+                 
+                    <textarea name="EKG" rows="1" style="width: 350px;" > {$rs_pra3.EKG}</textarea>
+                   </td>
+             </tr> 
+             <tr>
+               <td>   Pemerikasaan Lain : </td>
+               <td >
+              
+                 <textarea name="LAINNYA" rows="1" style="width: 350px;" >{$rs_pra3.LAINNYA}</textarea>
+                </td>
+          </tr>           
+          <tr>
+            <td>  Darah/Alat yang diperlukan </td>
+            <td >
+              <textarea name="ALAT_LAIN" rows="1" style="width: 350px;" >{$rs_pra3.ALAT_LAIN} </textarea>
+             </td>
+       </tr>        
+       <tr>
+         <td>  Obat yang dibawa pasien </td>
+         <td >
+           <textarea name="OBAT_YG_DIBAWA" rows="1" style="width: 350px;" > {$rs_pra3.OBAT_YG_DIBAWA}</textarea>
+          </td>
+         </tr>     
+         <tr>
+            <td>  Estimasi Waktu  </td>
+            <td >
+            <textarea name="ESTIMASI_WAKTU" rows="1" style="width: 350px;" > {$rs_pra3.ESTIMASI_WAKTU}</textarea>
+            </td>
+      </tr>    
+      <tr>
+         <td>  Rencana Tindakan Bedah </td>
+         <td >
+         <textarea name="RENCANA_TINDAKAN" rows="1" style="width: 350px;" > {$rs_pra3.RENCANA_TINDAKAN}  </textarea>
+         </td>
+      </tr>         
+        <tr class="submit-box">
+            <td colspan="4">
+                <div style="font-weight: bold;">
+                    *Bismillahirohmanirrohim, saya dengan sadar dan penuh tanggung jawab mengisikan formulir ini dengan data yang benar
+                </div>
+                <br>
+                <input type="submit" name="save" value="Simpan" class="edit-button"/>
+            </td>
+        </tr>
+        </table>
+    </form>
+</div>
+ <table class="table-input" width="100%">
+     <tr>
+                <th colspan="4">Shortcut Navigation</th>
+            </tr>
+<tr class="submit-box">
+                <td colspan="5">
+                    <a href="javascript:void(0);" onclick="window.open('{$config->site_url('medis/rawat_inap/cari_process_cppt/'|cat:$rs_pasien.NO_REG)}', 'nama_window_pop_up', 'width=1000,height=1000,scrollbars=yes,resizeable=no')" class="btn-green">Asesmen Awal Medis Rawat Inap</a>
+                    <a href="javascript:void(0);" onclick="window.open('{$config->site_url('inap/ass_awal/cari_process_cppt/'|cat:$rs_pasien.NO_REG)}', 'nama_window_pop_up', 'width=1000,height=1000,scrollbars=yes,resizeable=no')" class="btn-red2">Asesmen Awal Keperawatan</a>
+                    <a href="javascript:void(0);" onclick="window.open('{$config->site_url('inap/ass_jatuh/cari_process_cppt/'|cat:$rs_pasien.NO_REG)}', 'nama_window_pop_up', 'width=1000,height=1000,scrollbars=yes,resizeable=no')" class="btn-blue2">Asesmen Jatuh</a>
+                    <a href="javascript:void(0);" onclick="window.open('{$config->site_url('inap/kep/cari_process_cppt/'|cat:$rs_pasien.NO_REG)}', 'nama_window_pop_up', 'width=1000,height=1000,scrollbars=yes,resizeable=no')" class="btn-green2">Rencana dan Tindakan Keperawatan</a>
+                    <a href="javascript:void(0);" onclick="window.open('{$config->site_url('inap/rm10/cari_process_cppt/'|cat:$rs_pasien.NO_REG)}', 'nama_window_pop_up', 'width=1000,height=1000,scrollbars=yes,resizeable=no')" class="btn-orange">Catatan Edukasi</a>
+                    <a href="javascript:void(0);" onclick="window.open('{$config->site_url('inap/rm17/cari_process_cppt/'|cat:$rs_pasien.NO_REG)}', 'nama_window_pop_up', 'width=1000,height=1000,scrollbars=yes,resizeable=no')" class="btn-pink">Catatan Pemberian Obat</a>
+                    <!--<a href="javascript:void(0);" onclick="window.open('{$config->site_url('inap/dp/cari_process_cppt/'|cat:$rs_pasien.NO_REG)}', 'nama_window_pop_up', 'width=1000,height=1000,scrollbars=yes,resizeable=no')" class="btn-brown">Discharge Planning</a>
+                    <a href="javascript:void(0);" onclick="window.open('{$config->site_url('farmasi/rekon/cari_process_cppt/'|cat:$rs_pasien.NO_REG)}', 'nama_window_pop_up', 'width=1000,height=1000,scrollbars=yes,resizeable=no')" class="btn-yellow">Rekonsiliasi Obat</a>
+                    -->
+                    <a href="javascript:void(0);" onclick="window.open('{$config->site_url('inap/resume/cari_process_cppt/'|cat:$rs_pasien.NO_REG)}', 'nama_window_pop_up', 'width=1000,height=1000,scrollbars=yes,resizeable=no')" class="btn-red">Resume Pasien Pulang</a>
+                    <!--<a href="javascript:;" class="btn-green item_status_add">Status Pasien</a>-->
+                    <a href="javascript:void(0);" onclick="window.open('{$config->site_url('rm/rawat_inap/cetak_rm/'|cat:$rs_pasien.NO_REG|cat:'/10')}', 'nama_window_pop_up', 'width=1000,height=1000,scrollbars=yes,resizeable=no')" class="btn-red2">Hasil Penunjang</a>
+                    <a href="javascript:void(0);" onclick="window.open('{$config->site_url('rm/rawat_jalan/resume/'|cat:$rs_pasien.NO_MR)}', 'nama_window_pop_up', 'width=1000,height=1000,scrollbars=yes,resizeable=no')" class="btn-blue2">Resume Rawat Jalan</a>
+                </td> 
+            </tr>
+ </table>
+<table class="table-view" width="100%">
+    <tr class="headrow">
+        <th colspan="6">List Asesmen Pra Bedah</th>
+    </tr>
+    <tr>
+        <th width="15%">Tanggal</th>
+        <th width="25%">Asesmen</th>
+        <!-- <th width="18%">Verifikasi RM</th> -->
+        <th width="15%">Pemeriksaan Penunjang</th>
+        <th width="10%">Rencana</th>
+        <th width="17%">Petugas</th>
+      
+    </tr>
+    {foreach $rs_pra as $cppt}
+    <tr>
+        <td>{$cppt.TGL_OP}  
+             <a href="javascript:void(0);" onclick="window.open('{$config->site_url('rm/rawat_inap/cetak_ases_pra_bedah/'|cat:$cppt.FS_KD_REG|cat:'/'|cat:$cppt.id)}', 'nama_window_pop_up', 'scrollbars=yes,resizeable=no')" class="button-download"></a> 
+        </td>
+        <td> 
+         S : {$cppt.DATA_S}<br>
+         O : {$cppt.DATA_O}<br>
+         A : {$cppt.DIAGNOSA_PRA}
+              </td>
+        <!-- <td>
+         - Status Pasien<br>
+         - Asesmen Pra Bedah<br>
+         - Informed Consent Bedah<br>
+         - Informed Consent Anestesi<br>
+         - Asesmen Pra Anestesi<br>
+         - Edukasi Anestesi 
+            </td> -->
+        <td> 
+            Hb : {$cppt.HB} | Leu : {$cppt.LEUKOSIT} | Trom : {$cppt.TROMBOSIT} | Hema : {$cppt.HEMATOKRIT} | BT : {$cppt.BT} | CT : {$cppt.CT}</td>
+        <td>{$cppt.RENCANA_TINDAKAN} </td>
+        <td>{$cppt.NAMALENGKAP} </td>
+ 
+     
+    </tr>
+    {/foreach}
+</table>
+
+
+
+ 

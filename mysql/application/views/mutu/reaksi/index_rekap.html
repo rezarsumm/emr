@@ -1,0 +1,361 @@
+<div class="breadcrum">
+    <p>
+        <a href="#">Mutu</a><span></span>
+        <a href="#">>Laporan Kejadian Reaksi</a><span></span>
+        <small>Rekap Data</small>
+    </p>
+    <div class="clear"></div>
+</div>
+<div class="head-content">
+    <div class="head-content-nav">
+        <ul>
+            <li><a href="{$config->site_url('mutu/reaksi/')}">Add Data</a></li>
+            <li><a href="{$config->site_url('mutu/reaksi/lap_rekap')}"  class="active">Rekap Data</a></li>
+            <li><a href="{$config->site_url('mutu/reaksi/lap_detil')}">Detil Data</a></li>
+        </ul>
+        <div class="clear"></div>
+    </div>
+    <div class="clear"></div>
+</div>
+<div class="content-entry"></div>
+<div class="search-box">
+    <h3><a href="#">Search</a></h3>
+    <form action="{$config->site_url('mutu/reaksi/proses_cari_rekap')}" method="post">
+        <table class="table-search" width="100%" >
+            <tr>
+                <td>
+                    Periode
+                    <select name="tahun">
+                        <option value="">Tahun</option>
+                        {foreach from=$rs_tahun item=tahun}
+                        <option value="{$tahun}" {if $search.tahun|default:'' eq $tahun}selected="selected"{/if}>{$tahun}</option>
+                        {/foreach}
+                    </select>
+                </td>
+                <td>
+                    <input class="button" type="submit" value="SEARCH" name="save" />
+                    <input class="button" type="submit" value="RESET" name="save" />
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+<div class="content-entry">
+    <div class="clear"></div>
+    <!-- notification template -->
+    {include file="base/templates/notification.html"}
+    <!-- end of notification template-->
+    <div class="dashboard-container">
+        <table width="100%" class="table-view">
+            <tbody>
+                <tr>
+                    <th width="40%">LAYANAN</th>
+                    {if $rs_total1 neq 0}
+                    <th width="5%">JANUARI</th>
+                    {else}
+                    {/if}
+                    {if $rs_total2 neq 0}
+                    <th width="5%">FEBRUARI</th>
+                    {else}
+                    {/if}
+                    {if $rs_total3 neq 0}
+                    <th width="5%">MARET</th>
+                    {else}
+                    {/if}
+                    {if $rs_total4 neq 0}
+                    <th width="5%">APRIL</th>
+                    {else}
+                    {/if}
+                    {if $rs_total5 neq 0}
+                    <th width="5%">MEI</th>
+                    {else}
+                    {/if}
+                    {if $rs_total6 neq 0}
+                    <th width="5%">JUNI</th>
+                    {else}
+                    {/if}
+                    {if $rs_total7 neq 0}
+                    <th width="5%">JULI</th>
+                    {else}
+                    {/if}
+                    {if $rs_total8 neq 0}
+                    <th width="5%">AGUSTUS</th>
+                    {else}
+                    {/if}
+                    {if $rs_total9 neq 0}
+                    <th width="5%">SEPTEMBER</th>
+                    {else}
+                    {/if}
+                    {if $rs_total10 neq 0}
+                    <th width="5%">OKTOBER</th>
+                    {else}
+                    {/if}
+                    {if $rs_total11 neq 0}
+                    <th width="5%">NOVEMBER</th>
+                    {else}
+                    {/if}
+                    {if $rs_total12 neq 0}
+                    <th width="5%">DESEMBER</th>
+                    {else}
+                    {/if}
+                </tr>
+                <tr>
+                    <td>KEJADIAN REAKSI TRANSFUSI DARAH</td>
+                    {if $rs_total1 neq 0}
+                    <td align="center">{$rs_rekap1_jan|default:0}</td>
+                    {else}
+                    {/if}
+                    {if $rs_total2 neq 0}
+                    <td align="center">{$rs_rekap1_feb|default:0}</td>
+                    {else}
+                    {/if}
+                    {if $rs_total3 neq 0}
+                    <td align="center">{$rs_rekap1_mar|default:0}</td>
+                    {else}
+                    {/if}
+                    {if $rs_total4 neq 0}
+                    <td align="center">{$rs_rekap1_apr|default:0}</td>
+                    {else}
+                    {/if}
+                    {if $rs_total5 neq 0}
+                    <td align="center">{$rs_rekap1_mei|default:0}</td>
+                    {else}
+                    {/if}
+                    {if $rs_total6 neq 0}
+                    <td align="center">{$rs_rekap1_jun|default:0}</td>
+                    {else}
+                    {/if}
+                    {if $rs_total7 neq 0}
+                    <td align="center">{$rs_rekap1_jul|default:0}</td>
+                    {else}
+                    {/if}
+                    {if $rs_total8 neq 0}
+                    <td align="center">{$rs_rekap1_agt|default:0}</td>
+                    {else}
+                    {/if}
+                    {if $rs_total9 neq 0}
+                    <td align="center">{$rs_rekap1_sep|default:0}</td>
+                    {else}
+                    {/if}
+                    {if $rs_total10 neq 0}
+                    <td align="center">{$rs_rekap1_okt|default:0}</td>
+                    {else}
+                    {/if}
+                    {if $rs_total11 neq 0}
+                    <td align="center">{$rs_rekap1_nov|default:0}</td>
+                    {else}
+                    {/if}
+                    {if $rs_total12 neq 0}
+                    <td align="center">{$rs_rekap1_des|default:0}</td>
+                    {else}
+                    {/if}
+                </tr>
+                <tr>
+                    <td> KEJADIAN REAKSI OBAT</td>
+                    {if $rs_total1 neq 0}
+                    <td align="center">{$rs_rekap2_jan|default:0}</td>
+                    {else}
+                    {/if}
+                    {if $rs_total2 neq 0}
+                    <td align="center">{$rs_rekap2_feb|default:0}</td>
+                    {else}
+                    {/if}
+                    {if $rs_total3 neq 0}
+                    <td align="center">{$rs_rekap2_mar|default:0}</td>
+                    {else}
+                    {/if}
+                    {if $rs_total4 neq 0}
+                    <td align="center">{$rs_rekap2_apr|default:0}</td>
+                    {else}
+                    {/if}
+                    {if $rs_total5 neq 0}
+                    <td align="center">{$rs_rekap2_mei|default:0}</td>
+                    {else}
+                    {/if}
+                    {if $rs_total6 neq 0}
+                    <td align="center">{$rs_rekap2_jun|default:0}</td>
+                    {else}
+                    {/if}
+                    {if $rs_total7 neq 0}
+                    <td align="center">{$rs_rekap2_jul|default:0}</td>
+                    {else}
+                    {/if}
+                    {if $rs_total8 neq 0}
+                    <td align="center">{$rs_rekap2_agt|default:0}</td>
+                    {else}
+                    {/if}
+                    {if $rs_total9 neq 0}
+                    <td align="center">{$rs_rekap2_sep|default:0}</td>
+                    {else}
+                    {/if}
+                    {if $rs_total10 neq 0}
+                    <td align="center">{$rs_rekap2_okt|default:0}</td>
+                    {else}
+                    {/if}
+                    {if $rs_total11 neq 0}
+                    <td align="center">{$rs_rekap2_nov|default:0}</td>
+                    {else}
+                    {/if}
+                    {if $rs_total12 neq 0}
+                    <td align="center">{$rs_rekap2_des|default:0}</td>
+                    {else}
+                    {/if}                                                             
+                </tr>
+                <tr>
+                    <td>KEJADIAN REAKSI SEDASI MODERATE ATAU DALAM</td>
+                    {if $rs_total1 neq 0}
+                    <td align="center">{$rs_rekap3_jan|default:0}</td>
+                    {else}
+                    {/if}
+                    {if $rs_total2 neq 0}
+                    <td align="center">{$rs_rekap3_feb|default:0}</td>
+                    {else}
+                    {/if}
+                    {if $rs_total3 neq 0}
+                    <td align="center">{$rs_rekap3_mar|default:0}</td>
+                    {else}
+                    {/if}
+                    {if $rs_total4 neq 0}
+                    <td align="center">{$rs_rekap3_apr|default:0}</td>
+                    {else}
+                    {/if}
+                    {if $rs_total5 neq 0}
+                    <td align="center">{$rs_rekap3_mei|default:0}</td>
+                    {else}
+                    {/if}
+                    {if $rs_total6 neq 0}
+                    <td align="center">{$rs_rekap3_jun|default:0}</td>
+                    {else}
+                    {/if}
+                    {if $rs_total7 neq 0}
+                    <td align="center">{$rs_rekap3_jul|default:0}</td>
+                    {else}
+                    {/if}
+                    {if $rs_total8 neq 0}
+                    <td align="center">{$rs_rekap3_agt|default:0}</td>
+                    {else}
+                    {/if}
+                    {if $rs_total9 neq 0}
+                    <td align="center">{$rs_rekap3_sep|default:0}</td>
+                    {else}
+                    {/if}
+                    {if $rs_total10 neq 0}
+                    <td align="center">{$rs_rekap3_okt|default:0}</td>
+                    {else}
+                    {/if}
+                    {if $rs_total11 neq 0}
+                    <td align="center">{$rs_rekap3_nov|default:0}</td>
+                    {else}
+                    {/if}
+                    {if $rs_total12 neq 0}
+                    <td align="center">{$rs_rekap3_des|default:0}</td>
+                    {else}
+                    {/if}                                                         
+                </tr>
+                <tr>
+                    <td>KEJADIAN REAKSI ANESTESI</td>
+                    {if $rs_total1 neq 0}
+                    <td align="center">{$rs_rekap4_jan|default:0}</td>
+                    {else}
+                    {/if}
+                    {if $rs_total2 neq 0}
+                    <td align="center">{$rs_rekap4_feb|default:0}</td>
+                    {else}
+                    {/if}
+                    {if $rs_total3 neq 0}
+                    <td align="center">{$rs_rekap4_mar|default:0}</td>
+                    {else}
+                    {/if}
+                    {if $rs_total4 neq 0}
+                    <td align="center">{$rs_rekap4_apr|default:0}</td>
+                    {else}
+                    {/if}
+                    {if $rs_total5 neq 0}
+                    <td align="center">{$rs_rekap4_mei|default:0}</td>
+                    {else}
+                    {/if}
+                    {if $rs_total6 neq 0}
+                    <td align="center">{$rs_rekap4_jun|default:0}</td>
+                    {else}
+                    {/if}
+                    {if $rs_total7 neq 0}
+                    <td align="center">{$rs_rekap4_jul|default:0}</td>
+                    {else}
+                    {/if}
+                    {if $rs_total8 neq 0}
+                    <td align="center">{$rs_rekap4_agt|default:0}</td>
+                    {else}
+                    {/if}
+                    {if $rs_total9 neq 0}
+                    <td align="center">{$rs_rekap4_sep|default:0}</td>
+                    {else}
+                    {/if}
+                    {if $rs_total10 neq 0}
+                    <td align="center">{$rs_rekap4_okt|default:0}</td>
+                    {else}
+                    {/if}
+                    {if $rs_total11 neq 0}
+                    <td align="center">{$rs_rekap4_nov|default:0}</td>
+                    {else}
+                    {/if}
+                    {if $rs_total12 neq 0}
+                    <td align="center">{$rs_rekap4_des|default:0}</td>
+                    {else}
+                    {/if}                                                                    
+                </tr>
+                <tr>
+                    <th><b>TOTAL</b></th>
+                    {if $rs_total1 neq 0}
+                    <th><b>{$rs_total1}</b></th>
+                    {else}
+                    {/if}   
+                    {if $rs_total2 neq 0}
+                    <th><b>{$rs_total2}</b></th>
+                    {else}
+                    {/if}   
+                    {if $rs_total3 neq 0}
+                    <th><b>{$rs_total3}</b></th>
+                    {else}
+                    {/if}   
+                    {if $rs_total4 neq 0}
+                    <th><b>{$rs_total4}</b></th>
+                    {else}
+                    {/if}   
+                    {if $rs_total5 neq 0}
+                    <th><b>{$rs_total5}</b></th>
+                    {else}
+                    {/if}   
+                    {if $rs_total6 neq 0}
+                    <th><b>{$rs_total6}</b></th>
+                    {else}
+                    {/if}   
+                    {if $rs_total7 neq 0}
+                    <th><b>{$rs_total7}</b></th>
+                    {else}
+                    {/if}   
+                    {if $rs_total8 neq 0}
+                    <th><b>{$rs_total8}</b></th>
+                    {else}
+                    {/if}   
+                    {if $rs_total9 neq 0}
+                    <th><b>{$rs_total9}</b></th>
+                    {else}
+                    {/if}   
+                    {if $rs_total10 neq 0}
+                    <th><b>{$rs_total10}</b></th>
+                    {else}
+                    {/if}   
+                    {if $rs_total11 neq 0}
+                    <th><b>{$rs_total11}</b></th>
+                    {else}
+                    {/if}   
+                    {if $rs_total12 neq 0}
+                    <th><b>{$rs_total12}</b></th>
+                    {else}
+                    {/if}   
+                </tr>
+            </tbody>
+        </table> 
+    </div> 
+</div>
+<div class="clear"></div>

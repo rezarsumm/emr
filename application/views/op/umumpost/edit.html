@@ -1,0 +1,223 @@
+
+ 
+<div class="breadcrum">
+    <p>
+        <a href="#">Catatan Operasi </a><span></span>
+        <a href="">DAta Umum Post Operasi</a><span></span>
+        <small>Edit Data</small>
+    </p>
+    <div class="clear"></div>
+</div> 
+<div class="content-entry">
+    <!-- notification template -->
+    {include file="base/templates/notification.html"}
+    <!-- end of notification template-->
+    <form action="{$config->site_url('op/umumpost/edit_process')}" method="post" onkeypress="return event.keyCode != 13">
+        <input name="FS_KD_REG" id="FS_KD_REG" type="hidden" value="{$rs_pasien.NO_REG}" />  
+            <input name="TGL_LAHIR" id="TGL_LAHIR" type="hidden" value="{$rs_pasien.TGL_LAHIR}" /> 
+        <input name="FS_MR" type="hidden" value="{$rs_pasien.NO_MR}" />
+        <input name="idoperasi" type="hidden" value="{$idoperasi}" />
+        <input name="FS_KD_LAYANAN" type="hidden" value="{$rs_pasien.KODE_BANGSAL}" />
+        <input name="FS_KD_PETUGAS_MEDIS" type="hidden" value="{$rs_pasien.fs_kd_medis}" />
+
+        <table class="table-info" width="100%">
+            <tr class="headrow">
+                <th colspan="2">Add Data Umum Post OP</th>
+            </tr>
+            <tr>
+                <td>NAMA</td>
+                <td>
+                    {$rs_pasien.NAMA_PASIEN}
+                </td>
+            </tr>
+            <tr>
+                <td>NO MR</td>
+                <td>
+                    {$rs_pasien.NO_MR}
+                </td>
+            </tr>
+            <tr>
+                <td>TANGGAL LAHIR</td>
+                <td>
+                    {$rs_pasien.TGL_LAHIR|date_format:"%d %b %Y"}
+                </td>
+            </tr>
+            <tr>
+                <td>ALAMAT</td>
+                <td>{$rs_pasien.ALAMAT}</td>
+            </tr>
+        </table>
+   
+        <div class="notification red">
+            <p><strong>High Risk :</strong> {$rs_pasien.FS_HIGH_RISK|default:'-'} </p>
+            <p><strong>Alergi :</strong> {$rs_pasien.FS_ALERGI|default:'-'} ({$rs_pasien.FS_REAK_ALERGI|default:'-'})</p>
+            <div class="clear"></div>
+        </div>
+        <table class="table-input" width="100%" style="text-align: justify;">
+         
+ 
+            <tr>
+                <!-- <td width="20%">Nama Dokter Bedah </td>
+                <td width="20%">
+                    <select name="KD_OPERATOR" id="surat_dari" class="select2" style="width: 300px;">
+                        <option value=""></option>
+                        {foreach from=$rs_dokter_sp item=data}
+                        <option value="{$data.NAMAUSER}">{$data.NAMALENGKAP}</option>
+                        {/foreach}
+                    </select>
+                </td>  -->
+
+          
+            <input type="hidden" name="KD_OPERATOR" value="{$rs_umum_post3.KD_OPERATOR}">
+            <input type="hidden" name="KD_AHLI_ANES" value="{$rs_umum_post3.KD_AHLI_ANESTESI}">
+            <input type="hidden" name="KD_ANES" value="{$rs_umum_post3.KD_ANES}">
+
+
+
+ 
+
+         
+                    <input type="hidden" name="DIAGNOSA_PRA" value="{$rs_umum_post3.DIAGNOSA_PRA}" class="form-control">
+             
+                    <input type="hidden" name="DIAGNOSA_POST" value="{$rs_umum_post3.DIAGNOSA_POST}" class="form-control">
+        
+
+            <tr>
+                <td width="20%">Jenis Operasi</td>
+                <td width="20%">
+                    <input type="text" name="JENIS_OP" style="width:100px;" value="{$rs_umum_post3.JENIS_OP}"  class="form-control"> Jam Operasi
+                    <input type="time" name="JAM_OP" style="width:90px;"  value="{$rs_umum_post3.JAM_OP}"  class="form-control">
+                </td>
+
+              <td width="20%">Jenis Anestesi</td>
+                <td width="20%">
+                    <input type="text" name="JENIS_ANEST" value="{$rs_umum_post3.JENIS_ANEST}"  class="form-control">
+                </td>
+            </tr>
+
+
+ 
+     <tr><td colspan="2"><b> Serah Terima Post OP</b></td></tr>
+
+     <tr>
+        <td colspan="2">
+        <table>
+            <tr><td>Status Pasien</td><td><input type="radio" name="S1" VALUE="Ya" checked>Ya </td><td><input type="radio" name="SERAH1" VALUE="Tidak">Tidak </td></tr>
+            <tr><td> Catatan Anestesi </td><td><input type="radio" name="S2" VALUE="Ya" checked>Ya </td><td><input type="radio" name="SERAH2" VALUE="Tidak">Tidak </td></tr>
+            <tr><td>Laporan Pembedahan</td><td><input type="radio" name="S3" VALUE="Ya" >Ya </td><td><input type="radio" name="S8" VALUE="Tidak">Tidak </td></tr>
+              
+            <tr><td> Perencanaan Medis Pasca Bedah </td><td><input type="radio" name="S4" VALUE="Ya" checked>Ya </td><td><input type="radio" name="SERAH3" VALUE="Tidak">Tidak </td></tr>
+            <tr><td> Checklist Keselamatan</td><td><input type="radio" name="S5" VALUE="Ya" checked>Ya </td><td><input type="radio" name="SERAH4" VALUE="Tidak">Tidak </td></tr>
+            <tr><td>Checklist Monitoring Alat  </td><td><input type="radio" name="S6" VALUE="Ya" checked>Ya </td><td><input type="radio" name="SERAH5" VALUE="Tidak">Tidak </td></tr>
+            <tr><td>  Askep Perioperatif </td><td><input type="radio" name="S7" VALUE="Ya" checked>Ya </td><td><input type="radio" name="SERAH6" VALUE="Tidak">Tidak </td></tr>
+            <tr><td>Lembar Pemantauan bedah</td><td><input type="radio" name="S8" VALUE="Ya" checked>Ya </td><td><input type="radio" name="SERAH7" VALUE="Tidak">Tidak </td></tr>
+         </table>    
+        </td>
+        <td colspan="2">
+            <table>
+                <tr><td> Form Pemeriksaan  </td><td><input type="radio" name="S9" VALUE="Ya" checked>Ya </td><td><input type="radio" name="S9" VALUE="Tidak">Tidak </td></tr>
+                <tr><td> Sampel Pemeriksaan </td><td><input type="radio" name="S10" VALUE="Ya" checked>Ya </td><td><input type="radio" name="S10" VALUE="Tidak">Tidak </td></tr>
+                <tr><td>Foto Rontgen  </td><td><input type="radio" name="S11" VALUE="Ya" checked>Ya </td><td><input type="radio" name="S12" VALUE="Tidak">Tidak </td></tr>
+                <tr><td> Resep </td><td><input type="radio" name="S12" VALUE="Ya" checked>Ya </td><td><input type="radio" name="S13" VALUE="Tidak">Tidak </td></tr>
+                <tr><td>Lain lain</td><td><input type="radio" name="S13" VALUE="Ya" checked>Ya </td><td><input type="radio" name="S14" VALUE="Tidak">Tidak </td></tr>
+         
+            </table>    
+            </td>
+         </tr>
+
+         <tr><td><b>Terpasang</b></td>
+        <td>
+            <input type="checkbox" name="TERPASANG[]" value="NGT" class="form-control">NGT<br>
+            <input type="checkbox" name="TERPASANG[]" value="DRAIN" class="form-control">DRAIN<br>
+            <input type="checkbox" name="TERPASANG[]" value="TAMPON HIDUNG" class="form-control">Tampon HIdung<br>
+            <input type="checkbox" name="TERPASANG[]" value="TAMPON GIGI" class="form-control">Tampon Gigi<br>
+            <input type="checkbox" name="TERPASANG[]" value="TAMPON ABDOMEN" class="form-control">Tampon Abdomen<br>
+            <input type="checkbox" name="TERPASANG[]" value="TAMPON VAGINA" class="form-control">Tampon Vagina<br>
+            <input type="checkbox" name="TERPASANG[]" value="TRANFUSI" class="form-control">Tranfusi<br>
+            <input type="checkbox" name="TERPASANG[]" value="IVFD" class="form-control">IVFD<br>
+            <input type="checkbox" name="TERPASANG[]" value="KOMPRES" class="form-control">Kompres Luka<br>
+            <input type="checkbox" name="TERPASANG[]" value="DC" class="form-control">DC<br>
+         </td></tr>
+ 
+         
+        <tr>
+            
+            <td width="20%"> Kesadaran </td>
+            <td width="20%">
+                <input type="text" name="KESADARAN"  value="{$rs_umum_post3.KESADARAN}"  class="form-control">  
+                <input type="hidden" name="TB"  >              
+                <input type="hidden" name="BB" >
+             </td>
+             <td colspan="2">
+             <table>
+                <tr>
+
+                   <td>     Tekanan Darah </td><td>: <input type="text" name="TD" value="{$rs_umum_post3.TD}" class="form-control" style="width: 60px;"></td>
+                  <td>   Nadi </td><td>: <input type="text" name="ND" value="{$rs_umum_post3.ND}" class="form-control" style="width: 60px;"></td>
+                </tr>
+                <tr>
+                  <td>     Pernafasan</td><td> : <input type="text" name="P" value="{$rs_umum_post3.P}" class="form-control" style="width: 60px;"></td>
+                  <td>     SH</td><td> : <input type="text" name="sh" value="{$rs_umum_post3.SH}" class="form-control" style="width: 60px;"></td>
+                  <td>  </td><td></td>
+               </tr>
+             </table>
+            </td>
+        </tr>
+
+        <tr>
+            <td width="20%">Instruksi Dokter Bedah </td>
+            <td width="20%">
+                <textarea name="INSTRUKSI_DOKTER" class="form-control" rows="3" style="width: 350px;">{$rs_umum_post3.INSTRUKSI_DOKTER}</textarea> 
+            </td>
+
+        </tr>
+
+    
+            <tr class="submit-box">
+            <td colspan="4">
+                <div style="font-weight: bold;">
+                    *Bismillahirohmanirrohim, saya dengan sadar dan penuh tanggung jawab mengisikan formulir ini dengan data yang benar
+                </div>
+                <br>
+                <input type="submit" name="save" value="Simpan" class="edit-button"/>
+            </td>
+        </tr>
+        </table>
+    </form>
+</div> 
+<table class="table-view" width="100%">
+    <tr class="headrow">
+        <th colspan="6">List Laporan OP</th>
+    </tr>
+    <tr>
+        <th width="25%">Tanggal</th>
+        <th width="10%">Diagnosa </th>
+        <th width="30%"> Data Umum</th>
+        <th width="15%">Petugas</th>
+      
+    </tr>
+    {foreach $rs_umum_post  as $cppt}
+    <tr>
+        <td>{$cppt.TGL}  
+            <a href="javascript:void(0);" onclick="window.open('{$config->site_url('rm/rawat_inap/cetak_data_umum_post/'|cat:$cppt.FS_KD_REG|cat:'/'|cat:$cppt.id)}', 'nama_window_pop_up', 'scrollbars=yes,resizeable=no')" class="button-download">{$data.TANGGAL|date_format :"%d %B %Y"}</a> 
+        </td>
+        <td> Pra : {$cppt.DIAGNOSA_PRA} <br> Post : {$cppt.DIAGNOSA_POST} </td>
+        <td>
+            Jenis Op : {$cppt.JENIS_OP} <br>
+         <td>{$cppt.NAMALENGKAP} </td>
+  
+
+    </tr>
+    {/foreach}
+</table>
+<script>
+       $(".select2").select2({
+            placeholder: "Pilih",
+            allowClear: true
+        });
+</script>
+
+
+
+
+  

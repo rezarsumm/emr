@@ -1,0 +1,437 @@
+{include file="nurse/fisio/add_script_js.html"}
+
+<div class="breadcrum">
+    <p>
+        <a href="#">Nursing Record</a><span></span>
+        <a href="{$config->site_url('nurse/fisio/')}">Rawat Jalan</a><span></span>
+        <small>Add Data</small>
+    </p>
+    <div class="clear"></div>
+</div>
+<div class="navigation">
+    <div class="navigation-button">
+        <ul>
+            <li><a href="{$config->site_url('nurse/fisio/')}"><img src="{$BASEURL}resource/doc/images/icon/back-icon.png" alt="" />  Back</a></li>
+        </ul>
+    </div>
+    <div class="clear"></div>
+</div>
+<!-- notification template -->
+{include file="base/templates/notification.html"}
+<!-- end of notification template-->
+<form action="{$config->site_url('nurse/fisio/add_process')}" method="post">
+    <input type="hidden" name="FS_KD_REG" id="FS_KD_REG" value="{$result.FS_KD_REG}" />
+    <input type="hidden" name="FS_MR" value="{$result.FS_MR}" />
+    <input type="hidden" name="FS_KD_MEDIS" value="{$FS_KD_MEDIS}" />
+    <input type="hidden" name="FS_KD_LAYANAN" value="{$result.FS_KD_LAYANAN}" />
+    <input type="hidden" name="FS_JNS_ASESMEN" value="{$FS_JNS_ASESMEN}" />
+    <table class="table-info" width="100%">
+        <tr class="headrow">
+            <th colspan="4">Data Pasien</th>
+        </tr>
+        <tr>
+            <td width='20%'>Kode Reg</td>
+            <td width='30%'>{$result.FS_KD_REG}</td>
+            <td width='20%'>No RM</td>
+            <td width='30%'>{$result.FS_MR}</td>
+        </tr>
+        <tr>
+            <td>Nama</td>
+            <td>{$result.FS_NM_PASIEN|default:''}</td>
+            <td>Alamat</td>
+            <td>{$result.FS_ALM_PASIEN|default:''}</td>
+        </tr>
+        <tr>
+            <td>Umur</td>
+            <td>{$result.fn_umur|default:''} Tahun</td>
+            <td>Jenis Kelamin</td>
+            <td>
+                {if $result.FS_JNS_KELAMIN eq '1'}
+                Perempuan
+                {else}
+                Laki-Laki
+                {/if}
+            </td>
+        </tr>
+        <tr>
+            <td>Jaminan</td>
+            <td>{$result.FS_NM_JAMINAN|default:''}</td>
+            <td>Dokter</td>
+            <td>{$result.FS_NM_PEG|default:''}</td>
+        </tr>
+        <tr>
+            <td>Kelengkapan Berkas</td>
+            <td>
+                {if $result.FS_KD_TIPE_JAMINAN eq '95001' OR $result.FS_KD_TIPE_JAMINAN eq '96001'}
+                {if $result.FS_NO_SJP eq ' '}
+                <span style='color: red;font-weight: bold;font-size: 15px;'><blink>DATA BELUM DIVERIFIKASI</blink></span>
+                {else}
+                <span style='color: green;font-weight: bold;font-size: 15px;'><blink>DATA SUDAH DIVERIVIKASI</blink></span>
+                {/if}
+                {/if}
+            </td>
+            <td></td>
+            <td></td>
+        </tr>
+    </table>
+    <div class="navigation">
+        <div class="pageRow">
+            <div class="pageNav">
+                <ul>
+                    <li class="info"></li>
+                </ul>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="navigation-button">
+            <ul>
+                <li><a href="javascript:void(0);" onclick="window.open('{$config->site_url('rm / rawat_jalan / resume / '|cat:$result.FS_MR)}', 'nama_window_pop_up', 'scrollbars=yes,resizeable=no')"><img src="{$BASEURL}resource/doc/images/icon/printer-icon.png" alt="" /> Profil Ringkas Medis Rawat Jalan</a></li>
+            </ul>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="notification red">
+    <p><strong>High Risk :</strong> {$result.FS_HIGH_RISK|default:'-'} </p>
+    <p><strong>Alergi :</strong> {$result.FS_ALERGI|default:'-'} ({$result.FS_REAK_ALERGI|default:'-'})</p>
+    <div class="clear"></div>
+</div>
+    <table class="table-input" width="100%">
+        <tr class="headrow">
+            <th colspan="2">Anamnesa</th>
+            <th colspan="2">Edukasi Pasien</th>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <textarea cols="50" name="FS_ANAMNESA"></textarea>
+                <em style="color:red">* Wajib Diisi</em>
+            </td>
+            <td colspan="2">
+                <textarea cols="50" name="FS_EDUKASI"></textarea>
+            </td>
+        </tr>
+        <tr class="headrow">
+            <th colspan="4">Vital Sign</th>
+        </tr>
+        <tr>
+            <td width='20%'>Suhu</td>
+            <td width='30%'><input type="text" name="FS_SUHU" size="10"/></td>
+            <td width='20%'>Nadi</td>
+            <td width='30%'><input type="text" name="FS_NADI" size="10"/> x/menit</td>
+        </tr>
+        <tr>
+            <td>R</td>
+            <td><input type="text" name="FS_R" size="10" /> x/menit</td>
+            <td>TD</td>
+            <td><input type="text" name="FS_TD" size="10" /> mmHg</td>
+        </tr>
+        <tr>
+            <td>Tinggi Badan</td>
+            <td><input type="text" name="FS_TB" size="10" /> cm</td>
+            <td>Berat Badan</td>
+            <td><input type="text" name="FS_BB" size="10" /> Kg</td>
+        </tr>
+    </table>
+    <table class="table-input" width="100%">
+        <tr class="headrow">
+            <th colspan="4">Riwayat Kesehatan</th>
+        </tr>
+        <tr>
+            <td width='20%'>Riweayat Penyakit dahulu</td>
+            <td width='30%'>
+                <select name="FS_RIW_PENYAKIT_DAHULU">
+                    <option value="" onclick='document.getElementById("civstaton1").disabled = true'>--Pilih Data--</option>
+                    <option value="1" onclick='document.getElementById("civstaton1").disabled = true'>Hipertensi</option>
+                    <option value="2" onclick='document.getElementById("civstaton1").disabled = true'>TB Paru</option>
+                    <option VALUE="3" onclick='document.getElementById("civstaton1").disabled = false'>Lainnya</option>
+                </select>
+                <br><br>
+                <input type="text" name="FS_RIW_PENYAKIT_DAHULU2" id="civstaton1" disabled="" size="32">
+            </td>
+            <td width='20%'>Riwayat penyakit keluarga</td>
+            <td width='30%'>
+                <select name="FS_RIW_PENYAKIT_KEL">
+                    <option value="" onclick='document.getElementById("civstaton2").disabled = true'>--Pilih Data--</option>
+                    <option value="1" onclick='document.getElementById("civstaton2").disabled = true'>Hipertensi</option>
+                    <option value="2" onclick='document.getElementById("civstaton2").disabled = true'>TB Paru</option>
+                    <option VALUE="3"onclick='document.getElementById("civstaton2").disabled = false'>Lainnya</option>
+                </select>
+                <br><br>
+                <input type="text" name="FS_RIW_PENYAKIT_KEL2" id="civstaton2" disabled="" size="32">
+            </td>
+        </tr>
+    </table>
+   <table class="table-input" width="100%">
+        <tr class="headrow">
+            <th colspan="4">Riwayat Alergi</th>
+        </tr>
+        <tr>
+            <td width='20%'>Riwayat Alergi</td>
+            <td width='30%'>
+                <input type="text" name="FS_ALERGI" size="35" value="{$result.FS_ALERGI|default:'-'}">
+                <em style="color:red">* Wajib Diisi</em>
+            </td>
+            <td width='20%'>Reaksi Alergi</td>
+            <td width='30%'>
+                <input type="text" name="FS_REAK_ALERGI" size="35" value="{$result.FS_REAK_ALERGI|default:'-'}">
+                <em style="color:red">* Wajib Diisi</em>
+            </td>
+        </tr>
+    </table>
+
+    <table class="table-input" width="100%">
+        <tr class="headrow">
+            <th colspan="4">Pemeriksaan Fisioterapi</th>
+        </tr>
+        <tr>
+            <td width='20%'>Inspeksi</td>
+            <td width='30%'>
+                <textarea cols="50" name="FS_NM_INSPEKSI"></textarea>
+            </td>
+            <td width='20%'>Palpasi</td>
+            <td width='30%'>
+                <textarea cols="50" name="FS_NM_PALPASI"></textarea>
+            </td>
+        </tr>
+        <tr>
+            <td>Pemeriksaan Spesifik</td>
+            <td>
+                <textarea cols="50" name="FS_NM_PEM_SPESIFIK"></textarea>
+            </td>
+            <td>Diagnosa Fisioterapi</td>
+            <td>
+                <textarea cols="50" name="FS_NM_DIAG_FISIO"></textarea>
+            </td>
+        </tr>
+        <tr>
+            <td>Intervensi Umum</td>
+            <td>
+                 <select name="FS_KD_FISIO_INTERVENSI_UMUM[]" multiple id="tujuan" style="width:250px">
+                    <option></option>
+                </select>
+                
+            </td>
+            <td>Intervensi BPJS</td>
+            <td>
+                <select name="FS_KD_FISIO_INTERVENSI_BPJS[]" multiple id="tembusan" style="width:250px">
+                    <option></option>
+                </select>
+                
+            </td>
+        </tr>
+    </table>
+    <table class="table-input" width="100%">
+        <tr class="headrow">
+            <th colspan="6">Pemeriksaan Gerak Dasar Aktif</th>
+        </tr>
+        <tr class="submit-box">
+            <td colspan="6">
+                <a href="javascript:;" class="btn-blue opendialogadd">Tambah Data</a>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2"><center><b>Gerak</b></center></td>
+        <td colspan="2"><center><b>ROM</b></center></td>
+        <td><center><b>Nyeri</b></center></td>
+        <td><center><b>Aksi</b></center></td>
+        </tr>
+
+        <tbody id="show_data">
+
+        </tbody>
+
+    </table>
+    <table class="table-input" width="100%">
+        <tr class="headrow">
+            <th colspan="6">Pemeriksaan Gerak Dasar Pasif</th>
+        </tr>
+        <tr class="submit-box">
+            <td colspan="6">
+                <a href="javascript:;" class="btn-blue opendialogaddPasif">Tambah Data</a>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2"><center><b>Gerak</b></center></td>
+        <td><center><b>ROM</b></center></td>
+        <td><center><b>Nyeri</b></center></td>
+        <td><center><b>End Feel</b></center></td>
+        <td><center><b>Aksi</b></center></td>
+        </tr>
+
+        <tbody id="show_dataPasif">
+
+        </tbody>
+
+    </table>
+    <table class="table-input" width="100%">
+        <tr class="headrow">
+            <th colspan="6">Pemeriksaan Gerak Dasar Isometrik</th>
+        </tr>
+        <tr class="submit-box">
+            <td colspan="6">
+                <a  href="javascript:;" class="btn-blue opendialogaddIsom">Tambah Data</a>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2"><center><b>Gerak</b></center></td>
+        <td  colspan="2"><center><b>MMT</b></center></td>
+        <td colspan="2"><center><b>Aksi</b></center></td>
+        </tr>
+
+        <tbody id="show_dataIsom">
+
+        </tbody>
+
+    </table>
+    <table class="table-input" width="100%">
+        <tr class="submit-box">
+            <td colspan="4">
+                <div style="font-weight: bold;">
+                    *Bismillahirohmanirrohim, saya dengan sadar dan penuh tanggung jawab mengisikan formulir ini dengan data yang benar
+                </div>
+                <br>
+                <input type="submit" name="save" value="Simpan" class="edit-button" /> 
+            </td>
+        </tr>
+    </table>
+</form>
+
+<div id="ModalAdd">
+    <table class="table-input" width="100%">
+        <tr >
+            <th colspan="2">Add Data <span id="loading">LOADING...</span></th>
+        </tr>
+        <tr>
+            <td>Gerak</td>
+            <td>
+                <input name="FS_NM_GERAK" id="FS_NM_GERAK" class="form-control" type="text">
+            </td>
+        </tr>
+        <tr>
+            <td>ROM</td>
+            <td>   
+                <input name="FS_NM_ROM" id="FS_NM_ROM" class="form-control" type="text">
+            </td>
+        </tr>
+        <tr>
+            <td>Nyeri</td>
+            <td>
+                <input name="FS_NM_NYERI" id="FS_NM_NYERI" class="form-control" type="text">
+        </tr>
+        <tr class="submit-box">
+            <td colspan="2">
+                <button type="button" id="btn-add" class="btn-blue">Tambah</button>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<div id="ModalHapus">
+    <table class="table-input" width="100%">
+        <tr>
+            <th colspan="2">Hapus Data <span id="loading-hapus">LOADING...</span></th>
+        </tr>
+        <tr>
+        <input type="hidden" name="kode" id="textkode" value="" />
+        <td><div class="alert alert-warning"><p>Apakah Anda yakin mau menghapus barang ini?</p></div></td>
+        </tr>
+        <tr class="submit-box">
+            <td colspan="2">
+                <button type="button" id="btn_hapus" class="btn-red">Hapus</button>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<div id="ModalAddPasif">
+    <table class="table-input" width="100%">
+        <tr >
+            <th colspan="2">Add Data <span id="loadingPasif">LOADING...</span></th>
+        </tr>
+        <tr>
+            <td>Gerak</td>
+            <td>
+                <input name="FS_NM_GERAK_PASIF" id="FS_NM_GERAK_PASIF" class="form-control" type="text">
+            </td>
+        </tr>
+        <tr>
+            <td>ROM</td>
+            <td>   
+                <input name="FS_NM_ROM_PASIF" id="FS_NM_ROM_PASIF" class="form-control" type="text">
+            </td>
+        </tr>
+        <tr>
+            <td>Nyeri</td>
+            <td>
+                <input name="FS_NM_NYERI_PASIF" id="FS_NM_NYERI_PASIF" class="form-control" type="text">
+        </tr>
+        <tr>
+            <td>End Feel</td>
+            <td>
+                <input name="FS_NM_END_FEEL" id="FS_NM_END_FEEL" class="form-control" type="text">
+        </tr>
+        <tr class="submit-box">
+            <td colspan="2">
+                <button type="button" id="btn-add-pasif" class="btn-blue">Tambah</button>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<div id="ModalHapusPasif">
+    <table class="table-input" width="100%">
+        <tr>
+            <th colspan="2">Hapus Data <span id="loading-hapusPasif">LOADING...</span></th>
+        </tr>
+        <tr>
+        <input type="hidden" name="kode" id="textkode" value="" />
+        <td><div class="alert alert-warning"><p>Apakah Anda yakin mau menghapus barang ini?</p></div></td>
+        </tr>
+        <tr class="submit-box">
+            <td colspan="2">
+                <button type="button" id="btn_hapusPasif" class="btn-red">Hapus</button>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<div id="ModalAddIsom">
+    <table class="table-input" width="100%">
+        <tr >
+            <th colspan="2">Add Data <span id="loadingIsom">LOADING...</span></th>
+        </tr>
+        <tr>
+            <td>Gerak</td>
+            <td>
+                <input name="FS_NM_GERAK_ISOM" id="FS_NM_GERAK_ISOM" class="form-control" type="text">
+            </td>
+        </tr>
+        <tr>
+            <td>MMT</td>
+            <td>   
+                <input name="FS_NM_MMT" id="FS_NM_MMT" class="form-control" type="text">
+            </td>
+        </tr>
+        <tr class="submit-box">
+            <td colspan="2">
+                <button type="button" id="btn-add-isom" class="btn-blue">Tambah</button>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<div id="ModalHapusIsom">
+    <table class="table-input" width="100%">
+        <tr>
+            <th colspan="2">Hapus Data <span id="loading-hapusIsom">LOADING...</span></th>
+        </tr>
+        <tr>
+        <input type="hidden" name="kode" id="textkode" value="" />
+        <td><div class="alert alert-warning"><p>Apakah Anda yakin mau menghapus barang ini?</p></div></td>
+        </tr>
+        <tr class="submit-box">
+            <td colspan="2">
+                <button type="button" id="btn_hapusIsom" class="btn-red">Hapus</button>
+            </td>
+        </tr>
+    </table>
+</div>

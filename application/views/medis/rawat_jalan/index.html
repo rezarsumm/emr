@@ -1,0 +1,151 @@
+{include file="medis/rawat_jalan/add_script_js.html"}
+<div class="breadcrum">
+    <p>
+        <a href="#">Pemeriksaan Medis</a><span></span>
+        <small>Rawat Jalan</small>
+    </p>
+    <div class="clear"></div>
+</div>
+<!--<div class="search-box">
+    <h3><a href="#">Search</a></h3>
+    <form action="{$config->site_url('medis/rawat_jalan/proses_cari')}" method="post">
+        <table class="table-search" width="100%">
+            <tr>
+                <th width="10%" aligh="left">Periode</th>
+                <td width="75%">
+                    <input name="FD_TGL_MASUK" value="{$search.FD_TGL_MASUK}" class="tanggal" size="10" style="text-align: center;"/>
+                    <input name="save" type="submit" value="Tampilkan" />
+                    <input name="save" type="submit" value="Reset" />
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>-->
+<!-- notification template -->
+{include file="base/templates/notification.html"}
+<!-- end of notification template
+ -->
+<div class="g" style="overflow-y:auto; overflow-x:scroll; "> 
+<div class="dashboard-container" style="margin: 10px;">
+    <table class="table-view" width="100%" border="0">
+        <thead style="background-color: lightblue;">
+            <tr>
+                <th width='2%' >No</th>
+                <th>No MR</th>
+                <th>Nama Psien</th>
+                <th>Alamat</th>
+              <!--   <th>Dokter</th> -->
+                <th>Status</th>
+                <th width='13%'>Aksi</th>
+            </tr>
+        </thead>
+        <tbody>
+            {foreach from=$rs_pasien item=data}
+            <tr>
+                <td>{$data.NOMOR}</td>
+                <td>{$data.NO_MR}</td>
+                <td>{$data.NAMA_PASIEN}</td>
+                <td>{$data.ALAMAT}</td> 
+               <!--  <td>{$data.NAMA_DOKTER}</td>  -->
+                <td>
+                    
+                    {if $data.FS_STATUS eq ''}
+                    <img src="{$BASEURL}resource/doc/images/icon/icon.waiting.png" alt="" />
+                  Perawat
+                    {elseif $data.FS_STATUS eq '1'}
+                    <img src="{$BASEURL}resource/doc/images/icon/icon.waiting.dokter.png" alt="" />
+                   Dokter
+                    {elseif $data.FS_STATUS eq '2'}
+                     {if $data.FS_TERAPI eq '' OR $data.FS_TERAPI eq '<p>-</p>'}
+                     <img src="{$BASEURL}resource/doc/images/icon/icon.approve.png" alt="" />
+                     Selesai
+                     {else}
+                    <img src="{$BASEURL}resource/doc/images/icon/icon.waiting.farmasi.png" alt="" />
+                    Farmasi
+                    {/if}
+                     
+                    {/if}
+                </td> 
+                <td>
+                    <a href="{$config->site_url('medis/rawat_jalan/history/'|cat:$data.NO_MR|default:'')}" class="button-edit">Entry</a>
+                  
+                </td>
+            </tr>
+            {/foreach}
+        </tbody>
+    </table>
+
+     
+<br><br>
+List Pasien Konsul
+
+ <form action="{$config->site_url('medis/rawat_jalan/proses_cari')}" method="post">
+        <table class="table-search" width="100%">
+            <tr>
+                <th width="10%" aligh="left">Tanggal Daftar</th>
+                <td width="90%">
+                    <input name="FD_TGL_TRS" value="{$search.FD_TGL_TRS}" class="tanggal" size="10" style="text-align: center;"/>
+                    <input name="save" type="submit" value="Tampilkan" />
+                    <input name="save" type="submit" value="Reset" />
+                </td>
+            </tr>
+        </table>
+    </form>
+
+    <table class="table-view" width="100%" border="0">
+        <thead>
+            <tr>
+                <!-- <th width='2%'>No</th> -->
+                <th>No MR</th>
+                <th>Nama Psien</th>
+                <th>Alamat</th>
+                <th>Dokter Pengirim</th>
+                <th>  Tanggal</th>
+                <th width='18%'>Aksi</th>
+            </tr>
+        </thead>
+        <tbody>
+            {foreach from=$pasien_konsul item=kata}
+            <tr>
+                <!-- <td>{$data.NOMOR}</td> -->
+                <td>{$kata.NO_MR}</td>
+                <td>{$kata.NAMA_PASIEN}</td>
+                <td>{$kata.ALAMAT}</td> 
+                <td>{$kata.NAMA_DOKTER}</td> 
+                <td>{$kata.TANGGAL}</td> 
+                <!-- <td>
+                    
+                    {if $data.FS_STATUS eq ''}
+                    <img src="{$BASEURL}resource/doc/images/icon/icon.waiting.png" alt="" />
+                  Perawat
+                    {elseif $data.FS_STATUS eq '1'}
+                    <img src="{$BASEURL}resource/doc/images/icon/icon.waiting.dokter.png" alt="" />
+                   Dokter
+                    {elseif $data.FS_STATUS eq '2'}
+                     {if $data.FS_TERAPI eq '' OR $data.FS_TERAPI eq '<p>-</p>'}
+                     <img src="{$BASEURL}resource/doc/images/icon/icon.approve.png" alt="" />
+                     Selesai
+                     {else}
+                    <img src="{$BASEURL}resource/doc/images/icon/icon.waiting.farmasi.png" alt="" />
+                    Farmasi
+                    {/if}
+                     
+                    {/if}
+                </td>  -->
+                <td>
+                    <a href="{$config->site_url('medis/rawat_jalan/history/'|cat:$kata.NO_MR|cat:'/x')}" class="button-edit">Entry</a>
+                 
+                    {if $kata.FS_TERAPI eq '' OR $kata.FS_TERAPI eq '<p>-</p>'}
+                    {else}
+                     <a href="javascript:void(0);" onclick="window.open('{$config->site_url('medis/rawat_jalan/cetak_resep/'|cat:$kata.NO_REG|cat:'/'|cat:$kata.FS_KD_TRS)}', 'nama_window_pop_up', 'scrollbars=yes,resizeable=no')" class="button-edit">Cetak Resep</a>
+                 {/if}
+                    
+                </td>
+            </tr>
+            {/foreach}
+        </tbody>
+    </table>
+<br>
+<br>
+</div>
+</div>

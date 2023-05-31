@@ -1,0 +1,203 @@
+<!-- include javascript -->
+{include file="inap/kep/add_script_js.html"}
+<!-- end of include javascript-->
+<div class="breadcrum">
+    <p>
+        <a href="#">Catatan Rawat Inap</a><span></span>
+       
+        <small>Add Data</small>
+    </p>
+    <div class="clear"></div>
+</div>
+<div class="content-entry">
+    <!-- notification template --> 
+    <!-- end of notification template-->
+    <form action="{$config->site_url('inap/ews_hamil/add_process')}" method="post">
+        <input name="FS_KD_REG" type="hidden" value="{$rs_pasien.NO_REG}" />
+        <input name="FS_MR" type="hidden" value="{$rs_pasien.NO_MR}" />
+
+        <table class="table-info" width="100%">
+            <tr class="headrow">
+                <th colspan="2"></th>
+            </tr>
+            <tr> 
+                <td>NAMA</td>
+                <td>
+                    {$rs_pasien.NAMA_PASIEN}
+                </td>
+            </tr>
+            <tr>
+                <td>NO MR</td>
+                <td>
+                    {$rs_pasien.NO_MR}
+                </td>
+            </tr>
+            <tr>
+                <td>TANGGAL LAHIR</td>
+                <td>
+                    {$rs_pasien.TGL_LAHIR|date_format:"%d %b %Y"}
+                </td>
+            </tr>
+            <tr>
+                <td>ALAMAT</td>
+                <td>{$rs_pasien.ALAMAT}</td>
+            </tr>
+        </table>
+        <div class="head-content">
+            <div class="head-content-nav">
+                <ul>
+                    <!-- <li><a href="{$config->site_url('inap/kep/add_tindakan/'|cat:$rs_pasien.NO_REG)}" class="active">Tindakan Keperawatan</a></li> -->
+                </ul>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        
+        <div class="content-entry">
+            <table class="table-input" width="100%">
+
+                <tr class="headrow">
+                    <th colspan="4">Lembar Observasi Early Warning Score Ibu Hamil</th>
+                </tr>
+               
+            <tr>
+                <td>Tanggal Observasi</td>
+                <td colspan="2">
+                    <input name="TGL" type="text"  style="width:80px" value="{$result.FD_TGL_DICAPAI|default:''}" class="tanggal" style="text-align: center; width:50px ;" />
+                Jam Observasi 
+                    <input name="JAM" type="time" style="time" value="{$result.FD_JAM_DICAPAI|default:''}"   maxlength="10" />
+                  Frekuensi Obs
+                    <input name="FREKUENSI" type="text"   value="{$result.FD_JAM_DICAPAI|default:''}"    style="width:100px ;" />
+                </td>
+            </tr>
+            <tr>
+                <td> Respirasi  </td>
+                <td colspan="2">
+                    <input name="NAFAS" type="text" value="{$result.FD_JAM_DICAPAI|default:''}"  maxlength="10" />
+                </td>
+            </tr>
+            <tr>
+                <td> Saturasi O2  </td>
+                <td colspan="2">
+                    <input name="O2" type="text" value="{$result.FD_JAM_DICAPAI|default:''}"   maxlength="10" />
+                </td>
+            </tr>
+            <tr>
+                <td>    Inspirasi O2  </td>
+                <td colspan="2">
+                    <input name="AB" type="radio" value="Ya"  maxlength="10" />Ya
+                    <input name="AB" type="radio" value="Tidak"  maxlength="10" />Tidak
+                </td>
+            </tr>
+            <tr>
+                <td> Suhu    </td>
+                <td colspan="2">
+                    <input name="S" type="text" value="{$result.FD_JAM_DICAPAI|default:''}"   maxlength="10" />
+                </td>
+            </tr>
+            <tr>
+                <td>   Denyut Jantung  </td>
+                <td colspan="2">
+                    <input name="J" type="text" value="{$result.FD_JAM_DICAPAI|default:''}"   maxlength="10" />
+                </td>
+            </tr>
+            <tr>
+                <td>    Tekanan Darah  </td>
+                <td colspan="2">
+                    Sistol
+                    <input name="TD" type="text"  style="width:40px ;"   maxlength="10" />/ diastol
+                    <input name="D" type="text"    style="width:40px ;"  maxlength="10" />
+                </td>
+            </tr>
+            <!-- <tr>
+                <td>   Kesadaran  </td>
+                <td colspan="2">
+                    <input name="SADAR" type="radio" value="A"   />A
+                    <input name="SADAR" type="radio" value="P"   />P
+                    <input name="SADAR" type="radio" value="V"   />V
+                    <input name="SADAR" type="radio" value="U"   />U
+                </td>
+            </tr> -->
+
+            <tr class="submit-box">
+                <td colspan="4">
+                   <div style="font-weight: bold;">
+                    *Bismillahirohmanirrohim, saya dengan sadar dan penuh tanggung jawab mengisikan formulir ini dengan data yang benar
+                </div>
+                <br>
+                <input type="submit" name="save" value="Simpan" class="edit-button"/>
+            </td>
+        </tr>
+    </table>
+</form>
+</div>
+<div class="navigation">
+    <div class="pageRow">
+        <div class="pageNav">
+            <ul>
+                <li class="info"></li>
+            </ul>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="navigation-button">
+        <ul>
+            <li><a href="{$config->site_url('igd/ews_hamil/cetak/'|cat:$rs_pasien.NO_REG|cat:'/'|cat:'15')}" target="_blank"><img src="{$BASEURL}resource/doc/images/icon/printer-icon.png" alt="" /> Print</a></li>
+        </ul>
+    </div>
+    <div class="clear"></div>
+</div>
+<table class="table-view" width="100%">
+    <tr>
+        <th width="5%">No</th>
+        <!-- <th width="10%">Tanggal / Jam</th> -->
+        <th>Respirasi</th>
+       
+        <th> O2</th>
+        
+        <th> Inspirasi 02</th>
+       
+        <th> Suhu</th>
+        
+        <th> Jantung</th>
+       
+        <th> TD Sistolik</th>
+      
+        <th> TD Diastol</th>
+       
+        <th width="10%">Waktu </th>
+        <th width="10%">Frekuensi </th>
+    </tr>
+    {$no=1}
+    {foreach $result as $data}
+   
+    <tr> 
+        <td>{$no++}</td>
+        <!-- <td>{$data.mdd} {$data.mdd_time|date_format:'%H:%M'}</td> -->
+        <td>{$data.NAFAS}</td> 
+        <!-- <td>{$data.S_NAFAS}</td>  -->
+        <td>{$data.O2}</td> 
+        <!-- <td>{$data.S_O2}</td>  -->
+        <td>{$data.AB}</td> 
+        <!-- <td>{$data.S_AB}</td>  -->
+        <td>{$data.S}</td> 
+        <!-- <td>{$data.S_S}</td>  -->
+        <td>{$data.J}</td> 
+        <!-- <td>{$data.S_J}</td>  -->
+        <td>{$data.TD}</td> 
+        <!-- <td>{$data.S_TD}</td>  -->
+        <td>{$data.D}</td> 
+        <!-- <td>{$data.S_D}</td>  -->
+        <td>{$data.TGL} {$data.JAM|date_format:'%H:%M'}</td>
+        <td>{$data.FREKUENSI}
+            {if $data.MDD >= $tgl_kemarin}
+       
+            <a   href="{$config->site_url('inap/ews_anak/delete/'|cat:$data.id|cat:'/'|cat:$data.FS_KD_REG|cat:'/'|cat:$data.FS_KD_TRS_KP)}"   onclick="return confirm('Apakah Anda Yakin Akan Menghapus?');"    class="button-hapus"    >    </a  ><br />
+        
+             {/if}
+        </td> 
+        
+    </tr>
+    {/foreach}
+     
+</table>

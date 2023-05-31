@@ -1,0 +1,335 @@
+{include file="rm/estp/add_script_js.html"}
+<div class="breadcrum">
+    <p>
+        <a href="#">Medical Record</a><span></span>
+        <small>eSTP</small>
+    </p>
+    <div class="clear"></div>
+</div>
+<div class="head-content">
+    <div class="head-content-nav">
+        <ul>
+            <li><a href="{$config->site_url('rm/estp')}">Laporan Rawat Jalan [1]</a></li>
+            <li><a href="{$config->site_url('rm/estp/index2')}">Laporan Rawat Jalan [2]</a></li>
+            <li><a href="{$config->site_url('rm/estp/index3')}">Laporan Rawat Jalan [3]</a></li>
+            <li><a href="{$config->site_url('rm/estp/index4')}" class="active">Laporan Rawat Jalan [4]</a></li>
+            <li><a href="{$config->site_url('rm/estp/index_2')}" >Laporan Rawat Inap</a></li>
+        </ul>
+        <div class="clear"></div>
+    </div>
+    <div class="clear"></div>
+</div>
+<div class="content-entry"></div>
+
+<div class="search-box">
+    <h3><a href="#">Search</a></h3>
+    <form action="{$config->site_url('rm/estp/proses_cari')}" method="post">
+        <table class="table-search" width="100%" >
+            <tr>
+                <td> 
+                    Periode
+                    <input name="tanggal" type="text" size="10" maxlength="10" value="{$search.tanggal|default:''}" class="tanggal" readonly="readonly" style="text-align: center;" />
+                    s/d
+                    <input name="tanggal2" type="text" size="10" maxlength="10" value="{$search.tanggal2|default:''}" class="tanggal" readonly="readonly" style="text-align: center;" />
+                </td>
+                <td>
+                    <input class="button" type="submit" value="SEARCH" name="save" />
+                    <input class="button" type="submit" value="RESET" name="save" />
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+<div class="content-entry">
+    <!--<div class="action">
+        <a class="btn-blue" href="{$config->site_url('laporan/espt/print_all')}"><span class="icon-print-small"></span> Cetak Laporan TXT</a>
+    </div>-->
+    <div class="clear"></div>
+    <!-- notification template -->
+    {include file="base/templates/notification.html"}
+    <!-- end of notification template-->
+    <div class="dashboard-container">
+        <table class="table-view" width="100%" style='font-size: 9px !important;'>
+            <tr>
+                <th>No</th>
+                <th>Kasus</th>
+                <th>Laki-Laki</th>
+                <th>Perempuan</th>
+                <th>Jumlah Kasus</th>
+                <th>Kunjungan</th>
+                <th>0-7 hari Laki-Laki</th>
+                <th>0-7 hari Perempuan</th>
+                <th>8-28 hari Laki-Laki</th>
+                <th>8-28 hari Perempuan</th>
+                <th>< 1 Tahun Laki-Laki</th>
+                <th>< 1 Tahun Perempuan</th>
+                <th>1-4 Tahun Laki-Laki</th>
+                <th>1-4 Tahun Perempuan</th>
+                <th>5-9 Tahun Laki-Laki</th>
+                <th>5-9 Tahun Perempuan</th>
+                <th>10-14 Tahun Laki-Laki</th>
+                <th>10-14 Tahun Perempuan</th>
+                <th>15-19 Tahun Laki-Laki</th>
+                <th>15-19 Tahun Perempuan</th>
+                <th>20-44 Tahun Laki-Laki</th>
+                <th>20-44 Tahun Perempuan</th>
+                <th>45-54 Tahun Laki-Laki</th>
+                <th>45-54 Tahun Perempuan</th>
+                <th>55-58 Tahun Laki-Laki</th>
+                <th>55-58 Tahun Perempuan</th>
+                <th>59-69 Tahun Laki-Laki</th>
+                <th>59-69 Tahun Perempuan</th>
+                <th>>=70 Tahun Laki-Laki</th>
+                <th>>=70 Tahun Perempuan</th>
+
+            </tr>
+            {foreach from=$rs_id_influ item=result18}
+            {assign var=rs_det_rj_influ value=$m_rm_estp->get_det_rj_influ(array($result18.FS_KD_DTD,$search.tanggal,$search.tanggal2))}
+            {assign var=rs_det_rj_influ2 value=$m_rm_estp->get_det_rj_influ2(array($result18.FS_KD_DTD,$search.tanggal,$search.tanggal2))}
+            {assign var=rs_det_rj_influ3 value=$m_rm_estp->get_det_rj_influ3(array($result18.FS_KD_DTD,$search.tanggal,$search.tanggal2))}
+            {assign var=rs_det_rj_influ4 value=$m_rm_estp->get_det_rj_influ4(array($result18.FS_KD_DTD,$search.tanggal,$search.tanggal2))}
+            {assign var=rs_det_rj_influ5 value=$m_rm_estp->get_det_rj_influ5(array($result18.FS_KD_DTD,$search.tanggal,$search.tanggal2))}
+            {assign var=rs_det_rj_influ6 value=$m_rm_estp->get_det_rj_influ6(array($result18.FS_KD_DTD,$search.tanggal,$search.tanggal2))}
+            {assign var=rs_det_rj_influ7 value=$m_rm_estp->get_det_rj_influ7(array($result18.FS_KD_DTD,$search.tanggal,$search.tanggal2))}
+            {assign var=rs_det_rj_influ8 value=$m_rm_estp->get_det_rj_influ8(array($result18.FS_KD_DTD,$search.tanggal,$search.tanggal2))}
+            {assign var=rs_det_rj_influ9 value=$m_rm_estp->get_det_rj_influ9(array($result18.FS_KD_DTD,$search.tanggal,$search.tanggal2))}
+            {assign var=rs_det_rj_influ10 value=$m_rm_estp->get_det_rj_influ10(array($result18.FS_KD_DTD,$search.tanggal,$search.tanggal2))}
+            {assign var=rs_det_rj_influ11 value=$m_rm_estp->get_det_rj_influ11(array($result18.FS_KD_DTD,$search.tanggal,$search.tanggal2))}
+            {assign var=rs_det_rj_influ12 value=$m_rm_estp->get_det_rj_influ12(array($result18.FS_KD_DTD,$search.tanggal,$search.tanggal2))}
+            {assign var=rs_det_rj_influ13 value=$m_rm_estp->get_det_rj_influ13(array($result18.FS_KD_DTD,$search.tanggal,$search.tanggal2))}
+            {assign var=rs_det_rj_influ14 value=$m_rm_estp->get_det_rj_influ14(array($result18.FS_KD_DTD,$search.tanggal,$search.tanggal2))}
+            {assign var=rs_det_rj_influ15 value=$m_rm_estp->get_det_rj_influ15(array($result18.FS_KD_DTD,$search.tanggal,$search.tanggal2))}
+            {assign var=rs_det_rj_influ16 value=$m_rm_estp->get_det_rj_influ16(array($result18.FS_KD_DTD,$search.tanggal,$search.tanggal2))}
+            {assign var=rs_det_rj_influ17 value=$m_rm_estp->get_det_rj_influ17(array($result18.FS_KD_DTD,$search.tanggal,$search.tanggal2))}
+            {assign var=rs_det_rj_influ18 value=$m_rm_estp->get_det_rj_influ18(array($result18.FS_KD_DTD,$search.tanggal,$search.tanggal2))}
+            {assign var=rs_det_rj_influ19 value=$m_rm_estp->get_det_rj_influ19(array($result18.FS_KD_DTD,$search.tanggal,$search.tanggal2))}
+            {assign var=rs_det_rj_influ20 value=$m_rm_estp->get_det_rj_influ20(array($result18.FS_KD_DTD,$search.tanggal,$search.tanggal2))}
+            {assign var=rs_det_rj_influ21 value=$m_rm_estp->get_det_rj_influ21(array($result18.FS_KD_DTD,$search.tanggal,$search.tanggal2))}
+            {assign var=rs_det_rj_influ22 value=$m_rm_estp->get_det_rj_influ22(array($result18.FS_KD_DTD,$search.tanggal,$search.tanggal2))}
+            {assign var=rs_det_rj_influ23 value=$m_rm_estp->get_det_rj_influ23(array($result18.FS_KD_DTD,$search.tanggal,$search.tanggal2))}
+            {assign var=rs_det_rj_influ24 value=$m_rm_estp->get_det_rj_influ24(array($result18.FS_KD_DTD,$search.tanggal,$search.tanggal2))}
+            {assign var=rs_det_rj_influ25 value=$m_rm_estp->get_det_rj_influ25(array($result18.FS_KD_DTD,$search.tanggal,$search.tanggal2))}
+            {assign var=rs_det_rj_influ26 value=$m_rm_estp->get_det_rj_influ26(array($result18.FS_KD_DTD,$search.tanggal,$search.tanggal2))}
+            {assign var=rs_det_rj_influ27 value=$m_rm_estp->get_det_rj_influ27(array($result18.FS_KD_DTD,$search.tanggal,$search.tanggal2))}
+            {assign var=rs_det_rj_influ28 value=$m_rm_estp->get_det_rj_influ28(array($result18.FS_KD_DTD,$search.tanggal,$search.tanggal2))}
+            <tr {if ($no % 2) <> 1}class="blink-row"{/if}>
+                <td align="center">{$no++}.</td>
+                <td>{$result18.FS_SURVEILANS}</td>
+                <td>{$rs_det_rj_influ.fn_jumlah}</td>
+                <td>{$rs_det_rj_influ2.fn_jumlah}</td>
+                <td>{$rs_det_rj_influ3.fn_jumlah}</td>
+                <td>{$rs_det_rj_influ4.fn_jumlah}</td>
+                <td>{$rs_det_rj_influ5.fn_jumlah}</td>
+                <td>{$rs_det_rj_influ6.fn_jumlah}</td>
+                <td>{$rs_det_rj_influ7.fn_jumlah}</td>
+                <td>{$rs_det_rj_influ8.fn_jumlah}</td>
+                <td>{$rs_det_rj_influ9.fn_jumlah}</td>
+                <td>{$rs_det_rj_influ10.fn_jumlah}</td>
+                <td>{$rs_det_rj_influ11.fn_jumlah}</td>
+                <td>{$rs_det_rj_influ12.fn_jumlah}</td>
+                <td>{$rs_det_rj_influ13.fn_jumlah}</td>
+                <td>{$rs_det_rj_influ14.fn_jumlah}</td>
+                <td>{$rs_det_rj_influ15.fn_jumlah}</td>
+                <td>{$rs_det_rj_influ16.fn_jumlah}</td>
+                <td>{$rs_det_rj_influ17.fn_jumlah}</td>
+                <td>{$rs_det_rj_influ18.fn_jumlah}</td>
+                <td>{$rs_det_rj_influ19.fn_jumlah}</td>
+                <td>{$rs_det_rj_influ20.fn_jumlah}</td>
+                <td>{$rs_det_rj_influ21.fn_jumlah}</td>
+                <td>{$rs_det_rj_influ22.fn_jumlah}</td>
+                <td>{$rs_det_rj_influ23.fn_jumlah}</td>
+                <td>{$rs_det_rj_influ24.fn_jumlah}</td>
+                <td>{$rs_det_rj_influ25.fn_jumlah}</td>
+                <td>{$rs_det_rj_influ26.fn_jumlah}</td>
+                <td>{$rs_det_rj_influ27.fn_jumlah}</td>
+                <td>{$rs_det_rj_influ28.fn_jumlah}</td>
+            </tr>
+            {/foreach}
+            {foreach from=$rs_id_ense item=result9}
+            {assign var=rs_det_rj_ense value=$m_rm_estp->get_det_rj_ense(array($result9.FS_KD_DTD,$search.tanggal,$search.tanggal2))}
+            {assign var=rs_det_rj_ense2 value=$m_rm_estp->get_det_rj_ense2(array($result9.FS_KD_DTD,$search.tanggal,$search.tanggal2))}
+            {assign var=rs_det_rj_ense3 value=$m_rm_estp->get_det_rj_ense3(array($result9.FS_KD_DTD,$search.tanggal,$search.tanggal2))}
+            {assign var=rs_det_rj_ense4 value=$m_rm_estp->get_det_rj_ense4(array($result9.FS_KD_DTD,$search.tanggal,$search.tanggal2))}
+            {assign var=rs_det_rj_ense5 value=$m_rm_estp->get_det_rj_ense5(array($result9.FS_KD_DTD,$search.tanggal,$search.tanggal2))}
+            {assign var=rs_det_rj_ense6 value=$m_rm_estp->get_det_rj_ense6(array($result9.FS_KD_DTD,$search.tanggal,$search.tanggal2))}
+            {assign var=rs_det_rj_ense7 value=$m_rm_estp->get_det_rj_ense7(array($result9.FS_KD_DTD,$search.tanggal,$search.tanggal2))}
+            {assign var=rs_det_rj_ense8 value=$m_rm_estp->get_det_rj_ense8(array($result9.FS_KD_DTD,$search.tanggal,$search.tanggal2))}
+            {assign var=rs_det_rj_ense9 value=$m_rm_estp->get_det_rj_ense9(array($result9.FS_KD_DTD,$search.tanggal,$search.tanggal2))}
+            {assign var=rs_det_rj_ense10 value=$m_rm_estp->get_det_rj_ense10(array($result9.FS_KD_DTD,$search.tanggal,$search.tanggal2))}
+            {assign var=rs_det_rj_ense11 value=$m_rm_estp->get_det_rj_ense11(array($result9.FS_KD_DTD,$search.tanggal,$search.tanggal2))}
+            {assign var=rs_det_rj_ense12 value=$m_rm_estp->get_det_rj_ense12(array($result9.FS_KD_DTD,$search.tanggal,$search.tanggal2))}
+            {assign var=rs_det_rj_ense13 value=$m_rm_estp->get_det_rj_ense13(array($result9.FS_KD_DTD,$search.tanggal,$search.tanggal2))}
+            {assign var=rs_det_rj_ense14 value=$m_rm_estp->get_det_rj_ense14(array($result9.FS_KD_DTD,$search.tanggal,$search.tanggal2))}
+            {assign var=rs_det_rj_ense15 value=$m_rm_estp->get_det_rj_ense15(array($result9.FS_KD_DTD,$search.tanggal,$search.tanggal2))}
+            {assign var=rs_det_rj_ense16 value=$m_rm_estp->get_det_rj_ense16(array($result9.FS_KD_DTD,$search.tanggal,$search.tanggal2))}
+            {assign var=rs_det_rj_ense17 value=$m_rm_estp->get_det_rj_ense17(array($result9.FS_KD_DTD,$search.tanggal,$search.tanggal2))}
+            {assign var=rs_det_rj_ense18 value=$m_rm_estp->get_det_rj_ense18(array($result9.FS_KD_DTD,$search.tanggal,$search.tanggal2))}
+            {assign var=rs_det_rj_ense19 value=$m_rm_estp->get_det_rj_ense19(array($result9.FS_KD_DTD,$search.tanggal,$search.tanggal2))}
+            {assign var=rs_det_rj_ense20 value=$m_rm_estp->get_det_rj_ense20(array($result9.FS_KD_DTD,$search.tanggal,$search.tanggal2))}
+            {assign var=rs_det_rj_ense21 value=$m_rm_estp->get_det_rj_ense21(array($result9.FS_KD_DTD,$search.tanggal,$search.tanggal2))}
+            {assign var=rs_det_rj_ense22 value=$m_rm_estp->get_det_rj_ense22(array($result9.FS_KD_DTD,$search.tanggal,$search.tanggal2))}
+            {assign var=rs_det_rj_ense23 value=$m_rm_estp->get_det_rj_ense23(array($result9.FS_KD_DTD,$search.tanggal,$search.tanggal2))}
+            {assign var=rs_det_rj_ense24 value=$m_rm_estp->get_det_rj_ense24(array($result9.FS_KD_DTD,$search.tanggal,$search.tanggal2))}
+            {assign var=rs_det_rj_ense25 value=$m_rm_estp->get_det_rj_ense25(array($result9.FS_KD_DTD,$search.tanggal,$search.tanggal2))}
+            {assign var=rs_det_rj_ense26 value=$m_rm_estp->get_det_rj_ense26(array($result9.FS_KD_DTD,$search.tanggal,$search.tanggal2))}
+            {assign var=rs_det_rj_ense27 value=$m_rm_estp->get_det_rj_ense27(array($result9.FS_KD_DTD,$search.tanggal,$search.tanggal2))}
+            {assign var=rs_det_rj_ense28 value=$m_rm_estp->get_det_rj_ense28(array($result9.FS_KD_DTD,$search.tanggal,$search.tanggal2))}
+            <tr {if ($no % 2) <> 1}class="blink-row"{/if}>
+                <td align="center">{$no++}.</td>
+                <td>{$result9.FS_SURVEILANS}</td>
+                <td>{$rs_det_rj_ense.fn_jumlah}</td>
+                <td>{$rs_det_rj_ense2.fn_jumlah}</td>
+                <td>{$rs_det_rj_ense3.fn_jumlah}</td>
+                <td>{$rs_det_rj_ense4.fn_jumlah}</td>
+                <td>{$rs_det_rj_ense5.fn_jumlah}</td>
+                <td>{$rs_det_rj_ense6.fn_jumlah}</td>
+                <td>{$rs_det_rj_ense7.fn_jumlah}</td>
+                <td>{$rs_det_rj_ense8.fn_jumlah}</td>
+                <td>{$rs_det_rj_ense9.fn_jumlah}</td>
+                <td>{$rs_det_rj_ense10.fn_jumlah}</td>
+                <td>{$rs_det_rj_ense11.fn_jumlah}</td>
+                <td>{$rs_det_rj_ense12.fn_jumlah}</td>
+                <td>{$rs_det_rj_ense13.fn_jumlah}</td>
+                <td>{$rs_det_rj_ense14.fn_jumlah}</td>
+                <td>{$rs_det_rj_ense15.fn_jumlah}</td>
+                <td>{$rs_det_rj_ense16.fn_jumlah}</td>
+                <td>{$rs_det_rj_ense17.fn_jumlah}</td>
+                <td>{$rs_det_rj_ense18.fn_jumlah}</td>
+                <td>{$rs_det_rj_ense19.fn_jumlah}</td>
+                <td>{$rs_det_rj_ense20.fn_jumlah}</td>
+                <td>{$rs_det_rj_ense21.fn_jumlah}</td>
+                <td>{$rs_det_rj_ense22.fn_jumlah}</td>
+                <td>{$rs_det_rj_ense23.fn_jumlah}</td>
+                <td>{$rs_det_rj_ense24.fn_jumlah}</td>
+                <td>{$rs_det_rj_ense25.fn_jumlah}</td>
+                <td>{$rs_det_rj_ense26.fn_jumlah}</td>
+                <td>{$rs_det_rj_ense27.fn_jumlah}</td>
+                <td>{$rs_det_rj_ense28.fn_jumlah}</td>
+            </tr>
+            {/foreach}
+            {foreach from=$rs_id_mening item=result10}
+            {assign var=rs_det_rj_mening value=$m_rm_estp->get_det_rj_mening(array($result10.FS_KD_DTD,$search.tanggal,$search.tanggal2))}
+            {assign var=rs_det_rj_mening2 value=$m_rm_estp->get_det_rj_mening2(array($result10.FS_KD_DTD,$search.tanggal,$search.tanggal2))}
+            {assign var=rs_det_rj_mening3 value=$m_rm_estp->get_det_rj_mening3(array($result10.FS_KD_DTD,$search.tanggal,$search.tanggal2))}
+            {assign var=rs_det_rj_mening4 value=$m_rm_estp->get_det_rj_mening4(array($result10.FS_KD_DTD,$search.tanggal,$search.tanggal2))}
+            {assign var=rs_det_rj_mening5 value=$m_rm_estp->get_det_rj_mening5(array($result10.FS_KD_DTD,$search.tanggal,$search.tanggal2))}
+            {assign var=rs_det_rj_mening6 value=$m_rm_estp->get_det_rj_mening6(array($result10.FS_KD_DTD,$search.tanggal,$search.tanggal2))}
+            {assign var=rs_det_rj_mening7 value=$m_rm_estp->get_det_rj_mening7(array($result10.FS_KD_DTD,$search.tanggal,$search.tanggal2))}
+            {assign var=rs_det_rj_mening8 value=$m_rm_estp->get_det_rj_mening8(array($result10.FS_KD_DTD,$search.tanggal,$search.tanggal2))}
+            {assign var=rs_det_rj_mening9 value=$m_rm_estp->get_det_rj_mening9(array($result10.FS_KD_DTD,$search.tanggal,$search.tanggal2))}
+            {assign var=rs_det_rj_mening10 value=$m_rm_estp->get_det_rj_mening10(array($result10.FS_KD_DTD,$search.tanggal,$search.tanggal2))}
+            {assign var=rs_det_rj_mening11 value=$m_rm_estp->get_det_rj_mening11(array($result10.FS_KD_DTD,$search.tanggal,$search.tanggal2))}
+            {assign var=rs_det_rj_mening12 value=$m_rm_estp->get_det_rj_mening12(array($result10.FS_KD_DTD,$search.tanggal,$search.tanggal2))}
+            {assign var=rs_det_rj_mening13 value=$m_rm_estp->get_det_rj_mening13(array($result10.FS_KD_DTD,$search.tanggal,$search.tanggal2))}
+            {assign var=rs_det_rj_mening14 value=$m_rm_estp->get_det_rj_mening14(array($result10.FS_KD_DTD,$search.tanggal,$search.tanggal2))}
+            {assign var=rs_det_rj_mening15 value=$m_rm_estp->get_det_rj_mening15(array($result10.FS_KD_DTD,$search.tanggal,$search.tanggal2))}
+            {assign var=rs_det_rj_mening16 value=$m_rm_estp->get_det_rj_mening16(array($result10.FS_KD_DTD,$search.tanggal,$search.tanggal2))}
+            {assign var=rs_det_rj_mening17 value=$m_rm_estp->get_det_rj_mening17(array($result10.FS_KD_DTD,$search.tanggal,$search.tanggal2))}
+            {assign var=rs_det_rj_mening18 value=$m_rm_estp->get_det_rj_mening18(array($result10.FS_KD_DTD,$search.tanggal,$search.tanggal2))}
+            {assign var=rs_det_rj_mening19 value=$m_rm_estp->get_det_rj_mening19(array($result10.FS_KD_DTD,$search.tanggal,$search.tanggal2))}
+            {assign var=rs_det_rj_mening20 value=$m_rm_estp->get_det_rj_mening20(array($result10.FS_KD_DTD,$search.tanggal,$search.tanggal2))}
+            {assign var=rs_det_rj_mening21 value=$m_rm_estp->get_det_rj_mening21(array($result10.FS_KD_DTD,$search.tanggal,$search.tanggal2))}
+            {assign var=rs_det_rj_mening22 value=$m_rm_estp->get_det_rj_mening22(array($result10.FS_KD_DTD,$search.tanggal,$search.tanggal2))}
+            {assign var=rs_det_rj_mening23 value=$m_rm_estp->get_det_rj_mening23(array($result10.FS_KD_DTD,$search.tanggal,$search.tanggal2))}
+            {assign var=rs_det_rj_mening24 value=$m_rm_estp->get_det_rj_mening24(array($result10.FS_KD_DTD,$search.tanggal,$search.tanggal2))}
+            {assign var=rs_det_rj_mening25 value=$m_rm_estp->get_det_rj_mening25(array($result10.FS_KD_DTD,$search.tanggal,$search.tanggal2))}
+            {assign var=rs_det_rj_mening26 value=$m_rm_estp->get_det_rj_mening26(array($result10.FS_KD_DTD,$search.tanggal,$search.tanggal2))}
+            {assign var=rs_det_rj_mening27 value=$m_rm_estp->get_det_rj_mening27(array($result10.FS_KD_DTD,$search.tanggal,$search.tanggal2))}
+            {assign var=rs_det_rj_mening28 value=$m_rm_estp->get_det_rj_mening28(array($result10.FS_KD_DTD,$search.tanggal,$search.tanggal2))}
+            <tr {if ($no % 2) <> 1}class="blink-row"{/if}>
+                <td align="center">{$no++}.</td>
+                <td>{$result10.FS_SURVEILANS}</td>
+                <td>{$rs_det_rj_mening.fn_jumlah}</td>
+                <td>{$rs_det_rj_mening2.fn_jumlah}</td>
+                <td>{$rs_det_rj_mening3.fn_jumlah}</td>
+                <td>{$rs_det_rj_mening4.fn_jumlah}</td>
+                <td>{$rs_det_rj_mening5.fn_jumlah}</td>
+                <td>{$rs_det_rj_mening6.fn_jumlah}</td>
+                <td>{$rs_det_rj_mening7.fn_jumlah}</td>
+                <td>{$rs_det_rj_mening8.fn_jumlah}</td>
+                <td>{$rs_det_rj_mening9.fn_jumlah}</td>
+                <td>{$rs_det_rj_mening10.fn_jumlah}</td>
+                <td>{$rs_det_rj_mening11.fn_jumlah}</td>
+                <td>{$rs_det_rj_mening12.fn_jumlah}</td>
+                <td>{$rs_det_rj_mening13.fn_jumlah}</td>
+                <td>{$rs_det_rj_mening14.fn_jumlah}</td>
+                <td>{$rs_det_rj_mening15.fn_jumlah}</td>
+                <td>{$rs_det_rj_mening16.fn_jumlah}</td>
+                <td>{$rs_det_rj_mening17.fn_jumlah}</td>
+                <td>{$rs_det_rj_mening18.fn_jumlah}</td>
+                <td>{$rs_det_rj_mening19.fn_jumlah}</td>
+                <td>{$rs_det_rj_mening20.fn_jumlah}</td>
+                <td>{$rs_det_rj_mening21.fn_jumlah}</td>
+                <td>{$rs_det_rj_mening22.fn_jumlah}</td>
+                <td>{$rs_det_rj_mening23.fn_jumlah}</td>
+                <td>{$rs_det_rj_mening24.fn_jumlah}</td>
+                <td>{$rs_det_rj_mening25.fn_jumlah}</td>
+                <td>{$rs_det_rj_mening26.fn_jumlah}</td>
+                <td>{$rs_det_rj_mening27.fn_jumlah}</td>
+                <td>{$rs_det_rj_mening28.fn_jumlah}</td>
+            </tr>
+            {/foreach}
+            {foreach from=$rs_id5 item=result11}
+            {assign var=rs_det_rj_5 value=$m_rm_estp->get_det_rj_1(array($result11.FS_KD_DTD,$result11.FS_RANGE,$search.tanggal,$search.tanggal2))}
+            {assign var=rs_det_rj_12 value=$m_rm_estp->get_det_rj_2(array($result11.FS_KD_DTD,$result11.FS_RANGE,$search.tanggal,$search.tanggal2))}
+            {assign var=rs_det_rj_13 value=$m_rm_estp->get_det_rj_3(array($result11.FS_KD_DTD,$result11.FS_RANGE,$search.tanggal,$search.tanggal2))}
+            {assign var=rs_det_rj_14 value=$m_rm_estp->get_det_rj_4(array($result11.FS_KD_DTD,$result11.FS_RANGE,$search.tanggal,$search.tanggal2))}
+            {assign var=rs_det_rj_15 value=$m_rm_estp->get_det_rj_5(array($result11.FS_KD_DTD,$result11.FS_RANGE,$search.tanggal,$search.tanggal2))}
+            {assign var=rs_det_rj_16 value=$m_rm_estp->get_det_rj_6(array($result11.FS_KD_DTD,$result11.FS_RANGE,$search.tanggal,$search.tanggal2))}
+            {assign var=rs_det_rj_17 value=$m_rm_estp->get_det_rj_7(array($result11.FS_KD_DTD,$result11.FS_RANGE,$search.tanggal,$search.tanggal2))}
+            {assign var=rs_det_rj_18 value=$m_rm_estp->get_det_rj_8(array($result11.FS_KD_DTD,$result11.FS_RANGE,$search.tanggal,$search.tanggal2))}
+            {assign var=rs_det_rj_19 value=$m_rm_estp->get_det_rj_9(array($result11.FS_KD_DTD,$result11.FS_RANGE,$search.tanggal,$search.tanggal2))}
+            {assign var=rs_det_rj_110 value=$m_rm_estp->get_det_rj_10(array($result11.FS_KD_DTD,$result11.FS_RANGE,$search.tanggal,$search.tanggal2))}
+            {assign var=rs_det_rj_111 value=$m_rm_estp->get_det_rj_11(array($result11.FS_KD_DTD,$result11.FS_RANGE,$search.tanggal,$search.tanggal2))}
+            {assign var=rs_det_rj_112 value=$m_rm_estp->get_det_rj_12(array($result11.FS_KD_DTD,$result11.FS_RANGE,$search.tanggal,$search.tanggal2))}
+            {assign var=rs_det_rj_113 value=$m_rm_estp->get_det_rj_13(array($result11.FS_KD_DTD,$result11.FS_RANGE,$search.tanggal,$search.tanggal2))}
+            {assign var=rs_det_rj_114 value=$m_rm_estp->get_det_rj_14(array($result11.FS_KD_DTD,$result11.FS_RANGE,$search.tanggal,$search.tanggal2))}
+            {assign var=rs_det_rj_115 value=$m_rm_estp->get_det_rj_15(array($result11.FS_KD_DTD,$result11.FS_RANGE,$search.tanggal,$search.tanggal2))}
+            {assign var=rs_det_rj_116 value=$m_rm_estp->get_det_rj_16(array($result11.FS_KD_DTD,$result11.FS_RANGE,$search.tanggal,$search.tanggal2))}
+            {assign var=rs_det_rj_117 value=$m_rm_estp->get_det_rj_17(array($result11.FS_KD_DTD,$result11.FS_RANGE,$search.tanggal,$search.tanggal2))}
+            {assign var=rs_det_rj_118 value=$m_rm_estp->get_det_rj_18(array($result11.FS_KD_DTD,$result11.FS_RANGE,$search.tanggal,$search.tanggal2))}
+            {assign var=rs_det_rj_119 value=$m_rm_estp->get_det_rj_19(array($result11.FS_KD_DTD,$result11.FS_RANGE,$search.tanggal,$search.tanggal2))}
+            {assign var=rs_det_rj_120 value=$m_rm_estp->get_det_rj_20(array($result11.FS_KD_DTD,$result11.FS_RANGE,$search.tanggal,$search.tanggal2))}
+            {assign var=rs_det_rj_121 value=$m_rm_estp->get_det_rj_21(array($result11.FS_KD_DTD,$result11.FS_RANGE,$search.tanggal,$search.tanggal2))}
+            {assign var=rs_det_rj_122 value=$m_rm_estp->get_det_rj_22(array($result11.FS_KD_DTD,$result11.FS_RANGE,$search.tanggal,$search.tanggal2))}
+            {assign var=rs_det_rj_123 value=$m_rm_estp->get_det_rj_23(array($result11.FS_KD_DTD,$result11.FS_RANGE,$search.tanggal,$search.tanggal2))}
+            {assign var=rs_det_rj_124 value=$m_rm_estp->get_det_rj_24(array($result11.FS_KD_DTD,$result11.FS_RANGE,$search.tanggal,$search.tanggal2))}
+            {assign var=rs_det_rj_125 value=$m_rm_estp->get_det_rj_25(array($result11.FS_KD_DTD,$result11.FS_RANGE,$search.tanggal,$search.tanggal2))}
+            {assign var=rs_det_rj_126 value=$m_rm_estp->get_det_rj_26(array($result11.FS_KD_DTD,$result11.FS_RANGE,$search.tanggal,$search.tanggal2))}
+            {assign var=rs_det_rj_127 value=$m_rm_estp->get_det_rj_27(array($result11.FS_KD_DTD,$result11.FS_RANGE,$search.tanggal,$search.tanggal2))}
+            {assign var=rs_det_rj_128 value=$m_rm_estp->get_det_rj_28(array($result11.FS_KD_DTD,$result11.FS_RANGE,$search.tanggal,$search.tanggal2))}
+            <tr {if ($no % 2) <> 1}class="blink-row"{/if}>
+                <td align="center">{$no++}.</td>
+                <td>{$result11.FS_SURVEILANS}</td>
+                <td>{$rs_det_rj_5.fn_jumlah}</td>
+                <td>{$rs_det_rj_12.fn_jumlah}</td>
+                <td>{$rs_det_rj_13.fn_jumlah}</td>
+                <td>{$rs_det_rj_14.fn_jumlah}</td>
+                <td>{$rs_det_rj_15.fn_jumlah}</td>
+                <td>{$rs_det_rj_16.fn_jumlah}</td>
+                <td>{$rs_det_rj_17.fn_jumlah}</td>
+                <td>{$rs_det_rj_18.fn_jumlah}</td>
+                <td>{$rs_det_rj_19.fn_jumlah}</td>
+                <td>{$rs_det_rj_110.fn_jumlah}</td>
+                <td>{$rs_det_rj_111.fn_jumlah}</td>
+                <td>{$rs_det_rj_112.fn_jumlah}</td>
+                <td>{$rs_det_rj_113.fn_jumlah}</td>
+                <td>{$rs_det_rj_114.fn_jumlah}</td>
+                <td>{$rs_det_rj_115.fn_jumlah}</td>
+                <td>{$rs_det_rj_116.fn_jumlah}</td>
+                <td>{$rs_det_rj_117.fn_jumlah}</td>
+                <td>{$rs_det_rj_118.fn_jumlah}</td>
+                <td>{$rs_det_rj_119.fn_jumlah}</td>
+                <td>{$rs_det_rj_120.fn_jumlah}</td>
+                <td>{$rs_det_rj_121.fn_jumlah}</td>
+                <td>{$rs_det_rj_122.fn_jumlah}</td>
+                <td>{$rs_det_rj_123.fn_jumlah}</td>
+                <td>{$rs_det_rj_124.fn_jumlah}</td>
+                <td>{$rs_det_rj_125.fn_jumlah}</td>
+                <td>{$rs_det_rj_126.fn_jumlah}</td>
+                <td>{$rs_det_rj_127.fn_jumlah}</td>
+                <td>{$rs_det_rj_128.fn_jumlah}</td>
+            </tr>
+            {/foreach}
+        </table>
+        <div class="clear"></div>

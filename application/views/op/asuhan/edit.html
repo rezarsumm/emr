@@ -1,0 +1,303 @@
+ 
+ 
+<div class="breadcrum">
+    <p>
+        <a href="#">Catatan Operasi </a><span></span>
+        <a href="">Asuhan Keperawatan Operasi</a><span></span>
+        <small>Edit Data</small>
+    </p>
+    <div class="clear"></div>
+</div> 
+<div class="content-entry">
+    <!-- notification template -->
+    {include file="base/templates/notification.html"}
+    <!-- end of notification template-->
+    <form action="{$config->site_url('op/asuhan/edit_process')}" method="post" onkeypress="return event.keyCode != 13">
+        <input name="FS_KD_REG" id="FS_KD_REG" type="hidden" value="{$rs_pasien.NO_REG}" />  
+            <input name="TGL_LAHIR" id="TGL_LAHIR" type="hidden" value="{$rs_pasien.TGL_LAHIR}" /> 
+        <input name="idoperasi" type="hidden" value="{$idoperasi}" />
+
+        <input name="FS_MR" type="hidden" value="{$rs_pasien.NO_MR}" />
+        <input name="FS_KD_LAYANAN" type="hidden" value="{$rs_pasien.KODE_BANGSAL}" />
+        <input name="FS_KD_PETUGAS_MEDIS" type="hidden" value="{$rs_pasien.fs_kd_medis}" />
+
+        <table class="table-info" width="50%">
+            <tr class="headrow">
+                <th colspan="2">Add Asuhan Keperawatan Operasi</th>
+            </tr>
+            <tr>
+                <td>NAMA</td>
+                <td>
+                    {$rs_pasien.NAMA_PASIEN}
+                </td>
+            </tr>
+            <tr>
+                <td>NO MR</td>
+                <td>
+                    {$rs_pasien.NO_MR}
+                </td>
+            </tr>
+            <tr>
+                <td>TANGGAL LAHIR</td>
+                <td>
+                    {$rs_pasien.TGL_LAHIR|date_format:"%d %b %Y"}
+                </td>
+            </tr>
+            <tr>
+                <td>ALAMAT</td>
+                <td>{$rs_pasien.ALAMAT}</td>
+            </tr>
+        </table>
+   
+        <div class="notification red">
+            <!-- <p><strong>High Risk :</strong> {$rs_pasien.FS_HIGH_RISK|default:'-'} </p> -->
+            <p><strong>Alergi :</strong> {$rs_pasien.FS_ALERGI|default:'-'} ({$rs_pasien.FS_REAK_ALERGI|default:'-'})</p>
+            <div class="clear"></div>
+        </div>
+        <table class="table-input" width="100%" style="text-align: justify;">
+         
+
+            <input type="hidden" name="KD_OPERATOR" value="{$rs_asuhan3.KD_OPERATOR}">
+           
+
+            <tr>
+                <!-- <td width="20%">Nama Dokter Bedah </td>
+                <td width="20%">
+                    <select name="KD_OPERATOR" id="surat_dari" class="select2" style="width: 300px;">
+                        <option value=""></option>
+                        {foreach from=$rs_dokter_sp item=data}
+                        <option value="{$data.NAMAUSER}">{$data.NAMALENGKAP}</option>
+                        {/foreach}
+                    </select>
+                </td> -->
+                <td width="20%">Nama Dokter Anestesi</td>
+                <td width="20%">
+                    <!-- <select name="KD_AHLI_ANESTESI" id="surat_dari" class="select2" style="width: 300px;">
+                        <option value=""></option>
+                        {foreach from=$rs_dokter_sp item=data}
+                        <option value="{$data.NAMAUSER}">{$data.NAMALENGKAP}</option>
+                        {/foreach}
+                    </select> -->
+                    <input type="text" name="KD_AHLI_ANESTESI" value="dr. Yusnita Debora, Sp.An" disabled>
+                    <input type="hidden" name="KD_AHLI_ANESTESI" value="dr. Yusnita Debora, Sp.An" >
+                </td>
+            </tr> 
+
+<input type="hidden" name="JAM_MULAI" value="{$rs_asuhan3.JAM_MULAI}">
+
+           <tr>
+                <td width="20%">Nama Asisten Anestesi </td>
+                <td width="20%">
+                    <select name="KD_PERAWAT_ANES" id="surat_dari" class="select2" style="width: 300px;">
+                        <option value=""></option>
+                        {foreach from=$rs_perawat_anes item=data}
+                        {if $rs_asuhan3.KD_PERAWAT_ANES eq $data.NAMAUSER}
+                        <option value="{$data.NAMAUSER}" selected>{$data.NAMALENGKAP}</option>
+                        {else}
+                        <option value="{$data.NAMAUSER}">{$data.NAMALENGKAP}</option>
+                        {/if}
+                        {/foreach}
+                    </select>
+                </td>
+
+                <td width="20%">Nama Perawat Sirkuler</td>
+                <td width="20%">
+                    <select name="KD_PERAWAT_SERK" id="surat_dari" class="select2" style="width: 300px;">
+                        <option value=""></option>
+                        {foreach from=$rs_perawat item=data}
+                        {if $rs_asuhan3.KD_PERAWAT_SERK eq $data.NAMAUSER}
+                        <option value="{$data.NAMAUSER}" selected>{$data.NAMALENGKAP}</option>
+                        {else}
+                        <option value="{$data.NAMAUSER}">{$data.NAMALENGKAP}</option>
+                        {/if}
+                        {/foreach}
+                    </select>
+                </td>
+            </tr>
+
+
+         
+            <!-- <tr>
+                <td width="20%">Jam Operasi</td>
+                <td width="20%">
+                    <input type="text" name="JAM_MULAI" rows="1" value="{$rs_asuhan3.JAM_MULAI}"  style="width: 80px;" > </input>  
+                    sampai
+                    <input type="time" name="JAM_SELESAI" rows="1"  style="width: 80px;" > </input>  
+                </td>
+             </tr> -->
+
+             
+            <tr>
+                <td width="20%">Jenis Anestesi </td>
+                <td width="20%">
+                    <input type="checkbox" name="JENIS_ANES" value="Umum" {if $rs_asuhan3.JENIS_ANES eq 'Umum'} checked {/if} class="form-control">Umum 
+                    <input type="checkbox" name="JENIS_ANES" value="Regional" {if $rs_asuhan3.JENIS_ANES eq 'Regional'} checked {/if} class="form-control">Regional
+                    <input type="checkbox" name="JENIS_ANES" value="Lokal" {if $rs_asuhan3.JENIS_ANES eq 'Lokal'} checked {/if} class="form-control">Lokal
+                </td>
+
+                <td width="20%">Sifat Operasi</td>
+                <td width="20%">
+                    <input type="checkbox" name="SIFAT_OP" value="Cito" class="form-control" {if $rs_asuhan3.SIFAT_OP eq 'Cito'} checked {/if}>Cito
+                    <input type="checkbox" name="SIFAT_OP" value="Elektif" class="form-control" {if $rs_asuhan3.SIFAT_OP eq 'Elektif'} checked {/if}>Elektif
+                </td>
+            </tr>
+
+            
+            <tr>
+                <td width="20%">Diagnosa Pre-operatif</td>
+                <td width="20%">
+                    <input type="text" name="DIAGNOSA_PRA" value="{$rs_asuhan3.DIAGNOSA_PRA}"  class="form-control">
+
+                    <input type="hidden" name="DIAGNOSA_POST" value="" class="form-control">
+
+                </td>
+
+
+                <!-- <td width="20%">Diagnosa Post-op</td>
+                <td width="20%">
+                    <input type="text" name="DIAGNOSA_POST" value="{$rs_pra_anes.DIAGNOSA_POST}" class="form-control">
+                </td> -->
+            </tr>
+
+
+
+            <tr>
+                <td>Tindakan Operasi</td>
+                <td >
+                    <textarea name="TINDAKAN_OP" rows="2" style="width: 350px;" > {$rs_asuhan3.TINDAKAN_OP}</textarea>
+                    </td>
+                    </tr>
+
+            <tr><td colspan="4">  <hr></td></tr>
+            <tr><td> <B>PENGKAJIAN PRE OPERASI</B></td></tr>
+               
+                 
+                    <tr>
+                        <td>  Kesadaran</td>
+                        <td  >
+                            <input type="checkbox" name="KESADARAN" value="Composmentis" {if $rs_asuhan3.KESADARAN eq 'Composmentis'} checked {/if}> Composmentis <br>
+                            <input type="checkbox" name="KESADARAN" value="Apatis" {if $rs_asuhan3.KESADARAN eq 'Apatis'} checked {/if}> Apatis <br>
+                            <input type="checkbox" name="KESADARAN" value="Samnolen" {if $rs_asuhan3.KESADARAN eq 'Samnolen'} checked {/if} > Samnolen  <br>
+                            <input type="checkbox" name="KESADARAN" value="Sopor" {if $rs_asuhan3.KESADARAN eq 'Sopor'} checked {/if}> Sopor  <br>
+                            <input type="checkbox" name="KESADARAN" value="Soporokoma" {if $rs_asuhan3.KESADARAN eq 'Soporokoma'} checked {/if}> Soporokoma  <br>
+                            <input type="checkbox" name="KESADARAN" value="Koma" {if $rs_asuhan3.KESADARAN eq 'Koma'} checked {/if}> Koma  <br>
+                            </td>
+                        <td>  Status Psikologi</td>
+                            <td  >
+                                <input type="checkbox" name="STATUS_PSIKOLOGI" value="Tenang" {if $rs_asuhan3.STATUS_PSIKOLOGI eq 'Tenang'} checked {/if}>Tenang <br>
+                                <input type="checkbox" name="STATUS_PSIKOLOGI" value="Cemas" {if $rs_asuhan3.STATUS_PSIKOLOGI eq 'Cemas'} checked {/if}>Cemas <br>
+                                <input type="checkbox" name="STATUS_PSIKOLOGI" value="Tegang" {if $rs_asuhan3.STATUS_PSIKOLOGI eq 'Tegang'} checked {/if}>Tegang <br>
+                                <input type="checkbox" name="STATUS_PSIKOLOGI" value="Gelisah" {if $rs_asuhan3.STATUS_PSIKOLOGI eq 'Gelisah'} checked {/if}>Gelisah <br>
+                                 </td>
+                      
+                    </tr>     
+
+                    <tr><td><b>Tanda Tanda Vital </b></td></tr>
+                    <tr>
+                         <td colspan="4">
+                           <table>
+                              <tr>
+                                  <td>     Tekanan Darah </td><td>: <input type="text" value="{$rs_umum_pra.TD}" name="TD"  class="form-control" style="width: 60px;"></td>
+                              
+                                <td>   Nadi </td><td>: <input type="text" name="ND"  value="{$rs_umum_pra.ND}" class="form-control" style="width: 60px;"></td>
+                                <td>     Pernafasan</td><td> : <input type="text" value="{$rs_umum_pra.P}" name="P"  class="form-control" style="width: 60px;"></td>
+                                <td>     SH</td><td> : <input type="text" name="SH" value="{$rs_umum_pra.SH}"  class="form-control" style="width: 60px;"></td>
+                                <td>  </td><td></td>
+                             </tr>
+                           </table>
+                           </td>
+                 </tr>
+
+
+                 <tr>
+                    <td width="20%">Puasa  </td>
+                    <td width="20%">
+                        <input type="time" name="PUASA" value="{$rs_umum_pra.MAKAN_TERAKHIR}" style="width: 100px;" class="form-control">
+                        <!-- <input type="checkbox" name="JENIS_PUASA"  value="Lavamen">Lavamen -->
+                        <input type="checkbox" name="JENIS_PUASA"  value="Klisma">KLisma
+                    </td>
+    
+                    <!-- <td width="20%">Kulit</td>
+                    <td width="20%"> -->
+                        <input type="hidden" name="KULIT"   class="form-control">
+                    <!-- </td> -->
+                </tr>
+
+                <tr>
+                    <td><b>Evaluasi</b></td></tr>
+                <tr>
+                    
+                    <td colspan="4">
+                        <table>
+                            <tr><td>S</td><td>  <textarea name="EVALUASI1" rows="3" style="width: 350px;" > {$s} </textarea></td>
+                                 <td>A</td><td><textarea name="EVALUASI3" rows="3" style="width: 350px;" > {$a}</textarea></td></tr>
+                            <tr><td>O</td><td> <textarea name="EVALUASI2" rows="3" style="width: 350px;" > {$o}</textarea></td>
+                                 <td>P</td><td> <textarea name="EVALUASI4" rows="3" style="width: 350px;" > {$p}</textarea></td></tr>
+                        </table>
+                                             </td>
+                        </tr>
+
+           
+      
+        
+            <tr class="submit-box">
+            <td colspan="4">
+                <div style="font-weight: bold;">
+                    *Bismillahirohmanirrohim, saya dengan sadar dan penuh tanggung jawab mengisikan formulir ini dengan data yang benar
+                </div>
+                <br>
+                <input type="submit" name="save" value="Simpan" class="edit-button"/>
+            </td>
+        </tr>
+        </table>
+    </form>
+</div>
+ 
+<table class="table-view" width="100%">
+    <tr class="headrow">
+        <th colspan="6">List Data </th>
+    </tr>
+    <tr>
+        <th width="25%">Tanggal</th>
+        <th width="10%">Diagnosa </th>
+        <th width="10%"> Sifat</th> 
+        <th width="10%"> Pra Operasi</th> 
+        <th width="10%"> Intra Operasi</th> 
+        <th width="10%"> Post Operasi</th> 
+        <th width="15%">Petugas</th>
+      
+    </tr>
+    {foreach $rs_asuhan  as $cppt}
+    <tr>
+        <td>{$cppt.TGL}  
+            <a href="javascript:void(0);" onclick="window.open('{$config->site_url('rm/rawat_inap/cetak_asuhan_kep_op2/'|cat:$cppt.FS_KD_REG|cat:'/'|cat:$cppt.idoperasi|default:'')}', 'nama_window_pop_up', 'scrollbars=yes,resizeable=no')" class="button-download">  {$data.TANGGAL|date_format :"%d %B %Y"}</a> 
+        </td>
+        <td> Pra : {$cppt.DIAGNOSA_PRA} <br> Post : {$cppt.DIAGNOSA_PRA} </td>
+         <td>{$cppt.SIFAT_OP} </td> 
+         <td>Selesai</td>
+         <td>{if $cppt.SP02 neq ''} Selesai   {/if}
+             
+            <a href="{$config->site_url('op/asuhan/intra/'|cat:$cppt.FS_KD_REG|cat:'/'|cat:$cppt.id)}"   class="button-edit">{$data.TANGGAL|date_format :"%d %B %Y"}</a> 
+            </td>
+         <td>{if $cppt.TURGOR neq ''} Selesai   {/if}
+                
+                <a href="{$config->site_url('op/asuhan/post/'|cat:$cppt.FS_KD_REG|cat:'/'|cat:$cppt.id)}"   class="button-edit">{$data.TANGGAL|date_format :"%d %B %Y"}</a> 
+                </td>
+
+         <td>Perawat : {$cppt.KD_PERAWAT_INS} <BR> Dokter :  {$cppt.NAMALENGKAP} </td>
+  
+
+    </tr> 
+    {/foreach}
+</table>
+<script>
+       $(".select2").select2({
+            placeholder: "Pilih",
+            allowClear: true
+        });
+</script>
+
+
+
+
+  

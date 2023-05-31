@@ -1,0 +1,40 @@
+{include file="surat/kelengkapan_mr/add_script_js.html"}
+<div class="breadcrumb">
+    <ul>
+        <li><a href="#">Data Arsip</a></li>
+        <li><a href="{$config->site_url('surat/kelengkapan_mr/cari')}">Kelengkapan MR</a></li>
+        <li class="active"><a href="#">Edit Data</a></li>
+    </ul>
+    <div class="clear"></div>
+</div>
+<div class="content-entry">
+    <!-- notification template -->
+    {include file="base/templates/notification.html"}
+    <!-- end of notification template-->
+<form action="{$config->site_url('surat/kelengkapan_mr/edit_tindakan_process')}" method="post">
+        <input name="FS_KD_REG" type="hidden" value="{$rs_tindakan.FS_KD_REG}" />
+        <input name="FS_KD_TIND" type="hidden" value="{$rs_tindakan.FS_KD_TIND}" />
+        <table class="table-input" width="100%">
+            <tr>
+                <th colspan="2">Edit Tindakan</th>
+            </tr>
+            <tr>
+                <td width="25%">ICD 9 CM</td>
+                <td width="75%">
+                   <input type="text" name="ICD9CM" size="20" id="FS_KD_ICD9CM" value="{$rs_tindakan.ICD9CM}"><button type="button" id="btn-search2">Cari</button> <span id="loading2">LOADING...</span>
+                </td>
+                <tr>
+                <td>Tindakan / Prosedur</td>
+                <td>
+                     <input type="text" name="FS_NM_TIND" id="FS_NM_ICD9CM" size="40" value="{$rs_tindakan.FS_NM_TIND}" readonly="">
+                </td>
+            </tr>
+            </tr>
+            <tr class="submit-box">
+                <td colspan="2">
+                    <input type="submit" name="save" value="Edit" class="btn-blue" >
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>

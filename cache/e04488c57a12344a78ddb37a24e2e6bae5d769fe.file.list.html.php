@@ -1,17 +1,17 @@
-<?php /* Smarty version Smarty-3.0.7, created on 2023-05-31 10:37:20
+<?php /* Smarty version Smarty-3.0.7, created on 2023-06-01 20:14:55
          compiled from "application/views\igd/bidan/list.html" */ ?>
-<?php /*%%SmartyHeaderCode:3140262c4e51f3ea207-37108146%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:19023647899cf2b3245-98080202%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     'e04488c57a12344a78ddb37a24e2e6bae5d769fe' => 
     array (
       0 => 'application/views\\igd/bidan/list.html',
-      1 => 1685501796,
+      1 => 1685625285,
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '3140262c4e51f3ea207-37108146',
+  'nocache_hash' => '19023647899cf2b3245-98080202',
   'function' => 
   array (
   ),
@@ -76,6 +76,48 @@ if ($_smarty_tpl->_count($_from) > 0){
         </table>
     </form>
 </div>
+<div class="dashboard-container">
+    <table class="table-view" width="100%" border="0" style="font-size: 12px;">
+        <thead>
+            <tr>
+                <th width='2%'>No</th>
+                <th>No MR</th>
+                <th>Nama Pasien</th>
+                <th>Alamat</th> 
+                <th>Petugas</th> 
+                <th>Status</th>
+                <th width='18%'>Detail</th>
+            </tr>
+        </thead>
+        <tbody><?php $_smarty_tpl->tpl_vars['no'] = new Smarty_variable(1, null, null);?>
+            <?php  $_smarty_tpl->tpl_vars['data'] = new Smarty_Variable;
+ $_from = $_smarty_tpl->getVariable('rs_ases_bidan_igd')->value; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array');}
+if ($_smarty_tpl->_count($_from) > 0){
+    foreach ($_from as $_smarty_tpl->tpl_vars['data']->key => $_smarty_tpl->tpl_vars['data']->value){
+?>
+            <tr>
+                <td><?php echo $_smarty_tpl->getVariable('no')->value++;?>
+</td>
+                <td><?php echo $_smarty_tpl->tpl_vars['data']->value['No_MR'];?>
+</td>
+                <td><?php echo $_smarty_tpl->tpl_vars['data']->value['Nama_Pasien'];?>
+</td>
+                <td><?php echo $_smarty_tpl->tpl_vars['data']->value['Alamat'];?>
+</td>  
+                <td><?php echo $_smarty_tpl->tpl_vars['data']->value['MDB'];?>
+</td>  
+                <td><?php if ($_smarty_tpl->tpl_vars['data']->value['No_MR']!=''){?> <p style="color:green"><b> Selesai</b> </p> <?php }else{ ?> <b>Belum </b><?php }?></td>  
+                <td>
+                     <a href="<?php echo $_smarty_tpl->getVariable('config')->value->site_url(('igd/bidan/edit/').($_smarty_tpl->tpl_vars['data']->value['FS_KD_REG']));?>
+" class="button-edit">Edit</a>
+ 
+                               
+                </td>
+            </tr>
+            <?php }} ?>
+        </tbody>
+    </table>
+ </div>
 <script>
      $(".select2").select2({
             placeholder: "Pilih",

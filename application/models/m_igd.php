@@ -542,6 +542,24 @@ class m_igd extends CI_Model {
         }
     }
 
+    function get_data_ases_bidan_igd($params) {//get data pasien ugd bidan
+        $n=date('Y-m-d');
+
+        $sql = "select A.*, B.Kode_Dokter, B.No_Reg, C.Tgl_lahir, C.No_MR
+        from  PKU.dbo.IGD_AWAL_BIDAN A
+        left join DB_RSMM.dbo.PENDAFTARAN B on B.No_Reg=A.FS_KD_REG
+        left join DB_RSMM.dbo.REGISTER_PASIEN C on B.No_MR=C.No_MR
+        where (B.Tanggal=? or B.Tanggal=?) or (cast(A.MDD as date)=?) and C.Jenis_Kelamin='P'";
+        $query = $this->db->query($sql, $params);
+        if ($query->num_rows() > 0) {
+            $result = $query->result_array();
+            $query->free_result();
+            return $result;
+        } else {
+            return array();
+        }
+    }
+
   
 
     function get_data_bidan_by_noreg($params) {
@@ -925,7 +943,7 @@ class m_igd extends CI_Model {
 
         $sql = "SELECT E.NO_REG, B.NO_MR, B.NAMA_PASIEN, B.TGL_LAHIR, B.JENIS_KELAMIN, B.ALAMAT
        FROM REGISTER_PASIEN B,  PENDAFTARAN E 
-       WHERE B.NO_MR=E.NO_MR AND E.STATUS='1' and E.KODE_MASUK='1' and (E.TANGGAL= '$now' or E.TANGGAL='$akhirnya')";
+       WHERE B.NO_MR=E.NO_MR AND E.STATUS='1' and E.KODE_MASUK='1' and (E.TANGGAL= '$now' or E.TANGGAL='$akhirnya') and B.Jenis_Kelamin='P'";
        $query = $this->db->query($sql);
        if ($query->num_rows() > 0) {
            $result = $query->result_array();

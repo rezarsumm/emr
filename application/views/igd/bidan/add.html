@@ -223,8 +223,8 @@
                     <input type="radio" name="BAWA_OBAT" checked value="Tidak">Tidak    
                      <BR>
                   Bila iya,  Diberikan ke petugas 
-                    <input type="radio" name="BERI" value="Ya">Ya    
-                    <input type="radio" name="BERI" checked value="Tidak">Tidak    
+                    <input type="radio" name="BERI_OBAT" value="Ya">Ya    
+                    <input type="radio" name="BERI_OBAT" checked value="Tidak">Tidak    
                 </td>
              </tr>  
 
@@ -519,7 +519,7 @@
             <td> <input type="text" name="POLA_BAK"> x/hari </td>
             <td>  BAK Terakhir Jam</td>
             <td> <input type="text" name="JAM_TERAKHIR_BAK">  
-                Warna BAK  <input type="text" name="KARAKTER_BAK"> </td>
+                Warna BAK  <input type="text" name="WARNA_BAK"> </td>
         </tr>
         <tr>
             <td> Pola BAB</td>
@@ -558,6 +558,11 @@
            <td>Hubungan </td>
            <td><input type="text" name="HUBUNGAN_PJ" size="10"  required value="-"/>  </td>
        </tr>
+       <tr>
+        <td>No HP Penanggung Jawab</td>
+        <td><input type="number" name="NO_HP_PJ" size="10"  required value="-"/> </td>
+
+    </tr>
       
         
         <tr>
@@ -773,8 +778,9 @@
                 <td> 
                     <input type="radio" name="CEK_DADA" value="Aerola Hiperpigmentasi"> Aerola Hiperpigmentasi </td>
                 <td> 
-                    <input type="radio" name="CEK_DADA" value="Kolostrum">  
-                    <input type="hidden" name="CEK_DADA" value=""> Kolostrum </td>
+                    <input type="radio" name="CEK_DADA" value="Kolostrum"> Kolostrum
+                    </td>  
+                    
                 </tr>
               <tr>
                     <td > </td>
@@ -785,8 +791,9 @@
                         <input type="radio" name="INSPEKSI_ABDOMEN" value="Linea Alba"> Linea Alba  
                         <input type="radio" name="INSPEKSI_ABDOMEN" value="Linea Nigra">   Linea Nigra  
                             <input type="radio" name="INSPEKSI_ABDOMEN" value="Striae Lividae">     Striae Lividae  
-                          <input type="radio" name="INSPEKSI_ABDOMEN" value="Striae Albican">  
-                          <input type="hidden" name="INSPEKSI_ABDOMEN" value="">   Striae Albican </td>
+                          <input type="radio" name="INSPEKSI_ABDOMEN" value="Striae Albican"> Striae Albican  
+                          <!-- <input type="hidden" name="INSPEKSI_ABDOMEN" value="">   Striae Albican  -->
+                        </td>
 
                         
                     </tr>
@@ -800,7 +807,7 @@
                          <td>
                             <input type="radio" name="LEOPOD_2" value="Punggung Kanan">  Punggung Kanan 
                             <input type="radio" name="LEOPOD_2" value="Punggung Kiri">   Punggung Kiri
-                            <input type="hidden" name="LEOPOD_2"  >    
+                            <!-- <input type="hidden" name="LEOPOD_2"  >     -->
                            </td>
                     </tr>
             <tr> 
@@ -808,7 +815,7 @@
                            <td>
                               <input type="radio" name="LEOPOD_3" value="Kepala">    Kepala 
                               <input type="radio" name="LEOPOD_3" value="Bokong">     Bokong
-                            <input type="hidden" name="LEOPOD_3"  >    
+                            <!-- <input type="hidden" name="LEOPOD_3"  >     -->
 
                              </td>
                          </tr>
@@ -817,7 +824,7 @@
                                     <td>
                                        <input type="radio" name="LEOPOD_4" value="Floating">    Floating 
                                        <input type="radio" name="LEOPOD_4" value="Enganged">     Enganged
-                                   <input type="hidden" name="LEOPOD_4"  >    
+                                   <!-- <input type="hidden" name="LEOPOD_4"  >     -->
 
                                       </td>
                                   </tr>
@@ -826,7 +833,7 @@
               <td colspan="3">
                   <input type="radio" name="AUSKULTASI" value="Teratur">Teratur
                   <input type="radio" name="AUSKULTASI" value="Tidak">Tidak Teratur  
-                  <input type="hidden" name="AUSKULTASI"  >    
+                  <!-- <input type="hidden" name="AUSKULTASI"  >     -->
 
                 <input type="text" name=" DURASI_AUSKULTASI"  >kali/menit
               </td>
@@ -838,7 +845,7 @@
                 <input type="radio" name="KONTRAKSI" value="Kuat">Kuat
                 <input type="radio" name="KONTRAKSI" value="Sedang">Sedang
                 <input type="radio" name="KONTRAKSI" value="Lemah">Lemah
-                <input type="hidden" name="KONTRAKSI"  >  
+                <!-- <input type="hidden" name="KONTRAKSI"  >   -->
 
               <input type="text" name=" DURASI_KONTRAKSI"  >kali/menit
             </td>
@@ -865,7 +872,7 @@
                 <option></option>
                 </select></td>
             <td>Radiologi</td>
-            <td>   <select name="tembusan[]" multiple id="tembusan" style="width:200px">
+            <td>   <select name="radiologi[]" multiple id="radiologi" style="width:200px">
                 <option></option>
             </select></td>
         </tr>
@@ -1437,7 +1444,7 @@
     <tr>
         <td width='20%'> Rencana Tindakan Kebidanan</td>
         <td width='30%' colspan="3">
-           <input type="text" name="RENCANA_TIN"  style="width: 600px;">
+           <input type="text" name="RENCANA_TINDAKAN"  style="width: 600px;">
         </td> 
     </tr>
    
@@ -1542,7 +1549,7 @@
                 </select>
             </td>
             <td>Jama Selesai diperiksa</td>
-            <td><input type="time" name="JAM_SELESAI" required></td>
+            <td><input type="time" name="JAM_SELESAI" id="jam_keperawatan" required></td>
         </tr>
 
         <tr class="submit-box">
@@ -1558,6 +1565,24 @@
     </form>
     </div>
       <script>
+
+const inputWaktu = document.getElementById('jam_keperawatan');
+  
+  // Mengatur waktu awal
+  updateTime();
+
+  // Fungsi untuk memperbarui waktu pada input
+  function updateTime() {
+    const waktuSekarang = new Date();
+    const jam = waktuSekarang.getHours();
+    const menit = waktuSekarang.getMinutes();
+    const detik = waktuSekarang.getSeconds();
+    const waktuDefault = jam.toString().padStart(2, '0') + ':' + menit.toString().padStart(2, '0');
+    inputWaktu.value = waktuDefault;
+  }
+
+  // Memperbarui waktu setiap menit
+  setInterval(updateTime, 1000);
 
 $(function(){
       $(":radio.rad").click(function(){

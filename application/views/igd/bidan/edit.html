@@ -72,8 +72,8 @@
                     <input type="radio" name="BAWA_OBAT" {if $data.BAWA_OBAT eq 'Tidak'} checked {/if}  value="Tidak">Tidak    
                      <BR>
                   Bila iya,  Diberikan ke petugas 
-                    <input type="radio" name="BERI" {if $data.BERI eq 'Ya'} checked {/if} value="Ya">Ya    
-                    <input type="radio" name="BERI" {if $data.BERI eq 'Tidak'} checked {/if} value="Tidak">Tidak    
+                    <input type="radio" name="BERI_OBAT" {if $data.BERI_OBAT_KE_PETUGAS eq 'Ya'} checked {/if} value="Ya">Ya    
+                    <input type="radio" name="BERI_OBAT" {if $data.BERI_OBAT_KE_PETUGAS eq 'Tidak'} checked {/if} value="Tidak">Tidak    
                 </td>
              </tr>  
 
@@ -182,8 +182,8 @@
             <td width='30%'><input type="text" name="FS_HAID_MEN" value="{$data.FS_HAID_MEN}" size="10"  /></td>
             <td width='20%'>Siklus</td>
             <td width='30%'>
-                <input type="radio" name="FS_HAID_SIKLUS"  {if $data.FS_HAID_SIKLUS eq 'Digendong'} checked {/if} value="Teratur">Teratur
-                <input type="radio" name="FS_HAID_SIKLUS" {if $data.FS_HAID_SIKLUS eq 'Digendong'} checked {/if} value="Tidak"> Tidak
+                <input type="radio" name="FS_HAID_SIKLUS"  {if $data.FS_HAID_SIKLUS eq 'Teratur'} checked {/if} value="Teratur">Teratur
+                <input type="radio" name="FS_HAID_SIKLUS" {if $data.FS_HAID_SIKLUS eq 'Tidak'} checked {/if} value="Tidak"> Tidak
             </td>
         </tr>
         <tr>
@@ -368,7 +368,7 @@
             <td> <input type="text" name="POLA_BAK" value="{$data.POLA_BAK}"> x/hari </td>
             <td>  BAK Terakhir Jam</td>
             <td> <input type="text" name="JAM_TERAKHIR_BAK" value="{$data.JAM_TERAKHIR_BAK}">  
-                Warna BAK  <input type="text" name="KARAKTER_BAK">
+                Warna BAK  <input type="text" name="WARNA_BAK" value="{$data.WARNA_BAK}" >
              </td>
         </tr>
         <tr>
@@ -376,7 +376,7 @@
             <td> <input type="text" name="POLA_BAB" value="{$data.POLA_BAB}"> x/hari </td>
             <td>  BAB Terakhir Jam</td>
             <td> <input type="text" name="JAM_TERAKHIR_BAB" value="{$data.JAM_TERAKHIR_BAB}"> 
-                Karakteristik BAB  <input type="text" name="KARAKTER_BAB">  </td>
+                Karakteristik BAB  <input type="text" name="KARAKTER_BAB" value="{$data.KARAKTER_BAB}">  </td>
 
         </tr>
     </table>
@@ -408,6 +408,12 @@
            <td>Hubungan </td>
            <td><input type="text" name="HUBUNGAN_PJ" size="10" value="{$data.HUBUNGAN_PJ}"/>  </td>
        </tr>
+       <tr>
+        <td>No HP Penanggung Jawab</td>
+        <td><input type="number" name="NO_HP_PJ" size="10"  value="{$data.NO_HP_PJ}"/> </td>
+
+    </tr>
+       
       
         
         <tr>
@@ -471,7 +477,7 @@
     </tr>
     <tr>
         <td width='20%'>Suhu</td>
-        <td width='30%'><input type="text" name="S" size="10" value="{$data.SUHU}"/></td>
+        <td width='30%'><input type="text" name="S" size="10" value="{$data.S}"/></td>
         <td width='20%'>Nadi</td>
         <td width='30%'><input type="text" name="N" size="10" value="{$data.N}"/> x/menit</td>
     </tr>
@@ -701,13 +707,9 @@
             <td>Laboratorium</td>
             <td>
                 
-                {if $data.LAB=='0'||$data.LAB==''}
-                <select name="rlab[]" multiple id="rlab" style="width:350px">
-                        <option></option>
-                    </select> 
-                    {else}
-                <textarea cols="50" name="rlab">{$data.LAB}</textarea>
-                {/if}
+                <select name="rlab[]" multiple id="rlab" style="width:250px">
+                    <option></option>
+                </select>
                 
                 <!-- <select name="rlab[]" multiple id="rlab" style="width:250px">
                 <option></option>
@@ -715,13 +717,20 @@
             </td>
             <td>Radiologi</td>
             <td>   
-                {if $data.RAD=='0'||$data.RAD==''}
-                <select name="tembusan[]" multiple id="tembusan" style="width:350px">
+
+            
+              
+                    <select name="radiologi[]" multiple id="radiologi" style="width:250px">
+                        <option></option>
+                    </select>
+              
+                <!-- {if $data.RAD=='0'||$data.RAD==''}
+                <select name="radiologi[]" multiple id="radiologi" style="width:350px">
                         <option></option>
                     </select> 
                     {else}
                 <textarea cols="50" name="tembusan">{$data.RAD}</textarea>
-                {/if}
+                {/if} -->
                 
                 <!-- <select name="tembusan[]" multiple id="tembusan" style="width:200px">
                 <option></option>
@@ -891,8 +900,8 @@
             <td width='30%'>
                 <select name="FS_PARAM_1" class="select2" style="width: 250px;" id="op18">
                     <option value="">--Pilih Data--</option>
-                    <option value="25">< 3 bulan</option>
-                    <option value="0">tidak ada atau > 3 bulan</option>
+                    <option value="25" {if $jatuh.FS_PARAM_1 eq '25'} selected="" {/if}>< 3 bulan</option>
+                    <option value="0" {if $jatuh.FS_PARAM_1 eq '0'} selected="" {/if}>tidak ada atau > 3 bulan</option>
 
                 </select>
                 <span id="sc18"></span>
@@ -905,8 +914,8 @@
             <td>
                 <select name="FS_PARAM_2" class="select2" style="width: 250px;" id="op19">
                     <option value="">--Pilih Data--</option>
-                    <option value="15">> 1 diagnosa penyakit</option>
-                    <option value="0"><= 1 diagnosa penyakit</option>
+                    <option value="15" {if $jatuh.FS_PARAM_2 eq '15'} selected="" {/if}>> 1 diagnosa penyakit</option>
+                    <option value="0" {if $jatuh.FS_PARAM_2 eq '0'} selected="" {/if}><= 1 diagnosa penyakit</option>
                 </select>
                 <span id="sc19"></span>
             </td>
@@ -918,9 +927,9 @@
             <td>
                 <select name="FS_PARAM_3" class="select2" style="width: 250px;" id="op110">
                     <option value="">--Pilih Data--</option>
-                    <option value="30">Perabot</option>
-                    <option value="15">Tongkat / penopang</option>
-                    <option value="0">Tidak ada / Tirah baring</option>
+                    <option value="30" {if $jatuh.FS_PARAM_3 eq '30'} selected="" {/if}>Perabot</option>
+                    <option value="15" {if $jatuh.FS_PARAM_3 eq '15'} selected="" {/if}>Tongkat / penopang</option>
+                    <option value="0" {if $jatuh.FS_PARAM_3 eq '0'} selected="" {/if}>Tidak ada / Tirah baring</option>
                 </select>
                 <span id="sc110"></span>
             </td>
@@ -932,8 +941,8 @@
             <td>
                 <select name="FS_PARAM_4" class="select2" style="width: 250px;" id="op11">
                     <option value="">--Pilih Data--</option>
-                    <option value="20">Terapi IV terus menerus</option>
-                    <option value="0">Tidak</option>
+                    <option value="20" {if $jatuh.FS_PARAM_4 eq '20'} selected="" {/if}>Terapi IV terus menerus</option>
+                    <option value="0" {if $jatuh.FS_PARAM_4 eq '0'} selected="" {/if}>Tidak</option>
                 </select>
                 <span id="sc11"></span>
             </td>
@@ -945,9 +954,9 @@
             <td>
                 <select name="FS_PARAM_5" class="select2" style="width: 250px;" id="op12">
                     <option value="">--Pilih Data--</option>
-                    <option value="30">Kerusakan (Terganggu)</option>
-                    <option value="15">Lemah</option>
-                    <option value="0">Normal / Tirah baring</option>
+                    <option value="30" {if $jatuh.FS_PARAM_5 eq '30'} selected="" {/if}>Kerusakan (Terganggu)</option>
+                    <option value="15" {if $jatuh.FS_PARAM_5 eq '15'} selected="" {/if}>Lemah</option>
+                    <option value="0" {if $jatuh.FS_PARAM_5 eq '0'} selected="" {/if}>Normal / Tirah baring</option>
                 </select>
                 <span id="sc12"></span>
             </td>
@@ -959,8 +968,8 @@
             <td>
                 <select name="FS_PARAM_6" class="select2" style="width: 250px;" id="op13">
                     <option value="">--Pilih Data--</option>
-                    <option value="15">Lupa keterbatasan</option>
-                    <option value="0">Sadar kemampuan diri</option>
+                    <option value="15" {if $jatuh.FS_PARAM_6 eq '15'} selected="" {/if}>Lupa keterbatasan</option>
+                    <option value="0" {if $jatuh.FS_PARAM_6 eq '0'} selected="" {/if}>Sadar kemampuan diri</option>
                 </select>
                 <span id="sc13"></span>
             </td>
@@ -1108,7 +1117,7 @@
     <tr>
         <td width='20%'> Rencana Tindakan Kebidanan</td>
         <td width='30%' colspan="3">
-           <input type="text" name="RENCANA_TIN"  style="width: 600px;" value="{$data.RENCANA_TIN}">
+           <input type="text" name="RENCANA_TINDAKAN"  style="width: 600px;" value="{$data.RENCANA_TINDAKAN}">
         </td> 
     </tr>
    
@@ -1173,17 +1182,10 @@
             <td width='30%'></td>
         </tr>
     </table>
-
-    <!-- <?php   
-    $kriteriaDischargers = ["Umur>65", "Terbatas Mobilitas", "Perawatan Lanjutan", "Bantuan Aktifitas Sehari hari" ];
-
-    var_dump($kriteriaDischargers);
-    die;
-    ?> -->
     <table class="table-input" width="100%">
         <tr class="headrow">
             <th colspan="4">Scrinning Discharge Planning</th>
-        </tr>    
+        </tr>   
         <tr>
             <td width='20%'>Kriteria Discharge Planning</td>
             <td width='30%'> 
@@ -1578,7 +1580,7 @@ $(function(){
 
      
 
-<!--Tembusan-->
+<!--planning-->
 <script type="text/javascript">
     $(document).ready(function() {
         // chain select

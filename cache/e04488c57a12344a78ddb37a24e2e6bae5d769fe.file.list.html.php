@@ -1,17 +1,17 @@
-<?php /* Smarty version Smarty-3.0.7, created on 2023-06-02 09:11:37
+<?php /* Smarty version Smarty-3.0.7, created on 2023-06-02 14:15:07
          compiled from "application/views\igd/bidan/list.html" */ ?>
-<?php /*%%SmartyHeaderCode:129964794fd9626781-53296072%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:32031647996fba78ac5-65136440%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     'e04488c57a12344a78ddb37a24e2e6bae5d769fe' => 
     array (
       0 => 'application/views\\igd/bidan/list.html',
-      1 => 1685626163,
+      1 => 1685690101,
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '129964794fd9626781-53296072',
+  'nocache_hash' => '32031647996fba78ac5-65136440',
   'function' => 
   array (
   ),
@@ -104,7 +104,7 @@ if ($_smarty_tpl->_count($_from) > 0){
 </td>
                 <td><?php echo $_smarty_tpl->tpl_vars['data']->value['Alamat'];?>
 </td>  
-                <td><?php echo $_smarty_tpl->tpl_vars['data']->value['MDB'];?>
+                <td><?php echo $_smarty_tpl->tpl_vars['data']->value['mdb'];?>
 </td>  
                 <td><?php if ($_smarty_tpl->tpl_vars['data']->value['No_MR']!=''){?> <p style="color:green"><b> Selesai</b> </p> <?php }else{ ?> <b>Belum </b><?php }?></td>  
                 <td>

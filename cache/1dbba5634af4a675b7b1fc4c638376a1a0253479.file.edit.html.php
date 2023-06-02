@@ -1,23 +1,23 @@
-<?php /* Smarty version Smarty-3.0.7, created on 2023-06-02 11:07:12
+<?php /* Smarty version Smarty-3.0.7, created on 2023-06-02 14:42:23
          compiled from "application/views\igd/bidan/edit.html" */ ?>
-<?php /*%%SmartyHeaderCode:2698364796af01cc088-54035905%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:1106564799d5fd47012-88396839%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     '1dbba5634af4a675b7b1fc4c638376a1a0253479' => 
     array (
       0 => 'application/views\\igd/bidan/edit.html',
-      1 => 1685678826,
+      1 => 1685691742,
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '2698364796af01cc088-54035905',
+  'nocache_hash' => '1106564799d5fd47012-88396839',
   'function' => 
   array (
   ),
   'has_nocache_code' => false,
 )); /*/%%SmartyHeaderCode%%*/?>
-<?php if (!is_callable('smarty_modifier_date_format')) include 'D:\XAMPP\htdocs\emr_dev\system\plugins\smarty\libs\plugins\modifier.date_format.php';
+<?php if (!is_callable('smarty_modifier_date_format')) include 'F:\xampp\htdocs\emr\system\plugins\smarty\libs\plugins\modifier.date_format.php';
 ?> 
 
 <div class="breadcrum">
@@ -105,8 +105,8 @@ $_smarty_tpl->decodeProperties(array (
                     <input type="radio" name="BAWA_OBAT" <?php if ($_smarty_tpl->getVariable('data')->value['BAWA_OBAT']=='Tidak'){?> checked <?php }?>  value="Tidak">Tidak    
                      <BR>
                   Bila iya,  Diberikan ke petugas 
-                    <input type="radio" name="BERI" <?php if ($_smarty_tpl->getVariable('data')->value['BERI']=='Ya'){?> checked <?php }?> value="Ya">Ya    
-                    <input type="radio" name="BERI" <?php if ($_smarty_tpl->getVariable('data')->value['BERI']=='Tidak'){?> checked <?php }?> value="Tidak">Tidak    
+                    <input type="radio" name="BERI_OBAT" <?php if ($_smarty_tpl->getVariable('data')->value['BERI_OBAT_KE_PETUGAS']=='Ya'){?> checked <?php }?> value="Ya">Ya    
+                    <input type="radio" name="BERI_OBAT" <?php if ($_smarty_tpl->getVariable('data')->value['BERI_OBAT_KE_PETUGAS']=='Tidak'){?> checked <?php }?> value="Tidak">Tidak    
                 </td>
              </tr>  
 
@@ -224,8 +224,8 @@ $_smarty_tpl->decodeProperties(array (
 " size="10"  /></td>
             <td width='20%'>Siklus</td>
             <td width='30%'>
-                <input type="radio" name="FS_HAID_SIKLUS"  <?php if ($_smarty_tpl->getVariable('data')->value['FS_HAID_SIKLUS']=='Digendong'){?> checked <?php }?> value="Teratur">Teratur
-                <input type="radio" name="FS_HAID_SIKLUS" <?php if ($_smarty_tpl->getVariable('data')->value['FS_HAID_SIKLUS']=='Digendong'){?> checked <?php }?> value="Tidak"> Tidak
+                <input type="radio" name="FS_HAID_SIKLUS"  <?php if ($_smarty_tpl->getVariable('data')->value['FS_HAID_SIKLUS']=='Teratur'){?> checked <?php }?> value="Teratur">Teratur
+                <input type="radio" name="FS_HAID_SIKLUS" <?php if ($_smarty_tpl->getVariable('data')->value['FS_HAID_SIKLUS']=='Tidak'){?> checked <?php }?> value="Tidak"> Tidak
             </td>
         </tr>
         <tr>
@@ -436,7 +436,8 @@ $_smarty_tpl->decodeProperties(array (
             <td>  BAK Terakhir Jam</td>
             <td> <input type="text" name="JAM_TERAKHIR_BAK" value="<?php echo $_smarty_tpl->getVariable('data')->value['JAM_TERAKHIR_BAK'];?>
 ">  
-                Warna BAK  <input type="text" name="KARAKTER_BAK">
+                Warna BAK  <input type="text" name="WARNA_BAK" value="<?php echo $_smarty_tpl->getVariable('data')->value['WARNA_BAK'];?>
+" >
              </td>
         </tr>
         <tr>
@@ -446,7 +447,8 @@ $_smarty_tpl->decodeProperties(array (
             <td>  BAB Terakhir Jam</td>
             <td> <input type="text" name="JAM_TERAKHIR_BAB" value="<?php echo $_smarty_tpl->getVariable('data')->value['JAM_TERAKHIR_BAB'];?>
 "> 
-                Karakteristik BAB  <input type="text" name="KARAKTER_BAB">  </td>
+                Karakteristik BAB  <input type="text" name="KARAKTER_BAB" value="<?php echo $_smarty_tpl->getVariable('data')->value['KARAKTER_BAB'];?>
+">  </td>
 
         </tr>
     </table>
@@ -482,6 +484,13 @@ $_smarty_tpl->decodeProperties(array (
            <td><input type="text" name="HUBUNGAN_PJ" size="10" value="<?php echo $_smarty_tpl->getVariable('data')->value['HUBUNGAN_PJ'];?>
 "/>  </td>
        </tr>
+       <tr>
+        <td>No HP Penanggung Jawab</td>
+        <td><input type="number" name="NO_HP_PJ" size="10"  value="<?php echo $_smarty_tpl->getVariable('data')->value['NO_HP_PJ'];?>
+"/> </td>
+
+    </tr>
+       
       
         
         <tr>
@@ -547,7 +556,7 @@ $_smarty_tpl->decodeProperties(array (
     </tr>
     <tr>
         <td width='20%'>Suhu</td>
-        <td width='30%'><input type="text" name="S" size="10" value="<?php echo $_smarty_tpl->getVariable('data')->value['SUHU'];?>
+        <td width='30%'><input type="text" name="S" size="10" value="<?php echo $_smarty_tpl->getVariable('data')->value['S'];?>
 "/></td>
         <td width='20%'>Nadi</td>
         <td width='30%'><input type="text" name="N" size="10" value="<?php echo $_smarty_tpl->getVariable('data')->value['N'];?>
@@ -801,14 +810,9 @@ $_smarty_tpl->decodeProperties(array (
             <td>Laboratorium</td>
             <td>
                 
-                <?php if ($_smarty_tpl->getVariable('data')->value['LAB']=='0'||$_smarty_tpl->getVariable('data')->value['LAB']==''){?>
-                <select name="rlab[]" multiple id="rlab" style="width:350px">
-                        <option></option>
-                    </select> 
-                    <?php }else{ ?>
-                <textarea cols="50" name="rlab"><?php echo $_smarty_tpl->getVariable('data')->value['LAB'];?>
-</textarea>
-                <?php }?>
+                <select name="rlab[]" multiple id="rlab" style="width:250px">
+                    <option></option>
+                </select>
                 
                 <!-- <select name="rlab[]" multiple id="rlab" style="width:250px">
                 <option></option>
@@ -816,14 +820,21 @@ $_smarty_tpl->decodeProperties(array (
             </td>
             <td>Radiologi</td>
             <td>   
-                <?php if ($_smarty_tpl->getVariable('data')->value['RAD']=='0'||$_smarty_tpl->getVariable('data')->value['RAD']==''){?>
-                <select name="tembusan[]" multiple id="tembusan" style="width:350px">
+
+            
+              
+                    <select name="radiologi[]" multiple id="radiologi" style="width:250px">
+                        <option></option>
+                    </select>
+              
+                <!-- <?php if ($_smarty_tpl->getVariable('data')->value['RAD']=='0'||$_smarty_tpl->getVariable('data')->value['RAD']==''){?>
+                <select name="radiologi[]" multiple id="radiologi" style="width:350px">
                         <option></option>
                     </select> 
                     <?php }else{ ?>
                 <textarea cols="50" name="tembusan"><?php echo $_smarty_tpl->getVariable('data')->value['RAD'];?>
 </textarea>
-                <?php }?>
+                <?php }?> -->
                 
                 <!-- <select name="tembusan[]" multiple id="tembusan" style="width:200px">
                 <option></option>
@@ -994,8 +1005,8 @@ $_smarty_tpl->decodeProperties(array (
             <td width='30%'>
                 <select name="FS_PARAM_1" class="select2" style="width: 250px;" id="op18">
                     <option value="">--Pilih Data--</option>
-                    <option value="25">< 3 bulan</option>
-                    <option value="0">tidak ada atau > 3 bulan</option>
+                    <option value="25" <?php if ($_smarty_tpl->getVariable('jatuh')->value['FS_PARAM_1']=='25'){?> selected="" <?php }?>>< 3 bulan</option>
+                    <option value="0" <?php if ($_smarty_tpl->getVariable('jatuh')->value['FS_PARAM_1']=='0'){?> selected="" <?php }?>>tidak ada atau > 3 bulan</option>
 
                 </select>
                 <span id="sc18"></span>
@@ -1008,8 +1019,8 @@ $_smarty_tpl->decodeProperties(array (
             <td>
                 <select name="FS_PARAM_2" class="select2" style="width: 250px;" id="op19">
                     <option value="">--Pilih Data--</option>
-                    <option value="15">> 1 diagnosa penyakit</option>
-                    <option value="0"><= 1 diagnosa penyakit</option>
+                    <option value="15" <?php if ($_smarty_tpl->getVariable('jatuh')->value['FS_PARAM_2']=='15'){?> selected="" <?php }?>>> 1 diagnosa penyakit</option>
+                    <option value="0" <?php if ($_smarty_tpl->getVariable('jatuh')->value['FS_PARAM_2']=='0'){?> selected="" <?php }?>><= 1 diagnosa penyakit</option>
                 </select>
                 <span id="sc19"></span>
             </td>
@@ -1021,9 +1032,9 @@ $_smarty_tpl->decodeProperties(array (
             <td>
                 <select name="FS_PARAM_3" class="select2" style="width: 250px;" id="op110">
                     <option value="">--Pilih Data--</option>
-                    <option value="30">Perabot</option>
-                    <option value="15">Tongkat / penopang</option>
-                    <option value="0">Tidak ada / Tirah baring</option>
+                    <option value="30" <?php if ($_smarty_tpl->getVariable('jatuh')->value['FS_PARAM_3']=='30'){?> selected="" <?php }?>>Perabot</option>
+                    <option value="15" <?php if ($_smarty_tpl->getVariable('jatuh')->value['FS_PARAM_3']=='15'){?> selected="" <?php }?>>Tongkat / penopang</option>
+                    <option value="0" <?php if ($_smarty_tpl->getVariable('jatuh')->value['FS_PARAM_3']=='0'){?> selected="" <?php }?>>Tidak ada / Tirah baring</option>
                 </select>
                 <span id="sc110"></span>
             </td>
@@ -1035,8 +1046,8 @@ $_smarty_tpl->decodeProperties(array (
             <td>
                 <select name="FS_PARAM_4" class="select2" style="width: 250px;" id="op11">
                     <option value="">--Pilih Data--</option>
-                    <option value="20">Terapi IV terus menerus</option>
-                    <option value="0">Tidak</option>
+                    <option value="20" <?php if ($_smarty_tpl->getVariable('jatuh')->value['FS_PARAM_4']=='20'){?> selected="" <?php }?>>Terapi IV terus menerus</option>
+                    <option value="0" <?php if ($_smarty_tpl->getVariable('jatuh')->value['FS_PARAM_4']=='0'){?> selected="" <?php }?>>Tidak</option>
                 </select>
                 <span id="sc11"></span>
             </td>
@@ -1048,9 +1059,9 @@ $_smarty_tpl->decodeProperties(array (
             <td>
                 <select name="FS_PARAM_5" class="select2" style="width: 250px;" id="op12">
                     <option value="">--Pilih Data--</option>
-                    <option value="30">Kerusakan (Terganggu)</option>
-                    <option value="15">Lemah</option>
-                    <option value="0">Normal / Tirah baring</option>
+                    <option value="30" <?php if ($_smarty_tpl->getVariable('jatuh')->value['FS_PARAM_5']=='30'){?> selected="" <?php }?>>Kerusakan (Terganggu)</option>
+                    <option value="15" <?php if ($_smarty_tpl->getVariable('jatuh')->value['FS_PARAM_5']=='15'){?> selected="" <?php }?>>Lemah</option>
+                    <option value="0" <?php if ($_smarty_tpl->getVariable('jatuh')->value['FS_PARAM_5']=='0'){?> selected="" <?php }?>>Normal / Tirah baring</option>
                 </select>
                 <span id="sc12"></span>
             </td>
@@ -1062,8 +1073,8 @@ $_smarty_tpl->decodeProperties(array (
             <td>
                 <select name="FS_PARAM_6" class="select2" style="width: 250px;" id="op13">
                     <option value="">--Pilih Data--</option>
-                    <option value="15">Lupa keterbatasan</option>
-                    <option value="0">Sadar kemampuan diri</option>
+                    <option value="15" <?php if ($_smarty_tpl->getVariable('jatuh')->value['FS_PARAM_6']=='15'){?> selected="" <?php }?>>Lupa keterbatasan</option>
+                    <option value="0" <?php if ($_smarty_tpl->getVariable('jatuh')->value['FS_PARAM_6']=='0'){?> selected="" <?php }?>>Sadar kemampuan diri</option>
                 </select>
                 <span id="sc13"></span>
             </td>
@@ -1214,7 +1225,7 @@ $_smarty_tpl->decodeProperties(array (
     <tr>
         <td width='20%'> Rencana Tindakan Kebidanan</td>
         <td width='30%' colspan="3">
-           <input type="text" name="RENCANA_TIN"  style="width: 600px;" value="<?php echo $_smarty_tpl->getVariable('data')->value['RENCANA_TIN'];?>
+           <input type="text" name="RENCANA_TINDAKAN"  style="width: 600px;" value="<?php echo $_smarty_tpl->getVariable('data')->value['RENCANA_TINDAKAN'];?>
 ">
         </td> 
     </tr>
@@ -1280,17 +1291,10 @@ $_smarty_tpl->decodeProperties(array (
             <td width='30%'></td>
         </tr>
     </table>
-
-    <!-- <<?php ?>?php   
-    $kriteriaDischargers = ["Umur>65", "Terbatas Mobilitas", "Perawatan Lanjutan", "Bantuan Aktifitas Sehari hari" ];
-
-    var_dump($kriteriaDischargers);
-    die;
-    ?<?php ?>> -->
     <table class="table-input" width="100%">
         <tr class="headrow">
             <th colspan="4">Scrinning Discharge Planning</th>
-        </tr>    
+        </tr>   
         <tr>
             <td width='20%'>Kriteria Discharge Planning</td>
             <td width='30%'> 
@@ -1708,7 +1712,7 @@ if ($_smarty_tpl->_count($_from) > 0){
 
      
 
-<!--Tembusan-->
+<!--planning-->
 <script type="text/javascript">
     $(document).ready(function() {
         // chain select

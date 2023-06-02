@@ -159,6 +159,23 @@ class Perawat extends ApplicationBase {
 
         $this->smarty->assign("ases2", $this->m_rawat_jalan->get_data_ases2_by_rg(array($FS_RG)));
 
+           // Mendapatkan string dari database
+           $kriteria_discahargers_string = $this->m_igd->getKriteriaDischargeAssesmenPerawat(array($FS_RG));
+
+           // Memecah string menjadi array
+           $data = array();
+           $string = $kriteria_discahargers_string['KRITERIA_DISCHARGE'];;
+           $string = trim($string, ','); // Menghapus koma di awal dan akhir string (jika ada)
+   
+           if (!empty($string)) {
+               $data = explode(', ', $string);
+           }
+   
+           // var_dump($data);
+           // die;
+           // Assign array ke Smarty
+           $this->smarty->assign("kriteria_discahargers", $data);
+
         $FS_KD_REG=$FS_RG;
         $tujuan = $this->m_rawat_jalan->list_masalah_kep_by_rg($FS_KD_REG);
         $tujuan_str = "";

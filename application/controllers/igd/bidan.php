@@ -59,7 +59,7 @@ class Bidan extends ApplicationBase {
         $FS_KD_PEG = $this->com_user['user_name'];
         
         $this->smarty->assign("rs_ases_bidan_igd", $this->m_igd->get_data_ases_bidan_igd(array($date, $akhirnya,$date))); 
-       $this->smarty->assign("rs_pasien", $this->m_igd->get_pasien_ugd());
+       $this->smarty->assign("rs_pasien", $this->m_igd->get_pasien_ugd_bidan());
    
         // notification
         $this->tnotification->display_notification();

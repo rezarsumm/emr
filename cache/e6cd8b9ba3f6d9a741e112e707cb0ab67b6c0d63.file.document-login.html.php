@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.0.7, created on 2021-09-20 10:45:32
+<?php /* Smarty version Smarty-3.0.7, created on 2023-06-02 07:50:26
          compiled from "application/views\base/operator/document-login.html" */ ?>
 <?php /*%%SmartyHeaderCode:27869606e5c73c285b0-87081440%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_smarty_tpl->decodeProperties(array (
     'e6cd8b9ba3f6d9a741e112e707cb0ab67b6c0d63' => 
     array (
       0 => 'application/views\\base/operator/document-login.html',
-      1 => 1616210958,
+      1 => 1685501796,
       2 => 'file',
     ),
   ),

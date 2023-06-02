@@ -1,23 +1,23 @@
-<?php /* Smarty version Smarty-3.0.7, created on 2023-06-02 14:42:23
+<?php /* Smarty version Smarty-3.0.7, created on 2023-06-02 15:14:25
          compiled from "application/views\igd/bidan/edit.html" */ ?>
-<?php /*%%SmartyHeaderCode:1106564799d5fd47012-88396839%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:173866479a4e1acdae0-27799112%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     '1dbba5634af4a675b7b1fc4c638376a1a0253479' => 
     array (
       0 => 'application/views\\igd/bidan/edit.html',
-      1 => 1685691742,
+      1 => 1685693660,
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '1106564799d5fd47012-88396839',
+  'nocache_hash' => '173866479a4e1acdae0-27799112',
   'function' => 
   array (
   ),
   'has_nocache_code' => false,
 )); /*/%%SmartyHeaderCode%%*/?>
-<?php if (!is_callable('smarty_modifier_date_format')) include 'F:\xampp\htdocs\emr\system\plugins\smarty\libs\plugins\modifier.date_format.php';
+<?php if (!is_callable('smarty_modifier_date_format')) include 'D:\XAMPP\htdocs\emr_dev\system\plugins\smarty\libs\plugins\modifier.date_format.php';
 ?> 
 
 <div class="breadcrum">
@@ -1330,7 +1330,7 @@ $_smarty_tpl->decodeProperties(array (
                 </select>
             </td>
             <td>Jama Selesai diperiksa</td>
-            <td><input type="time" name="JAM_SELESAI" value="<?php echo date('H:i',strtotime($_smarty_tpl->getVariable('data')->value['RUJUKAN']));?>
+            <td><input type="time" name="JAM_SELESAI" value="<?php echo date('H:i',strtotime($_smarty_tpl->getVariable('data')->value['SELESAI']));?>
 "></td>
         </tr>
 

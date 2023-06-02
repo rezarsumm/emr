@@ -1,23 +1,23 @@
-<?php /* Smarty version Smarty-3.0.7, created on 2023-06-02 14:00:09
+<?php /* Smarty version Smarty-3.0.7, created on 2023-06-02 15:14:53
          compiled from "application/views\base/templates/notification.html" */ ?>
-<?php /*%%SmartyHeaderCode:3117064799379eb5035-80877861%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:125806479a4fd90e3a7-24151587%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     'c8d1aa75acec12464050558ee68fc99916fa67dd' => 
     array (
       0 => 'application/views\\base/templates/notification.html',
-      1 => 1685687887,
+      1 => 1616210784,
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '3117064799379eb5035-80877861',
+  'nocache_hash' => '125806479a4fd90e3a7-24151587',
   'function' => 
   array (
   ),
   'has_nocache_code' => false,
 )); /*/%%SmartyHeaderCode%%*/?>
-<?php if (!is_callable('smarty_modifier_capitalize')) include 'F:\xampp\htdocs\emr\system\plugins\smarty\libs\plugins\modifier.capitalize.php';
+<?php if (!is_callable('smarty_modifier_capitalize')) include 'D:\XAMPP\htdocs\emr_dev\system\plugins\smarty\libs\plugins\modifier.capitalize.php';
 ?><!-- notification template -->
 <?php if ((($tmp = @$_smarty_tpl->getVariable('notification_header')->value)===null||$tmp==='' ? '' : $tmp)=="error"){?>
 <div class="notification red">

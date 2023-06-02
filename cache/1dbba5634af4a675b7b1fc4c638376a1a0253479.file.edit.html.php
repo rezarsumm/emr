@@ -1,23 +1,23 @@
-<?php /* Smarty version Smarty-3.0.7, created on 2023-05-29 10:33:19
+<?php /* Smarty version Smarty-3.0.7, created on 2023-06-02 11:07:12
          compiled from "application/views\igd/bidan/edit.html" */ ?>
-<?php /*%%SmartyHeaderCode:1320364741cff758ac7-51225682%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:2698364796af01cc088-54035905%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     '1dbba5634af4a675b7b1fc4c638376a1a0253479' => 
     array (
       0 => 'application/views\\igd/bidan/edit.html',
-      1 => 1658970937,
+      1 => 1685678826,
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '1320364741cff758ac7-51225682',
+  'nocache_hash' => '2698364796af01cc088-54035905',
   'function' => 
   array (
   ),
   'has_nocache_code' => false,
 )); /*/%%SmartyHeaderCode%%*/?>
-<?php if (!is_callable('smarty_modifier_date_format')) include 'D:\XAMPP\htdocs\emr\system\plugins\smarty\libs\plugins\modifier.date_format.php';
+<?php if (!is_callable('smarty_modifier_date_format')) include 'D:\XAMPP\htdocs\emr_dev\system\plugins\smarty\libs\plugins\modifier.date_format.php';
 ?> 
 
 <div class="breadcrum">
@@ -1280,18 +1280,24 @@ $_smarty_tpl->decodeProperties(array (
             <td width='30%'></td>
         </tr>
     </table>
+
+    <!-- <<?php ?>?php   
+    $kriteriaDischargers = ["Umur>65", "Terbatas Mobilitas", "Perawatan Lanjutan", "Bantuan Aktifitas Sehari hari" ];
+
+    var_dump($kriteriaDischargers);
+    die;
+    ?<?php ?>> -->
     <table class="table-input" width="100%">
         <tr class="headrow">
             <th colspan="4">Scrinning Discharge Planning</th>
-        </tr>
-        
+        </tr>    
         <tr>
             <td width='20%'>Kriteria Discharge Planning</td>
             <td width='30%'> 
-                <input type="radio" name="KRITERIA_DISCHARGE[]" value="Umur>65">Umur>65<br>
-                <input type="radio" name="KRITERIA_DISCHARGE[]" value="Terbatas Mobilitas">Terbatas Mobilitas<br>
-                <input type="radio" name="KRITERIA_DISCHARGE[]" value="Perawatan Lanjutan">Perawatan Lanjutan<br>
-                <input type="radio" name="KRITERIA_DISCHARGE[]" value="Bantuan Aktifitas Sehari hari">Bantuan Aktifitas Sehari hari<br>
+                <input type="checkbox" name="KRITERIA_DISCHARGE[]" value="Umur>65" <?php if (in_array(' Umur>65',$_smarty_tpl->getVariable('kriteria_discahargers')->value)){?>checked="checked"<?php }?>>Umur>65<br>
+                <input type="checkbox" name="KRITERIA_DISCHARGE[]" value="Terbatas Mobilitas" <?php if (in_array('Terbatas Mobilitas',$_smarty_tpl->getVariable('kriteria_discahargers')->value)){?>checked="checked"<?php }?>>Terbatas Mobilitas<br>
+                <input type="checkbox" name="KRITERIA_DISCHARGE[]" value="Perawatan Lanjutan" <?php if (in_array('Perawatan Lanjutan',$_smarty_tpl->getVariable('kriteria_discahargers')->value)){?>checked="checked"<?php }?>>Perawatan Lanjutan<br>
+                <input type="checkbox" name="KRITERIA_DISCHARGE[]" value="Bantuan Aktifitas Sehari hari" <?php if (in_array('Bantuan Aktifitas Sehari hari',$_smarty_tpl->getVariable('kriteria_discahargers')->value)){?>checked="checked"<?php }?>>Bantuan Aktifitas Sehari hari<br>
             </td>
             <td width='20%'>Discharge Planning</td>
             <td width='30%'>

@@ -2012,6 +2012,13 @@ class m_rawat_jalan extends CI_Model {
         }
     }
 
+    // ambil kriteria dischager 
+
+    public function getKriteriaDischargerByKodeReg($params)
+    {
+
+    }
+
     function cek_data_ases_kebid_by_rg($params) {
         $sql = "SELECT *
         FROM PKU.dbo.TAC_RJ_ASES_KEBID

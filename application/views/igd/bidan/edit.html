@@ -1173,18 +1173,24 @@
             <td width='30%'></td>
         </tr>
     </table>
+
+    <!-- <?php   
+    $kriteriaDischargers = ["Umur>65", "Terbatas Mobilitas", "Perawatan Lanjutan", "Bantuan Aktifitas Sehari hari" ];
+
+    var_dump($kriteriaDischargers);
+    die;
+    ?> -->
     <table class="table-input" width="100%">
         <tr class="headrow">
             <th colspan="4">Scrinning Discharge Planning</th>
-        </tr>
-        
+        </tr>    
         <tr>
             <td width='20%'>Kriteria Discharge Planning</td>
             <td width='30%'> 
-                <input type="radio" name="KRITERIA_DISCHARGE[]" value="Umur>65">Umur>65<br>
-                <input type="radio" name="KRITERIA_DISCHARGE[]" value="Terbatas Mobilitas">Terbatas Mobilitas<br>
-                <input type="radio" name="KRITERIA_DISCHARGE[]" value="Perawatan Lanjutan">Perawatan Lanjutan<br>
-                <input type="radio" name="KRITERIA_DISCHARGE[]" value="Bantuan Aktifitas Sehari hari">Bantuan Aktifitas Sehari hari<br>
+                <input type="checkbox" name="KRITERIA_DISCHARGE[]" value="Umur>65" {if in_array(' Umur>65', $kriteria_discahargers)}checked="checked"{/if}>Umur>65<br>
+                <input type="checkbox" name="KRITERIA_DISCHARGE[]" value="Terbatas Mobilitas" {if in_array('Terbatas Mobilitas', $kriteria_discahargers)}checked="checked"{/if}>Terbatas Mobilitas<br>
+                <input type="checkbox" name="KRITERIA_DISCHARGE[]" value="Perawatan Lanjutan" {if in_array('Perawatan Lanjutan', $kriteria_discahargers)}checked="checked"{/if}>Perawatan Lanjutan<br>
+                <input type="checkbox" name="KRITERIA_DISCHARGE[]" value="Bantuan Aktifitas Sehari hari" {if in_array('Bantuan Aktifitas Sehari hari', $kriteria_discahargers)}checked="checked"{/if}>Bantuan Aktifitas Sehari hari<br>
             </td>
             <td width='20%'>Discharge Planning</td>
             <td width='30%'>

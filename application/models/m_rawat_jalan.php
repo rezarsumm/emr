@@ -391,7 +391,7 @@ class m_rawat_jalan extends CI_Model {
         return $this->db->query($sql, $params);
     }
     function insert_pemeriksaan_lab($params) {
-        $sql = "INSERT INTO PKU.dbo.ta_trs_kartu_periksa4 (fn_no_urut, fs_kd_tarif,fs_kd_reg2) VALUES (?, ?, ?)";
+        $sql = "INSERT INTO PKU.dbo.ta_trs_kartu_periksa4 (fn_no_urut, fs_kd_tarif, fs_kd_reg2, fs_kd_reg3) VALUES (?, ?, ? , ?)";
         return $this->db->query($sql, $params);
     }
     function insert_pemeriksaan_rad($params) {

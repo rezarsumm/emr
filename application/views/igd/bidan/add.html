@@ -1788,8 +1788,10 @@ $(function(){
                     success: function(data) {
                     var showData;
                             jQuery.each(data, function(index, result) {
+
                             if (result.value == 0) {
                             } else {
+                                console.log(result);
                             showData += "<option value='" + result.value + "'>" + result.label + "</option>";
                             }
                             })

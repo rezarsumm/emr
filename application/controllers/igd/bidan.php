@@ -286,10 +286,12 @@ class Bidan extends ApplicationBase {
 
                          //insert pemeriksaan lab
                          $lab = $this->input->post('rlab'); 
-                       
+                        
+                        //  var_dump($lab, $this->input->post('FS_KD_REG'));
+                        //  die;
                          if (!empty($lab)) {
                              foreach ($lab as $key => $value) {
-                                 $this->m_rawat_jalan->insert_pemeriksaan_lab(array($key, $value,$this->input->post('FS_KD_REG')));
+                                 $this->m_rawat_jalan->insert_pemeriksaan_lab(array($key, $value,$this->input->post('FS_KD_REG'), ''));
                                
                              }
                          }

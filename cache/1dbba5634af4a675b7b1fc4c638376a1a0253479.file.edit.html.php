@@ -1,23 +1,23 @@
-<?php /* Smarty version Smarty-3.0.7, created on 2023-06-02 15:14:25
+<?php /* Smarty version Smarty-3.0.7, created on 2023-06-05 11:15:46
          compiled from "application/views\igd/bidan/edit.html" */ ?>
-<?php /*%%SmartyHeaderCode:173866479a4e1acdae0-27799112%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:28494647d61726082c1-89803524%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     '1dbba5634af4a675b7b1fc4c638376a1a0253479' => 
     array (
       0 => 'application/views\\igd/bidan/edit.html',
-      1 => 1685693660,
+      1 => 1685938108,
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '173866479a4e1acdae0-27799112',
+  'nocache_hash' => '28494647d61726082c1-89803524',
   'function' => 
   array (
   ),
   'has_nocache_code' => false,
 )); /*/%%SmartyHeaderCode%%*/?>
-<?php if (!is_callable('smarty_modifier_date_format')) include 'D:\XAMPP\htdocs\emr_dev\system\plugins\smarty\libs\plugins\modifier.date_format.php';
+<?php if (!is_callable('smarty_modifier_date_format')) include 'F:\xampp\htdocs\emr\system\plugins\smarty\libs\plugins\modifier.date_format.php';
 ?> 
 
 <div class="breadcrum">
@@ -1391,66 +1391,7 @@ $(function(){
       });
 
     });
-
-
-    var user = $("#user").val();
-            $('#tujuan').select2('data', null);
-            $('#tujuan').select2('data', null);
-            $("#tujuan").removeAttr("disabled");
-            jQuery("#tujuan").html('');
-            $.ajax({
-            type: "POST",
-                    url: "<?php echo $_smarty_tpl->getVariable('config')->value->site_url('medis/rawat_jalan/list_pemeriksaan_lab/');?>
-",
-                    data: "user=" + user,
-                    dataType: 'json',
-                    success: function(data) {
-                    var showData;
-                            jQuery.each(data, function(index, result) {
-                            if (result.value == 0) {
-                            } else {
-                            showData += "<option value='" + result.value + "'>" + result.label + "</option>";
-                            }
-                            })
-                            jQuery("#tujuan").html(showData);
-                    }
-            });
-            //tags
-            $("#tujuan").select2({});
-
-
-            var user = $("#user").val();
-            $('#tembusan').select2('data', null);
-            $('#tembusan').select2('data', null);
-            $("#tembusan").removeAttr("disabled");
-            jQuery("#tembusan").html('');
-            $.ajax({
-            type: "POST", 
-                    url: "<?php echo $_smarty_tpl->getVariable('config')->value->site_url('medis/rawat_jalan/list_pemeriksaan_rrad/');?>
-",
-                    data: "user=" + user,
-                    dataType: 'json',
-                    success: function(data) {
-                    var showData;
-                            jQuery.each(data, function(index, result) {
-                            if (result.value == 0) {
-                            } else {
-                                
-                            showData += "<option value='" + result.value + "'>" + result.label + "</option>";
-                            }
-                            })
-                            jQuery("#tembusan").html(showData);
-                    }
-            });
-            //tags
-            $("#tembusan").select2({});
-
-
-      
-
-
-       
-            
+ 
       </script>     
  
 <script type="text/javascript">
@@ -1510,39 +1451,7 @@ $(function(){
     
 </script>
 
-<script type="text/javascript"> 
-    var user = $("#user").val(); 
-           
-            $("#namaobat").select2({});
-    
-     
-//rencana lab
-           $('#rlab').select2('data', null);
-            $('#rlab').select2('data', null);
-            $("#rlab").removeAttr("disabled");
-            jQuery("#rlab").html('');
-            $.ajax({
-            type: "POST",
-                    url: "<?php echo $_smarty_tpl->getVariable('config')->value->site_url('medis/rawat_jalan/list_pemeriksaan_rlab/');?>
-",
-                    data: "user=" + user,
-                    dataType: 'json',
-                    success: function(data) {
-                    var showData;
-                            jQuery.each(data, function(index, result) {
-                            if (result.value == 0) {
-                            } else {
-                            showData += "<option value='" + result.value + "'>" + result.label + "</option>";
-                            }
-                            })
-                            jQuery("#rlab").html(showData);
-                    }
-            });
-             $("#rlab").select2({});
 
-
-
- </script>
 <script type="text/javascript">
     $(document).ready(function() {
         // chain select
@@ -1605,6 +1514,156 @@ $(function(){
         });
         //tags
         $("#edukasi").select2({});
+    });
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+                   // chain select
+                   var user = $("#user").val();
+        $('#rlab').select2('data', null);
+        if (user == '') {
+            $("#rlab").attr("disabled", "disabled");
+        } else {
+//            $('#rlab').select2('data', null);
+                $("#rlab").removeAttr("disabled");
+                jQuery("#rlab").html('');
+                $.ajax({
+                    type: "POST",
+                    url: "<?php echo $_smarty_tpl->getVariable('config')->value->site_url('medis/rawat_jalan/list_pemeriksaan_rlab/');?>
+",
+                    data: "user=" + user,
+                    dataType: 'json',
+                    success: function(data) {
+                        var showData;
+                        jQuery.each(data, function(index, result) {
+                            if (result.value == 0) {
+                            } else {
+                                showData += "<option value='" + result.value + "'>" + result.label + "</option>";
+                            }
+                        })
+                        jQuery("#rlab").html(showData);
+                        $('#rlab').select2('val', [<?php echo $_smarty_tpl->getVariable('rs_tembusan')->value;?>
+]);
+                }
+            });
+        }
+        $("#user").change(function() {
+            user = $(this).val();
+            //get icao code by airlines_id
+//            $.ajax({
+//                type: "POST",
+//                url: "<?php echo $_smarty_tpl->getVariable('config')->value->site_url('angud/ijin_rute/get_airlines_by_id/');?>
+",
+//                data: "user=" + user,
+//                dataType: 'json',
+//                success: function(data) {
+//
+//                    $('input[name="airlines_icao_cd"]').val(user);
+//                }
+//            });
+            $('#rlab').select2('data', null);
+            if (user == '') {
+                $("#rlab").attr("disabled", "disabled");
+            } else {
+                $("#rlab").removeAttr("disabled");
+                jQuery("#rlab").html('');
+                $.ajax({
+                    type: "POST",
+                    url: "<?php echo $_smarty_tpl->getVariable('config')->value->site_url('medis/rawat_jalan/list_pemeriksaan_rlab/');?>
+",
+                    data: "user=" + user,
+                    dataType: 'json',
+                    success: function(data) {
+                        var showData;
+                        jQuery.each(data, function(index, result) {
+                            if (result.value == 0) {
+                            } else {
+                                showData += "<option value='" + result.value + "'>" + result.label + "</option>";
+                            }
+                        })
+                        jQuery("#rlab").html(showData);
+                    }
+                });
+            }
+        });
+        //tags
+        $("#rlab").select2({});
+    });
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+                   // chain select
+                   var user = $("#user").val();
+        $('#radiologi').select2('data', null);
+        if (user == '') {
+            $("#radiologi").attr("disabled", "disabled");
+        } else {
+//            $('#radiologi').select2('data', null);
+                $("#radiologi").removeAttr("disabled");
+                jQuery("#radiologi").html('');
+                $.ajax({
+                    type: "POST",
+                    url: "<?php echo $_smarty_tpl->getVariable('config')->value->site_url('medis/rawat_jalan/list_pemeriksaan_rad/');?>
+",
+                    data: "user=" + user,
+                    dataType: 'json',
+                    success: function(data) {
+                        var showData;
+                        jQuery.each(data, function(index, result) {
+                            if (result.value == 0) {
+                            } else {
+                                showData += "<option value='" + result.value + "'>" + result.label + "</option>";
+                            }
+                        })
+                        jQuery("#radiologi").html(showData);
+                        $('#radiologi').select2('val', [<?php echo $_smarty_tpl->getVariable('rs_tembusan')->value;?>
+]);
+                }
+            });
+        }
+        $("#user").change(function() {
+            user = $(this).val();
+            //get icao code by airlines_id
+//            $.ajax({
+//                type: "POST",
+//                url: "<?php echo $_smarty_tpl->getVariable('config')->value->site_url('angud/ijin_rute/get_airlines_by_id/');?>
+",
+//                data: "user=" + user,
+//                dataType: 'json',
+//                success: function(data) {
+//
+//                    $('input[name="airlines_icao_cd"]').val(user);
+//                }
+//            });
+            $('#radiologi').select2('data', null);
+            if (user == '') {
+                $("#radiologi").attr("disabled", "disabled");
+            } else {
+                $("#radiologi").removeAttr("disabled");
+                jQuery("#radiologi").html('');
+                $.ajax({
+                    type: "POST",
+                    url: "<?php echo $_smarty_tpl->getVariable('config')->value->site_url('medis/rawat_jalan/list_pemeriksaan_rad/');?>
+",
+                    data: "user=" + user,
+                    dataType: 'json',
+                    success: function(data) {
+                        var showData;
+                        jQuery.each(data, function(index, result) {
+                            if (result.value == 0) {
+                            } else {
+                                showData += "<option value='" + result.value + "'>" + result.label + "</option>";
+                            }
+                        })
+                        jQuery("#radiologi").html(showData);
+                    }
+                });
+            }
+        });
+        //tags
+        $("#radiologi").select2({});
     });
 </script>
 <?php if (isset($_smarty_tpl->getVariable('result',null,true,false)->value)){?>

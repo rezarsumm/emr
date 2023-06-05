@@ -183,19 +183,47 @@ class Bidan extends ApplicationBase {
 
 
         $FS_KD_REG=$FS_RG;
-        $tujuan = $this->m_rawat_jalan->list_masalah_kep_by_rg($FS_KD_REG);
+        // $tujuan = $this->m_rawat_jalan->list_masalah_kep_by_rg($FS_KD_REG);
+        // $tujuan_str = "";
+        // foreach ($tujuan as $key => $value) {
+        //     $tujuan_str .= "'" . $value['FS_KD_MASALAH_KEP'] . "',";
+        // }
+        // $this->smarty->assign('rs_tujuan', $tujuan_str);
+
+        // $tembusan = $this->m_rawat_jalan->list_rencana_kep_by_rg($FS_KD_REG);
+        // $tembusan_str = "";
+        // foreach ($tembusan as $key => $value) {
+        //     $tembusan_str .= "'" . $value['FS_KD_REN_KEP'] . "',";
+        // }
+        // $this->smarty->assign('rs_tembusan', $tembusan_str);
+
+        $tujuan = $this->m_rawat_jalan->list_pemeriksaan_lab_by_rg($FS_KD_REG);
         $tujuan_str = "";
         foreach ($tujuan as $key => $value) {
-            $tujuan_str .= "'" . $value['FS_KD_MASALAH_KEP'] . "',";
+            $tujuan_str .= "'" . $value['No_Jenis'] . "',";
         }
         $this->smarty->assign('rs_tujuan', $tujuan_str);
 
-        $tembusan = $this->m_rawat_jalan->list_rencana_kep_by_rg($FS_KD_REG);
+        $tembusan = $this->m_rawat_jalan->list_pemeriksaan_rad_by_rg($FS_KD_REG);
         $tembusan_str = "";
-        foreach ($tembusan as $key => $value) {
-            $tembusan_str .= "'" . $value['FS_KD_REN_KEP'] . "',";
+        foreach ($tembusan as $key => $value) { 
+            $tembusan_str .= "'" . $value['NO_RINCI'] . "',";
         }
         $this->smarty->assign('rs_tembusan', $tembusan_str);
+
+        // $tujuan = $this->m_rawat_jalan->list_pemeriksaan_lab_by_rg_skdp($FS_KD_REG);
+        // $tujuan_str = ""; 
+        // foreach ($tujuan as $key => $value) {
+        //     $tujuan_str .= "'" . $value['id'] . "',";
+        // }
+        // $this->smarty->assign('rs_tujuan', $tujuan_str);
+
+        // $tembusan = $this->m_rawat_jalan->list_pemeriksaan_rad_by_rg_skdp($FS_KD_REG);
+        // $tembusan_str = "";
+        // foreach ($tembusan as $key => $value) {
+        //     $tembusan_str .= "'" . $value['NO_RINCI'] . "',";
+        // }
+        // $this->smarty->assign('rs_tembusan', $tembusan_str);
 
           //edukasi
           $edukasi = $this->m_ass_awal->list_edukasi_by_rg($FS_RG);
@@ -256,25 +284,44 @@ class Bidan extends ApplicationBase {
 
      }
 
+                         //insert pemeriksaan lab
+                         $lab = $this->input->post('rlab'); 
+                       
+                         if (!empty($lab)) {
+                             foreach ($lab as $key => $value) {
+                                 $this->m_rawat_jalan->insert_pemeriksaan_lab(array($key, $value,$this->input->post('FS_KD_REG')));
+                               
+                             }
+                         }
+                         //insert pemeriksaan radiologi
+                         $rad = $this->input->post('radiologi');
+                    
+                         if (!empty($rad)) {
+                             foreach ($rad as $key => $value) {
+                                 $this->m_rawat_jalan->insert_pemeriksaan_rad2(array($key, $value, $this->input->post('FS_KD_REG')));
+                                 
+                            }
+                         } 
 
-         $lab = $this->input->post('rlab');
-         $klab='';
-         if (!empty($lab)) {
-             foreach ($lab as $value) {
-             $klab=$klab.', '.$value;
-             }
 
-     }
+    //      $lab = $this->input->post('rlab');
+    //      $klab='';
+    //      if (!empty($lab)) {
+    //          foreach ($lab as $value) {
+    //          $klab=$klab.', '.$value;
+    //          }
+
+    //  }
 
 
-     $rad = $this->input->post('radiologi');
-     $radiologi='';
-     if (!empty($rad)) {
-         foreach ($rad as $value) {
-             $radiologi=$radiologi.', '.$value;
-         }
+    //  $rad = $this->input->post('radiologi');
+    //  $radiologi='';
+    //  if (!empty($rad)) {
+    //      foreach ($rad as $value) {
+    //          $radiologi=$radiologi.', '.$value;
+    //      }
 
-     }
+    //  }
 
 
 
@@ -433,8 +480,7 @@ class Bidan extends ApplicationBase {
                   $this->input->post('DURASI_KONTRAKSI'),
                   $this->input->post('INSPEKSI_ANO_GENITAS'),
                   $this->input->post('VAGINA_TOUCHER'), 
-                  $klab,
-                 $radiologi,
+          
                   $this->input->post('MASALAH_KEBIDANAN'),
                   $this->input->post('DIAGNOSA'),
                   $this->input->post('RENCANA_TINDAKAN'),
@@ -673,26 +719,44 @@ class Bidan extends ApplicationBase {
               }
   
           }
+
+                       //insert pemeriksaan lab
+                       $lab = $this->input->post('rlab'); 
+                   
+                       if (!empty($lab)) {
+                           foreach ($lab as $key => $value) {
+                               $this->m_rawat_jalan->insert_pemeriksaan_lab(array($key, $value,$this->input->post('FS_KD_REG')));
+                          
+                           }
+                       }
+                       //insert pemeriksaan radiologi
+                       $rad = $this->input->post('radiologi');
+                     
+                       if (!empty($rad)) {
+                           foreach ($rad as $key => $value) {
+                               $this->m_rawat_jalan->insert_pemeriksaan_rad2(array($key, $value, $this->input->post('FS_KD_REG')));
+                          
+                          }
+                       } 
+  
+        //       $lab = $this->input->post('rlab');
+        //       $klab='';
+        //       if (!empty($lab)) {
+        //           foreach ($lab as $value) {
+        //           $klab=$klab.', '.$value;
+        //           }
+  
+        //   }
   
   
-              $lab = $this->input->post('rlab');
-              $klab='';
-              if (!empty($lab)) {
-                  foreach ($lab as $value) {
-                  $klab=$klab.', '.$value;
-                  }
+        //   $rad = $this->input->post('radiologi');
+        //   $radiologi='';
+        //   if (!empty($rad)) {
+        //       foreach ($rad as $value) {
+        //           $radiologi=$radiologi.', '.$value;
+        //       }
   
-          }
-  
-  
-          $rad = $this->input->post('radiologi');
-          $radiologi='';
-          if (!empty($rad)) {
-              foreach ($rad as $value) {
-                  $radiologi=$radiologi.', '.$value;
-              }
-  
-          }
+        //   }
   
   
   
@@ -856,8 +920,7 @@ class Bidan extends ApplicationBase {
                        $this->input->post('DURASI_KONTRAKSI'),
                        $this->input->post('INSPEKSI_ANO_GENITAS'),
                        $this->input->post('VAGINA_TOUCHER'), 
-                       $klab,
-                      $radiologi,
+           
                        $this->input->post('MASALAH_KEBIDANAN'),
                        $this->input->post('DIAGNOSA'),
                        $this->input->post('RENCANA_TINDAKAN'),

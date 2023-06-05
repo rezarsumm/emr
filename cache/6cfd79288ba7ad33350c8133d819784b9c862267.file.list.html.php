@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.0.7, created on 2023-06-02 15:14:53
+<?php /* Smarty version Smarty-3.0.7, created on 2023-06-05 08:51:43
          compiled from "application/views\igd/perawat/list.html" */ ?>
 <?php /*%%SmartyHeaderCode:55596479a4fd68ed39-64631166%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_smarty_tpl->decodeProperties(array (
     '6cfd79288ba7ad33350c8133d819784b9c862267' => 
     array (
       0 => 'application/views\\igd/perawat/list.html',
-      1 => 1685507767,
+      1 => 1685687887,
       2 => 'file',
     ),
   ),
@@ -17,7 +17,8 @@ $_smarty_tpl->decodeProperties(array (
   ),
   'has_nocache_code' => false,
 )); /*/%%SmartyHeaderCode%%*/?>
- 
+<?php if (!is_callable('smarty_modifier_capitalize')) include 'F:\xampp\htdocs\emr\system\plugins\smarty\libs\plugins\modifier.capitalize.php';
+?> 
 <div class="breadcrum">
     <p>
         <a href="#">Catatan   IGD</a><span></span>

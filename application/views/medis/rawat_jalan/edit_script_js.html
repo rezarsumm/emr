@@ -213,32 +213,7 @@
     $(document).ready(function() {
         // chain select
         // tembusan
-        var user = $("#user").val();
-        $('#tembusan').select2('data', null);
-        if (user == '') {
-            $("#tembusan").attr("disabled", "disabled");
-        } else {
-//            $('#tembusan').select2('data', null);
-                $("#tembusan").removeAttr("disabled");
-                jQuery("#tembusan").html('');
-                $.ajax({
-                    type: "POST",
-                    url: "{$config->site_url('medis/rawat_jalan/list_pemeriksaan_rad/')}",
-                    data: "user=" + user,
-                    dataType: 'json',
-                    success: function(data) {
-                        var showData;
-                        jQuery.each(data, function(index, result) {
-                            if (result.value == 0) {
-                            } else {
-                                showData += "<option value='" + result.value + "'>" + result.label + "</option>";
-                            }
-                        })
-                        jQuery("#tembusan").html(showData);
-                        $('#tembusan').select2('val', [{$rs_tembusan}]);
-                }
-            });
-        }
+c
         $("#user").change(function() {
             user = $(this).val();
             //get icao code by airlines_id

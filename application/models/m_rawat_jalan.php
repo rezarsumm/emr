@@ -398,6 +398,10 @@ class m_rawat_jalan extends CI_Model {
         $sql = "INSERT INTO PKU.dbo.ta_trs_kartu_periksa5 (fn_no_urut, fs_kd_tarif,fs_kd_reg2,fs_bagian) VALUES (?, ?, ?, ?)";
         return $this->db->query($sql, $params);
     }
+    function insert_pemeriksaan_rad2($params) {
+        $sql = "INSERT INTO PKU.dbo.ta_trs_kartu_periksa5 (fn_no_urut, fs_kd_tarif,fs_kd_reg2) VALUES (?, ?, ?)";
+        return $this->db->query($sql, $params);
+    }
 
     function insert_instruksi_medis($params) {
         $sql = "INSERT INTO PKU.dbo.TAC_HD_INSTRUKSI_MEDIS(FS_KD_REG,instruksi_hd_id,informed_concent_tgl,instruksi_tgl,instruksi_resepHD,instruksi_resepHD_TD,instruksi_resepHD_QB,instruksi_resepHD_QD,instruksi_resepHD_UFgoal,instruksi_profilling_Na,
@@ -2590,8 +2594,8 @@ class m_rawat_jalan extends CI_Model {
     function list_pemeriksaan_lab_by_rg($params) {
         $sql = "SELECT  * FROM 
         LAB_JENISPERIKSA a
-        LEFT JOIN PKU.dbo.TA_TRS_KARTU_PERIKSA4 b ON a.id=b.FS_KD_TARIF
-        WHERE FS_KD_REG2 = ?
+        LEFT JOIN PKU.dbo.TA_TRS_KARTU_PERIKSA4 b ON a.No_jenis=b.FS_KD_TARIF
+        WHERE FS_KD_REG3 = ?
         ORDER BY JENIS ASC
         ";
         $query = $this->db->query($sql, $params);

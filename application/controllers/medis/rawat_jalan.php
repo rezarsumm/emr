@@ -1947,7 +1947,7 @@ class rawat_jalan extends ApplicationBase {
         foreach ($instansi as $key => $value) {
             $data[$i] = array(
                 'label' => $value['JENIS'],
-                'value' => $value['id']
+                'value' => $value['No_jenis']
             );
             $i++;
         }

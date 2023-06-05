@@ -1629,55 +1629,8 @@ $(function(){
     });
 
 
-    var user = $("#user").val();
-            $('#tujuan').select2('data', null);
-            $('#tujuan').select2('data', null);
-            $("#tujuan").removeAttr("disabled");
-            jQuery("#tujuan").html('');
-            $.ajax({
-            type: "POST",
-                    url: "{$config->site_url('medis/rawat_jalan/list_pemeriksaan_lab/')}",
-                    data: "user=" + user,
-                    dataType: 'json',
-                    success: function(data) {
-                    var showData;
-                            jQuery.each(data, function(index, result) {
-                            if (result.value == 0) {
-                            } else {
-                            showData += "<option value='" + result.value + "'>" + result.label + "</option>";
-                            }
-                            })
-                            jQuery("#tujuan").html(showData);
-                    }
-            });
-            //tags
-            $("#tujuan").select2({});
 
 
-            var user = $("#user").val();
-            $('#tembusan').select2('data', null);
-            $('#tembusan').select2('data', null);
-            $("#tembusan").removeAttr("disabled");
-            jQuery("#tembusan").html('');
-            $.ajax({
-            type: "POST", 
-                    url: "{$config->site_url('medis/rawat_jalan/list_pemeriksaan_rrad/')}",
-                    data: "user=" + user,
-                    dataType: 'json',
-                    success: function(data) {
-                    var showData;
-                            jQuery.each(data, function(index, result) {
-                            if (result.value == 0) {
-                            } else {
-                                
-                            showData += "<option value='" + result.value + "'>" + result.label + "</option>";
-                            }
-                            })
-                            jQuery("#tembusan").html(showData);
-                    }
-            });
-            //tags
-            $("#tembusan").select2({});
 
 
             var user = $("#user").val();
@@ -1787,20 +1740,49 @@ $(function(){
     
 </script>
 
-<script type="text/javascript"> 
-    var user = $("#user").val(); 
-           
-            $("#namaobat").select2({});
-    
-     
-//rencana lab
-           $('#rlab').select2('data', null);
+
+             <script type="text/javascript">
+                $(document).ready(function() {
+        // chain select
+        // tembusan
+        var user = $("#user").val();
+                $('#radiologi').select2('data', null);
+                $('#radiologi').select2('data', null);
+                $("#radiologi").removeAttr("disabled");
+                jQuery("#radiologi").html('');
+                $.ajax({
+                type: "POST", 
+                        url: "{$config->site_url('medis/rawat_jalan/list_pemeriksaan_rad/')}",
+                        data: "user=" + user,
+                        dataType: 'json',
+                        success: function(data) {
+                        var showData;
+                                jQuery.each(data, function(index, result) {
+                                if (result.value == 0) {
+                                } else {
+                                showData += "<option value='" + result.value + "'>" + result.label + "</option>";
+                                }
+                                })
+                                jQuery("#radiologi").html(showData);
+                        }
+                });
+                //tags
+                $("#radiologi").select2({});
+        });</script>
+
+             <script type="text/javascript">
+                $(document).ready(function() {
+
+
+            $("#rlab").select2({});
+
+            $('#rlab').select2('data', null);
             $('#rlab').select2('data', null);
             $("#rlab").removeAttr("disabled");
             jQuery("#rlab").html('');
             $.ajax({
             type: "POST",
-                    url: "{$config->site_url('medis/rawat_jalan/list_pemeriksaan_rlab/')}",
+                    url: "{$config->site_url('medis/rawat_jalan/list_pemeriksaan_lab/')}",
                     data: "user=" + user,
                     dataType: 'json',
                     success: function(data) {
@@ -1815,6 +1797,4 @@ $(function(){
                     }
             });
              $("#rlab").select2({});
-
-
-             </script>
+        });</script>

@@ -1,23 +1,23 @@
-<?php /* Smarty version Smarty-3.0.7, created on 2023-06-06 14:48:25
+<?php /* Smarty version Smarty-3.0.7, created on 2023-06-06 15:05:03
          compiled from "application/views\igd/cppt/add.html" */ ?>
-<?php /*%%SmartyHeaderCode:10320647ee4c939f3d1-90659921%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:7709647ee8af304049-62499803%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     'b6c1a33e41a9fe11cc42b7c61197a076e450178e' => 
     array (
       0 => 'application/views\\igd/cppt/add.html',
-      1 => 1686037551,
+      1 => 1686038652,
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '10320647ee4c939f3d1-90659921',
+  'nocache_hash' => '7709647ee8af304049-62499803',
   'function' => 
   array (
   ),
   'has_nocache_code' => false,
 )); /*/%%SmartyHeaderCode%%*/?>
-<?php if (!is_callable('smarty_modifier_date_format')) include 'F:\xampp\htdocs\emr\system\plugins\smarty\libs\plugins\modifier.date_format.php';
+<?php if (!is_callable('smarty_modifier_date_format')) include 'D:\XAMPP\htdocs\emr_dev\system\plugins\smarty\libs\plugins\modifier.date_format.php';
 ?> <?php $_template = new Smarty_Internal_Template("igd/cppt/add_script_js.html", $_smarty_tpl->smarty, $_smarty_tpl, $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, null, null);
  echo $_template->getRenderedTemplate();?><?php unset($_template);?>
  

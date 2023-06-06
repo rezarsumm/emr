@@ -2595,7 +2595,7 @@ class m_rawat_jalan extends CI_Model {
         $sql = "SELECT  * FROM 
         LAB_JENISPERIKSA a
         LEFT JOIN PKU.dbo.TA_TRS_KARTU_PERIKSA4 b ON a.No_jenis=b.FS_KD_TARIF
-        WHERE FS_KD_REG3 = ?
+        WHERE FS_KD_REG2 = ?
         ORDER BY JENIS ASC
         ";
         $query = $this->db->query($sql, $params);

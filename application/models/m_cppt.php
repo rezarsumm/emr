@@ -1667,7 +1667,8 @@ class m_cppt extends CI_Model {
     function insertt($params) {
         $sql = "INSERT INTO PKU.dbo.TAC_RI_CPPT(FS_KD_REG, FS_CPPT_S, FS_CPPT_O, FS_CPPT_A, FS_CPPT_P, FS_CPPT_TERAPI, FS_KD_KP, mdb, mdd_date, mdd_time, FS_LAB, FS_RAD, TGL_TUJUAN_LAB, jenis_cppt)
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        return $this->db->query($sql, $params);
+       
+       return $this->db->query($sql, $params);
     }
     
 

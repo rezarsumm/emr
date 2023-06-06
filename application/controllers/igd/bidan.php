@@ -722,24 +722,26 @@ class Bidan extends ApplicationBase {
   
           }
 
-                       //insert pemeriksaan lab
-                       $lab = $this->input->post('rlab'); 
-                   
-                       if (!empty($lab)) {
-                           foreach ($lab as $key => $value) {
-                               $this->m_rawat_jalan->insert_pemeriksaan_lab(array($key, $value,$this->input->post('FS_KD_REG')));
-                          
-                           }
-                       }
-                       //insert pemeriksaan radiologi
-                       $rad = $this->input->post('radiologi');
-                     
-                       if (!empty($rad)) {
-                           foreach ($rad as $key => $value) {
-                               $this->m_rawat_jalan->insert_pemeriksaan_rad2(array($key, $value, $this->input->post('FS_KD_REG')));
-                          
-                          }
-                       } 
+                            //insert pemeriksaan lab
+                            $lab = $this->input->post('rlab'); 
+                        
+                            //  var_dump($lab, $this->input->post('FS_KD_REG'));
+                            //  die;
+                             if (!empty($lab)) {
+                                 foreach ($lab as $key => $value) {
+                                     $this->m_rawat_jalan->insert_pemeriksaan_lab(array($key, $value,$this->input->post('FS_KD_REG'), ''));
+                                   
+                                 }
+                             }
+                             //insert pemeriksaan radiologi
+                             $rad = $this->input->post('radiologi');
+                        
+                             if (!empty($rad)) {
+                                 foreach ($rad as $key => $value) {
+                                     $this->m_rawat_jalan->insert_pemeriksaan_rad2(array($key, $value, $this->input->post('FS_KD_REG')));
+                                     
+                                }
+                             } 
   
         //       $lab = $this->input->post('rlab');
         //       $klab='';

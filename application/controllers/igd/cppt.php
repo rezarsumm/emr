@@ -240,39 +240,52 @@ class cppt extends ApplicationBase {
         // process
 
 
-        $rlab='';
+   
            
 
         $lab = $this->input->post('FS_PLANNING_LAB'); 
         $lablama = $this->input->post('inilablama'); 
         $radlama = $this->input->post('iniradlama'); 
-              if (!empty($lab)) {
-                  if($lab==$lablama){
-                      $rlab=$lablama;
-                  }
-                  else{
-                    // $rlab = implode(', ', $lab);
-                      foreach ($lab as $key => $value) {
-                          $rlab=$rlab.', '.$value;
-                      }
-                  }
-              }
+            //   if (!empty($lab)) {
+            //       if($lab==$lablama){
+            //           $rlab=$lablama;
+            //       }
+            //       else{
+            //         // $rlab = implode(', ', $lab);
+            //           foreach ($lab as $key => $value) {
+            //               $rlab=$rlab.', '.$value;
+            //           }
+            //       }
+            //   }
+      
+            $klab='';
+            if (!empty($lab)) {
+                foreach ($lab as $value) {
+                $klab=$klab.', '.$value;
+                }
 
+        }
 
-                 $rrad='';
+           
 
         $rad = $this->input->post('FS_PLANNING_RAD'); 
-              if (!empty($rad)) {
-                  if($rad==$radlama){
-                      $rrad=$radlama;
-                  }
-                  else{
-                    // $rrad = implode(', ', $lab);
-                   foreach ($rad as $key => $valu) {
-                      $rrad=$rrad.', '.$valu;
-                   }
-                  }
-              }
+        $radiologi='';
+        if (!empty($rad)) {
+            foreach ($rad as $value) {
+                $radiologi=$radiologi.', '.$value;
+            }
+        }
+            //   if (!empty($rad)) {
+            //       if($rad==$radlama){
+            //           $rrad=$radlama;
+            //       }
+            //       else{
+            //         // $rrad = implode(', ', $lab);
+            //        foreach ($rad as $key => $valu) {
+            //           $rrad=$rrad.', '.$valu;
+            //        }
+            //       }
+            //   }
 
               $terapi1=$this->input->post('FS_TERAPI');
               $terapi2=$this->input->post('FS_TERAPI2');
@@ -407,8 +420,8 @@ class cppt extends ApplicationBase {
                     $this->com_user['user_name'],
                     date('Y-m-d'),
                     date('H:i:s'),
-                    $rlab,
-                    $rrad,
+                    $klab,
+                    $radiologi,
                     $this->input->post('TGL_TUJUAN_LAB'),
                     'null' //tambahkan jenis ccpt
                 );
@@ -602,20 +615,20 @@ class cppt extends ApplicationBase {
 
 
 
-                //insert pemeriksaan lab
-                $lab = $this->input->post('tujuan');
-                if (!empty($lab)) {
-                    foreach ($lab as $key => $value) {
-                        $this->m_cppt->insert_pemeriksaan_lab(array($NOKP, $key, $value));
-                    }
-                }
-                //insert pemeriksaan radiologi
-                $rad = $this->input->post('tembusan');
-                if (!empty($rad)) {
-                    foreach ($rad as $key => $value) {
-                        $this->m_cppt->insert_pemeriksaan_rad(array($NOKP, $key, $value));
-                    }
-                }
+                // //insert pemeriksaan lab
+                // $lab = $this->input->post('tujuan');
+                // if (!empty($lab)) {
+                //     foreach ($lab as $key => $value) {
+                //         $this->m_cppt->insert_pemeriksaan_lab(array($NOKP, $key, $value));
+                //     }
+                // }
+                // //insert pemeriksaan radiologi
+                // $rad = $this->input->post('tembusan');
+                // if (!empty($rad)) {
+                //     foreach ($rad as $key => $value) {
+                //         $this->m_cppt->insert_pemeriksaan_rad(array($NOKP, $key, $value));
+                //     }
+                // }
 
                 $params3 = array(
                     $this->input->post('FS_KD_REG'),

@@ -1,23 +1,23 @@
-<?php /* Smarty version Smarty-3.0.7, created on 2023-06-05 14:30:31
+<?php /* Smarty version Smarty-3.0.7, created on 2023-06-06 08:44:31
          compiled from "application/views\igd/bidan/edit.html" */ ?>
-<?php /*%%SmartyHeaderCode:31422647d8f17a89482-38802631%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:876647e8f7fdc23a5-10731283%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     '1dbba5634af4a675b7b1fc4c638376a1a0253479' => 
     array (
       0 => 'application/views\\igd/bidan/edit.html',
-      1 => 1685949123,
+      1 => 1686015867,
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '31422647d8f17a89482-38802631',
+  'nocache_hash' => '876647e8f7fdc23a5-10731283',
   'function' => 
   array (
   ),
   'has_nocache_code' => false,
 )); /*/%%SmartyHeaderCode%%*/?>
-<?php if (!is_callable('smarty_modifier_date_format')) include 'D:\XAMPP\htdocs\emr_dev\system\plugins\smarty\libs\plugins\modifier.date_format.php';
+<?php if (!is_callable('smarty_modifier_date_format')) include 'F:\xampp\htdocs\emr\system\plugins\smarty\libs\plugins\modifier.date_format.php';
 ?> 
 
 <div class="breadcrum">
@@ -1530,7 +1530,7 @@ $(function(){
                 jQuery("#rlab").html('');
                 $.ajax({
                     type: "POST",
-                    url: "<?php echo $_smarty_tpl->getVariable('config')->value->site_url('medis/rawat_jalan/list_pemeriksaan_rlab/');?>
+                    url: "<?php echo $_smarty_tpl->getVariable('config')->value->site_url('medis/rawat_jalan/list_pemeriksaan_lab/');?>
 ",
                     data: "user=" + user,
                     dataType: 'json',
@@ -1543,7 +1543,7 @@ $(function(){
                             }
                         })
                         jQuery("#rlab").html(showData);
-                        $('#rlab').select2('val', [<?php echo $_smarty_tpl->getVariable('rs_tembusan')->value;?>
+                        $('#rlab').select2('val', [<?php echo $_smarty_tpl->getVariable('rs_tujuan')->value;?>
 ]);
                 }
             });
@@ -1570,7 +1570,7 @@ $(function(){
                 jQuery("#rlab").html('');
                 $.ajax({
                     type: "POST",
-                    url: "<?php echo $_smarty_tpl->getVariable('config')->value->site_url('medis/rawat_jalan/list_pemeriksaan_rlab/');?>
+                    url: "<?php echo $_smarty_tpl->getVariable('config')->value->site_url('medis/rawat_jalan/list_pemeriksaan_lab/');?>
 ",
                     data: "user=" + user,
                     dataType: 'json',

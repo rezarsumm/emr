@@ -1,22 +1,50 @@
- {include file="igd/cppt/add_script_js.html"}
+<?php /* Smarty version Smarty-3.0.7, created on 2023-06-06 10:43:00
+         compiled from "application/views\igd/cppt/add.html" */ ?>
+<?php /*%%SmartyHeaderCode:7848647eab44a34c93-18422682%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+$_smarty_tpl->decodeProperties(array (
+  'file_dependency' => 
+  array (
+    'b6c1a33e41a9fe11cc42b7c61197a076e450178e' => 
+    array (
+      0 => 'application/views\\igd/cppt/add.html',
+      1 => 1686022975,
+      2 => 'file',
+    ),
+  ),
+  'nocache_hash' => '7848647eab44a34c93-18422682',
+  'function' => 
+  array (
+  ),
+  'has_nocache_code' => false,
+)); /*/%%SmartyHeaderCode%%*/?>
+<?php if (!is_callable('smarty_modifier_date_format')) include 'F:\xampp\htdocs\emr\system\plugins\smarty\libs\plugins\modifier.date_format.php';
+?> <?php $_template = new Smarty_Internal_Template("igd/cppt/add_script_js.html", $_smarty_tpl->smarty, $_smarty_tpl, $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, null, null);
+ echo $_template->getRenderedTemplate();?><?php unset($_template);?>
  
 <div class="breadcrum">
     <p>
         <a href="#">Catatan Rawat Inap</a><span></span>
-        <a href="{$config->site_url('igd/cppt/')}">CPPT</a><span></span>
+        <a href="<?php echo $_smarty_tpl->getVariable('config')->value->site_url('igd/cppt/');?>
+">CPPT</a><span></span>
         <small>Add Data</small>
     </p>
     <div class="clear"></div>
 </div> 
 <div class="content-entry">
     <!-- notification template -->
-    {include file="base/templates/notification.html"}
+    <?php $_template = new Smarty_Internal_Template("base/templates/notification.html", $_smarty_tpl->smarty, $_smarty_tpl, $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, null, null);
+ echo $_template->getRenderedTemplate();?><?php unset($_template);?>
     <!-- end of notification template-->
-    <form action="{$config->site_url('igd/cppt/add_process2')}" method="post" onkeypress="return event.keyCode != 13">
-        <input name="FS_KD_REG" id="FS_KD_REG" type="hidden" value="{$rs_pasien.NO_REG}" />
-        <input name="FS_MR" type="hidden" value="{$rs_pasien.NO_MR}" />
-        <input name="FS_KD_LAYANAN" type="hidden" value="{$rs_pasien.KODE_BANGSAL}" />
-        <input name="FS_KD_PETUGAS_MEDIS" type="hidden" value="{$rs_pasien.fs_kd_medis}" />
+    <form action="<?php echo $_smarty_tpl->getVariable('config')->value->site_url('igd/cppt/add_process2');?>
+" method="post" onkeypress="return event.keyCode != 13">
+        <input name="FS_KD_REG" id="FS_KD_REG" type="hidden" value="<?php echo $_smarty_tpl->getVariable('rs_pasien')->value['NO_REG'];?>
+" />
+        <input name="FS_MR" type="hidden" value="<?php echo $_smarty_tpl->getVariable('rs_pasien')->value['NO_MR'];?>
+" />
+        <input name="FS_KD_LAYANAN" type="hidden" value="<?php echo $_smarty_tpl->getVariable('rs_pasien')->value['KODE_BANGSAL'];?>
+" />
+        <input name="FS_KD_PETUGAS_MEDIS" type="hidden" value="<?php echo $_smarty_tpl->getVariable('rs_pasien')->value['fs_kd_medis'];?>
+" />
 
         <table class="table-info" width="100%">
             <tr class="headrow">
@@ -25,30 +53,37 @@
             <tr>
                 <td>NAMA</td>
                 <td>
-                    {$rs_pasien.NAMA_PASIEN}
+                    <?php echo $_smarty_tpl->getVariable('rs_pasien')->value['NAMA_PASIEN'];?>
+
                 </td>
             </tr>
             <tr>
                 <td>NO MR</td>
                 <td>
-                    {$rs_pasien.NO_MR}
+                    <?php echo $_smarty_tpl->getVariable('rs_pasien')->value['NO_MR'];?>
+
                 </td>
             </tr>
             <tr>
                 <td>TANGGAL LAHIR</td>
                 <td>
-                    {$rs_pasien.TGL_LAHIR|date_format:"%d %b %Y"}
+                    <?php echo smarty_modifier_date_format($_smarty_tpl->getVariable('rs_pasien')->value['TGL_LAHIR'],"%d %b %Y");?>
+
                 </td>
             </tr>
             <tr>
                 <td>ALAMAT</td>
-                <td>{$rs_pasien.ALAMAT}</td>
+                <td><?php echo $_smarty_tpl->getVariable('rs_pasien')->value['ALAMAT'];?>
+</td>
             </tr>
         </table>
       
         <!-- <div class="notification red">
-            <p><strong>High Risk :</strong> {$rs_pasien.FS_HIGH_RISK|default:'-'} </p>
-            <p><strong>Alergi :</strong> {$rs_pasien.FS_ALERGI|default:'-'} ({$rs_pasien.FS_REAK_ALERGI|default:'-'})</p>
+            <p><strong>High Risk :</strong> <?php echo (($tmp = @$_smarty_tpl->getVariable('rs_pasien')->value['FS_HIGH_RISK'])===null||$tmp==='' ? '-' : $tmp);?>
+ </p>
+            <p><strong>Alergi :</strong> <?php echo (($tmp = @$_smarty_tpl->getVariable('rs_pasien')->value['FS_ALERGI'])===null||$tmp==='' ? '-' : $tmp);?>
+ (<?php echo (($tmp = @$_smarty_tpl->getVariable('rs_pasien')->value['FS_REAK_ALERGI'])===null||$tmp==='' ? '-' : $tmp);?>
+)</p>
             <div class="clear"></div>
         </div> -->
         <table class="table-input" width="100%" style="text-align: justify;">
@@ -82,12 +117,14 @@
             <tr>
                 <td>Diagnosa Utama</td>
                 <td>
-                    <input type="text" name="FS_DIAG_UTAMA" size="70" value="{$rs_resume.FS_DIAG_UTAMA}">
+                    <input type="text" name="FS_DIAG_UTAMA" size="70" value="<?php echo $_smarty_tpl->getVariable('rs_resume')->value['FS_DIAG_UTAMA'];?>
+">
                 </tr>
                 <tr>
                     <td>Diagnosa Sekunder</td>
                     <td>
-                        <input type="text" name="FS_DIAG_SEK" size="70" value="{$rs_resume.FS_DIAG_SEK}">
+                        <input type="text" name="FS_DIAG_SEK" size="70" value="<?php echo $_smarty_tpl->getVariable('rs_resume')->value['FS_DIAG_SEK'];?>
+">
                 </tr>
                 <tr>
                     <td> </td>
@@ -95,9 +132,16 @@
                         Kode ICD 10 ( bila terdiagnosa TBC)
                         <select name="kode_icd_x"  class="select2" id="kode" style="width:300px">
                          <option value=""></option>
-                         {foreach $icd as $kode} 
-                         <option value="{$kode.KODE}">{$kode.KET} | {$kode.KODE}</option>
-                         {/foreach}
+                         <?php  $_smarty_tpl->tpl_vars['kode'] = new Smarty_Variable;
+ $_from = $_smarty_tpl->getVariable('icd')->value; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array');}
+if ($_smarty_tpl->_count($_from) > 0){
+    foreach ($_from as $_smarty_tpl->tpl_vars['kode']->key => $_smarty_tpl->tpl_vars['kode']->value){
+?> 
+                         <option value="<?php echo $_smarty_tpl->tpl_vars['kode']->value['KODE'];?>
+"><?php echo $_smarty_tpl->tpl_vars['kode']->value['KET'];?>
+ | <?php echo $_smarty_tpl->tpl_vars['kode']->value['KODE'];?>
+</option>
+                         <?php }} ?>
                          </select> 
          
                     </tr>
@@ -134,17 +178,20 @@
                     <select name="FS_PLANNING_LAB[]" multiple id="rlab" style="width:350px">
                         <option></option>
                     </select>
-                    <!-- {if $result2.FS_PLANNING_LAB=='0'||$result2.FS_PLANNING_LAB==''}
+                    <!-- <?php if ($_smarty_tpl->getVariable('result2')->value['FS_PLANNING_LAB']=='0'||$_smarty_tpl->getVariable('result2')->value['FS_PLANNING_LAB']==''){?>
                     <select name="FS_PLANNING_LAB[]" multiple id="rlab" style="width:350px">
                             <option></option>
                         </select> 
-                        {else}
-                    <textarea cols="50" name="FS_PLANNING_LAB">{$result2.FS_PLANNING_LAB}</textarea>
-                    {/if}
-                 <input type="hidden" value="{$result2.FS_PLANNING_LAB}" class="inilablama" >
+                        <?php }else{ ?>
+                    <textarea cols="50" name="FS_PLANNING_LAB"><?php echo $_smarty_tpl->getVariable('result2')->value['FS_PLANNING_LAB'];?>
+</textarea>
+                    <?php }?>
+                 <input type="hidden" value="<?php echo $_smarty_tpl->getVariable('result2')->value['FS_PLANNING_LAB'];?>
+" class="inilablama" >
                      Untuk tanggal -->
 
-                     <input type="date" name="TGL_TUJUAN_LAB"  value="{$tgl}"> 
+                     <input type="date" name="TGL_TUJUAN_LAB"  value="<?php echo $_smarty_tpl->getVariable('tgl')->value;?>
+"> 
 
                 </td>
         </tr>
@@ -154,14 +201,16 @@
                 <select name="FS_PLANNING_RAD[]" multiple id="rrad" style="width:350px">
                     <option></option>
                 </select>
-                         <!-- {if $result2.FS_PLANNING_RAD=='0'||$result2.FS_PLANNING_RAD==''}
+                         <!-- <?php if ($_smarty_tpl->getVariable('result2')->value['FS_PLANNING_RAD']=='0'||$_smarty_tpl->getVariable('result2')->value['FS_PLANNING_RAD']==''){?>
                       <select name="FS_PLANNING_RAD[]" multiple id="rrad" style="width:350px">
                             <option></option>
                         </select>  
-                        {else}
-                    <textarea cols="50" name="FS_PLANNING_RAD">{$result2.FS_PLANNING_RAD}</textarea>
-                    {/if}
-                    <input type="hidden" value="{$result2.FS_PLANNING_RAD}" class="iniradlama" > -->
+                        <?php }else{ ?>
+                    <textarea cols="50" name="FS_PLANNING_RAD"><?php echo $_smarty_tpl->getVariable('result2')->value['FS_PLANNING_RAD'];?>
+</textarea>
+                    <?php }?>
+                    <input type="hidden" value="<?php echo $_smarty_tpl->getVariable('result2')->value['FS_PLANNING_RAD'];?>
+" class="iniradlama" > -->
     
                 </td>
 
@@ -200,7 +249,7 @@
            </td>
        </tr>--> 
  
- {if $namarole eq 'Dokter' or $namarole eq 'Admin'}
+ <?php if ($_smarty_tpl->getVariable('namarole')->value=='Dokter'||$_smarty_tpl->getVariable('namarole')->value=='Admin'){?>
        <tr class="headrow">
         <th colspan="2">Resep </th>
         <th colspan="2">Resep Racik</th>
@@ -208,59 +257,59 @@
     <tr>
         <td colspan="2">
 
- {if $username eq '138'} 
+ <?php if ($_smarty_tpl->getVariable('username')->value=='138'){?> 
  
     Pilih Paket  
         <select name="namapaket" class="namapaket select2" id="namapaket"  multiple id="namapaket" cols="50" style="width:210px">
             <option></option> 
           </select>
     
-    {else}
-    {/if}
+    <?php }else{ ?>
+    <?php }?>
 
 
 
 
- {if $username eq '133'} 
+ <?php if ($_smarty_tpl->getVariable('username')->value=='133'){?> 
  
     Pilih Paket  
           <select name="namapaketuya" class="namapaketuya select2" id="namapaketuya"  multiple id="namapaketuya" cols="50" style="width:210px">
             <option></option> 
           </select>
     
-    {else}
-    {/if}
+    <?php }else{ ?>
+    <?php }?>
 
 
 
- {if $username eq '152'} 
+ <?php if ($_smarty_tpl->getVariable('username')->value=='152'){?> 
  
     Pilih Paket  
           <select name="namapakettw" class="namapakettw select2" id="namapakettw"  multiple id="namapakettw" cols="50" style="width:210px">
             <option></option> 
           </select>
     
-    {else}
-    {/if}
+    <?php }else{ ?>
+    <?php }?>
 
 
 
 
- {if $username eq '121'} 
+ <?php if ($_smarty_tpl->getVariable('username')->value=='121'){?> 
  
     Pilih Paket  
           <select name="namapakettris" class="namapakettris select2" id="namapakettris"  multiple id="namapakettris" cols="50" style="width:210px">
             <option></option> 
           </select>
     
-    {else}
-    {/if}
+    <?php }else{ ?>
+    <?php }?>
 
 
 
 
 
-{if $username eq '128'} 
+<?php if ($_smarty_tpl->getVariable('username')->value=='128'){?> 
 <tr>
     <td>
       Pilih Paket Obat
@@ -271,13 +320,13 @@
           </select>
 </td>
 </tr>
-{else}
-{/if}
+<?php }else{ ?>
+<?php }?>
 
 
 
 
-{if $username eq '135'} 
+<?php if ($_smarty_tpl->getVariable('username')->value=='135'){?> 
  
       Pilih Paket Obat
  
@@ -285,8 +334,8 @@
             <option></option> 
           </select>
  
-{else}
-{/if}
+<?php }else{ ?>
+<?php }?>
 
 
 
@@ -310,7 +359,8 @@
 
 
             <textarea rows="15" class="form-control resep"  cols="60" name="FS_TERAPI"> 
-                {$medis.FS_TERAPI}
+                <?php echo $_smarty_tpl->getVariable('medis')->value['FS_TERAPI'];?>
+
                 
             </textarea> 
         </td> 
@@ -336,10 +386,10 @@
               </textarea> 
         </td>
     </tr>
-    {else}
+    <?php }else{ ?>
     <input type="hidden" name="FS_TERAPI" value="">
     <input type="hidden" name="FS_TERAPI2" value="">
-    {/if}
+    <?php }?>
 
         <tr class="submit-box">
             <td colspan="4">
@@ -364,85 +414,107 @@
         <th width="15%">PPA</th>
 
         
-        {if $role_id eq '12' OR $role_id eq '6'}
+        <?php if ($_smarty_tpl->getVariable('role_id')->value=='12'||$_smarty_tpl->getVariable('role_id')->value=='6'){?>
         <th width="7%">Operan Jaga</th>
-        {else}
-        {/if}
+        <?php }else{ ?>
+        <?php }?>
 
-        {if $role_id == '5' || $role_id == '6' || $role_id == '9'}
+        <?php if ($_smarty_tpl->getVariable('role_id')->value=='5'||$_smarty_tpl->getVariable('role_id')->value=='6'||$_smarty_tpl->getVariable('role_id')->value=='9'){?>
         <th width="7%">Verifikasi DPJP</th>
-        {else}
-        {/if}
+        <?php }else{ ?>
+        <?php }?>
         <!--<th width="10%">Aksi</th>-->
     </tr>
-    {foreach $rs_cppt as $cppt}
-     <tr {if ($cppt.TGL % 2) <> 1 && $cppt.role_id == '5' || $cppt.role_id == '9'}
+    <?php  $_smarty_tpl->tpl_vars['cppt'] = new Smarty_Variable;
+ $_from = $_smarty_tpl->getVariable('rs_cppt')->value; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array');}
+if ($_smarty_tpl->_count($_from) > 0){
+    foreach ($_from as $_smarty_tpl->tpl_vars['cppt']->key => $_smarty_tpl->tpl_vars['cppt']->value){
+?>
+     <tr <?php if (($_smarty_tpl->tpl_vars['cppt']->value['TGL']%2)!=1&&$_smarty_tpl->tpl_vars['cppt']->value['role_id']=='5'||$_smarty_tpl->tpl_vars['cppt']->value['role_id']=='9'){?>
         style="background-color:#ffe6ff;color:red;"
-        {elseif ($cppt.TGL % 2) <> 1 && $cppt.role_id == '11'}
+        <?php }elseif(($_smarty_tpl->tpl_vars['cppt']->value['TGL']%2)!=1&&$_smarty_tpl->tpl_vars['cppt']->value['role_id']=='11'){?>
         style="background-color:#ffe6ff;color:green;"
-        {elseif ($cppt.TGL % 2) <> 1 && $cppt.role_id == '12'}
+        <?php }elseif(($_smarty_tpl->tpl_vars['cppt']->value['TGL']%2)!=1&&$_smarty_tpl->tpl_vars['cppt']->value['role_id']=='12'){?>
         style="background-color:#ffe6ff;color:blue;"
-        {/if}
-        {if $cppt.role_id == '5' || $cppt.role_id == '9'}
+        <?php }?>
+        <?php if ($_smarty_tpl->tpl_vars['cppt']->value['role_id']=='5'||$_smarty_tpl->tpl_vars['cppt']->value['role_id']=='9'){?>
         style="color:red;"
-        {elseif $cppt.role_id == '11'}
+        <?php }elseif($_smarty_tpl->tpl_vars['cppt']->value['role_id']=='11'){?>
         style="color:green;"
-        {elseif $cppt.role_id == '12'}
+        <?php }elseif($_smarty_tpl->tpl_vars['cppt']->value['role_id']=='12'){?>
         style="color:blue;"
-        {/if}
+        <?php }?>
         
         >
-        <td>{$cppt.mdd_date}/{$cppt.mdd_time}</td>
+        <td><?php echo $_smarty_tpl->tpl_vars['cppt']->value['mdd_date'];?>
+/<?php echo $_smarty_tpl->tpl_vars['cppt']->value['mdd_time'];?>
+</td>
         <td>
-            S / A: {$cppt.FS_CPPT_S|strip_tags}<br>
-            O / D: {$cppt.FS_CPPT_O|strip_tags}<br>
-            A / I: {$cppt.FS_CPPT_A|strip_tags}<br>
-            P / ME: {$cppt.FS_CPPT_P}<br>
+            S / A: <?php echo preg_replace('!<[^>]*?>!', ' ', $_smarty_tpl->tpl_vars['cppt']->value['FS_CPPT_S']);?>
+<br>
+            O / D: <?php echo preg_replace('!<[^>]*?>!', ' ', $_smarty_tpl->tpl_vars['cppt']->value['FS_CPPT_O']);?>
+<br>
+            A / I: <?php echo preg_replace('!<[^>]*?>!', ' ', $_smarty_tpl->tpl_vars['cppt']->value['FS_CPPT_A']);?>
+<br>
+            P / ME: <?php echo $_smarty_tpl->tpl_vars['cppt']->value['FS_CPPT_P'];?>
+<br>
             Resep :  <br>
-            <!-- {assign var=rs_resep2 value=$m_cppt->get_resep_by_trs(array($cppt.FS_KD_KP))} -->
-             {$cppt['FS_CPPT_TERAPI']}
+            <!-- <?php $_smarty_tpl->tpl_vars['rs_resep2'] = new Smarty_variable($_smarty_tpl->getVariable('m_cppt')->value->get_resep_by_trs(array($_smarty_tpl->tpl_vars['cppt']->value['FS_KD_KP'])), null, null);?> -->
+             <?php echo $_smarty_tpl->tpl_vars['cppt']->value['FS_CPPT_TERAPI'];?>
+
          
-          {if $cppt.FS_LAB neq ''} 
-               <a href="javascript:void(0);" onclick="window.open('{$config->site_url('lab/lab_igd/cetak_plab/'|cat:$data.FS_KD_TRS)}', 'nama_window_pop_up', 'scrollbars=yes,resizeable=no')" class="button-edit">Permintaan Lab </a>
-               {/if}
+          <?php if ($_smarty_tpl->tpl_vars['cppt']->value['FS_LAB']!=''){?> 
+               <a href="javascript:void(0);" onclick="window.open('<?php echo $_smarty_tpl->getVariable('config')->value->site_url(('lab/lab_igd/cetak_plab/').($_smarty_tpl->getVariable('data')->value['FS_KD_TRS']));?>
+', 'nama_window_pop_up', 'scrollbars=yes,resizeable=no')" class="button-edit">Permintaan Lab </a>
+               <?php }?>
                
-                 {if $cppt.FS_RAD neq ''} 
-               <a href="javascript:void(0);" onclick="window.open('{$config->site_url('rad/rad_igd/cetak_prad/'|cat:$cppt.FS_KD_TRS)}', 'nama_window_pop_up', 'scrollbars=yes,resizeable=no')" class="button-edit">Permintaan Radiologi </a>
-               {/if}
+                 <?php if ($_smarty_tpl->tpl_vars['cppt']->value['FS_RAD']!=''){?> 
+               <a href="javascript:void(0);" onclick="window.open('<?php echo $_smarty_tpl->getVariable('config')->value->site_url(('rad/rad_igd/cetak_prad/').($_smarty_tpl->tpl_vars['cppt']->value['FS_KD_TRS']));?>
+', 'nama_window_pop_up', 'scrollbars=yes,resizeable=no')" class="button-edit">Permintaan Radiologi </a>
+               <?php }?>
             <hr>
            
         </td>
-        <td>{$cppt.NAMALENGKAP}</td>
+        <td><?php echo $_smarty_tpl->tpl_vars['cppt']->value['NAMALENGKAP'];?>
+</td>
         
-        {if $role_id eq '12' OR $role_id eq '6'}
+        <?php if ($_smarty_tpl->getVariable('role_id')->value=='12'||$_smarty_tpl->getVariable('role_id')->value=='6'){?>
         <td>
-            <a href="{$config->site_url('igd/aplusan/add/'|cat:$cppt.FS_KD_REG|cat:'/'|cat:$cppt.FS_KD_TRS)}" class="button-edit">Aplusan</a>  
+            <a href="<?php echo $_smarty_tpl->getVariable('config')->value->site_url(((('igd/aplusan/add/').($_smarty_tpl->tpl_vars['cppt']->value['FS_KD_REG'])).('/')).($_smarty_tpl->tpl_vars['cppt']->value['FS_KD_TRS']));?>
+" class="button-edit">Aplusan</a>  
         </td>
-        {else}
-        {/if}
-        {if $role_id == '5' || $role_id == '6' || $role_id == '9'}
+        <?php }else{ ?>
+        <?php }?>
+        <?php if ($_smarty_tpl->getVariable('role_id')->value=='5'||$_smarty_tpl->getVariable('role_id')->value=='6'||$_smarty_tpl->getVariable('role_id')->value=='9'){?>
         <td>
 
-            {if $cppt.FS_KD_MEDIS_VERIF_DATE eq '3000-01-01' AND $cppt.mdb neq $com_user.user_name}
-            <a href="{$config->site_url('igd/cppt/verif/'|cat:$cppt.FS_KD_REG|cat:'/'|cat:$cppt.FS_KD_TRS)}" class="button-download">Verifikasi</a>  
-            {else}
-            DOKTER : {$cppt.FS_NM_MEDIS_VERIF}<br><br>
-            CATATAN : {$cppt.FS_KET_VERIF} <br><br>
-              {if $cppt.FS_KD_MEDIS_VERIF_DATE eq '3000-01-01'}
-                 {else}
+            <?php if ($_smarty_tpl->tpl_vars['cppt']->value['FS_KD_MEDIS_VERIF_DATE']=='3000-01-01'&&$_smarty_tpl->tpl_vars['cppt']->value['mdb']!=$_smarty_tpl->getVariable('com_user')->value['user_name']){?>
+            <a href="<?php echo $_smarty_tpl->getVariable('config')->value->site_url(((('igd/cppt/verif/').($_smarty_tpl->tpl_vars['cppt']->value['FS_KD_REG'])).('/')).($_smarty_tpl->tpl_vars['cppt']->value['FS_KD_TRS']));?>
+" class="button-download">Verifikasi</a>  
+            <?php }else{ ?>
+            DOKTER : <?php echo $_smarty_tpl->tpl_vars['cppt']->value['FS_NM_MEDIS_VERIF'];?>
+<br><br>
+            CATATAN : <?php echo $_smarty_tpl->tpl_vars['cppt']->value['FS_KET_VERIF'];?>
+ <br><br>
+              <?php if ($_smarty_tpl->tpl_vars['cppt']->value['FS_KD_MEDIS_VERIF_DATE']=='3000-01-01'){?>
+                 <?php }else{ ?>
 
-                  {$cppt.FS_KD_MEDIS_VERIF_DATE}<br>{$cppt.FS_KD_MEDIS_VERIF_TIME}
-                  {/if}
-            {/if}
+                  <?php echo $_smarty_tpl->tpl_vars['cppt']->value['FS_KD_MEDIS_VERIF_DATE'];?>
+<br><?php echo $_smarty_tpl->tpl_vars['cppt']->value['FS_KD_MEDIS_VERIF_TIME'];?>
+
+                  <?php }?>
+            <?php }?>
         </td>
-        {else}
-        {/if}
+        <?php }else{ ?>
+        <?php }?>
         <!-- <td>
-             <a href="{$config->site_url('igd/cppt/edit/'|cat:$cppt.FS_KD_REG|cat:'/'|cat:$cppt.FS_KD_TRS)}" class="button-edit">Edit</a>  
-             <a href="{$config->site_url('igd/cppt/delete_process/'|cat:$cppt.FS_KD_REG|cat:'/'|cat:$cppt.FS_KD_TRS)}" onclick="return confirm('Apakah Anda Yakin Akan Menghapus?');" class="button-hapus">Hapus</a>  
+             <a href="<?php echo $_smarty_tpl->getVariable('config')->value->site_url(((('igd/cppt/edit/').($_smarty_tpl->tpl_vars['cppt']->value['FS_KD_REG'])).('/')).($_smarty_tpl->tpl_vars['cppt']->value['FS_KD_TRS']));?>
+" class="button-edit">Edit</a>  
+             <a href="<?php echo $_smarty_tpl->getVariable('config')->value->site_url(((('igd/cppt/delete_process/').($_smarty_tpl->tpl_vars['cppt']->value['FS_KD_REG'])).('/')).($_smarty_tpl->tpl_vars['cppt']->value['FS_KD_TRS']));?>
+" onclick="return confirm('Apakah Anda Yakin Akan Menghapus?');" class="button-hapus">Hapus</a>  
              </td>-->
     </tr>
-    {/foreach}
+    <?php }} ?>
 </table>
 <!-- 
 <div id="ModalAdd">
@@ -458,9 +530,15 @@
                     <td>
                         <select name="FS_KD_BARANG" class="select2" style="width: 320px;" id="FS_KD_BARANG">
                             <option value="">--Pilih Data--</option>
-                            {foreach $rs_resep as $data}
-                            <option value="{$data.KODE_OBAT}">{$data.NAMA_OBAT}</option>
-                            {/foreach}
+                            <?php  $_smarty_tpl->tpl_vars['data'] = new Smarty_Variable;
+ $_from = $_smarty_tpl->getVariable('rs_resep')->value; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array');}
+if ($_smarty_tpl->_count($_from) > 0){
+    foreach ($_from as $_smarty_tpl->tpl_vars['data']->key => $_smarty_tpl->tpl_vars['data']->value){
+?>
+                            <option value="<?php echo $_smarty_tpl->tpl_vars['data']->value['KODE_OBAT'];?>
+"><?php echo $_smarty_tpl->tpl_vars['data']->value['NAMA_OBAT'];?>
+</option>
+                            <?php }} ?>
                         </select>
                     </td>
                 </tr>
@@ -585,7 +663,8 @@
             jQuery("#rlab").html('');
             $.ajax({
             type: "POST",
-                    url: "{$config->site_url('medis/rawat_jalan/list_pemeriksaan_rlab/')}",
+                    url: "<?php echo $_smarty_tpl->getVariable('config')->value->site_url('medis/rawat_jalan/list_pemeriksaan_rlab/');?>
+",
                     data: "user=" + user,
                     dataType: 'json',
                     success: function(data) {
@@ -610,7 +689,8 @@
             jQuery("#rrad").html('');
             $.ajax({
             type: "POST",
-                    url: "{$config->site_url('medis/rawat_jalan/list_pemeriksaan_rrad/')}",
+                    url: "<?php echo $_smarty_tpl->getVariable('config')->value->site_url('medis/rawat_jalan/list_pemeriksaan_rrad/');?>
+",
                     data: "user=" + user,
                     dataType: 'json',
                     success: function(data) {
@@ -1050,7 +1130,8 @@ if(x=='a'||x=='A'){
                    jQuery("#namaobat").html('');
                    $.ajax({
                    type: "POST", 
-                           url: "{$config->site_url('medis/rawat_jalan/list_nama_obat/')}",
+                           url: "<?php echo $_smarty_tpl->getVariable('config')->value->site_url('medis/rawat_jalan/list_nama_obat/');?>
+",
                            data: "user=" + user,
                            dataType: 'json',
                            success: function(data) {
@@ -1077,7 +1158,8 @@ if(x=='a'||x=='A'){
                    jQuery("#namapaket").html('');
                    $.ajax({
                    type: "POST", 
-                           url: "{$config->site_url('medis/rawat_jalan/list_nama_paket_inap_kumbang/')}",
+                           url: "<?php echo $_smarty_tpl->getVariable('config')->value->site_url('medis/rawat_jalan/list_nama_paket_inap_kumbang/');?>
+",
                            data: "user=" + user,
                            dataType: 'json',
                            success: function(data) {
@@ -1106,7 +1188,8 @@ if(x=='a'||x=='A'){
                    jQuery("#namapakettw").html('');
                    $.ajax({
                    type: "POST", 
-                           url: "{$config->site_url('medis/rawat_jalan/list_nama_paket_tw/')}",
+                           url: "<?php echo $_smarty_tpl->getVariable('config')->value->site_url('medis/rawat_jalan/list_nama_paket_tw/');?>
+",
                            data: "user=" + user,
                            dataType: 'json',
                            success: function(data) {
@@ -1132,7 +1215,8 @@ if(x=='a'||x=='A'){
                    jQuery("#namapaketgg").html('');
                    $.ajax({
                    type: "POST", 
-                           url: "{$config->site_url('medis/rawat_jalan/list_nama_paket_gg/')}",
+                           url: "<?php echo $_smarty_tpl->getVariable('config')->value->site_url('medis/rawat_jalan/list_nama_paket_gg/');?>
+",
                            data: "user=" + user,
                            dataType: 'json',
                            success: function(data) {
@@ -1159,7 +1243,8 @@ if(x=='a'||x=='A'){
                    jQuery("#namapaketuya").html('');
                    $.ajax({
                    type: "POST", 
-                           url: "{$config->site_url('medis/rawat_jalan/list_nama_paket_uya/')}",
+                           url: "<?php echo $_smarty_tpl->getVariable('config')->value->site_url('medis/rawat_jalan/list_nama_paket_uya/');?>
+",
                            data: "user=" + user,
                            dataType: 'json',
                            success: function(data) {
@@ -1186,7 +1271,8 @@ if(x=='a'||x=='A'){
                    jQuery("#namapaketirs").html('');
                    $.ajax({
                    type: "POST", 
-                           url: "{$config->site_url('medis/rawat_jalan/list_nama_paket_irs/')}",
+                           url: "<?php echo $_smarty_tpl->getVariable('config')->value->site_url('medis/rawat_jalan/list_nama_paket_irs/');?>
+",
                            data: "user=" + user,
                            dataType: 'json',
                            success: function(data) {
@@ -1213,7 +1299,8 @@ if(x=='a'||x=='A'){
                    jQuery("#namapakettris").html('');
                    $.ajax({
                    type: "POST", 
-                           url: "{$config->site_url('medis/rawat_jalan/list_nama_paket_tris/')}",
+                           url: "<?php echo $_smarty_tpl->getVariable('config')->value->site_url('medis/rawat_jalan/list_nama_paket_tris/');?>
+",
                            data: "user=" + user,
                            dataType: 'json',
                            success: function(data) {
@@ -1239,7 +1326,8 @@ if(x=='a'||x=='A'){
                    jQuery("#namaobat1").html('');
                    $.ajax({
                    type: "POST", 
-                           url: "{$config->site_url('medis/rawat_jalan/list_nama_obat/')}",
+                           url: "<?php echo $_smarty_tpl->getVariable('config')->value->site_url('medis/rawat_jalan/list_nama_obat/');?>
+",
                            data: "user=" + user,
                            dataType: 'json',
                            success: function(data) {

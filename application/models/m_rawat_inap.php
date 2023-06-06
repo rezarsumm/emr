@@ -19,6 +19,7 @@ class m_rawat_inap extends CI_Model {
         FS_CARA_PULANG, FS_DAFTAR_MASALAH, FS_PLANNING_LAB, FS_PLANNING_RAD, FS_HASIL_PEMERIKSAAN_PENUNJANG,FS_PESAN,FS_MR, FS_STATUS, mdb, mdd, FS_JAM_TRS)
         VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         return $this->db->query($sql, $params);
+        
     } 
     function update($params) {
 

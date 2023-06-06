@@ -1417,7 +1417,7 @@ $(function(){
                 jQuery("#rlab").html('');
                 $.ajax({
                     type: "POST",
-                    url: "{$config->site_url('medis/rawat_jalan/list_pemeriksaan_rlab/')}",
+                    url: "{$config->site_url('medis/rawat_jalan/list_pemeriksaan_lab/')}",
                     data: "user=" + user,
                     dataType: 'json',
                     success: function(data) {
@@ -1429,7 +1429,7 @@ $(function(){
                             }
                         })
                         jQuery("#rlab").html(showData);
-                        $('#rlab').select2('val', [{$rs_tembusan}]);
+                        $('#rlab').select2('val', [{$rs_tujuan}]);
                 }
             });
         }
@@ -1454,7 +1454,7 @@ $(function(){
                 jQuery("#rlab").html('');
                 $.ajax({
                     type: "POST",
-                    url: "{$config->site_url('medis/rawat_jalan/list_pemeriksaan_rlab/')}",
+                    url: "{$config->site_url('medis/rawat_jalan/list_pemeriksaan_lab/')}",
                     data: "user=" + user,
                     dataType: 'json',
                     success: function(data) {

@@ -1,17 +1,17 @@
-<?php /* Smarty version Smarty-3.0.7, created on 2023-06-06 10:43:00
+<?php /* Smarty version Smarty-3.0.7, created on 2023-06-06 14:48:25
          compiled from "application/views\igd/cppt/add.html" */ ?>
-<?php /*%%SmartyHeaderCode:7848647eab44a34c93-18422682%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:10320647ee4c939f3d1-90659921%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     'b6c1a33e41a9fe11cc42b7c61197a076e450178e' => 
     array (
       0 => 'application/views\\igd/cppt/add.html',
-      1 => 1686022975,
+      1 => 1686037551,
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '7848647eab44a34c93-18422682',
+  'nocache_hash' => '10320647ee4c939f3d1-90659921',
   'function' => 
   array (
   ),
@@ -464,12 +464,12 @@ if ($_smarty_tpl->_count($_from) > 0){
 
          
           <?php if ($_smarty_tpl->tpl_vars['cppt']->value['FS_LAB']!=''){?> 
-               <a href="javascript:void(0);" onclick="window.open('<?php echo $_smarty_tpl->getVariable('config')->value->site_url(('lab/lab_igd/cetak_plab/').($_smarty_tpl->getVariable('data')->value['FS_KD_TRS']));?>
+               <a href="javascript:void(0);" onclick="window.open('<?php echo $_smarty_tpl->getVariable('config')->value->site_url(('lab/lab_inap/cetak_plab2/').($_smarty_tpl->tpl_vars['cppt']->value['FS_KD_REG']));?>
 ', 'nama_window_pop_up', 'scrollbars=yes,resizeable=no')" class="button-edit">Permintaan Lab </a>
                <?php }?>
-               
+
                  <?php if ($_smarty_tpl->tpl_vars['cppt']->value['FS_RAD']!=''){?> 
-               <a href="javascript:void(0);" onclick="window.open('<?php echo $_smarty_tpl->getVariable('config')->value->site_url(('rad/rad_igd/cetak_prad/').($_smarty_tpl->tpl_vars['cppt']->value['FS_KD_TRS']));?>
+               <a href="javascript:void(0);" onclick="window.open('<?php echo $_smarty_tpl->getVariable('config')->value->site_url(('rad/rad_inap/cetak_prad2/').($_smarty_tpl->tpl_vars['cppt']->value['FS_KD_REG']));?>
 ', 'nama_window_pop_up', 'scrollbars=yes,resizeable=no')" class="button-edit">Permintaan Radiologi </a>
                <?php }?>
             <hr>

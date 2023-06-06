@@ -403,11 +403,11 @@
              {$cppt['FS_CPPT_TERAPI']}
          
           {if $cppt.FS_LAB neq ''} 
-               <a href="javascript:void(0);" onclick="window.open('{$config->site_url('lab/lab_igd/cetak_plab/'|cat:$data.FS_KD_TRS)}', 'nama_window_pop_up', 'scrollbars=yes,resizeable=no')" class="button-edit">Permintaan Lab </a>
+               <a href="javascript:void(0);" onclick="window.open('{$config->site_url('lab/lab_inap/cetak_plab2/'|cat:$cppt.FS_KD_REG)}', 'nama_window_pop_up', 'scrollbars=yes,resizeable=no')" class="button-edit">Permintaan Lab </a>
                {/if}
-               
+
                  {if $cppt.FS_RAD neq ''} 
-               <a href="javascript:void(0);" onclick="window.open('{$config->site_url('rad/rad_igd/cetak_prad/'|cat:$cppt.FS_KD_TRS)}', 'nama_window_pop_up', 'scrollbars=yes,resizeable=no')" class="button-edit">Permintaan Radiologi </a>
+               <a href="javascript:void(0);" onclick="window.open('{$config->site_url('rad/rad_inap/cetak_prad2/'|cat:$cppt.FS_KD_REG)}', 'nama_window_pop_up', 'scrollbars=yes,resizeable=no')" class="button-edit">Permintaan Radiologi </a>
                {/if}
             <hr>
            

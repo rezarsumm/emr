@@ -156,11 +156,29 @@ class m_farmasi_inap extends CI_Model {
         }
     }
 
+    function lab_inap2($params) {
+        $sql = "select A.*, B.*, C.*
+        from  PKU.dbo.TAC_RI_CPPT A
+        left join DB_RSMM.dbo.PENDAFTARAN B on B.No_Reg=A.FS_KD_REG
+        left join DB_RSMM.dbo.REGISTER_PASIEN C on B.No_MR=C.No_MR
+        where A.FS_KD_REG=?";
+
+       $query = $this->db->query($sql, $params);
+        if ($query->num_rows() > 0) {
+            $result = $query->row_array();
+            $query->free_result();
+            return $result;
+        } else {
+            return 0;
+        }
+    }
+
+
       function lab_inap($params) {
-        $sql = "  select A.FS_LAB,A.TGL_TUJUAN_LAB,A.FS_KD_TRS, A.mdd_time, A.mdd_date, B.No_MR, B.No_Reg, C.Nama_Pasien, C.JENIS_KELAMIN, C.TGL_LAHIR, D.Nama_Ruang, E.NamaLengkap
+        $sql = "  select A.FS_LAB,A.TGL_TUJUAN_LAB,A.FS_KD_TRS, A.mdd_time, A.mdd_date, A.FS_KD_TRS, B.No_MR, B.No_Reg, C.Nama_Pasien, C.JENIS_KELAMIN, C.TGL_LAHIR, D.Nama_Ruang, E.NamaLengkap
         from PKU.dbo.TAC_RI_CPPT as A, PENDAFTARAN as B, REGISTER_PASIEN as C, M_RUANG as D, TUSER as E
         where A.FS_KD_REG=B.No_Reg and B.No_MR=C.No_MR and B.Kode_Ruang=D.Kode_Ruang and A.mdb=E.NamaUser
-       and A.FS_KD_TRS=? ";
+       and A.FS_KD_REG=? ";
        $query = $this->db->query($sql, $params);
         if ($query->num_rows() > 0) {
             $result = $query->row_array();
@@ -177,6 +195,22 @@ class m_farmasi_inap extends CI_Model {
         from PKU.dbo.TAC_RI_CPPT as A, PENDAFTARAN as B, REGISTER_PASIEN as C, M_RUANG as D, TUSER as E
         where A.FS_KD_REG=B.No_Reg and B.No_MR=C.No_MR and B.Kode_Ruang=D.Kode_Ruang and A.mdb=E.NamaUser
        and A.FS_KD_TRS=? ";
+       $query = $this->db->query($sql, $params);
+        if ($query->num_rows() > 0) {
+            $result = $query->row_array();
+            $query->free_result();
+            return $result;
+        } else {
+            return 0;
+        }
+    }
+
+   function rad_inap2($params) {
+    $sql = "select A.*, B.*, C.*
+    from  PKU.dbo.TAC_RI_CPPT A
+    left join DB_RSMM.dbo.PENDAFTARAN B on B.No_Reg=A.FS_KD_REG
+    left join DB_RSMM.dbo.REGISTER_PASIEN C on B.No_MR=C.No_MR
+    where A.FS_KD_REG=?";
        $query = $this->db->query($sql, $params);
         if ($query->num_rows() > 0) {
             $result = $query->row_array();

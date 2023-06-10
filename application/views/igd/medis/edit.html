@@ -79,7 +79,7 @@
                
                 <td width='20%'>Riwayat Penyakit dahulu</td>
                 <td width='40%'>
-                    <input type="text" name="FS_RIW_PENYAKIT_DAHULU" value="{$data.FS_RIW_PENYAKIT_DAHULU}" size="32">
+                    <input type="text" name="FIS_RIW_PENYAKIT_DAHULU" value="{$data.RIW_PENYAKIT_DAHULU}" size="32">
                 </td>
             </tr>
             <tr>
@@ -188,12 +188,13 @@
                 <td width='40%'>
                     <textarea name="PEMERIKSAAN_FISIK" rows="10" style="width:250px;">{$data.PEMERIKSAAN_FISIK}
                  </textarea>
+
                 </td>
                 <td colspan="2">
                     <table>
                         <tr>  <td>  Lingkar Kepala</td><td><input type="text" name="LINGKAR_KEPALA" value="{$data.LINGKAR_KEPALA}"></td></tr>
                       
-                         <tr>  <td> Skor Nyeri</td><td>  <input type="text" name="NYERIS" value="{$data.NYERIS}"></td></tr>
+                         <tr>  <td> Skor Nyeri</td><td>  <input type="text" name="SKOR_NYERI" value="{$data.SKOR_NYERI}"></td></tr>
                          <tr>  <td> Alat Bantu</td><td>  <input type="text" name="ALAT_BANTU" value="{$data.ALAT_BANTU}"></td></tr>
                          <tr>  <td>    Cacat Tubuh</td><td>  <input type="text" name="CACAT" value="{$data.CACAT}"></td></tr>
                          <tr>  <td>    ADL</td><td>  <input type="text" name="ADL" value="{$data.ADL}"></td></tr>
@@ -378,18 +379,48 @@
                     </textarea> 
                 </td> 
                <td colspan="2"> Dokter Spesialis
+                DPJP UTAMA
                 <select name="KD_DOKTER_KONSUL" id="surat_dari" class="select2" style="width: 300px;">
-                    <option value=""></option>
-                    {foreach from=$rs_dokter_sp item=gata}
-                    {if $data.KD_DOKTER_KONSUL eq $gata.NAMAUSER}
-                    <option value="{$gata.NAMAUSER}" selected>{$gata.NAMALENGKAP}</option>
-                    {else}
-                    <option value="{$gata.NAMAUSER}">{$gata.NAMALENGKAP}</option>
-                    {/if}
-                    {/foreach}
-                </select>
-                <br><br>Uraian Konsul (Tanggal, Jam, Instruksi) <br><br>
-                <textarea rows="14" class="form-control"  cols="60" name="KONSUL">{$data.KONSUL} </textarea>
+                                <option value=""></option>
+                                {foreach from=$rs_dokter_sp item=gata}
+                                {if $data.KD_DOKTER_KONSUL eq $gata.NAMAUSER}
+                                <option value="{$gata.NAMAUSER}" selected>{$gata.NAMALENGKAP}</option>
+                                {else}
+                                <option value="{$gata.NAMAUSER}">{$gata.NAMALENGKAP}</option>
+                                {/if}
+                                {/foreach}
+                            </select>
+                            <br>Uraian Konsul (Tanggal, Jam, Instruksi) <br>
+                            <textarea rows="2" class="form-control"  cols="60" name="KONSUL"> {$data.KONSUL} </textarea>
+                             <br><br>
+                 DPJP 1
+                <select name="KD_DOKTER_KONSUL2" id="surat_dari" class="select2" style="width: 300px;">
+                            <option value=""></option>
+                            {foreach from=$rs_dokter_sp item=gata}
+                            {if $data.KD_DOKTER_KONSUL2 eq $gata.NAMAUSER}
+                            <option value="{$gata.NAMAUSER}" selected>{$gata.NAMALENGKAP}</option>
+                            {else}
+                            <option value="{$gata.NAMAUSER}">{$gata.NAMALENGKAP}</option>
+                            {/if}
+                            {/foreach}
+                            </select>
+                             <br>Uraian Konsul (Tanggal, Jam, Instruksi) <br>
+                            <textarea rows="2" class="form-control"  cols="60" name="KONSUL2">  {$data.KONSUL2}</textarea><br><br>
+                 DPJP 2
+                <select name="KD_DOKTER_KONSUL3" id="surat_dari" class="select2" style="width: 300px;">
+                            <option value=""></option>
+                            {foreach from=$rs_dokter_sp item=gata}
+                            {if $data.KD_DOKTER_KONSUL3 eq $gata.NAMAUSER}
+                            <option value="{$gata.NAMAUSER}" selected>{$gata.NAMALENGKAP}</option>
+                            {else}
+                            <option value="{$gata.NAMAUSER}">{$gata.NAMALENGKAP}</option>
+                            {/if}
+                            {/foreach}
+                            </select> 
+                            <br>Uraian Konsul (Tanggal, Jam, Instruksi) <br> 
+                            <textarea rows="2" class="form-control"  cols="60" name="KONSUL2"> {$data.KONSUL3}</textarea> <br><br>
+                            
+   
                 
                </td>
                
@@ -411,6 +442,7 @@
                  </tr>
             <tr id="form2" {if $data.D_PLANNING eq 'Rujuk'} style="display: show;" {/if} style="display: none;">
                 <td  > Alasan Rujuk   <input type="text" name="ALASAN_RUJUK" value="{$data.ALASAN_RUJUK}"></td>
+                <td  > Rekomendasi Rujuk   <input type="text" name="REKOMENDASI_RUJUK" value="{$data.REKOMENDASI_RUJUK}"></td>
                 <td >  Transport keluar<br>  
                          <input type="radio" {if $data.TRANSPORT_KELUAR eq 'Ambulance RS'} checked {/if}  name="TRANSPORT_KELUAR" value="Ambulance RS">Ambulance RS <br>
                      <input type="radio" {if $data.TRANSPORT_KELUAR eq 'Ambulance 118'} checked {/if}  name="TRANSPORT_KELUAR" value="Ambulance 118">Ambulance 118<br>
@@ -418,6 +450,11 @@
                     </td>
                   
            </tr>
+           <tr id="form3" {if $data.D_PLANNING eq 'Kontrol'} style="display: show;" {/if} style="display: none;">
+            <td  > Rekomendasi Poli   <input type="text" name="REKOMENDASI_POLI" value="{$data.REKOMENDASI_POLI}"></td>
+      
+              
+       </tr>
            <tr>
             <td>Kondisi Akhir Pasien</td>
             <td>
@@ -449,6 +486,7 @@
  
 
 <script type="text/javascript"> 
+// 
     var user = $("#user").val(); 
            
             $("#namaobat").select2({});
@@ -634,7 +672,13 @@ if(x=='a'||x=='A'){
 
         if($(this).val() == "Rujuk"){
           $("#form2").show(); 
-        }else{
+          $("#form3").hide(); 
+        }    
+        else if($(this).val() == "Kontrol"){
+            $("#form3").show(); 
+        }        
+        else{
+            $("#form3").hide(); 
           $("#form2").hide(); 
         }
       });

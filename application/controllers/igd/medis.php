@@ -204,6 +204,15 @@ class Medis extends ApplicationBase {
           foreach ($planning as $key => $value) {
               $planning_str .= "'" . $value['FS_KD_PLANNING'] . "',";
           }
+
+          $this->smarty->assign('planning_str', $planning_str);
+
+          $tujuan = $this->m_rawat_jalan->list_pemeriksaan_lab_by_rg($FS_KD_REG);
+          $tujuan_str = "";
+          foreach ($tujuan as $key => $value) {
+              $tujuan_str .= "'" . $value['No_Jenis'] . "',";
+          }
+          $this->smarty->assign('rs_tujuan', $tujuan_str);
           
         $this->smarty->assign("role_id", $this->com_user['role_id']);
         $this->smarty->assign("tgl", $tgl);
@@ -313,7 +322,13 @@ class Medis extends ApplicationBase {
                     $this->input->post('KONDISI_AKHIR'),
                     $this->input->post('JAM_SELESAI'), 
                     $this->com_user['user_name'],
-                    date('Y-m-d H:i:s'), 
+                    date('Y-m-d H:i:s'),
+                    $this->input->post('KONSUL2'),
+                    $this->input->post('KD_DOKTER_KONSUL2'),
+                    $this->input->post('KONSUL2'),
+                    $this->input->post('KD_DOKTER_KONSUL2'),
+                    $this->input->post('REKOMENDASI_RUJUK'),
+                    $this->input->post('REKOMENDASI_POLI')
                     
                 );
                 $this->m_igd->INSERT_AWAL_MEDIS($params2);
@@ -635,6 +650,12 @@ class Medis extends ApplicationBase {
                 $this->input->post('JAM_SELESAI'), 
                 $this->com_user['user_name'],
                 date('Y-m-d H:i:s'), 
+                $this->input->post('KONSUL2'),
+                $this->input->post('KD_DOKTER_KONSUL2'),
+                $this->input->post('KONSUL2'),
+                $this->input->post('KD_DOKTER_KONSUL2'),
+                $this->input->post('REKOMENDASI_RUJUK'),
+                $this->input->post('REKOMENDASI_POLI')
                 
             );
             $this->m_igd->DELETE_AWAL_MEDIS($this->input->post('id'));

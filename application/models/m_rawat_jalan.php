@@ -2607,6 +2607,7 @@ class m_rawat_jalan extends CI_Model {
             return array();
         }
     }
+    
     function list_pemeriksaan_rad_by_rg($params) {
         $sql = "SELECT  * FROM 
         M_RINCI_HEADER a

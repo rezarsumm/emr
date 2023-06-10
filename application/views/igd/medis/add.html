@@ -201,10 +201,10 @@
                     <table>
                         <tr>  <td>  Lingkar Kepala</td><td><input type="text" name="LINGKAR_KEPALA" value="{$perawat.LINGKAR_KEPALA}"></td></tr>
                       
-                         <tr>  <td> Skor Nyeri</td><td>  <input type="text" name="NYERIS" value="{$nyeri.NYERIS}"></td></tr>
-                         <tr>  <td> Alat Bantu</td><td>  <input type="text" name="ALAT_BANTU" value="{$nyeri.NYERIS}"></td></tr>
-                         <tr>  <td>    Cacat Tubuh</td><td>  <input type="text" name="CACAT" value="{$nyeri.NYERIS}"></td></tr>
-                         <tr>  <td>    ADL</td><td>  <input type="text" name="ADL" value="{$nyeri.NYERIS}"></td></tr>
+                         <tr>  <td> Skor Nyeri</td><td>  <input type="text" name="SKOR_NYERI" value=""></td></tr>
+                         <tr>  <td> Alat Bantu</td><td>  <input type="text" name="ALAT_BANTU" value=""></td></tr>
+                         <tr>  <td>    Cacat Tubuh</td><td>  <input type="text" name="CACAT" value=""></td></tr>
+                         <tr>  <td>    ADL</td><td>  <input type="text" name="ADL" value=""></td></tr>
                        
                          
                     </table>
@@ -399,17 +399,40 @@
                         
                     </textarea> 
                 </td> 
-               <td colspan="2"> Dokter Spesialis
-                <select name="KD_DOKTER_KONSUL" id="surat_dari" class="select2" style="width: 300px;">
-                    <option value=""></option>
-                    {foreach from=$rs_dokter_sp item=data}
-                    <option value="{$data.NAMAUSER}">{$data.NAMALENGKAP}</option>
-                    {/foreach}
-                </select>
-                <br><br>Uraian Konsul (Tanggal, Jam, Instruksi) <br><br>
-                <textarea rows="14" class="form-control"  cols="60" name="KONSUL"> </textarea>
-                
-               </td>
+                <td colspan="2">
+                  
+                    
+                      DPJP UTAMA
+                      <select name="KD_DOKTER_KONSUL" id="surat_dari" class="select2" style="width: 300px;">
+                                      <option value=""></option>
+                                      {foreach from=$rs_dokter_sp item=data}
+                                      <option value="{$data.NAMAUSER}">{$data.NAMALENGKAP}</option>
+                                      {/foreach}
+                                  </select>
+                                  <br>Uraian Konsul (Tanggal, Jam, Instruksi) <br>
+                                  <textarea rows="2" class="form-control"  cols="60" name="KONSUL"> </textarea>
+                                   <br><br>
+                       DPJP 1
+                      <select name="KD_DOKTER_KONSUL2" id="surat_dari" class="select2" style="width: 300px;">
+                                      <option value=""></option>
+                                      {foreach from=$rs_dokter_sp item=data}
+                                      <option value="{$data.NAMAUSER}">{$data.NAMALENGKAP}</option>
+                                      {/foreach}
+                                  </select>
+                                   <br>Uraian Konsul (Tanggal, Jam, Instruksi) <br>
+                                  <textarea rows="2" class="form-control"  cols="60" name="KONSUL2"> </textarea><br><br>
+                       DPJP 2
+                      <select name="KD_DOKTER_KONSUL3" id="surat_dari" class="select2" style="width: 300px;">
+                                      <option value=""></option>
+                                      {foreach from=$rs_dokter_sp item=data}
+                                      <option value="{$data.NAMAUSER}">{$data.NAMALENGKAP}</option>
+                                      {/foreach}
+                                  </select> 
+                                  <br>Uraian Konsul (Tanggal, Jam, Instruksi) <br> 
+                                  <textarea rows="2" class="form-control"  cols="60" name="KONSUL2"> </textarea> <br><br>
+                  
+                           
+                  </td>
                
             </tr>
 
@@ -429,6 +452,7 @@
                  </tr>
             <tr id="form2" style="display: none;">
                 <td  > Alasan Rujuk   <input type="text" name="ALASAN_RUJUK"></td>
+                <td  > Rekomendasi Rujuk   <input type="text" name="REKOMENDASI_RUJUK"></td>
                 <td >  Transport keluar<br>  
                          <input type="radio" name="TRANSPORT_KELUAR" value="Ambulance RS">Ambulance RS <br>
                      <input type="radio" name="TRANSPORT_KELUAR" value="Ambulance 118">Ambulance 118<br>
@@ -436,6 +460,11 @@
                     </td>
                   
            </tr>
+           <tr id="form3" style="display: none;">
+            <td  > Rekomendasi Poli   <input type="text" name="REKOMENDASI_POLI"></td>
+      
+              
+       </tr>
            <tr>
             <td>Kondisi Akhir Pasien</td>
             <td>
@@ -656,7 +685,13 @@ if(x=='a'||x=='A'){
 
         if($(this).val() == "Rujuk"){
           $("#form2").show(); 
-        }else{
+          $("#form3").hide(); 
+        }
+        else if($(this).val() == "Kontrol"){
+            $("#form3").show(); 
+        }        
+        else{
+            $("#form3").hide(); 
           $("#form2").hide(); 
         }
       });

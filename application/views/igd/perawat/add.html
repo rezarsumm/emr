@@ -117,23 +117,23 @@
         var sc = parseInt($("#an1").text()) + parseInt($("#an2").text()) + parseInt($("#an3").text()) +  parseInt($("#an5").text()) + parseInt($("#an6").text()) + parseInt($("#an7").text());
         $("#totalsc").html(sc);
         if (sc <7) {
-            $("#rjtkesimpulan").html("RISIKO RENDAH");
+            $("#rjtkesimpulan").val("RISIKO RENDAH");
         }
         else if (sc >= 7 && sc <= 11) {
-            $("#rjtkesimpulan").html("RISIKO SEDANG");
+            $("#rjtkesimpulan").val("RISIKO SEDANG");
         } else if (sc >= 12) {
-            $("#rjtkesimpulan").html("RISIKO TINGGI");
+            $("#rjtkesimpulan").val("RISIKO TINGGI");
         }
     }
     function scored() {
         var scd = parseInt($("#an8").text()) + parseInt($("#an9").text()) + parseInt($("#an10").text()) + parseInt($("#an11").text()) + parseInt($("#an12").text()) + parseInt($("#an13").text());
         $("#totalscd").html(scd);
         if (scd >= 0 && scd <= 24) {
-            $("#rjtkesimpuland").html("RISIKO RENDAH");
+            $("#rjtkesimpuland").val("RISIKO RENDAH");
         } else if (scd >= 25 && scd <= 45) {
-            $("#rjtkesimpuland").html("RISIKO SEDANG");
+            $("#rjtkesimpuland").val("RISIKO SEDANG");
         } else if (scd > 45) {
-            $("#rjtkesimpuland").html("RISIKO TINGGI");
+            $("#rjtkesimpuland").val("RISIKO TINGGI");
         }
     }
 
@@ -142,9 +142,9 @@
         var scd = parseInt($("#an14").text()) + parseInt($("#an15").text()) + parseInt($("#an16").text()) + parseInt($("#an17").text()) + parseInt($("#an18").text()) + parseInt($("#an19").text());
         $("#totalsct").html(scd);
         if (scd >= 0 && scd <= 4) {
-            $("#rjtkesimpulant").html("RISIKO RENDAH");
+            $("#rjtkesimpulant").val("RISIKO RENDAH");
         }  else if (scd > 5) {
-            $("#rjtkesimpulant").html("RISIKO TINGGI");
+            $("#rjtkesimpulant").val("RISIKO TINGGI");
         }
     }
     
@@ -282,7 +282,7 @@
                      <td>Status Mental</td>
                     <td>
                         <input type="radio" name="MENTAL" required value="Kooperatif"> Kooperatif
-                        <input type="radio" name="MENTAL" value="tidak"> Tidak Kooperatif
+                        <input type="radio" name="MENTAL" value="Tidak Kooperatif"> Tidak Kooperatif
                         <input type="radio" name="MENTAL" value="Gelisah">  Gelisah 
                      </td>
                   </tr>
@@ -363,7 +363,7 @@
                              <input type="radio" required name="ADL" value="2">Dibantu
                             </td>
                         <!-- <td>Resiko jatuh  </td>  -->
-                        <td> <input type="hidden" name="RESIKO_JATUH"></td>
+                        <!-- <td> <input type="hidden" name="RESIKO_JATUH"></td> -->
                     </tr>
           
         </table>
@@ -708,8 +708,8 @@
                                     </select>
                                     <span id="an1"></span>
                                 </td>
-                                <td width='20%'>Kesimpulan</td>
-                                <td width='30%'><b><span id="rjtkesimpulan"></span></b></td>
+                                <td width='20%'>Kesimpulan <input type="text" name="RESIKO_JATUH" id="rjtkesimpulan" readonly></td>
+                                
                             </tr>
                             <tr>
                                 <td width='20%'>Jenis Kelamin</td>
@@ -814,8 +814,8 @@
                                     </select>
                                     <span id="an8"></span>
                                 </td>
-                                <td width='20%'>Kesimpulan</td>
-                                <td width='30%'><b><span id="rjtkesimpuland"></span></b></td>
+                                <td width='20%'>Kesimpulan <input type="text" name="RESIKO_JATUH" id="rjtkesimpuland" readonly></td>
+                                <!-- <td width='30%'><b><span id="rjtkesimpuland"></span></b></td> -->
                             </tr>
                              <tr>
                                 <td>Diagnosa medis sekunder</td>
@@ -903,8 +903,8 @@
                                     </select>
                                     <span id="an14"></span>
                                 </td>
-                                <td width='20%'>Kesimpulan</td>
-                                <td width='30%'><b><span id="rjtkesimpulant"></span></b></td>
+                                <td width='20%'>Kesimpulan <input type="text" name="RESIKO_JATUH" id="rjtkesimpulant" readonly></td>
+                                <!-- <td width='30%'><b><span id="rjtkesimpulant"></span></b></td> -->
                             </tr>
                              <tr>
                                 <td>Gangguan Gaya berjalan</td>

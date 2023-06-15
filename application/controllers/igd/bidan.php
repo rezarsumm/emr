@@ -168,7 +168,7 @@ class Bidan extends ApplicationBase {
 
         // Memecah string menjadi array
         $data = array();
-        $string = $kriteria_discahargers_string['KRITERIA_DISCHARGE'];;
+        $string = $kriteria_discahargers_string['KRITERIA_DISCHARGE'];
         $string = trim($string, ','); // Menghapus koma di awal dan akhir string (jika ada)
 
         if (!empty($string)) {

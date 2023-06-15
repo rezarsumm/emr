@@ -128,12 +128,12 @@
                 <td width='20%'>Agama</td>
                 <td width='30%'>
                     <select name="FS_AGAMA" id="surat_dari" class="select2" style="width: 190px;">
-                        <option value="1">Islam</option>
-                        <option value="2">Kristen</option>
-                        <option value="3">Katholik</option>
-                        <option value="4">Hindu</option>
-                        <option value="5">Buda</option>
-                        <option value="6">Konghucu</option>
+                        <option {if $perawat.AGAMA eq '1'} selected {/if} value="1">Islam</option>
+                        <option {if $perawat.AGAMA eq '2'} selected {/if} value="2">Kristen</option>
+                        <option {if $perawat.AGAMA eq '3'} selected {/if} value="3">Katholik</option>
+                        <option {if $perawat.AGAMA eq '4'} selected {/if} value="4">Hindu</option>
+                        <option {if $perawat.AGAMA eq '5'} selected {/if} value="5">Buda</option>
+                        <option {if $perawat.AGAMA eq '6'} selected {/if} value="6">Konghucu</option>
                     </select>
                 </td>
                 <td width='20%'>Suku    </td>
@@ -150,26 +150,26 @@
             <tr>
                 <td width='20%'>Status Psikologis</td>
                 <td width='30%'>
-                    <select name="FS_STATUS_PSIK">
-                        <option value=""  {if $ases2.FS_STATUS_PSIK eq ''} selected="" {/if}  onclick='document.getElementById("civstaton3").disabled = true'>--Pilih Data--</option>
-                        <option value="1" {if $ases2.FS_STATUS_PSIK eq '1'} selected="" {/if} onclick='document.getElementById("civstaton3").disabled = true'>Tenang</option>
-                        <option value="2" {if $ases2.FS_STATUS_PSIK eq '2'} selected="" {/if} onclick='document.getElementById("civstaton3").disabled = true'>Cemas</option>
-                        <option value="3" {if $ases2.FS_STATUS_PSIK eq '3'} selected="" {/if} onclick='document.getElementById("civstaton3").disabled = true'>Takut</option>
-                        <option value="4" {if $ases2.FS_STATUS_PSIK eq '4'} selected="" {/if} onclick='document.getElementById("civstaton3").disabled = true'>Marah</option>
-                        <option value="5" {if $ases2.FS_STATUS_PSIK eq '5'} selected="" {/if} onclick='document.getElementById("civstaton3").disabled = true'>Sedih</option>
-                        <option value="6" {if $ases2.FS_STATUS_PSIK neq '' &&  $ases2.FS_STATUS_PSIK neq '1' && $ases2.FS_STATUS_PSIK neq '2'&& $ases2.FS_STATUS_PSIK neq '3'&& $ases2.FS_STATUS_PSIK neq '4'&& $ases2.FS_STATUS_PSIK neq '5'}selected="" {/if}onclick='document.getElementById("civstaton3").disabled = false'>Lainnya</option>
+                    <select name="FS_STATUS_PSIK" class="select2" >
+                        <option value=""  {if $perawat.PSIKOLOGIS eq ''} selected="" {/if}  onclick='document.getElementById("civstaton3").disabled = true'>--Pilih Data--</option>
+                        <option value="1" {if $perawat.PSIKOLOGIS eq 'Tenang'} selected="" {/if} onclick='document.getElementById("civstaton3").disabled = true'>Tenang</option>
+                        <option value="2" {if $perawat.PSIKOLOGIS eq 'Cemas'} selected="" {/if} onclick='document.getElementById("civstaton3").disabled = true'>Cemas</option>
+                        <option value="3" {if $perawat.PSIKOLOGIS eq 'Takut'} selected="" {/if} onclick='document.getElementById("civstaton3").disabled = true'>Takut</option>
+                        <option value="4" {if $perawat.PSIKOLOGIS eq 'Marah'} selected="" {/if} onclick='document.getElementById("civstaton3").disabled = true'>Marah</option>
+                        <option value="5" {if $perawat.PSIKOLOGIS eq 'Sedih'} selected="" {/if} onclick='document.getElementById("civstaton3").disabled = true'>Sedih</option>
+                        <option value="6" {if $perawat.PSIKOLOGIS neq '' &&  $perawat.PSIKOLOGIS neq 'Tenang' && $perawat.PSIKOLOGIS neq 'Cemas' && $perawat.PSIKOLOGIS neq 'Takut' && $perawat.PSIKOLOGIS neq 'Marah' && $perawat.PSIKOLOGIS neq 'Sedih'} selected="" {/if}onclick='document.getElementById("civstaton3").disabled = false'>Lainnya</option>
                     </select>
                     <br><br>
                     <!-- <input type="text" name="FS_STATUS_PSIK2" id="civstaton3" {if $ases2.FS_STATUS_PSIK2 eq '0'}disabled=""{/if} size="27" value="{$ases2.FS_STATUS_PSIK2}"> -->
                 </td>
                 <td width='20%'>Status Mental</td>
                 <td width='30%'>
-                    <select name="MENTAL">
-                         <option value="Kooperatif" {if $ases2.MENTAL eq '1'} selected="" {/if} 
+                    <select name="MENTAL" class="select2" >
+                         <option value="Kooperatif" {if $perawat.MENTAL eq 'Kooperatif'} selected="" {/if} 
                          onclick='document.getElementById("civstaton3").disabled = true'>Kooperatif</option>
-                         <option value="Tidak Kooperatif" {if $ases2.MENTAL eq '1'} selected="" {/if} 
+                         <option value="Tidak Kooperatif" {if $perawat.MENTAL eq 'Tidak Kooperatif'} selected="" {/if} 
                          onclick='document.getElementById("civstaton3").disabled = true'>Tidak Kooperatif</option>
-                         <option value="Gelisah" {if $ases2.MENTAL eq '1'} selected="" {/if} 
+                         <option value="Gelisah" {if $perawat.MENTAL eq 'Gelisah'} selected="" {/if} 
                          onclick='document.getElementById("civstaton3").disabled = true'>Gelisah</option>
                        </select>
                     <br><br>
@@ -189,7 +189,7 @@
                     <textarea name="PEMERIKSAAN_FISIK" rows="10" style="width:250px;">
                         Kesadaran : {if $perawat.KESADARAN neq ''}{$perawat.KESADARAN}{else}{$bidan.SADAR}{/if}      
                         Suhu      : {if $perawat.S neq ''}{$perawat.S}{else}{$bidan.S}{/if}C
-                        Nadi      : {if $perawat.N neq ''}{$vs.N}{else}{$bidan.N}{/if}x/menit            
+                        Nadi      : {if $perawat.N neq ''}{$perawat.N}{else}{$bidan.N}{/if}x/menit            
                         R         : {if $perawat.R neq ''}{$perawat.R}{else}{$bidan.R}{/if} x/menit      
                         TD        : {if $perawat.TD neq ''}{$perawat.TD}{else}{$bidan.TD}{/if}MmHg
                         TB        : {if $perawat.TB neq ''}{$perawat.TB}{else}{$bidan.TB}{/if}cm                
@@ -201,10 +201,10 @@
                     <table>
                         <tr>  <td>  Lingkar Kepala</td><td><input type="text" name="LINGKAR_KEPALA" value="{$perawat.LINGKAR_KEPALA}"></td></tr>
                       
-                         <tr>  <td> Skor Nyeri</td><td>  <input type="text" name="SKOR_NYERI" value=""></td></tr>
-                         <tr>  <td> Alat Bantu</td><td>  <input type="text" name="ALAT_BANTU" value=""></td></tr>
-                         <tr>  <td>    Cacat Tubuh</td><td>  <input type="text" name="CACAT" value=""></td></tr>
-                         <tr>  <td>    ADL</td><td>  <input type="text" name="ADL" value=""></td></tr>
+                         <tr>  <td> Skor Nyeri</td><td>  <input type="text" name="SKOR_NYERI" value="{$nyeri.FS_NYERI}"></td></tr>
+                         <tr>  <td> Alat Bantu</td><td>  <input type="text" name="ALAT_BANTU" value="{$perawat.ALAT_BANTU}"></td></tr>
+                         <tr>  <td>    Cacat Tubuh</td><td>  <input type="text" name="CACAT" value="{$perawat.CACAT}"></td></tr>
+                         <tr>  <td>    ADL</td><td>  <input type="text" name="ADL" value="{$perawat.ADL}"></td></tr>
                        
                          
                     </table>
@@ -214,15 +214,19 @@
             </tr>
             <tr>  <td>  Status Gizi</td>
                   <td> 
-                    <input type="radio" name="STATUS_GIZI" checked value="Baik">Baik
-                    <input type="radio" name="STATUS_GIZI" value="Cukup">Cukup
-                    <input type="radio" name="STATUS_GIZI" value="Kurang">Kurang
+                    <input type="radio" name="STATUS_GIZI" {if $perawat.STATUS_GIZI eq 'Baik'} checked {/if}   value="Baik">Baik
+                    <input type="radio" name="STATUS_GIZI" {if $perawat.STATUS_GIZI eq 'Cukup'} checked {/if}  value="Cukup">Cukup
+                    <input type="radio" name="STATUS_GIZI" {if $perawat.STATUS_GIZI eq 'Kurang'} checked {/if} value="Kurang">Kurang
                 </td> 
-                 <td>    Resiko Jatuh</td><td>  
-                    <input type="radio" name="RESIKO_JATUH" checked value="Ringan">Ringan
-                    <input type="radio" name="RESIKO_JATUH" value="Sedang">Sedang
-                    <input type="radio" name="RESIKO_JATUH" value="Berat">Berat
-                </td></tr>
+
+            </tr>
+            <tr>
+                <td>    Resiko Jatuh</td><td>  
+                    <input type="radio" name="RESIKO_JATUH" {if $perawat.RESIKO_JATUH eq 'RISIKO RENDAH'} checked {/if} value="RISIKO RENDAH">RISIKO RINGAN
+                    <input type="radio" name="RESIKO_JATUH" {if $perawat.RESIKO_JATUH eq 'RISIKO SEDANG'} checked {/if} value="RISIKO SEDANG">RISIKO SEDANG
+                    <input type="radio" name="RESIKO_JATUH" {if $perawat.RESIKO_JATUH eq 'RISIKO TINGGI'} checked {/if} value="RISIKO TINGGI">RISIKO TINGGI
+                </td>
+            </tr>
        
  <tr class="headrow">
             <th colspan="4"> </th> 
@@ -230,49 +234,49 @@
         <tr>
             <td width='40%'>Konjungtiva  </td>
             <td width='40%'>
-                <input type="radio" name="KONJUNGTIVA" {if $medis.KONJUNGTIVA eq 'Pucat'} checked="" {/if} value="Pucat">Pucat
-                <input type="radio" name="KONJUNGTIVA" {if $medis.KONJUNGTIVA eq 'Pink'} checked="" {/if} value="Pink">Pink
-                <input type="hidden" name="KONJUNGTIVA" value="">
+                <input type="radio" name="KONJUNGTIVA" value="Pucat">Pucat
+                <input type="radio" name="KONJUNGTIVA" value="Pink">Pink
+                
             </td>
             <td width='40%'>Deviasi Trakea  </td>
             <td width='40%'>
-                <input type="radio" name="DEVIASI" {if $medis.DEVIASI eq 'Kanan'} checked="" {/if}  value="Kanan">Kanan
-                <input type="radio" name="DEVIASI" {if $medis.DEVIASI eq 'Kiri'} checked="" {/if} value="Kiri"> Kiri
-                <input type="radio" name="DEVIASI" {if $medis.DEVIASI eq ''} checked="" {/if} value=""> Tidak Ada
-                <input type="hidden" name="DEVIASI" value="">
+                <input type="radio" name="DEVIASI" value="Kanan">Kanan
+                <input type="radio" name="DEVIASI" value="Kiri"> Kiri
+                <input type="radio" name="DEVIASI" value=""> Tidak Ada
+              
                 
             </td>
          </tr>
          <tr>
             <td width='20%'>Skelera  </td>
             <td width='40%'>
-                <input type="radio" name="SKELERA" {if $medis.SKELERA eq 'Ikterik'} checked="" {/if} value="Ikterik">Ikterik
-                <input type="radio" name="SKELERA" {if $medis.SKELERA eq 'Tidak'} checked="" {/if} value="Tidak"> Tidak Ikterik
-                <input type="hidden" name="SKELERA" value="">
+                <input type="radio" name="SKELERA" value="Ikterik">Ikterik
+                <input type="radio" name="SKELERA" value="Tidak"> Tidak Ikterik
+            
                 
             </td>
             <td width='20%'>JVP  </td>
             <td width='40%'>
-                <input type="radio" name="JVP" {if $medis.JVP eq 'Meningkat'} checked="" {/if}  value="Meningkat">Meningkat
-                <input type="radio" name="JVP" {if $medis.JVP eq 'Tidak'} checked="" {/if}   value="Tidak"> Tidak 
-                <input type="hidden" name="JVP" value="">
+                <input type="radio" name="JVP" value="Meningkat">Meningkat
+                <input type="radio" name="JVP" value="Tidak"> Tidak 
+          
             
          </tr>
          <tr>
             <td width='20%'>Bibir/Lidah  </td>
             <td width='40%'>
-                <input type="radio" name="BIBIR" {if $medis.BIBIR eq 'Sianosis'} checked="" {/if}  value="Sianosis">Sianosis
-                <input type="radio" name="BIBIR" {if $medis.BIBIR eq 'Tidak'} checked="" {/if}  value="Tidak"> Tidak
-                <input type="hidden" name="BIBIR" value="">
+                <input type="radio" name="BIBIR" value="Sianosis">Sianosis
+                <input type="radio" name="BIBIR" value="Tidak"> Tidak
+
                 
             </td>
          </tr>
          <tr>
             <td width='20%'>Mukosa </td>
             <td width='40%'>
-                <input type="radio" name="MUKOSA" {if $medis.MUKOSA eq 'Kering'} checked="" {/if}  value="Kering">Kering
-                <input type="radio" name="MUKOSA" {if $medis.MUKOSA eq 'Tidak'} checked="" {/if}  value="Tidak"> Basah
-                <input type="hidden" name="MUKOSA" value="">
+                <input type="radio" name="MUKOSA"  value="Kering">Kering
+                <input type="radio" name="MUKOSA" value="Tidak"> Basah
+              
           
             </td>
          </tr>
@@ -323,8 +327,11 @@
         </tr>
         <tr>
             <td>Laboratorium</td>
-            <td><select name="rlab[]" multiple id="rlab" style="width:250px">
-                <option></option>
+            <td><select name="rlab[]" multiple style="width:250px" class="select2">
+                <option value=""></option>
+                {foreach from=$rs_lab item=lab}
+                <option value="{$lab.JENIS}">{$lab.JENIS}</option>
+                {/foreach}
                 </select></td>
             <td>Radiologi</td>
             <td>   <select name="rrad[]" multiple id="rrad" style="width:200px">

@@ -29,7 +29,18 @@ class m_ass_jatuh extends CI_Model {
     function insert2($params) {
         $sql = "INSERT INTO PKU.dbo.TAC_RI_JATUH3(FS_KD_JATUH2, FS_PARAM_1, FS_PARAM_2, FS_PARAM_3, FS_PARAM_4,FS_PARAM_5,FS_PARAM_6,FS_PARAM_7, 
         FS_PARAM_8, FS_PARAM_9, FS_PARAM_10, FS_PARAM_11, FS_PARAM_12, FS_PARAM_13, FS_PARAM_14, FS_PARAM_15, FS_PARAM_16, FS_PARAM_17, mdb, mdd)
-        VALUEs (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        return $this->db->query($sql, $params);
+    }
+    function update_insert2($params) {
+        $sql = "UPDATE PKU.dbo.TAC_RI_JATUH3 SET FS_KD_JATUH2=?, FS_PARAM_1=?, FS_PARAM_2=?, FS_PARAM_3=?, FS_PARAM_4=?,FS_PARAM_5=?,FS_PARAM_6=?,FS_PARAM_7=?, 
+        FS_PARAM_8=?, FS_PARAM_9=?, FS_PARAM_10=?, FS_PARAM_11=?, FS_PARAM_12=?, FS_PARAM_13=?, FS_PARAM_14=?, FS_PARAM_15=?, FS_PARAM_16=?, FS_PARAM_17=?, mdb=?, mdd=? WHERE FS_KD_TRS=?";
+        return $this->db->query($sql, $params);
+    }
+
+    function DELETE_ASES_JATUH_MEDIS_IGD($params) {
+        $sql = "DELETE from PKU.dbo.TAC_RI_JATUH3 
+        WHERE FS_KD_TRS = ?";
         return $this->db->query($sql, $params);
     }
     

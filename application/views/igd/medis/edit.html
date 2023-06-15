@@ -114,9 +114,9 @@
             <tr>
                 <td width='20%'>Status Pernikahan  </td>
                 <td width='30%'>
-                     <input type="radio" name="PERNIKAHAN"  {if $ases2.PERNIKAHAN eq 'Belum'} checked {/if}   value="Belum">Belum
-                     <input type="radio" name="PERNIKAHAN" {if $ases2.PERNIKAHAN eq 'Menikah'} checked {/if}   value="Menikah">Menikah
-                     <input type="radio" name="PERNIKAHAN"  {if $ases2.PERNIKAHAN eq 'Janda/Duda'} checked {/if}  value="Janda/Duda">Janda/Duda
+                     <input type="radio" name="PERNIKAHAN"  {if $data.MENIKAH eq 'Belum'} checked {/if}   value="Belum">Belum
+                     <input type="radio" name="PERNIKAHAN" {if $data.MENIKAH eq 'Menikah'} checked {/if}   value="Menikah">Menikah
+                     <input type="radio" name="PERNIKAHAN"  {if $data.MENIKAH eq 'Janda/Duda'} checked {/if}  value="Janda/Duda">Janda/Duda
                 </td>
                 <td width='20%'>Pekerjaan    </td>
                 <td width='30%'>
@@ -128,12 +128,12 @@
                 <td width='20%'>Agama</td>
                 <td width='30%'>
                     <select name="FS_AGAMA" id="surat_dari" class="select2" style="width: 190px;">
-                        <option value="1" >Islam</option>
-                        <option value="2">Kristen</option>
-                        <option value="3">Katholik</option>
-                        <option value="4">Hindu</option>
-                        <option value="5">Buda</option>
-                        <option value="6">Konghucu</option>
+                        <option value="1" {if $data.AGAMA eq '1'} selected="" {/if} >Islam</option>
+                        <option value="2" {if $data.AGAMA eq '2'} selected="" {/if}>Kristen</option>
+                        <option value="3" {if $data.AGAMA eq '3'} selected="" {/if}>Katholik</option>
+                        <option value="4" {if $data.AGAMA eq '4'} selected="" {/if}>Hindu</option>
+                        <option value="5" {if $data.AGAMA eq '5'} selected="" {/if}>Buda</option>
+                        <option value="6" {if $data.AGAMA eq '6'} selected="" {/if}>Konghucu</option>
                     </select>
                 </td>
                 <td width='20%'>Suku    </td>
@@ -150,7 +150,7 @@
             <tr>
                 <td width='20%'>Status Psikologis</td>
                 <td width='30%'>
-                    <select name="FS_STATUS_PSIK">
+                    <select name="FS_STATUS_PSIK" class="select2" >
                         <option value=""  {if $ases2.FS_STATUS_PSIK eq ''} selected="" {/if}  onclick='document.getElementById("civstaton3").disabled = true'>--Pilih Data--</option>
                         <option value="1" {if $ases2.FS_STATUS_PSIK eq '1'} selected="" {/if} onclick='document.getElementById("civstaton3").disabled = true'>Tenang</option>
                         <option value="2" {if $ases2.FS_STATUS_PSIK eq '2'} selected="" {/if} onclick='document.getElementById("civstaton3").disabled = true'>Cemas</option>
@@ -164,7 +164,7 @@
                 </td>
                 <td width='20%'>Status Mental</td>
                 <td width='30%'>
-                    <select name="MENTAL">
+                    <select name="MENTAL" class="select2" >
                          <option value="Kooperatif" {if $ases2.MENTAL eq '1'} selected="" {/if} 
                          onclick='document.getElementById("civstaton3").disabled = true'>Kooperatif</option>
                          <option value="Tidak Kooperatif" {if $ases2.MENTAL eq '1'} selected="" {/if} 
@@ -302,12 +302,20 @@
         </tr>
              
         <tr class="headrow">
+            
             <th colspan="4">  Pemeriksaan Penunjang  </th>
         </tr>
         <tr>
             <td>Laboratorium</td>
-            <td><select name="rlab[]" multiple id="rlab" style="width:250px">
-                <option ></option>
+            <!-- <textarea cols="73" rows="1" name="EKS_BAWAH">{$lab_edit} </textarea> -->
+            <td><select name="rlab[]" multiple style="width:250px" class="select2">
+ 
+                {foreach from=$rs_labb item=lab}
+                {if $data.lab}
+                <option value="{$data.lab}"  selected>{$data.lab}</option>
+                {/if}
+                <option value="{$lab.JENIS}">{$lab.JENIS}</option>
+                {/foreach}
                 </select></td>
             <td>Radiologi</td>
             <td>   <select name="rrad[]" multiple id="rrad" style="width:200px">
@@ -344,6 +352,7 @@
             <tr>
                 <td colspan="2">
                     <textarea cols="80" rows="1" name="RENCANA">{$data.RENCANA}</textarea>
+                    
                  </td>
                  <td colspan="2">
                     <textarea cols="80" rows="1" name="DIET">{$data.DIET} </textarea>
@@ -419,6 +428,11 @@
                             </select> 
                             <br>Uraian Konsul (Tanggal, Jam, Instruksi) <br> 
                             <textarea rows="2" class="form-control"  cols="60" name="KONSUL2"> {$data.KONSUL3}</textarea> <br><br>
+                      
+                            <!-- <input type="checkbox" name="KRITERIA_DISCHARGE[]" value="Umur>65" {if in_array('ALBUMIN/ALP ', $lab_edit)}checked="checked"{/if}>Umur>65<br> -->
+                            <!-- <input type="checkbox" name="KRITERIA_DISCHARGE[]" value="Terbatas Mobilitas" {if in_array('Terbatas Mobilitas', $lab_edit)}checked="checked"{/if}>Terbatas Mobilitas<br> -->
+           
+                           
                             
    
                 
@@ -482,38 +496,106 @@
         </table>
     </form>
 </div>
-
- 
-
-<script type="text/javascript"> 
-// 
-    var user = $("#user").val(); 
-           
-            $("#namaobat").select2({});
-    
-     
-//rencana lab
-           $('#rlab').select2('data', null);
-            $('#rlab').select2('data', null);
-            $("#rlab").removeAttr("disabled");
-            jQuery("#rlab").html('');
-            $.ajax({
-            type: "POST",
+<!-- <script type="text/javascript">
+    $(document).ready(function() {
+        // chain select
+        // tembusan
+        var user = $("#user").val();
+        $('#rlab').select2('data', null);
+        if (user == '') {
+            $("#rlab").attr("disabled", "disabled");
+        } else {
+//            $('#rlab').select2('data', null);
+                $("#rlab").removeAttr("disabled");
+                jQuery("#rlab").html('');
+                $.ajax({
+                    type: "POST",
                     url: "{$config->site_url('medis/rawat_jalan/list_pemeriksaan_rlab/')}",
                     data: "user=" + user,
                     dataType: 'json',
                     success: function(data) {
-                    var showData;
-                            jQuery.each(data, function(index, result) {
+                        var showData;
+                        jQuery.each(data, function(index, result) {
                             if (result.value == 0) {
                             } else {
-                            showData += "<option value='" + result.value + "'>" + result.label + "</option>";
+                                showData += "<option value='" + result.value + "'>" + result.label + "</option>";
                             }
-                            })
-                            jQuery("#rlab").html(showData);
-                    }
+                        })
+                        jQuery("#rlab").html(showData);
+                        $('#rlab').select2('val', [{$rs_lab}]);
+                }
             });
-             $("#rlab").select2({});
+        }
+        $("#user").change(function() {
+            user = $(this).val();
+            //get icao code by airlines_id
+//            $.ajax({
+//                type: "POST",
+//                url: "{$config->site_url('angud/ijin_rute/get_airlines_by_id/')}",
+//                data: "user=" + user,
+//                dataType: 'json',
+//                success: function(data) {
+//
+//                    $('input[name="airlines_icao_cd"]').val(user);
+//                }
+//            });
+            $('#rlab').select2('data', null);
+            if (user == '') {
+                $("#rlab").attr("disabled", "disabled");
+            } else {
+                $("#rlab").removeAttr("disabled");
+                jQuery("#rlab").html('');
+                $.ajax({
+                    type: "POST",
+                    url: "{$config->site_url('medis/rawat_jalan/list_pemeriksaan_rlab/')}",
+                    data: "user=" + user,
+                    dataType: 'json',
+                    success: function(data) {
+                        var showData;
+                        jQuery.each(data, function(index, result) {
+                            if (result.value == 0) {
+                            } else {
+                                showData += "<option value='" + result.value + "'>" + result.label + "</option>";
+                            }
+                        })
+                        jQuery("#rlab").html(showData);
+                    }
+                });
+            }
+        });
+        //tags
+        $("#rlab").select2({});
+    });
+</script> -->
+<script type="text/javascript"> 
+// 
+    var user = $("#user").val(); 
+           
+//             $("#namaobat").select2({});
+// //rencana lab
+//            $('#rlab').select2('data', null);
+//             $('#rlab').select2('data', null);
+//             $("#rlab").removeAttr("disabled");
+//             jQuery("#rlab").html('');
+//             $.ajax({
+//             type: "POST",
+//                     url: "{$config->site_url('medis/rawat_jalan/list_pemeriksaan_rlab/')}",
+//                     data: "user=" + user,
+//                     dataType: 'json',
+//                     success: function(data) {
+//                     var showData;
+//                             jQuery.each(data, function(index, result) {
+//                             if (result.value == 0) {
+//                             } else {
+//                                 console.log(result)
+//                             showData += "<option value='" + result.value + "'>" + result.label + "</option>";
+//                             }
+//                             })
+//                             jQuery("#rlab").html(showData);
+                            
+//                     }
+//             });
+//              $("#rlab").select2();
 
 
 

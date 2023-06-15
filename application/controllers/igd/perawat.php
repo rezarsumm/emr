@@ -234,7 +234,7 @@ class Perawat extends ApplicationBase {
            date('Y-m-d H:i:s'), 
         );
       
-        echo 'ok';
+     
         $this->m_rawat_jalan->insert_alergi($params5); 
 
         
@@ -1017,6 +1017,36 @@ class Perawat extends ApplicationBase {
                 $kd=$kd.', '.$value;
             }
         }
+
+        // $FS_KD_JATUH2 = $this->m_ass_jatuh->get_last_inserted_id();
+        $params_ases_jatuh = array(
+           
+            $this->input->post('FS_KD_JATUH2'),
+            $this->input->post('FS_PARAM_1'),
+            $this->input->post('FS_PARAM_2'),
+            $this->input->post('FS_PARAM_3'),
+            $this->input->post('FS_PARAM_4'),
+            $this->input->post('FS_PARAM_5'),
+            $this->input->post('FS_PARAM_6'),
+            $this->input->post('FS_PARAM_7'),
+            $this->input->post('FS_PARAM_8'),
+            $this->input->post('FS_PARAM_9'),
+            $this->input->post('FS_PARAM_10'),
+            $this->input->post('FS_PARAM_11'),
+            $this->input->post('FS_PARAM_12'),
+            $this->input->post('FS_PARAM_13'),
+            $this->input->post('FS_PARAM_14'),
+            $this->input->post('FS_PARAM_15'),
+            $this->input->post('FS_PARAM_16'),
+            $this->input->post('FS_PARAM_17'),
+            $this->com_user['user_id'],
+            date('Y-m-d'),
+            $this->input->post('FS_KD_TRS')
+            
+            
+        );
+        // $this->m_ass_jatuh->DELETE_ASES_JATUH_MEDIS_IGD($this->input->post('FS_KD_TRS'));
+        $this->m_ass_jatuh->update_insert2($params_ases_jatuh);
 
 
         $params1 = array(

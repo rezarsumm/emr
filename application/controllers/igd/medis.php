@@ -117,6 +117,10 @@ class Medis extends ApplicationBase {
 
         $this->smarty->assign("rs_pasien", $this->m_igd->get_pasien_by_rg_ugd(array($FS_RG)));
         $this->smarty->assign("rs_triase", $this->m_igd->get_data_triase_by_noreg(array($FS_RG)));           
+        $this->smarty->assign("rs_lab", $this->m_igd->list_pemeriksaan_lab()); 
+        
+        // var_dump($this->m_igd->list_pemeriksaan_lab());
+        // die;
 
 
         $this->smarty->assign("role_id", $this->com_user['role_id']);
@@ -174,6 +178,29 @@ class Medis extends ApplicationBase {
       
 
         $this->smarty->assign("ases2", $this->m_rawat_jalan->get_data_ases2_by_rg(array($FS_RG)));
+        // $this->smarty->assign("get_lab", $this->m_rawat_jalan->get_lab(array($FS_RG)));
+        $this->smarty->assign("rs_labb", $this->m_igd->list_pemeriksaan_lab()); 
+
+        $get_edit_lab = $this->m_igd->get_lab_edit(array($FS_RG));
+
+        // Memecah string menjadi array
+        $data = array();
+        $string = $get_edit_lab['lab'];
+        $string = trim($string, ','); // Menghapus koma di awal dan akhir string (jika ada)
+
+        if (!empty($string)) {
+            $data = explode(' ,', $string);
+        }
+        // $klab=$data;
+
+        // var_dump($data);
+        // die;
+        // Assign array ke Smarty
+        $this->smarty->assign("lab_edit", $data);
+        
+
+        // var_dump($this->m_igd->list_pemeriksaan_lab());
+        // die;
 
 
         $FS_KD_REG=$FS_RG;
@@ -191,6 +218,30 @@ class Medis extends ApplicationBase {
         }
         $this->smarty->assign('rs_tembusan', $tembusan_str);
 
+        $laboratorium = $this->m_rawat_jalan->list_pemeriksaan_lab_by_medis_igd(array($FS_KD_REG));
+    
+
+        $data = array();
+        $string = $laboratorium['lab'];
+
+        // $kalimat = implode(",",$string);
+   
+        $data = explode(', ', $string);
+        
+        if (!empty($string)) {
+            $data = explode(', ', $string);
+        }
+        // var_dump($data);
+        // die;
+
+        $this->smarty->assign('rs_lab', $data);
+   
+      
+        // $laboratorium_Str = "";
+        // foreach ($laboratorium as $key => $value) { 
+        //     $laboratorium_Str .= "'" . $value['lab'] . "',";
+        // }
+  
           //edukasi
           $edukasi = $this->m_ass_awal->list_edukasi_by_rg($FS_RG);
           $edukasi_str = "";
@@ -239,7 +290,7 @@ class Medis extends ApplicationBase {
             $klab='';
             if (!empty($lab)) {
                 foreach ($lab as $value) {
-                $klab=$klab.', '.$value;
+                $klab=$klab.$value.',';
                 }
               }
 
@@ -248,7 +299,7 @@ class Medis extends ApplicationBase {
             $tembusan='';
             if (!empty($rad)) {
                 foreach ($rad as $value) {
-                    $tembusan=$tembusan.', '.$value;
+                    $tembusan=$tembusan.$value.',';
                 }
 
             }

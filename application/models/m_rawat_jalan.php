@@ -2607,6 +2607,33 @@ class m_rawat_jalan extends CI_Model {
             return array();
         }
     }
+
+    function get_lab($params) {
+        $sql = "select lab from PKU.dbo.IGD_AWAL_MEDIS where FS_KD_REG=?";
+        $query = $this->db->query($sql, $params);
+        if ($query->num_rows() > 0) {
+            $result = $query->result_array();
+            return $result;
+        } else {
+            return array();
+        }
+    }
+
+    function list_pemeriksaan_lab_by_medis_igd($params)
+    {
+        $sql = "SELECT lab
+        FROM PKU.dbo.IGD_AWAL_MEDIS
+        WHERE FS_KD_REG = ?";
+        $query = $this->db->query($sql, $params);
+        if ($query->num_rows() > 0) {
+            $result = $query->row_array();
+            $query->free_result();
+            return $result;
+        } else {
+            return 0;
+        }
+    }
+
     
     function list_pemeriksaan_rad_by_rg($params) {
         $sql = "SELECT  * FROM 

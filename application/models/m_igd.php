@@ -23,6 +23,20 @@ class m_igd extends CI_Model {
         }
     }
 
+    function list_pemeriksaan_lab($params) {
+        $sql = "SELECT id,No_Kelompok, No_Jenis,JENIS
+        FROM DB_RSMM.dbo.LAB_JENISPERIKSA  
+        ORDER BY JENIS";
+        $query = $this->db->query($sql, $params);
+        if ($query->num_rows() > 0) {
+            $result = $query->result_array();
+            $query->free_result();
+            return $result;
+        } else {
+            return array();
+        }
+    }
+
 
 
     function get_px_tb($params) {
@@ -1723,6 +1737,20 @@ function get_data_medis_by_rg2($params) {
     {
         $sql = "SELECT KRITERIA_DISCHARGE
         FROM PKU.dbo.IGD_AWAL_BIDAN
+        WHERE FS_KD_REG = ?";
+        $query = $this->db->query($sql, $params);
+        if ($query->num_rows() > 0) {
+            $result = $query->row_array();
+            $query->free_result();
+            return $result;
+        } else {
+            return 0;
+        }
+    }
+    function get_lab_edit($params)
+    {
+        $sql = "SELECT lab
+        FROM PKU.dbo.IGD_AWAL_MEDIS
         WHERE FS_KD_REG = ?";
         $query = $this->db->query($sql, $params);
         if ($query->num_rows() > 0) {

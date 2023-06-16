@@ -306,29 +306,40 @@
             <th colspan="4">  Pemeriksaan Penunjang  </th>
         </tr>
         <tr>
+   
+        </tr>
+        <tr>
             <td>Laboratorium</td>
+  
             <td><select name="rlab[]" multiple style="width:250px" class="select2">
- 
+                <!-- {if $data.KD_DOKTER_KONSUL eq $gata.NAMAUSER}
+                <option value="{$gata.NAMAUSER}" selected>{$gata.NAMALENGKAP}</option>
+                {else}
+                <option value="{$gata.NAMAUSER}">{$gata.NAMALENGKAP}</option>
+                {/if} -->
 
 
                 {foreach from=$rs_labb item=lab}
-                    {assign var=selected  value=false}
-                    {foreach from=$datas item=data2}
-                    {if $lab.JENIS  eq $data2} 
-                    {assign var=selected value=true} 
+                    {$selected eq false}
+                    {foreach from=$lab_edit item=datas}
+                  
+                    {if $lab.JENIS eq $datas} 
+                    {$selected eq true} 
                     {break}
                     {/if}
-
+                    
                     {/foreach}
-
-        <option value="{$lab.JENIS}" {if $selected}selected{/if}>{$lab.JENIS}</option>
-
-                {/foreach}
-
-           
-                <!-- {foreach from=$rs_labb item=lab}
-                <option value="{$lab.JENIS}">{$lab.JENIS}</option>
-                {/foreach} -->
+                    
+                    <option value="{$lab.JENIS}" {if $selected}selected{/if}>{$lab.JENIS}</option>
+                    {/foreach}
+          
+                    <!-- {foreach from=$lab_edit item=jenis_lab}
+                    <textarea cols="73" rows="1" name="EKS_BAWAH">{$jenis_lab} </textarea>
+                    {/foreach}
+                     -->
+                    <!-- {foreach from=$rs_labb item=lab}
+                    
+                     {/foreach} -->
                 </select></td>
             <td>Radiologi</td>
 
@@ -427,7 +438,7 @@
                  <select name="KD_DOKTER_KONSUL2" id="surat_dari" class="select2" style="width: 300px;">
                     <option value="">tidak pilih</option>
                     {foreach from=$rs_dokter_sp item=gata}
-                    {if $data.KD_DOKTER_KONSUL eq $gata.NAMAUSER}
+                    {if $data.KD_DOKTER_KONSUL2 eq $gata.NAMAUSER}
                     <option value="{$gata.NAMAUSER}" selected>{$gata.NAMALENGKAP}</option>
                     {else}
                     <option value="{$gata.NAMAUSER}">{$gata.NAMALENGKAP}</option>
@@ -441,7 +452,7 @@
                  <select name="KD_DOKTER_KONSUL3" id="surat_dari" class="select2" style="width: 300px;">
                     <option value="">tidak pilih</option>
                     {foreach from=$rs_dokter_sp item=gata}
-                    {if $data.KD_DOKTER_KONSUL eq $gata.NAMAUSER}
+                    {if $data.KD_DOKTER_KONSUL3 eq $gata.NAMAUSER}
                     <option value="{$gata.NAMAUSER}" selected>{$gata.NAMALENGKAP}</option>
                     {else}
                     <option value="{$gata.NAMAUSER}">{$gata.NAMALENGKAP}</option>

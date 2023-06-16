@@ -190,13 +190,17 @@ class Medis extends ApplicationBase {
         // $string = trim($string, ','); // Menghapus koma di awal dan akhir string (jika ada)
         // var_dump($string);
         // die;
-        $datas = '';
+        $datas[] = '';
         if (!empty($string)) {
             $datas = explode(',' , $string);
+
+
             
             // $dataArray = array();
             // foreach($datas as $data){
-            //     $dataArray = $data;
+            //     $dataArray = [
+            //         'jenis' => $data
+            //     ];
             // }
         }
         // var_dump($datas);
@@ -296,7 +300,7 @@ class Medis extends ApplicationBase {
 
 
             $lab = $this->input->post('rlab');
-            $klab='';
+            // $klab='';
             if (!empty($lab)) {
                 foreach ($lab as $value) {
                 $klab=$klab.$value.',';
@@ -305,7 +309,7 @@ class Medis extends ApplicationBase {
 
 
             $rad = $this->input->post('rrad');
-            $tembusan='';
+            // $tembusan='';
             if (!empty($rad)) {
                 foreach ($rad as $value) {
                     $tembusan=$tembusan.$value.',';

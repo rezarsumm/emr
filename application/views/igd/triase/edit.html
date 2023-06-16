@@ -98,9 +98,9 @@
                     <input type="radio" name="ALASAN_DATANG"  {if $rs_triase.ALASAN_DATANG eq 'Sendiri'} checked {/if}  value="Sendiri" class="radal" /> Datang Sendiri
                     <input type="radio" name="ALASAN_DATANG" {if $rs_triase.ALASAN_DATANG eq 'Polisi'} checked {/if}   value="Polisi" class="radal" /> Polisi
                     <input type="radio" name="ALASAN_DATANG" {if $rs_triase.ALASAN_DATANG eq 'Rujukan'} checked {/if}  value="Rujukan"  class="radal"/> Rujukan
-                        <input type="text" name="rujukan_dari"  id="formal" style="display:none ;"> 
+                        <input type="text" name="rujukan_dari"  id="formal" {if $rs_triase.ALASAN_DATANG eq 'Rujukan'} style="display: show;" {/if} style="display:none ;" value="{$rs_triase.rujukan_dari}"> 
                     <input type="radio" name="ALASAN_DATANG" {if $rs_triase.ALASAN_DATANG eq 'Dijemput'} checked {/if}  value="Dijemput" class="radal" /> Dijemput 
-                        <input type="text" name="dijemput" id="formal2" style="display:none ;"> 
+                        <input type="text" name="dijemput" id="formal2" {if $rs_triase.ALASAN_DATANG eq 'Dijemput'} style="display: show;" {/if} style="display:none ;" value="{$rs_triase.dijemput}"> 
 
                     </td>
              </tr>
@@ -138,14 +138,14 @@
                   <tr>
                      <td colspan="4"> 
                         <input type="radio" name="JENIS_TRAUMA"  value="1" {if $rs_triase.JENIS_TRAUMA eq '1'} checked {/if}  class="radt" /> Kll Tunggal 
-                          <div id="formtunggal" style="display: none;">
+                          <div id="formtunggal" $rs_triase.JENIS_TRAUMA eq '1' style="display: none;">
                           <input type="text" name="TEMPAT_KEJADIAN" placeholder="tempat kejadian" value="{$rs_triase.TEMPAT_KEJADIAN}"  > 
                           <input type="date" name="TGL_KEJADIAN"  value="{date('Y-m-d', strtotime($rs_triase.TGL_KEJADIAN))}"> 
                           <input type="time" name="JAM_KEJADIAN"  value="{date('H:i', strtotime($rs_triase.JAM_KEJADIAN))}"> 
                         </div>
                         <br>
                          <input type="radio" name="JENIS_TRAUMA"  value="2" {if $rs_triase.JENIS_TRAUMA eq '2'} checked {/if}  class="radt"/> Kll Ganda 
-                         <div id="formtunggal1" style="display: none;">
+                         <div id="formtunggal1" {if $rs_triase.JENIS_TRAUMA eq '2'} style="display: show;" {/if} style="display: none;">
                             <input type="text" name="URAIAN_TRAUMA" value="{$rs_triase.URAIAN_TRAUMA}"  > 
                             <input type="text" name="TEMPAT_KEJADIAN" placeholder="tempat kejadian"  value="{$rs_triase.TEMPAT_KEJADIAN}"  > 
                             <input type="date" name="TGL_KEJADIAN" value="{date('Y-m-d', strtotime($rs_triase.TGL_KEJADIAN))}" > 
@@ -153,21 +153,21 @@
                             </div>
                          <br>
                         <input type="radio" name="JENIS_TRAUMA"  value="3"  {if $rs_triase.JENIS_TRAUMA eq '3'} checked {/if} class="radt"/> Jatuh dari ketinggian 
-                            <input type="text" name="URAIAN_TRAUMA" id="formj" value="{$rs_triase.URAIAN_TRAUMA}"  style="display: none;"  > 
+                            <input type="text" name="URAIAN_TRAUMA" id="formj" {if $rs_triase.JENIS_TRAUMA eq '3'} style="display: show;" {/if} value="{$rs_triase.URAIAN_TRAUMA}"  style="display: none;"  > 
                             <br>
 
                             <input type="radio" name="JENIS_TRAUMA"  value="7" {if $rs_triase.JENIS_TRAUMA eq '7'} checked {/if}  class="radt"/> Luka Bakar
-                            <input type="text" name="URAIAN_TRAUMA" id="formlb" value="{$rs_triase.URAIAN_TRAUMA}"  style="display: none;"  > 
+                            <input type="text" name="URAIAN_TRAUMA" id="formlb" {if $rs_triase.JENIS_TRAUMA eq '7'} style="display: show;" {/if} value="{$rs_triase.URAIAN_TRAUMA}"  style="display: none;"  > 
                             <br>
 
                         <input type="radio" name="JENIS_TRAUMA"  value="4" {if $rs_triase.JENIS_TRAUMA eq '4'} checked {/if} class="radt"/> Trauma Listrik
-                            <input type="text" name="URAIAN_TRAUMA" id="formlis" value="{$rs_triase.URAIAN_TRAUMA}"  style="display: none;"  > 
+                            <input type="text" name="URAIAN_TRAUMA" id="formlis" {if $rs_triase.JENIS_TRAUMA eq '4'} style="display: show;" {/if} value="{$rs_triase.URAIAN_TRAUMA}"  style="display: none;"  > 
                             <br>
                         <input type="radio" name="JENIS_TRAUMA"  value="5" {if $rs_triase.JENIS_TRAUMA eq '5'} checked {/if} class="radt"/> Trauma Zat Kimia 
-                            <input type="text" name="URAIAN_TRAUMA" id="formz" value="{$rs_triase.URAIAN_TRAUMA}"  style="display: none;"  > 
+                            <input type="text" name="URAIAN_TRAUMA" id="formz" {if $rs_triase.JENIS_TRAUMA eq '5'} style="display: show;" {/if} value="{$rs_triase.URAIAN_TRAUMA}"  style="display: none;"  > 
                            <br>
                         <input type="radio" name="JENIS_TRAUMA"  value="6" {if $rs_triase.JENIS_TRAUMA eq '6'} checked {/if} class="radt" /> Lainnya 
-                            <input type="text" name="URAIAN_TRAUMA" id="formlain" value="{$rs_triase.URAIAN_TRAUMA}"  style="display: none;"  > 
+                            <input type="text" name="URAIAN_TRAUMA" id="formlain" {if $rs_triase.JENIS_TRAUMA eq '6'} style="display: show;" {/if} value="{$rs_triase.URAIAN_TRAUMA}"  style="display: none;"  > 
 
                       
                          
@@ -210,15 +210,15 @@
             <tr>
                 <td>Kesadaran</td>
                 <td colspan="3">
-                    <input type="radio" name="KESADARAN" class="SADAR" value="Sadar">Sadar Penuh
-                    <input type="radio" name="KESADARAN" class="SADAR" value="Suara">Respon Suara
-                    <input type="radio" name="KESADARAN" class="SADAR" value="Nyeri">Respon Nyeri
-                    <input type="radio" name="KESADARAN" class="SADAR" value="Tidak">Tida Ada respon
+                    <input type="radio"  name="KESADARAN" class="SADAR" value="Sadar" {if $rs_triase.KESADARAN eq 'Sadar'} checked {/if}>Sadar Penuh
+                    <input type="radio"  name="KESADARAN" class="SADAR" value="Suara" {if $rs_triase.KESADARAN eq 'Suara'} checked {/if}>Respon Suara
+                    <input type="radio"  name="KESADARAN" class="SADAR" value="Nyeri"{if $rs_triase.KESADARAN eq 'Nyeri'} checked {/if}>Respon Nyeri
+                    <input type="radio"  name="KESADARAN" class="SADAR" value="Tidak" {if $rs_triase.KESADARAN eq 'Tidak'} checked {/if}>Tida Ada respon
                 </td>
             </tr>
             <tr>
                 <td>Tekanan Darah</td>
-                <td colspan="3"><input type="text" required name="TD" class="TD" size="10" />  
+                <td colspan="3"><input type="text" required name="TD" class="TD" value="{$rs_triase.TD}" size="10" />  
                       R <input type="text" name="R" required size="10" class="R" value="{$rs_triase.R}"/>
                                 Satuarasi O2 <input type="text" required class="O2" name="O2" value="{$rs_triase.O2}" size="10" /></td>
             </tr>

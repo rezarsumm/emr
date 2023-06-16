@@ -305,51 +305,34 @@
             
             <th colspan="4">  Pemeriksaan Penunjang  </th>
         </tr>
-        <tr>
-   
-        </tr>
+
         <tr>
             <td>Laboratorium</td>
   
             <td><select name="rlab[]" multiple style="width:250px" class="select2">
-                <!-- {if $data.KD_DOKTER_KONSUL eq $gata.NAMAUSER}
-                <option value="{$gata.NAMAUSER}" selected>{$gata.NAMALENGKAP}</option>
-                {else}
-                <option value="{$gata.NAMAUSER}">{$gata.NAMALENGKAP}</option>
-                {/if} -->
 
-
+                {foreach from=$lab_edit item=lab}
+                {if $data.lab}
+                <option value="{$lab}" selected>{$lab}</option>
+                
+                {/if}
+                {/foreach}
                 {foreach from=$rs_labb item=lab}
-                    {$selected eq false}
-                    {foreach from=$lab_edit item=datas}
-                  
-                    {if $lab.JENIS eq $datas} 
-                    {$selected eq true} 
-                    {break}
-                    {/if}
-                    
-                    {/foreach}
-                    
-                    <option value="{$lab.JENIS}" {if $selected}selected{/if}>{$lab.JENIS}</option>
-                    {/foreach}
-          
-                    <!-- {foreach from=$lab_edit item=jenis_lab}
-                    <textarea cols="73" rows="1" name="EKS_BAWAH">{$jenis_lab} </textarea>
-                    {/foreach}
-                     -->
-                    <!-- {foreach from=$rs_labb item=lab}
-                    
-                     {/foreach} -->
+                <option value="{$lab.JENIS}">{$lab.JENIS}</option>
+                {/foreach}
+
                 </select></td>
             <td>Radiologi</td>
 
             <td>   <select name="rrad[]" multiple  style="width:200px"  class="select2">
                 
-           
-                {foreach from=$rs_rad_igd item=rad}
-                {if $data.lab}
-                <option value="{$data.rad}"  selected>{$data.rad}</option>
+                {foreach from=$rad_edit item=rad}
+                {if $data.rad}
+                <option value="{$rad}" selected>{$rad}</option>
+                
                 {/if}
+                {/foreach}
+                {foreach from=$rs_rad_igd item=rad}
                 <option value="{$rad.KET_TINDAKAN}">{$rad.KET_TINDAKAN}</option>
                 {/foreach}
             </select></td>

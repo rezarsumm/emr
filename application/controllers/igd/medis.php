@@ -183,38 +183,39 @@ class Medis extends ApplicationBase {
         $this->smarty->assign("rs_labb", $this->m_igd->list_pemeriksaan_lab()); 
         $this->smarty->assign("rs_rad_igd", $this->m_igd->list_pemeriksaan_rad_igd()); 
         $get_edit_lab = $this->m_igd->get_lab_edit(array($FS_RG));
+        $get_rad_edit = $this->m_igd->get_rad_edit(array($FS_RG));
+   
 
+       
         // Memecah string menjadi array
         $data = array();
         $string = $get_edit_lab['lab'];
-        // $string = trim($string, ','); // Menghapus koma di awal dan akhir string (jika ada)
-        // var_dump($string);
-        // die;
-        $datas[] = '';
+        $string = trim($string, ',');
+
         if (!empty($string)) {
-            $datas = explode(',' , $string);
+            $datas = explode(',' , $string);    
 
-
-            
-            // $dataArray = array();
-            // foreach($datas as $data){
-            //     $dataArray = [
-            //         'jenis' => $data
-            //     ];
-            // }
         }
-        // var_dump($datas);
-        //   die;
-        // $klab=$data;
-
-      
-        // Assign array ke Smarty
+       
         $this->smarty->assign("lab_edit", $datas);
-        
 
-        // var_dump($this->m_igd->list_pemeriksaan_lab());
+        //radiologi
+        // $data = array();
+        $string_rad = $get_rad_edit['rad'];
+        $string_rad = trim($string_rad,',');
+
+        if (!empty($string_rad)) {
+            $data_rad = explode(',',$string_rad);    
+
+        }
+        // var_dump($data_rad);
         // die;
 
+
+       
+       
+        $this->smarty->assign("rad_edit", $data_rad);
+        
 
         $FS_KD_REG=$FS_RG;
         $tujuan = $this->m_rawat_jalan->list_masalah_kep_by_rg($FS_KD_REG);
@@ -303,7 +304,7 @@ class Medis extends ApplicationBase {
             // $klab='';
             if (!empty($lab)) {
                 foreach ($lab as $value) {
-                $klab=$klab.$value.',';
+                    $klab=$klab.', '.$value;
                 }
               }
 
@@ -312,7 +313,7 @@ class Medis extends ApplicationBase {
             // $tembusan='';
             if (!empty($rad)) {
                 foreach ($rad as $value) {
-                    $tembusan=$tembusan.$value.',';
+                    $tembusan=$tembusan.', '.$value;
                 }
 
             }

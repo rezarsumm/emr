@@ -1774,6 +1774,22 @@ function get_data_medis_by_rg2($params) {
             return 0;
         }
     }
+
+    function get_rad_edit($params)
+    {
+        $sql = "SELECT rad
+        FROM PKU.dbo.IGD_AWAL_MEDIS
+        WHERE FS_KD_REG = ?";
+        $query = $this->db->query($sql, $params);
+        if ($query->num_rows() > 0) {
+            $result = $query->row_array();
+            $query->free_result();
+            return $result;
+        } else {
+            return 0;
+        }
+    }
+
     function getKriteriaDischargeAssesmenPerawat($params)
     {
         $sql = "SELECT KRITERIA_DISCHARGE

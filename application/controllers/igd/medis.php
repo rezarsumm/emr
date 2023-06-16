@@ -118,6 +118,7 @@ class Medis extends ApplicationBase {
         $this->smarty->assign("rs_pasien", $this->m_igd->get_pasien_by_rg_ugd(array($FS_RG)));
         $this->smarty->assign("rs_triase", $this->m_igd->get_data_triase_by_noreg(array($FS_RG)));           
         $this->smarty->assign("rs_lab", $this->m_igd->list_pemeriksaan_lab()); 
+        $this->smarty->assign("rs_rad_igd", $this->m_igd->list_pemeriksaan_rad_igd()); 
         
         // var_dump($this->m_igd->list_pemeriksaan_lab());
         // die;
@@ -180,23 +181,31 @@ class Medis extends ApplicationBase {
         $this->smarty->assign("ases2", $this->m_rawat_jalan->get_data_ases2_by_rg(array($FS_RG)));
         // $this->smarty->assign("get_lab", $this->m_rawat_jalan->get_lab(array($FS_RG)));
         $this->smarty->assign("rs_labb", $this->m_igd->list_pemeriksaan_lab()); 
-
+        $this->smarty->assign("rs_rad_igd", $this->m_igd->list_pemeriksaan_rad_igd()); 
         $get_edit_lab = $this->m_igd->get_lab_edit(array($FS_RG));
 
         // Memecah string menjadi array
         $data = array();
         $string = $get_edit_lab['lab'];
-        $string = trim($string, ','); // Menghapus koma di awal dan akhir string (jika ada)
-
+        // $string = trim($string, ','); // Menghapus koma di awal dan akhir string (jika ada)
+        // var_dump($string);
+        // die;
+        $datas = '';
         if (!empty($string)) {
-            $data = explode(' ,', $string);
+            $datas = explode(',' , $string);
+            
+            // $dataArray = array();
+            // foreach($datas as $data){
+            //     $dataArray = $data;
+            // }
         }
+        // var_dump($datas);
+        //   die;
         // $klab=$data;
 
-        // var_dump($data);
-        // die;
+      
         // Assign array ke Smarty
-        $this->smarty->assign("lab_edit", $data);
+        $this->smarty->assign("lab_edit", $datas);
         
 
         // var_dump($this->m_igd->list_pemeriksaan_lab());
@@ -376,8 +385,8 @@ class Medis extends ApplicationBase {
                     date('Y-m-d H:i:s'),
                     $this->input->post('KONSUL2'),
                     $this->input->post('KD_DOKTER_KONSUL2'),
-                    $this->input->post('KONSUL2'),
-                    $this->input->post('KD_DOKTER_KONSUL2'),
+                    $this->input->post('KONSUL3'),
+                    $this->input->post('KD_DOKTER_KONSUL3'),
                     $this->input->post('REKOMENDASI_RUJUK'),
                     $this->input->post('REKOMENDASI_POLI')
                     
@@ -703,8 +712,8 @@ class Medis extends ApplicationBase {
                 date('Y-m-d H:i:s'), 
                 $this->input->post('KONSUL2'),
                 $this->input->post('KD_DOKTER_KONSUL2'),
-                $this->input->post('KONSUL2'),
-                $this->input->post('KD_DOKTER_KONSUL2'),
+                $this->input->post('KONSUL3'),
+                $this->input->post('KD_DOKTER_KONSUL3'),
                 $this->input->post('REKOMENDASI_RUJUK'),
                 $this->input->post('REKOMENDASI_POLI')
                 

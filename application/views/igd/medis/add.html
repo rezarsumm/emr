@@ -334,8 +334,11 @@
                 {/foreach}
                 </select></td>
             <td>Radiologi</td>
-            <td>   <select name="rrad[]" multiple id="rrad" style="width:200px">
-                <option></option>
+            <td>   <select name="rrad[]" multiple style="width:200px" class="select2">
+                <option value=""></option>
+                {foreach from=$rs_rad_igd item=rad}
+                <option value="{$rad.KET_TINDAKAN}">{$rad.KET_TINDAKAN}</option>
+                {/foreach}
             </select></td>
         </tr>
     
@@ -411,7 +414,7 @@
                     
                       DPJP UTAMA
                       <select name="KD_DOKTER_KONSUL" id="surat_dari" class="select2" style="width: 300px;">
-                                      <option value=""></option>
+                                      <option value="">tidak pilih</option>
                                       {foreach from=$rs_dokter_sp item=data}
                                       <option value="{$data.NAMAUSER}">{$data.NAMALENGKAP}</option>
                                       {/foreach}
@@ -421,7 +424,7 @@
                                    <br><br>
                        DPJP 1
                       <select name="KD_DOKTER_KONSUL2" id="surat_dari" class="select2" style="width: 300px;">
-                                      <option value=""></option>
+                                      <option value="">tidak pilih</option>
                                       {foreach from=$rs_dokter_sp item=data}
                                       <option value="{$data.NAMAUSER}">{$data.NAMALENGKAP}</option>
                                       {/foreach}
@@ -430,7 +433,7 @@
                                   <textarea rows="2" class="form-control"  cols="60" name="KONSUL2"> </textarea><br><br>
                        DPJP 2
                       <select name="KD_DOKTER_KONSUL3" id="surat_dari" class="select2" style="width: 300px;">
-                                      <option value=""></option>
+                                      <option value="">tidak</option>
                                       {foreach from=$rs_dokter_sp item=data}
                                       <option value="{$data.NAMAUSER}">{$data.NAMALENGKAP}</option>
                                       {/foreach}

@@ -307,19 +307,40 @@
         </tr>
         <tr>
             <td>Laboratorium</td>
-            <!-- <textarea cols="73" rows="1" name="EKS_BAWAH">{$lab_edit} </textarea> -->
             <td><select name="rlab[]" multiple style="width:250px" class="select2">
  
+
+
                 {foreach from=$rs_labb item=lab}
-                {if $data.lab}
-                <option value="{$data.lab}"  selected>{$data.lab}</option>
-                {/if}
-                <option value="{$lab.JENIS}">{$lab.JENIS}</option>
+                    {assign var=selected  value=false}
+                    {foreach from=$datas item=data2}
+                    {if $lab.JENIS  eq $data2} 
+                    {assign var=selected value=true} 
+                    {break}
+                    {/if}
+
+                    {/foreach}
+
+        <option value="{$lab.JENIS}" {if $selected}selected{/if}>{$lab.JENIS}</option>
+
                 {/foreach}
+
+           
+                <!-- {foreach from=$rs_labb item=lab}
+                <option value="{$lab.JENIS}">{$lab.JENIS}</option>
+                {/foreach} -->
                 </select></td>
             <td>Radiologi</td>
-            <td>   <select name="rrad[]" multiple id="rrad" style="width:200px">
-                <option></option>
+
+            <td>   <select name="rrad[]" multiple  style="width:200px"  class="select2">
+                
+           
+                {foreach from=$rs_rad_igd item=rad}
+                {if $data.lab}
+                <option value="{$data.rad}"  selected>{$data.rad}</option>
+                {/if}
+                <option value="{$rad.KET_TINDAKAN}">{$rad.KET_TINDAKAN}</option>
+                {/foreach}
             </select></td>
         </tr>
     
@@ -390,7 +411,7 @@
                <td colspan="2"> Dokter Spesialis
                 DPJP UTAMA
                 <select name="KD_DOKTER_KONSUL" id="surat_dari" class="select2" style="width: 300px;">
-                                <option value=""></option>
+                                <option value="">tidak pilih</option>
                                 {foreach from=$rs_dokter_sp item=gata}
                                 {if $data.KD_DOKTER_KONSUL eq $gata.NAMAUSER}
                                 <option value="{$gata.NAMAUSER}" selected>{$gata.NAMALENGKAP}</option>
@@ -403,31 +424,33 @@
                             <textarea rows="2" class="form-control"  cols="60" name="KONSUL"> {$data.KONSUL} </textarea>
                              <br><br>
                  DPJP 1
-                <select name="KD_DOKTER_KONSUL2" id="surat_dari" class="select2" style="width: 300px;">
-                            <option value=""></option>
-                            {foreach from=$rs_dokter_sp item=gata}
-                            {if $data.KD_DOKTER_KONSUL2 eq $gata.NAMAUSER}
-                            <option value="{$gata.NAMAUSER}" selected>{$gata.NAMALENGKAP}</option>
-                            {else}
-                            <option value="{$gata.NAMAUSER}">{$gata.NAMALENGKAP}</option>
-                            {/if}
-                            {/foreach}
-                            </select>
-                             <br>Uraian Konsul (Tanggal, Jam, Instruksi) <br>
-                            <textarea rows="2" class="form-control"  cols="60" name="KONSUL2">  {$data.KONSUL2}</textarea><br><br>
+                 <select name="KD_DOKTER_KONSUL2" id="surat_dari" class="select2" style="width: 300px;">
+                    <option value="">tidak pilih</option>
+                    {foreach from=$rs_dokter_sp item=gata}
+                    {if $data.KD_DOKTER_KONSUL eq $gata.NAMAUSER}
+                    <option value="{$gata.NAMAUSER}" selected>{$gata.NAMALENGKAP}</option>
+                    {else}
+                    <option value="{$gata.NAMAUSER}">{$gata.NAMALENGKAP}</option>
+                    {/if}
+                    {/foreach}
+                </select>
+                <br>Uraian Konsul (Tanggal, Jam, Instruksi) <br>
+                <textarea rows="2" class="form-control"  cols="60" name="KONSUL2"> {$data.KONSUL} </textarea>
+                 <br><br>
                  DPJP 2
-                <select name="KD_DOKTER_KONSUL3" id="surat_dari" class="select2" style="width: 300px;">
-                            <option value=""></option>
-                            {foreach from=$rs_dokter_sp item=gata}
-                            {if $data.KD_DOKTER_KONSUL3 eq $gata.NAMAUSER}
-                            <option value="{$gata.NAMAUSER}" selected>{$gata.NAMALENGKAP}</option>
-                            {else}
-                            <option value="{$gata.NAMAUSER}">{$gata.NAMALENGKAP}</option>
-                            {/if}
-                            {/foreach}
-                            </select> 
-                            <br>Uraian Konsul (Tanggal, Jam, Instruksi) <br> 
-                            <textarea rows="2" class="form-control"  cols="60" name="KONSUL2"> {$data.KONSUL3}</textarea> <br><br>
+                 <select name="KD_DOKTER_KONSUL3" id="surat_dari" class="select2" style="width: 300px;">
+                    <option value="">tidak pilih</option>
+                    {foreach from=$rs_dokter_sp item=gata}
+                    {if $data.KD_DOKTER_KONSUL eq $gata.NAMAUSER}
+                    <option value="{$gata.NAMAUSER}" selected>{$gata.NAMALENGKAP}</option>
+                    {else}
+                    <option value="{$gata.NAMAUSER}">{$gata.NAMALENGKAP}</option>
+                    {/if}
+                    {/foreach}
+                </select>
+                <br>Uraian Konsul (Tanggal, Jam, Instruksi) <br>
+                <textarea rows="2" class="form-control"  cols="60" name="KONSUL3"> {$data.KONSUL} </textarea>
+                 <br><br>
                       
                             <!-- <input type="checkbox" name="KRITERIA_DISCHARGE[]" value="Umur>65" {if in_array('ALBUMIN/ALP ', $lab_edit)}checked="checked"{/if}>Umur>65<br> -->
                             <!-- <input type="checkbox" name="KRITERIA_DISCHARGE[]" value="Terbatas Mobilitas" {if in_array('Terbatas Mobilitas', $lab_edit)}checked="checked"{/if}>Terbatas Mobilitas<br> -->

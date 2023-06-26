@@ -889,6 +889,19 @@ class m_igd extends CI_Model {
         }
     }
 
+    function cek_neonatus($params) {
+        $sql = "SELECT FS_KD_REG FROM PKU.dbo.IGD_AWAL_NEONATUS WHERE FS_KD_REG = ?";
+        $query = $this->db->query($sql, $params);
+        if ($query->num_rows() > 0) {
+            $result = $query->num_rows();
+            return $result;
+        } else {
+            return 0;
+        }
+    }
+
+
+
 
     function cek_bidan($params) {
         $sql = "SELECT FS_KD_REG FROM PKU.dbo.IGD_AWAL_BIDAN WHERE FS_KD_REG = ?";

@@ -113,16 +113,6 @@ class Lab_inap extends ApplicationBase {
         $this->smarty->assign("rs_resume", $this->m_cppt->get_data_resume_by_rg(array($FS_RG)));
   $data["alamat"] = $this->m_rawat_jalan->get_alamat();
 
-        // $data['rs_skdp'] = $this->m_rawat_jalan->get_data_skdp_by_rg(array($FS_KD_REG));
-        // $data["result"] = $this->m_rawat_jalan->get_data_medis_by_rg2(array($FS_KD_REG, $FS_KD_TRS));
-        // $data["ceklabskdp"] = $this->m_rawat_jalan->get_cek_lab_skdp(array($FS_KD_REG));
-        // $data["cekradskdp"] = $this->m_rawat_jalan->get_cek_rad_skdp(array($FS_KD_REG));
-        // $data["rs_lab"] = $this->m_rawat_jalan->get_data_order_lab_by_rg3(array($FS_KD_REG));
-        // $data["rs_rad"] = $this->m_rawat_jalan->get_data_order_rad_by_rg3(array($FS_KD_REG));
-        // $data["header1"] = $this->m_rawat_jalan->get_header1();
-        // $data["header2"] = $this->m_rawat_jalan->get_header2();
-        // $data["alamat"] = $this->m_rawat_jalan->get_alamat();
-        // $data['medis'] = $this->m_rawat_jalan->get_data_medis_by_rg2(array($FS_KD_REG, $FS_KD_TRS));
         
         ob_start();
 

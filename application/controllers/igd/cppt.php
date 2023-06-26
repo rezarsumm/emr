@@ -661,7 +661,7 @@ class cppt extends ApplicationBase {
             $this->tnotification->sent_notification("error", "Detail gagal disimpan");
         }
         // default redirect
-        redirect("igd/cppt");
+        redirect("igd/cppt/add/".$FS_KD_REG);
     }
 
 

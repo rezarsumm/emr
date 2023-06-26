@@ -274,9 +274,9 @@
                     Total   :   <input type="text" name="TOTAL_SKOR" readonly id="S_T" value="{$rs_triase.TOTAL_SKOR}"><br>
                     <table>
                         <tr>
-                            <td>  <div class="a" style="width: 100px; height:20px; color: red;">    <input type="radio" id='radio_1' name="KES" value="1"><b>Priorotas I (>5)  </b></div></td>
-                            <td> <div class="a" style="width: 110px; height:20px; color: goldenrod;">   <input type="radio" id='radio_2' name="KES" value="2"><b>Prioritas II (2-4)</b></div></td>
-                            <td> <div class="a" style="width: 130px; height:20px; color: green;"> <input type="radio" name="KES" id='radio_3' value="3"> <b>Prioritas III (0-1)</b></div></td>
+                            <td>  <div class="a" style="width: 100px; height:20px; color: red;">    <input type="radio" id='radio_1' name="KES" value="1" {if $rs_triase.TOTAL_SKOR gt 5} checked {/if}><b>Priorotas I (>5)  </b></div></td>
+                            <td> <div class="a" style="width: 110px; height:20px; color: goldenrod;">   <input type="radio" id='radio_2' name="KES" value="2" {if ($rs_triase.TOTAL_SKOR le 4) && ($rs_triase.TOTAL_SKOR ge 2)} checked {/if}><b>Prioritas II (2-4)</b></div></td>
+                            <td> <div class="a" style="width: 130px; height:20px; color: green;"> <input type="radio" name="KES" id='radio_3' value="3" {if ($rs_triase.TOTAL_SKOR le 1) && ($rs_triase.TOTAL_SKOR ge 0)} checked {/if}> <b>Prioritas III (0-1)</b></div></td>
                             <td> <div class="a" style="width: 130px; height:20px; color: grey;"> <input type="radio" name="KES" id='radio_4' value="DOA"><b>Death on Arrived </b></div></td>
                         </tr>
                     </table> 

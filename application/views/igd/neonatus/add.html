@@ -5,7 +5,7 @@
 <div class="breadcrum">
     <p> 
         <a href="#">IGD</a><span></span>
-         <small>Add Data Asesmen Medis IGD</small>
+         <small>Add Data Asesmen Neonatus IGD</small>
     </p>
     <div class="clear"></div>
 </div> 
@@ -52,24 +52,320 @@
        
         <table class="table-input" width="100%">
             <tr>
-               <td>Kendaraan</td>
+               <td>Tanggal dan Jam Masuk Ruangan</td>
                <td>  
-                <input type="text" name="KENDARAAN" size="40" value="{$rs_triase.KENDARAAN}">
+                <input type="date" name="tanggal_masuk" size="40" value="{$rs_triase.KENDARAAN}">
+                <input type="time" name="jam" size="40" value="{$rs_triase.KENDARAAN}">
                  </td></tr>  
              <tr>
-                <td>Rujukan Dari</td>
-                <td> <input type="text" name="RUJUKAN" size="40" value="{$rs_triase.rujukan_dari}">  </td></tr>  
-                
-                <tr class="headrow">
-                    <th colspan="4">I. SUBYEKTIF  </th>
-                    
-                </tr>
+                <td>Kriteria Saat Masuk</td>
+                <td>  
+                    <input type="radio" name="kriteria_masuk" {if $perawat.STATUS_GIZI eq 'Baik'} checked {/if}   value="Neonatus Dalam">Neonatus Dalam
+                    <input type="radio" name="kriteria_masuk" {if $perawat.STATUS_GIZI eq 'Baik'} checked {/if}   value="Neonatus Luar">Neonatus Luar 
+                </td>
+            </tr>  
             <tr>
-                <td>Keluhan Utama</td>
-                <td colspan="3"><textarea style="width: 600px;" name="FS_ANAMNESA"  >{if $perawat.KEL_UTAMA neq ''}{$perawat.KEL_UTAMA}{else}{$bidan.FS_ANAMNESA}{/if}</textarea></td>
+                <td>
+                    Diagnoas Medis
+                </td>
+                <td>
+                    <input type="text" name="diagnosa_medis" size="40">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    DPJP
+                </td>
+                <td>
+                    <input type="text" name="dpjp" size="40">
+                </td>
+            </tr>
+                
+                <!-- <tr class="headrow">
+                    <th colspan="4">I. SUBYEKTIF  </th>
+                </tr> -->
+            <tr>
+                <td>Jenis Kelamin </td>
+                <td colspan="3">
+                    <input type="radio" name="jenis_kelamin" {if $perawat.STATUS_GIZI eq 'Baik'} checked {/if}   value="Laki-laki">Laki-laki
+                    <input type="radio" name="jenis_kelamin" {if $perawat.STATUS_GIZI eq 'Baik'} checked {/if}   value="Perempuan">Perempuan
+                
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Tanggal Lahir
+                </td>
+                <td>
+                    <input type="date" name="tgl_lahir" value="" size="40">
+                </td>
+                <td>
+                    Diagnosa Masuk
+                </td>
+                <td width='40%'>
+                    <textarea style="width: 300px;" name="diagnosa_masuk"  >{if $perawat.KEL_SEKARANG neq ''}{$perawat.KEL_SEKARANG}{/if} </textarea>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Nama Ayah
+                </td>
+                <td>
+                    <input type="text" name="nama_ayah" size="40">
+                </td>
+                <td>
+                    Nama Ibu
+                </td>
+                <td>
+                    <input type="text" name="nama_ibu" size="40">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Pekerjaan Orang Tua
+                </td>
+                <td>
+                    <input type="radio" name="pekerjaan_orang_tua" {if $perawat.STATUS_GIZI eq 'Baik'} checked {/if}   value="PNS">PNS
+                    <input type="radio" name="pekerjaan_orang_tua" {if $perawat.STATUS_GIZI eq 'Baik'} checked {/if}   value="TNI/Polri">TNI/Polri
+                    <input type="radio" name="pekerjaan_orang_tua" {if $perawat.STATUS_GIZI eq 'Baik'} checked {/if}   value="Swasta">Swasta
+                    <input type="radio" name="pekerjaan_orang_tua" {if $perawat.STATUS_GIZI eq 'Baik'} checked {/if}   value="Lainnya">Lainnya
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Jaminan
+                </td>
+                <td>
+                    <input type="radio" name="jaminan" {if $perawat.STATUS_GIZI eq 'Baik'} checked {/if}   value="BPJS">BPJS
+                    <input type="radio" name="jaminan" {if $perawat.STATUS_GIZI eq 'Baik'} checked {/if}   value="Pribadi">Pribadi
+                    <input type="radio" name="jaminan" {if $perawat.STATUS_GIZI eq 'Baik'} checked {/if}   value="Asuransi/Perusahaan">Asuransi/Perusahaan
+                    
+                </td>
+            </tr>
+            <tr class="headrow">
+                <th colspan="4">Status Bio-Sosio-Kultur  </th>
+            </tr>
+            <tr>
+                <td>
+                    Agama
+                </td>
+                <td>
+                    <input type="radio" name="agama" {if $perawat.STATUS_GIZI eq 'Baik'} checked {/if}   value="Islam">Islam
+                    <input type="radio" name="agama" {if $perawat.STATUS_GIZI eq 'Baik'} checked {/if}   value="Kristen">Kristen
+                    <input type="radio" name="agama" {if $perawat.STATUS_GIZI eq 'Baik'} checked {/if}   value="Katolik">Katolik
+                    <input type="radio" name="agama" {if $perawat.STATUS_GIZI eq 'Baik'} checked {/if}   value="Budha">Budha
+                    <input type="radio" name="agama" {if $perawat.STATUS_GIZI eq 'Baik'} checked {/if}   value="Hindu">Hindu
+                    <input type="radio" name="agama" {if $perawat.STATUS_GIZI eq 'Baik'} checked {/if}   value="Khonghucu">Khonghucu
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Suku
+                </td>
+                <td>
+                    <input type="text" name="suku" size="40">
+                </td>
+            </tr>
+            <tr class="headrow">
+                <th colspan="4">Riwayat Kesehatan  </th>
+            </tr>
+            <tr>
+                <td>Riwayat Kesehatan Dahulu</td>
+                <td>
+                    <input type="radio" name="riwayat_penyakit_dahulu" value="Tidak Ada">Tidak Ada
+                    <input type="radio" name="riwayat_penyakit_dahulu" value="Ada">Ada
+                    <input type="text" name="ket_riwayat_penyakit" placeholder="Isi jika ada">
+                </td>
+            </tr>
+ 
+            <tr>
+                <td>
+                    Riwayat Imunisasi
+                </td>
+                <td>
+                    <input type="radio" name="riwayat_imunisasi" value="Belum Pernah">Belum Pernah
+                    <input type="radio" name="riwayat_imunisasi" value="Sudah Pernah">Sudah Pernah
+                </td>
+            </tr>
+            <tr class="headrow">
+                <th colspan="4">Riwayat Kehamilan </th>
+            </tr>
+            <tr>
+                <td>
+                    Usia Kehamilan
+                </td>
+                <td>
+                    <input type="text" name="usia_kehamilan">
+                </td>
+                <td>
+                    Pasien Anak Ke
+                </td>
+                <td>
+                    <input type="text" name="anak_ke">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Jumlah Anak
+                </td>
+                <td>
+                    <input type="text" name="jumlah_anak">
+                </td>
                 
             </tr>
+            <tr class="headrow">
+                <th colspan="4">Riwayat Persalinan </th>
+            </tr>
+            <tr>
+                <td>
+                    Prenatal
+                </td>
+                <td>
+                    <input type="radio" name="prenatal" value="Normal">Normal
+                    <input type="radio" name="prenatal" value="Tidak Normal">Tidak Normal
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Natal
+                </td>
+                <td>
+                    <input type="radio" name="natal" value="Spontan">Spontan
+                    <input type="radio" name="natal" value="Sectio">Sectio
+                    <input type="radio" name="natal" value="Vacum">Vacum
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Intranatal
+                </td>
+                <td>
+                    <input type="radio" name="intranatal" value="Menangis">Menangis
+                    <input type="radio" name="intranatal" value="Tidak Menangis">Tidak Menangis
+                    <!-- <input type="radio" name="intranatal" value="Vacum">Vacum -->
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Posnatal
+                </td>
+                <td>
+                    <select name="posnatal" id="surat_dari" class="select2" style="width: 190px;">
+                        <option  value="" selected>--Pilih Posnatal--</option>
+                        <option  value="Gangguan Nafas/Asfiksi">Gangguan Nafas/Asfiksi</option>
+                        <option  value="Ringan">Ringan</option>
+                        <option  value="Sedang">Sedang</option>
+                        <option  value="Berat">Berat</option>
+                        <option  value="Hiperbilirubin">Hiperbilirubin</option>
+                        <option  value="Kelainan Kongenital">Kelainan Kongenital</option>
+                        <option  value="Febris">Febris</option>
+                        <option  value="Kejang">Kejang</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Warna Ketuban
+                </td>
+                <td>
+                    <input type="text" name="warna_ketuban" size="40">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Pasien Ditolong Oleh
+                </td>
+                <td>
+                    <input type="radio" name="ditangani_oleh" value="Bidan">Bidan
+                    <input type="radio" name="ditangani_oleh" value="Dokter">Dokter
+                    <input type="radio" name="ditangani_oleh" value="Lainnya">Lainnya
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Tindakan Yang Dilakukan sebelum dirawat inap
+                </td>
+                <td>
+                    <textarea name="tindakan_sebelum_dirawat" style="width: 300px;"></textarea>
+                </td>
+            </tr>
+            <tr class="headrow">
+                <th colspan="4">Riwayat Alergi</th>
+            </tr>
+            <tr>
+                <td>
+                    Riwayat Alergi
+                </td>
+                <td>
+                    <input type="radio" name="riwayat_alergi" value="Tidak Ada">Tidak Ada
+                    <input type="radio" name="riwayat_alergi" value="Ada">Ada
+                    <input type="text" name="ket_riwayat_alergi" placeholder="Isi jika ada">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    KESADARAN
+                </td>
+                <td>
+                  
+                        <input type="radio" name="KESADARAN" required value="Compos metis"> Compos metis
+                        <input type="radio" name="KESADARAN" value="Somnolen">  Somnolen
+                        <input type="radio" name="KESADARAN" value="Apatis">  Apatis
+                        <input type="radio" name="KESADARAN" value="Sopor">  Sopor
+                        <input type="radio" name="KESADARAN" value="Coma">  Coma
+                 
+                </td>
+            </tr>
+            <tr class="headrow">
+                <th colspan="4">Vital Sign</th>
+            </tr>
+            <tr>
+                <td width='20%'>Suhu</td>
+                <td width='30%'><input type="text" name="S" required size="10" value="{$rs_triase.SUHU}"/>C</td>
+                <td width='20%'>Nadi</td>
+                <td width='30%'><input type="text" name="N" required size="10" value="{$rs_triase.N}"/> x/menit</td>
+            </tr>
+            <tr>
+                <td>R</td>
+                <td><input type="text" name="R" size="10" required value="{$rs_triase.R}"/> x/menit</td>
+                <td>Saturasi Oksigen</td>
+                <td><input type="text" name="saturasi_oksigen" size="10" required value="{$rs_triase.TD}"/></td>
+            </tr>
+            <tr>
+                <td>Panjang Badan</td>
+                <td><input type="text" name="PB" size="10" required value="{$rs_triase.TB}"/> cm</td>
+                <td>Berat Badan masuk</td>
+                <td><input type="text" name="berat_badan_masuk" size="10" required value="{$rs_triase.BB}"/> Kg</td>
+     
+            </tr>
+            <tr>
+                <td>
+                    A / S
+                </td>
+                <td>
+                    <input type="text" name="">
+                </td>
+                <td>Berat Badan lahir</td>
+                <td><input type="text" name="berat_badan_lahir" size="10" required value="{$rs_triase.BB}"/> Kg</td>
+            </tr>
+    
+         
+            <tr>
+                <td>Lingkar Kepala</td>
+                <td>  <input type="text" name="lingkar_kepala" required> </td> 
+                <td>Lingkar Lengan</td>
+                <td>  <input type="text" name="lingkar_lengan" required> </td> 
             <tr> 
+                
+                <tr>
+                    <td>
+                        lingkar dada
+                    </td>
+                    <td>
+                        <input type="text" name="lengkar_dada">
+                    </td>
+                </tr>
+
                 <td width='20%'>Riwayat Penyakit Sekarang</td>
                 <td width='40%'>
                     <textarea style="width: 300px;" name="RIW_PENYAKIT_NOW"  >{if $perawat.KEL_SEKARANG neq ''}{$perawat.KEL_SEKARANG}{/if} </textarea>

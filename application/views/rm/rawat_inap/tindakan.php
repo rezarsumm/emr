@@ -106,7 +106,7 @@
                 <?= date('d-m-Y', strtotime($data['FD_TGL_TINDKAN_KEP'])); ?> <?php echo date("H:i:s", strtotime($data['FD_JAM_TINDKAN_KEP'])); ?>
                 </th>
                 <th style="border-bottom:solid 1px #000000;border-right:solid 1px #000000;" >
-                    <?= $data['FS_TINDKAN_KEP'];?>
+                    <?= $data['FS_TINDKAN_KEP'];?> ||
                     <?= $data['FS_NM_KEP_TINDAKAN'];?>
                 </th>
                 <th style="border-bottom:solid 1px #000000;border-right:solid 1px #000000;text-align: left;">

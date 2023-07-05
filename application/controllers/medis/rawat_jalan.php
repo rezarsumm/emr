@@ -1685,6 +1685,7 @@ class rawat_jalan extends ApplicationBase {
                 $this->input->post('FS_ALASAN_RUJUK'),
                  $this->input->post('FS_KD_REG'),
             );
+            
             if ($this->m_rawat_jalan->update_tac_rj_rujukan($params)) {
 
                 // notification
@@ -1725,6 +1726,8 @@ class rawat_jalan extends ApplicationBase {
 // output
         parent::display();
     }
+
+
     
     public function cetak($FS_KD_REG = "", $FS_KD_TRS = "") {
 // set page rules
@@ -1991,6 +1994,20 @@ class rawat_jalan extends ApplicationBase {
             $data[$i] = array(
                 'label' => $value['Nama_Dokter'],
                 'value' => $value['Kode_Dokter']
+            );
+            $i++;
+        }
+        echo json_encode($data);
+    }
+
+      public function list_nama_dokter_igd() {
+        $instansi = $this->m_rawat_jalan->list_nama_dokter();
+        $data[] = array();
+        $i = 0;
+        foreach ($instansi as $key => $value) {
+            $data[$i] = array(
+                'label' => $value['Nama_Dokter'],
+                'value' => $value['Nama_Dokter']
             );
             $i++;
         }

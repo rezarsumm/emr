@@ -3,6 +3,7 @@
     $(document).ready(function () {
         score();
         $("#opt1").change(function () {
+           
             var sc = $(this).val();
             $("#an1").html(sc);
             score();
@@ -804,9 +805,10 @@
                          <td> <input type="text" name="LEOPOD_1"  >    cm </td></tr>
                 <tr> 
                          <td>Leopod II      </td>
-                         <td>
+                         <td colspan="4">
                             <input type="radio" name="LEOPOD_2" value="Punggung Kanan">  Punggung Kanan 
                             <input type="radio" name="LEOPOD_2" value="Punggung Kiri">   Punggung Kiri
+                            <input type="radio" name="LEOPOD_2" value="Letak Lintang">   Letak Lintang
                             <!-- <input type="hidden" name="LEOPOD_2"  >     -->
                            </td>
                     </tr>
@@ -830,13 +832,57 @@
                                   </tr>
           <tr>
               <td>Auskultasi</td>
-              <td colspan="3">
+              <td>
+                <input type="radio" name="jenis_bayi" class="jenis_bayi" value="Tunggal">Tunggal
+                <input type="radio" name="jenis_bayi" class="jenis_bayi" value="Kembar">Kembar
+              </td>
+
+              <tr id="form_tunggal" style="display: none;">
+                <td>BAYI I </td>
+                <td colspan="3">  
+                    
+                    <input type="radio" name="AUSKULTASI_1" value="Teratur">Teratur
+                    <input type="radio" name="AUSKULTASI_1" value="Tidak">Tidak Teratur  
+                    <!-- <input type="hidden" name="AUSKULTASI"  >     -->
+                    <input type="text" name=" DURASI_AUSKULTASI_1"  >kali/menit
+                
+                </td>                       
+                </tr>
+
+                <tr id="form_bayi1" style="display: none;">
+                    <td>BAYI I </td>
+                    <td colspan="3">  
+                        
+                        <input type="radio" name="AUSKULTASI_1" value="Teratur">Teratur
+                        <input type="radio" name="AUSKULTASI_1" value="Tidak">Tidak Teratur  
+                        <!-- <input type="hidden" name="AUSKULTASI"  >     -->
+                        <input type="text" name=" DURASI_AUSKULTASI_1"  >kali/menit
+                    
+                    </td>                  
+                       
+                    </tr>
+
+                    <tr id="form_bayi2" style="display: none;">
+                        <td>BAYI II </td>
+                        <td colspan="3">  
+                            
+                            <input type="radio" name="AUSKULTASI_2" value="Teratur">Teratur
+                            <input type="radio" name="AUSKULTASI_2" value="Tidak">Tidak Teratur  
+                            <!-- <input type="hidden" name="AUSKULTASI"  >     -->
+                            <input type="text" name=" DURASI_AUSKULTASI_2"  >kali/menit
+                        
+                        </td> 
+                    </tr>
+
+       
+
+              <!-- <td colspan="3">
                   <input type="radio" name="AUSKULTASI" value="Teratur">Teratur
                   <input type="radio" name="AUSKULTASI" value="Tidak">Tidak Teratur  
-                  <!-- <input type="hidden" name="AUSKULTASI"  >     -->
+                    
 
                 <input type="text" name=" DURASI_AUSKULTASI"  >kali/menit
-              </td>
+              </td> -->
               
           </tr>
           <tr>
@@ -847,7 +893,7 @@
                 <input type="radio" name="KONTRAKSI" value="Lemah">Lemah
                 <!-- <input type="hidden" name="KONTRAKSI"  >   -->
 
-              <input type="text" name=" DURASI_KONTRAKSI"  >kali/menit
+              <input type="text" name=" DURASI_KONTRAKSI"  >kali/10 menit
             </td>
         </tr>
 
@@ -1799,4 +1845,28 @@ $(function(){
                     }
             });
              $("#rlab").select2({});
-        });</script>
+        });
+        
+        
+        
+        $(":radio.jenis_bayi").click(function(){
+        $("#form_tunggal").hide(); 
+        $("#form_bayi1").hide(); 
+        $("#form_bayi2").hide(); 
+
+        if($(this).val() == "Tunggal"){
+          $("#form_tunggal").show(); 
+        //   $("#form3").hide(); 
+        }
+        else if($(this).val() == "Kembar"){
+            $("#form_tunggal").hide();
+            $("#form_bayi1").show();
+            $("#form_bayi2").show();
+        }        
+        else{
+            $("#form3").hide(); 
+          $("#form2").hide(); 
+        }
+      });
+
+        </script>

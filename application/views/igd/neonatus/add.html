@@ -1,6 +1,50 @@
-{include file="inap/ass_awal_bidan/add_script_js.html"}
 
- 
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $("#option1").change(function () {
+            var scd = $(this).val();
+            $("#hasil1").html(scd);
+            scored();
+        });
+        $("#option2").change(function () {
+            var scd = $(this).val();
+            $("#hasil2").html(scd);
+            scored();
+        });
+        $("#option3").change(function () {
+            var scd = $(this).val();
+            $("#hasil3").html(scd);
+            scored();
+        });
+        $("#option4").change(function () {
+            var scd = $(this).val();
+            $("#hasil4").html(scd);
+            scored();
+        });
+        $("#option5").change(function () {
+            var scd = $(this).val();
+            $("#hasil5").html(scd);
+            scored();
+        });
+        $("#option6").change(function () {
+            var scd = $(this).val();
+            $("#hasil6").html(scd);
+            scored();
+        });
+        
+    });
+</script>
+<script type="text/javascript">
+
+    function scored() {
+        var scd = parseInt($("#hasil1").text()) + parseInt($("#hasil2").text()) + parseInt($("#hasil3").text()) + parseInt($("#hasil4").text()) + parseInt($("#hasil5").text()) + parseInt($("#hasil6").text());
+        $("#totalscd").val(scd);
+    }
+    
+</script>
+
 
 <div class="breadcrum">
     <p> 
@@ -251,7 +295,7 @@
                 </td>
                 <td>
                     <select name="posnatal" id="surat_dari" class="select2" style="width: 190px;">
-                        <option  value="" selected>--Pilih Posnatal--</option>
+                        <option  value="" selected disabled>--Pilih Posnatal--</option>
                         <option  value="Gangguan Nafas/Asfiksi">Gangguan Nafas/Asfiksi</option>
                         <option  value="Ringan">Ringan</option>
                         <option  value="Sedang">Sedang</option>
@@ -365,421 +409,478 @@
                         <input type="text" name="lengkar_dada">
                     </td>
                 </tr>
-
-                <td width='20%'>Riwayat Penyakit Sekarang</td>
-                <td width='40%'>
-                    <textarea style="width: 300px;" name="RIW_PENYAKIT_NOW"  >{if $perawat.KEL_SEKARANG neq ''}{$perawat.KEL_SEKARANG}{/if} </textarea>
-
-                </td>
-               
-                <td width='20%'>Riwayat Penyakit dahulu</td>
-                <td width='40%'>
-                    <input type="text" name="FS_RIW_PENYAKIT_DAHULU" value="{$perawat.RIWAYAT_SAKIT|default:'-'}" size="32">
-                </td>
-            </tr>
-            <tr>
-                <td width='20%'>Riwayat Perawatan Sebelumnya</td>
-                <td width='40%'>
-                    <input type="text" name="RIW_PERAWATAN" value="{$result3.FS_RIW_PENYAKIT_DAHULU|default:'-'}" size="32">
-                </td>
-                <td width='20%'>Terapi & Tindakan yang pernah dilakukan</td>
-                <td width='30%'>
-                    <input type="text" name="RIW_TINDAKAN" value="{$result3.FS_RIW_PENYAKIT_DAHULU2|default:'-'}" size="32">
-                </td>
-                <!-- <td width='20%'>Riwayat penyakit keluarga</td>
-                <td width='30%'>
-                    <input type="text" name="FS_RIW_PENYAKIT_DAHULU2" value="{$result3.FS_RIW_PENYAKIT_DAHULU2|default:'-'}" size="32">
-                </td> -->
-            </tr>
- 
-            <tr>
-                <td width='20%'>Riwayat Alergi</td>
-                <td width='30%'>
-                    <input type="text" name="FS_ALERGI" {if $perawat.RIWAYAT_ALERGI_MAKANAN neq ''} value="{$perawat.RIWAYAT_ALERGI_MAKANAN}" {elseif $bidan.RIWAYAT_ALERGI_MAKANAN neq ''}  value="{$result3.FS_ALERGI}" {/if}>
-                    <em style="color:red">* Wajib Diisi</em>
-                </td>
-                <td width='20%'>Reaksi Alergi</td>
-                <td width='30%'>
-                    <input type="text" name="FS_REAK_ALERGI"  value="{$result3.FS_REAK_ALERGI}">
-                    <em style="color:red">* Wajib Diisi</em>
-                </td>
-            </tr>
-
-            <tr><td colspan="4"> <br><br>Bio Sosio Kultural</td></tr>
-            <tr>
-                <td width='20%'>Status Pernikahan  </td>
-                <td width='30%'> 
-                    <input type="radio" name="PERNIKAHAN"  {if $perawat.MENIKAH eq 'Belum'} checked {/if}   value="Belum">Belum
-                    <input type="radio" name="PERNIKAHAN" {if $perawat.MENIKAH eq 'Menikah'} checked {/if}   value="Menikah">Menikah
-                    <input type="radio" name="PERNIKAHAN"  {if $perawat.MENIKAH eq 'Janda/Duda'} checked {/if}  value="Janda/Duda">Janda/Duda
-                 </td>
-                <td width='20%'>Pekerjaan    </td>
-                <td width='30%'>
-                     <input type="text" name="JOB" value="{$perawat.JOB}"  value=" "> 
-                </td>
-            </tr>
-
-            <tr>
-                <td width='20%'>Agama</td>
-                <td width='30%'>
-                    <select name="FS_AGAMA" id="surat_dari" class="select2" style="width: 190px;">
-                        <option {if $perawat.AGAMA eq '1'} selected {/if} value="1">Islam</option>
-                        <option {if $perawat.AGAMA eq '2'} selected {/if} value="2">Kristen</option>
-                        <option {if $perawat.AGAMA eq '3'} selected {/if} value="3">Katholik</option>
-                        <option {if $perawat.AGAMA eq '4'} selected {/if} value="4">Hindu</option>
-                        <option {if $perawat.AGAMA eq '5'} selected {/if} value="5">Buda</option>
-                        <option {if $perawat.AGAMA eq '6'} selected {/if} value="6">Konghucu</option>
-                    </select>
-                </td>
-                <td width='20%'>Suku    </td>
-                <td>
-                    <input type="text" name="SUKU"  value="{$perawat.SUKU}"> 
-
-                </td>
-             </tr>
-
-             <tr class="headrow">
-                <th colspan="4">II. OBJEKTIF  </th>
-                
-            </tr>
-            <tr>
-                <td width='20%'>Status Psikologis</td>
-                <td width='30%'>
-                    <select name="FS_STATUS_PSIK" class="select2" >
-                        <option value=""  {if $perawat.PSIKOLOGIS eq ''} selected="" {/if}  onclick='document.getElementById("civstaton3").disabled = true'>--Pilih Data--</option>
-                        <option value="1" {if $perawat.PSIKOLOGIS eq 'Tenang'} selected="" {/if} onclick='document.getElementById("civstaton3").disabled = true'>Tenang</option>
-                        <option value="2" {if $perawat.PSIKOLOGIS eq 'Cemas'} selected="" {/if} onclick='document.getElementById("civstaton3").disabled = true'>Cemas</option>
-                        <option value="3" {if $perawat.PSIKOLOGIS eq 'Takut'} selected="" {/if} onclick='document.getElementById("civstaton3").disabled = true'>Takut</option>
-                        <option value="4" {if $perawat.PSIKOLOGIS eq 'Marah'} selected="" {/if} onclick='document.getElementById("civstaton3").disabled = true'>Marah</option>
-                        <option value="5" {if $perawat.PSIKOLOGIS eq 'Sedih'} selected="" {/if} onclick='document.getElementById("civstaton3").disabled = true'>Sedih</option>
-                        <option value="6" {if $perawat.PSIKOLOGIS neq '' &&  $perawat.PSIKOLOGIS neq 'Tenang' && $perawat.PSIKOLOGIS neq 'Cemas' && $perawat.PSIKOLOGIS neq 'Takut' && $perawat.PSIKOLOGIS neq 'Marah' && $perawat.PSIKOLOGIS neq 'Sedih'} selected="" {/if}onclick='document.getElementById("civstaton3").disabled = false'>Lainnya</option>
-                    </select>
-                    <br><br>
-                    <!-- <input type="text" name="FS_STATUS_PSIK2" id="civstaton3" {if $ases2.FS_STATUS_PSIK2 eq '0'}disabled=""{/if} size="27" value="{$ases2.FS_STATUS_PSIK2}"> -->
-                </td>
-                <td width='20%'>Status Mental</td>
-                <td width='30%'>
-                    <select name="MENTAL" class="select2" >
-                         <option value="Kooperatif" {if $perawat.MENTAL eq 'Kooperatif'} selected="" {/if} 
-                         onclick='document.getElementById("civstaton3").disabled = true'>Kooperatif</option>
-                         <option value="Tidak Kooperatif" {if $perawat.MENTAL eq 'Tidak Kooperatif'} selected="" {/if} 
-                         onclick='document.getElementById("civstaton3").disabled = true'>Tidak Kooperatif</option>
-                         <option value="Gelisah" {if $perawat.MENTAL eq 'Gelisah'} selected="" {/if} 
-                         onclick='document.getElementById("civstaton3").disabled = true'>Gelisah</option>
-                       </select>
-                    <br><br>
-                 </td>
-                <!-- <td width='39%'>Hubungan dengan anggota keluarga</td>
-                <td width='30%'>
-                    <select name="FS_HUB_KELUARGA" id="surat_dari" class="select2" style="width: 170px;">
-                        <option value="" {if $ases2.FS_HUB_KELUARGA eq ''} selected="" {/if}>--Pilih Data--</option>
-                        <option value="1" {if $ases2.FS_HUB_KELUARGA eq '1'} selected="" {/if}>Baik</option>
-                        <option value="2" {if $ases2.FS_HUB_KELUARGA eq '2'} selected="" {/if}>Tidak Baik</option>
-    
-                    </select>
-                </td> -->
-            </tr>
-            <tr><td width='40%'>Tanda Tanda Vital  </td>
-                <td width='40%'>
-                    <textarea name="PEMERIKSAAN_FISIK" rows="10" style="width:250px;">
-                        Kesadaran : {if $perawat.KESADARAN neq ''}{$perawat.KESADARAN}{else}{$bidan.SADAR}{/if}      
-                        Suhu      : {if $perawat.S neq ''}{$perawat.S}{else}{$bidan.S}{/if}C
-                        Nadi      : {if $perawat.N neq ''}{$perawat.N}{else}{$bidan.N}{/if}x/menit            
-                        R         : {if $perawat.R neq ''}{$perawat.R}{else}{$bidan.R}{/if} x/menit      
-                        TD        : {if $perawat.TD neq ''}{$perawat.TD}{else}{$bidan.TD}{/if}MmHg
-                        TB        : {if $perawat.TB neq ''}{$perawat.TB}{else}{$bidan.TB}{/if}cm                
-                        BB        : {if $perawat.BB neq ''}{$perawat.BB}{else}{$bidan.BB}{/if}kg           
-                        GCS       : {$perawat.GCS}   
-                 </textarea>
-                </td>
-                <td colspan="2">
-                    <table>
-                        <tr>  <td>  Lingkar Kepala</td><td><input type="text" name="LINGKAR_KEPALA" value="{$perawat.LINGKAR_KEPALA}"></td></tr>
-                      
-                         <tr>  <td> Skor Nyeri</td><td>  <input type="text" name="SKOR_NYERI" value="{$nyeri.FS_NYERI}"></td></tr>
-                         <tr>  <td> Alat Bantu</td><td>  <input type="text" name="ALAT_BANTU" value="{$perawat.ALAT_BANTU}"></td></tr>
-                         <tr>  <td>    Cacat Tubuh</td><td>  <input type="text" name="CACAT" value="{$perawat.CACAT}"></td></tr>
-                         <tr>  <td>    ADL</td><td>  <input type="text" name="ADL" value="{$perawat.ADL}"></td></tr>
-                       
-                         
-                    </table>
-                   
-                  
-                </td>
-            </tr>
-            <tr>  <td>  Status Gizi</td>
-                  <td> 
-                    <input type="radio" name="STATUS_GIZI" {if $perawat.STATUS_GIZI eq 'Baik'} checked {/if}   value="Baik">Baik
-                    <input type="radio" name="STATUS_GIZI" {if $perawat.STATUS_GIZI eq 'Cukup'} checked {/if}  value="Cukup">Cukup
-                    <input type="radio" name="STATUS_GIZI" {if $perawat.STATUS_GIZI eq 'Kurang'} checked {/if} value="Kurang">Kurang
-                </td> 
-
-            </tr>
-            <tr>
-                <td>    Resiko Jatuh</td><td>  
-                    <input type="radio" name="RESIKO_JATUH" {if $perawat.RESIKO_JATUH eq 'RISIKO RENDAH'} checked {/if} value="RISIKO RENDAH">RISIKO RINGAN
-                    <input type="radio" name="RESIKO_JATUH" {if $perawat.RESIKO_JATUH eq 'RISIKO SEDANG'} checked {/if} value="RISIKO SEDANG">RISIKO SEDANG
-                    <input type="radio" name="RESIKO_JATUH" {if $perawat.RESIKO_JATUH eq 'RISIKO TINGGI'} checked {/if} value="RISIKO TINGGI">RISIKO TINGGI
-                </td>
-            </tr>
-       
- <tr class="headrow">
-            <th colspan="4"> </th> 
-        </tr>
-        <tr>
-            <td width='40%'>Konjungtiva  </td>
-            <td width='40%'>
-                <input type="radio" name="KONJUNGTIVA" value="Pucat">Pucat
-                <input type="radio" name="KONJUNGTIVA" value="Pink">Pink
-                
-            </td>
-            <td width='40%'>Deviasi Trakea  </td>
-            <td width='40%'>
-                <input type="radio" name="DEVIASI" value="Kanan">Kanan
-                <input type="radio" name="DEVIASI" value="Kiri"> Kiri
-                <input type="radio" name="DEVIASI" value=""> Tidak Ada
-              
-                
-            </td>
-         </tr>
-         <tr>
-            <td width='20%'>Skelera  </td>
-            <td width='40%'>
-                <input type="radio" name="SKELERA" value="Ikterik">Ikterik
-                <input type="radio" name="SKELERA" value="Tidak"> Tidak Ikterik
-            
-                
-            </td>
-            <td width='20%'>JVP  </td>
-            <td width='40%'>
-                <input type="radio" name="JVP" value="Meningkat">Meningkat
-                <input type="radio" name="JVP" value="Tidak"> Tidak 
-          
-            
-         </tr>
-         <tr>
-            <td width='20%'>Bibir/Lidah  </td>
-            <td width='40%'>
-                <input type="radio" name="BIBIR" value="Sianosis">Sianosis
-                <input type="radio" name="BIBIR" value="Tidak"> Tidak
-
-                
-            </td>
-         </tr>
-         <tr>
-            <td width='20%'>Mukosa </td>
-            <td width='40%'>
-                <input type="radio" name="MUKOSA"  value="Kering">Kering
-                <input type="radio" name="MUKOSA" value="Tidak"> Basah
-              
-          
-            </td>
-         </tr>
-
-         <tr class="headrow">
-            <th colspan="2">THORAX  </th>
-            <th colspan="2"> JANTUNG </th>
-        </tr>
-        <tr>
-            <td colspan="2">
-                <textarea cols="80" rows="1" name="THORAX"> {$medis.THORAX}</textarea>
-            </td>
-            <td colspan="2">
-                <textarea cols="80" rows="1" name="JANTUNG">{$medis.JANTUNG}</textarea>
-
-            </td>
-        </tr>
-
-        <tr class="headrow">
-            <th colspan="2">PARU  </th>
-            <th colspan="2"> ABDOMEN & PINGGANG </th>
-        </tr>
-        <tr>
-            <td colspan="2">
-                <textarea cols="80" rows="1" name="ABDOMEN">{$medis.ABDOMEN} </textarea>
-            </td>
-            <td colspan="2">
-                <textarea cols="80" rows="1" name="PINGGANG"> {$medis.PINGGANG} </textarea>
-
-            </td>
-        </tr>
-
-        <tr class="headrow">
-            <th colspan="4">EKSTREMITAS  </th> 
-        </tr>
-        <tr>
-            <td colspan="2"> Atas
-                <textarea cols="75" rows="1" name="EKS_ATAS">{$medis.EKS_ATAS} </textarea>
-            </td>
-            <td colspan="2">Bawah
-                <textarea cols="73" rows="1" name="EKS_BAWAH">{$medis.EKS_BAWAH} </textarea>
-
-            </td>
-        </tr>
-             
-        <tr class="headrow">
-            <th colspan="4">  Pemeriksaan Penunjang</th>
-        </tr>
-        <tr>
-            <td>Laboratorium</td>
-            <td><select name="rlab[]" multiple style="width:250px" class="select2">
-                <option value=""></option>
-                {foreach from=$rs_lab item=lab}
-                <option value="{$lab.JENIS}">{$lab.JENIS}</option>
-                {/foreach}
-                </select></td>
-            <td>Radiologi</td>
-            <td>   <select name="rrad[]" multiple style="width:200px" class="select2">
-                <option value=""></option>
-                {foreach from=$rs_rad_igd item=rad}
-                <option value="{$rad.KET_TINDAKAN}">{$rad.KET_TINDAKAN}</option>
-                {/foreach}
-            </select></td>
-        </tr>
-    
-
-
-            <tr class="headrow">
-                <th colspan="2">Daftar Masalah</th>
-                <th colspan="2">Diagnosa</th>
-            </tr>
-            <tr>
-                <td colspan="2">
-                      <textarea cols="80" rows="3"  name="MASALAH_KES">
-                       {$medis.FS_DAFTAR_MASALAH}
-                    </textarea>
-
-                </td>
-                <td colspan="2">
-                    <textarea cols="80" rows="1" name="FS_DIAGNOSA">{$medis.FS_DIAGNOSA}  </textarea><br>
-                        Kode ICD 10 ( bila terdiagnosa TBC)
-                        <select name="kode_icd_x"  class="select2" id="kode" style="width:300px">
-                         <option value=""></option>
-                         {foreach $icd as $kode} 
-                         <option value="{$kode.KODE}">{$kode.KET} | {$kode.KODE}</option>
-                         {/foreach}
-                         </select>
-                   
-
-                </td>
-            </tr>
-            <tr class="headrow">
-                    <th colspan="2">Rencana Tindakan</th>
-                    <th colspan="2">Diet</th>
-            </tr>
-            <tr>
-                <td colspan="2">
-                    <textarea cols="80" rows="1" name="RENCANA">{$result2.FS_TINDAKAN}</textarea>
-                 </td>
-                 <td colspan="2">
-                    <textarea cols="80" rows="1" name="DIET"> </textarea>
-                 </td>
-            </tr>
-         
-               <tr class="headrow">
-                <th colspan="2">Resep</th>
-                <th colspan="2">  KONSUL DPJP</th>
-            </tr>
-            <tr>
-                <td colspan="2">   
-                     <table>
-                    <tr>
-                        <td> Nama Obat </td>
-                        <td> Numero </td>
-                        <td> Signa </td>
-                    </tr>
-                     <tr> 
-                            <td>  <select name="namaobat[]" class="namaobat select2"   multiple id="namaobat" cols="80" style="width:210px">
-                                 <option></option> 
-                              </select>
-                            </td>
-                            <td ><input cols="5" type="text" class="numero" name="numero" style="width: 40px;" onkeypress="handleKeyPress(event)" ></td>
-                            <td><input cols="20" type="text" name="dosis" class="dosis" style="width: 50px;" onkeypress="handleKeyPress(event)"></td>
-                        </tr>
-                   </table>
-
-
-                    <textarea rows="15" class="form-control resep"  cols="60" name="FS_TERAPI"> 
-                        {$data.FS_TERAPI}
-                        
-                    </textarea> 
-                </td> 
-                <td colspan="2">
-                  
-                    
-                      DPJP UTAMA
-                      <select name="KD_DOKTER_KONSUL" id="surat_dari" class="select2" style="width: 300px;">
-                                      <option value="">tidak pilih</option>
-                                      {foreach from=$rs_dokter_sp item=data}
-                                      <option value="{$data.NAMAUSER}">{$data.NAMALENGKAP}</option>
-                                      {/foreach}
-                                  </select>
-                                  <br>Uraian Konsul (Tanggal, Jam, Instruksi) <br>
-                                  <textarea rows="2" class="form-control"  cols="60" name="KONSUL"> </textarea>
-                                   <br><br>
-                       DPJP 1
-                      <select name="KD_DOKTER_KONSUL2" id="surat_dari" class="select2" style="width: 300px;">
-                                      <option value="">tidak pilih</option>
-                                      {foreach from=$rs_dokter_sp item=data}
-                                      <option value="{$data.NAMAUSER}">{$data.NAMALENGKAP}</option>
-                                      {/foreach}
-                                  </select>
-                                   <br>Uraian Konsul (Tanggal, Jam, Instruksi) <br>
-                                  <textarea rows="2" class="form-control"  cols="60" name="KONSUL2"> </textarea><br><br>
-                       DPJP 2
-                      <select name="KD_DOKTER_KONSUL3" id="surat_dari" class="select2" style="width: 300px;">
-                                      <option value="">tidak</option>
-                                      {foreach from=$rs_dokter_sp item=data}
-                                      <option value="{$data.NAMAUSER}">{$data.NAMALENGKAP}</option>
-                                      {/foreach}
-                                  </select> 
-                                  <br>Uraian Konsul (Tanggal, Jam, Instruksi) <br> 
-                                  <textarea rows="2" class="form-control"  cols="60" name="KONSUL2"> </textarea> <br><br>
-                  
-                           
-                  </td>
-               
-            </tr>
-
-            <tr>
-                <td>Edukasi</td>
-                <td colspan="4">
-                   <input type="text" name="EDUKASI" style="width: 250px;">
-                </td></tr>
-           <tr>
-                 <td>Discharge Planning</td>
-                <td colspan="1">
-                 <input type="radio" name="D_PLANNING" checked class="rad" value="Pulang"> Pulang
-                 <input type="radio" name="D_PLANNING" class="rad" value="Inap"> Inap
-                 <input type="radio" name="D_PLANNING" class="rad" value="Kontrol"> Kontrol Poli
-                 <input type="radio" name="D_PLANNING" class="rad" value="Rujuk"> Rujuk
-                 </td>
-                 </tr>
-            <tr id="form2" style="display: none;">
-                <td  > Alasan Rujuk   <input type="text" name="ALASAN_RUJUK"></td>
-                <td  > Rekomendasi Rujuk   <input type="text" name="REKOMENDASI_RUJUK"></td>
-                <td >  Transport keluar<br>  
-                         <input type="radio" name="TRANSPORT_KELUAR" value="Ambulance RS">Ambulance RS <br>
-                     <input type="radio" name="TRANSPORT_KELUAR" value="Ambulance 118">Ambulance 118<br>
-                     <input type="radio" checked name="TRANSPORT_KELUAR" value="Pribadi">Pribadi <br>
+                <tr class="headrow">
+                    <th colspan="4">Pemeriksaan Kepala dan Leher</th>
+                </tr>
+                <tr>
+                    <td>
+                        kepala
                     </td>
-                  
-           </tr>
-           <tr id="form3" style="display: none;">
-            <td  > Rekomendasi Poli   <input type="text" name="REKOMENDASI_POLI"></td>
-      
+                    <td>
+                        <input type="radio" name="kepala" value="Normal" checked >Normal
+                        <input type="radio" name="kepala" value="Kelainan">Kelainan
+                        <input type="text" name="kelainan_kepala" placeholder="Isi jika ada kelainan">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Leher
+                    </td>
+                    <td>
+                        <input type="radio" name="leher" value="Normal" checked >Normal
+                        <input type="radio" name="leher" value="Tidak Normal">Tidak Normal
+                        <input type="text" name="kelainan_leher" placeholder="Isi jika ada kelainan">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Mata
+                    </td>
+                    <td>
+                        <select name="mata" id="surat_dari" class="select2" style="width: 190px;">
+                            <option  value="" selected disabled>--Pilih--</option>
+                            <option  value="Normal">Normal</option>
+                            <option  value="Sekret">Sekret</option>
+                            <option  value="Sklera Ikterik">Sklera Ikterik</option>
+                            <option  value="Strabismus">Strabismus</option>
+                            <option  value="Memerah">Memerah</option>
+                            <option  value="Bola Mata Bergerak Terus">Bola Mata Bergerak Terus</option>
+                         
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Pupil
+                    </td>
+                    <td>
+                        <input type="radio" name="pupil" value="Normal" checked >Normal
+                        <input type="radio" name="pupil" value="Anisokor">Anisokor
+                        <input type="radio" name="pupil" value="Miosis">Miosis
+                        <input type="radio" name="pupil" value="Midriasis">Midriasis
+                        
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Palpebra
+                    </td>
+                    <td>
+                        <input type="radio" name="palpebra" value="Normal" checked >Normal
+                        <input type="radio" name="palpebra" value="Cekung">Cekung
+                        <input type="radio" name="palpebra" value="Edema">Edema 
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Hidung
+                    </td>
+                    <td>
+                        <input type="radio" name="hidung" value="Normal" checked >Normal
+                        <input type="radio" name="hidung" value="Epistaksis">Epistaksis
+                        <input type="radio" name="hidung" value="Sekret">Sekret 
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Mulut
+                    </td>
+                    <td>
+                        <input type="radio" name="mulut" value="Normal" checked >Normal
+                        <input type="radio" name="mulut" value="Mukosa Kering">Mukosa Kering
+                        <input type="radio" name="mulut" value="Lidah Kotor">Lidah Kotor 
+                        <input type="radio" name="mulut" value="Sianosis">Sianosis 
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Telinga
+                    </td>
+                    <td>
+                        <input type="radio" name="telinga" value="Normal" checked >Normal
+                        <input type="radio" name="telinga" value="Keluar Cairan">Keluar Cairan 
+                    </td>
+                </tr>
+                <!-- <tr>
+                    <td>
+                        Leher
+                    </td>
+                    <td>
+                        <input type="radio" name="leher" value="Normal" checked >Normal
+                        <input type="radio" name="leher" value="Peningkatan JVP">Peningkatan JVP 
+                    </td>
+                </tr> -->
+
+                <tr class="headrow">
+                    <th colspan="4">Pemeriksaan Jantung dan Paru</th>
+                </tr>
+                <tr>
+                    <td>
+                        dada
+                    </td>
+                    <td colspan="4">
+                        <input type="radio" name="dada" value="Simetris" checked >Simetris
+                        <input type="radio" name="dada" value="Tidak Simetris">Tidak Simetris 
+                        <input type="radio" name="dada" value="Bentuk Dada Burung">Bentuk Dada Burung 
+                        <input type="radio" name="dada" value="Penggunaan Otot bantu nafas">Penggunaan Otot bantu nafas 
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Irama Nafas
+                    </td>
+                    <td>
+                        <input type="radio" name="irama_nafas" value="Normal" checked >Normal
+                        <input type="radio" name="irama_nafas" value="Sesak Nafas">Sesak Nafas 
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Bunyi Nafas
+                    </td>
+                    <td>
+                        <input type="radio" name="bunyi_nafas" value="Normal" checked >Normal
+                        <input type="radio" name="bunyi_nafas" value="Ronchi">Ronchi 
+                        <input type="radio" name="bunyi_nafas" value="Wheezing">Wheezing 
+                        <input type="radio" name="bunyi_nafas" value="Stridor">Stridor 
+                    </td>
+                </tr>
+                <tr class="headrow">
+                    <th colspan="4">Pemeriksaan Gastroinestinal</th>
+                </tr>
+
+                <tr>
+                    <td>
+                        Abdomen
+                    </td>
+                    <td colspan="4">
+                        <input type="radio" name="abdomen" value="Normal" checked >Normal
+                        <input type="radio" name="abdomen" value="Muntah">Muntah 
+                        <input type="radio" name="abdomen" value="Mual">Mual 
+                        <input type="radio" name="abdomen" value="Kembung">Kembung 
+                        <input type="radio" name="abdomen" value="Diare">Diare 
+                        <input type="radio" name="abdomen" value="Konstipasi">Konstipasi 
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Tali Pusat
+                    </td>
+                    <td>
+                        <input type="radio" name="tali_pusat" value="Segar" checked >Segar
+                        <input type="radio" name="tali_pusat" value="Layu">Layu 
+                        <input type="radio" name="tali_pusat" value="Pendarahan">Pendarahan 
+                        <input type="radio" name="tali_pusat" value="Bau">Bau 
+                    </td>
+                </tr>
+                <tr class="headrow">
+                    <th colspan="4">Pemeriksaan status nutrisi</th>
+                </tr>
+                <tr>
+                    <td>
+                        Regurgitasi
+                    </td>
+                    <td>
+                        <input type="radio" name="regurgitasi" value="Ya">Ya
+                        <input type="radio" name="regurgitasi" value="Tidak">Tidak     
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Refleks Menghisap
+                    </td>
+                    <td>
+                        <input type="radio" name="refleks_menghisap" value="Baik">Baik
+                        <input type="radio" name="refleks_menghisap" value="Kurang">Kurang     
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Refleks Menelan
+                    </td>
+                    <td>
+                        <input type="radio" name="refleks_menelan" value="Baik">Baik
+                        <input type="radio" name="refleks_menelan" value="Kurang">Kurang     
+                    </td>
+                </tr>
+
+                <tr class="headrow">
+                    <th colspan="4">Pemeriksaan Genitourinaria</th>
+                </tr>
+
+                <tr>
+                    <td>
+                        Genitalia
+                    </td>
+                    <td>
+                        <input type="radio" name="genitalia" value="Normal" checked>Normal
+                        <input type="radio" name="genitalia" value="Kelainan">Kelainan
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Anus
+                    </td>
+                    <td>
+                        <input type="radio" name="anus" value="Ada">Ada
+                        <input type="radio" name="anus" value="Tidak Ada">Tidak Ada
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Mekonium
+                    </td>
+                    <td>
+                        <input type="radio" name="mekonium" value="Sudah">Sudah
+                        <input type="radio" name="mekonium" value="Belum">Belum
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        BAK
+                    </td>
+                    <td>
+                        <input type="radio" name="bak" value="Spontan">Spontan
+                        <input type="radio" name="bak" value="Tidak Spontan">Tidak Spontan
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        BAB
+                    </td>
+                    <td>
+                        <input type="radio" name="bab" value="Normal" checked>Normal
+                        <input type="radio" name="bab" value="Cair">Cair
+                        <input type="radio" name="bab" value="Lendir">Lendir
+                        <input type="radio" name="bab" value="Frekuensi">Frekuensi
+                        <input type="radio" name="bab" value="Warna">Warna
+                    </td>
+                </tr>
+
+                <tr class="headrow">
+                    <th colspan="4">Pemeriksaan Muskuloskeletal dan Integumentum</th>
+                </tr>
+                <tr>
+                    <td>
+                        Ekstremitas atas / bawah
+                    </td>
+                    <td>
+                        <input type="radio" name="ekstremitas" value="Hangat">Hangat
+                        <input type="radio" name="ekstremitas" value="Dingin">Dingin
+                        <input type="radio" name="ekstremitas" value="Edema">Edema
+                        <input type="radio" name="ekstremitas" value="Sianosis">Sianosis
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        Kelainan Fisik
+                    </td>
+                    <td>
+                        <input type="radio" name="kelainan_fisik" value="Tidak" checked >Tidak
+                        <input type="radio" name="kelainan_fisik" value="Ya">Ya
+                        <input type="text" name="kelainan_fisik" placeholder="Isi jika ada kelainan">
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        Turgor
+                    </td>
+                    <td>
+                        <input type="radio" name="turgor" value="Elastis">Elastis
+                        <input type="radio" name="turgor" value="Tidak Elastis">Tidak Elastis
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Warna Kulit
+                    </td>
+                    <td>
+                        <input type="radio" name="warna_kulit" value="Kemerahan">Kemerahan
+                        <input type="radio" name="warna_kulit" value="Pucat">Pucat
+                        <input type="radio" name="warna_kulit" value="Ikterik">Ikterik
+                        <input type="radio" name="warna_kulit" value="Sianosis">Sianosis
+                    </td>
+                </tr>
+
+                <tr class="headrow">
+                    <th colspan="4">SALA NYERI - NIPS (NEONATAL INFANT PAINT SCORE)</th>
+                </tr>
+                
+                <tr>
+        
+                    <td>
+                        ekspresi wajah
+                    </td>
+                    <td>
+                        <select name="ekspresi_wajah" class="select2" style="width: 220px;" id="option1">
+                            <option  value="">--Pilih--</option>
+                            <option  value="0">Otot wajah rileks, ekspersi netral</option>
+                            <option  value="1">Otot wajah tegang, alis berkerut, rahang dagu meruncing</option>
+                            
+                         
+                        </select>
+                        <span id="hasil1"></span>
+                    </td>
+          
+                    <td width='20%'> Total Skor <input type="text" name="total_skor_nyeri" id="totalscd" readonly></td>
+                   
+                </tr>
+                <tr>
+                    <td>
+                        Tangisan
+                    </td>
+                    <td>
+                        <select name="tangisan"  class="select2" style="width: 220px;" id="option2">
+                            <option  value="">--Pilih--</option>
+                            <option  value="0">Tenang tidak menangis</option>
+                            <option  value="1">Mengerang, sebentar - sebentar menangis</option>
+                            <option  value="2">Terus menerus menangis, menangis kencang, melengking</option>
+                        </select>
+                        <span id="hasil2"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Pola nafas
+                    </td>
+                    <td>
+                        <select name="pola_nafas"  class="select2" style="width: 220px;" id="option3">
+                            <option  value="">--Pilih--</option>
+                            <option  value="0">Rileks, napas reguler</option>
+                            <option  value="1">Pola napas berubah : tidak teratur, lebih cepat dari biasanya, tersedak, menahan napas</option>
+                        </select>
+                        <span id="hasil3"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Tangan
+                    </td>
+                    <td>
+                        <select name="tangan"  class="select2" style="width: 220px;" id="option4">
+                            <option  value="">--Pilih--</option>
+                            <option  value="0">Rileks, otot tangan tidak kaku, kadang bergerak tidak beraturan</option>
+                            <option  value="1">Fleksi/ ekstensi kaku, meluruskan tangan tetapi dengan cepat melakukan fleksi/ ekstensi yang kaku</option>
+                        </select>
+                        <span id="hasil4"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Kaki 
+                    </td>
+                    <td>
+                        <select name="kaki"  class="select2" style="width: 220px;" id="option5">
+                            <option  value="">--Pilih--</option>
+                            <option  value="0">Rileks, otot kaki tidak kaku, kadang bergerak tidak beraturan</option>
+                            <option  value="1">Fleksi/ ekstensi kaku, meluruskan kaki tetapi dengan cepat melakukan fleksi/ ekstensi yang kaku</option>
+                        </select>
+                        <span id="hasil5"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Kesadaran 
+                    </td>
+                    <td>
+                        <select name="kesadaran"  class="select2" style="width: 220px;" id="option6">
+                            <option  value="">--Pilih--</option>
+                            <option  value="0">Tidur pulas atau cepat bangun, alert dan tenang</option>
+                            <option  value="1">Rewel, gelisah dan meronta ronta</option>
+                        </select>
+                        <span id="hasil6"></span>
+                    </td>
+                </tr>
+
+                <tr class="headrow">
+                    <th colspan="4">ANALISIS</th>
+                </tr>
+
+
+
+                <tr class="headrow">
+                    <th colspan="4">RENCANA</th>
+                </tr>
+                <tr>
+                    <td>
+                        Tindakan keperawatan
+                    </td>
+                    <td>
+                        <textarea name="tindakan_keperawatan"  style="width: 300px;"></textarea>
+                    </td>
+                </tr>
+                
+                <tr class="headrow">
+                    <th colspan="4">KEBUTUHAN EDUKASI</th>
+                </tr>
+                    <tr>
+                        <td>
+                            terdapat hambatan dalam pembelajaran ?
+                        </td>
+                        <td>
+                            <input type="radio" name="hambatan_pembelajaran" value="ya">ya
+                            <input type="radio" name="hambatan_pembelajaran" value="tidak">tidak
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td>
+                            Butuh penerjemah ?
+                        </td>
+                        <td>
+                            <input type="radio" name="penerjemah" value="ya">ya
+                            <input type="radio" name="penerjemah" value="tidak">tidak
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Kebutuhan Edukasi
+                        </td>
+                        <td>
+                            <input type="radio" name="kebutuhan_edukasi" value="Diagnosis dan manajemen penyakit">Diagnosis dan manajemen penyakit<br>
+                            <input type="radio" name="kebutuhan_edukasi" value="Manajemen nyeri">Manajemen nyeri<br>
+                            <input type="radio" name="kebutuhan_edukasi" value="Makan / minum teratur">Makan / minum teratur<br>
+                            <input type="radio" name="kebutuhan_edukasi" value="Obat-obatan">Obat-obatan<br>
+                            <input type="radio" name="kebutuhan_edukasi" value="Jaga kebersihan luka">Jaga kebersihan luka<br>
+                            <input type="radio" name="kebutuhan_edukasi" value="Diet dan nutrisi">Diet dan nutrisi<br>
+                            <input type="radio" name="kebutuhan_edukasi" value="Rehabilitasi">Rehabilitasi<br>
+                            <input type="radio" name="kebutuhan_edukasi" value="tindakan keperawatan" tyle="width: 220px;">tindakan keperawatan
+                            <input type="text" name="kebutuhan_edukasi_tindakan" placeholder="isi jika perlu tindakan keperawatan">
+                            <input type="radio" name="kebutuhan_edukasi" value="diet">diet
+                            <input type="text" name="kebutuhan_edukasi_diet" placeholder="isi jika perlu edukasi diet" style="width: 220px;">
+                      
+                        </td>
+                    </tr>
+                <tr class="headrow">
+                    <th colspan="4">RENCANA PULANG / DISCHARGE PLANNING AWAL</th>
+                </tr>
+                <tr>
+                    <td>
+                        Perawatan bayi baru lahir
+                    </td>
+                    <td>
+                        <input type="checkbox" name="discharge_planning[]" value="Asi Ekslusif">Asi Ekslusif<br>
+                        <input type="checkbox" name="discharge_planning[]" value="Memandikan bayi">Memandikan bayi<br>
+                        <input type="checkbox" name="discharge_planning[]" value="Perawatan tali pusat">Perawatan tali pusat<br>
+                        <input type="checkbox" name="discharge_planning[]" value="Program imunisasi">Program imunisasi<br>
+                        <input type="checkbox" name="discharge_planning[]" value="Lain Lain">Lain Lain
+                        <input type="text" name="discharge_planning_lain" placeholder="isi jika ada yang lain">
+                    </td>
+                </tr>
+
+
+
+
+
+              
               
        </tr>
            <tr>
-            <td>Kondisi Akhir Pasien</td>
-            <td>
-               <input type="radio" checked name="KONDISI_AKHIR" value="Membaik">Membaik
-               <input type="radio" name="KONDISI_AKHIR" value="Tetap">Tetap
-               <input type="radio" name="KONDISI_AKHIR" value="Memburuk">Memburuk
-               <input type="radio" name="KONDISI_AKHIR" value="Meninggal">Meninggal
-            </td>
+
             <td>Jam Selesai diperiksa</td>
-            <td><input type="time" name="JAM_SELESAI"></td>
+            <td><input type="time" name="jam_selesai"></td>
        </tr>
 
  
@@ -797,6 +898,8 @@
         </table>
     </form>
 </div>
+
+
 
  
 
@@ -902,10 +1005,10 @@
                  }
                }
 
-var x=event.key;
-if(x=='a'||x=='A'){
-    alert("hore");
-}
+        var x=event.key;
+        if(x=='a'||x=='A'){
+            alert("hore");
+        }
            
 
  function handle2(e){
@@ -1000,6 +1103,5 @@ if(x=='a'||x=='A'){
           $("#form2").hide(); 
         }
       });
-
-
-       </script>
+      
+</script>

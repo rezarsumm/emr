@@ -608,13 +608,104 @@ class Medis extends ApplicationBase {
 
               
                 $this->tnotification->delete_last_field();
-                $this->tnotification->sent_notification("success", "Detail berhasil disimpan");
+                
             
         
         // default redirect
-        redirect("igd/medis");
+        if ($this->input->post('D_PLANNING') == 'Rujuk Internal') {
+            $this->tnotification->sent_notification("success", "Asasmen Medis Berhasil Disimpan!");
+            redirect("igd/medis/add_rujuk_internal_igd/" . $this->input->post('FS_KD_REG'));     
+        }
+         else {
+            $this->tnotification->sent_notification("success", "Detail berhasil disimpan");
+            redirect("igd/medis");
+         }      
+        
     }
 
+    public function add_rujuk_internal_igd($FS_KD_REG = "") {
+        // set page rules
+                $this->_set_page_rule("R");
+        // set template content
+                $this->smarty->assign("template_content", "igd/medis/add_rujuk_internal_igd.html");
+                // load javascript    
+                $this->smarty->load_javascript("resource/js/jquery/jquery-ui-1.9.2.custom.min.js");
+                $this->smarty->load_javascript('resource/js/jquery/select2.js');
+                $this->smarty->load_javascript('resource/js/tinymce/tinymce.min.js');
+                // load style
+                $this->smarty->load_style("jquery.ui/select2/select2.css");
+                // load style ui
+                $this->smarty->load_style("jquery.ui/redmond/jquery-ui-1.8.13.custom.css");
+                $now = date('Y-m-d');
+                $this->smarty->assign("result", $this->m_rawat_jalan->get_px_by_dokter_by_rg2_igd(array($FS_KD_REG)));
+                $this->smarty->assign("rs_skdp_alasan", $this->m_rawat_jalan->get_tac_com_parameter_alasan());
+        // notification
+                $this->tnotification->display_notification();
+                $this->tnotification->display_last_field();
+        // output
+                parent::display();
+            }
+
+            public function add_rujuk_process() {
+                // set page rules
+                $this->_set_page_rule("C");
+                // cek input
+                $this->tnotification->set_rules('FS_KD_REG', 'KODE REGISTER', 'trim|required');
+                // $this->tnotification->set_rules('FS_ALASAN_RUJUK', 'ALASAN DI RUJUK', 'trim|required');
+                // process
+                if ($this->tnotification->run() !== FALSE) {
+                    $params = array(
+                        $this->input->post('FS_KD_REG'),
+                        $this->input->post('FS_TUJUAN_DPJP'),
+                        $this->input->post('FS_RS_TUJUAN'),
+                        $this->input->post('FS_STATUS_GAWAT_DARURAT'),
+                        $this->input->post('FS_PELAYANAN_TELAH_DIBERIKAN'),
+                        $this->com_user['user_name'],
+                        date('Y-m-d'),
+                        date('H:i:s')
+                    );
+                    // var_dump($params);
+                    // die;
+                    if ($this->m_rawat_jalan->insert_tac_rj_rujukan_igd($params)) {
+        
+                        // notification
+                        $this->tnotification->delete_last_field();
+                        $this->tnotification->sent_notification("success", "Detail berhasil disimpan");
+                    } else {
+                        // default error
+                        $this->tnotification->sent_notification("error", "Detail gagal disimpan");
+                    }
+                } else {
+                    // default error
+                    $this->tnotification->sent_notification("error", "Detail gagal disimpan");
+                    redirect("igd/medis/add_rujuk_internal_igd/" . $this->input->post('FS_KD_REG'));
+                }
+                // default redirect
+                redirect("igd/medis");
+            }
+
+
+            public function cetak($FS_KD_REG = "", $FS_KD_TRS = "") {
+                // set page rules
+                        $this->_set_page_rule("R");
+                // set template content
+                        $this->smarty->assign("template_content", "medis/rawat_jalan/cetak.html");
+                        $this->smarty->load_javascript("resource/js/jquery/jquery-ui-1.9.2.custom.min.js");
+                        $this->smarty->load_javascript('resource/js/jquery/select2.js');
+                        $this->smarty->load_javascript('resource/js/jquery/jquery-ui-timepicker-addon.js');
+                        // load style
+                        $this->smarty->load_style("jquery.ui/select2/select2.css");
+                        // load style ui
+                        $this->smarty->load_style("jquery.ui/redmond/jquery-ui-1.8.13.custom.css");
+                        $now = date('Y-m-d');
+                        $this->smarty->assign("result", $this->m_rawat_jalan->get_px_by_dokter_by_rg2(array($FS_KD_REG)));
+                        $this->smarty->assign("medis", $this->m_rawat_jalan->get_data_medis_by_rg2(array($FS_KD_REG, $FS_KD_TRS)));
+                // notification
+                        $this->tnotification->display_notification();
+                        $this->tnotification->display_last_field();
+                // output
+                        parent::display();
+                    }
 
 
 

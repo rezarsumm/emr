@@ -18,6 +18,11 @@ class m_rawat_jalan extends CI_Model {
         VALUES (?,?,?,?,?,?,?)";
         return $this->db->query($sql, $params);
     }
+    function insert_tac_rj_rujukan_igd($params) {
+        $sql = "INSERT INTO PKU.dbo.TAC_RJ_RUJUKAN_IGD(FS_KD_REG,FS_TUJUAN_DPJP,FS_RS_TUJUAN,FS_STATUS_GAWAT_DARURAT,FS_PELAYANAN_TELAH_DIBERIKAN,MDB, MDD_DATE, MDD_TIME)
+        VALUES (?,?,?,?,?,?,?,?)";
+        return $this->db->query($sql, $params);
+    }
 
      function get_px_op($params) {
         $tgl=date('Y-m-d');
@@ -391,7 +396,7 @@ class m_rawat_jalan extends CI_Model {
         return $this->db->query($sql, $params);
     }
     function insert_pemeriksaan_lab($params) {
-        $sql = "INSERT INTO PKU.dbo.ta_trs_kartu_periksa4 (fn_no_urut, fs_kd_tarif, fs_kd_reg2, fs_kd_reg3) VALUES (?, ?, ? , ?)";
+        $sql = "INSERT INTO PKU.dbo.ta_trs_kartu_periksa4 (fn_no_urut, fs_kd_tarif, fs_kd_reg2) VALUES (?, ?, ?)";
         return $this->db->query($sql, $params);
     }
     function insert_pemeriksaan_rad($params) {
@@ -1837,6 +1842,26 @@ class m_rawat_jalan extends CI_Model {
         }
     }
 
+    function get_px_by_dokter_by_rg2_igd($params) {
+        $sql = "SELECT b.NO_REG,a.NAMA_PASIEN, a.NO_MR, a.ALAMAT, a.KOTA, a.PROVINSI, A.JENIS_KELAMIN,
+        a.TGL_LAHIR,c.SPESIALIS, c.NAMA_DOKTER, E.NAMAREKANAN,
+        b.TANGGAL,b.KODE_DOKTER,a.FS_HIGH_RISK,d.id
+        FROM DB_RSMM.dbo.REGISTER_PASIEN a
+        LEFT JOIN DB_RSMM.dbo.PENDAFTARAN b ON a.NO_MR=b.NO_MR
+        LEFT JOIN DB_RSMM.dbo.DOKTER c ON b.KODE_DOKTER=c.KODE_DOKTER
+        LEFT JOIN PKU.dbo.IGD_AWAL_MEDIS d ON b.NO_REG=d.FS_KD_REG
+        LEFT JOIN DB_RSMM.dbo.REKANAN E ON b.KODEREKANAN=E.KODEREKANAN
+        WHERE b.NO_REG = ?";
+        $query = $this->db->query($sql, $params);
+        if ($query->num_rows() > 0) {
+            $result = $query->row_array();
+            $query->free_result();
+            return $result;
+        } else {
+            return 0;
+        }
+    }
+
 
      function get_data_medis_by_rg23($params) {
         $sql = "SELECT top 1 a.*,c.Nama_Dokter,b.user_name,Kode_Dokter
@@ -2686,7 +2711,7 @@ class m_rawat_jalan extends CI_Model {
     function list_pemeriksaan_rad($params) {
         $sql = "SELECT NO_RINCI,KET_TINDAKAN 
         FROM M_RINCI_HEADER 
-        WHERE NO_RINCI LIKE 'B%'";
+        WHERE NO_RINCI LIKE 'B%' AND FS_KD_REG3 = ?";
         $query = $this->db->query($sql, $params);
         if ($query->num_rows() > 0) {
             $result = $query->result_array();

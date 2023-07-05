@@ -64,7 +64,7 @@ class rawat_jalan extends ApplicationBase {
 // get search parameter
         $this->smarty->assign("no", '1');  
 
-        if($x=='216'|| $x=='217' || $x=='211'  || $x=='215'|| $x=='213'|| $x=='202' || $x=='203' || $x=='206'  || $x=='211' || $x=='207' || $x=='209' || $x=='219'  || $x=='220' || $x=='221' || $x=='312' || $x=='222' || $x=='223'|| $x=='208' ||  $x=='224' ||  $x=='225' ||  $x=='226'){
+        if($x=='216'|| $x=='217' || $x=='211'  || $x=='215'|| $x=='213'|| $x=='202' || $x=='203' || $x=='206'  || $x=='211' || $x=='207' || $x=='209' || $x=='219'  || $x=='220' || $x=='221' || $x=='312' || $x=='222' || $x=='223'|| $x=='208' ||  $x=='224' ||  $x=='225' ||  $x=='226' || $x=='227'){
 
            $this->smarty->assign("rs_pasien", $this->m_rawat_jalan->get_px_by_dokter_wait_dokter1(array($FD_TGL_MASUK, $FD_TGL_MASUK, $FS_KD_PEG)));
         }
@@ -149,7 +149,7 @@ class rawat_jalan extends ApplicationBase {
             $this->smarty->assign("noww", $skrng);
         }
         else{
-             if($x=='216'|| $x=='217'|| $x=='215' || $x=='203' || $x=='206'  || $x=='211' || $x=='207' || $x=='209' || $x=='206'  || $x=='211' || $x=='207' || $x=='209' || $x=='213'|| $x=='202' || $x=='219' || $x=='220' || $x=='221' || $x=='312'  || $x=='222'  || $x=='223' || $x=='208' ||  $x=='224' ||  $x=='225' || $x=='226'){
+             if($x=='216'|| $x=='217'|| $x=='215' || $x=='203' || $x=='206'  || $x=='211' || $x=='207' || $x=='209' || $x=='206'  || $x=='211' || $x=='207' || $x=='209' || $x=='213'|| $x=='202' || $x=='219' || $x=='220' || $x=='221' || $x=='312'  || $x=='222'  || $x=='223' || $x=='208' ||  $x=='224' ||  $x=='225' || $x=='226' || $x=='227'){
  
              $this->smarty->assign("rs_pasien", $this->m_rawat_jalan->get_px_history_dokter4(array($now,$medis,$FS_MR)));
             }
@@ -166,7 +166,7 @@ class rawat_jalan extends ApplicationBase {
 // set template content
 
          $x = $this->com_user['user_name'];
-         if($x=='216'|| $x=='217' || $x=='211' || $x=='215'  || $x=='203' || $x=='206'  || $x=='211' || $x=='207' || $x=='209' || $x=='213'|| $x=='202' || $x=='219' || $x=='220' || $x=='221' || $x=='312' || $x=='222' || $x=='223' || $x=='208' ||  $x=='224' ||  $x=='225' || $x=='226'){
+         if($x=='216'|| $x=='217' || $x=='211' || $x=='215'  || $x=='203' || $x=='206'  || $x=='211' || $x=='207' || $x=='209' || $x=='213'|| $x=='202' || $x=='219' || $x=='220' || $x=='221' || $x=='312' || $x=='222' || $x=='223' || $x=='208' ||  $x=='224' ||  $x=='225' || $x=='226' || $x=='227'){
             $this->smarty->assign("template_content", "medis/rawat_jalan/addx.html");
 
          }
@@ -590,7 +590,7 @@ class rawat_jalan extends ApplicationBase {
 // set template content
 
           $x = $this->com_user['user_name'];
-         if($x=='216'|| $x=='217' || $x=='211'  || $x=='203' || $x=='206'  || $x=='211' || $x=='207' || $x=='209' || $x=='215'|| $x=='213'|| $x=='202'  || $x=='219' || $x=='220' || $x=='221' || $x=='312' || $x=='222' || $x=='223' || $x=='208' ||  $x=='224' ||  $x=='225'){
+         if($x=='216'|| $x=='217' || $x=='211'  || $x=='203' || $x=='206'  || $x=='211' || $x=='207' || $x=='209' || $x=='215'|| $x=='213'|| $x=='202'  || $x=='219' || $x=='220' || $x=='221' || $x=='312' || $x=='222' || $x=='223' || $x=='208' ||  $x=='224' ||  $x=='225' || $x=='227'){
             $this->smarty->assign("template_content", "medis/rawat_jalan/editx.html");
 
          }
@@ -1685,7 +1685,6 @@ class rawat_jalan extends ApplicationBase {
                 $this->input->post('FS_ALASAN_RUJUK'),
                  $this->input->post('FS_KD_REG'),
             );
-            
             if ($this->m_rawat_jalan->update_tac_rj_rujukan($params)) {
 
                 // notification
@@ -1726,8 +1725,6 @@ class rawat_jalan extends ApplicationBase {
 // output
         parent::display();
     }
-
-
     
     public function cetak($FS_KD_REG = "", $FS_KD_TRS = "") {
 // set page rules
@@ -1994,20 +1991,6 @@ class rawat_jalan extends ApplicationBase {
             $data[$i] = array(
                 'label' => $value['Nama_Dokter'],
                 'value' => $value['Kode_Dokter']
-            );
-            $i++;
-        }
-        echo json_encode($data);
-    }
-
-      public function list_nama_dokter_igd() {
-        $instansi = $this->m_rawat_jalan->list_nama_dokter();
-        $data[] = array();
-        $i = 0;
-        foreach ($instansi as $key => $value) {
-            $data[$i] = array(
-                'label' => $value['Nama_Dokter'],
-                'value' => $value['Nama_Dokter']
             );
             $i++;
         }

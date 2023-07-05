@@ -29,18 +29,7 @@ class m_ass_jatuh extends CI_Model {
     function insert2($params) {
         $sql = "INSERT INTO PKU.dbo.TAC_RI_JATUH3(FS_KD_JATUH2, FS_PARAM_1, FS_PARAM_2, FS_PARAM_3, FS_PARAM_4,FS_PARAM_5,FS_PARAM_6,FS_PARAM_7, 
         FS_PARAM_8, FS_PARAM_9, FS_PARAM_10, FS_PARAM_11, FS_PARAM_12, FS_PARAM_13, FS_PARAM_14, FS_PARAM_15, FS_PARAM_16, FS_PARAM_17, mdb, mdd)
-        VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-        return $this->db->query($sql, $params);
-    }
-    function update_insert2($params) {
-        $sql = "UPDATE PKU.dbo.TAC_RI_JATUH3 SET FS_KD_JATUH2=?, FS_PARAM_1=?, FS_PARAM_2=?, FS_PARAM_3=?, FS_PARAM_4=?,FS_PARAM_5=?,FS_PARAM_6=?,FS_PARAM_7=?, 
-        FS_PARAM_8=?, FS_PARAM_9=?, FS_PARAM_10=?, FS_PARAM_11=?, FS_PARAM_12=?, FS_PARAM_13=?, FS_PARAM_14=?, FS_PARAM_15=?, FS_PARAM_16=?, FS_PARAM_17=?, mdb=?, mdd=? WHERE FS_KD_TRS=?";
-        return $this->db->query($sql, $params);
-    }
-
-    function DELETE_ASES_JATUH_MEDIS_IGD($params) {
-        $sql = "DELETE from PKU.dbo.TAC_RI_JATUH3 
-        WHERE FS_KD_TRS = ?";
+        VALUEs (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         return $this->db->query($sql, $params);
     }
     
@@ -122,7 +111,7 @@ class m_ass_jatuh extends CI_Model {
 
         $x = $params;
 
-       if($x=='216'|| $x=='217' || $x=='211' || $x=='215' || $x=='206'  || $x=='211' || $x=='207' || $x=='209' || $x=='213'|| $x=='202'  || $x=='203' || $x=='219' || $x=='220' || $x=='221' || $x=='312' || $x=='222' || $x=='223' || $x=='208' ||  $x=='224' ||  $x=='225'){
+       if($x=='216'|| $x=='217' || $x=='211' || $x=='215' || $x=='206'  || $x=='211' || $x=='207' || $x=='209' || $x=='213'|| $x=='202'  || $x=='203' || $x=='219' || $x=='220' || $x=='221' || $x=='312' || $x=='222' || $x=='223' || $x=='208' ||  $x=='224' ||  $x=='225' || $x=='227'){
                    if ($query3->num_rows() > 0 ) {
                     $result3 = $query3->result_array();
                     

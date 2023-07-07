@@ -1,4 +1,4 @@
- 
+ <!-- belum selesai -->
 <div class="breadcrum">
     <p>
         <a href="#">Catatan IGD</a><span></span>
@@ -46,6 +46,59 @@
         </table>
     </form>
 </div>
+
+<div class="g" style="overflow-y:auto; overflow-x:scroll; "> 
+    <div class="dashboard-container" style="margin: 10px;">
+        <table class="table-view" width="100%" border="0">
+            <thead style="background-color: lightblue;">
+                <tr>
+                    <th width='2%' >No</th>
+                    <th>No MR</th>
+                    <th>Nama Psien</th>
+                    <th>Alamat</th>
+                  <!--   <th>Dokter</th> -->
+                    <th>Status</th>
+                    <th width='13%'>Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                {$no=1}
+                {foreach from=$rs_pasien item=data}
+                <tr>
+                    <td>{$no++}</td>
+                    <td>{$data.NO_MR}</td>
+                    <td>{$data.NAMA_PASIEN}</td>
+                    <td>{$data.ALAMAT}</td> 
+                   <!--  <td>{$data.NAMA_DOKTER}</td>  -->
+                    <td>
+                        
+                        {if $data.FS_STATUS eq ''}
+                        <img src="{$BASEURL}resource/doc/images/icon/icon.waiting.png" alt="" />
+                      Perawat
+                        {elseif $data.FS_STATUS eq '1'}
+                        <img src="{$BASEURL}resource/doc/images/icon/icon.waiting.dokter.png" alt="" />
+                       Dokter
+                        {elseif $data.FS_STATUS eq '2'}
+                         {if $data.FS_TERAPI eq '' OR $data.FS_TERAPI eq '<p>-</p>'}
+                         <img src="{$BASEURL}resource/doc/images/icon/icon.approve.png" alt="" />
+                         Selesai
+                         {else}
+                        <img src="{$BASEURL}resource/doc/images/icon/icon.waiting.farmasi.png" alt="" />
+                        Farmasi
+                        {/if}
+                         
+                        {/if}
+                    </td> 
+                    <td>
+                        <a href="{$config->site_url('igd/medis/history/'|cat:$data.NO_MR|default:'')}" class="button-edit">Entry</a>
+                      
+                    </td>
+                </tr>
+                {/foreach}
+            </tbody>
+        </table>
+        </div>
+        </div>
 <script>
      $(".select2").select2({
             placeholder: "Pilih",

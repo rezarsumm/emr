@@ -1678,6 +1678,34 @@ class m_rawat_jalan extends CI_Model {
             return array();
         }
     }
+       function get_px_history_dokter_igd($params) {
+        $sql = "SELECT TOP 8 A.TANGGAL,A.STATUS,A.NO_REG,B.NAMA_PASIEN, B.ALAMAT, B.TGL_LAHIR,B.JENIS_KELAMIN,
+         I.NAMA_DOKTER,K.SPESIALIS,L.MAX_RG,M.FS_KD_MEDIS,M.FS_KD_TRS, N.FS_STATUS, N.FS_KD_REG, CR.KODE_MASUK,CR.KET_MASUK
+        FROM PENDAFTARAN A
+        LEFT JOIN REGISTER_PASIEN B ON  A.NO_MR=B.NO_MR
+        LEFT JOIN M_CARAMASUK CR ON A.Kode_Masuk = CR.KODE_MASUK
+        LEFT JOIN DOKTER I ON A.KODE_DOKTER=I.KODE_DOKTER
+         LEFT JOIN M_SPESIALIS K ON I.SPESIALIS=K.SPESIALIS
+        LEFT JOIN (
+        SELECT NO_REG 'MAX_RG',NO_MR
+        FROM PENDAFTARAN
+        WHERE TANGGAL = ? AND KODE_MASUK=1
+
+        )L ON A.NO_MR = L.NO_MR
+        LEFT JOIN PKU.dbo.TAC_RJ_MEDIS M ON a.NO_REG=M.FS_KD_REG
+     LEFT JOIN PKU.dbo.TAC_RJ_STATUS N ON a.NO_REG = N.FS_KD_REG
+        WHERE A.NO_MR = ?
+        ORDER BY TANGGAL DESC 
+        ";
+        $query = $this->db->query($sql, $params);
+        if ($query->num_rows() > 0) {
+            $result = $query->result_array();
+            $query->free_result();
+            return $result;
+        } else {
+            return array();
+        }
+    }
 
 
      function get_isi($params) {
@@ -1747,7 +1775,7 @@ class m_rawat_jalan extends CI_Model {
     }
  
     function get_px_resume($params) {
-        $sql = "SELECT A.TANGGAL,A.STATUS,A.NO_REG,B.NAMA_PASIEN,B.ALAMAT, B.KOTA, B.PROVINSI, B.GOL_DARAH,B.STATUS_NIKAH,B.NAMA_PASANGAN,B.KOTA,B.PROVINSI,B.TGL_LAHIR,B.JENIS_KELAMIN,B.WARGA_NEGARA,B.PEKERJAAN,B.AGAMA,B.NO_TELP, B.HP1,B.HP2,B.KODE_POS,B.EMAIL,B.NAMA_HUB,B.NO_IDENTITAS,B.HUB_PASIEN,B.TELP_RUMAH, B.FS_ALERGI,L.*, N.*,
+        $sql = "SELECT TOP 10 A.TANGGAL,A.STATUS,A.NO_REG,B.NAMA_PASIEN,B.ALAMAT, B.KOTA, B.PROVINSI, B.GOL_DARAH,B.STATUS_NIKAH,B.NAMA_PASANGAN,B.KOTA,B.PROVINSI,B.TGL_LAHIR,B.JENIS_KELAMIN,B.WARGA_NEGARA,B.PEKERJAAN,B.AGAMA,B.NO_TELP, B.HP1,B.HP2,B.KODE_POS,B.EMAIL,B.NAMA_HUB,B.NO_IDENTITAS,B.HUB_PASIEN,B.TELP_RUMAH, B.FS_ALERGI,L.*, N.*,
         C.NAMA_DOKTER,C.SPESIALIS 
         FROM PENDAFTARAN A
         LEFT JOIN REGISTER_PASIEN B ON A.NO_MR=B.NO_MR
@@ -2707,11 +2735,14 @@ class m_rawat_jalan extends CI_Model {
             return array();
         }
     }
-    
+
+
+    //belum fix
     function list_pemeriksaan_rad($params) {
         $sql = "SELECT NO_RINCI,KET_TINDAKAN 
-        FROM M_RINCI_HEADER 
-        WHERE NO_RINCI LIKE 'B%' AND FS_KD_REG3 = ?";
+        FROM M_RINCI_HEADER
+        -- LEFT JOIN PKU.dbo.TA_TRS_KARTU_PERIKSA5 b ON a.NO_RINCI=b.FS_KD_TARIF
+        WHERE NO_RINCI LIKE 'B%'";
         $query = $this->db->query($sql, $params);
         if ($query->num_rows() > 0) {
             $result = $query->result_array();

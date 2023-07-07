@@ -1,0 +1,1107 @@
+<!-- belum selesai -->
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $("#option1").change(function () {
+            var scd = $(this).val();
+            $("#hasil1").html(scd);
+            scored();
+        });
+        $("#option2").change(function () {
+            var scd = $(this).val();
+            $("#hasil2").html(scd);
+            scored();
+        });
+        $("#option3").change(function () {
+            var scd = $(this).val();
+            $("#hasil3").html(scd);
+            scored();
+        });
+        $("#option4").change(function () {
+            var scd = $(this).val();
+            $("#hasil4").html(scd);
+            scored();
+        });
+        $("#option5").change(function () {
+            var scd = $(this).val();
+            $("#hasil5").html(scd);
+            scored();
+        });
+        $("#option6").change(function () {
+            var scd = $(this).val();
+            $("#hasil6").html(scd);
+            scored();
+        });
+        
+    });
+</script>
+<script type="text/javascript">
+
+    function scored() {
+        var scd = parseInt($("#hasil1").text()) + parseInt($("#hasil2").text()) + parseInt($("#hasil3").text()) + parseInt($("#hasil4").text()) + parseInt($("#hasil5").text()) + parseInt($("#hasil6").text());
+        $("#totalscd").val(scd);
+    }
+    
+</script>
+
+
+<div class="breadcrum">
+    <p> 
+        <a href="#">IGD</a><span></span>
+         <small>Add Data Asesmen Neonatus IGD</small>
+    </p>
+    <div class="clear"></div>
+</div> 
+<div class="content-entry">
+    <!-- notification template -->
+     <!-- end of notification template-->
+    <form action="{$config->site_url('igd/medis/add_process')}" method="post" onkeypress="return event.keyCode != 13">
+        <input name="FS_KD_REG" id="FS_KD_REG" type="hidden" value="{$rs_pasien.NO_REG}" />
+        <input name="FS_MR" type="hidden" value="{$rs_pasien.NO_MR}" />
+        <input name="FS_KD_LAYANAN" type="hidden" value="{$rs_pasien.KODE_BANGSAL}" />
+        <input name="FS_KD_PETUGAS_MEDIS" type="hidden" value="{$rs_pasien.fs_kd_medis}" />
+
+        <table class="table-info" width="100%">
+            <tr class="headrow">
+                <th colspan="2"></th>
+            </tr>
+            <tr>
+                <td>NAMA</td>
+                <td>
+                    {$rs_pasien.NAMA_PASIEN}
+                </td>
+            </tr>
+            <tr>
+                <td>NO MR</td>
+                <td>
+                    {$rs_pasien.NO_MR}
+                </td>
+            </tr>
+            <tr>
+                <td>TANGGAL LAHIR</td>
+                <td>
+                    {$rs_pasien.TGL_LAHIR|date_format:"%d %b %Y"}
+                </td>
+            </tr>
+            <tr>
+                <td>ALAMAT</td>
+                <td>{$rs_pasien.ALAMAT}</td>
+            </tr>
+            <tr>
+                <td>UMUR</td>
+                <td>{$rs_pasien.fn_umur} Tahun</td>
+            </tr>
+        </table>
+       
+        <table class="table-input" width="100%">
+            <tr>
+               <td>Tanggal dan Jam Masuk Ruangan</td>
+               <td>  
+                <input type="date" name="tanggal_masuk" size="40" value="{$rs_triase.KENDARAAN}">
+                <input type="time" name="jam" size="40" value="{$rs_triase.KENDARAAN}">
+                 </td></tr>  
+             <tr>
+                <td>Kriteria Saat Masuk</td>
+                <td>  
+                    <input type="radio" name="kriteria_masuk" {if $perawat.STATUS_GIZI eq 'Baik'} checked {/if}   value="Neonatus Dalam">Neonatus Dalam
+                    <input type="radio" name="kriteria_masuk" {if $perawat.STATUS_GIZI eq 'Baik'} checked {/if}   value="Neonatus Luar">Neonatus Luar 
+                </td>
+            </tr>  
+            <tr>
+                <td>
+                    Diagnoas Medis
+                </td>
+                <td>
+                    <input type="text" name="diagnosa_medis" size="40">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    DPJP
+                </td>
+                <td>
+                    <input type="text" name="dpjp" size="40">
+                </td>
+            </tr>
+                
+                <!-- <tr class="headrow">
+                    <th colspan="4">I. SUBYEKTIF  </th>
+                </tr> -->
+            <tr>
+                <td>Jenis Kelamin </td>
+                <td colspan="3">
+                    <input type="radio" name="jenis_kelamin" {if $perawat.STATUS_GIZI eq 'Baik'} checked {/if}   value="Laki-laki">Laki-laki
+                    <input type="radio" name="jenis_kelamin" {if $perawat.STATUS_GIZI eq 'Baik'} checked {/if}   value="Perempuan">Perempuan
+                
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Tanggal Lahir
+                </td>
+                <td>
+                    <input type="date" name="tgl_lahir" value="" size="40">
+                </td>
+                <td>
+                    Diagnosa Masuk
+                </td>
+                <td width='40%'>
+                    <textarea style="width: 300px;" name="diagnosa_masuk"  >{if $perawat.KEL_SEKARANG neq ''}{$perawat.KEL_SEKARANG}{/if} </textarea>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Nama Ayah
+                </td>
+                <td>
+                    <input type="text" name="nama_ayah" size="40">
+                </td>
+                <td>
+                    Nama Ibu
+                </td>
+                <td>
+                    <input type="text" name="nama_ibu" size="40">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Pekerjaan Orang Tua
+                </td>
+                <td>
+                    <input type="radio" name="pekerjaan_orang_tua" {if $perawat.STATUS_GIZI eq 'Baik'} checked {/if}   value="PNS">PNS
+                    <input type="radio" name="pekerjaan_orang_tua" {if $perawat.STATUS_GIZI eq 'Baik'} checked {/if}   value="TNI/Polri">TNI/Polri
+                    <input type="radio" name="pekerjaan_orang_tua" {if $perawat.STATUS_GIZI eq 'Baik'} checked {/if}   value="Swasta">Swasta
+                    <input type="radio" name="pekerjaan_orang_tua" {if $perawat.STATUS_GIZI eq 'Baik'} checked {/if}   value="Lainnya">Lainnya
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Jaminan
+                </td>
+                <td>
+                    <input type="radio" name="jaminan" {if $perawat.STATUS_GIZI eq 'Baik'} checked {/if}   value="BPJS">BPJS
+                    <input type="radio" name="jaminan" {if $perawat.STATUS_GIZI eq 'Baik'} checked {/if}   value="Pribadi">Pribadi
+                    <input type="radio" name="jaminan" {if $perawat.STATUS_GIZI eq 'Baik'} checked {/if}   value="Asuransi/Perusahaan">Asuransi/Perusahaan
+                    
+                </td>
+            </tr>
+            <tr class="headrow">
+                <th colspan="4">Status Bio-Sosio-Kultur  </th>
+            </tr>
+            <tr>
+                <td>
+                    Agama
+                </td>
+                <td>
+                    <input type="radio" name="agama" {if $perawat.STATUS_GIZI eq 'Baik'} checked {/if}   value="Islam">Islam
+                    <input type="radio" name="agama" {if $perawat.STATUS_GIZI eq 'Baik'} checked {/if}   value="Kristen">Kristen
+                    <input type="radio" name="agama" {if $perawat.STATUS_GIZI eq 'Baik'} checked {/if}   value="Katolik">Katolik
+                    <input type="radio" name="agama" {if $perawat.STATUS_GIZI eq 'Baik'} checked {/if}   value="Budha">Budha
+                    <input type="radio" name="agama" {if $perawat.STATUS_GIZI eq 'Baik'} checked {/if}   value="Hindu">Hindu
+                    <input type="radio" name="agama" {if $perawat.STATUS_GIZI eq 'Baik'} checked {/if}   value="Khonghucu">Khonghucu
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Suku
+                </td>
+                <td>
+                    <input type="text" name="suku" size="40">
+                </td>
+            </tr>
+            <tr class="headrow">
+                <th colspan="4">Riwayat Kesehatan  </th>
+            </tr>
+            <tr>
+                <td>Riwayat Kesehatan Dahulu</td>
+                <td>
+                    <input type="radio" name="riwayat_penyakit_dahulu" value="Tidak Ada">Tidak Ada
+                    <input type="radio" name="riwayat_penyakit_dahulu" value="Ada">Ada
+                    <input type="text" name="ket_riwayat_penyakit" placeholder="Isi jika ada">
+                </td>
+            </tr>
+ 
+            <tr>
+                <td>
+                    Riwayat Imunisasi
+                </td>
+                <td>
+                    <input type="radio" name="riwayat_imunisasi" value="Belum Pernah">Belum Pernah
+                    <input type="radio" name="riwayat_imunisasi" value="Sudah Pernah">Sudah Pernah
+                </td>
+            </tr>
+            <tr class="headrow">
+                <th colspan="4">Riwayat Kehamilan </th>
+            </tr>
+            <tr>
+                <td>
+                    Usia Kehamilan
+                </td>
+                <td>
+                    <input type="text" name="usia_kehamilan">
+                </td>
+                <td>
+                    Pasien Anak Ke
+                </td>
+                <td>
+                    <input type="text" name="anak_ke">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Jumlah Anak
+                </td>
+                <td>
+                    <input type="text" name="jumlah_anak">
+                </td>
+                
+            </tr>
+            <tr class="headrow">
+                <th colspan="4">Riwayat Persalinan </th>
+            </tr>
+            <tr>
+                <td>
+                    Prenatal
+                </td>
+                <td>
+                    <input type="radio" name="prenatal" value="Normal">Normal
+                    <input type="radio" name="prenatal" value="Tidak Normal">Tidak Normal
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Natal
+                </td>
+                <td>
+                    <input type="radio" name="natal" value="Spontan">Spontan
+                    <input type="radio" name="natal" value="Sectio">Sectio
+                    <input type="radio" name="natal" value="Vacum">Vacum
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Intranatal
+                </td>
+                <td>
+                    <input type="radio" name="intranatal" value="Menangis">Menangis
+                    <input type="radio" name="intranatal" value="Tidak Menangis">Tidak Menangis
+                    <!-- <input type="radio" name="intranatal" value="Vacum">Vacum -->
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Posnatal
+                </td>
+                <td>
+                    <select name="posnatal" id="surat_dari" class="select2" style="width: 190px;">
+                        <option  value="" selected disabled>--Pilih Posnatal--</option>
+                        <option  value="Gangguan Nafas/Asfiksi">Gangguan Nafas/Asfiksi</option>
+                        <option  value="Ringan">Ringan</option>
+                        <option  value="Sedang">Sedang</option>
+                        <option  value="Berat">Berat</option>
+                        <option  value="Hiperbilirubin">Hiperbilirubin</option>
+                        <option  value="Kelainan Kongenital">Kelainan Kongenital</option>
+                        <option  value="Febris">Febris</option>
+                        <option  value="Kejang">Kejang</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Warna Ketuban
+                </td>
+                <td>
+                    <input type="text" name="warna_ketuban" size="40">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Pasien Ditolong Oleh
+                </td>
+                <td>
+                    <input type="radio" name="ditangani_oleh" value="Bidan">Bidan
+                    <input type="radio" name="ditangani_oleh" value="Dokter">Dokter
+                    <input type="radio" name="ditangani_oleh" value="Lainnya">Lainnya
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Tindakan Yang Dilakukan sebelum dirawat inap
+                </td>
+                <td>
+                    <textarea name="tindakan_sebelum_dirawat" style="width: 300px;"></textarea>
+                </td>
+            </tr>
+            <tr class="headrow">
+                <th colspan="4">Riwayat Alergi</th>
+            </tr>
+            <tr>
+                <td>
+                    Riwayat Alergi
+                </td>
+                <td>
+                    <input type="radio" name="riwayat_alergi" value="Tidak Ada">Tidak Ada
+                    <input type="radio" name="riwayat_alergi" value="Ada">Ada
+                    <input type="text" name="ket_riwayat_alergi" placeholder="Isi jika ada">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    KESADARAN
+                </td>
+                <td>
+                  
+                        <input type="radio" name="KESADARAN" required value="Compos metis"> Compos metis
+                        <input type="radio" name="KESADARAN" value="Somnolen">  Somnolen
+                        <input type="radio" name="KESADARAN" value="Apatis">  Apatis
+                        <input type="radio" name="KESADARAN" value="Sopor">  Sopor
+                        <input type="radio" name="KESADARAN" value="Coma">  Coma
+                 
+                </td>
+            </tr>
+            <tr class="headrow">
+                <th colspan="4">Vital Sign</th>
+            </tr>
+            <tr>
+                <td width='20%'>Suhu</td>
+                <td width='30%'><input type="text" name="S" required size="10" value="{$rs_triase.SUHU}"/>C</td>
+                <td width='20%'>Nadi</td>
+                <td width='30%'><input type="text" name="N" required size="10" value="{$rs_triase.N}"/> x/menit</td>
+            </tr>
+            <tr>
+                <td>R</td>
+                <td><input type="text" name="R" size="10" required value="{$rs_triase.R}"/> x/menit</td>
+                <td>Saturasi Oksigen</td>
+                <td><input type="text" name="saturasi_oksigen" size="10" required value="{$rs_triase.TD}"/></td>
+            </tr>
+            <tr>
+                <td>Panjang Badan</td>
+                <td><input type="text" name="PB" size="10" required value="{$rs_triase.TB}"/> cm</td>
+                <td>Berat Badan masuk</td>
+                <td><input type="text" name="berat_badan_masuk" size="10" required value="{$rs_triase.BB}"/> Kg</td>
+     
+            </tr>
+            <tr>
+                <td>
+                    A / S
+                </td>
+                <td>
+                    <input type="text" name="">
+                </td>
+                <td>Berat Badan lahir</td>
+                <td><input type="text" name="berat_badan_lahir" size="10" required value="{$rs_triase.BB}"/> Kg</td>
+            </tr>
+    
+         
+            <tr>
+                <td>Lingkar Kepala</td>
+                <td>  <input type="text" name="lingkar_kepala" required> </td> 
+                <td>Lingkar Lengan</td>
+                <td>  <input type="text" name="lingkar_lengan" required> </td> 
+            <tr> 
+                
+                <tr>
+                    <td>
+                        lingkar dada
+                    </td>
+                    <td>
+                        <input type="text" name="lengkar_dada">
+                    </td>
+                </tr>
+                <tr class="headrow">
+                    <th colspan="4">Pemeriksaan Kepala dan Leher</th>
+                </tr>
+                <tr>
+                    <td>
+                        kepala
+                    </td>
+                    <td>
+                        <input type="radio" name="kepala" value="Normal" checked >Normal
+                        <input type="radio" name="kepala" value="Kelainan">Kelainan
+                        <input type="text" name="kelainan_kepala" placeholder="Isi jika ada kelainan">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Leher
+                    </td>
+                    <td>
+                        <input type="radio" name="leher" value="Normal" checked >Normal
+                        <input type="radio" name="leher" value="Tidak Normal">Tidak Normal
+                        <input type="text" name="kelainan_leher" placeholder="Isi jika ada kelainan">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Mata
+                    </td>
+                    <td>
+                        <select name="mata" id="surat_dari" class="select2" style="width: 190px;">
+                            <option  value="" selected disabled>--Pilih--</option>
+                            <option  value="Normal">Normal</option>
+                            <option  value="Sekret">Sekret</option>
+                            <option  value="Sklera Ikterik">Sklera Ikterik</option>
+                            <option  value="Strabismus">Strabismus</option>
+                            <option  value="Memerah">Memerah</option>
+                            <option  value="Bola Mata Bergerak Terus">Bola Mata Bergerak Terus</option>
+                         
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Pupil
+                    </td>
+                    <td>
+                        <input type="radio" name="pupil" value="Normal" checked >Normal
+                        <input type="radio" name="pupil" value="Anisokor">Anisokor
+                        <input type="radio" name="pupil" value="Miosis">Miosis
+                        <input type="radio" name="pupil" value="Midriasis">Midriasis
+                        
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Palpebra
+                    </td>
+                    <td>
+                        <input type="radio" name="palpebra" value="Normal" checked >Normal
+                        <input type="radio" name="palpebra" value="Cekung">Cekung
+                        <input type="radio" name="palpebra" value="Edema">Edema 
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Hidung
+                    </td>
+                    <td>
+                        <input type="radio" name="hidung" value="Normal" checked >Normal
+                        <input type="radio" name="hidung" value="Epistaksis">Epistaksis
+                        <input type="radio" name="hidung" value="Sekret">Sekret 
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Mulut
+                    </td>
+                    <td>
+                        <input type="radio" name="mulut" value="Normal" checked >Normal
+                        <input type="radio" name="mulut" value="Mukosa Kering">Mukosa Kering
+                        <input type="radio" name="mulut" value="Lidah Kotor">Lidah Kotor 
+                        <input type="radio" name="mulut" value="Sianosis">Sianosis 
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Telinga
+                    </td>
+                    <td>
+                        <input type="radio" name="telinga" value="Normal" checked >Normal
+                        <input type="radio" name="telinga" value="Keluar Cairan">Keluar Cairan 
+                    </td>
+                </tr>
+                <!-- <tr>
+                    <td>
+                        Leher
+                    </td>
+                    <td>
+                        <input type="radio" name="leher" value="Normal" checked >Normal
+                        <input type="radio" name="leher" value="Peningkatan JVP">Peningkatan JVP 
+                    </td>
+                </tr> -->
+
+                <tr class="headrow">
+                    <th colspan="4">Pemeriksaan Jantung dan Paru</th>
+                </tr>
+                <tr>
+                    <td>
+                        dada
+                    </td>
+                    <td colspan="4">
+                        <input type="radio" name="dada" value="Simetris" checked >Simetris
+                        <input type="radio" name="dada" value="Tidak Simetris">Tidak Simetris 
+                        <input type="radio" name="dada" value="Bentuk Dada Burung">Bentuk Dada Burung 
+                        <input type="radio" name="dada" value="Penggunaan Otot bantu nafas">Penggunaan Otot bantu nafas 
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Irama Nafas
+                    </td>
+                    <td>
+                        <input type="radio" name="irama_nafas" value="Normal" checked >Normal
+                        <input type="radio" name="irama_nafas" value="Sesak Nafas">Sesak Nafas 
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Bunyi Nafas
+                    </td>
+                    <td>
+                        <input type="radio" name="bunyi_nafas" value="Normal" checked >Normal
+                        <input type="radio" name="bunyi_nafas" value="Ronchi">Ronchi 
+                        <input type="radio" name="bunyi_nafas" value="Wheezing">Wheezing 
+                        <input type="radio" name="bunyi_nafas" value="Stridor">Stridor 
+                    </td>
+                </tr>
+                <tr class="headrow">
+                    <th colspan="4">Pemeriksaan Gastroinestinal</th>
+                </tr>
+
+                <tr>
+                    <td>
+                        Abdomen
+                    </td>
+                    <td colspan="4">
+                        <input type="radio" name="abdomen" value="Normal" checked >Normal
+                        <input type="radio" name="abdomen" value="Muntah">Muntah 
+                        <input type="radio" name="abdomen" value="Mual">Mual 
+                        <input type="radio" name="abdomen" value="Kembung">Kembung 
+                        <input type="radio" name="abdomen" value="Diare">Diare 
+                        <input type="radio" name="abdomen" value="Konstipasi">Konstipasi 
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Tali Pusat
+                    </td>
+                    <td>
+                        <input type="radio" name="tali_pusat" value="Segar" checked >Segar
+                        <input type="radio" name="tali_pusat" value="Layu">Layu 
+                        <input type="radio" name="tali_pusat" value="Pendarahan">Pendarahan 
+                        <input type="radio" name="tali_pusat" value="Bau">Bau 
+                    </td>
+                </tr>
+                <tr class="headrow">
+                    <th colspan="4">Pemeriksaan status nutrisi</th>
+                </tr>
+                <tr>
+                    <td>
+                        Regurgitasi
+                    </td>
+                    <td>
+                        <input type="radio" name="regurgitasi" value="Ya">Ya
+                        <input type="radio" name="regurgitasi" value="Tidak">Tidak     
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Refleks Menghisap
+                    </td>
+                    <td>
+                        <input type="radio" name="refleks_menghisap" value="Baik">Baik
+                        <input type="radio" name="refleks_menghisap" value="Kurang">Kurang     
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Refleks Menelan
+                    </td>
+                    <td>
+                        <input type="radio" name="refleks_menelan" value="Baik">Baik
+                        <input type="radio" name="refleks_menelan" value="Kurang">Kurang     
+                    </td>
+                </tr>
+
+                <tr class="headrow">
+                    <th colspan="4">Pemeriksaan Genitourinaria</th>
+                </tr>
+
+                <tr>
+                    <td>
+                        Genitalia
+                    </td>
+                    <td>
+                        <input type="radio" name="genitalia" value="Normal" checked>Normal
+                        <input type="radio" name="genitalia" value="Kelainan">Kelainan
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Anus
+                    </td>
+                    <td>
+                        <input type="radio" name="anus" value="Ada">Ada
+                        <input type="radio" name="anus" value="Tidak Ada">Tidak Ada
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Mekonium
+                    </td>
+                    <td>
+                        <input type="radio" name="mekonium" value="Sudah">Sudah
+                        <input type="radio" name="mekonium" value="Belum">Belum
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        BAK
+                    </td>
+                    <td>
+                        <input type="radio" name="bak" value="Spontan">Spontan
+                        <input type="radio" name="bak" value="Tidak Spontan">Tidak Spontan
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        BAB
+                    </td>
+                    <td>
+                        <input type="radio" name="bab" value="Normal" checked>Normal
+                        <input type="radio" name="bab" value="Cair">Cair
+                        <input type="radio" name="bab" value="Lendir">Lendir
+                        <input type="radio" name="bab" value="Frekuensi">Frekuensi
+                        <input type="radio" name="bab" value="Warna">Warna
+                    </td>
+                </tr>
+
+                <tr class="headrow">
+                    <th colspan="4">Pemeriksaan Muskuloskeletal dan Integumentum</th>
+                </tr>
+                <tr>
+                    <td>
+                        Ekstremitas atas / bawah
+                    </td>
+                    <td>
+                        <input type="radio" name="ekstremitas" value="Hangat">Hangat
+                        <input type="radio" name="ekstremitas" value="Dingin">Dingin
+                        <input type="radio" name="ekstremitas" value="Edema">Edema
+                        <input type="radio" name="ekstremitas" value="Sianosis">Sianosis
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        Kelainan Fisik
+                    </td>
+                    <td>
+                        <input type="radio" name="kelainan_fisik" value="Tidak" checked >Tidak
+                        <input type="radio" name="kelainan_fisik" value="Ya">Ya
+                        <input type="text" name="kelainan_fisik" placeholder="Isi jika ada kelainan">
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        Turgor
+                    </td>
+                    <td>
+                        <input type="radio" name="turgor" value="Elastis">Elastis
+                        <input type="radio" name="turgor" value="Tidak Elastis">Tidak Elastis
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Warna Kulit
+                    </td>
+                    <td>
+                        <input type="radio" name="warna_kulit" value="Kemerahan">Kemerahan
+                        <input type="radio" name="warna_kulit" value="Pucat">Pucat
+                        <input type="radio" name="warna_kulit" value="Ikterik">Ikterik
+                        <input type="radio" name="warna_kulit" value="Sianosis">Sianosis
+                    </td>
+                </tr>
+
+                <tr class="headrow">
+                    <th colspan="4">SALA NYERI - NIPS (NEONATAL INFANT PAINT SCORE)</th>
+                </tr>
+                
+                <tr>
+        
+                    <td>
+                        ekspresi wajah
+                    </td>
+                    <td>
+                        <select name="ekspresi_wajah" class="select2" style="width: 220px;" id="option1">
+                            <option  value="">--Pilih--</option>
+                            <option  value="0">Otot wajah rileks, ekspersi netral</option>
+                            <option  value="1">Otot wajah tegang, alis berkerut, rahang dagu meruncing</option>
+                            
+                         
+                        </select>
+                        <span id="hasil1"></span>
+                    </td>
+          
+                    <td width='20%'> Total Skor <input type="text" name="total_skor_nyeri" id="totalscd" readonly></td>
+                   
+                </tr>
+                <tr>
+                    <td>
+                        Tangisan
+                    </td>
+                    <td>
+                        <select name="tangisan"  class="select2" style="width: 220px;" id="option2">
+                            <option  value="">--Pilih--</option>
+                            <option  value="0">Tenang tidak menangis</option>
+                            <option  value="1">Mengerang, sebentar - sebentar menangis</option>
+                            <option  value="2">Terus menerus menangis, menangis kencang, melengking</option>
+                        </select>
+                        <span id="hasil2"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Pola nafas
+                    </td>
+                    <td>
+                        <select name="pola_nafas"  class="select2" style="width: 220px;" id="option3">
+                            <option  value="">--Pilih--</option>
+                            <option  value="0">Rileks, napas reguler</option>
+                            <option  value="1">Pola napas berubah : tidak teratur, lebih cepat dari biasanya, tersedak, menahan napas</option>
+                        </select>
+                        <span id="hasil3"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Tangan
+                    </td>
+                    <td>
+                        <select name="tangan"  class="select2" style="width: 220px;" id="option4">
+                            <option  value="">--Pilih--</option>
+                            <option  value="0">Rileks, otot tangan tidak kaku, kadang bergerak tidak beraturan</option>
+                            <option  value="1">Fleksi/ ekstensi kaku, meluruskan tangan tetapi dengan cepat melakukan fleksi/ ekstensi yang kaku</option>
+                        </select>
+                        <span id="hasil4"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Kaki 
+                    </td>
+                    <td>
+                        <select name="kaki"  class="select2" style="width: 220px;" id="option5">
+                            <option  value="">--Pilih--</option>
+                            <option  value="0">Rileks, otot kaki tidak kaku, kadang bergerak tidak beraturan</option>
+                            <option  value="1">Fleksi/ ekstensi kaku, meluruskan kaki tetapi dengan cepat melakukan fleksi/ ekstensi yang kaku</option>
+                        </select>
+                        <span id="hasil5"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Kesadaran 
+                    </td>
+                    <td>
+                        <select name="kesadaran"  class="select2" style="width: 220px;" id="option6">
+                            <option  value="">--Pilih--</option>
+                            <option  value="0">Tidur pulas atau cepat bangun, alert dan tenang</option>
+                            <option  value="1">Rewel, gelisah dan meronta ronta</option>
+                        </select>
+                        <span id="hasil6"></span>
+                    </td>
+                </tr>
+
+                <tr class="headrow">
+                    <th colspan="4">ANALISIS</th>
+                </tr>
+
+
+
+                <tr class="headrow">
+                    <th colspan="4">RENCANA</th>
+                </tr>
+                <tr>
+                    <td>
+                        Tindakan keperawatan
+                    </td>
+                    <td>
+                        <textarea name="tindakan_keperawatan"  style="width: 300px;"></textarea>
+                    </td>
+                </tr>
+                
+                <tr class="headrow">
+                    <th colspan="4">KEBUTUHAN EDUKASI</th>
+                </tr>
+                    <tr>
+                        <td>
+                            terdapat hambatan dalam pembelajaran ?
+                        </td>
+                        <td>
+                            <input type="radio" name="hambatan_pembelajaran" value="ya">ya
+                            <input type="radio" name="hambatan_pembelajaran" value="tidak">tidak
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td>
+                            Butuh penerjemah ?
+                        </td>
+                        <td>
+                            <input type="radio" name="penerjemah" value="ya">ya
+                            <input type="radio" name="penerjemah" value="tidak">tidak
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Kebutuhan Edukasi
+                        </td>
+                        <td>
+                            <input type="radio" name="kebutuhan_edukasi" value="Diagnosis dan manajemen penyakit">Diagnosis dan manajemen penyakit<br>
+                            <input type="radio" name="kebutuhan_edukasi" value="Manajemen nyeri">Manajemen nyeri<br>
+                            <input type="radio" name="kebutuhan_edukasi" value="Makan / minum teratur">Makan / minum teratur<br>
+                            <input type="radio" name="kebutuhan_edukasi" value="Obat-obatan">Obat-obatan<br>
+                            <input type="radio" name="kebutuhan_edukasi" value="Jaga kebersihan luka">Jaga kebersihan luka<br>
+                            <input type="radio" name="kebutuhan_edukasi" value="Diet dan nutrisi">Diet dan nutrisi<br>
+                            <input type="radio" name="kebutuhan_edukasi" value="Rehabilitasi">Rehabilitasi<br>
+                            <input type="radio" name="kebutuhan_edukasi" value="tindakan keperawatan" tyle="width: 220px;">tindakan keperawatan
+                            <input type="text" name="kebutuhan_edukasi_tindakan" placeholder="isi jika perlu tindakan keperawatan">
+                            <input type="radio" name="kebutuhan_edukasi" value="diet">diet
+                            <input type="text" name="kebutuhan_edukasi_diet" placeholder="isi jika perlu edukasi diet" style="width: 220px;">
+                      
+                        </td>
+                    </tr>
+                <tr class="headrow">
+                    <th colspan="4">RENCANA PULANG / DISCHARGE PLANNING AWAL</th>
+                </tr>
+                <tr>
+                    <td>
+                        Perawatan bayi baru lahir
+                    </td>
+                    <td>
+                        <input type="checkbox" name="discharge_planning[]" value="Asi Ekslusif">Asi Ekslusif<br>
+                        <input type="checkbox" name="discharge_planning[]" value="Memandikan bayi">Memandikan bayi<br>
+                        <input type="checkbox" name="discharge_planning[]" value="Perawatan tali pusat">Perawatan tali pusat<br>
+                        <input type="checkbox" name="discharge_planning[]" value="Program imunisasi">Program imunisasi<br>
+                        <input type="checkbox" name="discharge_planning[]" value="Lain Lain">Lain Lain
+                        <input type="text" name="discharge_planning_lain" placeholder="isi jika ada yang lain">
+                    </td>
+                </tr>
+
+
+
+
+
+              
+              
+       </tr>
+           <tr>
+
+            <td>Jam Selesai diperiksa</td>
+            <td><input type="time" name="jam_selesai"></td>
+       </tr>
+
+ 
+           
+
+          <tr class="submit-box">
+                <td colspan="4">
+                    <input type="submit" name="save" value="Simpan" class="edit-button"/>
+                </td>
+            </tr>
+           
+
+
+
+        </table>
+    </form>
+</div>
+
+
+
+ 
+
+<script type="text/javascript"> 
+    var user = $("#user").val(); 
+           
+    $(".select2").select2({
+            placeholder: "Pilih",
+            allowClear: true
+        });
+            $("#namaobat").select2({});
+    
+     
+//rencana lab
+           $('#rlab').select2('data', null);
+            $('#rlab').select2('data', null);
+            $("#rlab").removeAttr("disabled");
+            jQuery("#rlab").html('');
+            $.ajax({
+            type: "POST",
+                    url: "{$config->site_url('medis/rawat_jalan/list_pemeriksaan_rlab/')}",
+                    data: "user=" + user,
+                    dataType: 'json',
+                    success: function(data) {
+                    var showData;
+                            jQuery.each(data, function(index, result) {
+                            if (result.value == 0) {
+                            } else {
+                            showData += "<option value='" + result.value + "'>" + result.label + "</option>";
+                            }
+                            })
+                            jQuery("#rlab").html(showData);
+                    }
+            });
+             $("#rlab").select2({});
+
+
+
+             //rencana radiologi
+               $('#rrad').select2('data', null);
+            $('#rrad').select2('data', null);
+            $("#rrad").removeAttr("disabled");
+            jQuery("#rrad").html('');
+            $.ajax({
+            type: "POST",
+                    url: "{$config->site_url('medis/rawat_jalan/list_pemeriksaan_rrad/')}",
+                    data: "user=" + user,
+                    dataType: 'json',
+                    success: function(data) {
+                    var showData;
+                            jQuery.each(data, function(index, result) {
+                            if (result.value == 0) {
+                            } else {
+                            showData += "<option value='" + result.value + "'>" + result.label + "</option>";
+                            }
+                            })
+                            jQuery("#rrad").html(showData);
+                    }
+            });
+             $("#rrad").select2({});
+</script>
+
+
+<script>
+        var namaa = $(".namaa").val();
+               $('.namaa').val(namaa+'\n R/ \t   no. \n S                    \n ----------------------------------------\n '); 
+       
+       
+                $('.resepracik').val('\n /R');
+ 
+
+               function tambahkop(e){
+                   var yhr= new XMLHttpRequest();
+                var key=e.keyCode || e.which;
+                 if (key==13){
+                               var resepracik = $(".resepracik").val(); 
+                                   $('.resepracik').val(resepracik+'S                 \n ---------------------------------------- \n \n'+'R/  '); // Close / Tutup Modal Dialog
+                 //    // alert(namaa);
+                 }
+               }
+        
+       
+       
+   function handleKeyPress(e){
+                   var yhr= new XMLHttpRequest();
+                var key=e.keyCode || e.which;
+                 if (key==13){
+                               var namaobat = $("#namaobat").val();
+                               var numero = $(".numero").val();
+                               var dosis = $(".dosis").val();
+                             var kolomresep= document.getElementById("kolomresep");
+                              var resep = $(".resep").val();
+       
+       $('.resep').val(resep+'\n /R   '+namaobat+'   no. '+numero+'\n S    '+dosis+'\n ----------------------------------------------- \n '); 
+               //    alert(namaobat+numero+dosis);
+                  $('#namaobat').select2('data', null);
+                  $('.numero').val(null);
+                  $('.dosis').val(null);
+        
+               //    $("#namaobat").select2({}).focus();
+                  $("#namaobat").select2('open');
+        
+                 }
+               }
+
+        var x=event.key;
+        if(x=='a'||x=='A'){
+            alert("hore");
+        }
+           
+
+ function handle2(e){
+                   var key=e.keyCode || e.which;
+                 if (key==13){
+                               var namaobat1 = $("#namaobat1").val();
+                               var numero1 = $(".numero1").val();
+                            //    var dosis1 = $(".dosis1").val();
+                                var resepracik = $(".resepracik").val();
+       
+       $('.resepracik').val(resepracik+'    '+namaobat1+'   no. '+numero1+'\n     '); 
+               //    alert(namaobat+numero+dosis);
+                  $('#namaobat1').select2('data', null);
+                  $('.numero1').val(null);
+                  $('.dosis1').val(null);
+        
+               //    $("#namaobat").select2({}).focus();
+                  $("#namaobat1").select2('open');
+        
+                 }
+               }
+ 
+       
+    </script> 
+       
+       
+       <script type="text/javascript"> 
+           var user = $("#user").val(); 
+       
+           $('#namaobat').select2('data', null);
+                   $('#namaobat').select2('data', null);
+                   $("#namaobat").removeAttr("disabled");
+       
+                   jQuery("#namaobat").html('');
+                   $.ajax({
+                   type: "POST", 
+                           url: "{$config->site_url('medis/rawat_jalan/list_nama_obat/')}",
+                           data: "user=" + user,
+                           dataType: 'json',
+                           success: function(data) {
+                           var showData;
+                                   jQuery.each(data, function(index, result) {
+                                   if (result.value == 0) {
+                                   } else {
+                                   showData += "<option value='" + result.value + "'>" + result.label + "</option>";
+                                   }
+                                   })
+                                   jQuery("#namaobat").html(showData);
+                           }
+                   });
+                   //tags
+                  
+
+                   $('#namaobat1').select2('data', null);
+                   $('#namaobat1').select2('data', null);
+                   $("#namaobat1").removeAttr("disabled");
+       
+                   jQuery("#namaobat1").html('');
+                   $.ajax({
+                   type: "POST", 
+                           url: "{$config->site_url('medis/rawat_jalan/list_nama_obat/')}",
+                           data: "user=" + user,
+                           dataType: 'json',
+                           success: function(data) {
+                           var showData;
+                                   jQuery.each(data, function(index, result) {
+                                   if (result.value == 0) {
+                                   } else {
+                                   showData += "<option value='" + result.value + "'>" + result.label + "</option>";
+                                   }
+                                   })
+                                   jQuery("#namaobat1").html(showData);
+                           }
+                   });
+
+                    $("#namaobat1").select2({});
+
+
+               
+      $(":radio.rad").click(function(){
+        $("#form2").hide(); 
+
+        if($(this).val() == "Rujuk"){
+          $("#form2").show(); 
+          $("#form3").hide(); 
+        }
+        else if($(this).val() == "Kontrol"){
+            $("#form3").show(); 
+        }        
+        else{
+            $("#form3").hide(); 
+          $("#form2").hide(); 
+        }
+      });
+      
+</script>

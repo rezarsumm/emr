@@ -708,6 +708,38 @@ class Medis extends ApplicationBase {
                     }
 
 
+                    //TAMBAHAN BELUM SELESAI
+                    public function history($FS_MR = "",$konsul= "") { 
+                        // set page rules
+                                $this->_set_page_rule("R");
+                        // set template content
+                                $this->smarty->assign("template_content", "igd/medis/history.html");
+                                $this->smarty->load_javascript('resource/js/jquery.datatables/jquery.dataTables.js');
+                                $this->smarty->load_javascript('resource/js/jquery.datatables/dataTables.fixedHeader.js');
+                                $this->smarty->load_style("jquery.ui/redmond/jquery-ui-1.8.13.custom.css");
+                                $this->smarty->load_style("jquery.ui/datatables/jquery.dataTables.css");
+                        // load javascript
+                                $this->smarty->load_javascript('resource/js/jquery/jquery-ui-1.9.2.custom.min.js');
+                        // get search parameter
+                                 $now = date('Y-m-d'); 
+                                $noww = date('Y-m-d');
+                                $tme=' 00:00:00.000';
+                                $skrng=$noww.$tme;
+                        
+                          
+                                $medis = $this->com_user['user_name'];
+                            //    $medis = $this->com_user['user_name'];
+                                $this->smarty->assign("no", '1');
+                                $this->smarty->assign("now", $now);
+                                $this->smarty->assign("noww", $noww);
+                                $this->smarty->assign("result", $this->m_rawat_jalan->get_px_by_dokter_by_rm(array($FS_MR)));
+                                
+                                $this->smarty->assign("rs_pasien", $this->m_rawat_jalan->get_px_history_dokter_igd(array($now,$medis,$FS_MR)));
+          
+                                parent::display();
+                            }
+
+
 
       
     public function edit_process() { 

@@ -65,8 +65,22 @@ class Neonatus extends ApplicationBase {
         parent::display();
     }
 
+    //TAMBAHAN BELUM SELESAI
+    public function cari_process2() {
+        $FS_RG2 = $this->input->post('FS_RG');
+        $cek = $this->m_igd->cek_medis(array($FS_RG2));
+        if ($cek == '0') {
+           $rolenya=$this->com_user['role_name'];
+             redirect("igd/medis/add/" . $FS_RG2);
+        } elseif ($cek >= '1') {
+         redirect("igd/medis/edit/" . $FS_RG2);
+        }
+    }
+
+
     public function cari_process() {
-        redirect("igd/neonatus/add/");
+        $FS_RG2 = $this->input->post('FS_RG');
+        redirect("igd/neonatus/add/" . $FS_RG2);
 
         // $FS_RG2 = $this->input->post('FS_RG');
         // $cek = $this->m_igd->cek_neonatus(array($FS_RG2));

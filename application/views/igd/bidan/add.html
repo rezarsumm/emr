@@ -119,23 +119,23 @@
         var sc = parseInt($("#an1").text()) + parseInt($("#an2").text()) + parseInt($("#an3").text()) +  parseInt($("#an5").text()) + parseInt($("#an6").text()) + parseInt($("#an7").text());
         $("#totalsc").html(sc);
         if (sc <7) {
-            $("#rjtkesimpulan").html("RISIKO RENDAH");
+            $("#rjtkesimpulan").val("RISIKO RENDAH");
         }
         else if (sc >= 7 && sc <= 11) {
-            $("#rjtkesimpulan").html("RISIKO SEDANG");
+            $("#rjtkesimpulan").val("RISIKO SEDANG");
         } else if (sc >= 12) {
-            $("#rjtkesimpulan").html("RISIKO TINGGI");
+            $("#rjtkesimpulan").val("RISIKO TINGGI");
         }
     }
     function scored() {
         var scd = parseInt($("#an8").text()) + parseInt($("#an9").text()) + parseInt($("#an10").text()) + parseInt($("#an11").text()) + parseInt($("#an12").text()) + parseInt($("#an13").text());
         $("#totalscd").html(scd);
         if (scd >= 0 && scd <= 24) {
-            $("#rjtkesimpuland").html("RISIKO RENDAH");
+            $("#rjtkesimpuland").val("RISIKO RENDAH");
         } else if (scd >= 25 && scd <= 45) {
-            $("#rjtkesimpuland").html("RISIKO SEDANG");
+            $("#rjtkesimpuland").val("RISIKO SEDANG");
         } else if (scd > 45) {
-            $("#rjtkesimpuland").html("RISIKO TINGGI");
+            $("#rjtkesimpuland").val("RISIKO TINGGI");
         }
     }
 
@@ -144,9 +144,9 @@
         var scd = parseInt($("#an14").text()) + parseInt($("#an15").text()) + parseInt($("#an16").text()) + parseInt($("#an17").text()) + parseInt($("#an18").text()) + parseInt($("#an19").text());
         $("#totalsct").html(scd);
         if (scd >= 0 && scd <= 4) {
-            $("#rjtkesimpulant").html("RISIKO RENDAH");
+            $("#rjtkesimpulant").val("RISIKO RENDAH");
         }  else if (scd > 5) {
-            $("#rjtkesimpulant").html("RISIKO TINGGI");
+            $("#rjtkesimpulant").val("RISIKO TINGGI");
         }
     }
     
@@ -259,7 +259,11 @@
         </tr>
         <tr>
             <td width='20%'>Pendidikan</td>
-            <td width='30%'><input type="text" name="PENDIDIKAN_SUAMI" size="50"  />-</td>
+            <td width='30%'>                <input type="radio" name="PENDIDIKAN_SUAMI" value="SD"> SD
+                <input type="radio" name="PENDIDIKAN_SUAMI" value="SMP/SEDERAJAT"> SMP/SEDERAJAT
+                <input type="radio" name="PENDIDIKAN_SUAMI" checked value="SMA/SEDERAJAT"> SMA/SEDERAJAT
+                <input type="radio" name="PENDIDIKAN_SUAMI" value="STRATA 1"> STRATA 1
+            </td>
            
         </tr>
         </table>
@@ -356,7 +360,7 @@
         <tr> 
             <td>  Riwayat penyakit dahulu </td>
              <td colspan="3"> 
-               <input style="width: 600px;" type="text" name="FS_RIW_PENYAKIT_DAHULU" value="{$rs_pasien.FS_RIW_PENYAKIT_DAHULU|default:'-'}" size="32">
+               <input style="width: 600px;" type="text" name="RIWAYAT_PENYAKIT_DAHULU" value="{$rs_pasien.FS_RIW_PENYAKIT_DAHULU|default:'-'}" size="32">
                 </td>
         </tr>
 
@@ -616,7 +620,7 @@
                <input type="radio" name="KEADAAN_UMUM" size="50" value="Lemah"/>Lemah
             </td>
            <td width='20%'>  Kesadaran</td>
-           <td width='30%'><input type="text" name="SADAR" size="50" value="{$vs.FS_ANAMNESA|default:'-'}" required value="-"/></td>
+           <td width='30%'><input type="text" name="SADAR" size="50" value="{$rs_triase.KESADARAN}" required /></td>
            
        </tr>
     
@@ -715,7 +719,7 @@
             <td>
                 <input type="radio" name="DADA" value="Normal" checked>   Normal
                 <input type="radio" name="DADA" value="">   Kelainan
-                <input type="text" name="DADA2" value=" ">   
+                <input type="text" name="DADA2" value="">   
                  
  
              </td>
@@ -837,17 +841,6 @@
                 <input type="radio" name="jenis_bayi" class="jenis_bayi" value="Kembar">Kembar
               </td>
 
-              <tr id="form_tunggal" style="display: none;">
-                <td>BAYI I </td>
-                <td colspan="3">  
-                    
-                    <input type="radio" name="AUSKULTASI_1" value="Teratur">Teratur
-                    <input type="radio" name="AUSKULTASI_1" value="Tidak">Tidak Teratur  
-                    <!-- <input type="hidden" name="AUSKULTASI"  >     -->
-                    <input type="text" name=" DURASI_AUSKULTASI_1"  >kali/menit
-                
-                </td>                       
-                </tr>
 
                 <tr id="form_bayi1" style="display: none;">
                     <td>BAYI I </td>
@@ -1068,8 +1061,11 @@
     </tr>
 </table>
 
-   
+
 <table class="table-input" width="100%">
+    <tr class="headrow">
+        <th colspan="4">Riwayat Jatuh</th>
+    </tr>
     {if $rs_pasien.fn_umur <= 18}
     <tr class="headrow">
         <th colspan="4">Asesmen Jatuh Anak Skala Humpty Dumpty (1-18 tahun)</th>
@@ -1088,8 +1084,8 @@
             </select>
             <span id="an1"></span>
         </td>
-        <td width='20%'>Kesimpulan</td>
-        <td width='30%'><b><span id="rjtkesimpulan"></span></b></td>
+        <td width='20%'>Kesimpulan <input type="text" name="RESIKO_JATUH" id="rjtkesimpulan" readonly></td>
+     
     </tr>
     <tr>
         <td width='20%'>Jenis Kelamin</td>
@@ -1194,8 +1190,9 @@
             </select>
             <span id="an8"></span>
         </td>
-        <td width='20%'>Kesimpulan</td>
-        <td width='30%'><b><span id="rjtkesimpuland"></span></b></td>
+      
+    <td width='20%'>Kesimpulan <input type="text" name="RESIKO_JATUH" id="rjtkesimpuland" readonly></td>
+        
     </tr>
      <tr>
         <td>Diagnosa medis sekunder</td>
@@ -1269,9 +1266,7 @@
         <th colspan="4">Asesmen Jatuh Lanjut Usia (Ann Henrich) usia >65 tahun</th>
     <input type="hidden" name="FS_TIPE_RISIKO_JATUH" value='3'/>
     </tr>
-    <tr class="headrow">
-        <th colspan="4">Riwayat Jatuh</th>
-    </tr>
+
     <tr>
         <td width='20%'>Disorientasi</td>
         <td width='30%'>
@@ -1283,8 +1278,8 @@
             </select>
             <span id="an14"></span>
         </td>
-        <td width='20%'>Kesimpulan</td>
-        <td width='30%'><b><span id="rjtkesimpulant"></span></b></td>
+        <td width='20%'>Kesimpulan <input type="text" name="RESIKO_JATUH" id="rjtkesimpulant" readonly></td>
+       
     </tr>
      <tr>
         <td>Gangguan Gaya berjalan</td>
@@ -1775,11 +1770,11 @@ $(function(){
         var jc = parseInt($("#nj1").text()) + parseInt($("#nj2").text()) + parseInt($("#nj3").text()) + parseInt($("#nj4").text()) + parseInt($("#nj5").text()) + parseInt($("#nj6").text()) + parseInt($("#nj7").text());
         // $("#totalsc").html(jc);
         if (jc >= 0 && jc <= 24) {
-            $("#rjtkesimpuland").html("RISIKO RENDAH");
+            $("#rjtkesimpuland").val("RISIKO RENDAH");
         } else if (jc >= 25 && jc <= 45) {
-            $("#rjtkesimpuland").html("RISIKO SEDANG");
+            $("#rjtkesimpuland").val("RISIKO SEDANG");
         } else if (jc > 45) {
-            $("#rjtkesimpuland").html("RISIKO TINGGI");
+            $("#rjtkesimpuland").val("RISIKO TINGGI");
         }
     }
     
@@ -1855,11 +1850,11 @@ $(function(){
         $("#form_bayi2").hide(); 
 
         if($(this).val() == "Tunggal"){
-          $("#form_tunggal").show(); 
+            $("#form_bayi1").show();
         //   $("#form3").hide(); 
         }
         else if($(this).val() == "Kembar"){
-            $("#form_tunggal").hide();
+            
             $("#form_bayi1").show();
             $("#form_bayi2").show();
         }        

@@ -46,6 +46,43 @@
         </table>
     </form>
 </div>
+<div class="dashboard-container">
+    <table class="table-view" width="100%" border="0" style="font-size: 12px;">
+        <thead>
+            <tr>
+                <th width='2%'>No</th>
+                <th>No MR</th>
+                <th>Nama Pasien</th>
+                <th>Alamat</th> 
+                <th>Petugas</th> 
+                <th>Status</th>
+                <th width='18%'>Detail</th>
+            </tr>
+        </thead>
+        <tbody>{$no=1}
+            {foreach from=$rs_ases_neonatus item=data}
+            <tr>
+                <td>{$no++}</td>
+                <td>{$data.No_MR}</td>
+                <td>{$data.Nama_Pasien}</td>
+                <td>{$data.Alamat}</td>  
+                <td>{$data.MDB}</td>  
+                <td>{if $data.No_MR neq ''} <p style="color:green"><b> Selesai Asasmen</b> </p> {else} <b>Belum </b>{/if}</td>  
+                <td>
+                     <a href="{$config->site_url('igd/neonatus/edit/'|cat:$data.FS_KD_REG)}" class="button-edit">Edit</a>
+<!--                      
+                               {if $rad neq ''}
+                          <a  href="javascript:void(0);" onclick="window.open('{$config->site_url('rm/berkas_igd/cetak_rujukan_rad/'|cat:$data.NO_REG|cat:'/'|cat:$data.FS_KD_TRS)}', 'nama_window_pop_up', 'scrollbars=yes,resizeable=no')" class="button-edit">Radiologi</a>
+                          {else}
+                          {/if} -->
+ 
+                               
+                </td>
+            </tr>
+            {/foreach}
+        </tbody>
+    </table>
+ </div>
 <script>
      $(".select2").select2({
             placeholder: "Pilih",

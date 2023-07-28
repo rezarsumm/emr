@@ -37,7 +37,7 @@
                 <td>{$data.Nama_Pasien}</td>
                 <td>{$data.Alamat}</td>  
                 <td>{$data.KD_PERAWAT}</td>  
-                <td>{if $data.No_MR neq ''} <p style="color:green"><b> Selesai</b> </p> {else} <b>Belum </b>{/if}</td>  
+                <td>{if $data.No_MR neq ''} <p style="color:green"><b> Selesai Triase</b> </p> {else} <b>Belum </b>{/if}</td>  
                 <td>
                      <a href="{$config->site_url('igd/triase/edit/'|cat:$data.id)}" class="button-edit">Edit</a>
  

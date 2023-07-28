@@ -509,7 +509,7 @@
                             <tr>
                                 <td> Perdarahan    </td> 
                                 <td><input type="radio" class="radp" {if $data.PERDARAHAN eq 'Tidak'} checked {/if}  name="PERDARAHAN" value="Tidak">Tidak ada  </td> 
-                                <td><input type="radio" class="radp" {if $data.PERDARAHAN eq 'Ada'} checked {/if}   name="PERDARAHAN" value="Ada">  ada
+                                <td><input type="radio" class="radp" {if $data.PERDARAHAN neq 'Tidak'} checked {/if}   name="PERDARAHAN" value="Ada">  ada
                                    <input type="text"  id="formp" {if $data.PERDARAHAN neq 'Tidak'} style="display: show;" value="{$data.PERDARAHAN}" {/if} style="display:none" name="PERDARAHAN2">    
                                 </td> 
 
@@ -1257,7 +1257,11 @@ $(function(){
     });
 
 
- 
+    $(".select2").select2({
+            placeholder: "Pilih",
+            allowClear: true
+        });
+        
   </script>     
 
 

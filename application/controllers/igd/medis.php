@@ -304,7 +304,7 @@ class Medis extends ApplicationBase {
             // $klab='';
             if (!empty($lab)) {
                 foreach ($lab as $value) {
-                    $klab=$klab.', '.$value;
+                    $klab=$klab.$value.', ';
                 }
               }
 
@@ -313,7 +313,7 @@ class Medis extends ApplicationBase {
             // $tembusan='';
             if (!empty($rad)) {
                 foreach ($rad as $value) {
-                    $tembusan=$tembusan.', '.$value;
+                    $tembusan=$tembusan.$value.', ';
                 }
 
             }
@@ -608,7 +608,24 @@ class Medis extends ApplicationBase {
 
               
                 $this->tnotification->delete_last_field();
-                
+
+                $this->m_igd->update_level_medis(array('2', $this->input->post('FS_KD_REG')));
+
+                // $cek_status=$this->m_igd->cek_status_igd(array($this->input->post('FS_KD_REG'))); //cek status pasien
+                // $this->m_igd->delete_status_igd($this->input->post('FS_KD_REG'));
+                // // var_dump($cek_status);
+                // // die;
+
+                // if($cek_status > 1) {
+                // } else {
+                //     $params_status = array(
+                //         $this->input->post('FS_KD_REG'),
+                //         '2', //STATUS IGD JIKA 1 PERAWAT SUDAH INPUT
+                //         $this->com_user['user_id'],
+                //         date('Y-m-d H:i:s')
+                //     );
+                //     $this->m_igd->insert_status_igd($params_status);
+                // }
             
         
         // default redirect
@@ -725,16 +742,19 @@ class Medis extends ApplicationBase {
                                 $noww = date('Y-m-d');
                                 $tme=' 00:00:00.000';
                                 $skrng=$noww.$tme;
+                                $date = new DateTime();
+                                $date_plus = $date->modify("-1 days");
+                                $akhirnya= $date_plus->format("Y-m-d");
                         
                           
                                 $medis = $this->com_user['user_name'];
                             //    $medis = $this->com_user['user_name'];
                                 $this->smarty->assign("no", '1');
                                 $this->smarty->assign("now", $now);
-                                $this->smarty->assign("noww", $noww);
+                                $this->smarty->assign("noww", $akhirnya);
                                 $this->smarty->assign("result", $this->m_rawat_jalan->get_px_by_dokter_by_rm(array($FS_MR)));
                                 
-                                $this->smarty->assign("rs_pasien", $this->m_rawat_jalan->get_px_history_dokter_igd(array($now,$medis,$FS_MR)));
+                                $this->smarty->assign("rs_pasien", $this->m_rawat_jalan->get_px_history_dokter_igd(array($now,$FS_MR)));
           
                                 parent::display();
                             }

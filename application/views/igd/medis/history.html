@@ -64,7 +64,6 @@
             <th width='10%'>Tanggal Kunjungan</th>
 
             <th>Dokter</th>
-            <th>Layanan</th>
             <th>Catatan</th>
             <th>Cara Masuk</th>
             <th>Status</th>
@@ -75,8 +74,10 @@
         {foreach from=$rs_pasien item=data}
       {assign var=cek_labA value=$m_rawat_jalan->get_data_cek_lab_aja(array($data.NO_REG))}
         {assign var=form_rm value=$m_rawat_jalan->get_berkas_by_rg(array($data.NO_REG))}
-        {assign var=cek_resepA value=$m_rawat_jalan->get_data_cek_resep_aja(array($data.NO_REG))}
+        {assign var=cek_resep_igd value=$m_rawat_jalan->get_data_cek_resep_aja(array($data.NO_REG))}
         {assign var=cek_konsulan value=$m_rawat_jalan->get_data_konsulan(array($data.NO_REG))}
+        {assign var=cek_medis_igd value=$m_rawat_jalan->get_data_medis_igd(array($data.NO_REG))}
+      
 
                 <tr {if ($no++ % 2) <> 1}class="blink-row"{/if}>
                     <td>{$data.TANGGAL|date_format :"%d %B %Y"}</td>
@@ -107,16 +108,12 @@
                         {/if}
                     </td> 
                     <td>
-                        {$data.SPESIALIS}<br>
-                        {$data.LAYANAN2}
-                    </td> 
-                    <td>
                         {if $cek_labA >= '1'}
                         -  <a href="javascript:void(0);" onclick="window.open('{$config->site_url('rm/rawat_jalan/cetak_lab/'|cat:$data.NO_REG|cat:'/'|cat:$data.FS_KD_TRS|cat:'/'|cat:$data.FS_FORM)}', 'nama_window_pop_up', 'scrollbars=yes,resizeable=no')" >Hasil Laboratorium</a>
                         <br>
                         {/if}
                         
-                        {if $cek_resepA >= '1'}
+                        {if $cek_resep_igd >= '1'}
                         - <a href="javascript:void(0);" onclick="window.open('{$config->site_url('rm/rawat_jalan/cetak_resep/'|cat:$data.NO_REG|cat:'/'|cat:$data.FS_KD_TRS|cat:'/'|cat:$data.FS_FORM)}', 'nama_window_pop_up', 'scrollbars=yes,resizeable=no')" >Resep</a>
                         {/if}
                     </td>
@@ -137,42 +134,33 @@
                     <td>
                         {$x = $this->com_user['user_name']}
                         {if $form_rm.att_name neq ''}
-                            <a href="{$config->site_url('rm/upload/download/'|cat:$form_rm.att_name)}" class="button-download" target="_blank">Berkas Scan</a>  
-                            {/if}
-                       
-                    
-                          {if $data.KODE_RUANG eq ''}
-                             <a href="javascript:void(0);" onclick="window.open('{$config->site_url('rm/rawat_jalan/cetak_rm/'|cat:$data.NO_REG|cat:'/'|cat:$data.FS_KD_TRS|cat:'/'|cat:$data.FS_FORM)}', 'nama_window_pop_up', 'scrollbars=yes,resizeable=no')" class="button-download">RM</a>
-
-                           {else}
+                        <a href="{$config->site_url('rm/upload/download/'|cat:$form_rm.att_name)}" class="button-download" target="_blank">Berkas Scan</a>  
+                        {/if}
+                        
+                        
+                        {if $data.KODE_RUANG eq ''}
+                        <a href="javascript:void(0);" onclick="window.open('{$config->site_url('rm/rawat_jalan/cetak_rm/'|cat:$data.NO_REG|cat:'/'|cat:$data.FS_KD_TRS|cat:'/'|cat:$data.FS_FORM)}', 'nama_window_pop_up', 'scrollbars=yes,resizeable=no')" class="button-download">RM</a>
+                        
+                        {else}
                         <a href="{$config->site_url('rm/berkas/detail/'|cat:$data.NO_REG|default:'')}"  class="button-detail">Detail</a>             
                         {/if}
                         
-
-                         
                         
-                         {if $data.NO_REG eq $data.MAX_RG}
-                      
-                        {else}
-                        {/if}
+                        {if date('Y-m-d', strtotime($data.TANGGAL)) eq $now || date('Y-m-d', strtotime($data.TANGGAL)) eq $noww} 
                         
-
-                         
-
-                          {if date('Y-m-d', strtotime($data.TANGGAL)) eq $now} 
-                      
-
-                              <a href="{$config->site_url('medis/rawat_jalan/add/'|cat:$data.NO_REG|cat:'/'|cat:$data.MAX_RG)}" class="button-edit">Copyy</a> 
-                           
-
-                            <!--  {if $data.FS_KD_MEDIS eq $com_user.user_name} -->
-                                  <a href="{$config->site_url('medis/rawat_jalan/edit/'|cat:$data.NO_REG|cat:'/'|cat:$data.FS_KD_TRS|cat:'/'|cat:$data.FS_KD_TRS_KP)}" class="button-edit">Edit</a>
-                            <!-- {else} 
-                            {/if} -->
-
+                        {if $cek_medis_igd < '1'}
+                        <a href="{$config->site_url('igd/medis/add/'|cat:$data.NO_REG)}" class="button-edit">Copyy</a> 
                         
                         {else} 
+                        <a href="{$config->site_url('igd/medis/edit/'|cat:$data.NO_REG)}" class="button-edit">Edit</a>
                         {/if}
+                        {/if}
+                        
+                        
+                        
+                        
+                       
+
                         
                        <!--  {if $data.NO_REG eq $data.MAX_RG && ($data.FS_KD_MEDIS eq $com_user.user_name)}
                         <a href="{$config->site_url('medis/rawat_jalan/edit/'|cat:$data.NO_REG|cat:'/'|cat:$data.FS_KD_TRS|cat:'/'|cat:$data.FS_KD_TRS_KP)}" class="button-edit">Edit</a>

@@ -174,10 +174,6 @@ class Bidan extends ApplicationBase {
         if (!empty($string)) {
             $data = explode(', ', $string);
         }
-
-        // var_dump($data);
-        // die;
-        // Assign array ke Smarty
         $this->smarty->assign("kriteria_discahargers", $data);
         
 
@@ -325,6 +321,62 @@ class Bidan extends ApplicationBase {
 
     //  }
 
+    $KEPALA=$this->input->post('KEPALA');
+    if($KEPALA!='Normal'){
+        $KEPALA=$this->input->post('KEPALA2');
+    }
+    
+    $TELINGA=$this->input->post('TELINGA');
+    if($TELINGA!='Normal'){
+        $TELINGA=$this->input->post('TELINGA2');
+    }
+
+    $HIDUNG=$this->input->post('HIDUNG');
+    if($HIDUNG!='Normal'){
+        $HIDUNG=$this->input->post('HIDUNG2');
+    }
+
+    $TENGGOROKAN=$this->input->post('TENGGOROKAN');
+    if($TENGGOROKAN!='Normal'){
+        $TENGGOROKAN=$this->input->post('TENGGOROKAN2');
+    }
+
+    $LEHER=$this->input->post('LEHER');
+    if($LEHER!='Normal'){
+        $LEHER=$this->input->post('LEHER2');
+    }
+
+    $DADA=$this->input->post('DADA');
+    if($DADA!='Normal'){
+        $DADA=$this->input->post('DADA2');
+    }
+    $JANTUNG=$this->input->post('JANTUNG');
+    if($JANTUNG!='Normal'){
+        $JANTUNG=$this->input->post('JANTUNG2');
+    }
+
+    $PARU_PARU=$this->input->post('PARU_PARU');
+    if($PARU_PARU!='Normal'){
+        $PARU_PARU=$this->input->post('PARU_PARU2');
+    }
+
+    $ABDOMEN=$this->input->post('ABDOMEN');
+    if($ABDOMEN!='Normal'){
+        $ABDOMEN=$this->input->post('ABDOMEN2');
+    }
+
+    $BADAN_GERAK_ATAS=$this->input->post('BADAN_GERAK_ATAS');
+    if($BADAN_GERAK_ATAS!='Normal'){
+        $BADAN_GERAK_ATAS=$this->input->post('BADAN_GERAK_ATAS2');
+    }
+
+    $BADAN_GERAK_BAWAH=$this->input->post('BADAN_GERAK_BAWAH');
+    if($BADAN_GERAK_BAWAH!='Normal'){
+        $BADAN_GERAK_BAWAH=$this->input->post('BADAN_GERAK_BAWAH2');
+    }
+
+
+
 
 
      $params = array(
@@ -396,7 +448,7 @@ class Bidan extends ApplicationBase {
                  $this->input->post('FS_HUB_KELUARGA'),
               
                  $this->input->post('FS_USIA_KEHAMILAN'),
-                     $this->input->post('FS_ANAMNESA'),
+                    $this->input->post('FS_ANAMNESA'),
                   $this->input->post('FS_HAID_MEN'),
                   $this->input->post('FS_HAID_SIKLUS'),
                   $this->input->post('FS_HAID_LAMA'),
@@ -456,17 +508,17 @@ class Bidan extends ApplicationBase {
                   $this->input->post('BBO'),
 
                   $this->input->post('MATA'),
-                  $this->input->post('KEPALA'),
-                  $this->input->post('TELINGA'),
-                  $this->input->post('HIDUNG'),
-                  $this->input->post('TENGGOROKAN'),
-                  $this->input->post('LEHER'),
-                  $this->input->post('DADA'),
-                  $this->input->post('JANTUNG'),
-                  $this->input->post('PARU_PARU'),
-                  $this->input->post('ABDOMEN'),
-                  $this->input->post('BADAN_GERAK_ATAS'),
-                  $this->input->post('BADAN_GERAK_BAWAH'),
+                  $KEPALA,
+                  $TELINGA,
+                  $HIDUNG,
+                  $TENGGOROKAN,
+                  $LEHER,
+                  $DADA,
+                  $JANTUNG,
+                  $PARU_PARU,
+                  $ABDOMEN,
+                  $BADAN_GERAK_ATAS,
+                  $BADAN_GERAK_BAWAH,
                   $this->input->post('SCLERA'),
                   $this->input->post('KONJUNGTIVA'),
                   $this->input->post('CEK_DADA'),
@@ -476,7 +528,7 @@ class Bidan extends ApplicationBase {
                   $this->input->post('LEOPOD_3'),
                   $this->input->post('LEOPOD_4'),
 
-                  $this->input->post('AUSKULTASI'),
+                  $this->input->post('jenis_bayi'),
                   $this->input->post('DURASI_AUSKULTASI'),
                   $this->input->post('KONTRAKSI'),
                   $this->input->post('DURASI_KONTRAKSI'),
@@ -498,7 +550,14 @@ class Bidan extends ApplicationBase {
                  $nama_pasien,
                  $alamat,
                  $this->input->post('BERI_OBAT'),
-                 $this->input->post('NO_HP_PJ')
+                 $this->input->post('NO_HP_PJ'),
+                 $this->input->post('AUSKULTASI_1'),
+                 $this->input->post('AUSKULTASI_2'),
+                 $this->input->post('DURASI_AUSKULTASI_1'),
+                 $this->input->post('DURASI_AUSKULTASI_2'),
+                 $this->input->post('RESIKO_JATUH'),
+                 $this->input->post('RIWAYAT_PENYAKIT_DAHULU')
+
                  
              );
              $this->m_igd->INSERT_AWAL_BIDAN($params2);
@@ -660,11 +719,21 @@ class Bidan extends ApplicationBase {
                      $this->m_ass_awal->insert_planning(array($this->input->post('FS_KD_REG'), $value));
                  }
              }
+             $cek_status=$this->m_igd->cek_status_igd(array($this->input->post('FS_KD_REG'))); //cek status pasien
+
+             if($cek_Status < 1) {
+                 $params_status = array(
+                     $this->input->post('FS_KD_REG'),
+                     '1', //STATUS IGD JIKA 1 PERAWAT SUDAH INPUT
+                     $this->com_user['user_id'],
+                     date('Y-m-d H:i:s')
+                 );
+                 $this->m_igd->insert_status_igd($params_status);
+             }
           
            
              $this->tnotification->delete_last_field();
              $this->tnotification->sent_notification("success", "Detail berhasil disimpan");
-            
         
         // default redirect
         redirect("igd/bidan");
@@ -727,6 +796,7 @@ class Bidan extends ApplicationBase {
                         
                             //  var_dump($lab, $this->input->post('FS_KD_REG'));
                             //  die;
+                            $this->m_rawat_jalan->delete_pemeriksaan_lab($this->input->post('FS_KD_REG'));
                              if (!empty($lab)) {
                                  foreach ($lab as $key => $value) {
                                      $this->m_rawat_jalan->insert_pemeriksaan_lab(array($key, $value,$this->input->post('FS_KD_REG'), ''));
@@ -735,32 +805,68 @@ class Bidan extends ApplicationBase {
                              }
                              //insert pemeriksaan radiologi
                              $rad = $this->input->post('radiologi');
-                        
+                             $this->m_rawat_jalan->delete_pemeriksaan_rad($this->input->post('FS_KD_REG'));
                              if (!empty($rad)) {
                                  foreach ($rad as $key => $value) {
                                      $this->m_rawat_jalan->insert_pemeriksaan_rad2(array($key, $value, $this->input->post('FS_KD_REG')));
                                      
                                 }
                              } 
-  
-        //       $lab = $this->input->post('rlab');
-        //       $klab='';
-        //       if (!empty($lab)) {
-        //           foreach ($lab as $value) {
-        //           $klab=$klab.', '.$value;
-        //           }
-  
-        //   }
-  
-  
-        //   $rad = $this->input->post('radiologi');
-        //   $radiologi='';
-        //   if (!empty($rad)) {
-        //       foreach ($rad as $value) {
-        //           $radiologi=$radiologi.', '.$value;
-        //       }
-  
-        //   }
+
+
+        $KEPALA=$this->input->post('KEPALA');
+        if($KEPALA!='Normal'){
+            $KEPALA=$this->input->post('KEPALA2');
+        }
+        
+        $TELINGA=$this->input->post('TELINGA');
+        if($TELINGA!='Normal'){
+            $TELINGA=$this->input->post('TELINGA2');
+        }
+    
+        $HIDUNG=$this->input->post('HIDUNG');
+        if($HIDUNG!='Normal'){
+            $HIDUNG=$this->input->post('HIDUNG2');
+        }
+    
+        $TENGGOROKAN=$this->input->post('TENGGOROKAN');
+        if($TENGGOROKAN!='Normal'){
+            $TENGGOROKAN=$this->input->post('TENGGOROKAN2');
+        }
+    
+        $LEHER=$this->input->post('LEHER');
+        if($LEHER!='Normal'){
+            $LEHER=$this->input->post('LEHER2');
+        }
+    
+        $DADA=$this->input->post('DADA');
+        if($DADA!='Normal'){
+            $DADA=$this->input->post('DADA2');
+        }
+        $JANTUNG=$this->input->post('JANTUNG');
+        if($JANTUNG!='Normal'){
+            $JANTUNG=$this->input->post('JANTUNG2');
+        }
+    
+        $PARU_PARU=$this->input->post('PARU_PARU');
+        if($PARU_PARU!='Normal'){
+            $PARU_PARU=$this->input->post('PARU_PARU2');
+        }
+    
+        $ABDOMEN=$this->input->post('ABDOMEN');
+        if($ABDOMEN!='Normal'){
+            $ABDOMEN=$this->input->post('ABDOMEN2');
+        }
+    
+        $BADAN_GERAK_ATAS=$this->input->post('BADAN_GERAK_ATAS');
+        if($BADAN_GERAK_ATAS!='Normal'){
+            $BADAN_GERAK_ATAS=$this->input->post('BADAN_GERAK_ATAS2');
+        }
+    
+        $BADAN_GERAK_BAWAH=$this->input->post('BADAN_GERAK_BAWAH');
+        if($BADAN_GERAK_BAWAH!='Normal'){
+            $BADAN_GERAK_BAWAH=$this->input->post('BADAN_GERAK_BAWAH2');
+        }
   
   
   
@@ -898,17 +1004,17 @@ class Bidan extends ApplicationBase {
                        $this->input->post('BBO'),
   
                        $this->input->post('MATA'),
-                       $this->input->post('KEPALA'),
-                       $this->input->post('TELINGA'),
-                       $this->input->post('HIDUNG'),
-                       $this->input->post('TENGGOROKAN'),
-                       $this->input->post('LEHER'),
-                       $this->input->post('DADA'),
-                       $this->input->post('JANTUNG'),
-                       $this->input->post('PARU_PARU'),
-                       $this->input->post('ABDOMEN'),
-                       $this->input->post('BADAN_GERAK_ATAS'),
-                       $this->input->post('BADAN_GERAK_BAWAH'),
+                       $KEPALA,
+                       $TELINGA,
+                       $HIDUNG,
+                       $TENGGOROKAN,
+                       $LEHER,
+                       $DADA,
+                       $JANTUNG,
+                       $PARU_PARU,
+                       $ABDOMEN,
+                       $BADAN_GERAK_ATAS,
+                       $BADAN_GERAK_BAWAH,
                        $this->input->post('SCLERA'),
                        $this->input->post('KONJUNGTIVA'),
                        $this->input->post('CEK_DADA'),
@@ -918,7 +1024,7 @@ class Bidan extends ApplicationBase {
                        $this->input->post('LEOPOD_3'),
                        $this->input->post('LEOPOD_4'),
   
-                       $this->input->post('AUSKULTASI'),
+                       $this->input->post('jenis_bayi'),
                        $this->input->post('DURASI_AUSKULTASI'),
                        $this->input->post('KONTRAKSI'),
                        $this->input->post('DURASI_KONTRAKSI'),
@@ -940,7 +1046,13 @@ class Bidan extends ApplicationBase {
                       $nama_pasien,
                       $alamat,
                       $this->input->post('BERI_OBAT'),
-                      $this->input->post('NO_HP_PJ')
+                      $this->input->post('NO_HP_PJ'),
+                      $this->input->post('AUSKULTASI_1'),
+                      $this->input->post('AUSKULTASI_2'),
+                      $this->input->post('DURASI_AUSKULTASI_1'),
+                      $this->input->post('DURASI_AUSKULTASI_2'),
+                      $this->input->post('RESIKO_JATUH'),
+                      $this->input->post('RIWAYAT_PENYAKIT_DAHULU')
                       
                   );
   
@@ -958,7 +1070,7 @@ class Bidan extends ApplicationBase {
                       '',
                       $this->input->post('FS_HUB_KELUARGA'),
                       '',
-                       '', 
+                       $this->input->post('FS_AGAMA'), 
                        '', 
                       '',
                       '',
@@ -986,7 +1098,7 @@ class Bidan extends ApplicationBase {
                       '',
                       $this->input->post('FS_HUB_KELUARGA'),
                       '',
-                       '', 
+                       $this->input->post('FS_AGAMA'), 
                        '', 
                       '',
                       '',

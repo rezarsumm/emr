@@ -23,8 +23,8 @@
 {include file="base/templates/notification.html"}
 <!-- end of notification template-->
 <form action="{$config->site_url('igd/medis/add_rujuk_process')}" method="post">
-    <input type="text" name="FS_KD_TRS" value="{$result.id}" />
-    <input type="text" name="FS_KD_REG" value="{$result.NO_REG}" />
+    <input type="hidden" name="FS_KD_TRS" value="{$result.id}" />
+    <input type="hidden" name="FS_KD_REG" value="{$result.NO_REG}" />
     <table class="table-info" width="100%">
         <tr class="headrow">
             <th colspan="4">Data Pasien</th>

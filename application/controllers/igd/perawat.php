@@ -295,6 +295,8 @@ class Perawat extends ApplicationBase {
             // insert
             if ($this->m_ass_jatuh->insert($params)) {
                 $FS_KD_JATUH2 = $this->m_ass_jatuh->get_last_inserted_id();
+                // var_dump($FS_KD_JATUH2);
+                // die;
                 $params1 = array(
                     $FS_KD_JATUH2, 
                     $this->input->post('FS_PARAM_1'),
@@ -746,7 +748,17 @@ class Perawat extends ApplicationBase {
 
  
                 }
-                
+                $cek_status=$this->m_igd->cek_status_igd(array($this->input->post('FS_KD_REG'))); //cek status pasien
+
+                if($cek_Status < 1) {
+                    $params_status = array(
+                        $this->input->post('FS_KD_REG'),
+                        '1', //STATUS IGD JIKA 1 PERAWAT SUDAH INPUT
+                        $this->com_user['user_id'],
+                        date('Y-m-d H:i:s')
+                    );
+                    $this->m_igd->insert_status_igd($params_status);
+                }
 
                 $this->tnotification->delete_last_field();
                 $this->tnotification->sent_notification("success", "Detail berhasil disimpan");
@@ -760,8 +772,7 @@ class Perawat extends ApplicationBase {
                 //     else{
                 //         redirect("igd/perawat/edit_transfer/" . $this->input->post('FS_KD_REG'));
                 //     }
-                // }
-        
+                // }  
         // default redirect
         redirect("igd/perawat");
     }

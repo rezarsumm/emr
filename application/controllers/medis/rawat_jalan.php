@@ -1996,6 +1996,19 @@ class rawat_jalan extends ApplicationBase {
         }
         echo json_encode($data);
     }
+      public function list_nama_dokter_igd() {
+        $instansi = $this->m_rawat_jalan->list_nama_dokter();
+        $data[] = array();
+        $i = 0;
+        foreach ($instansi as $key => $value) {
+            $data[$i] = array(
+                'label' => $value['Nama_Dokter'],
+                'value' => $value['Nama_Dokter']
+            );
+            $i++;
+        }
+        echo json_encode($data);
+    }
 
       public function list_pemeriksaan_rrad() {
         $instansi = $this->m_rawat_jalan->list_pemeriksaan_rad();

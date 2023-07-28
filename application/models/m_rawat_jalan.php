@@ -358,6 +358,8 @@ class m_rawat_jalan extends CI_Model {
         return $this->db->query($sql, $params);
     }
 
+    
+
     function insert_rencana_kep($params) {
         $sql = "INSERT INTO PKU.dbo.TAC_RJ_REN_KEP(FS_KD_REG, FS_KD_REN_KEP)
         VALUES (?,?)";
@@ -407,6 +409,7 @@ class m_rawat_jalan extends CI_Model {
         $sql = "INSERT INTO PKU.dbo.ta_trs_kartu_periksa5 (fn_no_urut, fs_kd_tarif,fs_kd_reg2) VALUES (?, ?, ?)";
         return $this->db->query($sql, $params);
     }
+
 
     function insert_instruksi_medis($params) {
         $sql = "INSERT INTO PKU.dbo.TAC_HD_INSTRUKSI_MEDIS(FS_KD_REG,instruksi_hd_id,informed_concent_tgl,instruksi_tgl,instruksi_resepHD,instruksi_resepHD_TD,instruksi_resepHD_QB,instruksi_resepHD_QD,instruksi_resepHD_UFgoal,instruksi_profilling_Na,
@@ -1304,6 +1307,29 @@ class m_rawat_jalan extends CI_Model {
         }
     }
 
+    function get_px_by_dokter_igd($params) {
+        $now = date('Y-m-d'); 
+
+        $date = new DateTime();
+        $date_plus = $date->modify("-1 days");
+        $akhirnya= $date_plus->format("Y-m-d");
+
+        $sql = "SELECT E.NO_REG, B.NO_MR, B.NAMA_PASIEN, B.TGL_LAHIR, B.JENIS_KELAMIN, B.ALAMAT, D.D_PLANNING, D.FS_KD_REG, D.FS_TERAPI, D.id, D.rad, D.lab, F.STATUS_IGD
+       FROM REGISTER_PASIEN B,  PENDAFTARAN E 
+       LEFT JOIN PKU.dbo.IGD_AWAL_MEDIS D ON E.NO_REG = D.FS_KD_REG
+       LEFT JOIN PKU.dbo.TAC_STATUS_IGD F ON E.NO_REG = F.FS_KD_REG
+
+       WHERE B.NO_MR=E.NO_MR AND E.STATUS='1' and E.KODE_MASUK='1' and (E.TANGGAL= ? or E.TANGGAL='$akhirnya')";
+        $query = $this->db->query($sql, $params);
+        if ($query->num_rows() > 0) {
+            $result = $query->result_array();
+            $query->free_result();
+            return $result;
+        } else {
+            return array();
+        }
+    }
+
       function get_px_by_dokter_wait2($params) {
         $sql = "SELECT a.NOMOR,a.NO_MR,b.NAMA_PASIEN,b.ALAMAT, b.KOTA,b.PROVINSI,b.NO_MR,d.FS_STATUS,
         e.FS_CARA_PULANG,e.FS_TERAPI,e.FS_KD_TRS,c.NO_REG 
@@ -1679,22 +1705,21 @@ class m_rawat_jalan extends CI_Model {
         }
     }
        function get_px_history_dokter_igd($params) {
-        $sql = "SELECT TOP 8 A.TANGGAL,A.STATUS,A.NO_REG,B.NAMA_PASIEN, B.ALAMAT, B.TGL_LAHIR,B.JENIS_KELAMIN,
-         I.NAMA_DOKTER,K.SPESIALIS,L.MAX_RG,M.FS_KD_MEDIS,M.FS_KD_TRS, N.FS_STATUS, N.FS_KD_REG, CR.KODE_MASUK,CR.KET_MASUK
+        $sql = "SELECT TOP 8 A.TANGGAL,A.STATUS,A.NO_REG,B.NAMA_PASIEN, A.KODE_MASUK, B.ALAMAT, B.TGL_LAHIR,B.JENIS_KELAMIN,
+         I.NAMA_DOKTER,K.SPESIALIS,L.MAX_RG,CR.KODE_MASUK,CR.KET_MASUK
         FROM PENDAFTARAN A
         LEFT JOIN REGISTER_PASIEN B ON  A.NO_MR=B.NO_MR
         LEFT JOIN M_CARAMASUK CR ON A.Kode_Masuk = CR.KODE_MASUK
         LEFT JOIN DOKTER I ON A.KODE_DOKTER=I.KODE_DOKTER
          LEFT JOIN M_SPESIALIS K ON I.SPESIALIS=K.SPESIALIS
+         LEFT JOIN PKU.dbo.TAC_STATUS_IGD D ON A.NO_REG = D.FS_KD_REG
         LEFT JOIN (
         SELECT NO_REG 'MAX_RG',NO_MR
         FROM PENDAFTARAN
-        WHERE TANGGAL = ? AND KODE_MASUK=1
+        WHERE TANGGAL = ?
 
         )L ON A.NO_MR = L.NO_MR
-        LEFT JOIN PKU.dbo.TAC_RJ_MEDIS M ON a.NO_REG=M.FS_KD_REG
-     LEFT JOIN PKU.dbo.TAC_RJ_STATUS N ON a.NO_REG = N.FS_KD_REG
-        WHERE A.NO_MR = ?
+        WHERE A.NO_MR = ? AND A.KODE_MASUK=1
         ORDER BY TANGGAL DESC 
         ";
         $query = $this->db->query($sql, $params);
@@ -1858,6 +1883,25 @@ class m_rawat_jalan extends CI_Model {
         LEFT JOIN DB_RSMM.dbo.PENDAFTARAN b ON a.NO_MR=b.NO_MR
         LEFT JOIN DB_RSMM.dbo.DOKTER c ON b.KODE_DOKTER=c.KODE_DOKTER
         LEFT JOIN PKU.dbo.TAC_RJ_MEDIS d ON b.NO_REG=d.FS_KD_REG
+        LEFT JOIN DB_RSMM.dbo.REKANAN E ON b.KODEREKANAN=E.KODEREKANAN
+        WHERE b.NO_REG = ?";
+        $query = $this->db->query($sql, $params);
+        if ($query->num_rows() > 0) {
+            $result = $query->row_array();
+            $query->free_result();
+            return $result;
+        } else {
+            return 0;
+        }
+    }
+   function get_px_by_dokter_by_rg_igd($params) {
+        $sql = "SELECT b.NO_REG,a.NAMA_PASIEN, a.NO_MR, a.ALAMAT, a.KOTA, a.PROVINSI, A.JENIS_KELAMIN,
+        a.TGL_LAHIR,c.SPESIALIS, c.NAMA_DOKTER, E.NAMAREKANAN, d.rad, d.MDD, d.MDB, d.lab,
+        b.TANGGAL,b.KODE_DOKTER,a.FS_HIGH_RISK
+        FROM DB_RSMM.dbo.REGISTER_PASIEN a
+        LEFT JOIN DB_RSMM.dbo.PENDAFTARAN b ON a.NO_MR=b.NO_MR
+        LEFT JOIN DB_RSMM.dbo.DOKTER c ON b.KODE_DOKTER=c.KODE_DOKTER
+        LEFT JOIN PKU.dbo.IGD_AWAL_MEDIS d ON b.NO_REG=d.FS_KD_REG
         LEFT JOIN DB_RSMM.dbo.REKANAN E ON b.KODEREKANAN=E.KODEREKANAN
         WHERE b.NO_REG = ?";
         $query = $this->db->query($sql, $params);
@@ -2138,6 +2182,23 @@ class m_rawat_jalan extends CI_Model {
         }
     }
 
+    function get_data_medis_by_rg_igd($params) { 
+        $sql = "SELECT a.*,c.NAMA_DOKTER,b.user_name,KODE_DOKTER, d.NAMALENGKAP 
+        FROM PKU.dbo.IGD_AWAL_MEDIS a
+        LEFT JOIN PKU.dbo.TAC_COM_USER b ON a.MDB=b.user_id
+        LEFT JOIN DOKTER c ON b.user_name=c.KODE_DOKTER
+        LEFT JOIN DB_RSMM.dbo.TUSER d ON b.user_name=d.NAMAUSER
+        WHERE a.FS_KD_REG = ? AND a.id = ?";
+        $query = $this->db->query($sql, $params);
+        if ($query->num_rows() > 0) {
+            $result = $query->row_array();
+            $query->free_result();
+            return $result;
+        } else {
+            return 0;
+        }
+    }
+
     function get_data_medis_hd_by_rg2($params) {
         $sql = "SELECT a.*,c.FS_NM_PEG,c.FS_NO_IJIN_PRAKTEK,d.FD_TGL_RUJUKAN,e.*
         FROM PKU.dbo.TAC_RJ_MEDIS a
@@ -2348,6 +2409,20 @@ class m_rawat_jalan extends CI_Model {
         }
     }
 
+    function get_data_cek_resep_igd($params) {
+        $sql = "SELECT *
+        FROM TR_MASTER_RESEP 
+        WHERE NO_REG = ?";
+        $query = $this->db->query($sql, $params);
+        if ($query->num_rows() > 0) {
+            $result = $query->num_rows();
+            $query->free_result();
+            return $result;
+        } else {
+            return 0;
+        }
+    }
+
 
 
     function get_data_lab_by_rg($params) {
@@ -2389,6 +2464,20 @@ class m_rawat_jalan extends CI_Model {
         }
     }
 
+    function get_data_medis_igd($params) {
+        $date = date('Y-m-d');
+
+        $sql = "SELECT * FROM PKU.dbo.IGD_AWAL_MEDIS WHERE FS_KD_REG = ? 
+        ";
+        $query = $this->db->query($sql, $params);
+        if ($query->num_rows() > 0) {
+            $result = $query->num_rows();
+            $query->free_result();
+            return $result;
+        } else {
+            return 0;
+        }
+      }
 
       function get_data_cek_lab_aja($params) {
         $sql = "SELECT A.*
@@ -3052,6 +3141,19 @@ class m_rawat_jalan extends CI_Model {
     function get_data_rujukan_by_rg($params) {
         $sql = "SELECT *
         FROM PKU.dbo.TAC_RJ_RUJUKAN
+        WHERE FS_KD_REG = ?";
+        $query = $this->db->query($sql, $params);
+        if ($query->num_rows() > 0) {
+            $result = $query->row_array();
+            $query->free_result();
+            return $result;
+        } else {
+            return 0;
+        }
+    }
+    function get_data_rujukan_by_rg_igd($params) {
+        $sql = "SELECT *
+        FROM PKU.dbo.TAC_RJ_RUJUKAN_IGD
         WHERE FS_KD_REG = ?";
         $query = $this->db->query($sql, $params);
         if ($query->num_rows() > 0) {

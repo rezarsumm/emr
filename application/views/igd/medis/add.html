@@ -295,8 +295,8 @@
         </tr>
 
         <tr class="headrow">
-            <th colspan="2">PARU  </th>
-            <th colspan="2"> ABDOMEN & PINGGANG </th>
+            <th colspan="2">ABDOMEN  </th>
+            <th colspan="2">PINGGANG </th>
         </tr>
         <tr>
             <td colspan="2">
@@ -438,7 +438,7 @@
                                       {/foreach}
                                   </select> 
                                   <br>Uraian Konsul (Tanggal, Jam, Instruksi) <br> 
-                                  <textarea rows="2" class="form-control"  cols="60" name="KONSUL2"> </textarea> <br><br>
+                                  <textarea rows="2" class="form-control"  cols="60" name="KONSUL3"> </textarea> <br><br>
                   
                            
                   </td>
@@ -471,9 +471,7 @@
                   
            </tr>
            <tr id="form3" style="display: none;">
-            <td  > Rekomendasi Poli   <input type="text" name="REKOMENDASI_POLI"></td>
-      
-              
+            <td  > Rekomendasi Poli   <input type="text" name="REKOMENDASI_POLI"></td>    
        </tr>
            <tr>
             <td>Kondisi Akhir Pasien</td>
@@ -570,15 +568,15 @@
                $('.namaa').val(namaa+'\n R/ \t   no. \n S                    \n ----------------------------------------\n '); 
        
        
-                $('.resepracik').val('\n /R');
+                $('.resep').val('');
  
 
                function tambahkop(e){
                    var yhr= new XMLHttpRequest();
                 var key=e.keyCode || e.which;
                  if (key==13){
-                               var resepracik = $(".resepracik").val(); 
-                                   $('.resepracik').val(resepracik+'S                 \n ---------------------------------------- \n \n'+'R/  '); // Close / Tutup Modal Dialog
+                               var resep = $(".resep").val(); 
+                                   $('.resep').val(resep+'S                 \n ---------------------------------------- \n \n'+'R/  '); // Close / Tutup Modal Dialog
                  //    // alert(namaa);
                  }
                }

@@ -50,12 +50,22 @@ class Neonatus extends ApplicationBase {
         $this->smarty->load_style("jquery.ui/redmond/jquery-ui-1.8.13.custom.css");
         $date = date('Y-m-d');
         $date2 = date('Y-m-dH:i:s');
+        $time = date('H:i');
         $role = $this->com_user['role_id'];
         $x = $this->com_user['user_name'];
+
+        // $this->curl->create('http://daftar.rsumm.co.id/api.simrs/index.php/api/pendaftaran/kode_masuk/1/');
+        // $result = $this->curl->execute();
+        // print_r($result).exit();
+        // $get_pasien_igd = json_decode($result);
 
 
         $fs_kd_layanan = $this->com_user['fs_kd_layanan'];
 
+       $this->smarty->assign("waktu", $time);
+       $this->smarty->assign("tgl", $date);
+       $this->smarty->assign("rs_ases_neonatus", $this->m_igd->get_data_ases_neonatus(array($date, $akhirnya,$date))); 
+       $this->smarty->assign("rad", $this->m_igd->get_pasien_ugd());
        $this->smarty->assign("rs_pasien", $this->m_igd->get_pasien_ugd());
    
         // notification
@@ -66,30 +76,17 @@ class Neonatus extends ApplicationBase {
     }
 
     //TAMBAHAN BELUM SELESAI
-    public function cari_process2() {
-        $FS_RG2 = $this->input->post('FS_RG');
-        $cek = $this->m_igd->cek_medis(array($FS_RG2));
-        if ($cek == '0') {
-           $rolenya=$this->com_user['role_name'];
-             redirect("igd/medis/add/" . $FS_RG2);
-        } elseif ($cek >= '1') {
-         redirect("igd/medis/edit/" . $FS_RG2);
-        }
-    }
 
 
     public function cari_process() {
         $FS_RG2 = $this->input->post('FS_RG');
-        redirect("igd/neonatus/add/" . $FS_RG2);
-
-        // $FS_RG2 = $this->input->post('FS_RG');
-        // $cek = $this->m_igd->cek_neonatus(array($FS_RG2));
-        // if ($cek == '0') {
-        //    $rolenya=$this->com_user['role_name'];
-        //      redirect("igd/neonatus/add/" . $FS_RG2);
-        // } elseif ($cek >= '1') {
-        //  redirect("igd/neonatus/edit/" . $FS_RG2);
-        // }
+        $cek = $this->m_igd->cek_neonatus(array($FS_RG2));
+        if ($cek == '0') {
+            $rolenya=$this->com_user['role_name'];
+            redirect("igd/neonatus/add/" . $FS_RG2);
+         } elseif ($cek >= '1') {
+          redirect("igd/neonatus/edit/" . $FS_RG2);
+         }
     }
 
 
@@ -157,7 +154,7 @@ class Neonatus extends ApplicationBase {
         // set page rules
         $this->_set_page_rule("C");
         // set template content
-        $this->smarty->assign("template_content", "igd/medis/edit.html");
+        $this->smarty->assign("template_content", "igd/neonatus/edit.html");
         // load javascript
         $this->smarty->load_javascript("resource/js/jquery/jquery-ui-1.9.2.custom.min.js");
         $this->smarty->load_javascript('resource/js/jquery/select2.js');
@@ -181,11 +178,10 @@ class Neonatus extends ApplicationBase {
                           $date_plus = $date->modify("-1 days");
                           $akhirnya= $date_plus->format("Y-m-d");
 
-          $this->smarty->assign("rs_dokter_sp", $this->m_cppt->get_dokter_sp(array($FS_RG)));
-
         $this->smarty->assign("rs_pasien", $this->m_igd->get_pasien_by_rg_ugd(array($FS_RG)));
         $this->smarty->assign("rs_triase", $this->m_igd->get_data_triase_by_noreg(array($FS_RG)));           
-        $this->smarty->assign("data", $this->m_igd->get_data_medis_by_noreg(array($FS_RG)));           
+        $this->smarty->assign("data", $this->m_igd->get_data_neonatus(array($FS_RG)));           
+        $this->smarty->assign("rs_dokter_spp", $this->m_cppt->get_dokter_sp(array($FS_RG)));
         $this->smarty->assign("ps", $this->m_igd->get_suami(array($FS_RG)));           
         $this->smarty->assign("alergi", $this->m_igd->get_alergi(array($FS_RG)));           
  
@@ -197,43 +193,19 @@ class Neonatus extends ApplicationBase {
       
 
         $this->smarty->assign("ases2", $this->m_rawat_jalan->get_data_ases2_by_rg(array($FS_RG)));
-        // $this->smarty->assign("get_lab", $this->m_rawat_jalan->get_lab(array($FS_RG)));
-        $this->smarty->assign("rs_labb", $this->m_igd->list_pemeriksaan_lab()); 
-        $this->smarty->assign("rs_rad_igd", $this->m_igd->list_pemeriksaan_rad_igd()); 
-        $get_edit_lab = $this->m_igd->get_lab_edit(array($FS_RG));
-        $get_rad_edit = $this->m_igd->get_rad_edit(array($FS_RG));
-   
 
-       
-        // Memecah string menjadi array
-        $data = array();
-        $string = $get_edit_lab['lab'];
-        $string = trim($string, ',');
+         // Mendapatkan string dari database
+         $DISCHARGE_PLANNING = $this->m_igd->getKriteriaDischargeAssesmenNeonatus(array($FS_RG));
 
-        if (!empty($string)) {
-            $datas = explode(',' , $string);    
-
-        }
-       
-        $this->smarty->assign("lab_edit", $datas);
-
-        //radiologi
-        // $data = array();
-        $string_rad = $get_rad_edit['rad'];
-        $string_rad = trim($string_rad,',');
-
-        if (!empty($string_rad)) {
-            $data_rad = explode(',',$string_rad);    
-
-        }
-        // var_dump($data_rad);
-        // die;
-
-
-       
-       
-        $this->smarty->assign("rad_edit", $data_rad);
-        
+         // Memecah string menjadi array
+         $data = array();
+         $string = $DISCHARGE_PLANNING['DISCHARGE_PLANNING'];
+         $string = trim($string, ','); // Menghapus koma di awal dan akhir string (jika ada)
+ 
+         if (!empty($string)) {
+             $data = explode(', ', $string);
+         }
+         $this->smarty->assign("discharge", $data);
 
         $FS_KD_REG=$FS_RG;
         $tujuan = $this->m_rawat_jalan->list_masalah_kep_by_rg($FS_KD_REG);
@@ -241,46 +213,22 @@ class Neonatus extends ApplicationBase {
         foreach ($tujuan as $key => $value) {
             $tujuan_str .= "'" . $value['FS_KD_MASALAH_KEP'] . "',";
         }
-        $this->smarty->assign('rs_tujuan', $tujuan_str);
+        $this->smarty->assign('masalah_keperawatan', $tujuan_str);
 
         $tembusan = $this->m_rawat_jalan->list_rencana_kep_by_rg($FS_KD_REG);
         $tembusan_str = "";
         foreach ($tembusan as $key => $value) {
             $tembusan_str .= "'" . $value['FS_KD_REN_KEP'] . "',";
         }
-        $this->smarty->assign('rs_tembusan', $tembusan_str);
-
-        $laboratorium = $this->m_rawat_jalan->list_pemeriksaan_lab_by_medis_igd(array($FS_KD_REG));
+        $this->smarty->assign('rencana_keperawatan', $tembusan_str);
+   
     
-
-        $data = array();
-        $string = $laboratorium['lab'];
-
-        // $kalimat = implode(",",$string);
-   
-        $data = explode(', ', $string);
-        
-        if (!empty($string)) {
-            $data = explode(', ', $string);
-        }
-        // var_dump($data);
-        // die;
-
-        $this->smarty->assign('rs_lab', $data);
-   
-      
-        // $laboratorium_Str = "";
-        // foreach ($laboratorium as $key => $value) { 
-        //     $laboratorium_Str .= "'" . $value['lab'] . "',";
-        // }
-  
-          //edukasi
           $edukasi = $this->m_ass_awal->list_edukasi_by_rg($FS_RG);
           $edukasi_str = "";
           foreach ($edukasi as $key => $value) {
               $edukasi_str .= "'" . $value['FS_KD_EDUKASI'] . "',";
           }
-          $this->smarty->assign('rs_edukasi', $edukasi_str);
+          $this->smarty->assign('edukasi', $edukasi_str);
           //planning
           $planning = $this->m_ass_awal->list_planning_by_rg($FS_RG);
           $planning_str = "";
@@ -315,322 +263,197 @@ class Neonatus extends ApplicationBase {
         $this->tnotification->set_rules('FS_KD_REG', 'NAMA PASIEN', 'trim|required');
         // process
   
-      
+        // $masalah_kep = $this->input->post('masalah_keperawatan');
+        // $kd='';
+        // if (!empty($masalah_kep)) {
+        //     foreach ($masalah_kep as $value) {
+        //         $kd=$kd.', '.$value;
+        //         var_dump($kd);
+        //         die;
+        //     }
+        // }
 
+        $kepala=$this->input->post('kepala');
+        if($kepala!='Normal'){
+            $kepala=$this->input->post('kelainan_kepala');
+        }
+        $leher=$this->input->post('leher');
+        if($leher!='Normal'){
+            $leher=$this->input->post('kelainan_leher');
+        }
+        $kelainan_fisik=$this->input->post('kelainan_fisik');
+        if($kelainan_fisik!='Tidak'){
+            $kelainan_fisik=$this->input->post('ket_kelainan_fisik');
+        }
+        $riwayat_penyakit_dahulu=$this->input->post('riwayat_penyakit_dahulu');
+        if($riwayat_penyakit_dahulu!='Tidak Ada'){
+            $riwayat_penyakit_dahulu=$this->input->post('ket_riwayat_penyakit');
+        }
+        $riwayat_alergi=$this->input->post('riwayat_alergi');
+        if($riwayat_alergi!='Tidak Ada'){
+            $riwayat_alergi=$this->input->post('ket_riwayat_alergi');
+        }
+        
+            $riw_alergi = array(
+                $this->input->post('FS_KD_REG'),
+                $this->input->post('ket_riwayat_alergi'),
+                '',
+                '',
+                $this->com_user['user_name'],
+                date('Y-m-d H:i:s')
+            );
 
-            $lab = $this->input->post('rlab');
-            // $klab='';
-            if (!empty($lab)) {
-                foreach ($lab as $value) {
-                    $klab=$klab.', '.$value;
+            $this->m_rawat_jalan->insert_alergi($riw_alergi); //input ke tabel pku TAC_RJ_ALERGI
+
+            $vital_sign = array(
+                $this->input->post('FS_KD_REG'),
+                $this->input->post('suhu'),
+                $this->input->post('nadi'),
+                $this->input->post('kecepatan_bernafas'),
+                '',
+                $this->input->post('panjang_badan'),
+                $this->input->post('berat_badan_masuk'),
+                $this->input->post('FS_KD_MEDIS'),
+                $this->com_user['user_id'],
+                date('Y-m-d'),
+                date('H:i:s')
+            );
+            $this->m_rawat_jalan->insert_vs($vital_sign); //input ke tabel TAC_RJ_VITAL_SIGN Dan TAC_RI_VITAL_SIGN
+            $this->m_ass_awal->insert_vs($vital_sign);
+
+            $masalah_kep = $this->input->post('masalah_keperawatan');
+            if (!empty($masalah_kep)) {
+                foreach ($masalah_kep as $value) {
+                    $this->m_rawat_jalan->insert_masalah_kep(array($this->input->post('FS_KD_REG'), $value));
                 }
-              }
-
-
-            $rad = $this->input->post('rrad');
-            // $tembusan='';
-            if (!empty($rad)) {
-                foreach ($rad as $value) {
-                    $tembusan=$tembusan.', '.$value;
+            }
+            $rencana_kep = $this->input->post('rencana_keperawatan');
+            if (!empty($rencana_kep)) {
+                foreach ($rencana_kep as $value) {
+                    $this->m_rawat_jalan->insert_rencana_kep(array($this->input->post('FS_KD_REG'), $value));
                 }
-
             }
 
-
-
-        $params14 = array(
-           
-            $this->input->post('FS_STATUS_PSIK'),
-            $this->input->post('FS_HUB_KELUARGA'),
-            $this->input->post('FS_PENGELIHATAN'),
-            $this->input->post('FS_PENCIUMAN'),
-            $this->input->post('FS_PENDENGARAN'),
-            $this->input->post('PERNIKAHAN'),
-            $this->input->post('SUKU'),
-            $this->input->post('JOB'),
-            $this->com_user['user_id'],
-            date('Y-m-d'),
-            $this->input->post('FS_KD_REG')
-        );
-        $this->m_igd->update_ases($params14);
-
-     
-
-                 $params2 = array(
-                    $this->input->post('FS_KD_REG'),
-                    $this->input->post('KENDARAAN'),
-                    $this->input->post('RUJUKAN'), 
-                    $this->input->post('FS_ANAMNESA'),
-                    $this->input->post('FS_RIW_PENYAKIT_DAHULU'),
-                    $this->input->post('RIW_PENYAKIT_NOW'),
-                    $this->input->post('RIW_PERAWATAN'),
-                    $this->input->post('RIW_TINDAKAN'),
-                    $this->input->post('FS_STATUS_PSIK'),
-                    $this->input->post('MENTAL'),
-                    $this->input->post('PEMERIKSAAN_FISIK'),
-                    $this->input->post('SKOR_NYERI'),
-                    $this->input->post('LINGKAR_KEPALA'),
-                    $this->input->post('STATUS_GIZI'),
-                    $this->input->post('ALAT_BANTU'),
-                    $this->input->post('CACAT'),
-                    $this->input->post('ADL'),
-                    $this->input->post('RESIKO_JATUH'),
-                    $this->input->post('KONJUNGTIVA'),
-                    $this->input->post('DEVIASI'),
-                    $this->input->post('SKELERA'),
-                    $this->input->post('JVP'),
-                    $this->input->post('BIBIR'),
-                    $this->input->post('MUKOSA'),
-                    $this->input->post('THORAX'),
-                    $this->input->post('JANTUNG'),
-                    $this->input->post('ABDOMEN'),
-                    $this->input->post('PINGGANG'),
-                    $this->input->post('EKS_ATAS'),
-                    $this->input->post('EKS_BAWAH'),
-                    '',
-                    $klab,
-                    $tembusan,
-                    '',
-                    $this->input->post('FS_DIAGNOSA'),
-                    $this->input->post('MASALAH_KES'),
-                    $this->input->post('FS_TERAPI'),
-                    $this->input->post('RENCANA'),
-                    $this->input->post('DIET'),
-                    $this->input->post('KONSUL'),
-                    $this->input->post('KD_DOKTER_KONSUL'),
-                    $this->input->post('EDUKASI'),
-                    $this->input->post('D_PLANNING'),
-                    $this->input->post('ALASAN_RUJUK'),
-                    $this->input->post('TRANSPORT_KELUAR'),
-                    $this->input->post('KONDISI_AKHIR'),
-                    $this->input->post('JAM_SELESAI'), 
-                    $this->com_user['user_name'],
-                    date('Y-m-d H:i:s'),
-                    $this->input->post('KONSUL2'),
-                    $this->input->post('KD_DOKTER_KONSUL2'),
-                    $this->input->post('KONSUL3'),
-                    $this->input->post('KD_DOKTER_KONSUL3'),
-                    $this->input->post('REKOMENDASI_RUJUK'),
-                    $this->input->post('REKOMENDASI_POLI')
-                    
-                );
-                $this->m_igd->INSERT_AWAL_MEDIS($params2);
-
-
-                $params5 = array(
-                    $this->input->post('FS_KD_REG'),
-                    $this->input->post('FS_ALERGI'),
-                    '',
-                   $this->input->post('FS_REAK_ALERGI'),
-                   $this->com_user['user_name'],
-                   date('Y-m-d H:i:s'), 
-               );
-               $this->m_rawat_jalan->insert_alergi($params5);
-
-                
-                // $edukasi = $this->input->post('edukasi');
-                // if (!empty($edukasi)) {
-                //     foreach ($edukasi as $value) {
-                //         $this->m_ass_awal->insert_edukasi(array($this->input->post('FS_KD_REG'), $value));
-                //     }
-                // }
-
-                // $planning = $this->input->post('planning');
-                // if (!empty($planning)) {
-                //     foreach ($planning as $value) {
-                //         $this->m_ass_awal->insert_planning(array($this->input->post('FS_KD_REG'), $value));
-                //     }
-                // }
-             
-                    
-                if($this->input->post('kode_icd_x')!=''){
-                    $FS_KD_REG=$this->input->post('FS_KD_REG');
-                    $pasien= $this->m_rawat_jalan->get_px_by_dokter_by_rg2(array($FS_KD_REG)); 
-                   
-                    if(strlen($pasien['NO_IDENTITAS'])==16){
-                        $nik=$pasien['NO_IDENTITAS'];
-                    }
-                    else{
-                        $nik=$pasien['HP2'];
-                    }
-                   
-                
-                    $kota=ucfirst($pasien['KOTA']);
-                    if($kota=='Lampung Barat'){
-                        $kodekota="1801";
-                    }
-                    else  if($kota=='Tanggamus'){
-                        $kodekota="1802";
-                    }
-                    else  if($kota=='Lampung Selatan'){
-                        $kodekota="1803";
-                    }
-                    else  if($kota=='Lampung Timur'){
-                        $kodekota="1804";
-                    }
-                    else  if($kota=='Lampung Tengah'){
-                        $kodekota="1805";
-                    }
-                    else  if($kota=='Lampung Utara'){
-                        $kodekota="1806";
-                    }
-                    else  if($kota=='Way Kanan'){
-                        $kodekota="1807";
-                    }
-                    else  if($kota=='Tulangbawang'  || $kota=='Tulang Bawang' || $kota=='Tubaba'){
-                        $kodekota="1808";
-                    }
-                    else  if($kota=='Pesawaran'){
-                        $kodekota="1809";
-                    }
-                    else  if($kota=='Pringsewu'){
-                        $kodekota="1810";
-                    }
-                    else  if($kota=='Mesuji'){
-                        $kodekota="1811";
-                    }
-                    else  if($kota=='Tulangbawang Barat' || $kota=='Tulang Bawang Barat' || $kota=='Tubabar'){
-                        $kodekota="1812";
-                    }
-                    else  if($kota=='Pesisir Barat'){
-                        $kodekota="1813";
-                    }
-                    else  if($kota=='Bandar Lampung' || $kota=='Bandarlampung' || $kota=='Balam'){
-                        $kodekota="1871";
-                    }
-                    else  if($kota=='Metro'){
-                        $kodekota="1872";
-                    }
-                    else{
-                        $kodekota="1872";
-                    }
-                
-                    $tglmulai=date('Y-m-d');
-                    $tglmulai=substr($tglmulai,0,4).substr($tglmulai,5,2).substr($tglmulai,8,2);
-                
-                    $tgllahir=$pasien['TGL_LAHIR'];
-                    $tgllahir=substr($tgllahir,0,4).substr($tgllahir,5,2).substr($tgllahir,8,2);
-                
-                            
-                    $icd=$this->input->post('kode_icd_x');
-                    if($icd=='A15' || $icd=='A15.0' || $icd=='A15.1' || $icd=='A15.7' || $icd=='A16'){
-                        $lokasi='1';
-                        $tipe='1';
-                    }
-                    else  if($icd=='A15.2' || $icd=='A15.3' || $icd=='A16.0' || $icd=='A16.1' || $icd=='A16.2' || $icd=='A16.7'){
-                        $lokasi='1';
-                        $tipe='2';
-                    }
-                    else  if($icd=='A15.4' || $icd=='A15.5' || $icd=='A15.6' || $icd=='A15.8' || $icd=='A15.9' ){
-                        $lokasi='2';
-                        $tipe='1';
-                    }
-                    else {
-                        $lokasi='2';
-                        $tipe='2';
-                    }
-                   
-
-                        $cek_tb=$this->m_igd->cek_tb(array($FS_KD_REG)); //CEK TB DI SIMRS
-
-                        if ($cek_tb == '1') { // SUDAH ADA DI DATABASE SIMRS
-
-                            $cek_id_tb=$this->m_igd->cek_id_tb(array($FS_KD_REG)); //CEK ID TB NYA
-
-                            $id_tb_03=$cek_id_tb['id_tb_o3'];
-
-                       
-                                
-                            $params = array(
-                                '',
-                                $pasien['NAMA_PASIEN'],
-                                $nik,
-                                $pasien['JENIS_KELAMIN'],
-                                $pasien['ALAMAT'],
-                                '18',
-                                '1872',
-                                '18',
-                                $kodekota,
-                                '1872042',
-                                $this->input->post('kode_icd_x'),
-                                $tipe,
-                                $lokasi,
-                                '',
-                                $tglmulai,
-                                '',
-                                'Sedang dilakukan',
-                                '',
-                                '',
-                                '',
-                                '',
-                                '',
-                                '',
-                                '',
-                                '',
-                                $tgllahir,
-                                'negatif',
-                                $FS_KD_REG,
-                                $pasien['NO_MR'],
-                                $this->com_user['user_name'],
-                                date('Y-m-d H:i'),
-                                $FS_KD_REG,
-                            );
-
-                            $this->m_igd->update_tb($params); //UPDATE TB DI DATABASE
-                        }
-
-                        else{
-                           $id_tb_03='';
-                            
-
-                            $params = array(
-                                $id_tb_03,
-                                $pasien['NAMA_PASIEN'],
-                                $nik,
-                                $pasien['JENIS_KELAMIN'],
-                                $pasien['ALAMAT'],
-                                '18',
-                                '1872',
-                                '18',
-                                $kodekota,
-                                '1872042',
-                                $this->input->post('kode_icd_x'),
-                                $tipe,
-                                $lokasi,
-                                '',
-                                $tglmulai,
-                                '',
-                                'Sedang dilakukan',
-                                '',
-                                '',
-                                '',
-                                '',
-                                '',
-                                '',
-                                '',
-                                '',
-                                $tgllahir,
-                                'negatif',
-                                $FS_KD_REG,
-                                $pasien['NO_MR'],
-                                $this->com_user['user_name'],
-                                date('Y-m-d H:i')
-                            );
-
-                            $this->m_igd->insert_tb($params);//INSERT KE SIMRS
-                        
-                        }
-
- 
+            $edukasi = $this->input->post('edukasi');
+            if (!empty($edukasi)) {
+                foreach ($edukasi as $value) {
+                    $this->m_ass_awal->insert_edukasi(array($this->input->post('FS_KD_REG'), $value));
                 }
+            }
 
+            $ld = $this->input->post('discharge_planning');
+            $kd='';
+            if (!empty($ld)) {
+                foreach ($ld as $value) {
+                    $kd=$kd.$value.", ";
+                }
+    
+            }
+
+            $data_neonatus = array (
+                $this->input->post('FS_KD_REG'),
+                $this->input->post('tanggal_masuk'),
+                $this->input->post('jam'),
+                $this->input->post('kriteria_masuk'),
+                $this->input->post('diagnosa_medis'),
+                $this->input->post('dpjp'),
+                $this->input->post('jenis_kelamin'),
+                $this->input->post('tgl_lahir'),
+                $this->input->post('diagnosa_masuk'),
+                $this->input->post('nama_ayah'),
+                $this->input->post('nama_ibu'),
+                $this->input->post('pekerjaan_orang_tua'),
+                $this->input->post('jaminan'),
+                $this->input->post('agama'),
+                $this->input->post('suku'),
+                $riwayat_penyakit_dahulu,
+                $this->input->post('riwayat_imunisasi'),
+                $this->input->post('usia_kehamilan'),
+                $this->input->post('anak_ke'),
+                $this->input->post('jumlah_anak'),
+                $this->input->post('prenatal'),
+                $this->input->post('natal'),
+                $this->input->post('intranatal'),
+                $this->input->post('posnatal'),
+                $this->input->post('warna_ketuban'),
+                $this->input->post('ditangani_oleh'),
+                $this->input->post('tindakan_sebelum_dirawat'),
+                $riwayat_alergi,
+                $this->input->post('kesadaran'),
+                $this->input->post('suhu'),
+                $this->input->post('nadi'),
+                $this->input->post('kecepatan_bernafas'),
+                $this->input->post('saturasi_oksigen'),
+                $this->input->post('panjang_badan'),
+                $this->input->post('berat_badan_masuk'),
+                $this->input->post('apgar_score'),
+                $this->input->post('berat_badan_lahir'),
+                $this->input->post('lingkar_kepala'),
+                $this->input->post('lingkar_lengan'),
+                $this->input->post('lengkar_dada'),
+                $kepala,
+                $leher,
+                $this->input->post('mata'),
+                $this->input->post('pupil'),
+                $this->input->post('palpebra'),
+                $this->input->post('hidung'),
+                $this->input->post('mulut'),
+                $this->input->post('telinga'),
+                $this->input->post('dada'),
+                $this->input->post('irama_nafas'),
+                $this->input->post('bunyi_nafas'),
+                $this->input->post('abdomen'),
+                $this->input->post('tali_pusat'),
+                $this->input->post('regurgitasi'),
+                $this->input->post('refleks_menghisap'),
+                $this->input->post('refleks_menelan'),
+                $this->input->post('genitalia'),
+                $this->input->post('anus'),
+                $this->input->post('mekonium'),
+                $this->input->post('bak'),
+                $this->input->post('bab'),
+                $this->input->post('ekstremitas'),
+                $kelainan_fisik,
+                $this->input->post('turgor'),
+                $this->input->post('warna_kulit'),
+                $this->input->post('param_nyeri1'),
+                $this->input->post('param_nyeri2'),
+                $this->input->post('param_nyeri3'),
+                $this->input->post('param_nyeri4'),
+                $this->input->post('param_nyeri5'),
+                $this->input->post('param_nyeri6'),
+                $this->input->post('total_skor_nyeri'),
+                '',
+                $this->input->post('hambatan_pembelajaran'),
+                $this->input->post('penerjemah'),
+                '',
+                $kd,
+                $this->input->post('discharge_planning_lain'),
+                $this->input->post('jam_selesai'),
+                $this->com_user['user_name'],
+                date('Y-m-d H:i:s')
+   
+            );
+            $this->m_igd->insert_neonatus_awal($data_neonatus); //insert data ke tabel pku igd_awal_neonatus
+
+            $cek_status=$this->m_igd->cek_status_igd(array($this->input->post('FS_KD_REG'))); //cek status pasien
+
+            if($cek_Status < 1) {
+                $params_status = array(
+                    $this->input->post('FS_KD_REG'),
+                    '1', //STATUS IGD JIKA 1 PERAWAT SUDAH INPUT
+                    $this->com_user['user_id'],
+                    date('Y-m-d H:i:s')
+                );
+                $this->m_igd->insert_status_igd($params_status);
+            }
               
                 $this->tnotification->delete_last_field();
                 $this->tnotification->sent_notification("success", "Detail berhasil disimpan");
             
         
         // default redirect
-        redirect("igd/medis");
+        redirect("igd/neonatus");
     }
 
 
@@ -644,308 +467,173 @@ class Neonatus extends ApplicationBase {
         $this->tnotification->set_rules('FS_KD_REG', 'NAMA PASIEN', 'trim|required');
         // process
   
-     
+        $kepala=$this->input->post('kepala');
+        if($kepala!='Normal'){
+            $kepala=$this->input->post('kelainan_kepala');
+        }
+        $leher=$this->input->post('leher');
+        if($leher!='Normal'){
+            $leher=$this->input->post('kelainan_leher');
+        }
+        $kelainan_fisik=$this->input->post('kelainan_fisik');
+        if($kelainan_fisik!='Tidak'){
+            $kelainan_fisik=$this->input->post('ket_kelainan_fisik');
+        }
+        $riwayat_penyakit_dahulu=$this->input->post('riwayat_penyakit_dahulu');
+        if($riwayat_penyakit_dahulu!='Tidak Ada'){
+            $riwayat_penyakit_dahulu=$this->input->post('ket_riwayat_penyakit');
+        }
+        $riwayat_alergi=$this->input->post('riwayat_alergi');
+        if($riwayat_alergi!='Tidak Ada'){
+            $riwayat_alergi=$this->input->post('ket_riwayat_alergi');
+        }
         
-        $lab = $this->input->post('rlab');
-        $klab='';
-        if (!empty($lab)) {
-            foreach ($lab as $value) {
-            $klab=$klab.', '.$value;
-            }  }
+        $riw_alergi = array(
+            $this->input->post('FS_KD_REG'),
+            $this->input->post('ket_riwayat_alergi'),
+            '',
+            '',
+            $this->com_user['user_name'],
+            date('Y-m-d H:i:s')
+        );
 
+        $this->m_rawat_jalan->insert_alergi($riw_alergi); //input ke tabel pku TAC_RJ_ALERGI
 
-        $rad = $this->input->post('rrad');
-        $tembusan='';
-        if (!empty($rad)) {
-            foreach ($rad as $value) {
-                $tembusan=$tembusan.', '.$value;
+        $vital_sign = array(
+            
+            $this->input->post('suhu'),
+            $this->input->post('nadi'),
+            $this->input->post('kecepatan_bernafas'),
+            '',
+            $this->input->post('panjang_badan'),
+            $this->input->post('berat_badan_masuk'),
+            $this->input->post('FS_KD_MEDIS'),
+            $this->com_user['user_id'],
+            date('Y-m-d'),
+            date('H:i:s'),
+            $this->input->post('FS_KD_REG')
+        );
+        $this->m_rawat_jalan->update_vs($vital_sign); //input ke tabel TAC_RJ_VITAL_SIGN Dan TAC_RI_VITAL_SIGN
+        $this->m_ass_awal->update_vs($vital_sign);
+
+        $masalah_kep = $this->input->post('masalah_keperawatan');
+        $this->m_rawat_jalan->delete_masalah_kep($this->input->post('FS_KD_REG'));
+        if (!empty($masalah_kep)) {
+            foreach ($masalah_kep as $value) {
+                $this->m_rawat_jalan->insert_masalah_kep(array($this->input->post('FS_KD_REG'), $value));
+            }
+        }
+        $rencana_kep = $this->input->post('rencana_keperawatan');
+        $this->m_rawat_jalan->delete_rencana_kep($this->input->post('FS_KD_REG'));
+        if (!empty($rencana_kep)) {
+            foreach ($rencana_kep as $value) {
+                $this->m_rawat_jalan->insert_rencana_kep(array($this->input->post('FS_KD_REG'), $value));
+            }
+        }
+
+        $edukasi = $this->input->post('edukasi');
+        $this->m_ass_awal->delete_edukasi($this->input->post('FS_KD_REG'));
+        if (!empty($edukasi)) {
+            foreach ($edukasi as $value) {
+                $this->m_ass_awal->insert_edukasi(array($this->input->post('FS_KD_REG'), $value));
+            }
+        }
+
+        $ld = $this->input->post('discharge_planning');
+        $kd='';
+        if (!empty($ld)) {
+            foreach ($ld as $value) {
+                $kd=$kd.$value.", ";
             }
 
         }
 
+        $data_neonatus = array (
+            $this->input->post('FS_KD_REG'),
+            $this->input->post('tanggal_masuk'),
+            $this->input->post('jam'),
+            $this->input->post('kriteria_masuk'),
+            $this->input->post('diagnosa_medis'),
+            $this->input->post('dpjp'),
+            $this->input->post('jenis_kelamin'),
+            $this->input->post('tgl_lahir'),
+            $this->input->post('diagnosa_masuk'),
+            $this->input->post('nama_ayah'),
+            $this->input->post('nama_ibu'),
+            $this->input->post('pekerjaan_orang_tua'),
+            $this->input->post('jaminan'),
+            $this->input->post('agama'),
+            $this->input->post('suku'),
+            $riwayat_penyakit_dahulu,
+            $this->input->post('riwayat_imunisasi'),
+            $this->input->post('usia_kehamilan'),
+            $this->input->post('anak_ke'),
+            $this->input->post('jumlah_anak'),
+            $this->input->post('prenatal'),
+            $this->input->post('natal'),
+            $this->input->post('intranatal'),
+            $this->input->post('posnatal'),
+            $this->input->post('warna_ketuban'),
+            $this->input->post('ditangani_oleh'),
+            $this->input->post('tindakan_sebelum_dirawat'),
+            $riwayat_alergi,
+            $this->input->post('kesadaran'),
+            $this->input->post('suhu'),
+            $this->input->post('nadi'),
+            $this->input->post('kecepatan_bernafas'),
+            $this->input->post('saturasi_oksigen'),
+            $this->input->post('panjang_badan'),
+            $this->input->post('berat_badan_masuk'),
+            $this->input->post('apgar_score'),
+            $this->input->post('berat_badan_lahir'),
+            $this->input->post('lingkar_kepala'),
+            $this->input->post('lingkar_lengan'),
+            $this->input->post('lengkar_dada'),
+            $kepala,
+            $leher,
+            $this->input->post('mata'),
+            $this->input->post('pupil'),
+            $this->input->post('palpebra'),
+            $this->input->post('hidung'),
+            $this->input->post('mulut'),
+            $this->input->post('telinga'),
+            $this->input->post('dada'),
+            $this->input->post('irama_nafas'),
+            $this->input->post('bunyi_nafas'),
+            $this->input->post('abdomen'),
+            $this->input->post('tali_pusat'),
+            $this->input->post('regurgitasi'),
+            $this->input->post('refleks_menghisap'),
+            $this->input->post('refleks_menelan'),
+            $this->input->post('genitalia'),
+            $this->input->post('anus'),
+            $this->input->post('mekonium'),
+            $this->input->post('bak'),
+            $this->input->post('bab'),
+            $this->input->post('ekstremitas'),
+            $kelainan_fisik,
+            $this->input->post('turgor'),
+            $this->input->post('warna_kulit'),
+            $this->input->post('param_nyeri1'),
+            $this->input->post('param_nyeri2'),
+            $this->input->post('param_nyeri3'),
+            $this->input->post('param_nyeri4'),
+            $this->input->post('param_nyeri5'),
+            $this->input->post('param_nyeri6'),
+            $this->input->post('total_skor_nyeri'),
+            '',
+            $this->input->post('hambatan_pembelajaran'),
+            $this->input->post('penerjemah'),
+            '',
+            $kd,
+            $this->input->post('discharge_planning_lain'),
+            $this->input->post('jam_selesai'),
+            $this->com_user['user_name'],
+            date('Y-m-d H:i:s')
 
-
-            $params14 = array(
-            
-                $this->input->post('FS_STATUS_PSIK'),
-                $this->input->post('FS_HUB_KELUARGA'),
-                $this->input->post('FS_PENGELIHATAN'),
-                $this->input->post('FS_PENCIUMAN'),
-                $this->input->post('FS_PENDENGARAN'),
-                $this->input->post('PERNIKAHAN'),
-                $this->input->post('SUKU'),
-                $this->input->post('JOB'),
-                $this->com_user['user_id'],
-                date('Y-m-d'),
-                $this->input->post('FS_KD_REG')
-            );
-            $this->m_igd->update_ases($params14);
-
- 
-
-             $params2 = array(
-                $this->input->post('FS_KD_REG'),
-                $this->input->post('KENDARAAN'),
-                $this->input->post('RUJUKAN'), 
-                $this->input->post('FS_ANAMNESA'),
-                $this->input->post('FS_RIW_PENYAKIT_DAHULU'),
-                $this->input->post('RIW_PENYAKIT_NOW'),
-                $this->input->post('RIW_PERAWATAN'),
-                $this->input->post('RIW_TINDAKAN'),
-                $this->input->post('FS_STATUS_PSIK'),
-                $this->input->post('MENTAL'),
-                $this->input->post('PEMERIKSAAN_FISIK'),
-                $this->input->post('SKOR_NYERI'),
-                $this->input->post('LINGKAR_KEPALA'),
-                $this->input->post('STATUS_GIZI'),
-                $this->input->post('ALAT_BANTU'),
-                $this->input->post('CACAT'),
-                $this->input->post('ADL'),
-                $this->input->post('RESIKO_JATUH'),
-                $this->input->post('KONJUNGTIVA'),
-                $this->input->post('DEVIASI'),
-                $this->input->post('SKELERA'),
-                $this->input->post('JVP'),
-                $this->input->post('BIBIR'),
-                $this->input->post('MUKOSA'),
-                $this->input->post('THORAX'),
-                $this->input->post('JANTUNG'),
-                $this->input->post('ABDOMEN'),
-                $this->input->post('PINGGANG'),
-                $this->input->post('EKS_ATAS'),
-                $this->input->post('EKS_BAWAH'),
-                '',
-                $klab,
-                $tembusan,
-                '',
-                $this->input->post('FS_DIAGNOSA'),
-                $this->input->post('MASALAH_KES'),
-                $this->input->post('FS_TERAPI'),
-                $this->input->post('RENCANA'),
-                $this->input->post('DIET'),
-                $this->input->post('KONSUL'),
-                $this->input->post('KD_DOKTER_KONSUL'),
-                $this->input->post('EDUKASI'),
-                $this->input->post('D_PLANNING'),
-                $this->input->post('ALASAN_RUJUK'),
-                $this->input->post('TRANSPORT_KELUAR'),
-                $this->input->post('KONDISI_AKHIR'),
-                $this->input->post('JAM_SELESAI'), 
-                $this->com_user['user_name'],
-                date('Y-m-d H:i:s'), 
-                $this->input->post('KONSUL2'),
-                $this->input->post('KD_DOKTER_KONSUL2'),
-                $this->input->post('KONSUL3'),
-                $this->input->post('KD_DOKTER_KONSUL3'),
-                $this->input->post('REKOMENDASI_RUJUK'),
-                $this->input->post('REKOMENDASI_POLI')
-                
-            );
-            $this->m_igd->DELETE_AWAL_MEDIS($this->input->post('id'));
-            
-            $this->m_igd->INSERT_AWAL_MEDIS($params2);
-
-
- 
- 
-               
-
-                $params5 = array(
-                    $this->input->post('FS_KD_REG'),
-                    $this->input->post('FS_ALERGI'),
-                    '',
-                   $this->input->post('FS_REAK_ALERGI'),
-                   $this->com_user['user_name'],
-                   date('Y-m-d H:i:s'), 
-               );
-               $this->m_rawat_jalan->insert_alergi($params5);
-
-
-
-
-            //   
-
-                 
-            if($this->input->post('kode_icd_x')!=''){
-                $FS_KD_REG=$this->input->post('FS_KD_REG');
-                $pasien= $this->m_rawat_jalan->get_px_by_dokter_by_rg2(array($FS_KD_REG)); 
-               
-                if(strlen($pasien['NO_IDENTITAS'])==16){
-                    $nik=$pasien['NO_IDENTITAS'];
-                }
-                else{
-                    $nik=$pasien['HP2'];
-                }
-               
-            
-                $kota=ucfirst($pasien['KOTA']);
-                if($kota=='Lampung Barat'){
-                    $kodekota="1801";
-                }
-                else  if($kota=='Tanggamus'){
-                    $kodekota="1802";
-                }
-                else  if($kota=='Lampung Selatan'){
-                    $kodekota="1803";
-                }
-                else  if($kota=='Lampung Timur'){
-                    $kodekota="1804";
-                }
-                else  if($kota=='Lampung Tengah'){
-                    $kodekota="1805";
-                }
-                else  if($kota=='Lampung Utara'){
-                    $kodekota="1806";
-                }
-                else  if($kota=='Way Kanan'){
-                    $kodekota="1807";
-                }
-                else  if($kota=='Tulangbawang'  || $kota=='Tulang Bawang' || $kota=='Tubaba'){
-                    $kodekota="1808";
-                }
-                else  if($kota=='Pesawaran'){
-                    $kodekota="1809";
-                }
-                else  if($kota=='Pringsewu'){
-                    $kodekota="1810";
-                }
-                else  if($kota=='Mesuji'){
-                    $kodekota="1811";
-                }
-                else  if($kota=='Tulangbawang Barat' || $kota=='Tulang Bawang Barat' || $kota=='Tubabar'){
-                    $kodekota="1812";
-                }
-                else  if($kota=='Pesisir Barat'){
-                    $kodekota="1813";
-                }
-                else  if($kota=='Bandar Lampung' || $kota=='Bandarlampung' || $kota=='Balam'){
-                    $kodekota="1871";
-                }
-                else  if($kota=='Metro'){
-                    $kodekota="1872";
-                }
-                else{
-                    $kodekota="1872";
-                }
-            
-                $tglmulai=date('Y-m-d');
-                $tglmulai=substr($tglmulai,0,4).substr($tglmulai,5,2).substr($tglmulai,8,2);
-            
-                $tgllahir=$pasien['TGL_LAHIR'];
-                $tgllahir=substr($tgllahir,0,4).substr($tgllahir,5,2).substr($tgllahir,8,2);
-            
-                        
-                $icd=$this->input->post('kode_icd_x');
-                if($icd=='A15' || $icd=='A15.0' || $icd=='A15.1' || $icd=='A15.7' || $icd=='A16'){
-                    $lokasi='1';
-                    $tipe='1';
-                }
-                else  if($icd=='A15.2' || $icd=='A15.3' || $icd=='A16.0' || $icd=='A16.1' || $icd=='A16.2' || $icd=='A16.7'){
-                    $lokasi='1';
-                    $tipe='2';
-                }
-                else  if($icd=='A15.4' || $icd=='A15.5' || $icd=='A15.6' || $icd=='A15.8' || $icd=='A15.9' ){
-                    $lokasi='2';
-                    $tipe='1';
-                }
-                else {
-                    $lokasi='2';
-                    $tipe='2';
-                }
-               
-
-                    $cek_tb=$this->m_igd->cek_tb(array($FS_KD_REG)); //CEK TB DI SIMRS
-
-                    if ($cek_tb == '1') { // SUDAH ADA DI DATABASE SIMRS
-
-                        $cek_id_tb=$this->m_igd->cek_id_tb(array($FS_KD_REG)); //CEK ID TB NYA
-
-                        $id_tb_03=$cek_id_tb['id_tb_o3'];
-
-                   
-                            
-                        $params = array(
-                            '',
-                            $pasien['NAMA_PASIEN'],
-                            $nik,
-                            $pasien['JENIS_KELAMIN'],
-                            $pasien['ALAMAT'],
-                            '18',
-                            '1872',
-                            '18',
-                            $kodekota,
-                            '1872042',
-                            $this->input->post('kode_icd_x'),
-                            $tipe,
-                            $lokasi,
-                            '',
-                            $tglmulai,
-                            '',
-                            'Sedang dilakukan',
-                            '',
-                            '',
-                            '',
-                            '',
-                            '',
-                            '',
-                            '',
-                            '',
-                            $tgllahir,
-                            'negatif',
-                            $FS_KD_REG,
-                            $pasien['NO_MR'],
-                            $this->com_user['user_name'],
-                            date('Y-m-d H:i'),
-                            $FS_KD_REG,
-                        );
-
-                        $this->m_igd->update_tb($params); //UPDATE TB DI DATABASE
-                    }
-
-                    else{
-                       $id_tb_03='';
-                        
-
-                        $params = array(
-                            $id_tb_03,
-                            $pasien['NAMA_PASIEN'],
-                            $nik,
-                            $pasien['JENIS_KELAMIN'],
-                            $pasien['ALAMAT'],
-                            '18',
-                            '1872',
-                            '18',
-                            $kodekota,
-                            '1872042',
-                            $this->input->post('kode_icd_x'),
-                            $tipe,
-                            $lokasi,
-                            '',
-                            $tglmulai,
-                            '',
-                            'Sedang dilakukan',
-                            '',
-                            '',
-                            '',
-                            '',
-                            '',
-                            '',
-                            '',
-                            '',
-                            $tgllahir,
-                            'negatif',
-                            $FS_KD_REG,
-                            $pasien['NO_MR'],
-                            $this->com_user['user_name'],
-                            date('Y-m-d H:i')
-                        );
-
-                        $this->m_igd->insert_tb($params);//INSERT KE SIMRS
-                    
-                    }
-
-
-            }
+        );
+        $this->m_igd->delete_neonatus_awal($this->input->post('ID_IGD_NEONATUS'));
+        $this->m_igd->insert_neonatus_awal($data_neonatus); //insert data ke tabel pku igd_awal_neonatus
                
 
              
@@ -955,7 +643,7 @@ class Neonatus extends ApplicationBase {
             
         
         // default redirect
-        redirect("igd/medis");
+        redirect("igd/neonatus");
     }
 
 

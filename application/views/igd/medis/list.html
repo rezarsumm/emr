@@ -68,23 +68,24 @@
                     <td>{$no++}</td>
                     <td>{$data.NO_MR}</td>
                     <td>{$data.NAMA_PASIEN}</td>
-                    <td>{$data.ALAMAT}</td> 
+                    <td>{$data.ALAMAT}
+                    </td> 
                    <!--  <td>{$data.NAMA_DOKTER}</td>  -->
                     <td>
                         
-                        {if $data.FS_STATUS eq ''}
+                        {if $data.STATUS_IGD eq ''}
                         <img src="{$BASEURL}resource/doc/images/icon/icon.waiting.png" alt="" />
                       Perawat
-                        {elseif $data.FS_STATUS eq '1'}
+                        {elseif $data.STATUS_IGD eq '1'}
                         <img src="{$BASEURL}resource/doc/images/icon/icon.waiting.dokter.png" alt="" />
                        Dokter
-                        {elseif $data.FS_STATUS eq '2'}
+                        {elseif $data.STATUS_IGD eq '2'}
                          {if $data.FS_TERAPI eq '' OR $data.FS_TERAPI eq '<p>-</p>'}
                          <img src="{$BASEURL}resource/doc/images/icon/icon.approve.png" alt="" />
                          Selesai
                          {else}
-                        <img src="{$BASEURL}resource/doc/images/icon/icon.waiting.farmasi.png" alt="" />
-                        Farmasi
+                         <img src="{$BASEURL}resource/doc/images/icon/icon.waiting.farmasi.png" alt="" />
+                         Farmasi
                         {/if}
                          
                         {/if}

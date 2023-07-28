@@ -89,6 +89,24 @@ class m_igd extends CI_Model {
         }
     }
 
+    function get_data_ases_neonatus($params) {
+        $n=date('Y-m-d');
+
+        $sql = "select A.*, B.Kode_Dokter, B.No_Reg, C.Tgl_lahir, C.No_MR, C.Nama_Pasien, C.Alamat
+        from  PKU.dbo.IGD_AWAL_NEONATUS A
+        left join DB_RSMM.dbo.PENDAFTARAN B on B.No_Reg=A.FS_KD_REG
+        left join DB_RSMM.dbo.REGISTER_PASIEN C on B.No_MR=C.No_MR
+        where (B.Tanggal=? or B.Tanggal=?) or (cast(A.MDD as date)=?)";
+        $query = $this->db->query($sql, $params);
+        if ($query->num_rows() > 0) {
+            $result = $query->result_array();
+            $query->free_result();
+            return $result;
+        } else {
+            return array();
+        }
+    }
+
 
     function INSERT($params) {
         $sql = "INSERT INTO PKU.dbo.TRIASE(FS_KD_REG, Nama_Pasien, Alamat, TGL_DATANG, JAM_DATANG, CARA_MASUK, SUDAH_TERPASANG, ALASAN_DATANG, KENDARAAN, NAMA_PENGANTAR, TELP_PENGANTAR, JENIS_KASUS, JENIS_TRAUMA, URAIAN_TRAUMA, TGL_KEJADIAN, TEMPAT_KEJADIAN, PACS, KESADARAN, SKOR_KESADARAN, TD, SKOR_TD, R, SKOR_R, O2, SKOR_O2, N, N_SKOR, SUHU, SKOR_SUHU, NYERI, BB, TB, KEPUTUSAN, rujukan_dari, dijemput, KELUHAN, CAT_KHUSUS, TOTAL_SKOR, JAM_KEP, KD_PERAWAT, mdd )
@@ -195,13 +213,13 @@ class m_igd extends CI_Model {
     }
 
     function INSERT_AWAL_BIDAN($params) { 
-        $sql = "INSERT INTO PKU.dbo.IGD_AWAL_BIDAN(FS_KD_REG,CARA_MASUK,RUJUKAN,BAWA_OBAT,FS_STATUS_PSIK,FS_STATUS_EMOSI,FS_HUB_KELUARGA,FS_USIA_KEHAMILAN,    FS_ANAMNESA, FS_HAID_MEN, FS_HAID_SIKLUS, FS_HAID_LAMA, 
+        $sql = "INSERT INTO PKU.dbo.IGD_AWAL_BIDAN(FS_KD_REG,CARA_MASUK,RUJUKAN,BAWA_OBAT,FS_STATUS_PSIK,FS_STATUS_EMOSI,FS_HUB_KELUARGA,FS_USIA_KEHAMILAN,FS_ANAMNESA, FS_HAID_MEN, FS_HAID_SIKLUS, FS_HAID_LAMA, 
         FS_HAID_HPHT, FS_HAID_HPL, FS_HAID_KELUHAN, FS_STATUS_PERKAWINAN, FS_LAMA_MENIKAH,  FS_ASMA_MULAI, FS_ASMA_TERAPI, FS_JANTUNG_MULAI, FS_JANTUNG_TERAPI, FS_DIABETES_MULAI, FS_DIABETES_TERAPI, FS_HIPERTENSI_MULAI, FS_HIPERTENSI_TERAPI, 
         FS_SAKIT_LAIN, FS_RIWAYAT_GYNEKOLOGI, FS_RIWAYAT_KB, FS_RIWAYAT_KOMPLIKASI_KB, POLA_MAKAN, POLA_MINUM, POLA_BAK, POLA_BAB, POLA_TIDUR, JAM_TERAKHIR_MAKAN, JAM_TERAKHIR_MINUM, JAM_TERAKHIR_BAK, JAM_TERAKHIR_BAB, JAM_TERAKHIR_TIDUR, WARNA_BAK,
          KARAKTER_BAB, RUMAH_MILIK, TINGGAL_BERSAMA, PJ_DARURAT,HUBUNGAN_PJ,AKTIFITAS,SOSIAL_SUPPORT,PERSALINAN,KEADAAN_UMUM,SADAR,ALAT_BANTU,TD,N,S,R,TB,BB,BBO,MATA,KEPALA,TELINGA,HIDUNG,TENGGOROKAN,LEHER,DADA,JANTUNG,PARU_PARU,ABDOMEN,BADAN_GERAK_ATAS,
          BADAN_GERAK_BAWAH,SCLERA,KONJUNGTIVA,CEK_DADA,INSPEKSI_ABDOMEN,LEOPOD_1,LEOPOD_2,LEOPOD_3,LEOPOD_4,AUSKULTASI,DURASI_AUSKULTASI,KONTRAKSI,DURASI_KONTRAKSI,INSPEKSI_ANO_GENITAS,VAGINA_TOUCHER,MASALAH_KEBIDANAN,DIAGNOSA, RENCANA_TINDAKAN,
-         PENERJEMAH,KRITERIA_DISCHARGE,HASIL, PENDIDIKAN_PASIEN, JOB_PASIEN, SELESAI, MDB, MDD,Nama_Pasien,Alamat,BERI_OBAT_KE_PETUGAS, NO_HP_PJ)
-        VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+         PENERJEMAH,KRITERIA_DISCHARGE,HASIL, PENDIDIKAN_PASIEN, JOB_PASIEN, SELESAI, MDB, MDD,Nama_Pasien,Alamat,BERI_OBAT_KE_PETUGAS, NO_HP_PJ, AUSKULTASI_BAYI_1,AUSKULTASI_BAYI_2,KET_AUSKULTASI_BAYI_1,KET_AUSKULTASI_BAYI_2, RESIKO_JATUH,RIWAYAT_PENYAKIT_DAHULU)
+        VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
          return $this->db->query($sql, $params);
     }
 
@@ -268,6 +286,21 @@ class m_igd extends CI_Model {
         VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         return $this->db->query($sql, $params);
     }
+    function insert_status_igd($params) {
+        $sql = "INSERT INTO PKU.dbo.TAC_STATUS_IGD(FS_KD_REG, STATUS_IGD,MDB,MDD)
+        VALUES (?,?,?,?)";
+        return $this->db->query($sql, $params);
+    }
+    function delete_status_igd($params) {
+        $sql = "DELETE from PKU.dbo.TAC_STATUS_IGD 
+        WHERE FS_KD_REG = ?";
+        return $this->db->query($sql, $params);
+    }
+    function update_status_igd($params) {
+        $sql = "  UPDATE PKU.dbo.TAC_STATUS_IGD SET STATUS_IGD=?, MDB=?,MDD=? where FS_KD_REG=?";
+        return $this->db->query($sql, $params);
+    }
+
 
     function insert_ases14($params) {
         $sql = "INSERT INTO PKU.dbo.TAC_RI_ASES_PER2(FS_KD_REG, FS_RIW_PENYAKIT_DAHULU, FS_RIW_PENYAKIT_DAHULU2, FS_RIW_PENYAKIT_KEL, FS_RIW_PENYAKIT_KEL2,
@@ -409,10 +442,20 @@ class m_igd extends CI_Model {
     }
 
     
+    function update_level_medis($params) {
+        $sql = "UPDATE PKU.dbo.TAC_STATUS_IGD SET STATUS_IGD=? WHERE FS_KD_REG= ?";
+        return $this->db->query($sql, $params);
+    }
 
     function DELETE_AWAL_BIDAN($params) {
         $sql = "DELETE from PKU.dbo.IGD_AWAL_BIDAN 
         WHERE id = ?";
+        return $this->db->query($sql, $params);
+    }
+
+    function delete_neonatus_awal($params) {
+        $sql = "DELETE from PKU.dbo.IGD_AWAL_NEONATUS 
+        WHERE ID_IGD_NEONATUS = ?";
         return $this->db->query($sql, $params);
     }
 
@@ -539,10 +582,11 @@ class m_igd extends CI_Model {
 
     function get_data_perawat_by_noreg($params) {
 
-        $sql = "select top 1  A.*, B.*, C.Tgl_lahir, C.No_MR
+        $sql = "select top 1  A.*, B.*, C.Tgl_lahir, C.No_MR, D.NAMALENGKAP
         from  PKU.dbo.IGD_AWAL_PERAWAT A
         left join PENDAFTARAN B on B.No_Reg=A.FS_KD_REG
         left join REGISTER_PASIEN C on B.No_MR=C.No_MR
+        LEFT JOIN DB_RSMM.dbo.TUSER D ON A.MDB=D.NAMAUSER
         where A.FS_KD_REG=?";
         $query = $this->db->query($sql, $params);
         if ($query->num_rows() > 0) {
@@ -574,13 +618,32 @@ class m_igd extends CI_Model {
         }
     }
 
+    function get_data_neonatus($params) {
+
+        $sql = "select top 1 A.*, B.*, C.Tgl_lahir, C.No_MR, D.NAMALENGKAP
+        from  PKU.dbo.IGD_AWAL_NEONATUS A
+        left join PENDAFTARAN B on B.No_Reg=A.FS_KD_REG
+        left join REGISTER_PASIEN C on B.No_MR=C.No_MR
+        LEFT JOIN DB_RSMM.dbo.TUSER D ON A.MDB=D.NAMAUSER
+        where A.FS_KD_REG=?";
+        $query = $this->db->query($sql, $params);
+        if ($query->num_rows() > 0) {
+            $result = $query->row_array();
+            $query->free_result();
+            return $result;
+        } else {
+            return 0;
+        }
+    }
+
     function get_data_ases_bidan_igd($params) {//get data pasien ugd bidan
         $n=date('Y-m-d');
 
-        $sql = "select A.*, B.Kode_Dokter, B.No_Reg, C.Tgl_lahir, C.No_MR
+        $sql = "select A.*, B.Kode_Dokter, B.No_Reg, C.Tgl_lahir, C.No_MR, D.NAMA_SUAMI, D.TGL_LAHIR_SUAMI, D.AGAMA_SUAMI, D.PEKERJAAN_SUAMI, D.PENDIDIKAN_SUAMI
         from  PKU.dbo.IGD_AWAL_BIDAN A
         left join DB_RSMM.dbo.PENDAFTARAN B on B.No_Reg=A.FS_KD_REG
         left join DB_RSMM.dbo.REGISTER_PASIEN C on B.No_MR=C.No_MR
+        left join PKU.dbo.SUAMI_PASIEN D on D.FS_KD_REG=A.FS_KD_REG
         where (B.Tanggal=? or B.Tanggal=?) or (cast(A.MDD as date)=?) and C.Jenis_Kelamin='P'";
         $query = $this->db->query($sql, $params);
         if ($query->num_rows() > 0) {
@@ -596,10 +659,15 @@ class m_igd extends CI_Model {
 
     function get_data_bidan_by_noreg($params) {
 
-        $sql = "select top 1 A.*, B.*, C.Tgl_lahir, C.No_MR
+        $sql = "select top 1 A.*, B.*, C.Tgl_lahir, C.No_MR, D.NAMA_SUAMI, D.TGL_LAHIR_SUAMI, D.PENDIDIKAN_SUAMI, D.PEKERJAAN_SUAMI, D.AGAMA_SUAMI, E.FS_AGAMA, E.FS_STATUS_PSIK, F.FS_ALERGI, F.FS_REAK_ALERGI, G.NAMALENGKAP
         from  PKU.dbo.IGD_AWAL_BIDAN A
+
+        left join PKU.dbo.TAC_RJ_ALERGI F on F.FS_KD_REG=A.FS_KD_REG
+        left join PKU.dbo.TAC_RI_ASES_PER2 E on E.FS_KD_REG=A.FS_KD_REG
         left join PENDAFTARAN B on B.No_Reg=A.FS_KD_REG
         left join REGISTER_PASIEN C on B.No_MR=C.No_MR
+        left join PKU.dbo.SUAMI_PASIEN D ON D.FS_KD_REG=A.FS_KD_REG
+        LEFT JOIN DB_RSMM.dbo.TUSER G ON A.mdb=G.NAMAUSER
         where A.FS_KD_REG=?";
         $query = $this->db->query($sql, $params);
         if ($query->num_rows() > 0) {
@@ -756,6 +824,16 @@ class m_igd extends CI_Model {
 
     function cek_tb($params) {
         $sql = "SELECT FS_KD_REG FROM PKU.dbo.PASIEN_TB WHERE FS_KD_REG = ?";
+        $query = $this->db->query($sql, $params);
+        if ($query->num_rows() > 0) {
+            $result = $query->num_rows();
+            return $result;
+        } else {
+            return 0;
+        }
+    }
+    function cek_status_igd($params) {
+        $sql = "SELECT FS_KD_REG FROM PKU.dbo.TAC_STATUS_IGD WHERE FS_KD_REG = ?";
         $query = $this->db->query($sql, $params);
         if ($query->num_rows() > 0) {
             $result = $query->num_rows();
@@ -976,6 +1054,7 @@ class m_igd extends CI_Model {
           }
       }
 
+
       
   
   
@@ -1007,8 +1086,10 @@ class m_igd extends CI_Model {
         $date_plus = $date->modify("-1 days");
         $akhirnya= $date_plus->format("Y-m-d");
 
-        $sql = "SELECT E.NO_REG, B.NO_MR, B.NAMA_PASIEN, B.TGL_LAHIR, B.JENIS_KELAMIN, B.ALAMAT
+        $sql = "SELECT E.NO_REG, B.NO_MR, B.NAMA_PASIEN, B.TGL_LAHIR, B.JENIS_KELAMIN, B.ALAMAT, D.STATUS_IGD, C.FS_TERAPI
        FROM REGISTER_PASIEN B,  PENDAFTARAN E 
+       LEFT JOIN PKU.dbo.TAC_STATUS_IGD D ON E.NO_REG = D.FS_KD_REG
+       LEFT JOIN PKU.dbo.IGD_AWAL_MEDIS C ON E.NO_REG = C.FS_KD_REG
        WHERE B.NO_MR=E.NO_MR AND E.STATUS='1' and E.KODE_MASUK='1' and (E.TANGGAL= '$now' or E.TANGGAL='$akhirnya')";
        $query = $this->db->query($sql);
        if ($query->num_rows() > 0) {
@@ -1693,6 +1774,12 @@ function get_data_medis_by_rg2($params) {
               return $this->db->query($sql, $params);
     }
 
+    function insert_neonatus_awal($params) { //BELUM
+        $sql = "INSERT INTO PKU.dbo.IGD_AWAL_NEONATUS(FS_KD_REG,TANGGAL_MASUK,JAM_MASUK,KRITERIA_MASUK,DIAGNOSA_MEDIS,DPJP, JENIS_KELAMIN, TGL_LAHIR,DIAGNOSA_MASUK, NAMA_AYAH, NAMA_IBU, PEKERJAAN_ORANG_TUA, JAMINAN, AGAMA, SUKU, RIWAYAT_PENYAKIT_DAHULU, RIWAYAT_IMUNISASI, USIA_KEHAMILAN, ANAK_KE, JUMLAH_ANAK, PRENATAL, NATAL, INTRANATAL, POSNATAL, WARNA_KETUBAN, DITANGANI_OLEH, TINDAKAN_SEBELUM_DIRAWAT,RIWAYAT_ALERGI, KESADARAN, S, N, R, SATURASI_OKSIGEN, PANJANG_BADAN, BERAT_BADAN_MASUK, APGAR_SCORE, BERAT_BADAN_LAHIR, LINGKAR_KEPALA, LINGKAR_LENGAN, LINGKAR_DADA, KEPALA, LEHER, MATA,PUPIL, PALPEBRA, HIDUNG, MULUT, TELINGA, DADA, IRAMA_NAFAS,BUNYI_NAFAS, ABDOMEN, TALI_PUSAT, REGURGITASI, REFLEKS_MENGHISAP, REFLEKS_MENELAN, GENITALIA, ANUS, MEKONIUM, BAK, BAB, EKSTREMITAS, KELAINAN_FISIK, TURGOR, WARNA_KULIT, PARAM_NYERI1, PARAM_NYERI2, PARAM_NYERI3, PARAM_NYERI4, PARAM_NYERI5, PARAM_NYERI6, TOTAL_SKOR_NYERI, TINDAKAN_KEPERAWATAN, HAMBATAN_PEMBELAJARAN,  PENERJEMAH, KEBUTUHAN_EDUKASI, DISCHARGE_PLANNING, DISCHARGE_PLANNING_LAIN, JAM_SELESAI, MDB, MDD)
+           VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+              return $this->db->query($sql, $params);
+    }
+
 
     
 
@@ -1773,6 +1860,23 @@ function get_data_medis_by_rg2($params) {
             return 0;
         }
     }
+    function getKriteriaDischargeAssesmenNeonatus($params)
+    {
+        $sql = "SELECT DISCHARGE_PLANNING
+        FROM PKU.dbo.IGD_AWAL_NEONATUS
+        WHERE FS_KD_REG = ?";
+        $query = $this->db->query($sql, $params);
+        if ($query->num_rows() > 0) {
+            $result = $query->row_array();
+            $query->free_result();
+            return $result;
+        } else {
+            return 0;
+        }
+    }
+
+ 
+
     function get_lab_edit($params)
     {
         $sql = "SELECT lab

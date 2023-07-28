@@ -557,9 +557,9 @@ $dayList = array(
                     echo '<u><strong>SURAT KETERANGAN KONTROL KEMBALI KE RSUMM</strong></u>';
                   }
                     else if($kers<$rujukannya){?>
-                    <br><u><strong>SURAT KETERANGAN KONTROL </strong></u><br>
+                    <br><u><strong>SURAT KETERANGAN KONTROL POST RAWAT INAP </strong></u><br>
                 <?php } else {?>
-                    <br><u><strong>SURAT KETERANGAN KONTROL </strong></u><br>
+                    <br><u><strong>SURAT KETERANGAN KONTROL POST RAWAT INAP </strong></u><br>
                 <?php } ?>
                 </td>
             </tr>

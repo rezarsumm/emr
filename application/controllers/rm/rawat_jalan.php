@@ -33,7 +33,8 @@ class rawat_jalan extends ApplicationBase {
         $data['medis_igd'] = $this->m_igd->get_data_medis_by_noreg(array($FS_KD_REG));
         $data['alergi'] = $this->m_igd->get_alergi(array($FS_KD_REG));
         
-
+    
+        $data['nutrisi'] = $this->m_rawat_jalan->get_data_nutrisi_by_rg(array($FS_KD_REG));
         $data['rs_pasien'] = $this->m_rawat_jalan->get_px_by_dokter_by_rg2(array($FS_KD_REG));
         $data['rs_resep'] = $this->m_rawat_jalan->get_data_terapi_by_rg(array($FS_KD_REG));
         $data['rs_lab'] = $this->m_rawat_jalan->get_data_lab_by_rg(array($FS_KD_REG));
@@ -279,6 +280,7 @@ class rawat_jalan extends ApplicationBase {
             exit;
         }
     }
+    
    public function cetak_rujukan_lab($FS_KD_REG = "", $FS_KD_TRS ="") { 
         $this->_set_page_rule("R");
         $this->load->library('html2pdf');
@@ -305,6 +307,7 @@ class rawat_jalan extends ApplicationBase {
             exit;
         } 
     }
+    
    public function cetak_rujukan_rad($FS_KD_REG = "", $FS_KD_TRS ="") {
         $this->_set_page_rule("R");
         $this->load->library('html2pdf');

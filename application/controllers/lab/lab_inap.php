@@ -98,19 +98,19 @@ class Lab_inap extends ApplicationBase {
         }
     }
 
-    public function cetak_plab2($FS_KD_TRS = "") {
+    public function cetak_plab2($FS_KD_TRS = "",$FS_KD_REG = "") {
         // var_dump('ok');
         // die;
         $this->_set_page_rule("R");
         $this->load->library('html2pdf');
         $now = date('Y-m-d');
         $data['rs_pasien'] = $this->m_farmasi_inap->lab_inap2(array($FS_KD_TRS));
-        $data['rs_resume'] = $this->m_cppt->get_data_resume_by_rg(array($FS_KD_TRS));
+        $data['rs_resume'] = $this->m_cppt->get_data_resume_by_rg(array($FS_KD_REG));
         // var_dump($data['rs_resume']);
         // die;
         $d = $this->m_farmasi_inap->lab_inap(array($FS_KD_TRS));
         $FS_RG=$d['No_Reg'];
-        $this->smarty->assign("rs_resume", $this->m_cppt->get_data_resume_by_rg(array($FS_RG)));
+        // $this->smarty->assign("rs_resume", $this->m_cppt->get_data_resume_by_rg(array($FS_RG)));
   $data["alamat"] = $this->m_rawat_jalan->get_alamat();
 
         

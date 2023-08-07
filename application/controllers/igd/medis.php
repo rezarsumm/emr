@@ -108,6 +108,7 @@ class Medis extends ApplicationBase {
           
         $this->smarty->assign("bidan", $this->m_igd->get_data_bidan_by_noreg(array($FS_RG)));           
         $this->smarty->assign("perawat", $this->m_igd->get_data_perawat_by_noreg(array($FS_RG)));           
+        $this->smarty->assign("neonatus", $this->m_igd->get_data_neonatus_by_noreg(array($FS_RG)));           
         $this->smarty->assign("nyeri", $this->m_rawat_jalan->get_data_nyeri_by_rg(array($FS_RG)));
           
 

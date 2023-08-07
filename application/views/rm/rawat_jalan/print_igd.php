@@ -1045,372 +1045,8 @@
         </tbody>
  </table>
  </div>
-    </page> 
-
-
-
-
-    <page backtop="27mm" backbottom="10mm" backleft="2mm" backright="2mm" style="font-size:10pt">
-   <page_header>
-        <table class="page_header">
-            <col style="width: 10%;font-size: 12px;">
-            <col style="width: 45%;font-size: 12px;">
-            <col style="width: 45%;font-size: 12px;">
-            <tr>
-                <td>
-                    <img src="<?php base_url() ?>resource/doc/images/icon/logo.png" width="50" height="50" />
-                </td>
-                <td style="text-align: center;">
-                     <h5>MAJELIS PEMBINA KESEHATAN UMUM
-                <br>RSU MUHAMMADIYAH METRO</h5>
-                
-           
-
-             <table style="float:; padding-left: 40px"> 
-                <tr> 
-                    <td style="text-align: left; font-size: 8px"> Jl Soekarno Hatta No. 42 Mulyojati 16 B</td>
-                    <td style="text-align: left; font-size:  8px" > Fax : (0725) 47760 </td>
-                </tr>
-                <tr> 
-                    <td style="text-align: left; font-size: 8px" > Metro Barat - Kota Metro 34125 </td>
-                    <td style="text-align: left; font-size: 8px" > e-mail : info.rsumm@gmail.com </td>
-                </tr>
-                <tr> 
-                    <td style="text-align: left; font-size: 8px"> Telp : (0725) 49490 - 7850378</td>
-                    <td style="text-align: left; font-size: 8px"> website : www.rsumm.co.id </td>
-
-                </tr>
-               
-            </table>
-                </td>
-                 <td style="width:10%; float:right" >
-                <img src="<?php base_url() ?>resource/doc/images/icon/kars.png" width="50" height="50" />
-            </td>
-            <td  style="font-size: 9px">
-                Nama : <?php echo $rs_pasien["NAMA_PASIEN"]; ?><br>
-                No MR : <?php echo $rs_pasien["NO_MR"]; ?><br>
-                Tgl Lahir : <?php echo date("d-M-Y", strtotime($rs_pasien["TGL_LAHIR"])); ?>
-            </td>
-        </tr>
-    </table>
-    </page_header>
-       <hr style="margin-top:0px">
-    <page_footer> 
-    <table style="width: 100%; border-top: solid 1px black;">
-        <tr>
-            <td style="text-align: left; width: 80%">&nbsp;</td>
-            <td style="text-align: right; width: 20%">Halaman [[page_cu]]/[[page_nb]]</td>
-        </tr>
-    </table>
-    </page_footer>
- 
-    
+    </page>
     <br>
-    <table class="content" style="padding-top: 30px">
-        <tbody>
-            <col style="width: 100%;background-color: #000000;color: #ffffff;padding: 0px;font-size: 12px;">
-            <tr>
-                <td align="center">
-                    <br><strong>ASESMEN RAWAT JALAN IGD</strong>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="content">
-        <col style="width: 20%;font-size: 12px;">
-        <col style="width: 30%;font-size: 12px;">
-        <col style="width: 20%;font-size: 12px;">
-        <col style="width: 30%;font-size: 12px;">
-        <tbody>
-            <tr>
-                <td style="border-left:solid 1px #000000;">Tanggal Kunjungan</td>
-                <td>
-                    : <?php echo date("d-M-Y", strtotime($rs_pasien["TANGGAL"])); ?>
-                </td>
-                <td>Klinik Tujuan</td>
-                  <td style="border-left:solid 1px #000000;border-right:solid 1px #000000;">
-                    : <?= $rs_pasien["SPESIALIS"]; ?>
-                </td>
-            </tr>
-            <tr> 
-                <td style="border-left:solid 1px #000000;border-bottom:solid 1px #000000; "><b>High Risk</b></td>
-                <td style="border-bottom:solid 1px #000000;">
-                    : <b><?php echo $rs_pasien["FS_HIGH_RISK"]; ?></b>
-                </td>
-                <td style="border-bottom:solid 1px #000000; "><b>Alergi</b></td>
-                <td style="border-right:solid 1px #000000;border-bottom:solid 1px #000000;">
-                    : <b>
-                        <?php echo $alergi["FS_ALERGI"]; ?>
-                    </b>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    
-    <table class="content" style="padding-top: 30px">
-        <tbody>
-            <col style="width: 100%;background-color: #000000;color: #ffffff;padding: 0px;font-size: 12px;">
-            <tr>
-                <td align="center">
-                    <br><strong>ASESMEN MEDIS IGD</strong>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <br>
-    
- 
-<div class="a" style="border: solid black 1px; font-size: 11px;">
-    <table class="content">
-    <tr class="headrow">
-        <th colspan="4" style="text-align:center"></th>
-    
-    </tr>
-
-    <tr>
-        <td style=""><b>Anamnesa (S)</b></td>
-        <td style="width: 50%;">: <?= strip_tags($medis_igd["FS_ANAMNESA"]); ?>
-        </td>
-     
-    </tr>
-
-    <tr>
-        <td style="">Riwayat Penyakit Dahulu</td>
-        <td style="">: <?php echo $medis_igd["RIW_PENYAKIT_DAHULU"]; ?>
-        </td>
-    </tr>
-    <tr>
-        <td style="">Riwayat Penyakit Sekarang</td>
-        <td style="">: <?php echo $medis_igd["RIW_PENYAKIT_NOW"]; ?>
-        </td>
-    </tr>
-    <tr>
-        <td style="">Riwayat Perawatan Sebelumnya</td>
-        <td style="">: <?php echo $medis_igd["RIW_PERAWATAN"]; ?>
-        </td>
-    </tr>
-    <tr>
-        <td style="">Terapi & Tindakan yang pernah dilakukan</td>
-        <td style="">: <?php echo $medis_igd["RIW_TINDAKAN"]; ?>
-        </td>
-    </tr>
-    <tr>
-        <td style="">Riwayat Alergi</td>
-        <td style="">: <?php echo $alergi["FS_ALERGI"]; ?>
-        </td>
-    </tr>
-    <tr>
-        <td style="">Reaksi Alergi</td>
-        <td style="">: <?php echo $alergi["FS_REAK_ALERGI"]; ?>
-        </td>
-    </tr>
-    <tr>
-    <td style="">Status Psikologi</td>
-    <td style="">: <?php
-                    if ($medis_igd["FS_STATUS_PSIK"] == "1") {
-                        echo "Tenang";
-                    } elseif ($medis_igd["FS_STATUS_PSIK"] == "2") {
-                        echo "Cemas";
-                    } elseif ($medis_igd["FS_STATUS_PSIK"] == "3") {
-                        echo "Takut";
-                    } elseif ($medis_igd["FS_STATUS_PSIK"] == "4") {
-                        echo "Marah";
-                    } elseif ($medis_igd["FS_STATUS_PSIK"] == "5") {
-                        echo "Sedih";
-                    } elseif ($medis_igd["FS_STATUS_PSIK"] == "6") {
-                        echo $medis_igd["FS_STATUS_PSIK2"];
-                    } else {
-                        echo "-";
-                    }
-                    ?>
-        </td>
-        </tr>
-        <tr>
-            <td style="">Status Mental</td>
-            <td style="">: <?php echo $medis_igd["MENTAL"]; ?>
-            </td>
-        </tr>
-        <tr>
-            <td style="">Pemeriksaan Fisik</td>
-            <td style="width: 50%;">: <?= strip_tags($medis_igd["PEMERIKSAAN_FISIK"]); ?>
-            </td>
-        </tr>
-        <tr>
-        <td style=""><b>Kepala Leher</b></td>
-        
-        </tr>
-        <tr>
-            <td style="">- Konjungtiva</td>
-            <td style="">: <?= $medis_igd["KONJUNGTIVA"];?>
-            </td>
-     
-        </tr>
-        <tr>
-            <td style="">- Sklera</td>
-            <td style="">: <?= $medis_igd["SKELERA"];?>
-            </td>
-        </tr>
-        <tr>
-            <td style="">- Bibir/Lidah</td>
-            <td style="">: <?= $medis_igd["BIBIR"];?>
-            </td>
-        </tr>
-        <tr>
-            <td style="">- Mukos</td>
-            <td style="">: <?= $medis_igd["MUKOSA"];?>
-            </td>
-        </tr>
-        <tr>
-            <td style="">- Deviasi Trakea</td>
-            <td style="">: <?= $medis_igd["DEVIASI"];?>
-            </td>
-        </tr>
-        <tr>
-            <td style="">- JVP</td>
-            <td style="">: <?= $medis_igd["JVP"];?>
-            </td>
-        </tr>
-        <tr>
-            <td style="">Thorax</td>
-            <td style="">: <?= $medis_igd["THORAX"];?>
-            </td>
-        </tr>
-        <tr>
-            <td style="">Jantung</td>
-            <td style="">: <?= $medis_igd["JANTUNG"];?>
-            </td>
-        </tr>
-        <tr>
-            <td style="">Abdomen</td>
-            <td style="">: <?= $medis_igd["ABDOMEN"];?>
-            </td>
-        </tr>
-        <tr>
-            <td style="">Pinggang</td>
-            <td style="">: <?= $medis_igd["PINGGANG"];?>
-            </td>
-        </tr>
-        <tr>
-            <td style="">Ekstremitas</td>
-            <td style="">: - Atas <?= $medis_igd["EKS_ATAS"];?>, - Bawah : <?= $medis_igd["EKS_BAWAH"];?>
-            </td>
-        </tr>
-        <tr>
-            <td style="">Diagnosa (A)</td>
-            <td style="">: <?= $medis_igd["FS_DIAGNOSA"];?>
-            </td>
-        </tr>
-        <tr>
-            <td style="">Tindakan (P)</td>
-            <td style="">: <?= $medis_igd["RENCANA"];?>
-            </td>
-        </tr>
-        <tr>
-            <td style="">Diet</td>
-            <td style="">: <?= $medis_igd["DIET"];?>
-            </td>
-        </tr>
-        <tr>
-            <td style="">Konsul DPJP 1</td>
-            <td style="">:        <?php
-                $rjk=$medis_igd['KD_DOKTER_KONSUL'];
-               $cekk=is_numeric($rjk);
-               if($cekk==true){
-                     $dokterr=$this->db->query("SELECT Nama_Dokter from DOKTER WHERE Kode_Dokter='$rjk' ")->row_array();
-                     $dpjp=$dokterr['Nama_Dokter'];}
-                ?>
-                <?= $dpjp?>
-            </td>
-        </tr>
-        <tr>
-            <td style="">Isi Konsul</td>
-            <td style="">: <?= $medis_igd["KONSUL"];?>
-            </td>
-        </tr>
-
-        <?php 
-            if ( $medis_igd['KD_DOKTER_KONSUL2'] != ''){ ?>
-                  <tr>
-            <td style="">Konsul DPJP 2</td>
-            <td style="">:        <?php
-                $rjk=$medis_igd['KD_DOKTER_KONSUL2'];
-               $cekk=is_numeric($rjk);
-               if($cekk==true){
-                     $dokterr=$this->db->query("SELECT Nama_Dokter from DOKTER WHERE Kode_Dokter='$rjk' ")->row_array();
-                     $dpjp2=$dokterr['Nama_Dokter'];}
-                ?>
-                <?= $dpjp2?>
-            </td>
-        </tr>
-        <tr>
-            <td style="">Isi Konsul 2</td>
-            <td style="">: <?= $medis_igd["KONSUL2"];?>
-            </td>
-        </tr>
-        <?php } ?>
-
-        <?php 
-            if ( $medis_igd['KD_DOKTER_KONSUL3'] != ''){ ?>
-                  <tr>
-            <td style="">Konsul DPJP 3</td>
-            <td style="">:        <?php
-                $rjk=$medis_igd['KD_DOKTER_KONSUL3'];
-               $cekk=is_numeric($rjk);
-               if($cekk==true){
-                     $dokterr=$this->db->query("SELECT Nama_Dokter from DOKTER WHERE Kode_Dokter='$rjk' ")->row_array();
-                     $dpjp3=$dokterr['Nama_Dokter'];}
-                ?>
-                <?= $dpjp3?>
-            </td>
-        </tr>
-        <tr>
-            <td style="">Isi Konsul 3</td>
-            <td style="">: <?= $medis_igd["KONSUL3"];?>
-            </td>
-        </tr>
-        <?php } ?>
-        
-        <tr>
-            <td style="">Kondisi Akhir</td>
-            <td style="">: <?= $medis_igd["KONDISI_AKHIR"];?>
-            </td>
-        </tr>
-        <tr>
-            <td style="">Jam Selesai periksa</td>
-            <td style="">: <?= $medis_igd["JAM_SELESAI"];?>
-            </td>
-        </tr>
-
-    </table>
-    <table class="content">
-        <col style="width: 50%;font-size: 12px;">
-        <col style="width: 50%;font-size: 12px;">
-        <tbody> 
-    
-            <tr>
-                <br>
-                 <br>
-                <td></td>
-                <td align='center'>Tanggal <?= $medis_igd["MDD"]; ?> </td>
-            </tr>
-            <tr>
-            <td></td>
-                <td align='center'>
-                <qrcode value="<?= $medis_igd["NAMALENGKAP"]; ?> pada <?= $medis_igd["MDD"]; ?> " ec="H" style="width: 15mm; background-color: white; color: black;"></qrcode>
-                    <br>
-                </td>
-            </tr>
-            <tr>
-                <td></td>
-                <td align='center'>
-                <?= $medis_igd["NAMALENGKAP"]; ?>
-                </td>
-            </tr>
-        </tbody>
- </table>
-    </div>
-    </page> 
-
     <page backtop="27mm" backbottom="10mm" backleft="2mm" backright="2mm" style="font-size:10pt">
    <page_header>
         <table class="page_header">
@@ -2138,7 +1774,8 @@
         <tr></tr>
         </table>
         </div>
-        </page> 
+        </page>
+        <br>
 
         <page backtop="27mm" backbottom="10mm" backleft="2mm" backright="2mm" style="font-size:10pt">
    <page_header>
@@ -2260,6 +1897,1073 @@
  </table>
         </div>
         </page> 
+        <br>
+
+        <page backtop="27mm" backbottom="10mm" backleft="2mm" backright="2mm" style="font-size:10pt">
+   <page_header>
+        <table class="page_header">
+            <col style="width: 10%;font-size: 12px;">
+            <col style="width: 45%;font-size: 12px;">
+            <col style="width: 45%;font-size: 12px;">
+            <tr>
+                <td>
+                    <img src="<?php base_url() ?>resource/doc/images/icon/logo.png" width="50" height="50" />
+                </td>
+                <td style="text-align: center;">
+                     <h5>MAJELIS PEMBINA KESEHATAN UMUM
+                <br>RSU MUHAMMADIYAH METRO</h5>
+                
+           
+
+             <table style="float:; padding-left: 40px"> 
+                <tr> 
+                    <td style="text-align: left; font-size: 8px"> Jl Soekarno Hatta No. 42 Mulyojati 16 B</td>
+                    <td style="text-align: left; font-size:  8px" > Fax : (0725) 47760 </td>
+                </tr>
+                <tr> 
+                    <td style="text-align: left; font-size: 8px" > Metro Barat - Kota Metro 34125 </td>
+                    <td style="text-align: left; font-size: 8px" > e-mail : info.rsumm@gmail.com </td>
+                </tr>
+                <tr> 
+                    <td style="text-align: left; font-size: 8px"> Telp : (0725) 49490 - 7850378</td>
+                    <td style="text-align: left; font-size: 8px"> website : www.rsumm.co.id </td>
+
+                </tr>
+               
+            </table>
+                </td>
+                 <td style="width:10%; float:right" >
+                <img src="<?php base_url() ?>resource/doc/images/icon/kars.png" width="50" height="50" />
+            </td>
+            <td  style="font-size: 9px">
+                Nama : <?php echo $rs_pasien["NAMA_PASIEN"]; ?><br>
+                No MR : <?php echo $rs_pasien["NO_MR"]; ?><br>
+                Tgl Lahir : <?php echo date("d-M-Y", strtotime($rs_pasien["TGL_LAHIR"])); ?>
+            </td>
+        </tr>
+    </table>
+    </page_header>
+       <hr style="margin-top:0px">
+    <page_footer> 
+    <table style="width: 100%; border-top: solid 1px black;">
+        <tr>
+            <td style="text-align: left; width: 80%">&nbsp;</td>
+            <td style="text-align: right; width: 20%">Halaman [[page_cu]]/[[page_nb]]</td>
+        </tr>
+    </table>
+    </page_footer>
+ 
+
+    <table class="content" style="padding-top: 30px">
+        <tbody>
+            <col style="width: 100%;background-color: #000000;color: #ffffff;padding: 0px;font-size: 12px;">
+            <tr>
+                <td align="center">
+                    <br><strong>ASESMEN RAWAT JALAN IGD</strong>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="content">
+        <col style="width: 20%;font-size: 12px;">
+        <col style="width: 30%;font-size: 12px;">
+        <col style="width: 20%;font-size: 12px;">
+        <col style="width: 30%;font-size: 12px;">
+        <tbody>
+            <tr>
+                <td style="border-left:solid 1px #000000;">Tanggal Kunjungan</td>
+                <td>
+                    : <?php echo date("d-M-Y", strtotime($rs_pasien["TANGGAL"])); ?>
+                </td>
+                <td>Klinik Tujuan</td>
+                  <td style="border-left:solid 1px #000000;border-right:solid 1px #000000;">
+                    : <?= $rs_pasien["SPESIALIS"]; ?>
+                </td>
+            </tr>
+            <tr> 
+                <td style="border-left:solid 1px #000000;border-bottom:solid 1px #000000; "><b>High Risk</b></td>
+                <td style="border-bottom:solid 1px #000000;">
+                    : <b><?php echo $rs_pasien["FS_HIGH_RISK"]; ?></b>
+                </td>
+                <td style="border-bottom:solid 1px #000000; "><b>Alergi</b></td>
+                <td style="border-right:solid 1px #000000;border-bottom:solid 1px #000000;">
+                    : <b>
+                        <?php echo $alergi["FS_ALERGI"]; ?>
+                    </b>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <table class="content" style="padding-top: 30px">
+        <tbody>
+            <col style="width: 100%;background-color: #000000;color: #ffffff;padding: 0px;font-size: 12px;">
+            <tr>
+                <td align="center">
+                    <br><strong>ASESMEN NEONATUS IGD</strong>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <br>
+
+    <br>
+    
+ 
+<div class="a" style="border: solid black 1px; font-size: 11px;">
+    <table class="content">
+    <tr class="headrow">
+        <th colspan="4" style="text-align:center"></th>
+    
+    </tr>
+
+    <tr>
+        <td style="">Tanggal dan Jam Masuk ruangan</td>
+        <td style="">: <?= $neonatus["TANGGAL_MASUK"] ?>, <?= $neonatus["JAM_MASUK"] ?>
+        </td>  
+    </tr>
+    <tr>
+        <td style="">Kriteria Saat Masuk</td>
+        <td style="">: <?= $neonatus["KRITERIA_MASUK"] ?>
+        </td>  
+    </tr>
+    <tr>
+        <td style="">Diagnosa Medis</td>
+        <td style="">: <?= $neonatus["DIAGNOSA_MEDIS"] ?>
+        </td>  
+    </tr>
+    <tr>
+        <td style="">DPJP</td>
+        <td style="">: <?= $neonatus["DPJP"] ?>
+        </td>  
+    </tr>
+    <tr>
+        <td style="">Jenis Kelamin</td>
+        <td style="">: <?= $neonatus["JENIS_KELAMIN"] ?>
+        </td>  
+        <td style="">Tanggal Lahir</td>
+        <td style="">: <?= $neonatus["TGL_LAHIR"] ?>
+        </td> 
+    </tr>
+    <tr>
+        <td style="">Diagnosa Masuk</td>
+        <td style="">: <?= $neonatus["DIAGNOSA_MASUK"] ?>
+        </td>  
+    </tr>
+    <tr>
+        <td style="">Nama Ayah</td>
+        <td style="">: <?= $neonatus["NAMA_AYAH"] ?>
+        </td>  
+    </tr>
+    <tr>
+        <td style="">Nama Ibu</td>
+        <td style="">: <?= $neonatus["NAMA_IBU"] ?>
+        </td>  
+    </tr>
+    <tr>
+        <td style="">Pekerjaan Orang Tua</td>
+        <td style="">: <?= $neonatus["PEKERJAAN_ORANG_TUA"] ?>
+        </td>  
+    </tr>
+    <tr>
+        <td style="">Jaminan</td>
+        <td style="">: <?= $neonatus["JAMINAN"] ?>
+        </td>  
+    </tr>
+    <tr>
+        <td style=""><b>Status Bio-Sosio-kultur</b></td>
+        </tr>
+    <tr>
+        <td style="">Agama</td>
+        <td style="">: <?= $neonatus["AGAMA"] ?>
+        </td>  
+        <td style="">Suku</td>
+        <td style="">: <?= $neonatus["SUKU"] ?>
+        </td>  
+    </tr>
+    <tr>
+        <td style=""><b>Riwayat Kesehatan</b></td>
+    </tr>
+
+    <tr>
+        <td style="">Riwayat Penyakit Dahulu</td>
+        <td style="">: <?= $neonatus["RIWAYAT_PENYAKIT_DAHULU"] ?>
+        </td>  
+    </tr>
+    <tr>
+        <td style="">Riwayat Imunisasi</td>
+        <td style="">: <?= $neonatus["RIWAYAT_IMUNISASI"] ?>
+        </td>  
+    </tr>
+    
+    <tr>
+    <td style=""><b>Riwayat Kehamilan</b></td>
+    </tr>
+    
+    <tr>
+        <td style="">Usia Kehamilan</td>
+        <td style="">: <?= $neonatus["USIA_KEHAMILAN"] ?> bulan
+        </td>  
+    </tr>
+    <tr>
+        <td style="">Anak Ke </td>
+        <td style="">: <?= $neonatus["ANAK_KE"] ?>
+        </td>  
+        <td style="">Jumlah Anak </td>
+        <td style="">: <?= $neonatus["JUMLAH_ANAK"] ?>
+        </td>  
+    </tr>
+
+    <tr>
+    <td style=""><b>Riwayat Persalinan</b></td>
+    </tr>
+    <tr>
+        <td style="">Prenatal </td>
+        <td style="">: <?= $neonatus["PRENATAL"] ?>
+        </td>   
+        <td style="">Natal </td>
+        <td style="">: <?= $neonatus["NATAL"] ?>
+        </td>  
+    </tr>
+
+    <tr>
+        <td style="">Intranatal </td>
+        <td style="">: <?= $neonatus["INTRANATAL"] ?>
+        </td>   
+        <td style="">Posnatal </td>
+        <td style="">: <?= $neonatus["POSNATAL"] ?>
+        </td>  
+    </tr>
+    <tr>
+        <td style="">Warna Ketuban </td>
+        <td style="">: <?= $neonatus["WARNA_KETUBAN"] ?>
+        </td>   
+    
+    </tr>
+    <tr>
+        <td style="">Pasien Ditangani Oleh </td>
+        <td style="">: <?= $neonatus["DITANGANI_OLEH"] ?>
+        </td>   
+    
+    </tr>
+    <tr>
+        <td style="">Tindakan Yang Dilakukan sebelum <br> dirawat inap </td>
+        <td style="">: <?= $neonatus["TINDAKAN_SEBELUM_DIRAWAT"] ?>
+        </td>   
+    
+    </tr>
+    <tr>
+    <td style=""><b>Riwayat Alergi</b></td>
+    </tr>
+    <tr>
+        <td style="">Riwayat AleRgi</td>
+        <td style="">: <?= $neonatus["RIWAYAT_ALERGI"] ?>
+        </td>   
+    
+    </tr>
+    <tr>
+        <td style="">Kesadaran</td>
+        <td style="">: <?= $neonatus["KESADARAN"] ?>
+        </td>   
+    
+    </tr>
+
+    <tr>
+    <td style=""><b>Vital Sign</b></td>
+    </tr>
+
+    <tr>
+        <td style="">Suhu</td>
+        <td style="">: <?= $neonatus["S"] ?> C
+        </td>   
+        <td style="">Nadi</td>
+        <td style="">: <?= $neonatus["N"] ?> x/menit
+        </td>   
+    
+    </tr>
+    
+    <tr>
+        <td style="">R</td>
+        <td style="">: <?= $neonatus["R"] ?> x/menit
+        </td>   
+        <td style="">Saturasi Oksigen</td>
+        <td style="">: <?= $neonatus["SATURASI_OKSIGEN"] ?>
+        </td>   
+    
+    </tr>
+    <tr>
+        <td style="">Panjang Badan</td>
+        <td style="">: <?= $neonatus["PANJANG_BADAN"] ?> cm
+        </td>   
+        <td style="">Berat Badan Masuk</td>
+        <td style="">: <?= $neonatus["BERAT_BADAN_MASUK"] ?> kg
+        </td>   
+    
+    </tr>
+    <tr>
+        <td style="">A / S</td>
+        <td style="">: <?= $neonatus["APGAR_SCORE"] ?>
+        </td>   
+        <td style="">Berat Badan Lahir</td>
+        <td style="">: <?= $neonatus["BERAT_BADAN_LAHIR"] ?> kg
+        </td>   
+    
+    </tr>
+    <tr>
+        <td style="">Lingkar Kepala</td>
+        <td style="">: <?= $neonatus["LINGKAR_KEPALA"] ?>
+        </td>   
+        <td style="">Lingkar Lengan</td>
+        <td style="">: <?= $neonatus["LINGKAR_LENGAN"] ?> kg
+        </td>   
+    
+    </tr>
+    <tr>
+        <td style="">Lingkar Dada</td>
+        <td style="">: <?= $neonatus["LINGKAR_DADA"] ?>
+        </td>      
+    
+    </tr>
+
+        <tr></tr>
+        </table>
+        </div>
+        </page>
+
+        <page backtop="27mm" backbottom="10mm" backleft="2mm" backright="2mm" style="font-size:10pt">
+   <page_header>
+        <table class="page_header">
+            <col style="width: 10%;font-size: 12px;">
+            <col style="width: 45%;font-size: 12px;">
+            <col style="width: 45%;font-size: 12px;">
+            <tr>
+                <td>
+                    <img src="<?php base_url() ?>resource/doc/images/icon/logo.png" width="50" height="50" />
+                </td>
+                <td style="text-align: center;">
+                     <h5>MAJELIS PEMBINA KESEHATAN UMUM
+                <br>RSU MUHAMMADIYAH METRO</h5>
+                
+           
+
+             <table style="float:; padding-left: 40px"> 
+                <tr> 
+                    <td style="text-align: left; font-size: 8px"> Jl Soekarno Hatta No. 42 Mulyojati 16 B</td>
+                    <td style="text-align: left; font-size:  8px" > Fax : (0725) 47760 </td>
+                </tr>
+                <tr> 
+                    <td style="text-align: left; font-size: 8px" > Metro Barat - Kota Metro 34125 </td>
+                    <td style="text-align: left; font-size: 8px" > e-mail : info.rsumm@gmail.com </td>
+                </tr>
+                <tr> 
+                    <td style="text-align: left; font-size: 8px"> Telp : (0725) 49490 - 7850378</td>
+                    <td style="text-align: left; font-size: 8px"> website : www.rsumm.co.id </td>
+
+                </tr>
+               
+            </table>
+                </td>
+                 <td style="width:10%; float:right" >
+                <img src="<?php base_url() ?>resource/doc/images/icon/kars.png" width="50" height="50" />
+            </td>
+            <td  style="font-size: 9px">
+                Nama : <?php echo $rs_pasien["NAMA_PASIEN"]; ?><br>
+                No MR : <?php echo $rs_pasien["NO_MR"]; ?><br>
+                Tgl Lahir : <?php echo date("d-M-Y", strtotime($rs_pasien["TGL_LAHIR"])); ?>
+            </td>
+        </tr>
+    </table>
+    </page_header>
+       <hr style="margin-top:0px">
+    <page_footer> 
+    <table style="width: 100%; border-top: solid 1px black;">
+        <tr>
+            <td style="text-align: left; width: 80%">&nbsp;</td>
+            <td style="text-align: right; width: 20%">Halaman [[page_cu]]/[[page_nb]]</td>
+        </tr>
+    </table>
+    </page_footer>
+
+    <br>
+
+    <br>
+    
+ 
+<div class="a" style="border: solid black 1px; font-size: 11px;">
+    <table class="content">
+    <tr class="headrow">
+        <th colspan="4" style="text-align:center"></th>
+    
+    </tr>
+
+    
+    <tr>
+    <td style=""><b>Pemeriksaan Kepala dan Leher</b></td>
+    </tr>
+
+    <tr>
+        <td style="">Kepala</td>
+        <td style="">: <?= $neonatus["KEPALA"] ?>
+        </td>  
+        <td style="">Leher</td>
+        <td style="">: <?= $neonatus["LEHER"] ?>
+        </td>  
+    </tr>
+    <tr>
+        <td style="">Mata</td>
+        <td style="">: <?= $neonatus["MATA"] ?>
+        </td>  
+        <td style="">Pupil</td>
+        <td style="">: <?= $neonatus["PUPIL"] ?>
+        </td>  
+    </tr>
+    
+    <tr>
+        <td style="">Palpebra</td>
+        <td style="">: <?= $neonatus["PALPEBRA"] ?>
+        </td>  
+        <td style="">Hidung</td>
+        <td style="">: <?= $neonatus["HIDUNG"] ?>
+        </td>  
+    </tr>
+    <tr>
+        <td style="">Mulut</td>
+        <td style="">: <?= $neonatus["MULUT"] ?>
+        </td>  
+        <td style="">Telinga</td>
+        <td style="">: <?= $neonatus["TELINGA"] ?>
+        </td>  
+    </tr>
+
+    <tr>
+    <td style=""><b>Pemeriksaan Jantung dan Paru</b></td>
+    </tr>
+    <tr>
+    <td style="">Dada</td>
+        <td style="">: <?= $neonatus["DADA"] ?>
+        </td>  
+        
+        </tr>
+    <tr>
+    <td style="">Irama Nafas</td>
+    <td style="">: <?= $neonatus["IRAMA_NAFAS"] ?>
+    </td> 
+    </tr>
+    <tr>
+    <td style="">Bunyi Nafas</td>
+    <td style="">: <?= $neonatus["BUNYI_NAFAS"] ?>
+    </td> 
+    </tr>
+    <tr>
+    <td style=""><b>Pemeriksaan Gastroinestinal</b></td>
+    </tr>
+
+    <tr>
+    <td style="">Abdomen</td>
+    <td style="">: <?= $neonatus["ABDOMEN"] ?>
+    </td>
+    <td style="">Tali Pusat</td>
+    <td style="">: <?= $neonatus["TALI_PUSAT"] ?>
+    </td>
+    </tr>
+
+    <tr>
+    <td style=""><b>Pemeriksaan Status Nutrisi</b></td>
+    </tr>
+
+    <tr>
+    <td style="">Regurgitasi</td>
+    <td style="">: <?= $neonatus["GENITALIA"] ?>
+    </td>
+    </tr>
+
+    <tr>
+    <td style="">Refleks Menghisap</td>
+    <td style="">: <?= $neonatus["REFLEKS_MENGHISAP"] ?>
+    </td>
+    <td style="">Refleks Menelan</td>
+    <td style="">: <?= $neonatus["REFLEKS_MENELAN"] ?>
+    </td>
+    </tr>
+
+
+    <tr>
+    <td style=""><b>Pemeriksaan Genitourinaria</b></td>
+    </tr>
+    <tr>
+    <td style="">Genitalia</td>
+    <td style="">: <?= $neonatus["GENITALIA"] ?>
+    </td> 
+    <td style="">Anus</td>
+    <td style="">: <?= $neonatus["ANUS"] ?>
+    </td> 
+    </tr>
+    
+    <tr>
+    <td style="">Mekonium</td>
+    <td style="">: <?= $neonatus["MEKONIUM"] ?>
+    </td> 
+    <td style="">Bak</td>
+    <td style="">: <?= $neonatus["BAK"] ?>
+    </td> 
+    </tr>
+    
+    <tr>
+    <td style="">Bab</td>
+    <td style="">: <?= $neonatus["BAB"] ?>
+    </td> 
+    </tr>
+    
+    <tr>
+    <td style=""><b>Pemeriksaan Muskuloskeletal dan Integumentum</b></td>
+    </tr>
+    <tr>
+    <td style="">Ekstremitas atas / bawah</td>
+    <td style="">: <?= $neonatus["EKSTREMITAS"] ?>
+    </td> 
+    <td style="">Kelainan Fisik</td>
+    <td style="">: <?= $neonatus["KELAINAN_FISIK"] ?>
+    </td> 
+    </tr>
+    
+    <tr>
+    <td style="">Turgor</td>
+    <td style="">: <?= $neonatus["TURGOR"] ?>
+    </td> 
+    <td style="">Warna Kulit</td>
+    <td style="">: <?= $neonatus["WARNA_KULIT"] ?>
+    </td> 
+    </tr>
+    
+    <tr>
+    <td style=""><b>SKALA NYERI - NIPS <br> (NEONATAL INFANT PAINT SCORE)</b></td>
+    </tr>
+    <tr>
+    <td style="">Ekspresi Wajah</td>
+    <td style="">: <?php
+                if ($neonatus["PARAM_NYERI1"] == "0") {
+                    echo "Otot wajah rileks, ekspersi netral";
+                } elseif ($neonatus["PARAM_NYERI1"] == "1") {
+                    echo "Otot wajah tegang, alis berkerut, rahang <br> dagu meruncing";
+                } else {
+                    echo "-";
+                }
+                ?>
+    </td> 
+    </tr>
+    <tr>
+    <td style="">Tangisan</td>
+    <td style="">: <?php
+                if ($neonatus["PARAM_NYERI2"] == "0") {
+                    echo "Tenang tidak menangis";
+                } elseif ($neonatus["PARAM_NYERI2"] == "1") {
+                    echo "Mengerang, sebentar - sebentar menangis";
+                } elseif ($neonatus["PARAM_NYERI2"] == "2") {
+                    echo "Terus menerus menangis, menangis kencang, melengking";
+                } else {
+                    echo "-";
+                }
+                ?>
+    </td> 
+    </tr>
+    <tr>
+    <td style="">Pola Nafas</td>
+    <td style="">: <?php
+                if ($neonatus["PARAM_NYERI3"] == "0") {
+                    echo "Rileks, napas reguler";
+                } elseif ($neonatus["PARAM_NYERI3"] == "1") {
+                    echo "Pola napas berubah : tidak teratur, lebih cepat dari <br> biasanya, tersedak, menahan napas";
+                } else {
+                    echo "-";
+                }
+                ?>
+    </td> 
+    </tr>
+    <tr>
+    <td style="">Tangan</td>
+    <td style="">: <?php
+                if ($neonatus["PARAM_NYERI4"] == "0") {
+                    echo "Rileks, otot tangan tidak kaku, kadang <br> bergerak tidak beraturan";
+                } elseif ($neonatus["PARAM_NYERI4"] == "1") {
+                    echo "Fleksi/ ekstensi kaku, meluruskan tangan tetapi dengan <br> cepat melakukan fleksi/ ekstensi yang kaku";
+                } else {
+                    echo "-";
+                }
+                ?>
+    </td> 
+    </tr>
+    <tr>
+    <td style="">Kaki</td>
+    <td style="">: <?php
+                if ($neonatus["PARAM_NYERI5"] == "0") {
+                    echo "Rileks, otot tangan tidak kaku, kadang <br> bergerak tidak beraturan";
+                } elseif ($neonatus["PARAM_NYERI5"] == "1") {
+                    echo "Fleksi/ ekstensi kaku, meluruskan tangan tetapi dengan <br> cepat melakukan fleksi/ ekstensi yang kaku";
+                } else {
+                    echo "-";
+                }
+                ?>
+    </td> 
+    </tr>
+    <tr>
+    <td style="">Kesadaran</td>
+    <td style="">: <?php
+                if ($neonatus["PARAM_NYERI6"] == "0") {
+                    echo "Tidur pulas atau cepat bangun, alert dan tenang";
+                } elseif ($neonatus["PARAM_NYERI6"] == "1") {
+                    echo "Rewel, gelisah dan meronta ronta";
+                } else {
+                    echo "-";
+                }
+                ?>
+    </td> 
+    </tr>
+    <tr>
+    <td style=""><b>Analisis dan Rencana keperawatan</b></td>
+    </tr>
+    
+    <tr>
+    <td style="">Masalah Keperawatan</td>
+    <td style="">: <?php echo $neonatus["MASALAH_KEPERAWATAN"] ?>
+    </td> 
+    </tr>
+    <tr>
+    <td style="">Rencana Keperawatan</td>
+    <td style="">: <?php echo $neonatus["MASALAH_KEPERAWATAN"] ?>
+    </td> 
+    </tr>
+    <tr>
+    <td style=""><b>Kebutuhan Edukasi</b></td>
+    </tr>
+    
+    <tr>
+    <td style="">Terdapat Hambatan dalam <br> Pembelajaran ?</td>
+    <td style="">: <?php echo $neonatus["HAMBATAN_PEMBELAJARAN"] ?>
+    </td> 
+    </tr>
+    <tr>
+    <td style="">Butuh Penerjemah ?</td>
+    <td style="">: <?php echo $neonatus["PENERJEMAH"] ?>
+    </td> 
+    </tr>
+    <tr>
+    <td style="">Kebutuhan Edukasi ?</td>
+    <td style="">: <?php echo $neonatus["PENERJEMAHh"] ?>
+    </td> 
+    </tr>
+
+    <tr>
+    <td style=""><b>Rencana Pulang / Discharge <br> Planning Awal</b></td>
+    </tr>
+    <tr>
+    <td style="">Perawatan Bayi Baru Lahir ?</td>
+    <td style="">: <?php echo $neonatus["DISCHARGE_PLANNING"] ?>
+    </td> 
+    </tr>
+    <tr>
+    <td style="">Lainnya</td>
+    <td style="">: <?php echo $neonatus["DISCHARGE_PLANNING_LAIN"] ?>
+    </td> 
+    </tr>
+
+
+    <tr></tr>
+    </table>
+    <table class="content">
+        <col style="width: 50%;font-size: 12px;">
+        <col style="width: 50%;font-size: 12px;">
+        <tbody> 
+    
+            <tr>
+                <br>
+                 <br>
+                <td></td>
+                <td align='center'>Tanggal <?= $neonatus["MDD"]; ?> </td>
+            </tr>
+            <tr>
+            <td></td>
+                <td align='center'>
+                <qrcode value="<?= $neonatus["NamaLegkap"]; ?> pada <?= $neonatus["MDD"]; ?> " ec="H" style="width: 15mm; background-color: white; color: black;"></qrcode>
+                    <br>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td align='center'>
+                <?= $neonatus["NamaLengkap"]; ?>
+                </td>
+            </tr>
+        </tbody>
+ </table>
+        </div>
+        </page>
+
+
+
+
+
+    <page backtop="27mm" backbottom="10mm" backleft="2mm" backright="2mm" style="font-size:10pt">
+   <page_header>
+        <table class="page_header">
+            <col style="width: 10%;font-size: 12px;">
+            <col style="width: 45%;font-size: 12px;">
+            <col style="width: 45%;font-size: 12px;">
+            <tr>
+                <td>
+                    <img src="<?php base_url() ?>resource/doc/images/icon/logo.png" width="50" height="50" />
+                </td>
+                <td style="text-align: center;">
+                     <h5>MAJELIS PEMBINA KESEHATAN UMUM
+                <br>RSU MUHAMMADIYAH METRO</h5>
+                
+           
+
+             <table style="float:; padding-left: 40px"> 
+                <tr> 
+                    <td style="text-align: left; font-size: 8px"> Jl Soekarno Hatta No. 42 Mulyojati 16 B</td>
+                    <td style="text-align: left; font-size:  8px" > Fax : (0725) 47760 </td>
+                </tr>
+                <tr> 
+                    <td style="text-align: left; font-size: 8px" > Metro Barat - Kota Metro 34125 </td>
+                    <td style="text-align: left; font-size: 8px" > e-mail : info.rsumm@gmail.com </td>
+                </tr>
+                <tr> 
+                    <td style="text-align: left; font-size: 8px"> Telp : (0725) 49490 - 7850378</td>
+                    <td style="text-align: left; font-size: 8px"> website : www.rsumm.co.id </td>
+
+                </tr>
+               
+            </table>
+                </td>
+                 <td style="width:10%; float:right" >
+                <img src="<?php base_url() ?>resource/doc/images/icon/kars.png" width="50" height="50" />
+            </td>
+            <td  style="font-size: 9px">
+                Nama : <?php echo $rs_pasien["NAMA_PASIEN"]; ?><br>
+                No MR : <?php echo $rs_pasien["NO_MR"]; ?><br>
+                Tgl Lahir : <?php echo date("d-M-Y", strtotime($rs_pasien["TGL_LAHIR"])); ?>
+            </td>
+        </tr>
+    </table>
+    </page_header>
+       <hr style="margin-top:0px">
+    <page_footer> 
+    <table style="width: 100%; border-top: solid 1px black;">
+        <tr>
+            <td style="text-align: left; width: 80%">&nbsp;</td>
+            <td style="text-align: right; width: 20%">Halaman [[page_cu]]/[[page_nb]]</td>
+        </tr>
+    </table>
+    </page_footer>
+ 
+    
+    <br>
+    <table class="content" style="padding-top: 30px">
+        <tbody>
+            <col style="width: 100%;background-color: #000000;color: #ffffff;padding: 0px;font-size: 12px;">
+            <tr>
+                <td align="center">
+                    <br><strong>ASESMEN RAWAT JALAN IGD</strong>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="content">
+        <col style="width: 20%;font-size: 12px;">
+        <col style="width: 30%;font-size: 12px;">
+        <col style="width: 20%;font-size: 12px;">
+        <col style="width: 30%;font-size: 12px;">
+        <tbody>
+            <tr>
+                <td style="border-left:solid 1px #000000;">Tanggal Kunjungan</td>
+                <td>
+                    : <?php echo date("d-M-Y", strtotime($rs_pasien["TANGGAL"])); ?>
+                </td>
+                <td>Klinik Tujuan</td>
+                  <td style="border-left:solid 1px #000000;border-right:solid 1px #000000;">
+                    : <?= $rs_pasien["SPESIALIS"]; ?>
+                </td>
+            </tr>
+            <tr> 
+                <td style="border-left:solid 1px #000000;border-bottom:solid 1px #000000; "><b>High Risk</b></td>
+                <td style="border-bottom:solid 1px #000000;">
+                    : <b><?php echo $rs_pasien["FS_HIGH_RISK"]; ?></b>
+                </td>
+                <td style="border-bottom:solid 1px #000000; "><b>Alergi</b></td>
+                <td style="border-right:solid 1px #000000;border-bottom:solid 1px #000000;">
+                    : <b>
+                        <?php echo $alergi["FS_ALERGI"]; ?>
+                    </b>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <table class="content" style="padding-top: 30px">
+        <tbody>
+            <col style="width: 100%;background-color: #000000;color: #ffffff;padding: 0px;font-size: 12px;">
+            <tr>
+                <td align="center">
+                    <br><strong>ASESMEN MEDIS IGD</strong>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <br>
+    
+ 
+<div class="a" style="border: solid black 1px; font-size: 11px;">
+    <table class="content">
+    <tr class="headrow">
+        <th colspan="4" style="text-align:center"></th>
+    
+    </tr>
+
+    <tr>
+        <td style=""><b>Anamnesa (S)</b></td>
+        <td style="width: 50%;">: <?= strip_tags($medis_igd["FS_ANAMNESA"]); ?>
+        </td>
+     
+    </tr>
+
+    <tr>
+        <td style="">Riwayat Penyakit Dahulu</td>
+        <td style="">: <?php echo $medis_igd["RIW_PENYAKIT_DAHULU"]; ?>
+        </td>
+    </tr>
+    <tr>
+        <td style="">Riwayat Penyakit Sekarang</td>
+        <td style="">: <?php echo $medis_igd["RIW_PENYAKIT_NOW"]; ?>
+        </td>
+    </tr>
+    <tr>
+        <td style="">Riwayat Perawatan Sebelumnya</td>
+        <td style="">: <?php echo $medis_igd["RIW_PERAWATAN"]; ?>
+        </td>
+    </tr>
+    <tr>
+        <td style="">Terapi & Tindakan yang pernah dilakukan</td>
+        <td style="">: <?php echo $medis_igd["RIW_TINDAKAN"]; ?>
+        </td>
+    </tr>
+    <tr>
+        <td style="">Riwayat Alergi</td>
+        <td style="">: <?php echo $alergi["FS_ALERGI"]; ?>
+        </td>
+    </tr>
+    <tr>
+        <td style="">Reaksi Alergi</td>
+        <td style="">: <?php echo $alergi["FS_REAK_ALERGI"]; ?>
+        </td>
+    </tr>
+    <tr>
+    <td style="">Status Psikologi</td>
+    <td style="">: <?php
+                    if ($medis_igd["FS_STATUS_PSIK"] == "1") {
+                        echo "Tenang";
+                    } elseif ($medis_igd["FS_STATUS_PSIK"] == "2") {
+                        echo "Cemas";
+                    } elseif ($medis_igd["FS_STATUS_PSIK"] == "3") {
+                        echo "Takut";
+                    } elseif ($medis_igd["FS_STATUS_PSIK"] == "4") {
+                        echo "Marah";
+                    } elseif ($medis_igd["FS_STATUS_PSIK"] == "5") {
+                        echo "Sedih";
+                    } elseif ($medis_igd["FS_STATUS_PSIK"] == "6") {
+                        echo $medis_igd["FS_STATUS_PSIK2"];
+                    } else {
+                        echo "-";
+                    }
+                    ?>
+        </td>
+        </tr>
+        <tr>
+            <td style="">Status Mental</td>
+            <td style="">: <?php echo $medis_igd["MENTAL"]; ?>
+            </td>
+        </tr>
+        <tr>
+            <td style="">Pemeriksaan Fisik</td>
+            <td style="width: 50%;">: <?= strip_tags($medis_igd["PEMERIKSAAN_FISIK"]); ?>
+            </td>
+        </tr>
+        <tr>
+        <td style=""><b>Kepala Leher</b></td>
+        
+        </tr>
+        <tr>
+            <td style="">- Konjungtiva</td>
+            <td style="">: <?= $medis_igd["KONJUNGTIVA"];?>
+            </td>
+     
+        </tr>
+        <tr>
+            <td style="">- Sklera</td>
+            <td style="">: <?= $medis_igd["SKELERA"];?>
+            </td>
+        </tr>
+        <tr>
+            <td style="">- Bibir/Lidah</td>
+            <td style="">: <?= $medis_igd["BIBIR"];?>
+            </td>
+        </tr>
+        <tr>
+            <td style="">- Mukos</td>
+            <td style="">: <?= $medis_igd["MUKOSA"];?>
+            </td>
+        </tr>
+        <tr>
+            <td style="">- Deviasi Trakea</td>
+            <td style="">: <?= $medis_igd["DEVIASI"];?>
+            </td>
+        </tr>
+        <tr>
+            <td style="">- JVP</td>
+            <td style="">: <?= $medis_igd["JVP"];?>
+            </td>
+        </tr>
+        <tr>
+            <td style="">Thorax</td>
+            <td style="">: <?= $medis_igd["THORAX"];?>
+            </td>
+        </tr>
+        <tr>
+            <td style="">Jantung</td>
+            <td style="">: <?= $medis_igd["JANTUNG"];?>
+            </td>
+        </tr>
+        <tr>
+            <td style="">Abdomen</td>
+            <td style="">: <?= $medis_igd["ABDOMEN"];?>
+            </td>
+        </tr>
+        <tr>
+            <td style="">Pinggang</td>
+            <td style="">: <?= $medis_igd["PINGGANG"];?>
+            </td>
+        </tr>
+        <tr>
+            <td style="">Ekstremitas</td>
+            <td style="">: - Atas <?= $medis_igd["EKS_ATAS"];?>, - Bawah : <?= $medis_igd["EKS_BAWAH"];?>
+            </td>
+        </tr>
+        <tr>
+            <td style="">Diagnosa (A)</td>
+            <td style="">: <?= $medis_igd["FS_DIAGNOSA"];?>
+            </td>
+        </tr>
+        <tr>
+            <td style="">Tindakan (P)</td>
+            <td style="">: <?= $medis_igd["RENCANA"];?>
+            </td>
+        </tr>
+        <tr>
+            <td style="">Diet</td>
+            <td style="">: <?= $medis_igd["DIET"];?>
+            </td>
+        </tr>
+        <tr>
+            <td style="">Konsul DPJP 1</td>
+            <td style="">:        <?php
+                $rjk=$medis_igd['KD_DOKTER_KONSUL'];
+               $cekk=is_numeric($rjk);
+               if($cekk==true){
+                     $dokterr=$this->db->query("SELECT Nama_Dokter from DOKTER WHERE Kode_Dokter='$rjk' ")->row_array();
+                     $dpjp=$dokterr['Nama_Dokter'];}
+                ?>
+                <?= $dpjp?>
+            </td>
+        </tr>
+        <tr>
+            <td style="">Isi Konsul</td>
+            <td style="">: <?= $medis_igd["KONSUL"];?>
+            </td>
+        </tr>
+
+        <?php 
+            if ( $medis_igd['KD_DOKTER_KONSUL2'] != ''){ ?>
+                  <tr>
+            <td style="">Konsul DPJP 2</td>
+            <td style="">:        <?php
+                $rjk=$medis_igd['KD_DOKTER_KONSUL2'];
+               $cekk=is_numeric($rjk);
+               if($cekk==true){
+                     $dokterr=$this->db->query("SELECT Nama_Dokter from DOKTER WHERE Kode_Dokter='$rjk' ")->row_array();
+                     $dpjp2=$dokterr['Nama_Dokter'];}
+                ?>
+                <?= $dpjp2?>
+            </td>
+        </tr>
+        <tr>
+            <td style="">Isi Konsul 2</td>
+            <td style="">: <?= $medis_igd["KONSUL2"];?>
+            </td>
+        </tr>
+        <?php } ?>
+
+        <?php 
+            if ( $medis_igd['KD_DOKTER_KONSUL3'] != ''){ ?>
+                  <tr>
+            <td style="">Konsul DPJP 3</td>
+            <td style="">:        <?php
+                $rjk=$medis_igd['KD_DOKTER_KONSUL3'];
+               $cekk=is_numeric($rjk);
+               if($cekk==true){
+                     $dokterr=$this->db->query("SELECT Nama_Dokter from DOKTER WHERE Kode_Dokter='$rjk' ")->row_array();
+                     $dpjp3=$dokterr['Nama_Dokter'];}
+                ?>
+                <?= $dpjp3?>
+            </td>
+        </tr>
+        <tr>
+            <td style="">Isi Konsul 3</td>
+            <td style="">: <?= $medis_igd["KONSUL3"];?>
+            </td>
+        </tr>
+        <?php } ?>
+        
+        <tr>
+            <td style="">Kondisi Akhir</td>
+            <td style="">: <?= $medis_igd["KONDISI_AKHIR"];?>
+            </td>
+        </tr>
+        <tr>
+            <td style="">Jam Selesai periksa</td>
+            <td style="">: <?= $medis_igd["JAM_SELESAI"];?>
+            </td>
+        </tr>
+
+    </table>
+    <table class="content">
+        <col style="width: 50%;font-size: 12px;">
+        <col style="width: 50%;font-size: 12px;">
+        <tbody> 
+    
+            <tr>
+                <br>
+                 <br>
+                <td></td>
+                <td align='center'>Tanggal <?= $medis_igd["MDD"]; ?> </td>
+            </tr>
+            <tr>
+            <td></td>
+                <td align='center'>
+                <qrcode value="<?= $medis_igd["NAMALENGKAP"]; ?> pada <?= $medis_igd["MDD"]; ?> " ec="H" style="width: 15mm; background-color: white; color: black;"></qrcode>
+                    <br>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td align='center'>
+                <?= $medis_igd["NAMALENGKAP"]; ?>
+                </td>
+            </tr>
+        </tbody>
+ </table>
+    </div>
+    </page> 
+
+   
 
         
         <page backtop="27mm" backbottom="10mm" backleft="2mm" backright="2mm" style="font-size:10pt">

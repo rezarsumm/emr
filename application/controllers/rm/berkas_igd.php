@@ -15,6 +15,7 @@ class berkas_igd extends ApplicationBase {
 // load model
         $this->load->model('m_rm');
         $this->load->model('m_rawat_jalan');
+        $this->load->model('m_igd');
         $this->smarty->assign('m_rawat_jalan', $this->m_rawat_jalan);
         $this->load->library('tnotification');
     }
@@ -166,6 +167,7 @@ class berkas_igd extends ApplicationBase {
          $data['rs_pasien'] = $this->m_rawat_jalan->get_px_by_dokter_by_rg_igd(array($FS_KD_REG));
         $data["result"] = $this->m_rawat_jalan->get_data_medis_by_rg2(array($FS_KD_REG, $FS_KD_TRS));
         $data["rs_rad"] = $this->m_rawat_jalan->get_data_order_rad_by_rg2(array($FS_KD_REG));
+        $data["alergi"] = $this->m_igd->get_alergi(array($FS_KD_REG)); 
         $data["header1"] = $this->m_rawat_jalan->get_header1(); 
         $data["header2"] = $this->m_rawat_jalan->get_header2();
         $data["alamat"] = $this->m_rawat_jalan->get_alamat();
@@ -193,6 +195,7 @@ class berkas_igd extends ApplicationBase {
         $data['rs_pasien'] = $this->m_rawat_jalan->get_px_by_dokter_by_rg_igd(array($FS_KD_REG));
         $data["result"] = $this->m_rawat_jalan->get_data_medis_by_rg2(array($FS_KD_REG, $FS_KD_TRS));
         $data["rs_lab"] = $this->m_rawat_jalan->get_data_order_lab_by_rg2(array($FS_KD_REG));
+        $data["alergi"] = $this->m_igd->get_alergi(array($FS_KD_REG)); 
         $data["header1"] = $this->m_rawat_jalan->get_header1();
         $data["header2"] = $this->m_rawat_jalan->get_header2();
         $data["alamat"] = $this->m_rawat_jalan->get_alamat();

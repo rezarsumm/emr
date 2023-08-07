@@ -361,6 +361,7 @@
     <tr>
         <th width="7%">Tanggal</th>
         <th>SOAP</th>
+        <th width="15%">Aksi</th>
         <th width="15%">PPA</th>
 
         
@@ -398,20 +399,22 @@
             O / D: {$cppt.FS_CPPT_O|strip_tags}<br>
             A / I: {$cppt.FS_CPPT_A|strip_tags}<br>
             P / ME: {$cppt.FS_CPPT_P}<br>
+
             Resep :  <br>
             <!-- {assign var=rs_resep2 value=$m_cppt->get_resep_by_trs(array($cppt.FS_KD_KP))} -->
              {$cppt['FS_CPPT_TERAPI']}
          
           {if $cppt.FS_LAB neq ''} 
-               <a href="javascript:void(0);" onclick="window.open('{$config->site_url('lab/lab_inap/cetak_plab2/'|cat:$cppt.FS_KD_REG)}', 'nama_window_pop_up', 'scrollbars=yes,resizeable=no')" class="button-edit">Permintaan Lab </a>
+               <a href="javascript:void(0);" onclick="window.open('{$config->site_url('lab/lab_inap/cetak_plab2/'|cat:$cppt.FS_KD_TRS|cat:'/'|cat:$cppt.FS_KD_REG)}', 'nama_window_pop_up', 'scrollbars=yes,resizeable=no')" class="button-edit">Permintaan Lab </a>
                {/if}
 
                  {if $cppt.FS_RAD neq ''} 
-               <a href="javascript:void(0);" onclick="window.open('{$config->site_url('rad/rad_inap/cetak_prad2/'|cat:$cppt.FS_KD_REG)}', 'nama_window_pop_up', 'scrollbars=yes,resizeable=no')" class="button-edit">Permintaan Radiologi </a>
+               <a href="javascript:void(0);" onclick="window.open('{$config->site_url('rad/rad_inap/cetak_prad2/'|cat:$cppt.FS_KD_TRS|cat:'/'|cat:$cppt.FS_KD_REG)}', 'nama_window_pop_up', 'scrollbars=yes,resizeable=no')" class="button-edit">Permintaan Radiologi </a>
                {/if}
             <hr>
            
         </td>
+        <td><a href="{$config->site_url('igd/cppt/edit/'|cat:$cppt.FS_KD_REG|cat:'/'|cat:$cppt.FS_KD_TRS)}" class="button-edit">EDIT</a></td>
         <td>{$cppt.NAMALENGKAP}</td>
         
         {if $role_id eq '12' OR $role_id eq '6'}

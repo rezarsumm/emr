@@ -240,7 +240,7 @@
             <td width='20%'>Nama</td>
             <td width='30%'><input type="text" name="NAMA_SUAMI" value="{$ps.NAMA_SUAMI}" size="50"  /></td>
             <td width='20%'>Tanggal Lahir </td>
-            <td width='30%'><input type="date" name="TGL_LAHIR_SUAMI" value="{$ps.TGL_LAHIR_SUAMI}" size="10"  /></td>
+            <td width='30%'><input type="text" class="tanggal" name="TGL_LAHIR_SUAMI" value="{$ps.TGL_LAHIR_SUAMI}" size="10"  /></td>
         </tr>
         <tr>
             
@@ -939,28 +939,29 @@
         <tr>
             <td width='20%'>Pemenuhan ADL</td>
             <td width='30%'>
-                <select name="FS_FUNGSIONAL1" id="op1" class="select2" style="width: 190px;">
+                <select name="FS_FUNGSIONAL1" id="option1" class="select2" style="width: 190px;">
                             <option value="">--Pilih Data--</option>
                             <option value="0" {if $fungsi.FS_FUNGSIONAL1 eq '0'} selected="" {/if}>Tidak Mampu</option>
                             <option value="1" {if $fungsi.FS_FUNGSIONAL1 eq '1'} selected="" {/if}>Butuh bantuan</option>
                             <option value="2" {if $fungsi.FS_FUNGSIONAL1 eq '2'} selected="" {/if}>Mandiri</option>
                         </select>
-                         <span id="sc1"></span>
+                         <span id="scor1"></span>
             </td>
              <td width='20%'>Kesimpulan</td>
             <td width='30%'>
-                <b><span id="rjtkesimpulan"></span></b>
+                <td width='20%'> Total Skor </td>
+                <td width='30%'><b><input type="text" name="total_skor_fungsional" id="kesimpulan_fungsional" readonly></b></td>
             </td>
         </tr>
         <tr>
                     <td>Mandi</td>
                     <td>
-                        <select name="FS_FUNGSIONAL2" id="op2" class="select2" style="width: 190px;">
+                        <select name="FS_FUNGSIONAL2" id="option2" class="select2" style="width: 190px;">
                             <option value="">--Pilih Data--</option>
                             <option value="0" {if $fungsi.FS_FUNGSIONAL2 eq '0'} selected="" {/if}>Tergantung orang lain</option>
                             <option value="1" {if $fungsi.FS_FUNGSIONAL2 eq '1'} selected="" {/if}>Mandiri</option>
                         </select>
-                        <span id="sc2"></span>
+                        <span id="scor2"></span>
                     </td>
                     <td></td>
                     <td></td>
@@ -968,12 +969,12 @@
                 <tr>
                     <td>Perawatan diri</td>
                     <td>
-                        <select name="FS_FUNGSIONAL3" id="op3" class="select2" style="width: 190px;">
+                        <select name="FS_FUNGSIONAL3" id="option3" class="select2" style="width: 190px;">
                             <option value="">--Pilih Data--</option>
                             <option value="0" {if $fungsi.FS_FUNGSIONAL3 eq '0'} selected="" {/if}>Membutuhkan bantuan orang lain</option>
                             <option value="1" {if $fungsi.FS_FUNGSIONAL3 eq '1'} selected="" {/if}>Mandiri</option>
                         </select>
-                        <span id="sc3"></span>
+                        <span id="scor3"></span>
                     </td>
                     <td></td>
                     <td></td>
@@ -981,13 +982,13 @@
                 <tr>
                     <td>Berpakaian</td>
                     <td>
-                        <select name="FS_FUNGSIONAL4" id="op4" class="select2" style="width: 190px;">
+                        <select name="FS_FUNGSIONAL4" id="option4" class="select2" style="width: 190px;">
                             <option value="">--Pilih Data--</option>
                             <option value="0" {if $fungsi.FS_FUNGSIONAL4 eq '0'} selected="" {/if}>Tergantung orang lain</option>
                             <option value="1" {if $fungsi.FS_FUNGSIONAL4 eq '1'} selected="" {/if}>Sebagian dibantu</option>
                             <option value="2" {if $fungsi.FS_FUNGSIONAL4 eq '2'} selected="" {/if}>Mandiri</option>
                         </select>
-                        <span id="sc4"></span>
+                        <span id="scor4"></span>
                     </td>
                     <td></td>
                     <td></td>
@@ -995,13 +996,13 @@
                 <tr>
                     <td>Buang air kecil</td>
                     <td>
-                        <select name="FS_FUNGSIONAL5" id="op5" class="select2" style="width: 190px;">
+                        <select name="FS_FUNGSIONAL5" id="option5" class="select2" style="width: 190px;">
                             <option value="">--Pilih Data--</option>
                             <option value="0" {if $fungsi.FS_FUNGSIONAL5 eq '0'} selected="" {/if}>Tidak terkontrol atau pakai kateter</option>
                             <option value="1" {if $fungsi.FS_FUNGSIONAL5 eq '1'} selected="" {/if}>Kadang inkontensia</option>
                             <option value="2" {if $fungsi.FS_FUNGSIONAL5 eq '2'} selected="" {/if}>Kontensia / teratur (lebih dari 7 hari)</option>
                         </select>
-                        <span id="sc5"></span>
+                        <span id="scor5"></span>
                     </td>
                     <td></td>
                     <td></td>
@@ -1009,13 +1010,13 @@
                 <tr>
                     <td>Buang air besar</td>
                     <td>
-                        <select name="FS_FUNGSIONAL6" id="op6" class="select2" style="width: 190px;">
+                        <select name="FS_FUNGSIONAL6" id="option6" class="select2" style="width: 190px;">
                             <option value="">--Pilih Data--</option>
                             <option value="0" {if $fungsi.FS_FUNGSIONAL6 eq '0'} selected="" {/if}>Inkontensia (Tidak teratur atau perlu)</option>
                             <option value="1" {if $fungsi.FS_FUNGSIONAL6 eq '1'} selected="" {/if}>Kadang inkontensia (sekali seminggu)</option>
                             <option value="2" {if $fungsi.FS_FUNGSIONAL6 eq '2'} selected="" {/if}>Kontensia (teratur)</option>
                         </select>
-                        <span id="sc6"></span>
+                        <span id="scor6"></span>
                     </td>
                     <td></td>
                     <td></td>
@@ -1023,13 +1024,13 @@
                 <tr>
                     <td>Penggunaan toilet</td>
                     <td>
-                        <select name="FS_FUNGSIONAL7" id="op7" class="select2" style="width: 190px;">
+                        <select name="FS_FUNGSIONAL7" id="option7" class="select2" style="width: 190px;">
                             <option value="">--Pilih Data--</option>
                             <option value="0" {if $fungsi.FS_FUNGSIONAL7 eq '0'} selected="" {/if}>Tergantung</option>
                             <option value="1" {if $fungsi.FS_FUNGSIONAL7 eq '1'} selected="" {/if}>Membutuhkan bantuan, tapi dapat melakukan beberapa hal sendiri</option>
                             <option value="2" {if $fungsi.FS_FUNGSIONAL7 eq '2'} selected="" {/if}>Mandiri</option>
                         </select>
-                        <span id="sc7"></span>
+                        <span id="scor7"></span>
                     </td>
                     <td></td>
                     <td></td>
@@ -1037,14 +1038,14 @@
                 <tr>
                     <td>Transfer</td>
                     <td>
-                        <select name="FS_FUNGSIONAL8" id="op8" class="select2" style="width: 190px;">
+                        <select name="FS_FUNGSIONAL8" id="option8" class="select2" style="width: 190px;">
                             <option value="">--Pilih Data--</option>
                             <option value="0" {if $fungsi.FS_FUNGSIONAL8 eq '0'} selected="" {/if}>Tidak mampu</option>
                             <option value="1" {if $fungsi.FS_FUNGSIONAL8 eq '1'} selected="" {/if}>Butuh bantuan untuk bisa duduk (2 Orang)</option>
                             <option value="2" {if $fungsi.FS_FUNGSIONAL8 eq '2'} selected="" {/if}>Bantuan kecil (1 orang)</option>
                             <option value="3" {if $fungsi.FS_FUNGSIONAL8 eq '3'} selected="" {/if}>Mandiri</option>
                         </select>
-                        <span id="sc8"></span>
+                        <span id="scor8"></span>
                     </td>
                     <td></td>
                     <td></td>
@@ -1052,14 +1053,14 @@
                 <tr>
                     <td>Mobilitas</td>
                     <td>
-                        <select name="FS_FUNGSIONAL9" id="op9" class="select2" style="width: 190px;">
+                        <select name="FS_FUNGSIONAL9" id="option9" class="select2" style="width: 190px;">
                             <option value="">--Pilih Data--</option>
                             <option value="0" {if $fungsi.FS_FUNGSIONAL9 eq '0'} selected="" {/if}>Immobile (tidak mampu)</option>
                             <option value="1" {if $fungsi.FS_FUNGSIONAL9 eq '1'} selected="" {/if}>Menggunakan kursi roda</option>
                             <option value="2" {if $fungsi.FS_FUNGSIONAL9 eq '2'} selected="" {/if}>Berjalan dengan bantuan satu orang</option>
                             <option value="3" {if $fungsi.FS_FUNGSIONAL9 eq '3'} selected="" {/if}>Mandiri (meskipun menggunakan alat bantu seperti tongkat)</option>
                         </select>
-                        <span id="sc9"></span>
+                        <span id="scor9"></span>
                     </td>
                     <td></td>
                     <td></td>
@@ -1067,13 +1068,13 @@
                 <tr>
                     <td>Naik turun tangga</td>
                     <td>
-                        <select name="FS_FUNGSIONAL10" id="op10" class="select2" style="width: 190px;">
+                        <select name="FS_FUNGSIONAL10" id="option10" class="select2" style="width: 190px;">
                             <option value="">--Pilih Data--</option>
                             <option value="0" {if $fungsi.FS_FUNGSIONAL10 eq '0'} selected="" {/if}>Tidak mampu</option>
                             <option value="1" {if $fungsi.FS_FUNGSIONAL10 eq '1'} selected="" {/if}>Membutuhkan bantuan (alat bantu)</option>
                             <option value="2" {if $fungsi.FS_FUNGSIONAL10 eq '2'} selected="" {/if}>Mandiri</option>
                         </select>
-                        <span id="sc10"></span>
+                        <span id="scor10"></span>
                     </td>
                     <td></td>
                     <td></td>
@@ -1626,10 +1627,72 @@
             </table>
     </form>
     </div>
+    <script type="text/javascript">
+        $(document).ready(function () {
+    
+            $("#option1").change(function () {
+                var scd = $(this).val();
+                $("#scor1").html(scd);
+                scored();
+            });
+            $("#option2").change(function () {
+                var scd = $(this).val();
+                $("#scor2").html(scd);
+                scored();
+            });
+            $("#option3").change(function () {
+                var scd = $(this).val();
+                $("#scor3").html(scd);
+                scored();
+            });
+            $("#option4").change(function () {
+                var scd = $(this).val();
+                $("#scor4").html(scd);
+                scored();
+            });
+            $("#option5").change(function () {
+                var scd = $(this).val();
+                $("#scor5").html(scd);
+                scored();
+            });
+            $("#option6").change(function () {
+                var scd = $(this).val();
+                $("#scor6").html(scd);
+                scored();
+            });
+            $("#option7").change(function () {
+                var scd = $(this).val();
+                $("#scor7").html(scd);
+                scored();
+            });
+            $("#option8").change(function () {
+                var scd = $(this).val();
+                $("#scor8").html(scd);
+                scored();
+            });
+            $("#option9").change(function () {
+                var scd = $(this).val();
+                $("#scor9").html(scd);
+                scored();
+            });
+            $("#option10").change(function () {
+                var scd = $(this).val();
+                $("#scor10").html(scd);
+                scored();
+            });
+            
+        });
+    </script>
+    <script type="text/javascript">
+    
+        function scored() {
+            var scd = parseInt($("#scor1").text()) + parseInt($("#scor2").text()) + parseInt($("#scor3").text()) + parseInt($("#scor4").text()) + parseInt($("#scor5").text()) + parseInt($("#scor6").text()) + parseInt($("#scor7").text()) + parseInt($("#scor8").text()) + parseInt($("#scor9").text()) + parseInt($("#scor10").text());
+            $("#kesimpulan_fungsional").val(scd);
+        }
+        
+    </script>
+    
       <script>
-
-
-
 $(function(){
       $(":radio.rad").click(function(){
         $("#form2").hide(); 
@@ -2206,6 +2269,20 @@ $(".select2").select2({
           $("#form2").hide(); 
         }
       });
+</script>
+
+<script>
+    $(document).ready(function() {
+// date picker
+$(".tanggal").datepicker({
+changeMonth: true,
+        changeYear: true,
+        showOn: "both",
+        buttonImage: "{$BASEURL}/resource/doc/images/icon/calendar.gif",
+        buttonImageOnly: true,
+        dateFormat: 'yy-mm-dd'
+});
+});
 </script>
 
  

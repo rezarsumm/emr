@@ -93,7 +93,7 @@
         <tbody>
         <tr>
             <td align="center" rowspan="4">
-                <b>PERMINTAAN PEMERIKSAAN PENUNJANG</b>
+                <b>PERMINTAAN PEMERIKSAAN PENUNJANG LABORATORIUM</b>
             </td>
         </tr>
         <tr>
@@ -134,14 +134,14 @@
              <tr>
                 <td>Diagnosa</td>
                 <td>
-                    : <?= strip_tags($result['FS_DIAGNOSA']); ?>
+                    : <?= strip_tags($rs_pasien['FS_DIAGNOSA']); ?>
                 </td>
                 
             </tr>
             <tr>
                 <td>Alergi</td>
                 <td>
-                    : <?= $rs_pasien['FS_ALERGI']; ?>
+                    : <?= $alergi['FS_ALERGI']; ?>
                 </td>
                 
             </tr>

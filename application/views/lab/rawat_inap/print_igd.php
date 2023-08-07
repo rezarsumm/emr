@@ -90,7 +90,7 @@
         <tbody>
         <tr>
             <td align="center" colspan="2"> 
-                <b><h5>PERMINTAAN PEMERIKSAAN PENUNJANG</h5></b>  
+                <b><h5>PERMINTAAN PEMERIKSAAN PENUNJANG LABORATORIUM</h5></b>  
             </td>
         </tr>
         <tr>
@@ -176,14 +176,14 @@
             <tr>
                 <td></td>
                 <td align='center'>
-                    <qrcode value="<?= $rs_pasien['NamaLengkap']; ?> pada <?= $rs_pasien['mdd']; ?>" ec="H" style="width: 15mm; background-color: white; color: black;"></qrcode>
+                    <qrcode value="<?= $rs_pasien['NAMALENGKAP']; ?> pada <?= $rs_pasien['mdd_date']; ?>" ec="H" style="width: 15mm; background-color: white; color: black;"></qrcode>
                     <br>
                 </td>
             </tr>
             <tr>
                 <td></td>
                 <td align='center'>
-                    <?= $rs_pasien['NamaLengkap']; ?>
+                    <?= $rs_pasien['NAMALENGKAP']; ?>
                 </td>
             </tr>
         </tbody>

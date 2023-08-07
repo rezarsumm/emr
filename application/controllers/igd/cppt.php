@@ -715,7 +715,7 @@ class cppt extends ApplicationBase {
         // set page rules
         $this->_set_page_rule("C");
         // set template content
-        $this->smarty->assign("template_content", "igd/cppt/edit.html");
+        $this->smarty->assign("template_content", "igd/cppt/edit_cppt.html");
         // load javascript
         $this->smarty->load_javascript("resource/js/jquery/jquery-ui-1.9.2.custom.min.js");
         $this->smarty->load_javascript('resource/js/jquery/select2.js');
@@ -725,12 +725,27 @@ class cppt extends ApplicationBase {
         $this->smarty->load_style("jquery.ui/select2/select2.css");
         // load style ui
         $this->smarty->load_style("jquery.ui/redmond/jquery-ui-1.8.13.custom.css");
-        $this->smarty->assign("rs_pasien", $this->m_cppt->get_pasien_by_rg(array($FS_RG)));
+    
+        $role = $this->com_user['role_id'];
+        $rolenya=$this->com_user['role_nm'];
+         $this->smarty->assign("username", $this->com_user['user_name']);
+         $this->smarty->assign("icd", $this->m_igd->get_icd());  
+
+
+         
+         $this->smarty->assign("rs_pasien", $this->m_igd->get_pasien_by_rg_ugd(array($FS_RG)));
+         
         $this->smarty->assign("rs_cppt", $this->m_cppt->get_cppt_by_rg($FS_RG));
-        $this->smarty->assign("rs_resep", $this->m_cppt->get_resep());
-        $this->smarty->assign("role_id", $this->com_user['role_id']);
-        $this->smarty->assign("rs_ases_medis", $this->m_cppt->get_data_medis_by_rg(array($FS_RG)));
-        $this->smarty->assign("cppt2", $this->m_cppt->get_cppt_by_trs($FS_KD_TRS));
+       $this->smarty->assign("rs_resep", $this->m_cppt->get_resep());
+       $tgl=date('Y-m-d');
+
+       $this->smarty->assign("role_id", $this->com_user['role_id']);
+       $this->smarty->assign("tgl", $tgl);
+
+
+       $this->smarty->assign("rs_ases_medis", $this->m_cppt->get_data_medis_by_rg(array($FS_RG)));
+       $this->smarty->assign("namarole", $rolenya);
+       $this->smarty->assign("rs_resume", $this->m_cppt->get_data_resume_by_rg(array($FS_RG)));
         // notification
         $this->tnotification->display_notification();
         $this->tnotification->display_last_field();

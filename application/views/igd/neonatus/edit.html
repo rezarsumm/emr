@@ -149,7 +149,7 @@
                     Tanggal Lahir
                 </td>
                 <td>
-                    <input type="date" name="tgl_lahir" value="{$data.TGL_LAHIR}" size="40">
+                    <input type="text" class="tanggal" name="tgl_lahir" value="{$data.TGL_LAHIR}" size="40">
                 </td>
          
             </tr>
@@ -254,7 +254,7 @@
                     Usia Kehamilan
                 </td>
                 <td>
-                    <input type="int" name="usia_kehamilan" value="{$data.USIA_KEHAMILAN}">
+                    <input type="number" name="usia_kehamilan" value="{$data.USIA_KEHAMILAN}">
                     bulan
                 </td>
        
@@ -264,7 +264,7 @@
                     Pasien Anak Ke
                 </td>
                 <td>
-                    <input type="int" name="anak_ke" value="{$data.ANAK_KE}">
+                    <input type="number" name="anak_ke" value="{$data.ANAK_KE}">
                 </td>
             </tr>
             <tr>
@@ -272,7 +272,7 @@
                     Jumlah Anak
                 </td>
                 <td>
-                    <input type="int" name="jumlah_anak" value="{$data.JUMLAH_ANAK}">
+                    <input type="number" name="jumlah_anak" value="{$data.JUMLAH_ANAK}">
                 </td>
                 
             </tr>
@@ -1287,7 +1287,7 @@
         if(x=='a'||x=='A'){
             alert("hore");
         }
-           
+    
 
  function handle2(e){
                    var key=e.keyCode || e.which;
@@ -1382,4 +1382,18 @@
         }
       });
       
+</script>
+
+<script>
+    $(document).ready(function() {
+// date picker
+$(".tanggal").datepicker({
+changeMonth: true,
+        changeYear: true,
+        showOn: "both",
+        buttonImage: "{$BASEURL}/resource/doc/images/icon/calendar.gif",
+        buttonImageOnly: true,
+        dateFormat: 'yy-mm-dd'
+});
+});
 </script>

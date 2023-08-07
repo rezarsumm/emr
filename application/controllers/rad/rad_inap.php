@@ -54,15 +54,15 @@ class rad_inap extends ApplicationBase {
     }
 
 
-       public function cetak_prad2($FS_KD_TRS = "") {
+       public function cetak_prad2($FS_KD_TRS = "",$FS_KD_REG = "") {
         $this->_set_page_rule("R");
         $this->load->library('html2pdf');
         $now = date('Y-m-d');
         $data['rs_pasien'] = $this->m_farmasi_inap->rad_inap2(array($FS_KD_TRS));
-        $data['rs_resume'] = $this->m_cppt->get_data_resume_by_rg(array($FS_KD_TRS));
+        $data['rs_resume'] = $this->m_cppt->get_data_resume_by_rg(array($FS_KD_REG));
         $d = $this->m_farmasi_inap->lab_inap(array($FS_KD_TRS));
         $FS_RG=$d['No_Reg'];
-        $this->smarty->assign("rs_resume", $this->m_cppt->get_data_resume_by_rg(array($FS_RG)));
+        // $this->smarty->assign("rs_resume", $this->m_cppt->get_data_resume_by_rg(array($FS_RG)));
   $data["alamat"] = $this->m_rawat_jalan->get_alamat();
 
         // $data['rs_skdp'] = $this->m_rawat_jalan->get_data_skdp_by_rg(array($FS_KD_REG));

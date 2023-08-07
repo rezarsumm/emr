@@ -157,11 +157,12 @@ class m_farmasi_inap extends CI_Model {
     }
 
     function lab_inap2($params) {
-        $sql = "select A.*, B.*, C.*
+        $sql = "select A.*, B.*, C.*, D.NAMALENGKAP
         from  PKU.dbo.TAC_RI_CPPT A
+        LEFT JOIN DB_RSMM.dbo.TUSER D ON A.mdb=D.NAMAUSER
         left join DB_RSMM.dbo.PENDAFTARAN B on B.No_Reg=A.FS_KD_REG
         left join DB_RSMM.dbo.REGISTER_PASIEN C on B.No_MR=C.No_MR
-        where A.FS_KD_REG=?";
+        where A.FS_KD_TRS=?";
 
        $query = $this->db->query($sql, $params);
         if ($query->num_rows() > 0) {
@@ -206,11 +207,12 @@ class m_farmasi_inap extends CI_Model {
     }
 
    function rad_inap2($params) {
-    $sql = "select A.*, B.*, C.*
+    $sql = "select A.*, B.*, C.*,D.NAMALENGKAP
     from  PKU.dbo.TAC_RI_CPPT A
+    LEFT JOIN DB_RSMM.dbo.TUSER D ON A.mdb=D.NAMAUSER
     left join DB_RSMM.dbo.PENDAFTARAN B on B.No_Reg=A.FS_KD_REG
     left join DB_RSMM.dbo.REGISTER_PASIEN C on B.No_MR=C.No_MR
-    where A.FS_KD_REG=?";
+    where A.FS_KD_TRS=?";
        $query = $this->db->query($sql, $params);
         if ($query->num_rows() > 0) {
             $result = $query->row_array();

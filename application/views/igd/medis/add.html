@@ -186,13 +186,13 @@
             <tr><td width='40%'>Tanda Tanda Vital  </td>
                 <td width='40%'>
                     <textarea name="PEMERIKSAAN_FISIK" rows="10" style="width:250px;">
-                        Kesadaran : {if $perawat.KESADARAN neq ''}{$perawat.KESADARAN}{else}{$bidan.SADAR}{/if}      
-                        Suhu      : {if $perawat.S neq ''}{$perawat.S}{else}{$bidan.S}{/if}C
-                        Nadi      : {if $perawat.N neq ''}{$perawat.N}{else}{$bidan.N}{/if}x/menit            
-                        R         : {if $perawat.R neq ''}{$perawat.R}{else}{$bidan.R}{/if} x/menit      
-                        TD        : {if $perawat.TD neq ''}{$perawat.TD}{else}{$bidan.TD}{/if}MmHg
-                        TB        : {if $perawat.TB neq ''}{$perawat.TB}{else}{$bidan.TB}{/if}cm                
-                        BB        : {if $perawat.BB neq ''}{$perawat.BB}{else}{$bidan.BB}{/if}kg           
+                        Kesadaran : {if $perawat.KESADARAN neq ''}{$perawat.KESADARAN}{elseif $neonatus.KESADARAN neq ''}{$neonatus.KESADARAN}{else}{$bidan.SADAR}{/if}      
+                        Suhu      : {if $perawat.S neq ''}{$perawat.S}{elseif $neonatus.S neq ''}{$neonatus.S}{else}{$bidan.S}{/if} C
+                        Nadi      : {if $perawat.N neq ''}{$perawat.N}{elseif $neonatus.N neq ''}{$neonatus.N}{else}{$bidan.N}{/if} x/menit            
+                        R         : {if $perawat.R neq ''}{$perawat.R}{elseif $neonatus.R neq ''}{$neonatus.R}{else}{$bidan.R}{/if} x/menit      
+                        TD        : {if $perawat.TD neq ''}{$perawat.TD}{else}{$bidan.TD}{/if} MmHg
+                        TB        : {if $perawat.TB neq ''}{$perawat.TB}{elseif $neonatus.PANJANG_BADAN neq ''}{$neonatus.PANJANG_BADAN}{else}{$bidan.TB}{/if} cm                
+                        BB        : {if $perawat.BB neq ''}{$perawat.BB}{elseif $neonatus.BERAT_BADAN_MASUK neq ''}{$neonatus.BERAT_BADAN_MASUK}{else}{$bidan.BB}{/if} kg           
                         GCS       : {$perawat.GCS}   
                  </textarea>
                 </td>

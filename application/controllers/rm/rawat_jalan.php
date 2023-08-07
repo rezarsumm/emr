@@ -32,6 +32,7 @@ class rawat_jalan extends ApplicationBase {
         $data['perawat_igd'] = $this->m_igd->get_data_perawat_by_noreg(array($FS_KD_REG));
         $data['medis_igd'] = $this->m_igd->get_data_medis_by_noreg(array($FS_KD_REG));
         $data['alergi'] = $this->m_igd->get_alergi(array($FS_KD_REG));
+        $data['neonatus'] = $this->m_igd->get_neonatus(array($FS_KD_REG));
         
     
         $data['nutrisi'] = $this->m_rawat_jalan->get_data_nutrisi_by_rg(array($FS_KD_REG));

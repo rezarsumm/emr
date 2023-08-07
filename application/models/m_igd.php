@@ -597,6 +597,23 @@ class m_igd extends CI_Model {
             return 0;
         }
     }
+    function get_data_neonatus_by_noreg($params) {
+
+        $sql = "select top 1  A.*, B.*, C.Tgl_lahir, C.No_MR, D.NAMALENGKAP
+        from  PKU.dbo.IGD_AWAL_NEONATUS A
+        left join PENDAFTARAN B on B.No_Reg=A.FS_KD_REG
+        left join REGISTER_PASIEN C on B.No_MR=C.No_MR
+        LEFT JOIN DB_RSMM.dbo.TUSER D ON A.MDB=D.NAMAUSER
+        where A.FS_KD_REG=?";
+        $query = $this->db->query($sql, $params);
+        if ($query->num_rows() > 0) {
+            $result = $query->row_array();
+            $query->free_result();
+            return $result;
+        } else {
+            return 0;
+        }
+    }
 
 
 
@@ -1044,6 +1061,22 @@ class m_igd extends CI_Model {
         $date = date('Y-m-d');
 
         $sql = "select top 1 * from PKU.dbo.TAC_RJ_ALERGI where FS_KD_REG=? order by FS_KD_TRS DESC";
+          $query = $this->db->query($sql, $params);
+          if ($query->num_rows() > 0) {
+              $result = $query->row_array();
+              $query->free_result();
+              return $result;
+          } else {
+              return 0;
+          }
+      }
+      function get_neonatus($params) {
+        $date = date('Y-m-d');
+
+        $sql = "SELECT A.*, G.NamaLengkap 
+        from PKU.dbo.IGD_AWAL_NEONATUS A
+        LEFT JOIN DB_RSMM.dbo.TUSER G ON A.MDB=G.NamaUser
+        where A.FS_KD_REG=?";
           $query = $this->db->query($sql, $params);
           if ($query->num_rows() > 0) {
               $result = $query->row_array();

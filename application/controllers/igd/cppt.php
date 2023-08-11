@@ -735,7 +735,7 @@ class cppt extends ApplicationBase {
          
          $this->smarty->assign("rs_pasien", $this->m_igd->get_pasien_by_rg_ugd(array($FS_RG)));
          
-        $this->smarty->assign("rs_cppt", $this->m_cppt->get_cppt_by_rg($FS_RG));
+        $this->smarty->assign("rs_cppt", $this->m_cppt->get_cppt_by_rg_edit(array($FS_KD_TRS)));
        $this->smarty->assign("rs_resep", $this->m_cppt->get_resep());
        $tgl=date('Y-m-d');
 
@@ -753,7 +753,7 @@ class cppt extends ApplicationBase {
         parent::display();
     }
 
-    public function delete_process($FS_KD_REG = "", $FS_KD_TRS = "") {
+    public function delete_process($FS_KD_TRS = "", $FS_KD_REG = "" ) {
         // set page rules
         $this->_set_page_rule("D");
         // process
@@ -777,6 +777,87 @@ class cppt extends ApplicationBase {
 
         // default redirect
         redirect("igd/cppt/add/" . $FS_KD_REG);
+    }
+    public function edit_process() {
+        // set page rules
+        $this->_set_page_rule("D");
+
+        // process
+             $this->tnotification->set_rules('FS_KD_REG', 'NAMA PASIEN', 'trim|required');
+
+                     $lab = $this->input->post('FS_PLANNING_LAB'); 
+                if (!empty($lab)) {
+                
+                      foreach ($lab as $key => $value) {
+                          $rlab=$rlab.', '.$value;
+                      } 
+              }
+
+
+                 $rrad='';
+
+        $rad = $this->input->post('FS_PLANNING_RAD'); 
+              if (!empty($rad)) {
+                 
+                   foreach ($rad as $key => $valu) {
+                      $rrad=$rrad.', '.$valu;
+                   }
+                 
+              }
+
+                    if ($this->tnotification->run() !== FALSE) {
+                         
+
+                            // $update_kp = $this->m_cppt->update_tz_parameter_no_kp($NOKP2);
+                            $riwayat = array(
+                                $this->input->post('FS_KD_REG'),
+                                $this->input->post('FS_CPPT_S'),
+                                $this->input->post('FS_CPPT_O'),
+                                $this->input->post('FS_CPPT_A'),
+                                $this->input->post('FS_CPPT_P'),
+                                $terapinya,
+                                $this->input->post('FS_KD_KP'),
+                                $this->com_user['user_name'],
+                                date('Y-m-d'),
+                                date('H:i:s'),
+                                $rlab, 
+                                $rrad,  
+                                $this->input->post('TGL_TUJUAN_LAB'),
+                                'null',
+                                $this->input->post('FS_KD_TRS'),
+                            );
+                            $this->m_rawat_jalan->update_cppt($riwayat);
+                            $this->m_rawat_jalan->insert_riwayat_cppt($riwayat);
+
+                            
+                      
+                            // $params3 = array(
+                            //     $this->input->post('FS_KD_REG'),
+                            //     '1',
+                            //     '12',
+                            //     $this->com_user['user_id'],
+                            //     date('Y-m-d')
+                            // );
+                            // $this->m_cppt->insert_status($params3);
+                            
+                            //cek resume
+                            $cek = $this->m_cppt->cek_resume(array($this->input->post('FS_KD_REG')));
+                            if($cek == '0'){
+                                $this->m_cppt->insert_diag(array($this->input->post('FS_KD_REG'), $this->input->post('FS_DIAG_UTAMA'),$this->input->post('FS_DIAG_SEK')));
+                            }elseif($cek >= '1'){
+                                $this->m_cppt->update_diag(array($this->input->post('FS_DIAG_UTAMA'),$this->input->post('FS_DIAG_SEK'),$this->input->post('FS_KD_REG')));
+                            }
+                            // notification
+                            $this->tnotification->delete_last_field();
+                            $this->tnotification->sent_notification("success", "Detail berhasil disimpan");
+                       
+                    } else {
+                        // default error
+                        $this->tnotification->sent_notification("error", "Detail gagal disimpan");
+                    }
+
+        // default redirect
+        redirect("igd/cppt/add/" . $this->input->post('FS_KD_REG'));
     }
 
     public function cetak($FS_KD_REG = "") {

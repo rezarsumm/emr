@@ -603,7 +603,7 @@
                 </tr>
                 <tr>
                     <td rowspan="4">Dada</td>
-                    <td> <input type="radio" name="CEK_DADA" required {if $data.CEK_DADA eq 'Mammae Simetris'} checked {/if} value="Mammae Simetris">  Mammae Simetris </td>
+                    <td> <input type="radio" name="CEK_DADA"  {if $data.CEK_DADA eq 'Mammae Simetris'} checked {/if} value="Mammae Simetris">  Mammae Simetris </td>
                     <td> <input type="radio" name="CEK_DADA" {if $data.CEK_DADA eq 'Mammae Asimetris'} checked {/if}  value="Mammae Asimetris">  Mammae ASimetris </td>
                     <td> <input type="radio" name="CEK_DADA" {if $data.CEK_DADA eq 'Puting Menonjol'} checked {/if} value="Puting Menonjol">    Puting Menonjol </td></tr>
                 <tr> 
@@ -634,31 +634,31 @@
                     <tr> 
                              <td>Leopod II      </td>
                              <td>
-                                <input type="radio" name="LEOPOD_2" required {if $data.LEOPOD_2 eq 'Punggung Kanan'} checked {/if} value="Punggung Kanan">  Punggung Kanan 
-                                <input type="radio" name="LEOPOD_2" required {if $data.LEOPOD_2 eq 'Punggung Kiri'} checked {/if} value="Punggung Kiri">   Punggung Kiri
+                                <input type="radio" name="LEOPOD_2"  {if $data.LEOPOD_2 eq 'Punggung Kanan'} checked {/if} value="Punggung Kanan">  Punggung Kanan 
+                                <input type="radio" name="LEOPOD_2"  {if $data.LEOPOD_2 eq 'Punggung Kiri'} checked {/if} value="Punggung Kiri">   Punggung Kiri
                                
                                </td>
                         </tr>
                 <tr> 
                        <td>Leopod III      </td>
                                <td>
-                                  <input type="radio" name="LEOPOD_3" required {if $data.LEOPOD_3 eq 'Kepala'} checked {/if} value="Kepala">    Kepala 
-                                  <input type="radio" name="LEOPOD_3" required {if $data.LEOPOD_3 eq 'Bokong'} checked {/if} value="Bokong">     Bokong
+                                  <input type="radio" name="LEOPOD_3"  {if $data.LEOPOD_3 eq 'Kepala'} checked {/if} value="Kepala">    Kepala 
+                                  <input type="radio" name="LEOPOD_3"  {if $data.LEOPOD_3 eq 'Bokong'} checked {/if} value="Bokong">     Bokong
                                   
                                  </td>
                              </tr>
               <tr> 
                     <td>Leopod IV     </td>
                                         <td>
-                                           <input type="radio" name="LEOPOD_4" required {if $data.LEOPOD_4 eq 'Floating'} checked {/if}  value="Floating">    Floating 
-                                           <input type="radio" name="LEOPOD_4" required {if $data.LEOPOD_4 eq 'Enganged'} checked {/if} value="Enganged">     Enganged
+                                           <input type="radio" name="LEOPOD_4"  {if $data.LEOPOD_4 eq 'Floating'} checked {/if}  value="Floating">    Floating 
+                                           <input type="radio" name="LEOPOD_4"  {if $data.LEOPOD_4 eq 'Enganged'} checked {/if} value="Enganged">     Enganged
                                          
                                           </td>
                                       </tr>
               <tr>
                   <td>Auskultasi</td>
                   <td colspan="3">
-                      <input type="radio" name="AUSKULTASI" required {if $data.AUSKULTASI eq 'Teratur'} checked {/if} value="Teratur">Teratur
+                      <input type="radio" name="AUSKULTASI"  {if $data.AUSKULTASI eq 'Teratur'} checked {/if} value="Teratur">Teratur
                       <input type="radio" name="AUSKULTASI" {if $data.AUSKULTASI eq 'Tidak'} checked {/if} value="Tidak">Tidak Teratur  
                       
                     <input type="text" name=" DURASI_AUSKULTASI" value="{$data.DURASI_AUSKULTASI}" >kali/menit
@@ -668,9 +668,9 @@
               <tr>
                 <td>Kontraksi</td>
                 <td colspan="3">
-                    <input type="radio" name="KONTRAKSI" required {if $data.KONTRAKSI eq 'Kuat'} checked {/if} value="Kuat">Kuat
-                    <input type="radio" name="KONTRAKSI" required {if $data.KONTRAKSI eq 'Sedang'} checked {/if} value="Sedang">Sedang
-                    <input type="radio" name="KONTRAKSI" required {if $data.KONTRAKSI eq 'Lemah'} checked {/if} value="Lemah">Lemah
+                    <input type="radio" name="KONTRAKSI"  {if $data.KONTRAKSI eq 'Kuat'} checked {/if} value="Kuat">Kuat
+                    <input type="radio" name="KONTRAKSI"  {if $data.KONTRAKSI eq 'Sedang'} checked {/if} value="Sedang">Sedang
+                    <input type="radio" name="KONTRAKSI"  {if $data.KONTRAKSI eq 'Lemah'} checked {/if} value="Lemah">Lemah
                     
                     
                   <input type="text" name=" DURASI_KONTRAKSI" value="{$data.DURASI_KONTRAKSI}" >kali/menit

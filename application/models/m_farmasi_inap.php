@@ -192,7 +192,7 @@ class m_farmasi_inap extends CI_Model {
 
 
    function rad_inap($params) {
-        $sql = "  select A.FS_RAD,A.TGL_TUJUAN_LAB,A.FS_KD_TRS, A.mdd_time, A.mdd_date, B.No_MR, B.No_Reg, C.Nama_Pasien, C.JENIS_KELAMIN, C.TGL_LAHIR, D.Nama_Ruang, E.NamaLengkap
+        $sql = "  select A.FS_RAD,A.FS_LAB,A.TGL_TUJUAN_LAB,A.FS_KD_TRS, A.mdd_time, A.mdd_date, B.No_MR, B.No_Reg, C.Nama_Pasien, C.JENIS_KELAMIN, C.TGL_LAHIR, D.Nama_Ruang, E.NamaLengkap
         from PKU.dbo.TAC_RI_CPPT as A, PENDAFTARAN as B, REGISTER_PASIEN as C, M_RUANG as D, TUSER as E
         where A.FS_KD_REG=B.No_Reg and B.No_MR=C.No_MR and B.Kode_Ruang=D.Kode_Ruang and A.mdb=E.NamaUser
        and A.FS_KD_TRS=? ";

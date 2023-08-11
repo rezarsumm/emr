@@ -1936,6 +1936,26 @@ function get_resep_by_trs2($params) {
         }
     }
 
+    function get_cppt_by_rg_edit($params) {
+        $sql = "SELECT a.*,b.NAMALENGKAP,d.role_id,RIGHT(mdd_date,2) 'TGL',
+        e.NAMALENGKAP 'FS_NM_MEDIS_VERIF'
+        FROM PKU.dbo.TAC_RI_CPPT a
+        LEFT JOIN DB_RSMM.dbo.TUSER b ON a.mdb=b.NAMAUSER
+        LEFT JOIN PKU.dbo.TAC_COM_USER c ON a.mdb=c.user_name
+        LEFT JOIN PKU.dbo.TAC_COM_ROLE_USER d ON c.user_id=d.user_id
+        LEFT JOIN DB_RSMM.dbo.TUSER e ON a.FS_KD_MEDIS_VERIF = e.NAMAUSER
+        WHERE FS_KD_TRS = ? AND FD_TGL_VOID='3000-01-01'
+        ORDER BY mdd_date DESC,mdd_time DESC";
+        $query = $this->db->query($sql, $params);
+        if ($query->num_rows() > 0) {
+            $result = $query->row_array();
+            $query->free_result();
+            return $result;
+        } else {
+            return array();
+        }
+    }
+
 
 
 

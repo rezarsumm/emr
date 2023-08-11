@@ -231,8 +231,17 @@
        </table>
         
        <table class="table-input" width="100%">
-
         <tr class="headrow">
+            <th colspan="2">Data Suami</th>
+            <th colspan="2"></th>
+        </tr>
+        <tr>
+            <td width='20%'>Nama</td>
+            <td width='30%'><input type="text" name="NAMA_SUAMI" value="{$ps.NAMA_SUAMI}" size="50" required value="-" /></td>
+            <td width='20%'>Tanggal Lahir </td>
+            <td width='30%'><input type="text" class="tanggal" name="TGL_LAHIR_SUAMI" value="{$ps.TGL_LAHIR_SUAMI}" size="10" /></td>
+        </tr>
+        <!-- <tr class="headrow">
             <th colspan="2">Data Suami</th>
             <th colspan="2"></th>
         </tr>
@@ -241,7 +250,7 @@
             <td width='30%'><input type="text" name="NAMA_SUAMI" value="{$ps.NAMA_SUAMI}" size="50"  /></td>
             <td width='20%'>Tanggal Lahir </td>
             <td width='30%'><input type="text" class="tanggal" name="TGL_LAHIR_SUAMI" value="{$ps.TGL_LAHIR_SUAMI}" size="10"  /></td>
-        </tr>
+        </tr> -->
         <tr>
             
             <td width='20%'>  Pekerjaan </td>
@@ -256,7 +265,16 @@
                 <input type="radio" name="AGAMA_SUAMI" {if $ps.AGAMA_SUAMI eq 'Khonghucu'} checked {/if}  value="Khonghucu"> Khonghucu
             </td>
         </tr>
-        <tr>
+                <tr>
+                    <td width='20%'>Pendidikan</td>
+                    <td width='30%'> <input type="radio" name="PENDIDIKAN_SUAMI" {if $ps.PENDIDIKAN_SUAMI eq 'SD'} checked {/if} value="SD"> SD
+                        <input type="radio" name="PENDIDIKAN_SUAMI" {if $ps.PENDIDIKAN_SUAMI eq 'SMP/SEDERAJAT'} checked {/if} value="SMP/SEDERAJAT"> SMP/SEDERAJAT
+                        <input type="radio" name="PENDIDIKAN_SUAMI" {if $ps.PENDIDIKAN_SUAMI eq 'SMA/SEDERAJAT'} checked {/if} checked value="SMA/SEDERAJAT"> SMA/SEDERAJAT
+                        <input type="radio" name="PENDIDIKAN_SUAMI" {if $ps.PENDIDIKAN_SUAMI eq 'STRATA 1'} checked {/if} value="STRATA 1"> STRATA 1
+                    </td>
+                
+                </tr>
+        <!-- <tr>
             <td width='20%'>Pendidikan</td>
             <td width='30%'>
                 <td width='30%'>                
@@ -267,7 +285,7 @@
                 </td>
                
            
-        </tr>
+        </tr> -->
         </table>
       
          
@@ -895,6 +913,7 @@
               <input type="text" name="VAGINA_TOUCHER" value="{$data.VAGINA_TOUCHER}" >
             </td>
         </tr>
+        
         <tr class="headrow">
             <th colspan="4">  Pemeriksaan Penunjang</th>
         </tr>
@@ -937,7 +956,7 @@
             <th colspan="4">Kebutuhan Fungsional</th>
         </tr>
         <tr>
-            <td width='20%'>Pemenuhan ADL</td>
+            <td width='20%'>Makan</td>
             <td width='30%'>
                 <select name="FS_FUNGSIONAL1" id="option1" class="select2" style="width: 190px;">
                             <option value="">--Pilih Data--</option>
@@ -947,11 +966,8 @@
                         </select>
                          <span id="scor1"></span>
             </td>
-             <td width='20%'>Kesimpulan</td>
-            <td width='30%'>
-                <td width='20%'> Total Skor </td>
-                <td width='30%'><b><input type="text" name="total_skor_fungsional" id="kesimpulan_fungsional" readonly></b></td>
-            </td>
+            <td width='20%'> Total Skor </td>
+            <td width='30%'><b><input type="text" name="total_skor_fungsional" id="kesimpulan_fungsional" readonly></b></td>
         </tr>
         <tr>
                     <td>Mandi</td>
@@ -1633,59 +1649,59 @@
             $("#option1").change(function () {
                 var scd = $(this).val();
                 $("#scor1").html(scd);
-                scored();
+                scored_2();
             });
             $("#option2").change(function () {
                 var scd = $(this).val();
                 $("#scor2").html(scd);
-                scored();
+                scored_2();
             });
             $("#option3").change(function () {
                 var scd = $(this).val();
                 $("#scor3").html(scd);
-                scored();
+                scored_2();
             });
             $("#option4").change(function () {
                 var scd = $(this).val();
                 $("#scor4").html(scd);
-                scored();
+                scored_2();
             });
             $("#option5").change(function () {
                 var scd = $(this).val();
                 $("#scor5").html(scd);
-                scored();
+                scored_2();
             });
             $("#option6").change(function () {
                 var scd = $(this).val();
                 $("#scor6").html(scd);
-                scored();
+                scored_2();
             });
             $("#option7").change(function () {
                 var scd = $(this).val();
                 $("#scor7").html(scd);
-                scored();
+                scored_2();
             });
             $("#option8").change(function () {
                 var scd = $(this).val();
                 $("#scor8").html(scd);
-                scored();
+                scored_2();
             });
             $("#option9").change(function () {
                 var scd = $(this).val();
                 $("#scor9").html(scd);
-                scored();
+                scored_2();
             });
             $("#option10").change(function () {
                 var scd = $(this).val();
                 $("#scor10").html(scd);
-                scored();
+                scored_2();
             });
             
         });
     </script>
     <script type="text/javascript">
     
-        function scored() {
+        function scored_2() {
             var scd = parseInt($("#scor1").text()) + parseInt($("#scor2").text()) + parseInt($("#scor3").text()) + parseInt($("#scor4").text()) + parseInt($("#scor5").text()) + parseInt($("#scor6").text()) + parseInt($("#scor7").text()) + parseInt($("#scor8").text()) + parseInt($("#scor9").text()) + parseInt($("#scor10").text());
             $("#kesimpulan_fungsional").val(scd);
         }
@@ -1739,62 +1755,7 @@ $(function(){
  
       </script>     
  
-<script type="text/javascript">
-    $(document).ready(function () {
-        scoree();
-        
-        $("#j1").change(function () {
-            var jc = $(this).val();
-            $("#nj1").html(jc);
-            scoree();
-        });
-        $("#j2").change(function () {
-            var jc = $(this).val();
-            $("#nj2").html(jc);
-            scoree();
-        }); 
-        $("#j3").change(function () {
-            var jc = $(this).val();
-            $("#nj3").html(jc);
-            scoree();
-        }); 
-    
-        $("#j4").change(function () {
-            var jc = $(this).val();
-            $("#nj4").html(jc);
-            scoree();
-        }); 
-        $("#j5").change(function () {
-            var jc = $(this).val();
-            $("#nj5").html(jc);
-            scoree();
-        }); 
-        $("#j6").change(function () {
-            var jc = $(this).val();
-            $("#nj6").html(jc);
-            scoree();
-        }); 
-        $("#j7").change(function () {
-            var jc = $(this).val();
-            $("#nj7").html(jc);
-            scoree();
-        }); 
-    });
-    
-    function scoree() {
-        var jc = parseInt($("#nj1").text()) + parseInt($("#nj2").text()) + parseInt($("#nj3").text()) + parseInt($("#nj4").text()) + parseInt($("#nj5").text()) + parseInt($("#nj6").text()) + parseInt($("#nj7").text());
-        // $("#totalsc").html(jc);
-        if (jc >= 0 && jc <= 24) {
-            $("#rjtkesimpuland").html("RISIKO RENDAH");
-        } else if (jc >= 25 && jc <= 45) {
-            $("#rjtkesimpuland").html("RISIKO SEDANG");
-        } else if (jc > 45) {
-            $("#rjtkesimpuland").html("RISIKO TINGGI");
-        }
-    }
-    
-    
-</script>
+
 
 
 <script type="text/javascript">
@@ -1888,6 +1849,7 @@ $(function(){
                 }
             });
         }
+        
         $("#user").change(function() {
             user = $(this).val();
             //get icao code by airlines_id

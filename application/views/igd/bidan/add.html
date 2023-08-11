@@ -1611,53 +1611,53 @@
         $(document).ready(function () {
     
             $("#option1").change(function () {
-                var scd = $(this).val();
-                $("#scor1").html(scd);
+                var scor_kf = $(this).val();
+                $("#scor1").html(scor_kf);
                 scored_fungsional();
             });
             $("#option2").change(function () {
-                var scd = $(this).val();
-                $("#scor2").html(scd);
+                var scor_kf = $(this).val();
+                $("#scor2").html(scor_kf);
                 scored_fungsional();
             });
             $("#option3").change(function () {
-                var scd = $(this).val();
-                $("#scor3").html(scd);
+                var scor_kf = $(this).val();
+                $("#scor3").html(scor_kf);
                 scored_fungsional();
             });
             $("#option4").change(function () {
-                var scd = $(this).val();
-                $("#scor4").html(scd);
+                var scor_kf = $(this).val();
+                $("#scor4").html(scor_kf);
                 scored_fungsional();
             });
             $("#option5").change(function () {
-                var scd = $(this).val();
-                $("#scor5").html(scd);
+                var scor_kf = $(this).val();
+                $("#scor5").html(scor_kf);
                 scored_fungsional();
             });
             $("#option6").change(function () {
-                var scd = $(this).val();
-                $("#scor6").html(scd);
+                var scor_kf = $(this).val();
+                $("#scor6").html(scor_kf);
                 scored_fungsional();
             });
             $("#option7").change(function () {
-                var scd = $(this).val();
-                $("#scor7").html(scd);
+                var scor_kf = $(this).val();
+                $("#scor7").html(scor_kf);
                 scored_fungsional();
             });
             $("#option8").change(function () {
-                var scd = $(this).val();
-                $("#scor8").html(scd);
+                var scor_kf = $(this).val();
+                $("#scor8").html(scor_kf);
                 scored_fungsional();
             });
             $("#option9").change(function () {
-                var scd = $(this).val();
-                $("#scor9").html(scd);
+                var scor_kf = $(this).val();
+                $("#scor9").html(scor_kf);
                 scored_fungsional();
             });
             $("#option10").change(function () {
-                var scd = $(this).val();
-                $("#scor10").html(scd);
+                var scor_kf = $(this).val();
+                $("#scor10").html(scor_kf);
                 scored_fungsional();
             });
             
@@ -1666,9 +1666,29 @@
     <script type="text/javascript">
     
         function scored_fungsional() {
-            var scd = parseInt($("#scor1").text()) + parseInt($("#scor2").text()) + parseInt($("#scor3").text()) + parseInt($("#scor4").text()) + parseInt($("#scor5").text()) + parseInt($("#scor6").text()) + parseInt($("#scor7").text()) + parseInt($("#scor8").text()) + parseInt($("#scor9").text()) + parseInt($("#scor10").text());
-            $("#kesimpulan_fungsional").val(scd);
+            var scor_kf = parseInt($("#scor1").text()) + parseInt($("#scor2").text()) + parseInt($("#scor3").text()) + parseInt($("#scor4").text()) + parseInt($("#scor5").text()) + parseInt($("#scor6").text()) + parseInt($("#scor7").text()) + parseInt($("#scor8").text()) + parseInt($("#scor9").text()) + parseInt($("#scor10").text());
+            $("#totalscor_kf").html(scor_kf);
+                  if (scor_kf >= 0 && scor_kf <= 4) {
+                $("#kesimpulan_fungsional").val("Ketergantungan Total");
+            } else if (scor_kf >= 5 && scor_kf <= 8) {
+                $("#kesimpulan_fungsional").val("Ketergantungan Berat");
+            } else if (scor_kf >= 9 && scor_kf <= 11) {
+                $("#kesimpulan_fungsional").val("Ketergantungan Sedang");
+            } else if (scor_kf >= 12 && scor_kf <= 19) {
+                $("#kesimpulan_fungsional").val("Ketergantungan Ringan");
+            } else if (scor_kf >= 20) {
+                $("#kesimpulan_fungsional").val("Mandiri");
+
+            // if (scor_kf >= 0 && scor_kf <= 24) {
+            //     $("#kesimpulan_fungsional").val("RISIKO RENDAH");
+            // } else if (scor_kf >= 25 && scor_kf <= 45) {
+            //     $("#kesimpulan_fungsional").val("RISIKO SEDANG");
+            // } else if (scor_kf > 45) {
+            //     $("#kesimpulan_fungsional").val("RISIKO TINGGI");
+            // }
+            
         }
+    }
         
     </script>
       <script>
@@ -1788,6 +1808,56 @@ $(function(){
             });
             //tags
             $("#edukasi").select2({});
+
+                    var user = $("#user").val();
+                        $('#radiologi').select2('data', null);
+                        $('#radiologi').select2('data', null);
+                        $("#radiologi").removeAttr("disabled");
+                        jQuery("#radiologi").html('');
+                        $.ajax({
+                            type: "POST",
+                            url: "{$config->site_url('medis/rawat_jalan/list_pemeriksaan_rad/')}",
+                            data: "user=" + user,
+                            dataType: 'json',
+                            success: function (data) {
+                                var showData;
+                                jQuery.each(data, function (index, result) {
+                                    if (result.value == 0) {
+                                    } else {
+                                        showData += "<option value='" + result.value + "'>" + result.label + "</option>";
+                                    }
+                                })
+                                jQuery("#radiologi").html(showData);
+                            }
+                        });
+                        //tags
+                        $("#radiologi").select2({});
+
+                                    
+                var user = $("#user").val();
+                $('#rlab').select2('data', null);
+                $('#rlab').select2('data', null);
+                $("#rlab").removeAttr("disabled");
+                jQuery("#rlab").html('');
+                $.ajax({
+                    type: "POST",
+                    url: "{$config->site_url('medis/rawat_jalan/list_pemeriksaan_lab/')}",
+                    data: "user=" + user,
+                    dataType: 'json',
+                    success: function (data) {
+                        var showData;
+                        jQuery.each(data, function (index, result) {
+
+                            if (result.value == 0) {
+                            } else {
+                                console.log(result);
+                                showData += "<option value='" + result.value + "'>" + result.label + "</option>";
+                                }
+                            })
+                        jQuery("#rlab").html(showData);
+                                            }
+                        });
+                    $("#rlab").select2({});
       </script>     
  
 <script type="text/javascript">
@@ -1848,65 +1918,10 @@ $(function(){
 </script>
 
 
-             <script type="text/javascript">
-                $(document).ready(function() {
-        // chain select
-        // tembusan
-        var user = $("#user").val();
-                $('#radiologi').select2('data', null);
-                $('#radiologi').select2('data', null);
-                $("#radiologi").removeAttr("disabled");
-                jQuery("#radiologi").html('');
-                $.ajax({
-                type: "POST", 
-                        url: "{$config->site_url('medis/rawat_jalan/list_pemeriksaan_rad/')}",
-                        data: "user=" + user,
-                        dataType: 'json',
-                        success: function(data) {
-                        var showData;
-                                jQuery.each(data, function(index, result) {
-                                if (result.value == 0) {
-                                } else {
-                                showData += "<option value='" + result.value + "'>" + result.label + "</option>";
-                                }
-                                })
-                                jQuery("#radiologi").html(showData);
-                        }
-                });
-                //tags
-                $("#radiologi").select2({});
-        });</script>
+
 
              <script type="text/javascript">
-                $(document).ready(function() {
-
-
-            $("#rlab").select2({});
-
-            $('#rlab').select2('data', null);
-            $('#rlab').select2('data', null);
-            $("#rlab").removeAttr("disabled");
-            jQuery("#rlab").html('');
-            $.ajax({
-            type: "POST",
-                    url: "{$config->site_url('medis/rawat_jalan/list_pemeriksaan_lab/')}",
-                    data: "user=" + user,
-                    dataType: 'json',
-                    success: function(data) {
-                    var showData;
-                            jQuery.each(data, function(index, result) {
-
-                            if (result.value == 0) {
-                            } else {
-                                console.log(result);
-                            showData += "<option value='" + result.value + "'>" + result.label + "</option>";
-                            }
-                            })
-                            jQuery("#rlab").html(showData);
-                    }
-            });
-             $("#rlab").select2({});
-        });
+    
         
         
         

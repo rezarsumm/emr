@@ -62,8 +62,8 @@ class Lab_inap extends ApplicationBase {
         $this->_set_page_rule("R");
         $this->load->library('html2pdf');
         $now = date('Y-m-d');
-        $data['rs_pasien'] = $this->m_farmasi_inap->lab_inap(array($FS_KD_TRS));
-        var_dump($data['rs_pasien']);
+        $data['rs_pasien'] = $this->m_farmasi_inap->rad_inap(array($FS_KD_TRS));
+        // var_dump($data['rs_pasien']);
         $d = $this->m_farmasi_inap->lab_inap(array($FS_KD_TRS));
         $FS_RG=$d['No_Reg'];
         $this->smarty->assign("rs_resume", $this->m_cppt->get_data_resume_by_rg(array($FS_RG)));

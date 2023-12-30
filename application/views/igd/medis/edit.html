@@ -55,8 +55,7 @@
             <tr>
                <td>Kendaraan</td>
                <td>  
-                     <input type="radio" name="KENDARAAN" {if $data.KENDARAAN eq 'Pribadi'} checked {/if} value="Pribadi"  /> Pribadi 
-                      <input type="radio" name="KENDARAAN" {if $data.KENDARAAN eq 'Ambulance'} checked {/if} value="Ambulance"  /> Ambulance
+                <input type="text" name="KENDARAAN" size="40" value="{$data.KENDARAAN}">
                  </td></tr>  
              <tr>
                 <td>Rujukan Dari</td>
@@ -74,12 +73,12 @@
             <tr> 
                 <td width='20%'>Riwayat Penyakit Sekarang</td>
                 <td width='40%'>
-                    <textarea style="width: 300px;" name="RIW_PENYAKIT_NOW"  >{$data.RIW_PENYAKIT_NOW} </textarea> 
+                    <textarea style="width: 300px;" name="RIW_PENYAKIT_NOW">{$data.RIW_PENYAKIT_NOW} </textarea> 
                 </td>
                
                 <td width='20%'>Riwayat Penyakit dahulu</td>
                 <td width='40%'>
-                    <input type="text" name="FIS_RIW_PENYAKIT_DAHULU" value="{$data.RIW_PENYAKIT_DAHULU}" size="32">
+                    <input type="text" name="FS_RIW_PENYAKIT_DAHULU" value="{$data.RIW_PENYAKIT_DAHULU}" size="32">
                 </td>
             </tr>
             <tr>
@@ -114,9 +113,9 @@
             <tr>
                 <td width='20%'>Status Pernikahan  </td>
                 <td width='30%'>
-                     <input type="radio" name="PERNIKAHAN"  {if $data.MENIKAH eq 'Belum'} checked {/if}   value="Belum">Belum
-                     <input type="radio" name="PERNIKAHAN" {if $data.MENIKAH eq 'Menikah'} checked {/if}   value="Menikah">Menikah
-                     <input type="radio" name="PERNIKAHAN"  {if $data.MENIKAH eq 'Janda/Duda'} checked {/if}  value="Janda/Duda">Janda/Duda
+                     <input type="radio" name="PERNIKAHAN"  {if $ases2.PERNIKAHAN eq 'Belum'} checked {/if}   value="Belum">Belum
+                     <input type="radio" name="PERNIKAHAN" {if $ases2.PERNIKAHAN eq 'Menikah'} checked {/if}   value="Menikah">Menikah
+                     <input type="radio" name="PERNIKAHAN"  {if $ases2.PERNIKAHAN eq 'Janda/Duda'} checked {/if}  value="Janda/Duda">Janda/Duda
                 </td>
                 <td width='20%'>Pekerjaan    </td>
                 <td width='30%'>
@@ -212,9 +211,9 @@
                     <input type="radio" {if $data.STATUS_GIZI eq 'Kurang'} checked {/if}  name="STATUS_GIZI" value="Kurang">Kurang
                 </td> 
                  <td>    Resiko Jatuh</td><td>  
-                    <input type="radio" {if $data.RESIKO_JATUH eq 'Ringan'} checked {/if}  name="RESIKO_JATUH" value="Ringan">Ringan
-                    <input type="radio" {if $data.RESIKO_JATUH eq 'Sedang'} checked {/if}  name="RESIKO_JATUH" value="Sedang">Sedang
-                    <input type="radio" {if $data.RESIKO_JATUH eq 'Berat'} checked {/if}  name="RESIKO_JATUH" value="Berat">Berat
+                    <input type="radio" {if $data.RESIKO_JATUH eq 'RESIKO RENDAH'} checked {/if}  name="RESIKO_JATUH" value="RESIKO RENDAH">RESIKO RENDAH
+                    <input type="radio" {if $data.RESIKO_JATUH eq 'RESIKO SEDANG'} checked {/if}  name="RESIKO_JATUH" value="RESIKO SEDANG">RESIKO SEDANG
+                    <input type="radio" {if $data.RESIKO_JATUH eq 'RESIKO TINGGI'} checked {/if}  name="RESIKO_JATUH" value="RESIKO TINGGI">RESIKO TINGGI
                 </td></tr>
        
  <tr class="headrow">
@@ -230,14 +229,14 @@
             <td width='40%'>
                 <input type="radio" name="DEVIASI" {if $data.DEVIASI eq 'Kanan'} checked="" {/if}  value="Kanan">Kanan
                 <input type="radio" name="DEVIASI" {if $data.DEVIASI eq 'Kiri'} checked="" {/if} value="Kiri"> Kiri
-                <input type="radio" name="DEVIASI" {if $data.DEVIASI eq ''} checked="" {/if} value=""> Tidak Ada
+                <input type="radio" name="DEVIASI" {if $data.DEVIASI eq 'Tidak Ada'} checked="" {/if} value=""> Tidak Ada
             </td>
          </tr>
          <tr>
             <td width='20%'>Skelera  </td>
             <td width='40%'>
                 <input type="radio" name="SKELERA" {if $data.SKELERA eq 'Ikterik'} checked="" {/if} value="Ikterik">Ikterik
-                <input type="radio" name="SKELERA" {if $data.SKELERA eq 'Tidak'} checked="" {/if} value="Tidak"> Tidak Ikterik
+                <input type="radio" name="SKELERA" {if $data.SKELERA eq 'Tidak'} checked="" {/if} value="Tidak Ikterik"> Tidak Ikterik
             </td>
             <td width='20%'>JVP  </td>
             <td width='40%'>
@@ -338,7 +337,15 @@
             </select></td>
         </tr>
     
-
+    <tr>
+        <td width='20%'>EKG </td>
+        <td width='40%'>
+            <input type="radio" name="EKG" {if $data.EKG eq 'Ya'} checked="" {/if} value="Ya">Ya
+            <input type="radio" name="EKG" {if $data.EKG eq 'Tidak'} checked="" {/if} value="Tidak"> Tidak
+    
+    
+        </td>
+    </tr>
 
             <tr class="headrow">
                 <th colspan="2">Daftar Masalah</th>
@@ -397,10 +404,7 @@
                    </table>
 
 
-                    <textarea rows="15" class="form-control resep"  cols="60" name="FS_TERAPI"> 
-                        {$data.FS_TERAPI}
-                        
-                    </textarea> 
+                    <textarea rows="15" class="form-control resep"  cols="60" name="FS_TERAPI">{$data.FS_TERAPI}</textarea> 
                 </td> 
                <td colspan="2"> Dokter Spesialis
                 DPJP UTAMA

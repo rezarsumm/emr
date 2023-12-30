@@ -373,5 +373,7 @@ $config['portal_operator'] = 2;
 $config['portal_upt'] = 3;
 $config['default_operator'] = 'dashboard/welcome';
 
+
+
 /* End of file config.php */
 /* Location: ./application/config/config.php */

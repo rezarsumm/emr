@@ -18,6 +18,7 @@ class rawat_jalan extends ApplicationBase {
         $this->load->model('m_cppt');
         $this->load->model('m_rawat_jalan');
         $this->load->model('m_rawat_jalan_nurse');
+        $this->smarty->assign('m_cppt', $this->m_cppt);
         $this->smarty->assign('m_rawat_jalan', $this->m_rawat_jalan);
         $this->load->library('tnotification');
     }
@@ -64,13 +65,18 @@ class rawat_jalan extends ApplicationBase {
 // get search parameter
         $this->smarty->assign("no", '1');  
 
-        if($x=='216'|| $x=='217' || $x=='211'  || $x=='215'|| $x=='213'|| $x=='202' || $x=='203' || $x=='206'  || $x=='211' || $x=='207' || $x=='209' || $x=='219'  || $x=='220' || $x=='221' || $x=='312' || $x=='222' || $x=='223'|| $x=='208' ||  $x=='224' ||  $x=='225' ||  $x=='226' || $x=='227'){
+        if($x=='216'|| $x=='217' || $x=='211'  || $x=='215'|| $x=='213'|| $x=='202' || $x=='203' || $x=='206'  || $x=='211' || $x=='207' || $x=='209' || $x=='219'  || $x=='220' || $x=='221' || $x=='312' || $x=='222' || $x=='223'|| $x=='208' ||  $x=='224' ||  $x=='225' ||  $x=='226' || $x=='227' || $x=='229'){
 
            $this->smarty->assign("rs_pasien", $this->m_rawat_jalan->get_px_by_dokter_wait_dokter1(array($FD_TGL_MASUK, $FD_TGL_MASUK, $FS_KD_PEG)));
         }
         else{
          $this->smarty->assign("rs_pasien", $this->m_rawat_jalan->get_px_by_dokter_wait_dokter_aja(array($FD_TGL_MASUK, $FS_KD_PEG,$FD_TGL_MASUK, $FS_KD_PEG)));           
         }
+
+        $cek=$this->m_rawat_jalan->get_px_by_dokter_wait_dokter_aja(array($FD_TGL_MASUK, $FS_KD_PEG,$FD_TGL_MASUK, $FS_KD_PEG));
+
+        // var_dump($cek);
+        // die;
 
          
 
@@ -149,7 +155,7 @@ class rawat_jalan extends ApplicationBase {
             $this->smarty->assign("noww", $skrng);
         }
         else{
-             if($x=='216'|| $x=='217'|| $x=='215' || $x=='203' || $x=='206'  || $x=='211' || $x=='207' || $x=='209' || $x=='206'  || $x=='211' || $x=='207' || $x=='209' || $x=='213'|| $x=='202' || $x=='219' || $x=='220' || $x=='221' || $x=='312'  || $x=='222'  || $x=='223' || $x=='208' ||  $x=='224' ||  $x=='225' || $x=='226' || $x=='227'){
+            if($x=='216'|| $x=='217'|| $x=='215' || $x=='203' || $x=='206'  || $x=='211' || $x=='207' || $x=='209' || $x=='206'  || $x=='211' || $x=='207' || $x=='209' || $x=='213'|| $x=='202' || $x=='219' || $x=='220' || $x=='221' || $x=='312'  || $x=='222'  || $x=='223' || $x=='208' ||  $x=='224' ||  $x=='225' || $x=='226' || $x=='227' || $x=='229'){
  
              $this->smarty->assign("rs_pasien", $this->m_rawat_jalan->get_px_history_dokter4(array($now,$medis,$FS_MR)));
             }
@@ -165,8 +171,9 @@ class rawat_jalan extends ApplicationBase {
         $this->_set_page_rule("R");  
 // set template content
 
+
          $x = $this->com_user['user_name'];
-         if($x=='216'|| $x=='217' || $x=='211' || $x=='215'  || $x=='203' || $x=='206'  || $x=='211' || $x=='207' || $x=='209' || $x=='213'|| $x=='202' || $x=='219' || $x=='220' || $x=='221' || $x=='312' || $x=='222' || $x=='223' || $x=='208' ||  $x=='224' ||  $x=='225' || $x=='226' || $x=='227'){
+         if($x=='216'|| $x=='217' || $x=='211' || $x=='215'  || $x=='203' || $x=='206'  || $x=='211' || $x=='207' || $x=='209' || $x=='213'|| $x=='202' || $x=='219' || $x=='220' || $x=='221' || $x=='312' || $x=='222' || $x=='223' || $x=='208' ||  $x=='224' ||  $x=='225' || $x=='226' || $x=='227' || $x=='229'){
             $this->smarty->assign("template_content", "medis/rawat_jalan/addx.html");
 
          }
@@ -182,15 +189,18 @@ class rawat_jalan extends ApplicationBase {
         $this->smarty->load_javascript('resource/js/jquery/jquery-ui-timepicker-addon.js');
         // load style
         $this->smarty->load_style("jquery.ui/select2/select2.css");
+        // $this->smarty->load_style("jquery.ui/boostrap/css/bootstrap.css");
         // load style ui
         $this->smarty->load_style("jquery.ui/redmond/jquery-ui-1.8.13.custom.css");
         $now = date('Y-m-d');
         $FS_KD_REG2 = $FS_KD_REG2;
         $FS_KD_REG = $FS_KD_REG;
         $FS_MR = $this->m_rawat_jalan->get_rm_px_by_rg(array($FS_KD_REG));
+
         $this->smarty->assign("FS_KD_REG2", $FS_KD_REG2);
         $this->smarty->assign("FS_KD_REG", $FS_KD_REG);
         $this->smarty->assign("result", $this->m_rawat_jalan->get_px_by_dokter_by_rg2(array($FS_KD_REG)));  
+        
 
         $this->smarty->assign("icd", $this->m_igd->get_icd());  
 
@@ -203,12 +213,14 @@ class rawat_jalan extends ApplicationBase {
         
         $this->smarty->assign("last", $this->m_rawat_jalan->las_rj(array($x, $FS_MR['NO_MR'])));
         $this->smarty->assign("vs", $this->m_rawat_jalan->get_data_vs_by_rg(array($FS_KD_REG)));
+        $this->smarty->assign("rs_lab", $this->m_rawat_jalan->get_data_lab_by_rg(array($FS_KD_REG)));
+        
         // $this->smarty->assign("kp", $this->m_rawat_jalan->get_data_medis_by_rg(array($FS_KD_REG)));
         // $this->smarty->assign("kp2", $this->m_rawat_jalan->get_data_medis_by_rg(array($FS_KD_REG)));
         $this->smarty->assign("ases", $this->m_rawat_jalan->get_data_ases2_by_rg(array($FS_KD_REG)));
         $this->smarty->assign("ases2", $this->m_rawat_jalan->get_data_ases2_by_rg(array($FS_KD_REG)));
         $this->smarty->assign("terapi", $this->m_rawat_jalan->get_data_terapi_by_rg(array($FS_KD_REG)));
-        //$this->smarty->assign("alergi", $this->m_rawat_jalan->get_data_alergi_by_rg(array($FS_KD_REG)));
+        $this->smarty->assign("alergi", $this->m_rawat_jalan->get_data_alergi_by_rg(array($FS_KD_REG)));
         $this->smarty->assign("nutrisi", $this->m_rawat_jalan->get_data_nutrisi_by_rg(array($FS_KD_REG)));
         $this->smarty->assign("nyeri", $this->m_rawat_jalan->get_data_nyeri_by_rg(array($FS_KD_REG)));
         $this->smarty->assign("masalah", $this->m_rawat_jalan->get_data_masalah_by_rg(array($FS_KD_REG)));
@@ -216,6 +228,9 @@ class rawat_jalan extends ApplicationBase {
         $this->smarty->assign("cek_ases_kebid", $this->m_rawat_jalan->cek_data_ases_kebid_by_rg(array($FS_KD_REG)));
         // $this->smarty->assign("ases_kebid", $this->m_rawat_jalan->get_data_ases_kebid_by_rg(array($FS_KD_REG)));
          $this->smarty->assign("rs_pasien", $this->m_rawat_jalan->get_px_history_dokter2(array($now, $medis, $FS_MR['NO_MR'])));
+                   $this->smarty->assign("ases2", $this->m_rawat_jalan->get_data_ases2_by_rg(array($FS_KD_REG)));
+       
+        $this->smarty->assign("rs_skdp_alasan", $this->m_rawat_jalan->get_tac_com_parameter_alasan());
 
         //$this->smarty->assign("rs_pasien_inap", $this->m_rawat_jalan->get_px_rawat_inap(array($FS_MR['NOPASIEN'])));
 // notification
@@ -424,6 +439,29 @@ class rawat_jalan extends ApplicationBase {
         // else{
         //     $terapi2=$terapi2;
         // }
+        if($this->input->post('FS_CARA_PULANG')==2){
+                 $no_skdp = $this->m_rawat_jalan->get_no_skdp(array(date('m'),date('Y')));
+            if (is_null($no_skdp['NOSKDP'])) {
+                $no_skdp['NOSKDP'] = '0';
+            }
+            $SKDP = $no_skdp['NOSKDP'] + 1;
+            $skdp = array(
+                $this->input->post('FS_KD_REG'),
+                $this->input->post('FS_SKDP_1'),
+                $this->input->post('FS_SKDP_2'),
+                $this->input->post('FS_SKDP_KET'),
+                $this->input->post('FS_SKDP_KONTROL'),
+                $SKDP,
+                $this->com_user['user_name'],
+                date('Y-m-d'),
+                date('H:i:s'),
+                $this->input->post('FS_SKDP_FASKES'),                
+                $this->input->post('FS_PESAN'),              
+                $this->input->post('FS_RENCANA_KONTROL')             
+            ); 
+            $this->m_rawat_jalan->insert_tac_rj_skdp($skdp);
+        }
+   
 
               $jumlahkartakter2=strlen($terapi2);
             if($jumlahkartakter2>10){
@@ -481,6 +519,8 @@ class rawat_jalan extends ApplicationBase {
            
                 //insert pemeriksaan lab
                 $lab = $this->input->post('tujuan'); 
+                //   var_dump($lab);
+                // die;
                 if (!empty($lab)) {
                     foreach ($lab as $key => $value) {
                         $this->m_rawat_jalan->insert_pemeriksaan_lab(array($key, $value,$this->input->post('FS_KD_REG')));
@@ -516,25 +556,25 @@ class rawat_jalan extends ApplicationBase {
          $cekasesinapmedis = $this->m_rawat_jalan->get_cek_ases_inap_medis(array($this->input->post('FS_KD_REG')));
 
         // default redirect
-        if ($this->input->post('FS_CARA_PULANG') == '2') {
-            if ($cekskdp >= '1') {
-                redirect("medis/rawat_jalan/edit_skdp/" . $this->input->post('FS_KD_REG')); 
-            } elseif ($this->input->post('FS_CARA_PULANG') == '2' && $cekskdp == '0') {
-                redirect("medis/rawat_jalan/add_skdp/" . $this->input->post('FS_KD_REG'));
-            } else {
-                redirect("medis/rawat_jalan/cetak/" . $this->input->post('FS_KD_REG') . '/' . $FS_KD_TRS);
-            }
-       /*} elseif ($this->input->post('FS_CARA_PULANG') == '3') {
-             if ($cekasesinapmedis >= '1') {
-                redirect("medis/rawat_inap/edit_rj/" . $this->input->post('FS_KD_REG'));
-            } elseif ($this->input->post('FS_CARA_PULANG') == '3' && $cekasesinapmedis == '0') {
-                redirect("medis/rawat_inap/add_rj/" . $this->input->post('FS_KD_REG'));
-            } else {
-                redirect("medis/rawat_jalan/cetak/" . $this->input->post('FS_KD_REG') . '/' . $FS_KD_TRS);
-            }*/
-        } 
+    //     if ($this->input->post('FS_CARA_PULANG') == '2') {
+    //         if ($cekskdp >= '1') {
+    //             redirect("medis/rawat_jalan/edit_skdp/" . $this->input->post('FS_KD_REG')); 
+    //         } elseif ($this->input->post('FS_CARA_PULANG') == '2' && $cekskdp == '0') {
+    //             redirect("medis/rawat_jalan/add_skdp/" . $this->input->post('FS_KD_REG'));
+    //         } else {
+    //             redirect("medis/rawat_jalan/cetak/" . $this->input->post('FS_KD_REG') . '/' . $FS_KD_TRS);
+    //         }
+    //    /*} elseif ($this->input->post('FS_CARA_PULANG') == '3') {
+    //          if ($cekasesinapmedis >= '1') {
+    //             redirect("medis/rawat_inap/edit_rj/" . $this->input->post('FS_KD_REG'));
+    //         } elseif ($this->input->post('FS_CARA_PULANG') == '3' && $cekasesinapmedis == '0') {
+    //             redirect("medis/rawat_inap/add_rj/" . $this->input->post('FS_KD_REG'));
+    //         } else {
+    //             redirect("medis/rawat_jalan/cetak/" . $this->input->post('FS_KD_REG') . '/' . $FS_KD_TRS);
+    //         }*/
+    //     } 
  
-           elseif ($this->input->post('FS_CARA_PULANG') == '3') {
+           if ($this->input->post('FS_CARA_PULANG') == '3') {
              if ($cekasesinapmedis >= '1') { 
                 redirect("medis/rawat_inap/edit/" . $this->input->post('FS_KD_REG'));
             } elseif ($this->input->post('FS_CARA_PULANG') == '3' && $cekasesinapmedis == '0') {
@@ -584,18 +624,59 @@ class rawat_jalan extends ApplicationBase {
             }
       }
 
+      public function lihat_cppt($FS_KD_REG = "", $FS_KD_REG2 = "", $FS_REG_INAP = ""){
+        $this->_set_page_rule("C");
+
+        
+        $this->smarty->load_javascript('resource/js/tinymce/tinymce.min.js');
+        $this->smarty->load_javascript("resource/js/jquery/jquery-ui-1.9.2.custom.min.js");
+        $this->smarty->load_javascript('resource/js/jquery/select2.js');
+        $this->smarty->load_javascript('resource/js/jquery/jquery-ui-timepicker-addon.js');
+        // load style
+        $this->smarty->load_style("jquery.ui/select2/select2.css");
+        // load style ui
+        $this->smarty->load_style("jquery.ui/redmond/jquery-ui-1.8.13.custom.css");
+        
+        $this->smarty->assign("template_content", "medis/rawat_jalan/lihat_cppt.html"); 
+        $now = date('Y-m-d');
+        $FS_MR = $this->m_rawat_jalan->get_rm_px_by_rg(array($FS_KD_REG));
+
+                  $tgl_sekarang =strtotime(date('Y-m-d'));
+           $tgl_kemarin =date('Y-m-d', strtotime("-1 day", $tgl_sekarang));
+
+         $this->smarty->assign("tgl_kemarin", $tgl_kemarin);
+        $this->smarty->assign("resep_history",$this->m_rawat_jalan->get_data_terapi_by_rg(array($FS_KD_REG)));
+         $this->smarty->assign("rs_cppt", $this->m_cppt->get_cppt_by_rg($FS_KD_REG));
+        $this->smarty->assign("rs_resep", $this->m_cppt->get_resep());
+        $tgl=date('Y-m-d');
+
+        $this->smarty->assign("role_id", $this->com_user['role_id']);
+        $this->smarty->assign("tgl", $tgl);
+        $this->smarty->assign("rs_lab", $this->m_rawat_jalan->get_data_lab_by_rg(array($FS_KD_REG)));
+        $this->smarty->assign("FS_KD_REG2", $FS_KD_REG2);
+        $this->smarty->assign("FS_KD_REG", $FS_KD_REG);
+        $this->smarty->assign("result", $this->m_rawat_jalan->get_px_by_dokter_by_rg2(array($FS_KD_REG)));  
+
+        // notification
+        $this->tnotification->display_notification();
+        $this->tnotification->display_last_field();
+        // output
+        parent::display();
+      }
+
     public function edit($FS_KD_REG = "", $FS_KD_TRS = "") {
 // set page rules
         $this->_set_page_rule("R");
 // set template content
 
           $x = $this->com_user['user_name'];
-         if($x=='216'|| $x=='217' || $x=='211'  || $x=='203' || $x=='206'  || $x=='211' || $x=='207' || $x=='209' || $x=='215'|| $x=='213'|| $x=='202'  || $x=='219' || $x=='220' || $x=='221' || $x=='312' || $x=='222' || $x=='223' || $x=='208' ||  $x=='224' ||  $x=='225' || $x=='227'){
+          if($x=='216'|| $x=='217' || $x=='211' || $x=='215'  || $x=='203' || $x=='206'  || $x=='211' || $x=='207' || $x=='209' || $x=='213'|| $x=='202' || $x=='219' || $x=='220' || $x=='221' || $x=='312' || $x=='222' || $x=='223' || $x=='208' ||  $x=='224' ||  $x=='225' || $x=='226' || $x=='227' || $x=='229'){
             $this->smarty->assign("template_content", "medis/rawat_jalan/editx.html");
 
          }
          else{ 
-        $this->smarty->assign("template_content", "medis/rawat_jalan/edit.html"); }
+        $this->smarty->assign("template_content", "medis/rawat_jalan/edit.html"); 
+        }
 
           $this->smarty->assign("rs_dokter_sp", $this->m_cppt->get_dokter_sp(array($FS_KD_REG)));
 
@@ -616,11 +697,13 @@ class rawat_jalan extends ApplicationBase {
         $this->smarty->assign("result4", $this->m_rawat_jalan_nurse->get_px_by_dokter_by_rg2(array($FS_KD_REG)));
          $this->smarty->assign("username", $this->com_user['user_name']);
          $this->smarty->assign("icd", $this->m_igd->get_icd());  
-
+         $this->smarty->assign("rs_skdp_alasan", $this->m_rawat_jalan->get_tac_com_parameter_alasan());
+        $this->smarty->assign("rs_lab", $this->m_rawat_jalan->get_data_lab_by_rg(array($FS_KD_REG)));
+        $this->smarty->assign("skdp", $this->m_rawat_jalan->get_cek_skdp2(array($FS_KD_REG)));
         $this->smarty->assign("medis", $this->m_rawat_jalan->get_data_medis_by_rg2(array($FS_KD_REG, $FS_KD_TRS)));
         // $this->smarty->assign("rs_pasien", $this->m_rawat_jalan->get_px_resume2(array($FS_MR['NO_MR'])));
         $this->smarty->assign("cekradionya", $this->m_rawat_jalan->get_cek_radnya(array($FS_KD_REG)));
-
+        $this->smarty->assign("ases2", $this->m_rawat_jalan->get_data_ases2_by_rg(array($FS_KD_REG)));
         $tujuan = $this->m_rawat_jalan->list_pemeriksaan_lab_by_rg($FS_KD_REG);
         $tujuan_str = "";
         foreach ($tujuan as $key => $value) {
@@ -639,6 +722,88 @@ class rawat_jalan extends ApplicationBase {
         $this->tnotification->display_last_field();
 // output
         parent::display();
+    } 
+
+
+    public function edit_copy2($FS_KD_REG = "", $FS_KD_REG2 = ""){
+        $this->_set_page_rule("R");
+        $this->tnotification->sent_notification("error", "Rekam Medis Tidak Di inputkan Pada EMR");
+         redirect("medis/rawat_jalan/add/" . $FS_KD_REG . '/' . $FS_KD_REG2);
+
+    }
+
+
+    public function edit_copy($FS_KD_REG = "", $FS_KD_TRS = "", $FS_KD_REG2 = "") {
+// set page rules
+        $this->_set_page_rule("R");
+
+        // var_dump($FS_KD_REG2);
+        // die;
+            
+          $x = $this->com_user['user_name'];
+         if($x=='216'|| $x=='217' || $x=='211'  || $x=='203' || $x=='206'  || $x=='211' || $x=='207' || $x=='209' || $x=='215'|| $x=='213'|| $x=='202'  || $x=='219' || $x=='220' || $x=='221' || $x=='312' || $x=='222' || $x=='223' || $x=='208' ||  $x=='224' ||  $x=='225' || $x=='227'){
+            $this->smarty->assign("template_content", "medis/rawat_jalan/editx.html");
+
+         }
+         else{ 
+        $this->smarty->assign("template_content", "medis/rawat_jalan/edit_copy_dokter.html"); }
+
+          $this->smarty->assign("rs_dokter_sp", $this->m_cppt->get_dokter_sp(array($FS_KD_REG)));
+          $this->smarty->assign("FS_KD_REG2", $FS_KD_REG2);
+
+        $this->smarty->load_javascript('resource/js/tinymce/tinymce.min.js');
+        $this->smarty->load_javascript("resource/js/jquery/jquery-ui-1.9.2.custom.min.js");
+        $this->smarty->load_javascript('resource/js/jquery/select2.js');
+        $this->smarty->load_javascript('resource/js/jquery/jquery-ui-timepicker-addon.js');
+        // load style
+        $this->smarty->load_style("jquery.ui/select2/select2.css");
+        // load style ui
+        $this->smarty->load_style("jquery.ui/redmond/jquery-ui-1.8.13.custom.css");
+        $now = date('Y-m-d');
+        $FS_MR = $this->m_rawat_jalan->get_rm_px_by_rg(array($FS_KD_REG)); 
+        $this->smarty->assign("result", $this->m_rawat_jalan->get_px_by_dokter_by_rg2(array($FS_KD_REG)));
+
+                    $this->smarty->assign("result3", $this->m_rawat_jalan->get_data_medis_by_rg23(array($FS_KD_REG)));
+
+        $this->smarty->assign("result4", $this->m_rawat_jalan_nurse->get_px_by_dokter_by_rg2(array($FS_KD_REG)));
+         $this->smarty->assign("username", $this->com_user['user_name']);
+          $this->smarty->assign("ases", $this->m_rawat_jalan->get_data_ases2_by_rg(array($FS_KD_REG2)));
+         $this->smarty->assign("icd", $this->m_igd->get_icd());  
+         $this->smarty->assign("vs", $this->m_rawat_jalan->get_data_vs_by_rg(array($FS_KD_REG2)));
+         $this->smarty->assign("nyeri", $this->m_rawat_jalan->get_data_nyeri_by_rg(array($FS_KD_REG)));
+         $this->smarty->assign("nutrisi", $this->m_rawat_jalan->get_data_nutrisi_by_rg(array($FS_KD_REG2)));
+        $this->smarty->assign("alergi", $this->m_rawat_jalan->get_data_alergi_by_rg(array($FS_KD_REG2)));
+        $this->smarty->assign("rs_lab", $this->m_rawat_jalan->get_data_lab_by_rg(array($FS_KD_REG2)));
+        $this->smarty->assign("rs_lab_lalu", $this->m_rawat_jalan->get_data_lab_by_rg(array($FS_KD_REG)));
+        $this->smarty->assign("rs_skdp_alasan", $this->m_rawat_jalan->get_tac_com_parameter_alasan());
+        // $this->smarty->assign("medis_fisik", $this->m_rawat_jalan->get_data_medis_by_rg22(array($FS_KD_TRS, $FS_KD_REG2)));
+        $this->smarty->assign("medis", $this->m_rawat_jalan->get_data_medis_by_rg2(array($FS_KD_REG, $FS_KD_TRS)));
+        // $this->smarty->assign("rs_pasien", $this->m_rawat_jalan->get_px_resume2(array($FS_MR['NO_MR'])));
+        $this->smarty->assign("cekradionya", $this->m_rawat_jalan->get_cek_radnya(array($FS_KD_REG)));
+        $this->smarty->assign("ases2", $this->m_rawat_jalan->get_data_ases2_by_rg(array($FS_KD_REG2)));
+         $this->smarty->assign("skdp", $this->m_rawat_jalan->get_cek_skdp2(array($FS_KD_REG2)));
+        $tujuan = $this->m_rawat_jalan->list_pemeriksaan_lab_by_rg($FS_KD_REG);
+        
+        $tujuan_str = "";
+        foreach ($tujuan as $key => $value) {
+            $tujuan_str .= "'" . $value['id'] . "',";
+        }
+        $this->smarty->assign('rs_tujuan', $tujuan_str);
+
+        $tembusan = $this->m_rawat_jalan->list_pemeriksaan_rad_by_rg($FS_KD_REG);
+        $tembusan_str = "";
+        foreach ($tembusan as $key => $value) { 
+            $tembusan_str .= "'" . $value['NO_RINCI'] . "',";
+        }
+        $this->smarty->assign('rs_tembusan', $tembusan_str);
+// notification
+        $this->tnotification->display_notification();
+        $this->tnotification->display_last_field();
+// output
+        parent::display();
+        
+    
+
     } 
 
       public function resepmasuk() { 
@@ -864,6 +1029,8 @@ class rawat_jalan extends ApplicationBase {
         $this->tnotification->set_rules('FS_KD_LAYANAN', 'LAYANAN', 'trim|required');
         $this->tnotification->set_rules('FS_KD_PETUGAS_MEDIS', 'DOKTER', 'trim|required');
         $this->tnotification->set_rules('FS_KD_TRS', 'KODE TRANSAKSI', 'trim|required');
+
+        
         // process
 
            $terapi1=$this->input->post('FS_TERAPI');
@@ -938,6 +1105,47 @@ class rawat_jalan extends ApplicationBase {
                
                 $cekasesinapmedis = $this->m_rawat_jalan->get_cek_ases_inap_medis(array($this->input->post('FS_KD_REG')));
                
+                if($this->input->post('FS_CARA_PULANG')==2){
+                if($cekskdp >= '1'){
+                    $params_skdp = array(
+                        $this->input->post('FS_SKDP_1'),
+                        $this->input->post('FS_SKDP_2'),
+                        $this->input->post('FS_SKDP_KET'),
+                        $this->input->post('FS_SKDP_KONTROL'),
+                        $this->input->post('FS_KD_REG'),
+                        $this->input->post('FS_SKDP_FASKES'),
+                        $this->input->post('FS_PESAN'),
+                        $this->input->post('FS_RENCANA_KONTROL'),
+                        $this->input->post('FS_KD_REG'),
+
+                        
+                    );
+
+                    // insert
+                    //if ($this->m_rawat_jalan->update_medis($params_skdp)) {
+                    if ($this->m_rawat_jalan->update_tac_rj_skdp($params_skdp)) {
+
+                        $lab = $this->input->post('tujuan');
+                        $this->m_rawat_jalan->delete_pemeriksaan_lab_skdp($this->input->post('FS_KD_REG'));
+                        if (!empty($lab)) {
+                            foreach ($lab as $key => $value) {
+                                $this->m_rawat_jalan->insert_pemeriksaan_lab_skdp(array($key, $value,$this->input->post('FS_KD_REG')));
+                            }
+                        }
+                        $rad = $this->input->post('tembusan');
+                        $this->m_rawat_jalan->delete_pemeriksaan_rad_skdp($this->input->post('FS_KD_REG'));
+                        if (!empty($rad)) {
+                            foreach ($rad as $key => $value) {
+                                $this->m_rawat_jalan->insert_pemeriksaan_rad_skdp(array($key, $value, $this->input->post('FS_KD_REG')));
+                            }
+                        }
+                    }
+
+                }
+            }
+
+
+        
                 $params8 = array(
                     $this->input->post('FS_HIGH_RISK'),
                     $this->input->post('FS_MR')
@@ -945,6 +1153,8 @@ class rawat_jalan extends ApplicationBase {
                 $this->m_rawat_jalan->update_high_risk2($params8);
 
                 $lab = $this->input->post('tujuan');
+                // var_dump($lab);
+                // die;
                 $this->m_rawat_jalan->delete_pemeriksaan_lab($this->input->post('FS_KD_REG'));
                 if (!empty($lab)) {
                     foreach ($lab as $key => $value) {
@@ -976,18 +1186,18 @@ class rawat_jalan extends ApplicationBase {
  
 
                 // default redirect
-                if ($this->input->post('FS_CARA_PULANG') == '2') {
-                    if ($cekskdp >= '1') {
-                        redirect("medis/rawat_jalan/edit_skdp/" . $this->input->post('FS_KD_REG'));
-                    } elseif ($this->input->post('FS_CARA_PULANG') == '2' && $cekskdp == '0') {
-                        redirect("medis/rawat_jalan/add_skdp/" . $this->input->post('FS_KD_REG'));
-                    } else {
-                        redirect("medis/rawat_jalan/cetak/" . $this->input->post('FS_KD_REG') . '/' . $this->input->post('FS_KD_TRS'));
-                    }
-                }
+                // if ($this->input->post('FS_CARA_PULANG') == '2') {
+                //     if ($cekskdp >= '1') {
+                //         redirect("medis/rawat_jalan/edit_skdp/" . $this->input->post('FS_KD_REG'));
+                //     } elseif ($this->input->post('FS_CARA_PULANG') == '2' && $cekskdp == '0') {
+                //         redirect("medis/rawat_jalan/add_skdp/" . $this->input->post('FS_KD_REG'));
+                //     } else {
+                //         redirect("medis/rawat_jalan/cetak/" . $this->input->post('FS_KD_REG') . '/' . $this->input->post('FS_KD_TRS'));
+                //     }
+                // }
 
 
-                 elseif ($this->input->post('FS_CARA_PULANG') == '7') {
+                 if ($this->input->post('FS_CARA_PULANG') == '7') {
                      if ($cekprb >= '1') {
                         redirect("medis/rawat_jalan/edit_prb/" . $this->input->post('FS_KD_REG'));
                     } elseif ($this->input->post('FS_CARA_PULANG') == '7' && $cekprb == '0') {
@@ -1463,7 +1673,8 @@ class rawat_jalan extends ApplicationBase {
                 date('Y-m-d'),
                 date('H:i:s'),
                 $this->input->post('FS_SKDP_FASKES'),                
-                $this->input->post('FS_PESAN')                
+                $this->input->post('FS_PESAN'),             
+                $this->input->post('FS_RENCANA_KONTROL')                
             ); 
             // insert
             // if ($this->m_rawat_jalan->insert_medis($params)) {
@@ -1512,6 +1723,8 @@ class rawat_jalan extends ApplicationBase {
         $this->smarty->load_style("jquery.ui/redmond/jquery-ui-1.8.13.custom.css");
         $now = date('Y-m-d');
         $this->smarty->assign("result", $this->m_rawat_jalan->get_px_by_dokter_by_rg2(array($FS_KD_REG)));
+        $this->smarty->assign("skdp", $this->m_rawat_jalan->get_cek_skdp2(array($FS_KD_REG)));
+
         $this->smarty->assign("rs_skdp_alasan", $this->m_rawat_jalan->get_tac_com_parameter_alasan());
          
         $tujuan = $this->m_rawat_jalan->list_pemeriksaan_lab_by_rg_skdp($FS_KD_REG);
@@ -1549,6 +1762,7 @@ class rawat_jalan extends ApplicationBase {
                 $this->input->post('FS_KD_REG'),
                 $this->input->post('FS_SKDP_FASKES'),
                 $this->input->post('FS_PESAN'),
+                $this->input->post('FS_RENCANA_KONTROL'),
                 $this->input->post('FS_KD_REG'),
 
                 

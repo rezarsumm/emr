@@ -1,0 +1,40 @@
+membuat menu dengan nama cppt igd urutan ke 8 dengan url igd/cppt_new
+membuat menu dengan skrining TB urutan ke 9 dengan url igd/skrining_tb
+//belum dibuat
+
+
+<-- tgl 01-12-2023 SUDAH di buat di server -->
+cppt dokter sudah jalan select pasien belum dari pasien igd, cppt perawat igd sudah jalan tetapi select pasien belum dari igd
+- merubah isi table pengirim, penerima dan status tf menjadi 255
+- alter table TRANSFER_PASIEN alter column PENUNJANG text;
+<-- SUDAH di buat di server --->
+
+<-- minggu 3 desember mengambil pasien dari igd di cppt-->
+belum selesai sampai tambah data dan edit
+
+<-- 6 DESEMBER 2023 -->
+ALTER TABLE TAC_RI_CPPT ADD status_cppt varchar(50);
+<----sudah---->
+
+
+8 DESEMBER 2023
+  ALTER TABLE IGD_AWAL_BIDAN ADD RIWAYAT_PENYAKIT_DAHULU varchar(300);
+  ALTER TABLE IGD_AWAL_BIDAN ADD EYE varchar(50);
+  ALTER TABLE IGD_AWAL_BIDAN ADD MOTORIK varchar(50);
+  ALTER TABLE IGD_AWAL_BIDAN ADD VERBAL varchar(50);
+//sudah dibuat
+
+  10 desember 2023
+  create table skrining_tb
+  -id Int
+  - FS_KD_REG VARCHAR(50)
+  - TANGGAL_SKRINING date
+  - JAM_SKRINING time
+  - GEJALA_TB1 VARCHAR(50)
+  - GEJALA_TB2 VARCHAR(50)
+  - PENUNJANG, VARCHAR(255)
+  - KETERANGAN_PENUNJANG TEXT
+  - KESIMPULAN_TB VARCHAR(50)
+  - MDB VARCHAR(50)
+  - MDD datetime
+  //SUDAH dibuat

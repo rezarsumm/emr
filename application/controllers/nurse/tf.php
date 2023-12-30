@@ -437,6 +437,34 @@ class Tf extends ApplicationBase {
 
 
 
+    public function cetak_tf_pasien($id="", $FS_KD_REG=""){
+  
+        $this->_set_page_rule("R");
+        $this->load->library('html2pdf');
 
+        $now = date('Y-m-d');
+        $data['vs'] = $this->m_rawat_jalan->get_data_vs_by_rg(array($FS_KD_REG));
+    
+        $data['rs_pasien'] = $this->m_igd->cetak_tf_pasien(array($id));
+
+        // var_dump($data);
+        // die;
+  
+        ob_start();
+        $this->load->view('nurse/transfer_pasien/cetak_tf_pasien', $data);
+        $content = ob_get_contents();
+        ob_end_clean();
+
+        try {
+            $html2pdf = new HTML2PDF('P', 'A4', 'fr');
+            $html2pdf->pdf->SetDisplayMode('fullpage');
+            $html2pdf->setDefaultFont('Arial');
+            $html2pdf->writeHTML($content, isset($_GET['vuehtml']));
+            $html2pdf->Output($FS_KD_REG . '.pdf');
+        } catch (HTML2PDF_exception $e) {
+            echo $e;
+            exit;
+        }
+    }
 
 }

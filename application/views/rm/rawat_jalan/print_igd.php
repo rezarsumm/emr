@@ -586,11 +586,11 @@
                     if ($nyeri["FS_NYERIP"] == "0") {
                         echo "Tidak Ada";
                     } elseif ($nyeri["FS_NYERIP"] == "1") {
-                        echo "Biologik";
+                        echo "Aktivitas";
                     } elseif ($nyeri["FS_NYERIP"] == "2") {
-                        echo "Kimiawi";
+                        echo "Spontan";
                     } elseif ($nyeri["FS_NYERIP"] == "3") {
-                        echo "Mekanik / Rudapaksa";
+                        echo "Stres";
                     } else {
                         echo "-";
                     }
@@ -1588,11 +1588,11 @@
                 if ($nyeri["FS_NYERIP"] == "0") {
                     echo "Tidak Ada";
                 } elseif ($nyeri["FS_NYERIP"] == "1") {
-                    echo "Biologik";
+                    echo "Aktivitas";
                 } elseif ($nyeri["FS_NYERIP"] == "2") {
-                    echo "Kimiawi";
+                    echo "Spontan";
                 } elseif ($nyeri["FS_NYERIP"] == "3") {
-                    echo "Mekanik / Rudapaksa";
+                    echo "Stres";
                 } else {
                     echo "-";
                 }

@@ -117,23 +117,23 @@
         var sc = parseInt($("#an1").text()) + parseInt($("#an2").text()) + parseInt($("#an3").text()) +  parseInt($("#an5").text()) + parseInt($("#an6").text()) + parseInt($("#an7").text());
         $("#totalsc").html(sc);
         if (sc <7) {
-            $("#rjtkesimpulan").val("RISIKO RENDAH");
+            $("#rjtkesimpulan").val("RESIKO RENDAH");
         }
         else if (sc >= 7 && sc <= 11) {
-            $("#rjtkesimpulan").val("RISIKO SEDANG");
+            $("#rjtkesimpulan").val("RESIKO SEDANG");
         } else if (sc >= 12) {
-            $("#rjtkesimpulan").val("RISIKO TINGGI");
+            $("#rjtkesimpulan").val("RESIKO TINGGI");
         }
     }
     function scored() {
         var scd = parseInt($("#an8").text()) + parseInt($("#an9").text()) + parseInt($("#an10").text()) + parseInt($("#an11").text()) + parseInt($("#an12").text()) + parseInt($("#an13").text());
         $("#totalscd").html(scd);
         if (scd >= 0 && scd <= 24) {
-            $("#rjtkesimpuland").val("RISIKO RENDAH");
+            $("#rjtkesimpuland").val("RESIKO RENDAH");
         } else if (scd >= 25 && scd <= 45) {
-            $("#rjtkesimpuland").val("RISIKO SEDANG");
+            $("#rjtkesimpuland").val("RESIKO SEDANG");
         } else if (scd > 45) {
-            $("#rjtkesimpuland").val("RISIKO TINGGI");
+            $("#rjtkesimpuland").val("RESIKO TINGGI");
         }
     }
 
@@ -142,9 +142,9 @@
         var scd = parseInt($("#an14").text()) + parseInt($("#an15").text()) + parseInt($("#an16").text()) + parseInt($("#an17").text()) + parseInt($("#an18").text()) + parseInt($("#an19").text());
         $("#totalsct").html(scd);
         if (scd >= 0 && scd <= 4) {
-            $("#rjtkesimpulant").val("RISIKO RENDAH");
+            $("#rjtkesimpulant").val("RESIKO RENDAH");
         }  else if (scd > 5) {
-            $("#rjtkesimpulant").val("RISIKO TINGGI");
+            $("#rjtkesimpulant").val("RESIKO TINGGI");
         }
     }
     
@@ -389,10 +389,10 @@
                 <td>Provokatif</td>
                 <td>
                     <select name="FS_NYERIP" id="surat_dari" class="select2" style="width: 190px;">
-                        <option value="0">Tidak Ada Nyeri</option>
-                        <option value="2">Biologik</option>
-                        <option value="3">Kimiawi</option>
-                        <option value="4">Mekanik / Rudapaksa</option>
+                        <option value="0">Tidak Ada</option>
+                        <option value="1">Aktivitas</option>
+                        <option value="2">Spontan</option>
+                        <option value="3">Stres</option>
                     </select>
                 </td>
                 <td>Quality</td>

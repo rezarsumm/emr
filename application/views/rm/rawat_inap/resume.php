@@ -326,15 +326,18 @@
                     ICD 10 <?= $rs_resume['FS_DIAG_UTAMA_ICD']; ?>
                 </td>
             </tr>
-
+<?php if ($rs_diag==null){
+    ?>
             <tr>
-                <td style="border-left:solid 1px #000000;border-right:solid 1px #000000;border-bottom:solid 1px #000000;">Diagnosis Sekunder</td>
-                <td style="border-bottom:solid 1px #000000;"></td>
-                <td style="border-right:solid 1px #000000;border-bottom:solid 1px #000000;"></td>
-            </tr>
-            <?php foreach ($rs_diag as $diag) { ?>
+            <td style="border-left:solid 1px #000000;border-right:solid 1px #000000;border-bottom:solid 1px #000000;">Diagnosis Sekunder</td>
+            <td style="border-bottom:solid 1px #000000;"></td>
+            <td style="border-right:solid 1px #000000;border-bottom:solid 1px #000000;"></td>
+        </tr>
+<?php } 
+else { ?>
+    <?php foreach ($rs_diag as $diag) { ?>
                 <tr>
-                    <td style="border-left:solid 1px #000000;border-bottom:solid 1px #000000;border-right:solid 1px #000000;"></td>
+                    <td style="border-left:solid 1px #000000;border-bottom:solid 1px #000000;border-right:solid 1px #000000;">Diagnosis Sekunder</td>
                     <td style="border-bottom:solid 1px #000000;">
                         <?= $diag['FS_NM_DIAG_SEK']; ?>
                     </td>
@@ -343,14 +346,20 @@
                     </td>
                 </tr>
             <?php } ?>
+<?php } ?>
+
+<?php if ($rs_tind==null){
+    ?>
             <tr>
                 <td style="border-left:solid 1px #000000;border-right:solid 1px #000000;border-bottom:solid 1px #000000;">Tindakan / Prosedur</td>
                 <td style="border-bottom:solid 1px #000000;"></td>
                 <td style="border-right:solid 1px #000000;border-bottom:solid 1px #000000;"></td>
             </tr>
+        <?php }
+        else {?>
             <?php foreach ($rs_tind as $tind) { ?>
                 <tr>
-                    <td style="border-left:solid 1px #000000;border-bottom:solid 1px #000000;border-right:solid 1px #000000;"></td>
+                    <td style="border-left:solid 1px #000000;border-bottom:solid 1px #000000;border-right:solid 1px #000000;">Tindakan / Prosedur</td>
                     <td style="border-bottom:solid 1px #000000;">
                         <?= $tind['FS_NM_TIND']; ?>
                     </td>
@@ -359,6 +368,8 @@
                     </td>
                 </tr>
             <?php } ?>
+        <?php } ?>
+
             <tr>
                 <td style="border-top:solid 1px #000000;border-left:solid 1px #000000;border-bottom:solid 1px #000000;border-top:solid 1px #000000;"><b>Keadaan Pasien Saat pulang</b></td>
                 <td style="border-bottom:solid 1px #000000;border-top:solid 1px #000000;"></td>

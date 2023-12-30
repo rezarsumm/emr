@@ -99,7 +99,7 @@
           
         </tr>
         <tr>  <td>No. RM </td>
-                <td> : <?= $rs_pasien['NO_MR']; ?></td> </tr>
+                <td> : <?= $rs_pasien['No_MR']; ?></td> </tr>
         <tr>
             <td>Tanggal Lahir </td>
              <td> : <?= date('d-m-Y',  strtotime($rs_pasien['TGL_LAHIR'])); ?></td></tr>

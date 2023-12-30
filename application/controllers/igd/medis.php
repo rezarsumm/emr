@@ -297,6 +297,9 @@ class Medis extends ApplicationBase {
         // cek input
         $this->tnotification->set_rules('FS_KD_REG', 'NAMA PASIEN', 'trim|required');
         // process
+        // $cek_status=$this->m_igd->cek_status_igd(array($this->input->post('FS_KD_REG')));
+        // var_dump($cek_status);
+        // die;
   
       
 
@@ -394,7 +397,8 @@ class Medis extends ApplicationBase {
                     $this->input->post('KONSUL3'),
                     $this->input->post('KD_DOKTER_KONSUL3'),
                     $this->input->post('REKOMENDASI_RUJUK'),
-                    $this->input->post('REKOMENDASI_POLI')
+                    $this->input->post('REKOMENDASI_POLI'),
+                    $this->input->post('EKG')
                     
                 );
                 $this->m_igd->INSERT_AWAL_MEDIS($params2);
@@ -610,7 +614,21 @@ class Medis extends ApplicationBase {
               
                 $this->tnotification->delete_last_field();
 
+            $cek_status=$this->m_igd->cek_status_igd(array($this->input->post('FS_KD_REG'))); //cek status pasien
+
+            if($cek_status >= 1) {
                 $this->m_igd->update_level_medis(array('2', $this->input->post('FS_KD_REG')));
+            } else{
+                    $params_status = array(
+                    $this->input->post('FS_KD_REG'),
+                    '2', //STATUS IGD JIKA 1 PERAWAT SUDAH INPUT
+                    $this->com_user['user_id'],
+                    date('Y-m-d H:i:s')
+                );
+                $this->m_igd->insert_status_igd($params_status);
+            }
+
+              
 
                 // $cek_status=$this->m_igd->cek_status_igd(array($this->input->post('FS_KD_REG'))); //cek status pasien
                 // $this->m_igd->delete_status_igd($this->input->post('FS_KD_REG'));
@@ -809,7 +827,7 @@ class Medis extends ApplicationBase {
 
  
 
-             $params2 = array(
+            $params2 = array(
                 $this->input->post('FS_KD_REG'),
                 $this->input->post('KENDARAAN'),
                 $this->input->post('RUJUKAN'), 
@@ -858,15 +876,18 @@ class Medis extends ApplicationBase {
                 $this->input->post('KONDISI_AKHIR'),
                 $this->input->post('JAM_SELESAI'), 
                 $this->com_user['user_name'],
-                date('Y-m-d H:i:s'), 
+                date('Y-m-d H:i:s'),
                 $this->input->post('KONSUL2'),
                 $this->input->post('KD_DOKTER_KONSUL2'),
                 $this->input->post('KONSUL3'),
                 $this->input->post('KD_DOKTER_KONSUL3'),
                 $this->input->post('REKOMENDASI_RUJUK'),
-                $this->input->post('REKOMENDASI_POLI')
+                $this->input->post('REKOMENDASI_POLI'),
+                $this->input->post('EKG')
                 
             );
+            // var_dump($params2);
+            // die;
             $this->m_igd->DELETE_AWAL_MEDIS($this->input->post('id'));
             
             $this->m_igd->INSERT_AWAL_MEDIS($params2);
@@ -1077,11 +1098,29 @@ class Medis extends ApplicationBase {
              
               
                 $this->tnotification->delete_last_field();
-                $this->tnotification->sent_notification("success", "Detail berhasil disimpan");
+               
             
-        
+         $cek_status_rujuk=$this->m_igd->cek_status_rujukan(array($this->input->post('FS_KD_REG')));
+        //  var_dump($cek_status_rujuk);
+        //  die;
+         if ($cek_status_rujuk >= 1){
+            $this->tnotification->sent_notification("success", "Detail berhasil disimpan");
+            redirect("igd/medis");
+         }
+         else {
         // default redirect
-        redirect("igd/medis");
+              // default redirect
+            if ($this->input->post('D_PLANNING') == 'Rujuk Internal') {
+                $this->tnotification->sent_notification("success", "Asasmen Medis Berhasil Disimpan!");
+                redirect("igd/medis/add_rujuk_internal_igd/" . $this->input->post('FS_KD_REG'));     
+            }
+            else {
+                $this->tnotification->sent_notification("success", "Detail berhasil disimpan");
+                redirect("igd/medis");
+            }  
+         }
+
+
     }
 
 

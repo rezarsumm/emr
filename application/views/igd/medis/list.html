@@ -80,13 +80,10 @@
                         <img src="{$BASEURL}resource/doc/images/icon/icon.waiting.dokter.png" alt="" />
                        Dokter
                         {elseif $data.STATUS_IGD eq '2'}
-                         {if $data.FS_TERAPI eq '' OR $data.FS_TERAPI eq '<p>-</p>'}
+                      
                          <img src="{$BASEURL}resource/doc/images/icon/icon.approve.png" alt="" />
                          Selesai
-                         {else}
-                         <img src="{$BASEURL}resource/doc/images/icon/icon.waiting.farmasi.png" alt="" />
-                         Farmasi
-                        {/if}
+                  
                          
                         {/if}
                     </td> 

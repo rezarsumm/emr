@@ -1,0 +1,187 @@
+{include file="igd/cppt_igd/add_script_js.html"}
+
+<div class="breadcrum">
+  <p>
+    <a href="#">Catatan Rawat Inap</a><span></span>
+    <a href="{$config->site_url('igd/cppt_new/')}">CPPT</a><span></span>
+    <small>Hapus Data</small>
+  </p>
+  <div class="clear"></div>
+</div>
+<div class="content-entry">
+  <!-- notification template -->
+  {include file="base/templates/notification.html"}
+  <!-- end of notification template-->
+  <form
+    action="{$config->site_url('igd/cppt_new/delete_process')}"
+    method="post"
+    onkeypress="return event.keyCode != 13"
+  >
+    <input
+      name="FS_KD_REG"
+      id="FS_KD_REG"
+      type="hidden"
+      value="{$rs_pasien.NO_REG}"
+    />
+    <input name="FS_MR" type="hidden" value="{$rs_pasien.NO_MR}" />
+    <input
+      name="FS_KD_LAYANAN"
+      type="hidden"
+      value="{$rs_pasien.KODE_BANGSAL}"
+    />
+    <input
+      name="FS_KD_PETUGAS_MEDIS"
+      type="hidden"
+      value="{$rs_pasien.fs_kd_medis}"
+    />
+    <input name="FS_KD_TRS" type="hidden" value="{$rs_cppt.FS_KD_TRS}" />
+    <input name="FS_KD_KP" type="hidden" value="{$rs_cppt.FS_KD_KP}" />
+    <input name="FS_LAB" type="hidden" value="{$rs_cppt.FS_LAB}" />
+    <input name="FS_RAD" type="hidden" value="{$rs_cppt.FS_RAD}" />
+
+    <table class="table-info" width="100%">
+      <tr class="headrow">
+        <th colspan="2">Edit CPPT</th>
+      </tr>
+      <tr>
+        <td>NAMA</td>
+        <td>{$rs_pasien.NAMA_PASIEN}</td>
+      </tr>
+      <tr>
+        <td>NO MR</td>
+        <td>{$rs_pasien.NO_MR}</td>
+      </tr>
+      <tr>
+        <td>TANGGAL LAHIR</td>
+        <td>{$rs_pasien.TGL_LAHIR|date_format:"%d %b %Y"}</td>
+      </tr>
+      <tr>
+        <td>ALAMAT</td>
+        <td>{$rs_pasien.ALAMAT}</td>
+      </tr>
+      <tr>
+        <td>UMUR</td>
+        <td>{$rs_pasien.fn_umur} tahun</td>
+      </tr>
+    </table>
+
+    <!-- <div class="notification red">
+            <p><strong>High Risk :</strong> {$rs_pasien.FS_HIGH_RISK|default:'-'} </p>
+            <p><strong>Alergi :</strong> {$rs_pasien.FS_ALERGI|default:'-'} ({$rs_pasien.FS_REAK_ALERGI|default:'-'})</p>
+            <div class="clear"></div>
+        </div> -->
+    <table class="table-input" width="100%" style="text-align: justify">
+      <tr>
+        <th colspan="4">
+          <center style="color: red">
+            Anda Yakin Ingin menghapus CPPT ini ?
+          </center>
+        </th>
+      </tr>
+      <tr>
+        <td width="13%">S / A / S</td>
+        <td width="87%">
+          <textarea
+            name="FS_CPPT_S"
+            rows="1"
+            cols="100%"
+            onkeypress="handle5(event)"
+            class="form-control anamnesa"
+          >
+ {$rs_cppt.FS_CPPT_S}</textarea
+          >
+        </td>
+      </tr>
+      <tr>
+        <td>O / D / B</td>
+        <td>
+          <textarea
+            name="FS_CPPT_O"
+            rows="1"
+            cols="100%"
+            onkeypress="handle5(event)"
+            class="form-control anamnesa"
+          >
+ {$rs_cppt.FS_CPPT_O}</textarea
+          >
+        </td>
+      </tr>
+      <tr>
+        <td>A / I / A</td>
+        <td>
+          <textarea
+            name="FS_CPPT_A"
+            rows="1"
+            cols="100%"
+            onkeypress="handle7(event)"
+            class="form-control analisis"
+          >
+{$rs_cppt.FS_CPPT_A}</textarea
+          >
+        </td>
+      </tr>
+      <tr>
+        <td>P / ME / R</td>
+        <td>
+          <textarea
+            name="FS_CPPT_P"
+            rows="1"
+            cols="100%"
+            onkeypress="handle8(event)"
+            class="form-control plan"
+          >
+{$rs_cppt.FS_CPPT_P}</textarea
+          >
+        </td>
+      </tr>
+      <tr>
+        <td>Diagnosa Utama</td>
+        <td>
+          <input
+            type="text"
+            name="FS_DIAG_UTAMA"
+            size="70"
+            value="{$rs_resume.FS_DIAG_UTAMA}"
+          />
+        </td>
+      </tr>
+
+      <tr>
+        <td>Diagnosa Sekunder</td>
+        <td>
+          <input
+            type="text"
+            name="FS_DIAG_SEK"
+            size="70"
+            value="{$rs_resume.FS_DIAG_SEK}"
+          />
+        </td>
+      </tr>
+
+      <tr>
+        <td colspan="2">
+          <textarea
+            rows="18"
+            class="form-control resep"
+            cols="100"
+            name="FS_TERAPI"
+          >
+ 
+                            {$rs_cppt.FS_CPPT_TERAPI}
+                        </textarea
+          >
+        </td>
+      </tr>
+      <tr class="submit-box">
+        <td colspan="2">
+          <div style="font-weight: bold">
+            *Bismillahirohmanirrohim, saya dengan sadar dan penuh tanggung jawab
+            menghapus formulir ini dengan alasan yang benar
+          </div>
+          <br />
+          <input type="submit" name="save" value="Hapus" class="edit-button" />
+        </td>
+      </tr>
+    </table>
+  </form>
+</div>

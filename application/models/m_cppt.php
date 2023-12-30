@@ -1665,8 +1665,8 @@ class m_cppt extends CI_Model {
     //     return $this->db->query($sql, $params);
     // }
     function insertt($params) {
-        $sql = "INSERT INTO PKU.dbo.TAC_RI_CPPT(FS_KD_REG, FS_CPPT_S, FS_CPPT_O, FS_CPPT_A, FS_CPPT_P, FS_CPPT_TERAPI, FS_KD_KP, mdb, mdd_date, mdd_time, FS_LAB, FS_RAD, TGL_TUJUAN_LAB, jenis_cppt)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO PKU.dbo.TAC_RI_CPPT(FS_KD_REG, FS_CPPT_S, FS_CPPT_O, FS_CPPT_A, FS_CPPT_P, FS_CPPT_TERAPI, FS_KD_KP, mdb, mdd_date, mdd_time, FS_LAB, FS_RAD, TGL_TUJUAN_LAB, jenis_cppt, status_cppt)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
        
        return $this->db->query($sql, $params);
     }
@@ -2207,7 +2207,21 @@ function get_resep_by_trs2($params) {
             return array();
         }
     }
-    
+
+    function get_status_ruangan($params) {
+        $date = date('Y-m-d');
+
+        $sql = "SELECT * FROM M_BANGSAL
+        WHERE Kode_Bangsal=?";
+        $query = $this->db->query($sql, $params);
+        if ($query->num_rows() > 0) {
+            $result = $query->row_array();
+            $query->free_result();
+            return $result;
+        } else {
+            return 0;
+        }
+    }
 
 
 
@@ -2311,6 +2325,20 @@ function get_resep_by_trs2($params) {
         $sql = "SELECT A.NO_REG,A.NO_MR,A.TGL_MULAI,B.NAMA_PASIEN,A.KODE_RUANG, B.JENIS_KELAMIN,B.ALAMAT,D.KODE_BANGSAL,C.NAMA_RUANG,D.NAMA_BANGSAL,E.KODEREKANAN,F.NAMAREKANAN ,B.TGL_LAHIR,datediff(year,B.TGL_LAHIR,GETDATE()) 'fn_umur'
         FROM TR_KAMAR A, REGISTER_PASIEN B, M_RUANG C, M_BANGSAL D, PENDAFTARAN E, REKANAN F 
         WHERE  A.NO_MR=B.NO_MR AND A.NO_REG=E.NO_REG AND E.KODEREKANAN=F.KODEREKANAN AND A.KODE_RUANG=C.KODE_RUANG AND C.KODE_BANGSAL=D.KODE_BANGSAL AND A.NO_REG = ?  ORDER BY D.KODE_BANGSAL,A.TGL_MULAI";
+        $query = $this->db->query($sql, $params);
+        if ($query->num_rows() > 0) {
+            $result = $query->row_array();
+            $query->free_result();
+            return $result;
+        } else {
+            return 0;
+        }
+    }
+
+    function get_pasien_by_rg_verif_ugd($params) {
+        $sql = "SELECT B.NAMA_PASIEN, B.JENIS_KELAMIN,B.ALAMAT,E.KODEREKANAN,F.NAMAREKANAN ,B.TGL_LAHIR,datediff(year,B.TGL_LAHIR,GETDATE()) 'fn_umur'
+        FROM  REGISTER_PASIEN B, PENDAFTARAN E, REKANAN F 
+        WHERE  E.KODEREKANAN=F.KODEREKANAN AND A.NO_REG = ?  ORDER BY A.TGL_MULAI";
         $query = $this->db->query($sql, $params);
         if ($query->num_rows() > 0) {
             $result = $query->row_array();

@@ -1,0 +1,231 @@
+<!-- include javascript -->
+{include file="medis/rawat_jalan/add_script_js.html"}
+<!-- end of include javascript-->
+
+<div class="breadcrum">
+  <p>
+    <a href="#">Pemeriksaan Dokter</a><span></span> <a href="#">History CPPT</a>
+  </p>
+  <div class="clear"></div>
+</div>
+<div class="navigation">
+  <div class="navigation-button">
+    <ul>
+      <li>
+        <a
+          href="{$config->site_url('medis/rawat_jalan/add/'|cat:$FS_KD_REG2)|cat:'/'|cat:$FS_KD_REG2}"
+          ><img src="{$BASEURL}resource/doc/images/icon/back-icon.png" alt="" />
+          Back</a
+        >
+      </li>
+    </ul>
+  </div>
+  <div class="clear"></div>
+</div>
+<!-- notification template -->
+{include file="base/templates/notification.html"}
+<!-- end of notification template-->
+
+<table class="table-info" width="100%">
+  <tr class="headrow">
+    <th colspan="4">Data Pasien</th>
+  </tr>
+  <tr>
+    <td width="15%">Kode Reg</td>
+    <td width="35%">{$result.NO_REG}</td>
+    <td width="15%">No RM</td>
+    <td width="35%">{$result.NO_MR}</td>
+  </tr>
+  <tr>
+    <td>Nama</td>
+    <td>{$result.NAMA_PASIEN|default:''}</td>
+    <td>Alamat</td>
+    <td>{$result.ALAMAT|default:''}</td>
+  </tr>
+  <tr>
+    <td>Tanggal Lahir</td>
+    <td>{$result.TGL_LAHIR|default:''}</td>
+    <td>Jenis Kelamin</td>
+    <td>{if $result.JENIS_KELAMIN eq 'P'} Perempuan {else} Laki-Laki {/if}</td>
+  </tr>
+  <tr>
+    <td>Rekanan</td>
+    <td>{$result.NAMAREKANAN|default:''}</td>
+    <td>Dokter</td>
+    <td>{$result.NAMA_DOKTER|default:''}</td>
+  </tr>
+</table>
+
+<a
+  href="javascript:void(0);"
+  onclick="LabFunction()"
+  id="tampil"
+  alt=""
+  class="btn-blue2"
+  >Lihat Hasil Lab</a
+>
+<a
+  href="javascript:void(0);"
+  onclick="TerapiFunction()"
+  id="tampil"
+  alt=""
+  class="btn-green2"
+  >Lihat Resep/Terapi</a
+><br />
+<table class="table-view" width="100%" id="form_lab">
+  <tr class="headrow">
+    <th colspan="2">HASIL LABORATORIUM SELAMA RAWAT INAP</th>
+    <!-- <a id="tampil">Tampilkan</a> -->
+  </tr>
+  <tr>
+    <td width="10%">Jenis Pemeriksaan</td>
+    <td width="35%">Hasil Pemeriksaan</td>
+  </tr>
+
+  {foreach from=$rs_lab item=data}
+
+  <tr>
+    <!-- <td width='5%'>{$no}</td> -->
+    <td width="10%">{$data.Pemeriksaan}</td>
+    <td width="35%">{$data.Hasil}</td>
+  </tr>
+
+  {/foreach}
+</table>
+
+<table class="table-view" width="100%" id="form_terapi">
+  <tr class="headrow">
+    <th colspan="6">TERAPI/RESEP SELAMA RAWAT INAP</th>
+    <!-- <a id="tampil">Tampilkan</a> -->
+  </tr>
+  <tr>
+    <td width="35%">Nama Obat</td>
+    <td width="10%">Jumlah</td>
+    <td width="35%">Cara Pemakaian</td>
+  </tr>
+
+  {foreach from=$resep_history item=history_resep}
+
+  <tr>
+    <!-- <td width='5%'>{$no}</td> -->
+    <td width="35%">{$history_resep.NAMA_OBAT}</td>
+    <td width="10%">
+      {$history_resep.JML_OBAT|number_format:2:".":","} {$history_resep.SATUAN}
+    </td>
+    <td width="35%">{$history_resep.Dosis}</td>
+  </tr>
+
+  {/foreach}
+</table>
+
+<table class="table-view" width="100%">
+  <tr class="headrow">
+    <th colspan="6">
+      List CPPT Kunjungan {date('d-m-Y', strtotime($result.TANGGAL))}
+    </th>
+  </tr>
+  <tr>
+    <th width="7%">Tanggal</th>
+    <th>SOAP/ADIME/SBAR</th>
+    <th width="15%">PPA</th>
+
+    <!--<th width="10%">Aksi</th>-->
+  </tr>
+  {foreach $rs_cppt as $cppt}
+  <tr {if ($cppt.TGL % 2) <>
+    1 && $cppt.role_id == '5' || $cppt.role_id == '9'}
+    style="background-color:#ffe6ff;color:red;" {elseif ($cppt.TGL % 2) <> 1 &&
+    $cppt.role_id == '11'} style="background-color:#ffe6ff;color:green;" {elseif
+    ($cppt.TGL % 2) <> 1 && $cppt.role_id == '12'}
+    style="background-color:#ffe6ff;color:blue;" {/if} {if $cppt.role_id == '5'
+    || $cppt.role_id == '9'} style="color:red;" {elseif $cppt.role_id == '11'}
+    style="color:green;" {elseif $cppt.role_id == '12'} style="color:blue;"
+    {/if} >
+    <td>
+      {$cppt.mdd_date}/{$cppt.mdd_time} {if $cppt.mdd_date >= $tgl_kemarin ||
+      $com_user.role_nm eq 'Admin E-MR'} {if $x eq $cppt.mdb}
+
+      <br /><br />
+      <a
+        href="{$config->site_url('inap/cppt/edit/'|cat:$cppt.FS_KD_TRS|cat:'/'|cat:$cppt.FS_KD_REG|cat:'/'|cat:$data.FS_KD_TRS_KP)}"
+        class="button-edit"
+      >
+        Edit</a
+      ><br /><br />
+
+      <a
+        href="{$config->site_url('inap/cppt/delete/'|cat:$cppt.FS_KD_TRS|cat:'/'|cat:$cppt.FS_KD_REG|cat:'/'|cat:$data.FS_KD_TRS_KP)}"
+        class="button-hapus"
+      >
+        Hapus</a
+      ><br />
+      {/if} {/if}
+    </td>
+    <td>
+      {if $cppt.jenis_cppt eq 'soap' || $cppt.jenis_cppt eq 'sbar'} S {elseif
+      $cppt.jenis_cppt eq 'adime'} A {else} S / A / S {/if} :
+      {$cppt.FS_CPPT_S|strip_tags}<br />
+
+      {if $cppt.jenis_cppt eq 'soap'} O {elseif $cppt.jenis_cppt eq 'sbar'} B
+      {elseif $cppt.jenis_cppt eq 'adime'} D {else} O / D / B {/if} :
+      {$cppt.FS_CPPT_O|strip_tags}<br />
+
+      {if $cppt.jenis_cppt eq 'soap'} A {elseif $cppt.jenis_cppt eq 'sbar'} A
+      {elseif $cppt.jenis_cppt eq 'adime'} I {else} A / I / A {/if} :
+      {$cppt.FS_CPPT_A|strip_tags}<br />
+
+      {if $cppt.jenis_cppt eq 'soap'} P {elseif $cppt.jenis_cppt eq 'sbar'} R
+      {elseif $cppt.jenis_cppt eq 'adime'} ME {else} P / ME / R {/if} :
+      {$cppt.FS_CPPT_P}<br />
+      Resep : <br />
+      <!-- {assign var=rs_resep2 value=$m_cppt->get_resep_by_trs(array($cppt.FS_KD_KP))} -->
+      {$cppt['FS_CPPT_TERAPI']} {if $cppt.FS_LAB neq ''}
+      <a
+        href="javascript:void(0);"
+        onclick="window.open('{$config->site_url('lab/lab_inap/cetak_plab/'|cat:$cppt.FS_KD_TRS)}', 'nama_window_pop_up', 'scrollbars=yes,resizeable=no')"
+        class="button-edit"
+        >Permintaan Lab
+      </a>
+      {/if} {if $cppt.FS_RAD neq ''}
+      <a
+        href="javascript:void(0);"
+        onclick="window.open('{$config->site_url('rad/rad_inap/cetak_prad/'|cat:$cppt.FS_KD_TRS)}', 'nama_window_pop_up', 'scrollbars=yes,resizeable=no')"
+        class="button-edit"
+        >Permintaan Radiologi
+      </a>
+      {/if}
+      <hr />
+    </td>
+    <td>{$cppt.NAMALENGKAP}</td>
+
+    <!-- <td>
+                 <a href="{$config->site_url('inap/cppt/edit/'|cat:$cppt.FS_KD_REG|cat:'/'|cat:$cppt.FS_KD_TRS)}" class="button-edit">Edit</a>  
+                 <a href="{$config->site_url('inap/cppt/delete_process/'|cat:$cppt.FS_KD_REG|cat:'/'|cat:$cppt.FS_KD_TRS)}" onclick="return confirm('Apakah Anda Yakin Akan Menghapus?');" class="button-hapus">Hapus</a>  
+                 </td>-->
+  </tr>
+  {/foreach}
+</table>
+
+<script>
+  $("#form_lab").hide();
+  function LabFunction() {
+    var x = document.getElementById("form_lab");
+
+    if (x.style.display === "none") {
+      x.style.display = "block";
+    } else {
+      x.style.display = "none";
+    }
+  }
+
+  $("#form_terapi").hide();
+  function TerapiFunction() {
+    var x = document.getElementById("form_terapi");
+
+    if (x.style.display === "none") {
+      x.style.display = "block";
+    } else {
+      x.style.display = "none";
+    }
+  }
+</script>

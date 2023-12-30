@@ -292,8 +292,8 @@ class m_rawat_jalan extends CI_Model {
     }
 
     function insert_tac_rj_skdp($params) {
-        $sql = "INSERT INTO PKU.dbo.TAC_RJ_SKDP(FS_KD_REG, FS_SKDP_1, FS_SKDP_2,FS_SKDP_KET,FS_SKDP_KONTROL,FS_NO_SKDP, mdb, mdd, mdd_time, FS_SKDP_FASKES, FS_PESAN)
-        VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+        $sql = "INSERT INTO PKU.dbo.TAC_RJ_SKDP(FS_KD_REG, FS_SKDP_1, FS_SKDP_2,FS_SKDP_KET,FS_SKDP_KONTROL,FS_NO_SKDP, mdb, mdd, mdd_time, FS_SKDP_FASKES, FS_PESAN, FS_RENCANA_KONTROL)
+        VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
         return $this->db->query($sql, $params);
     }
 
@@ -533,7 +533,7 @@ class m_rawat_jalan extends CI_Model {
     // }
 
     function update_tac_rj_skdp($params) {
-        $sql = "UPDATE PKU.dbo.TAC_RJ_SKDP SET FS_SKDP_1 = ?, FS_SKDP_2 = ?,FS_SKDP_KET=?,FS_SKDP_KONTROL=?,FS_KD_REG=?,FS_SKDP_FASKES=?, FS_PESAN=?
+        $sql = "UPDATE PKU.dbo.TAC_RJ_SKDP SET FS_SKDP_1 = ?, FS_SKDP_2 = ?,FS_SKDP_KET=?,FS_SKDP_KONTROL=?,FS_KD_REG=?,FS_SKDP_FASKES=?, FS_PESAN=?, FS_RENCANA_KONTROL=?
         WHERE FS_KD_REG = ?";
         return $this->db->query($sql, $params);
     }
@@ -1165,6 +1165,7 @@ class m_rawat_jalan extends CI_Model {
         }
     }
 
+
     function get_cek_skdp($params) {
         $sql = "SELECT * FROM
         PKU.dbo.TAC_RJ_SKDP
@@ -1172,6 +1173,19 @@ class m_rawat_jalan extends CI_Model {
         $query = $this->db->query($sql, $params);
         if ($query->num_rows() > 0) {
             $result = $query->num_rows();
+            $query->free_result();
+            return $result;
+        } else {
+            return 0;
+        }
+    }
+    function get_cek_skdp2($params) {
+        $sql = "SELECT * FROM
+        PKU.dbo.TAC_RJ_SKDP
+        WHERE FS_KD_REG = ?";
+        $query = $this->db->query($sql, $params);
+        if ($query->num_rows() > 0) {
+            $result = $query->row_array();
             $query->free_result();
             return $result;
         } else {
@@ -1440,10 +1454,11 @@ class m_rawat_jalan extends CI_Model {
 
  function get_px_by_dokter_wait_dokter_aja($params) {
         $sql = "SELECT a.NOMOR,a.NO_MR,b.NAMA_PASIEN,b.ALAMAT, b.KOTA,b.PROVINSI,b.NO_MR,d.FS_STATUS,
-       c.NO_REG
+       c.NO_REG, c.Kode_Masuk, e.KET_MASUK
         from ANTRIAN a
         LEFT JOIN REGISTER_PASIEN b ON a.NO_MR=b.NO_MR
         LEFT JOIN PENDAFTARAN c ON a.NO_MR=c.NO_MR
+        LEFT JOIN M_CARAMASUK e ON c.Kode_Masuk=e.KODE_MASUK
         LEFT JOIN PKU.dbo.TAC_RJ_STATUS d ON c.NO_REG = d.FS_KD_REG
       
         WHERE 
@@ -2172,6 +2187,22 @@ class m_rawat_jalan extends CI_Model {
         LEFT JOIN DOKTER c ON b.user_name=c.KODE_DOKTER
         LEFT JOIN DB_RSMM.dbo.TUSER d ON b.user_name=d.NAMAUSER
         WHERE a.FS_KD_REG = ? AND a.FS_KD_TRS = ?";
+        $query = $this->db->query($sql, $params);
+        if ($query->num_rows() > 0) {
+            $result = $query->row_array();
+            $query->free_result();
+            return $result;
+        } else {
+            return 0;
+        }
+    }
+    function get_data_medis_by_rg22($params) { 
+        $sql = "SELECT a.*,c.NAMA_DOKTER,b.user_name,KODE_DOKTER, d.NAMALENGKAP 
+        FROM PKU.dbo.TAC_RJ_MEDIS a
+        LEFT JOIN PKU.dbo.TAC_COM_USER b ON a.mdb=b.user_id
+        LEFT JOIN DOKTER c ON b.user_name=c.KODE_DOKTER
+        LEFT JOIN DB_RSMM.dbo.TUSER d ON b.user_name=d.NAMAUSER
+        WHERE a.FS_KD_TRS = ? and a.FS_KD_REG = ? ";
         $query = $this->db->query($sql, $params);
         if ($query->num_rows() > 0) {
             $result = $query->row_array();
@@ -3109,9 +3140,9 @@ class m_rawat_jalan extends CI_Model {
         }
     }
     function get_data_order_lab_by_rg2($params) {
-        $sql = "SELECT JENIS
+        $sql = "SELECT b.JENIS
         FROM PKU.dbo.TA_TRS_KARTU_PERIKSA4 a
-        LEFT JOIN DB_RSMM.dbo.LAB_JENISPERIKSA b ON a.FS_KD_TARIF=b.id
+        LEFT JOIN DB_RSMM.dbo.LAB_JENISPERIKSA b ON a.FS_KD_TARIF=b.no_jenis
         WHERE FS_KD_REG2 = ?";
         $query = $this->db->query($sql, $params);
         if ($query->num_rows() > 0) {

@@ -84,11 +84,13 @@
             <tr>
                 <td width='20%'>Riwayat Perawatan Sebelumnya</td>
                 <td width='40%'>
-                    <input type="text" name="RIW_PERAWATAN" value="{$result3.FS_RIW_PENYAKIT_DAHULU|default:'-'}" size="32">
+                    <textarea style="width: 300px;" name="RIW_PERAWATAN">{$result3.FS_RIW_PENYAKIT_DAHULU|default:'-'} </textarea>
+                    <!-- <input type="text" name="RIW_PERAWATAN" value="{$result3.FS_RIW_PENYAKIT_DAHULU|default:'-'}" size="32"> -->
                 </td>
                 <td width='20%'>Terapi & Tindakan yang pernah dilakukan</td>
                 <td width='30%'>
-                    <input type="text" name="RIW_TINDAKAN" value="{$result3.FS_RIW_PENYAKIT_DAHULU2|default:'-'}" size="32">
+                    <!-- <input type="text" name="RIW_TINDAKAN" value="{$result3.FS_RIW_PENYAKIT_DAHULU2|default:'-'}" size="32"> -->
+                    <textarea style="width: 300px;" name="RIW_TINDAKAN">- </textarea>
                 </td>
                 <!-- <td width='20%'>Riwayat penyakit keluarga</td>
                 <td width='30%'>
@@ -99,12 +101,12 @@
             <tr>
                 <td width='20%'>Riwayat Alergi</td>
                 <td width='30%'>
-                    <input type="text" name="FS_ALERGI" {if $perawat.RIWAYAT_ALERGI_MAKANAN neq ''} value="{$perawat.RIWAYAT_ALERGI_MAKANAN}" {elseif $bidan.RIWAYAT_ALERGI_MAKANAN neq ''}  value="{$result3.FS_ALERGI}" {/if}>
+                    <input type="text" name="FS_ALERGI" {if $perawat.RIWAYAT_ALERGI_MAKANAN neq ''} value="{$perawat.RIWAYAT_ALERGI_MAKANAN|default:'-'}" {elseif $bidan.RIWAYAT_ALERGI_MAKANAN neq ''}  value="{$result3.FS_ALERGI|default:'-'}" {/if}>
                     <em style="color:red">* Wajib Diisi</em>
                 </td>
                 <td width='20%'>Reaksi Alergi</td>
                 <td width='30%'>
-                    <input type="text" name="FS_REAK_ALERGI"  value="{$result3.FS_REAK_ALERGI}">
+                    <input type="text" name="FS_REAK_ALERGI"  value="{$result3.FS_REAK_ALERGI|default:'-'}">
                     <em style="color:red">* Wajib Diisi</em>
                 </td>
             </tr>
@@ -221,9 +223,9 @@
             </tr>
             <tr>
                 <td>    Resiko Jatuh</td><td>  
-                    <input type="radio" name="RESIKO_JATUH" {if $perawat.RESIKO_JATUH eq 'RISIKO RENDAH'} checked {/if} value="RISIKO RENDAH">RISIKO RINGAN
-                    <input type="radio" name="RESIKO_JATUH" {if $perawat.RESIKO_JATUH eq 'RISIKO SEDANG'} checked {/if} value="RISIKO SEDANG">RISIKO SEDANG
-                    <input type="radio" name="RESIKO_JATUH" {if $perawat.RESIKO_JATUH eq 'RISIKO TINGGI'} checked {/if} value="RISIKO TINGGI">RISIKO TINGGI
+                    <input type="radio" name="RESIKO_JATUH" {if $perawat.RESIKO_JATUH eq 'RESIKO RENDAH'} checked {/if} value="RESIKO RENDAH">RESIKO RENDAH
+                    <input type="radio" name="RESIKO_JATUH" {if $perawat.RESIKO_JATUH eq 'RESIKO SEDANG'} checked {/if} value="RESIKO SEDANG">RESIKO SEDANG
+                    <input type="radio" name="RESIKO_JATUH" {if $perawat.RESIKO_JATUH eq 'RESIKO TINGGI'} checked {/if} value="RESIKO TINGGI">RESIKO TINGGI
                 </td>
             </tr>
        
@@ -241,7 +243,7 @@
             <td width='40%'>
                 <input type="radio" name="DEVIASI" value="Kanan">Kanan
                 <input type="radio" name="DEVIASI" value="Kiri"> Kiri
-                <input type="radio" name="DEVIASI" value=""> Tidak Ada
+                <input type="radio" name="DEVIASI" value="Tidak Ada"> Tidak Ada
               
                 
             </td>
@@ -250,7 +252,7 @@
             <td width='20%'>Skelera  </td>
             <td width='40%'>
                 <input type="radio" name="SKELERA" value="Ikterik">Ikterik
-                <input type="radio" name="SKELERA" value="Tidak"> Tidak Ikterik
+                <input type="radio" name="SKELERA" value="Tidak Ikterik"> Tidak Ikterik
             
                 
             </td>
@@ -331,7 +333,7 @@
                 {foreach from=$rs_lab item=lab}
                 <option value="{$lab.JENIS}">{$lab.JENIS}</option>
                 {/foreach}
-                </select></td>
+            </select></td>
             <td>Radiologi</td>
             <td>   <select name="rrad[]" multiple style="width:200px" class="select2">
                 <option value=""></option>
@@ -339,8 +341,18 @@
                 <option value="{$rad.KET_TINDAKAN}">{$rad.KET_TINDAKAN}</option>
                 {/foreach}
             </select></td>
+            
         </tr>
-    
+ 
+    <tr>
+                    <td width='20%'>EKG </td>
+                    <td width='40%'>
+                        <input type="radio" name="EKG" value="Ya">Ya
+                        <input type="radio" name="EKG" value="Tidak"> Tidak
+                    
+                    
+                    </td>
+    </tr>
 
 
             <tr class="headrow">

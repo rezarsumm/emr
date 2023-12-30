@@ -206,6 +206,21 @@ class m_farmasi_inap extends CI_Model {
         }
     }
 
+   function rad_inap_igd($params) {
+        $sql = "  select A.FS_RAD,A.FS_LAB,A.TGL_TUJUAN_LAB,A.FS_KD_TRS, A.mdd_time, A.mdd_date, B.No_MR, B.No_Reg, C.Nama_Pasien, C.JENIS_KELAMIN, C.TGL_LAHIR, E.NamaLengkap
+        from PKU.dbo.TAC_RI_CPPT as A, PENDAFTARAN as B, REGISTER_PASIEN as C, TUSER as E
+        where A.FS_KD_REG=B.No_Reg and B.No_MR=C.No_MR and A.mdb=E.NamaUser
+       and A.FS_KD_TRS=? ";
+       $query = $this->db->query($sql, $params);
+        if ($query->num_rows() > 0) {
+            $result = $query->row_array();
+            $query->free_result();
+            return $result;
+        } else {
+            return 0;
+        }
+    }
+
    function rad_inap2($params) {
     $sql = "select A.*, B.*, C.*,D.NAMALENGKAP
     from  PKU.dbo.TAC_RI_CPPT A

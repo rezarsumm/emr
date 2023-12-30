@@ -1,1 +1,4 @@
 resource/doc/
+cache/
+application/config/database.php
+

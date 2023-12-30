@@ -46,10 +46,10 @@ class cppt extends ApplicationBase {
         $date = date('Y-m-d');
         $date2 = date('Y-m-dH:i:s');
         $role = $this->com_user['role_id'];
+
         $x = $this->com_user['user_name'];
 
-        // var_dump($x);
-        // die();
+    
 
 
         $fs_kd_layanan = $this->com_user['fs_kd_layanan'];
@@ -67,6 +67,8 @@ class cppt extends ApplicationBase {
 
             else  if ($role == '5') {
                  $this->smarty->assign("rs_pasien", $this->m_ass_jatuh->get_pasien_bangsal($x));
+                    //  var_dump($this->m_ass_jatuh->get_pasien_bangsal($x));
+                    // die();
             } 
 
             else if ($role == '24'){
@@ -186,6 +188,7 @@ class cppt extends ApplicationBase {
     public function add($FS_RG = '') {
         // set page rules
         $this->_set_page_rule("C");
+
         // set template content
         $this->smarty->assign("template_content", "inap/cppt/add.html");
         // load javascript
@@ -206,11 +209,25 @@ class cppt extends ApplicationBase {
          $x = $this->com_user['user_name'];
           $this->smarty->assign("x", $x);  
 
+       
+           $ruangan = $this->m_cppt->get_pasien_by_rg(array($FS_RG));
+           $this->smarty->assign("rs_ruangan", $ruangan['NAMA_BANGSAL']);
+  
+
+        // var_dump($this->com_user['fs_kd_layanan']);
+        // die;
+
+      
+
+   
+
           if ($role == '24'){
               $this->smarty->assign("rs_pasien", $this->m_cppt->get_pasien_by_rg_ugd(array($FS_RG)));
             }
         else{   $this->smarty->assign("rs_pasien", $this->m_cppt->get_pasien_by_rg(array($FS_RG)));
            }
+
+   
 
 
            $tgl_sekarang =strtotime(date('Y-m-d'));
@@ -805,7 +822,8 @@ class cppt extends ApplicationBase {
                                 $rlab, 
                                 $rrad,  
                                 $this->input->post('TGL_TUJUAN_LAB'),
-                                  $this->input->post('jenis_cppt'),
+                                $this->input->post('jenis_cppt'),
+                                $this->input->post('status_cppt'),
                             );
                             $this->m_cppt->insertt($params2);
 

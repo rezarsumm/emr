@@ -30,13 +30,36 @@ class rawat_inap extends ApplicationBase {
         $this->load->library('tnotification');
     }
 
+    public function lihat_resume($FS_KD_REG = ""){
+        $this->_set_page_rule("R");
+
+         //resume
+        $now = date('Y-m-d');    
+         $data['rs_pasien'] = $this->m_rawat_inap->get_px_by_dokter_by_rg2(array($FS_KD_REG));
+        $data['rs_lab'] = $this->m_rawat_jalan->get_data_lab_by_rg(array($FS_KD_REG));
+        $data['rs_rad'] = $this->m_rawat_jalan->get_data_rad_by_rg(array($FS_KD_REG));
+        $data['rs_resume'] = $this->m_resume->get_resume_by_rg(array($FS_KD_REG));
+        $data['rs_diet'] = $this->m_resume->get_diet_by_rg(array($FS_KD_REG));
+        $data['rs_indikasi'] = $this->m_resume->get_indikasi_dirawat_by_rg(array($FS_KD_REG));
+        $data['rs_diag'] = $this->m_resume->get_diag_by_rg(array($FS_KD_REG));
+        $data['rs_tind'] = $this->m_resume->get_tind_by_rg(array($FS_KD_REG));
+        $data['rs_terapi'] = $this->m_resume->get_terapi_by_rg(array($FS_KD_REG));
+        $data['rs_skdp'] = $this->m_rawat_jalan->get_data_skdp_by_rg(array($FS_KD_REG));
+             //header 
+       $data["header1"] = $this->m_rawat_jalan->get_header1();
+       $data["header2"] = $this->m_rawat_jalan->get_header2();
+       $data["alamat"] = $this->m_rawat_jalan->get_alamat();
+        $this->load->view('rm/rawat_inap/resume', $data);
+
+    }
+
     public function cetak_rm($FS_KD_REG = "",$FS_FORM="") {    
        $this->_set_page_rule("R");
 
        $this->load->library('html2pdf'); 
         //resume
        $now = date('Y-m-d');    
-       $data['rs_pasien'] = $this->m_rawat_inap->get_px_by_dokter_by_rg2(array($FS_KD_REG));
+        $data['rs_pasien'] = $this->m_rawat_inap->get_px_by_dokter_by_rg2(array($FS_KD_REG));
        $data['rs_lab'] = $this->m_rawat_jalan->get_data_lab_by_rg(array($FS_KD_REG));
        $data['rs_rad'] = $this->m_rawat_jalan->get_data_rad_by_rg(array($FS_KD_REG));
        $data['rs_resume'] = $this->m_resume->get_resume_by_rg(array($FS_KD_REG));
@@ -119,6 +142,7 @@ class rawat_inap extends ApplicationBase {
     $this->load->view('rm/rawat_inap/ases_awal_bidan', $data);}
     else{ 
         $this->load->view('rm/rawat_inap/resume', $data);
+
     }
     $content = ob_get_contents();
     ob_end_clean();

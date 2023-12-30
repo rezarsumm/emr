@@ -82,6 +82,47 @@
         <p><strong>Alergi :</strong> {$result.FS_ALERGI|default:'-'} ({$result.FS_REAK_ALERGI|default:'-'})</p>
         <div class="clear"></div>
     </div>
+
+    <div class="navigation">
+        <div class="navigation-button float-left">
+            <ul>
+                <li><a href="javascript:void(0);" onclick="myFunction()" id="tampil" alt=""> Tampilkan hasil Lab</a></li>
+            </ul>
+        </div>
+        <br>
+        <div class="clear"></div>
+    </div>
+    
+    
+    
+    <table class="table-view" width="100%" id="form_lab">
+        <tr class="headrow">
+            <th colspan="4">HASIL LABORATORIUM</th>
+            <!-- <a id="tampil">Tampilkan</a> -->
+    
+        </tr>
+        <tr>
+    
+            <td width='10%'>Jenis Pemeriksaan</td>
+            <td width='35%'>Hasil Pemeriksaan
+            </td>
+    
+        </tr>
+    
+    
+        {foreach from=$rs_lab item=data}
+    
+        <tr>
+            <!-- <td width='5%'>{$no}</td> -->
+            <td width='10%'>{$data.Pemeriksaan}</td>
+            <td width='35%'>{$data.Hasil}
+            </td>
+    
+        </tr>
+    
+        {/foreach}
+    
+    </table>
     <table class="table-input" width="100%">
         <tr class="headrow">
             <th colspan="4">Pemeriksaan Dokter</th>
@@ -428,7 +469,7 @@
     <tr>
         <td> Kondisi Pulang</td>
         <td>
-            <select name="FS_CARA_PULANG">
+            <select name="FS_CARA_PULANG" id="kondisi">
                 <option value="" {if $medis.FS_CARA_PULANG eq ''}selected=""{/if}>--Pilih Cara Pulang--</option>
                 <!-- <option value="1" {if $medis.FS_CARA_PULANG eq '1'}selected=""{/if}>Rujuk Balik</option> -->
                 <option value="0" {if $medis.FS_CARA_PULANG eq '0'}selected=""{/if}>Tidak Kontrol</option>
@@ -448,7 +489,69 @@
             <input type="text" name="FS_PLANNING" size="55" value="{$medis.FS_PLANNING}"/>
         </td>
     </tr>
-    <tr class="submit-box">
+            <table class="table-input" width="100%" id="form2" {if $medis.FS_CARA_PULANG eq '2'} style="display: show;" {/if} style="display: none;">
+                <tr class="headrow">
+                    <th colspan="4">Surat Keterangan Dalam Perawatan</th>
+                </tr>
+                <tr>
+                    <td width='25%'>Belum dapat dikembalikan ke Fasilitas Perujuk dengan alasan</td>
+                    <td width='75%'>
+                        <select name="FS_SKDP_1" id="skdp_alasan">
+                            <option value='1'>--Pilih Alasan--</option>
+                            {foreach from=$rs_skdp_alasan item=skdp_alasan}
+                            <option value="{$skdp_alasan.FS_KD_TRS}">{$skdp_alasan.FS_NM_SKDP_ALASAN}</option>
+                            {/foreach}
+                        </select>
+                    </td>
+            
+                </tr>
+                <tr>
+                    <td>Rencana tindak lanjut yang akan dilakukan pada kunjungan selanjutnya :</td>
+                    <td>
+                        <select name="FS_SKDP_2" id="kota">
+                            <option value='1'>--Pilih Rencana Tindakan--</option>
+                        </select>
+                        <input type="text" name="FS_SKDP_KET" />
+                    </td>
+            
+                </tr>
+                            <tr>
+                                <td>Rencana Kontrol Berikutnya:</td>
+                                <td>
+                                    <select name="FS_RENCANA_KONTROL" class="select2" style="width: 190px;">
+                                    <option value="1 Minggu Kedepan" {if $skdp.FS_RENCANA_KONTROL eq '1 Minggu Kedepan'} selected="" {/if}>1 Minggu Kedepan
+                                    </option>
+                                    <option value="2 Minggu Kedepan" {if $skdp.FS_RENCANA_KONTROL eq '2 Minggu Kedepan'} selected="" {/if}>2 Minggu Kedepan
+                                    </option>
+                                    <option value="Sebulan Kedepan" {if $skdp.FS_RENCANA_KONTROL eq 'Sebulan Kedepan'} selected="" {/if}>Sebulan Kedepan
+                                    </option>
+                            
+                            
+                                    </select>
+                                </td>
+                            </tr>
+                <tr>
+                    <td>Tanggal Kontrol Berikutnya :</td>
+                    <td>
+                        <input type="text" name="FS_SKDP_KONTROL" class="tanggal" size="10" value="{$skdp.FS_SKDP_KONTROL}"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Tanggal Expired Rujukan Faskes :</td>
+                    <td>
+                        <input type="text" name="FS_SKDP_FASKES" class="tanggal"
+                            value=" {if $ases2.FS_SKDP_FASKES eq '1900-01-01'} {else} {$ases2.FS_SKDP_FASKES} {/if}" size="10" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>Keterangan/Pesan :</td>
+                    <td>
+                        <textarea rows="5" cols="50" name="FS_PESAN" >{$skdp.FS_PESAN}</textarea>
+                    </td>
+                </tr>
+            
+            </table>
+    <tr class="submit-box table-info">
         <td colspan="4">
             <input type="submit" name="save" value="Simpan" class="edit-button" /> 
         </td>
@@ -458,6 +561,29 @@
 <br>
 <br>
 
+<script>
+        $("#kondisi").on('change', function () {
+                $("#form2").hide();
+
+                if ($(this).val() == "2") {
+                    $("#form2").show();
+                } else {
+                    $("#form2").hide();
+                }
+            });
+
+                        $("#form_lab").hide();
+                            function myFunction() {
+
+                                var x = document.getElementById("form_lab");
+
+                                if (x.style.display === "none") {
+                                    x.style.display = "block";
+                                } else {
+                                    x.style.display = "none";
+                                }
+                            }
+</script>
 
 
 <script>

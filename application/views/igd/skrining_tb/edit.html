@@ -1,0 +1,445 @@
+<script type="text/javascript">
+  $(document).ready(function () {
+    $("#opt1").change(function () {
+      var sc = $(this).val();
+      $("#an1").html(sc);
+      score();
+    });
+    $("#opt2").change(function () {
+      var sc = $(this).val();
+      $("#an2").html(sc);
+      score();
+    });
+    $("#opt3").change(function () {
+      var sc = $(this).val();
+      $("#an3").html(sc);
+      score();
+    });
+    $("#opt4").change(function () {
+      var sc = $(this).val();
+      $("#an4").html(sc);
+      score();
+    });
+    $("#opt5").change(function () {
+      var sc = $(this).val();
+      $("#an5").html(sc);
+      score();
+    });
+    $("#opt6").change(function () {
+      var sc = $(this).val();
+      $("#an6").html(sc);
+      score();
+    });
+    $("#opt7").change(function () {
+      var sc = $(this).val();
+      $("#an7").html(sc);
+      score();
+    });
+    $("#opt8").change(function () {
+      var sc = $(this).val();
+      $("#an8").html(sc);
+      score();
+    });
+    $("#opt9").change(function () {
+      var sc = $(this).val();
+      $("#an9").html(sc);
+      score();
+    });
+    $("#opt10").change(function () {
+      var sc = $(this).val();
+      $("#an10").html(sc);
+      score();
+    });
+    $("#opt11").change(function () {
+      var sc = $(this).val();
+      $("#an11").html(sc);
+      score();
+    });
+  });
+</script>
+<script type="text/javascript">
+  function score() {
+    //ANAK
+    var sc = parseInt($("#an1").text()) + parseInt($("#an2").text()) + parseInt($("#an3").text()) +
+      parseInt($("#an4").text()) +
+      parseInt($("#an5").text()) +
+      parseInt($("#an6").text()) +
+      parseInt($("#an7").text()) +
+      parseInt($("#an8").text()) +
+      parseInt($("#an9").text()) +
+      parseInt($("#an10").text()) +
+      parseInt($("#an11").text());
+    $("#totalsc").html(sc);
+    if (sc >= 3) {
+      $("#kesimpulan").val("Suspek TB");
+    } else if (sc < 3) {
+      $("#kesimpulan").val("Tidak Suspek TB");
+    }
+  }
+</script>
+
+<div class="breadcrum">
+  <p>
+    <a href="#">IGD</a><span></span>
+    <small>Add Data Skrining TB</small>
+  </p>
+  <div class="clear"></div>
+</div>
+<div class="content-entry">
+  <!-- notification template -->
+  <!-- end of notification template-->
+  <form
+    action="{$config->site_url('igd/skrining_tb/edit_process')}"
+    method="post"
+    onkeypress="return event.keyCode != 13"
+  >
+    <input
+      name="FS_KD_REG"
+      id="FS_KD_REG"
+      type="hidden"
+      value="{$rs_pasien.NO_REG}"
+    />
+    <input name="id" id="id" type="hidden" value="{$skrining_tb.id}" />
+
+    <table class="table-info" width="100%">
+      <tr class="headrow">
+        <th colspan="2"></th>
+      </tr>
+      <tr>
+        <td>NAMA</td>
+        <td>{$rs_pasien.NAMA_PASIEN}</td>
+      </tr>
+      <tr>
+        <td>NO MR</td>
+        <td>{$rs_pasien.NO_MR}</td>
+      </tr>
+      <tr>
+        <td>TANGGAL LAHIR</td>
+        <td>{$rs_pasien.TGL_LAHIR|date_format:"%d %b %Y"}</td>
+      </tr>
+      <tr>
+        <td>ALAMAT</td>
+        <td>{$rs_pasien.ALAMAT}</td>
+      </tr>
+      <tr>
+        <td>UMUR</td>
+        <td>{$rs_pasien.fn_umur} Tahun</td>
+      </tr>
+    </table>
+    <table class="table-input" width="100%">
+      <tr>
+        <td width="20%">Tanggal Skrining</td>
+        <td width="60%">
+          <input
+            type="date"
+            name="TANGGAL_SKRINING"
+            value="{$skrining_tb.TANGGAL_SKRINING}"
+          />
+        </td>
+      </tr>
+      <tr>
+        <td width="20%">Jam Skrining</td>
+        <td width="60%">
+          <input
+            type="time"
+            name="JAM_SKRINING"
+            required
+            id="jam_keperawatan"
+          />
+        </td>
+      </tr>
+    </table>
+
+    <!-- {if $skrining_tb.GEJALA_TB1 eq '1'} selected {/if} -->
+
+    <table class="table-input" width="100%">
+      <tr class="headrow">
+        <th colspan="4">Pilih ya atau tidak pada isian yang sesuai!</th>
+      </tr>
+      <tr class="headrow">
+        <th colspan="4">Gejala dan/Hasil pemeriksaan:</th>
+      </tr>
+
+      <tr>
+        <td width="20%">
+          Batuk dan demam disertai minimal 1 gejala dari: <br />
+          Saat Bernafas sesak atau tidak?
+        </td>
+        <td width="30%">
+          <select
+            name="GEJALA_TB1"
+            class="select2"
+            style="width: 170px"
+            id="opt1"
+          >
+            <option value="">-PILIH-</option>
+            <option value="1" {if $skrining_tb.GEJALA_TB1 eq '1'} selected {/if}>Ya</option>
+            <option value="0" {if $skrining_tb.GEJALA_TB1 eq '0'} selected {/if}>Tidak</option>
+          </select>
+          <input type="hidden" id="an1" />
+        </td>
+      </tr>
+
+      <tr>
+        <td width="20%">Terasa nyeri dada atau tidak?</td>
+        <td width="30%">
+          <select
+            name="GEJALA_TB2"
+            class="select2"
+            style="width: 170px"
+            id="opt2"
+          >
+            <option value="">-PILIH-</option>
+            <option value="1" {if $skrining_tb.GEJALA_TB2 eq '1'} selected {/if}>Ya</option>
+            <option value="0" {if $skrining_tb.GEJALA_TB2 eq '0'} selected {/if}>Tidak</option>
+          </select>
+          <input type="hidden" id="an2" />
+        </td>
+      </tr>
+
+      <tr>
+        <td width="20%">Batuk darah atau tidak?</td>
+        <td width="30%">
+          <select
+            name="GEJALA_TB3"
+            class="select2"
+            style="width: 170px"
+            id="opt3"
+          >
+            <option value="">-PILIH-</option>
+            <option value="1" {if $skrining_tb.GEJALA_TB3 eq '1'} selected {/if}>Ya</option>
+            <option value="0" {if $skrining_tb.GEJALA_TB3 eq '0'} selected {/if}>Tidak</option>
+          </select>
+          <input type="hidden" id="an3" />
+        </td>
+      </tr>
+
+      <tr>
+        <td width="20%">Demam atau tidak?</td>
+        <td width="30%">
+          <select
+            name="GEJALA_TB4"
+            class="select2"
+            style="width: 170px"
+            id="opt4"
+          >
+            <option value="">-PILIH-</option>
+            <option value="1" {if $skrining_tb.GEJALA_TB4 eq '1'} selected {/if}>Ya</option>
+            <option value="0" {if $skrining_tb.GEJALA_TB4 eq '0'} selected {/if}>Tidak</option>
+          </select>
+          <input type="hidden" id="an4" />
+        </td>
+      </tr>
+
+      <tr>
+        <td width="20%">Terasa Lemas atau tidak?</td>
+        <td width="30%">
+          <select
+            name="GEJALA_TB5"
+            class="select2"
+            style="width: 170px"
+            id="opt5"
+          >
+            <option value="">-PILIH-</option>
+            <option value="1" {if $skrining_tb.GEJALA_TB5 eq '1'} selected {/if}>Ya</option>
+            <option value="0" {if $skrining_tb.GEJALA_TB5 eq '0'} selected {/if}>Tidak</option>
+          </select>
+          <input type="hidden" id="an5" />
+        </td>
+      </tr>
+
+      <tr>
+        <td width="20%">Keluar Keringat saat malam hari atau tidak?</td>
+        <td width="30%">
+          <select
+            name="GEJALA_TB6"
+            class="select2"
+            style="width: 170px"
+            id="opt6"
+          >
+            <option value="">-PILIH-</option>
+            <option value="1" {if $skrining_tb.GEJALA_TB6 eq '1'} selected {/if}>Ya</option>
+            <option value="0" {if $skrining_tb.GEJALA_TB6 eq '0'} selected {/if}>Tidak</option>
+          </select>
+          <input type="hidden" id="an6" />
+        </td>
+      </tr>
+
+      <tr>
+        <td width="20%">nafsu makan berkurang atau tidak?</td>
+        <td width="30%">
+          <select
+            name="GEJALA_TB7"
+            class="select2"
+            style="width: 170px"
+            id="opt7"
+          >
+            <option value="">-PILIH-</option>
+            <option value="1" {if $skrining_tb.GEJALA_TB7 eq '1'} selected {/if}>Ya</option>
+            <option value="0" {if $skrining_tb.GEJALA_TB7 eq '0'} selected {/if}>Tidak</option>
+          </select>
+          <input type="hidden" id="an7" />
+        </td>
+      </tr>
+
+      <tr>
+        <td width="20%">Berat badan menurun atau tidak?</td>
+        <td width="30%">
+          <select
+            name="GEJALA_TB8"
+            class="select2"
+            style="width: 170px"
+            id="opt8"
+          >
+            <option value="">-PILIH-</option>
+            <option value="1" {if $skrining_tb.GEJALA_TB8 eq '1'} selected {/if}>Ya</option>
+            <option value="0" {if $skrining_tb.GEJALA_TB8 eq '0'} selected {/if}>Tidak</option>
+          </select>
+          <input type="hidden" id="an8" />
+        </td>
+      </tr>
+
+      <tr>
+        <td width="20%">
+          Pernah Kontak langsung dengan penderita TB atau tidak?
+        </td>
+        <td width="30%">
+          <select
+            name="GEJALA_TB9"
+            class="select2"
+            style="width: 170px"
+            id="opt9"
+          >
+            <option value="">-PILIH-</option>
+            <option value="1" {if $skrining_tb.GEJALA_TB9 eq '1'} selected {/if}>Ya</option>
+            <option value="0" {if $skrining_tb.GEJALA_TB9 eq '0'} selected {/if}>Tidak</option>
+          </select>
+          <input type="hidden" id="an9" />
+        </td>
+      </tr>
+
+      <tr>
+        <td width="20%">
+          Pernah minum obat paru-paru kurang dari 1 bulan atau lebih dari 1
+          bulan?
+        </td>
+        <td width="30%">
+          <select
+            name="GEJALA_TB10"
+            class="select2"
+            style="width: 170px"
+            id="opt10"
+          >
+            <option value="">-PILIH-</option>
+            <option value="1" {if $skrining_tb.GEJALA_TB10 eq '1'} selected {/if}>Ya</option>
+            <option value="0" {if $skrining_tb.GEJALA_TB10 eq '0'} selected {/if}>Tidak</option>
+          </select>
+          <input type="hidden" id="an10" />
+        </td>
+      </tr>
+
+      <tr>
+        <td width="20%">
+          Hasil Thorax foto pneumonia atau gambaran lain <br />
+          yang mendukung TB
+        </td>
+        <td width="30%">
+          <select
+            name="GEJALA_TB11"
+            class="select2"
+            style="width: 170px"
+            id="opt11"
+          >
+            <option value="">-PILIH-</option>
+            <option value="1" {if $skrining_tb.GEJALA_TB11 eq '1'} selected {/if}>Ya</option>
+            <option value="0" {if $skrining_tb.GEJALA_TB11 eq '0'} selected {/if}>Tidak</option>
+          </select>
+          <input type="hidden" id="an11" />
+        </td>
+      </tr>
+
+      <tr class="headrow">
+        <th colspan="4">
+          Suspek TB : Minimal 1 dari gejala/Pemeriksaan di atas
+        </th>
+      </tr>
+      <tr>
+        <td width="20">Kesimpulan</td>
+        <td width="30%">
+          <input
+            type="text"
+            name="KESIMPULAN_TB"
+            id="kesimpulan"
+            value="{$skrining_tb.KESIMPULAN_TB}"
+            readonly
+          />
+        </td>
+      </tr>
+      <tr class="headrow">
+        <th colspan="4">
+          Pemeriksaan penunjang : (lakukan pemeriksaan jika terdiagnosis suspek
+          TB)
+        </th>
+      </tr>
+
+      <tr>
+        <td width="20%">Penunjang Suspek TB</td>
+        <td width="30%">
+          <input type="checkbox" name="PENUNJANG[]" value="TCM" {if
+          in_array('TCM', $PENUNJANGS)}checked="checked"{/if}>TCM<br />
+          <input type="checkbox" name="PENUNJANG[]" value="Skoring (Anak)" {if
+          in_array('Skoring (Anak)', $PENUNJANGS)}checked="checked"{/if}>Skoring
+          (Anak)<br />
+        </td>
+      </tr>
+
+      <tr>
+        <td width="20">Keterangan Penunjang</td>
+        <td width="30%">
+          <textarea name="KETERANGAN_PENUNJANG" id="" cols="30" rows="4">
+{$skrining_tb.KETERANGAN_PENUNJANG}</textarea
+          >
+        </td>
+      </tr>
+    </table>
+
+    <table class="table-input" width="100%">
+      <tr class="submit-box">
+        <td colspan="4">
+          <div style="font-weight: bold">
+            *Bismillahirohmanirrohim, saya dengan sadar dan penuh tanggung jawab
+            mengisikan formulir ini dengan data yang benar
+          </div>
+          <br />
+          <input type="submit" name="save" value="Simpan" class="edit-button" />
+        </td>
+      </tr>
+    </table>
+  </form>
+</div>
+<script>
+  // Mendapatkan elemen input waktu
+  const inputWaktu = document.getElementById("jam_keperawatan");
+
+  // Mengatur waktu awal
+  updateTime();
+
+  // Fungsi untuk memperbarui waktu pada input
+  function updateTime() {
+    const waktuSekarang = new Date();
+    const jam = waktuSekarang.getHours();
+    const menit = waktuSekarang.getMinutes();
+    const detik = waktuSekarang.getSeconds();
+    const waktuDefault =
+      jam.toString().padStart(2, "0") + ":" + menit.toString().padStart(2, "0");
+    inputWaktu.value = waktuDefault;
+  }
+
+  // Memperbarui waktu setiap menit
+  setInterval(updateTime, 1000);
+
+  $(".select2").select2({
+    placeholder: "Pilih",
+    allowClear: true,
+  });
+</script>

@@ -160,6 +160,8 @@ class Ews_hamil extends ApplicationBase {
         $this->_set_page_rule("C");
         // cek input
         $this->tnotification->set_rules('FS_KD_REG', 'KODE REGISTER', 'trim|required');
+
+  
         // process
         if ($this->tnotification->run() !== FALSE) {
 
@@ -266,7 +268,7 @@ class Ews_hamil extends ApplicationBase {
                 $sn,
                 $this->input->post('O2'),
                 $so,
-                $this->input->post('AB'),
+                $this->input->post('AB'). ' %',
                 $sa,
                 $this->input->post('S'),
                 $ss,

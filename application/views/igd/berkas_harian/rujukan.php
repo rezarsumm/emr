@@ -128,19 +128,11 @@
             <tr>
                 <td>Tanggal Lahir</td>
                 <td>
-                    : <?= $rs_pasien['TGL_LAHIR']; ?>
+                    : <?= date('d-m-Y', strtotime($rs_pasien['TGL_LAHIR'])); ?>
                 </td>
                 
             </tr>
-
-            <tr>
-                <td colspan="2">Peserta          /Keluarga<br></td>
-                
-            </tr>
-            <tr>
-                <td colspan="2">Dengan nomor kartu BPJS .......................<br></td>
-                
-            </tr>
+      
             <tr>
                 <td colspan="2">1. Status Gawat Darurat : <b><?= $rs_rujukan['FS_STATUS_GAWAT_DARURAT']; ?></b><br></td>
                 
@@ -162,7 +154,7 @@
                 <br>
                 <br> 
                 <td></td>
-                <td align='center'>Sejawat,</td>
+                <td align='center'>Sejawat, <?php echo date('Y-m-d') ?></td>
             </tr>
             <tr>
                 <td></td>

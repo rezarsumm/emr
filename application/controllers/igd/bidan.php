@@ -556,7 +556,10 @@ class Bidan extends ApplicationBase {
                  $this->input->post('DURASI_AUSKULTASI_1'),
                  $this->input->post('DURASI_AUSKULTASI_2'),
                  $this->input->post('RESIKO_JATUH'),
-                 $this->input->post('RIWAYAT_PENYAKIT_DAHULU')
+                 $this->input->post('RIWAYAT_PENYAKIT_DAHULU'),
+                 $this->input->post('EYE'),
+                 $this->input->post('MOTORIK'),
+                 $this->input->post('VERBAL')
 
                  
              );
@@ -1052,7 +1055,10 @@ class Bidan extends ApplicationBase {
                       $this->input->post('DURASI_AUSKULTASI_1'),
                       $this->input->post('DURASI_AUSKULTASI_2'),
                       $this->input->post('RESIKO_JATUH'),
-                      $this->input->post('RIWAYAT_PENYAKIT_DAHULU')
+                      $this->input->post('RIWAYAT_PENYAKIT_DAHULU'),
+                      $this->input->post('EYE'),
+                      $this->input->post('MOTORIK'),
+                      $this->input->post('VERBAL')
                       
                   );
   

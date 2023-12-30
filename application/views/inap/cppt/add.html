@@ -17,6 +17,7 @@
         <input name="FS_MR" type="hidden" value="{$rs_pasien.NO_MR}" />
         <input name="FS_KD_LAYANAN" type="hidden" value="{$rs_pasien.KODE_BANGSAL}" />
         <input name="FS_KD_PETUGAS_MEDIS" type="hidden" value="{$rs_pasien.fs_kd_medis}" />
+        <input type="hidden" name="status_cppt" value="{$rs_ruangan}" />
 
       
         <table class="table-info" width="100%">
@@ -502,6 +503,7 @@
     <tr>
         <th width="7%">Tanggal</th>
         <th>SOAP/ADIME/SBAR</th>
+        <th>Status</th>
         <th width="15%">PPA</th>
 
         
@@ -576,6 +578,8 @@
             <hr>
            
         </td>
+
+        <td>{$cppt.status_cppt}</td>
         <td>{$cppt.NAMALENGKAP}</td>
         
         {if $role_id eq '12' OR $role_id eq '6'}
@@ -943,8 +947,8 @@
 
        $("#namapaketuya").change(function(){
                 var resep = $(".resep").val();
-                         if($("#namapaketuya").val() == "Uya 04"){
-                            $('.resep').val(resep+'\n /R   Anbacim no I \n  S 1 x 1 gr  \n ---------------------------------------- \n \n /R   Metronidazole inf no III \n  S 3 x 1 flas  \n ---------------------------------------- \n \n /R   Ketorolak inj no III \n  S 3 x 1 amp  \n ---------------------------------------- \n \n /R   Asam tranexamat inj no III \n  S 3 x 1 amp  \n ---------------------------------------- \n \n /R   Asam mefenamat tab no III \n  S 3 x 1 tab  \n ---------------------------------------- \n \n /R   Pronalges supp no III \n  S 3 x 1 supp  \n ---------------------------------------- \n \n /R   Parasetamol inf no I \n  S 1 x 1 fls   \n ---------------------------------------- \n \n /R   Calfemil no I \n  S 1 x 1 cap  \n ---------------------------------------- \n \n /R   Vitamin D no I \n  S 1 x 1 tab  \n ---------------------------------------- \n');
+                if($("#namapaketuya").val() == "Uya 04"){
+                            $('.resep').val(resep+'\n /R   Anbacim no I \n  S 1 x 1 gr  \n ---------------------------------------- \n \n /R   Metronidazole inf no III \n  S 3 x 1 flas  \n ---------------------------------------- \n \n /R   Patral inj no III \n  S 3 x 1 amp  \n ---------------------------------------- \n \n /R   Asam tranexamat inj no III \n  S 3 x 1 amp  \n ---------------------------------------- \n \n /R   Asam mefenamat tab no III \n  S 3 x 1 tab  \n ---------------------------------------- \n \n /R   Pronalges supp no III \n  S 3 x 1 supp  \n ---------------------------------------- \n \n /R   Parasetamol inf no I \n  S 1 x 1 fls   \n ---------------------------------------- \n \n /R   Calfemil no I \n  S 1 x 1 cap  \n ---------------------------------------- \n \n /R   Vitamin D no I \n  S 1 x 1 tab  \n ---------------------------------------- \n');
                             $('#namapaketuya').select2('data', null);                         
                          }
                          else if($("#namapaketuya").val() == "Uya 05"){
@@ -1031,6 +1035,10 @@
                          }
                              else   if($("#namapakettris").val() == "Tres 06"){
                             $('.resep').val(resep+'\n /R   Cefixime 200mg cap no X \n  S 2 x 1 cap \n ---------------------------------------- \n \n /R   Metergin tab no XV \n  S 3 x 1 tab \n ---------------------------------------- \n ');
+                            $('#namapakettris').select2('data', null);                         
+                         }
+                         else   if($("#namapakettris").val() == "Tres 07"){
+                            $('.resep').val(resep+'\n /R   Misoprostol 200mcg Tab no IV \n  S 2tab servix\n ---------------------------------------- \n \n /R   Oxytosibn 20IU inj no IV \n  S 2amp dd 2/drip RL 500ml \n ---------------------------------------- \n \n \n /R   Cefotaxime 1gr no II \n  S 2dd 1 vial \n ---------------------------------------- \n');
                             $('#namapakettris').select2('data', null);                         
                          }
                         

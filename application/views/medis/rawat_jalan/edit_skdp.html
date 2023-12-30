@@ -83,6 +83,18 @@
             </td>
 
         </tr>
+                                    <tr>
+                                        <td>Rencana Kontrol Berikutnya:</td>
+                                        <td>
+                                            <select name="FS_RENCANA_KONTROL" class="select2" style="width: 190px;">
+                                                <option value="1 Minggu Kedepan" {if $skdp.FS_RENCANA_KONTROL eq '1 Minggu Kedepan'} selected="" {/if}>1 Minggu Kedepan</option>
+                                                <option value="2 Minggu Kedepan" {if $skdp.FS_RENCANA_KONTROL eq '2 Minggu Kedepan'} selected="" {/if}>2 Minggu Kedepan</option>
+                                                <option value="Sebulan Kedepan" {if $skdp.FS_RENCANA_KONTROL eq 'Sebulan Kedepan'} selected="" {/if}>Sebulan Kedepan</option>
+                                    
+                                    
+                                            </select>
+                                        </td>
+                                    </tr>
         <tr>
             <td>Tanggal Kontrol Berikutnya :</td>
             <td>
@@ -98,7 +110,7 @@
 
             </td>
         </tr>
-          <tr>
+          <!-- <tr>
             <td>
                 Rencana Pemeriksaan Laboratorium
             </td>
@@ -119,14 +131,12 @@
                     <option></option>
                 </select>
             </td>
-        </tr>
+        </tr> -->
 
           <tr>
             <td>Keterangan/Pesan  :</td>
             <td>
-                 <textarea rows="5" cols="50" name="FS_PESAN">
-              
-                 </textarea>
+                 <textarea rows="5" cols="50" name="FS_PESAN">{$skdp.FS_PESAN}</textarea>
             </td>
          </tr>
         <tr class="submit-box">

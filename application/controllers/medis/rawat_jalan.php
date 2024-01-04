@@ -1150,6 +1150,27 @@ class rawat_jalan extends ApplicationBase {
                         }
                     }
 
+                } else{
+                    $no_skdp = $this->m_rawat_jalan->get_no_skdp(array(date('m'),date('Y')));
+                    if (is_null($no_skdp['NOSKDP'])) {
+                        $no_skdp['NOSKDP'] = '0';
+                    }
+                    $SKDP = $no_skdp['NOSKDP'] + 1;
+                    $skdp = array(
+                        $this->input->post('FS_KD_REG'),
+                        $this->input->post('FS_SKDP_1'),
+                        $this->input->post('FS_SKDP_2'),
+                        $this->input->post('FS_SKDP_KET'),
+                        $this->input->post('FS_SKDP_KONTROL'),
+                        $SKDP,
+                        $this->com_user['user_name'],
+                        date('Y-m-d'),
+                        date('H:i:s'),
+                        $this->input->post('FS_SKDP_FASKES'),                
+                        $this->input->post('FS_PESAN'),              
+                        $this->input->post('FS_RENCANA_KONTROL')             
+                    ); 
+                    $this->m_rawat_jalan->insert_tac_rj_skdp($skdp);
                 }
             }
 

@@ -161,10 +161,53 @@
                 Hasil USG
                 </td>
                 <td>
-                    <textarea rows="3" cols="50" name="FS_USG" onkeypress="handle9(event)" class="form-control usg"> {$medis.FS_USG} </textarea>
+                    <textarea rows="3" cols="50" name="FS_USG" onkeypress="handle9(event)" class="form-control usg">{$medis.FS_USG}</textarea>
                 </td> 
           
         </tr>
+
+        {if $username eq '158'}
+        <tr>
+          <td>Hasil Echocardiografi</td>
+          <td>
+            <textarea
+              rows="5"
+              cols="50"
+              name="HASIL_ECHO"
+              onkeypress="handle10(event)"
+              class="form-control echo"
+            >{$medis.HASIL_ECHO}</textarea>
+          </td>
+          <td>Hasil EKG</td>
+          <td>
+            <textarea
+              rows="5"
+              cols="50"
+              name="HASIL_EKG"
+              onkeypress="handle12(event)"
+              class="form-control hasil_ekg"
+            >{$medis.HASIL_EKG}</textarea>
+          </td>
+        </tr>
+        <tr>
+          <td>Hasil Treadmill</td>
+          <td>
+            <textarea
+              rows="5"
+              cols="50"
+              name="HASIL_TREADMILL"
+              onkeypress="handle11(event)"
+              class="form-control treadmill"
+            >{$medis.HASIL_TREADMILL}</textarea>
+          </td>
+        </tr>
+        {else}
+        <input type="hidden" name="HASIL_TREADMILL" />
+        <input type="hidden" name="HASIL_EKG" />
+        <input type="hidden" name="HASIL_ECHO" />
+    
+        {/if}
+
       <!--   <tr>
             <td>High Risk</td>
             <td> -->
@@ -1103,6 +1146,26 @@ if(x=='a'||x=='A'){
                                var usg = $(".usg").val(); 
                                $('.usg').val(usg+'\n');   }
                   }
+
+                    function handle10(e){
+                   var key=e.keyCode || e.which;
+                 if (key==13){
+                               var echo = $(".echo").val(); 
+                               $('.echo').val(echo+'\n');   }
+                  }
+                    function handle11(e){
+                   var key=e.keyCode || e.which;
+                 if (key==13){
+                               var treadmill = $(".treadmill").val(); 
+                               $('.treadmill').val(treadmill+'\n');   }
+                  }
+                    function handle12(e){
+                   var key=e.keyCode || e.which;
+                 if (key==13){
+                               var hasil_ekg = $(".hasil_ekg").val(); 
+                               $('.hasil_ekg').val(hasil_ekg+'\n');   }
+                  }
+
        
     </script> 
        

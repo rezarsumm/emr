@@ -276,8 +276,8 @@ class m_rawat_jalan extends CI_Model {
    
     function insert_tac_rj_medis($params) {
         $sql = "INSERT INTO PKU.dbo.TAC_RJ_MEDIS(FS_KD_KP,FS_KD_REG, FS_DIAGNOSA, FS_ANAMNESA, FS_TINDAKAN, FS_TERAPI, FS_CATATAN_FISIK,FS_KD_MEDIS,FS_CARA_PULANG,FS_DAFTAR_MASALAH,FS_PLANNING,FS_OBAT_PROLANIS,
-        mdb, mdd,FS_JAM_TRS,FS_EKG,FS_USG)
-        VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        mdb, mdd,FS_JAM_TRS,FS_EKG,FS_USG,HASIL_ECHO,HASIL_EKG,HASIL_TREADMILL)
+        VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         return $this->db->query($sql, $params);
     }
 
@@ -503,7 +503,7 @@ class m_rawat_jalan extends CI_Model {
 
     function update_tac_rj_medis($params) {
         $sql = "UPDATE PKU.dbo.TAC_RJ_MEDIS SET FS_DIAGNOSA = ?, FS_ANAMNESA = ?, FS_TINDAKAN =?, FS_TERAPI=?, FS_CATATAN_FISIK=?, 
-        FS_CARA_PULANG=?,FS_DAFTAR_MASALAH=?,FS_OBAT_PROLANIS=?,mdb=?, mdd=?, FS_EKG=?, FS_USG=?
+        FS_CARA_PULANG=?,FS_DAFTAR_MASALAH=?,FS_OBAT_PROLANIS=?,mdb=?, mdd=?, FS_EKG=?, FS_USG=?, HASIL_ECHO=?, HASIL_EKG=?, HASIL_TREADMILL=?
         WHERE FS_KD_TRS = ?";
         return $this->db->query($sql, $params);
     }
@@ -1302,7 +1302,7 @@ class m_rawat_jalan extends CI_Model {
 
     function get_px_by_dokter_wait($params) {
         $sql = "SELECT a.NOMOR,a.NO_MR,a.TANGGAL,c.Kode_Dokter, b.NAMA_PASIEN,b.ALAMAT, b.KOTA,b.PROVINSI,b.NO_MR,d.FS_STATUS,
-        e.FS_CARA_PULANG,e.FS_TERAPI,e.FS_KD_TRS,c.NO_REG, c.KODEREKANAN 
+        e.FS_CARA_PULANG,e.FS_TERAPI,e.FS_KD_TRS,c.NO_REG, c.KODEREKANAN, e.HASIL_ECHO
         from ANTRIAN a
         LEFT JOIN REGISTER_PASIEN b ON a.NO_MR=b.NO_MR
         LEFT JOIN PENDAFTARAN c ON a.NO_MR=c.NO_MR
@@ -1670,7 +1670,7 @@ class m_rawat_jalan extends CI_Model {
 
       function get_px_history_dokter2($params) {
         $sql = "SELECT TOP 15 A.TANGGAL, A.KODE_RUANG,A.STATUS,A.NO_REG,B.NAMA_PASIEN, B.ALAMAT,
-         B.TGL_LAHIR,B.JENIS_KELAMIN, I.NAMA_DOKTER,K.SPESIALIS,L.MAX_RG,M.FS_KD_MEDIS,M.FS_KD_TRS
+         B.TGL_LAHIR,B.JENIS_KELAMIN, I.NAMA_DOKTER,K.SPESIALIS,L.MAX_RG,M.FS_KD_MEDIS,M.FS_KD_TRS, M.HASIL_ECHO
         FROM PENDAFTARAN A
         LEFT JOIN REGISTER_PASIEN B ON  A.NO_MR=B.NO_MR
         LEFT JOIN DOKTER I ON A.KODE_DOKTER=I.KODE_DOKTER
@@ -1694,7 +1694,7 @@ class m_rawat_jalan extends CI_Model {
 
        function get_px_history_dokter4($params) {
         $sql = "SELECT TOP 8 A.TANGGAL,A.STATUS,A.NO_REG,B.NAMA_PASIEN, B.ALAMAT, B.TGL_LAHIR,B.JENIS_KELAMIN,
-         I.NAMA_DOKTER,K.SPESIALIS,L.MAX_RG,M.FS_KD_MEDIS,M.FS_KD_TRS, N.FS_STATUS, N.FS_KD_REG
+         I.NAMA_DOKTER,K.SPESIALIS,L.MAX_RG,M.FS_KD_MEDIS,M.FS_KD_TRS, N.FS_STATUS, N.FS_KD_REG, M.HASIL_ECHO
         FROM PENDAFTARAN A
         LEFT JOIN REGISTER_PASIEN B ON  A.NO_MR=B.NO_MR
         LEFT JOIN DOKTER I ON A.KODE_DOKTER=I.KODE_DOKTER
@@ -2619,7 +2619,7 @@ class m_rawat_jalan extends CI_Model {
        function get_px_history_dokter_konsul($params) {
         $sql = "SELECT TOP 15 A.TANGGAL, A.KODE_RUANG,A.STATUS,A.NO_REG,B.NAMA_PASIEN,
          B.ALAMAT,B.KOTA,B.PROVINSI,B.TGL_LAHIR,B.JENIS_KELAMIN, I.NAMA_DOKTER,K.SPESIALIS,
-         M.FS_KD_MEDIS,M.FS_KD_TRS
+         M.FS_KD_MEDIS,M.FS_KD_TRS, M.HASIL_ECHO
         FROM PENDAFTARAN A
         LEFT JOIN REGISTER_PASIEN B ON  A.NO_MR=B.NO_MR
         LEFT JOIN DOKTER I ON A.KODE_DOKTER=I.KODE_DOKTER

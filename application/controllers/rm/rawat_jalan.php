@@ -309,6 +309,33 @@ class rawat_jalan extends ApplicationBase {
         } 
     }
     
+   public function cetak_hasil_echo($FS_KD_REG = "", $FS_KD_TRS ="") { 
+        $this->_set_page_rule("R");
+        $this->load->library('html2pdf');
+        $now = date('Y-m-d');
+        $data['rs_pasien'] = $this->m_rawat_jalan->get_px_by_dokter_by_rg2(array($FS_KD_REG));
+        $data["result"] = $this->m_rawat_jalan->get_data_medis_by_rg2(array($FS_KD_REG, $FS_KD_TRS));
+        $data["rs_lab"] = $this->m_rawat_jalan->get_data_order_lab_by_rg2(array($FS_KD_REG));
+        $data["header1"] = $this->m_rawat_jalan->get_header1();
+        $data["header2"] = $this->m_rawat_jalan->get_header2();
+        $data["alamat"] = $this->m_rawat_jalan->get_alamat();
+        ob_start();
+        $this->load->view('rm/rawat_jalan/hasil_echo', $data);
+        $content = ob_get_contents();
+        ob_end_clean();
+
+        try {
+            $html2pdf = new HTML2PDF('P', 'A5', 'fr');
+            $html2pdf->pdf->SetDisplayMode('fullpage');
+            $html2pdf->setDefaultFont('Arial');
+            $html2pdf->writeHTML($content, isset($_GET['vuehtml']));
+            $html2pdf->Output($FS_KD_REG . '.pdf');
+        } catch (HTML2PDF_exception $e) {
+            echo $e;
+            exit;
+        } 
+    }
+    
    public function cetak_rujukan_rad($FS_KD_REG = "", $FS_KD_TRS ="") {
         $this->_set_page_rule("R");
         $this->load->library('html2pdf');

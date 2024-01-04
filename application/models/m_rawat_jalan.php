@@ -276,8 +276,8 @@ class m_rawat_jalan extends CI_Model {
    
     function insert_tac_rj_medis($params) {
         $sql = "INSERT INTO PKU.dbo.TAC_RJ_MEDIS(FS_KD_KP,FS_KD_REG, FS_DIAGNOSA, FS_ANAMNESA, FS_TINDAKAN, FS_TERAPI, FS_CATATAN_FISIK,FS_KD_MEDIS,FS_CARA_PULANG,FS_DAFTAR_MASALAH,FS_PLANNING,FS_OBAT_PROLANIS,
-        mdb, mdd,FS_JAM_TRS,FS_EKG,FS_USG)
-        VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        mdb, mdd,FS_JAM_TRS,FS_EKG,FS_USG,HASIL_ECHO,HASIL_EKG,HASIL_TREADMILL)
+        VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         return $this->db->query($sql, $params);
     }
 
@@ -503,7 +503,7 @@ class m_rawat_jalan extends CI_Model {
 
     function update_tac_rj_medis($params) {
         $sql = "UPDATE PKU.dbo.TAC_RJ_MEDIS SET FS_DIAGNOSA = ?, FS_ANAMNESA = ?, FS_TINDAKAN =?, FS_TERAPI=?, FS_CATATAN_FISIK=?, 
-        FS_CARA_PULANG=?,FS_DAFTAR_MASALAH=?,FS_OBAT_PROLANIS=?,mdb=?, mdd=?, FS_EKG=?, FS_USG=?
+        FS_CARA_PULANG=?,FS_DAFTAR_MASALAH=?,FS_OBAT_PROLANIS=?,mdb=?, mdd=?, FS_EKG=?, FS_USG=?, HASIL_ECHO=?, HASIL_EKG=?, HASIL_TREADMILL=?
         WHERE FS_KD_TRS = ?";
         return $this->db->query($sql, $params);
     }

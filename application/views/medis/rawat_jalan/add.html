@@ -217,7 +217,6 @@
 Suhu : {$vs.FS_SUHU} C, Nadi : {$vs.FS_NADI} x/menit,  Respirasi : {$vs.FS_R} x/menit, TD : {$vs.FS_TD} mmHg, BB : {$vs.FS_BB}, TB : {$vs.FS_TB}, Alergi :  {if $alergi.FS_ALERGI eq '1'} Belum Diketahui,  {elseif $alergi.FS_ALERGI eq '2'} Tidak Ada {elseif $alergi.FS_ALERGI eq '3'}  Ada, {$alergi.FS_ALERGI2} {else}
                 {/if}Skala Nyeri :{$nyeri.FS_NYERIS}, Skrining Nutrisi :  {if $result.FS_KD_LAYANAN eq 'P003' || $result.FS_KD_LAYANAN2 eq 'P003'|| $result.FS_KD_LAYANAN3 eq 'P003'}  {if ($nutrisi.FS_NUTRISI_ANAK1 + $nutrisi.FS_NUTRISI_ANAK2+ $nutrisi.FS_NUTRISI_ANAK3+ $nutrisi.FS_NUTRISI_ANAK4) < 1} Normal {else}  Terjadi Penurunan Badan Tidak Diinginkan   {/if} {else}   {if ($nutrisi.FS_NUTRISI1 + $nutrisi.FS_NUTRISI2) < 2}  Normal {else} Terjadi Penurunan Badan Tidak Diinginkan {/if} {/if}
 
-
             </textarea
         >
       </td>
@@ -232,8 +231,7 @@ Suhu : {$vs.FS_SUHU} C, Nadi : {$vs.FS_NADI} x/menit,  Respirasi : {$vs.FS_R} x/
           name="FS_TINDAKAN"
           onkeypress="handle7(event)"
           class="form-control tindakan"
-        >
-        </textarea>
+        ></textarea>
       </td>
     </tr>
     <tr>
@@ -245,8 +243,7 @@ Suhu : {$vs.FS_SUHU} C, Nadi : {$vs.FS_NADI} x/menit,  Respirasi : {$vs.FS_R} x/
           name="FS_DIAGNOSA"
           onkeypress="handle8(event)"
           class="form-control diagnosa"
-        >
-        </textarea>
+        ></textarea>
       </td>
       <td>Hasil USG</td>
       <td>
@@ -256,10 +253,51 @@ Suhu : {$vs.FS_SUHU} C, Nadi : {$vs.FS_NADI} x/menit,  Respirasi : {$vs.FS_R} x/
           name="FS_USG"
           onkeypress="handle9(event)"
           class="form-control usg"
-        >
-        </textarea>
+        ></textarea>
       </td>
     </tr>
+
+    {if $username eq '158'}
+    <tr>
+      <td>Hasil Echocardiografi</td>
+      <td>
+        <textarea
+          rows="5"
+          cols="50"
+          name="HASIL_ECHO"
+          onkeypress="handle8(event)"
+          class="form-control diagnosa"
+        ></textarea>
+      </td>
+      <td>Hasil EKG</td>
+      <td>
+        <textarea
+          rows="5"
+          cols="50"
+          name="HASIL_EKG"
+          onkeypress="handle9(event)"
+          class="form-control usg"
+        ></textarea>
+      </td>
+    </tr>
+    <tr>
+      <td>Hasil Treadmill</td>
+      <td>
+        <textarea
+          rows="5"
+          cols="50"
+          name="HASIL_TREADMILL"
+          onkeypress="handle8(event)"
+          class="form-control diagnosa"
+        ></textarea>
+      </td>
+    </tr>
+    {else}
+    <input type="hidden" name="HASIL_TREADMILL" />
+    <input type="hidden" name="HASIL_EKG" />
+    <input type="hidden" name="HASIL_ECHO" />
+
+    {/if}
     <!--  <tr>
         <td>High Risk</td>
         <td> -->

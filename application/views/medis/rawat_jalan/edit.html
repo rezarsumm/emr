@@ -174,8 +174,8 @@
               rows="5"
               cols="50"
               name="HASIL_ECHO"
-              onkeypress="handle8(event)"
-              class="form-control diagnosa"
+              onkeypress="handle10(event)"
+              class="form-control echo"
             >{$medis.HASIL_ECHO}</textarea>
           </td>
           <td>Hasil EKG</td>
@@ -184,8 +184,8 @@
               rows="5"
               cols="50"
               name="HASIL_EKG"
-              onkeypress="handle9(event)"
-              class="form-control usg"
+              onkeypress="handle12(event)"
+              class="form-control hasil_ekg"
             >{$medis.HASIL_EKG}</textarea>
           </td>
         </tr>
@@ -196,8 +196,8 @@
               rows="5"
               cols="50"
               name="HASIL_TREADMILL"
-              onkeypress="handle8(event)"
-              class="form-control diagnosa"
+              onkeypress="handle11(event)"
+              class="form-control treadmill"
             >{$medis.HASIL_TREADMILL}</textarea>
           </td>
         </tr>
@@ -1146,6 +1146,26 @@ if(x=='a'||x=='A'){
                                var usg = $(".usg").val(); 
                                $('.usg').val(usg+'\n');   }
                   }
+
+                    function handle10(e){
+                   var key=e.keyCode || e.which;
+                 if (key==13){
+                               var echo = $(".echo").val(); 
+                               $('.echo').val(echo+'\n');   }
+                  }
+                    function handle11(e){
+                   var key=e.keyCode || e.which;
+                 if (key==13){
+                               var treadmill = $(".treadmill").val(); 
+                               $('.treadmill').val(treadmill+'\n');   }
+                  }
+                    function handle12(e){
+                   var key=e.keyCode || e.which;
+                 if (key==13){
+                               var hasil_ekg = $(".hasil_ekg").val(); 
+                               $('.hasil_ekg').val(hasil_ekg+'\n');   }
+                  }
+
        
     </script> 
        

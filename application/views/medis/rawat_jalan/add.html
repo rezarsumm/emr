@@ -265,7 +265,8 @@ Suhu : {$vs.FS_SUHU} C, Nadi : {$vs.FS_NADI} x/menit,  Respirasi : {$vs.FS_R} x/
           rows="5"
           cols="50"
           name="HASIL_ECHO"
-          onkeypress="handle8(event)"
+          onkeypress="handle10(event)"
+          class="form-control echo"
           class="form-control diagnosa"
         ></textarea>
       </td>
@@ -275,7 +276,8 @@ Suhu : {$vs.FS_SUHU} C, Nadi : {$vs.FS_NADI} x/menit,  Respirasi : {$vs.FS_R} x/
           rows="5"
           cols="50"
           name="HASIL_EKG"
-          onkeypress="handle9(event)"
+          onkeypress="handle12(event)"
+          class="form-control hasil_ekg"
           class="form-control usg"
         ></textarea>
       </td>
@@ -287,7 +289,8 @@ Suhu : {$vs.FS_SUHU} C, Nadi : {$vs.FS_NADI} x/menit,  Respirasi : {$vs.FS_R} x/
           rows="5"
           cols="50"
           name="HASIL_TREADMILL"
-          onkeypress="handle8(event)"
+          onkeypress="handle11(event)"
+          class="form-control treadmill"
           class="form-control diagnosa"
         ></textarea>
       </td>
@@ -1583,6 +1586,28 @@ Suhu : {$vs.FS_SUHU} C, Nadi : {$vs.FS_NADI} x/menit,  Respirasi : {$vs.FS_R} x/
     if (key == 13) {
       var usg = $(".usg").val();
       $(".usg").val(usg + "\n");
+    }
+  }
+
+  function handle10(e) {
+    var key = e.keyCode || e.which;
+    if (key == 13) {
+      var echo = $(".echo").val();
+      $(".echo").val(echo + "\n");
+    }
+  }
+  function handle11(e) {
+    var key = e.keyCode || e.which;
+    if (key == 13) {
+      var treadmill = $(".treadmill").val();
+      $(".treadmill").val(treadmill + "\n");
+    }
+  }
+  function handle12(e) {
+    var key = e.keyCode || e.which;
+    if (key == 13) {
+      var hasil_ekg = $(".hasil_ekg").val();
+      $(".hasil_ekg").val(hasil_ekg + "\n");
     }
   }
 </script>

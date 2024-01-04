@@ -123,6 +123,10 @@
                            <a  href="javascript:void(0);" onclick="window.open('{$config->site_url('rm/rawat_jalan/cetak_rujukan_lab/'|cat:$data.NO_REG|cat:'/'|cat:$data.FS_KD_TRS)}', 'nama_window_pop_up', 'scrollbars=yes,resizeable=no')" class="button-edit">Lab</a>
                            {else}
                            {/if}
+                           {if $data.HASIL_ECHO neq ''}
+                           <a  href="javascript:void(0);" onclick="window.open('{$config->site_url('rm/rawat_jalan/cetak_hasil_echo/'|cat:$data.NO_REG|cat:'/'|cat:$data.FS_KD_TRS)}', 'nama_window_pop_up', 'scrollbars=yes,resizeable=no')" class="button-edit">Hasil Echo</a>
+                           {else}
+                           {/if}
                            {if $cek_rad neq ''}
                            <a  href="javascript:void(0);" onclick="window.open('{$config->site_url('rm/rawat_jalan/cetak_rujukan_rad/'|cat:$data.NO_REG|cat:'/'|cat:$data.FS_KD_TRS)}', 'nama_window_pop_up', 'scrollbars=yes,resizeable=no')" class="button-edit">Radiologi</a>
                            {else}

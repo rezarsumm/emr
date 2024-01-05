@@ -93,6 +93,10 @@
                         <a  href="javascript:void(0);" onclick="window.open('{$config->site_url('medis/rawat_jalan/cetak_rb/'|cat:$data.NO_REG|cat:'/'|cat:$data.FS_KD_TRS)}', 'nama_window_pop_up', 'scrollbars=yes,resizeable=no')" class="button-download">RB</a>
                         {else}
                         {/if}
+                        {if $data.HASIL_ECHO neq ''}
+                        <a  href="javascript:void(0);" onclick="window.open('{$config->site_url('rm/rawat_jalan/cetak_hasil_echo/'|cat:$data.NO_REG|cat:'/'|cat:$data.FS_KD_TRS)}', 'nama_window_pop_up', 'scrollbars=yes,resizeable=no')" class="button-edit">Hasil Echo</a>
+                        {else}
+                        {/if}
                         {if $data.FS_CARA_PULANG == '2'}
                         <a  href="javascript:void(0);" onclick="window.open('{$config->site_url('rm/rawat_jalan/cetak_skdp/'|cat:$data.NO_REG|cat:'/'|cat:$data.FS_KD_TRS)}', 'nama_window_pop_up', 'scrollbars=yes,resizeable=no')" class="button-download">SKDP</a>
 

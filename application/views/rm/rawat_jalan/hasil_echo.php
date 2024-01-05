@@ -39,7 +39,7 @@
             </td>
           
             <td style="width:75%;text-align: center;border-bottom:solid 1px #000000;">
-                <h5>MAJELIS PEMBINA KESEHATAN UMUM
+                <h5>MAJELIS PEMBINAAN KESEHATAN UMUM
                 <br>RSU MUHAMMADIYAH METRO</h5>
                 
            
@@ -62,7 +62,7 @@
             </table>
         </td>
           <td style="width:15%;border-bottom:solid 1px #000000; float:right" >
-                <img src="<?php base_url() ?>resource/doc/images/icon/kars.png" width="50" height="50" />
+                <img src="<?php base_url() ?>resource/doc/images/icon/larsibaru.png" width="50" height="50" />
             </td>
 
           

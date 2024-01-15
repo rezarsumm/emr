@@ -272,8 +272,8 @@ class m_igd extends CI_Model {
 
     function INSERT_AWAL_MEDIS($params) { 
         $sql = "INSERT INTO PKU.dbo.IGD_AWAL_MEDIS(FS_KD_REG,KENDARAAN,RUJUKAN, FS_ANAMNESA,RIW_PENYAKIT_DAHULU,RIW_PENYAKIT_NOW,RIW_PERAWATAN,RIW_TINDAKAN,
-        FS_STATUS_PSIK,MENTAL,PEMERIKSAAN_FISIK,SKOR_NYERI,LINGKAR_KEPALA,STATUS_GIZI,ALAT_BANTU,CACAT,ADL,RESIKO_JATUH,KONJUNGTIVA,DEVIASI,SKELERA,JVP,BIBIR,MUKOSA,THORAX,JANTUNG,ABDOMEN,PINGGANG,EKS_ATAS,EKS_BAWAH,FILE_LOKASI,LAB,RAD,LAINYA,FS_DIAGNOSA,MASALAH_KES,FS_TERAPI,RENCANA,DIET,KONSUL,KD_DOKTER_KONSUL, EDUKASI,D_PLANNING,ALASAN_RUJUK,TRANSPORT_KELUAR,KONDISI_AKHIR,JAM_SELESAI,MDB,MDD,KONSUL2,KD_DOKTER_KONSUL2,KONSUL3,KD_DOKTER_KONSUL3,REKOMENDASI_RUJUK,REKOMENDASI_POLI,EKG)
-          VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        FS_STATUS_PSIK,MENTAL,PEMERIKSAAN_FISIK,SKOR_NYERI,LINGKAR_KEPALA,STATUS_GIZI,ALAT_BANTU,CACAT,ADL,RESIKO_JATUH,KONJUNGTIVA,DEVIASI,SKELERA,JVP,BIBIR,MUKOSA,THORAX,JANTUNG,ABDOMEN,PINGGANG,EKS_ATAS,EKS_BAWAH,FILE_LOKASI,LAB,RAD,LAINYA,FS_DIAGNOSA,MASALAH_KES,FS_TERAPI,RENCANA,DIET,KONSUL,KD_DOKTER_KONSUL, EDUKASI,D_PLANNING,ALASAN_RUJUK,TRANSPORT_KELUAR,KONDISI_AKHIR,JAM_SELESAI,MDB,MDD,KONSUL2,KD_DOKTER_KONSUL2,KONSUL3,KD_DOKTER_KONSUL3,REKOMENDASI_RUJUK,REKOMENDASI_POLI,EKG,PARU)
+          VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
                return $this->db->query($sql, $params);
     }
 
@@ -1262,6 +1262,27 @@ class m_igd extends CI_Model {
            return array();
        }
    }
+    function get_pasien_ugd_anak() {
+        $now = date('Y-m-d'); 
+
+        $date = new DateTime();
+        $date_plus = $date->modify("-1 days");
+        $akhirnya= $date_plus->format("Y-m-d");
+
+        $sql = "SELECT E.NO_REG, B.NO_MR, B.NAMA_PASIEN, B.TGL_LAHIR, B.JENIS_KELAMIN, B.ALAMAT, D.STATUS_IGD, C.FS_TERAPI, datediff(year,B.TGL_LAHIR,GETDATE()) 'fn_umur'
+       FROM REGISTER_PASIEN B,  PENDAFTARAN E 
+       LEFT JOIN PKU.dbo.TAC_STATUS_IGD D ON E.NO_REG = D.FS_KD_REG
+       LEFT JOIN PKU.dbo.IGD_AWAL_MEDIS C ON E.NO_REG = C.FS_KD_REG
+       WHERE B.NO_MR=E.NO_MR AND E.STATUS='1' and E.KODE_MASUK='1' and (E.TANGGAL= '$now' or E.TANGGAL='$akhirnya')";
+       $query = $this->db->query($sql);
+       if ($query->num_rows() > 0) {
+           $result = $query->result_array();
+           $query->free_result();
+           return $result;
+       } else {
+           return array();
+       }
+   }
 
 
    
@@ -2025,6 +2046,22 @@ $result2 = $kondisi2->result_array();
             return 0;
         }
     }
+
+    function getKriteriaDischargeAssesmenPerawat($params)
+    {
+        $sql = "SELECT KRITERIA_DISCHARGE
+        FROM PKU.dbo.IGD_AWAL_PERAWAT
+        WHERE FS_KD_REG = ?";
+        $query = $this->db->query($sql, $params);
+        if ($query->num_rows() > 0) {
+            $result = $query->row_array();
+            $query->free_result();
+            return $result;
+        } else {
+            return 0;
+        }
+    }
+
     function getKriteriaDischargeAssesmenNeonatus($params)
     {
         $sql = "SELECT DISCHARGE_PLANNING

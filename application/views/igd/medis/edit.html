@@ -272,6 +272,14 @@
 
             </td>
         </tr>
+        <tr class="headrow">
+            <th colspan="4">PARU  </th> 
+        </tr>
+        <tr>
+            <td colspan="2">
+                <textarea cols="80" rows="1" name="PARU">{$data.PARU} </textarea>
+            </td>
+        </tr>
 
         <tr class="headrow">
             <th colspan="2">ABDOMEN  </th>
@@ -419,7 +427,7 @@
                                 {/foreach}
                             </select>
                             <br>Uraian Konsul (Tanggal, Jam, Instruksi) <br>
-                            <textarea rows="2" class="form-control"  cols="60" name="KONSUL">{$data.KONSUL} </textarea>
+                            <textarea rows="2" class="form-control konsul" onkeypress="handle1(event)"  cols="60" name="KONSUL">{$data.KONSUL} </textarea>
                              <br><br>
                  DPJP 1
                  <select name="KD_DOKTER_KONSUL2" id="surat_dari" class="select2" style="width: 300px;">
@@ -433,7 +441,7 @@
                     {/foreach}
                 </select>
                 <br>Uraian Konsul (Tanggal, Jam, Instruksi) <br>
-                <textarea rows="2" class="form-control"  cols="60" name="KONSUL2">{$data.KONSUL2} </textarea>
+                <textarea rows="2" class="form-control konsul2" onkeypress="handle2(event)"  cols="60" name="KONSUL2">{$data.KONSUL2} </textarea>
                  <br><br>
                  DPJP 2
                  <select name="KD_DOKTER_KONSUL3" id="surat_dari" class="select2" style="width: 300px;">
@@ -447,7 +455,7 @@
                     {/foreach}
                 </select>
                 <br>Uraian Konsul (Tanggal, Jam, Instruksi) <br>
-                <textarea rows="2" class="form-control"  cols="60" name="KONSUL3">{$data.KONSUL3} </textarea>
+                <textarea rows="2" class="form-control konsul3" onkeypress="handle3(event)"  cols="60" name="KONSUL3">{$data.KONSUL3} </textarea>
                  <br><br>
                       
                             <!-- <input type="checkbox" name="KRITERIA_DISCHARGE[]" value="Umur>65" {if in_array('ALBUMIN/ALP ', $lab_edit)}checked="checked"{/if}>Umur>65<br> -->
@@ -789,3 +797,29 @@ if(x=='a'||x=='A'){
 
 
        </script>
+
+<script>
+    function handle1(e) {
+var key = e.keyCode || e.which;
+if (key == 13) {
+var konsul = $(".konsul").val();
+$(".konsul").val(konsul + "\n");
+}
+}
+
+function handle2(e) {
+var key = e.keyCode || e.which;
+if (key == 13) {
+var konsul2 = $(".konsul2").val();
+$(".konsul2").val(konsul2 + "\n");
+}
+}
+
+function handle3(e) {
+var key = e.keyCode || e.which;
+if (key == 13) {
+var konsul3 = $(".konsul3").val();
+$(".konsul3").val(konsul3 + "\n");
+}
+}
+ </script>

@@ -398,7 +398,8 @@ class Medis extends ApplicationBase {
                     $this->input->post('KD_DOKTER_KONSUL3'),
                     $this->input->post('REKOMENDASI_RUJUK'),
                     $this->input->post('REKOMENDASI_POLI'),
-                    $this->input->post('EKG')
+                    $this->input->post('EKG'),
+                    $this->input->post('PARU')
                     
                 );
                 $this->m_igd->INSERT_AWAL_MEDIS($params2);
@@ -883,7 +884,8 @@ class Medis extends ApplicationBase {
                 $this->input->post('KD_DOKTER_KONSUL3'),
                 $this->input->post('REKOMENDASI_RUJUK'),
                 $this->input->post('REKOMENDASI_POLI'),
-                $this->input->post('EKG')
+                $this->input->post('EKG'),
+                $this->input->post('PARU')
                 
             );
             // var_dump($params2);

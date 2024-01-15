@@ -38,3 +38,6 @@ ALTER TABLE TAC_RI_CPPT ADD status_cppt varchar(50);
   - MDB VARCHAR(50)
   - MDD datetime
   //SUDAH dibuat
+
+  12 desember 2023
+  ALTER TABLE IGD_AWAL_MEDIS ADD PARU text;

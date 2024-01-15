@@ -52,7 +52,7 @@ class Ews_anak extends ApplicationBase {
         $fs_kd_layanan = $this->com_user['fs_kd_layanan'];
 
       
-        $this->smarty->assign("rs_pasien", $this->m_igd->get_pasien_ugd());
+        $this->smarty->assign("rs_pasien", $this->m_igd->get_pasien_ugd_anak());
    
         // notification
         $this->tnotification->display_notification();
@@ -68,6 +68,8 @@ class Ews_anak extends ApplicationBase {
     public function add($FS_RG = '') {
 
         $FS_RG = $this->input->post('FS_RG');
+        // var_dump($FS_RG);
+        // die;
 
         // set page rules
         $this->_set_page_rule("C");
@@ -103,7 +105,7 @@ class Ews_anak extends ApplicationBase {
                           $akhirnya= $date_plus->format("Y-m-d");
 
 
-                          $this->smarty->assign("rs_pasien", $this->m_cppt->get_pasien_by_rg(array($FS_RG)));
+                          $this->smarty->assign("rs_pasien", $this->m_igd->get_pasien_by_rg_ugd(array($FS_RG)));
         
                           $this->smarty->assign("result", $this->m_igd->get_ews_anak(array($FS_RG))); 
                   

@@ -891,6 +891,7 @@ class resume extends ApplicationBase {
                 date('H:i:s'),
                 $this->input->post('FS_KD_REG')
             );
+            
             // insert
             if ($this->m_resume->update($params)) {
 

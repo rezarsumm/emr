@@ -211,6 +211,23 @@ class Medis extends ApplicationBase {
         }
         // var_dump($data_rad);
         // die;
+                   // Mendapatkan string dari database
+                   $anamnesa_string = $this->m_igd->getJenisAnamnesaAssesmenPerawat(array($FS_RG));
+
+                   // Memecah string menjadi array
+                   $data = array();
+                   $string = $anamnesa_string['jenis_anamnesa'];;
+                   $string = trim($string, ','); // Menghapus koma di awal dan akhir string (jika ada)
+           
+                   if (!empty($string)) {
+                       $data = explode(',', $string);
+                   }
+
+           
+                //    var_dump($data);
+                //    die;
+                   // Assign array ke Smarty
+                   $this->smarty->assign("jenis_anamnesa", $data);
 
 
        
@@ -308,7 +325,7 @@ class Medis extends ApplicationBase {
             // $klab='';
             if (!empty($lab)) {
                 foreach ($lab as $value) {
-                    $klab=$klab.$value.', ';
+                    $klab=$klab.', '.$value;
                 }
               }
 
@@ -317,9 +334,16 @@ class Medis extends ApplicationBase {
             // $tembusan='';
             if (!empty($rad)) {
                 foreach ($rad as $value) {
-                    $tembusan=$tembusan.$value.', ';
+                    $tembusan=$tembusan.', '.$value;
                 }
 
+            }
+            $anamnesa = $this->input->post('jenis_anamnesa');
+            $jenis_anamnesa='';
+            if (!empty($anamnesa)) {
+                foreach ($anamnesa as $value) {
+                    $jenis_anamnesa=$jenis_anamnesa.','.$value;
+                }
             }
 
 
@@ -399,7 +423,10 @@ class Medis extends ApplicationBase {
                     $this->input->post('REKOMENDASI_RUJUK'),
                     $this->input->post('REKOMENDASI_POLI'),
                     $this->input->post('EKG'),
-                    $this->input->post('PARU')
+                    $this->input->post('PARU'),
+                    $jenis_anamnesa,
+                    $this->input->post('BAGIAN_RADIOLOGI')
+
                     
                 );
                 $this->m_igd->INSERT_AWAL_MEDIS($params2);
@@ -808,6 +835,14 @@ class Medis extends ApplicationBase {
 
         }
 
+        $anamnesa = $this->input->post('jenis_anamnesa');
+        $jenis_anamnesa='';
+        if (!empty($anamnesa)) {
+            foreach ($anamnesa as $value) {
+                $jenis_anamnesa=$jenis_anamnesa.','.$value;
+            }
+        }
+
 
 
             $params14 = array(
@@ -885,7 +920,11 @@ class Medis extends ApplicationBase {
                 $this->input->post('REKOMENDASI_RUJUK'),
                 $this->input->post('REKOMENDASI_POLI'),
                 $this->input->post('EKG'),
-                $this->input->post('PARU')
+                $this->input->post('PARU'),
+                $jenis_anamnesa,
+                $this->input->post('BAGIAN_RADIOLOGI')
+
+
                 
             );
             // var_dump($params2);

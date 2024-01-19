@@ -110,22 +110,6 @@
             $("#an19").html(scd);
             scoret();
         });
-
-        $("#gcs1").change(function () {
-            var gcs_sc = $(this).val();
-            $("#hasil_gcs1").html(gcs_sc);
-            gcs_score();
-        });
-        $("#gcs2").change(function () {
-            var gcs_sc = $(this).val();
-            $("#hasil_gcs2").html(gcs_sc);
-            gcs_score();
-        });
-        $("#gcs3").change(function () {
-            var gcs_sc = $(this).val();
-            $("#hasil_gcs3").html(gcs_sc);
-            gcs_score();
-        });
         
     });
 </script>
@@ -165,27 +149,6 @@
         }
     }
 
-    function gcs_score() {
-        var gcs_sc = parseInt($("#hasil_gcs1").text()) + parseInt($("#hasil_gcs2").text()) + parseInt($("#hasil_gcs3").text());
-        $("#total_gcs").html(gcs_sc);
-        if (gcs_sc >= 0 && gcs_sc <= 3) {
-            $("#kesimpulan_gcs").val("Coma");
-        }  else if (gcs_sc >= 4 && gcs_sc <= 6) {
-            $("#kesimpulan_gcs").val("Sopor");
-        }
-        else if (gcs_sc >= 7 && gcs_sc <= 9) {
-            $("#kesimpulan_gcs").val("Somnolen");
-        }
-        else if (gcs_sc >= 10 && gcs_sc <= 11) {
-            $("#kesimpulan_gcs").val("Delirium");
-        }
-        else if (gcs_sc >= 12 && gcs_sc <= 13) {
-            $("#kesimpulan_gcs").val("Apatis");
-        }
-        else if (gcs_sc >= 14) {
-            $("#kesimpulan_gcs").val("CM");
-        }
-    }
     
 </script>
 
@@ -688,49 +651,28 @@
     <tr>
         <td width='20%'>EYE</td>
         <td width='30%'> 
-            <select name="EYE" class="select2" id="gcs1">
-                <option value="1" {if $data.EYE eq '1'} selected {/if} >1</option>
-                <option value="2" {if $data.EYE eq '2'} selected {/if}>2</option>
-                <option value="3" {if $data.EYE eq '3'} selected {/if}>3</option>
-                <option value="4" {if $data.EYE eq '4'} selected {/if}>4</option>
-
-            </select>
-            <input type="hidden" id="hasil_gcs1"/>
+            
+            <input type="text" name="EYE" size="25" value="{$data.EYE}">
          </td>
         
     </tr>
     <tr>
         <td width='20%'>MOTORIK</td>
         <td width='30%'> 
-            <select name="MOTORIK" class="select2" id="gcs2">
-                <option value="1" {if $data.MOTORIK eq '1'} selected {/if} >1</option>
-                <option value="2" {if $data.MOTORIK eq '2'} selected {/if}>2</option>
-                <option value="3" {if $data.MOTORIK eq '3'} selected {/if}>3</option>
-                <option value="4" {if $data.MOTORIK eq '4'} selected {/if}>4</option>
-                <option value="5" {if $data.MOTORIK eq '5'} selected {/if}>5</option>
-                <option value="6" {if $data.MOTORIK eq '6'} selected {/if}>6</option>
-            </select>
-            <input type="hidden" id="hasil_gcs2"/>
-         </td>
+            <input type="text" name="MOTORIK" size="25" value="{$data.MOTORIK}">
+        </td>
         
     </tr>
     <tr>
         <td width='20%'>VERBAL</td>
         <td width='30%'> 
-            <select name="VERBAL" class="select2" id="gcs3">
-                <option value="1" {if $data.VERBAL eq '1'} selected {/if} >1</option>
-                <option value="2" {if $data.VERBAL eq '2'} selected {/if}>2</option>
-                <option value="3" {if $data.VERBAL eq '3'} selected {/if}>3</option>
-                <option value="4" {if $data.VERBAL eq '4'} selected {/if}>4</option>
-                <option value="5" {if $data.VERBAL eq '5'} selected {/if}>5</option>
-            </select>
-            <input type="hidden" id="hasil_gcs3"/>
+            <input type="text" name="VERBAL" size="25" value="{$data.VERBAL}">
          </td>
         
     </tr>
     <tr>
         <td width='20%'>  Kesadaran</td>
-        <td width='30%'><input type="text" name="SADAR" size="50" id="kesimpulan_gcs" readonly value="{$data.SADAR}"/></td>
+               <td width='30%'><input type="text" name="SADAR" size="25" value="{$data.SADAR}" /></td>
                
 
     </tr>
@@ -1685,7 +1627,7 @@
         <tr>
             <td width='20%'>Kriteria Discharge Planning</td>
             <td width='30%'> 
-                <input type="checkbox" name="KRITERIA_DISCHARGE[]" value="Umur>65" {if in_array(' Umur>65', $kriteria_discahargers)}checked="checked"{/if}>Umur>65<br>
+                <input type="checkbox" name="KRITERIA_DISCHARGE[]" value="Umur>65" {if in_array('Umur>65', $kriteria_discahargers)}checked="checked"{/if}>Umur>65<br>
                 <input type="checkbox" name="KRITERIA_DISCHARGE[]" value="Terbatas Mobilitas" {if in_array('Terbatas Mobilitas', $kriteria_discahargers)}checked="checked"{/if}>Terbatas Mobilitas<br>
                 <input type="checkbox" name="KRITERIA_DISCHARGE[]" value="Perawatan Lanjutan" {if in_array('Perawatan Lanjutan', $kriteria_discahargers)}checked="checked"{/if}>Perawatan Lanjutan<br>
                 <input type="checkbox" name="KRITERIA_DISCHARGE[]" value="Bantuan Aktifitas Sehari hari" {if in_array('Bantuan Aktifitas Sehari hari', $kriteria_discahargers)}checked="checked"{/if}>Bantuan Aktifitas Sehari hari<br>

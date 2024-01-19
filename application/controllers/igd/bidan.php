@@ -275,7 +275,7 @@ class Bidan extends ApplicationBase {
      $kd='';
      if (!empty($ld)) {
          foreach ($ld as $value) {
-             $kd=$kd.', '.$value;
+             $kd=$kd.','.$value;
          }
 
      }
@@ -789,7 +789,7 @@ class Bidan extends ApplicationBase {
           $kd='';
           if (!empty($ld)) {
               foreach ($ld as $value) {
-                  $kd=$kd.', '.$value;
+                  $kd=$kd.','.$value;
               }
   
           }

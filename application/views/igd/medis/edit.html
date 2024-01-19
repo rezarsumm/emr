@@ -65,6 +65,16 @@
                     <th colspan="4">I. SUBYEKTIF  </th>
                     
                 </tr>
+                <tr>
+                    <td>Anamnesa</td>
+                    <td colspan="3"> 
+                        <input type="checkbox" name="jenis_anamnesa[]" value="alloanamnesis" {if in_array('alloanamnesis', $jenis_anamnesa)}checked="checked"{/if}>alloanamnesis<br>
+                        <input type="checkbox" name="jenis_anamnesa[]" value="autoanamnesis" {if in_array('autoanamnesis', $jenis_anamnesa)}checked="checked"{/if}>autoanamnesis<br>
+                       
+                    </td>
+                   
+                    
+                </tr>
             <tr>
                 <td>Keluhan Utama</td>
                 <td colspan="3"><textarea style="width: 600px;" name="FS_ANAMNESA"  value="{$data.FS_ANAMNESA}">{$data.FS_ANAMNESA}</textarea></td>
@@ -316,7 +326,7 @@
         <tr>
             <td>Laboratorium</td>
   
-            <td><select name="rlab[]" multiple style="width:250px" class="select2">
+            <td><select name="rlab[]" multiple style="width:220px" class="select2">
 
                 {foreach from=$lab_edit item=lab}
                 {if $data.lab}
@@ -331,7 +341,7 @@
                 </select></td>
             <td>Radiologi</td>
 
-            <td>   <select name="rrad[]" multiple  style="width:200px"  class="select2">
+            <td>   <select name="rrad[]" multiple  style="width:165px"  class="select2">
                 
                 {foreach from=$rad_edit item=rad}
                 {if $data.rad}
@@ -342,7 +352,10 @@
                 {foreach from=$rs_rad_igd item=rad}
                 <option value="{$rad.KET_TINDAKAN}">{$rad.KET_TINDAKAN}</option>
                 {/foreach}
-            </select></td>
+            </select>
+            
+        </td>
+        
         </tr>
     
     <tr>
@@ -350,10 +363,20 @@
         <td width='40%'>
             <input type="radio" name="EKG" {if $data.EKG eq 'Ya'} checked="" {/if} value="Ya">Ya
             <input type="radio" name="EKG" {if $data.EKG eq 'Tidak'} checked="" {/if} value="Tidak"> Tidak
-    
-    
+        </td>
+
+        <td width='20%'>Bagian Radiologi</td>
+        <td width='20%'>
+
+            <select name="BAGIAN_RADIOLOGI" style="width: 70px">
+              <option value=""></option>
+              <option value="Sinistra" {if $data.BAGIAN_RADIOLOGI eq 'Sinistra'} selected="" {/if}>Sinistra</option>
+              <option value="Dextra" {if $data.BAGIAN_RADIOLOGI eq 'Dextra'} selected="" {/if}>Dextra</option>
+              <option value="Bilateral" {if $data.BAGIAN_RADIOLOGI eq 'Bilateral'} selected="" {/if}>Bilateral</option>
+            </select>
         </td>
     </tr>
+ 
 
             <tr class="headrow">
                 <th colspan="2">Daftar Masalah</th>

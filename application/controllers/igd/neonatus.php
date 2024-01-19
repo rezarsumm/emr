@@ -431,7 +431,9 @@ class Neonatus extends ApplicationBase {
                 $this->input->post('discharge_planning_lain'),
                 $this->input->post('jam_selesai'),
                 $this->com_user['user_name'],
-                date('Y-m-d H:i:s')
+                date('Y-m-d H:i:s'),
+                $this->input->post('resiko_jatuh')
+
    
             );
             $this->m_igd->insert_neonatus_awal($data_neonatus); //insert data ke tabel pku igd_awal_neonatus
@@ -629,7 +631,8 @@ class Neonatus extends ApplicationBase {
             $this->input->post('discharge_planning_lain'),
             $this->input->post('jam_selesai'),
             $this->com_user['user_name'],
-            date('Y-m-d H:i:s')
+            date('Y-m-d H:i:s'),
+            $this->input->post('resiko_jatuh')
 
         );
         $this->m_igd->delete_neonatus_awal($this->input->post('ID_IGD_NEONATUS'));

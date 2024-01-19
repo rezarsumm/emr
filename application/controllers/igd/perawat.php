@@ -168,7 +168,7 @@ class Perawat extends ApplicationBase {
            $string = trim($string, ','); // Menghapus koma di awal dan akhir string (jika ada)
    
            if (!empty($string)) {
-               $data = explode(', ', $string);
+               $data = explode(',', $string);
            }
    
            // var_dump($data);
@@ -262,7 +262,7 @@ class Perawat extends ApplicationBase {
             $kd='';
             if (!empty($ld)) {
                 foreach ($ld as $value) {
-                    $kd=$kd.', '.$value;
+                    $kd=$kd.','.$value;
                 }
             }
 
@@ -1025,7 +1025,7 @@ class Perawat extends ApplicationBase {
         $kd='';
         if (!empty($ld)) {
             foreach ($ld as $value) {
-                $kd=$kd.', '.$value;
+                $kd=$kd.','.$value;
             }
         }
 

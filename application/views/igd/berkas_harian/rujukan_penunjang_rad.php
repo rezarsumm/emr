@@ -125,7 +125,9 @@
             <tr>
                 <td>Pemeriksaan Penunjang yang diminta</td>
                 <td>:
-                <?php echo str_replace(",", "<br>",$rs_pasien['rad']); ?>
+                <?php echo str_replace(",", "",$rs_pasien['rad']); ?> <?php if($rs_pasien['BAGIAN_RADIOLOGI']!=NULL){
+                echo 'bagian ('.$rs_pasien['BAGIAN_RADIOLOGI'].')';
+                }?>
                 </td>
             </tr>
             <tr>

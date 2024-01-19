@@ -65,6 +65,16 @@
                     
                 </tr>
             <tr>
+                <td>Anamnesa</td>
+                <td colspan="3"> 
+                    <input type="checkbox" name="jenis_anamnesa[]" value="alloanamnesis">alloanamnesis<br>
+                    <input type="checkbox" name="jenis_anamnesa[]" value="autoanamnesis">autoanamnesis<br>
+                   
+                </td>
+               
+                
+            </tr>
+            <tr>
                 <td>Keluhan Utama</td>
                 <td colspan="3"><textarea style="width: 600px;" name="FS_ANAMNESA"  >{if $perawat.KEL_UTAMA neq ''}{$perawat.KEL_UTAMA}{elseif $rs_triase.KELUHAN neq ''}{{$rs_triase.KELUHAN}}{else}{$bidan.FS_ANAMNESA}{/if}</textarea></td>
                 
@@ -189,13 +199,13 @@
                 <td width='40%'>
                     <textarea name="PEMERIKSAAN_FISIK" rows="10" style="width:250px;">
                         Kesadaran : {if $perawat.KESADARAN neq ''}{$perawat.KESADARAN}{elseif $neonatus.KESADARAN neq ''}{$neonatus.KESADARAN}{elseif $rs_triase.KESADARAN neq ''}{$rs_triase.KESADARAN}{else}{$bidan.SADAR}{/if}      
-                        Suhu      : {if $perawat.S neq ''}{$perawat.S}{elseif $neonatus.S neq ''}{$neonatus.S}{elseif $rs_triase.SUHU neq ''}{$rs_triase.SUHU}{else}{$bidan.S}{/if} C
-                        Nadi      : {if $perawat.N neq ''}{$perawat.N}{elseif $neonatus.N neq ''}{$neonatus.N}{elseif $rs_triase.N neq ''}{$rs_triase.N}{else}{$bidan.N}{/if} x/menit            
-                        R         : {if $perawat.R neq ''}{$perawat.R}{elseif $neonatus.R neq ''}{$neonatus.R}{elseif $rs_triase.R neq ''}{$rs_triase.R}{else}{$bidan.R}{/if} x/menit      
-                        TD        : {if $perawat.TD neq ''}{$perawat.TD}{elseif $rs_triase.TD neq ''}{$rs_triase.TD}{else}{$bidan.TD}{/if} MmHg
-                        TB        : {if $perawat.TB neq ''}{$perawat.TB}{elseif $neonatus.PANJANG_BADAN neq ''}{$neonatus.PANJANG_BADAN}{elseif $rs_triase.TB neq ''}{$rs_triase.TB}{else}{$bidan.TB}{/if} cm                
-                        BB        : {if $perawat.BB neq ''}{$perawat.BB}{elseif $neonatus.BERAT_BADAN_MASUK neq ''}{$neonatus.BERAT_BADAN_MASUK}{elseif $rs_triase.BB neq ''}{$rs_triase.BB}{else}{$bidan.BB}{/if} kg           
                         GCS       : {$perawat.GCS}   
+                        TD        : {if $perawat.TD neq ''}{$perawat.TD}{elseif $rs_triase.TD neq ''}{$rs_triase.TD}{else}{$bidan.TD}{/if} MmHg
+                        Nadi      : {if $perawat.N neq ''}{$perawat.N}{elseif $neonatus.N neq ''}{$neonatus.N}{elseif $rs_triase.N neq ''}{$rs_triase.N}{else}{$bidan.N}{/if} x/menit            
+                        Suhu      : {if $perawat.S neq ''}{$perawat.S}{elseif $neonatus.S neq ''}{$neonatus.S}{elseif $rs_triase.SUHU neq ''}{$rs_triase.SUHU}{else}{$bidan.S}{/if} C
+                        R         : {if $perawat.R neq ''}{$perawat.R}{elseif $neonatus.R neq ''}{$neonatus.R}{elseif $rs_triase.R neq ''}{$rs_triase.R}{else}{$bidan.R}{/if} x/menit      
+                        BB        : {if $perawat.BB neq ''}{$perawat.BB}{elseif $neonatus.BERAT_BADAN_MASUK neq ''}{$neonatus.BERAT_BADAN_MASUK}{elseif $rs_triase.BB neq ''}{$rs_triase.BB}{else}{$bidan.BB}{/if} kg           
+                        TB        : {if $perawat.TB neq ''}{$perawat.TB}{elseif $neonatus.PANJANG_BADAN neq ''}{$neonatus.PANJANG_BADAN}{elseif $rs_triase.TB neq ''}{$rs_triase.TB}{else}{$bidan.TB}{/if} cm                
                  </textarea>
                 </td>
                 <td colspan="2">
@@ -343,11 +353,18 @@
                 {/foreach}
             </select></td>
             <td>Radiologi</td>
-            <td>   <select name="rrad[]" multiple style="width:200px" class="select2">
+            <td>   <select name="rrad[]" multiple style="width:180px" class="select2">
                 <option value=""></option>
                 {foreach from=$rs_rad_igd item=rad}
                 <option value="{$rad.KET_TINDAKAN}">{$rad.KET_TINDAKAN}</option>
                 {/foreach}
+            </select>
+            Bagian
+            <select name="BAGIAN_RADIOLOGI" style="width: 70px">
+              <option value=""></option>
+              <option value="Sinistra">Sinistra</option>
+              <option value="Dextra">Dextra</option>
+              <option value="Bilateral">Bilateral</option>
             </select></td>
             
         </tr>

@@ -384,13 +384,13 @@
             </tr>
             <tr>
                 <td width='20%'>Suhu</td>
-                <td width='30%'><input type="number" name="s" required size="10" value="{$data.S}"/>C</td>
+                <td width='30%'><input type="number" name="suhu" required size="10" value="{$data.S}"/>C</td>
                 <td width='20%'>Nadi</td>
-                <td width='30%'><input type="number" name="n" required size="10" value="{$data.N}"/> x/menit</td>
+                <td width='30%'><input type="number" name="nadi" required size="10" value="{$data.N}"/> x/menit</td>
             </tr>
             <tr>
                 <td>R</td>
-                <td><input type="number" name="r" size="10" required value="{$data.R}"/> x/menit</td>
+                <td><input type="number" name="kecepatan_bernafas" size="10" required value="{$data.R}"/> x/menit</td>
                 <td>Saturasi Oksigen</td>
                 <td><input type="text" name="saturasi_oksigen" size="10" required value="{$data.SATURASI_OKSIGEN}"/></td>
             </tr>
@@ -837,6 +837,17 @@
                         <select name="rencana_keperawatan[]" multiple id="rencana_keperawatan" style="width:250px">
                             <option></option>
                         </select>
+                    </td>
+                </tr>
+
+                <tr class="headrow">
+                    <th colspan="4">RESITKO JATUH</th>
+                </tr>
+
+                <tr>
+                    <td width='20%'>Resiko Jatuh</td>
+                    <td width='30%'>
+                        <input type="text" name="resiko_jatuh" value="Resiko Tinggi - pasang stiker kuning"  style="width:230px" readonly>
                     </td>
                 </tr>
                 

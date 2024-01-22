@@ -492,7 +492,8 @@ class rawat_jalan extends ApplicationBase {
                 $this->input->post('FS_USG'),
                 $this->input->post('HASIL_ECHO'),
                 $this->input->post('HASIL_EKG'),
-                $this->input->post('HASIL_TREADMILL')
+                $this->input->post('HASIL_TREADMILL'),
+                $this->input->post('FS_DIAGNOSA_SEKUNDER')
             ); 
             
             if ($this->m_rawat_jalan->insert_tac_rj_medis($params)) { 
@@ -1077,6 +1078,7 @@ class rawat_jalan extends ApplicationBase {
                 $this->input->post('HASIL_ECHO'),
                 $this->input->post('HASIL_EKG'),
                 $this->input->post('HASIL_TREADMILL'),
+                $this->input->post('FS_DIAGNOSA_SEKUNDER'),
               $this->input->post('FS_KD_TRS')
           );
 

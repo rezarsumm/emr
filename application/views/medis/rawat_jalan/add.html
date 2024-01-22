@@ -245,6 +245,7 @@ Suhu : {$vs.FS_SUHU} C, Nadi : {$vs.FS_NADI} x/menit,  Respirasi : {$vs.FS_R} x/
           class="form-control diagnosa"
         ></textarea>
       </td>
+
       <td>Hasil USG</td>
       <td>
         <textarea
@@ -253,6 +254,18 @@ Suhu : {$vs.FS_SUHU} C, Nadi : {$vs.FS_NADI} x/menit,  Respirasi : {$vs.FS_R} x/
           name="FS_USG"
           onkeypress="handle9(event)"
           class="form-control usg"
+        ></textarea>
+      </td>
+    </tr>
+    <tr>
+      <td>Diagnosa Sekunder</td>
+      <td>
+        <textarea
+          rows="5"
+          cols="50"
+          name="FS_DIAGNOSA_SEKUNDER"
+          onkeypress="handle13(event)"
+          class="form-control diagnosa_sekunder"
         ></textarea>
       </td>
     </tr>
@@ -545,6 +558,31 @@ Suhu : {$vs.FS_SUHU} C, Nadi : {$vs.FS_NADI} x/menit,  Respirasi : {$vs.FS_R} x/
         </select>
       </td>
     </tr>
+    {else} {/if} {if $username eq '140'}
+    <tr>
+      <td>Pilih Paket Obat</td>
+      <td>
+        <select
+          name="namapaketdrtoumi"
+          class="namapaketdrtoumi select2"
+          id="namapaketdrtoumi"
+          multiple
+          id="namapaketdrtoumi"
+          cols="50"
+          style="width: 210px"
+        >
+          <option></option>
+          <option value="Dkd/ckd">Dkd/ckd</option>
+          <option value="Neuropati">Neuropati</option>
+          <option value="ISPA">ISPA</option>
+          <option value="Kapsul batuk">Kapsul batuk</option>
+          <option value="Dispepsia">Dispepsia</option>
+          <option value="Kapsul cemas">Kapsul cemas</option>
+          <option value="Dermatitis alergi">Dermatitis alergi</option>
+          <option value="Tinea">Tinea</option>
+        </select>
+      </td>
+    </tr>
     {else} {/if}
 
     <tr>
@@ -631,8 +669,7 @@ Suhu : {$vs.FS_SUHU} C, Nadi : {$vs.FS_NADI} x/menit,  Respirasi : {$vs.FS_R} x/
           class="form-control resep"
           cols="70"
           name="FS_TERAPI"
-        >
-        </textarea>
+        ></textarea>
       </td>
       {if $username eq '138'} {else}
       <td>Resep Racikan</td>
@@ -1095,6 +1132,59 @@ Suhu : {$vs.FS_SUHU} C, Nadi : {$vs.FS_NADI} x/menit,  Respirasi : {$vs.FS_R} x/
           " \n /R  metilprednisolon 2 mg  \n      cetirizin 2 mg \n      parasetamol 75 mg \n       mf pulv dtd no XV \n  S  2 dd 1 pulv  \n ---------------------------------------- \n"
       );
       $("#namapakettht").select2("data", null);
+    }
+  });
+
+  $("#namapaketdrtoumi").change(function () {
+    var resep = $(".resep").val();
+    if ($("#namapaketdrtoumi").val() == "Dkd/ckd") {
+      $(".resep").val(
+        resep +
+          "\n /R   Asam folat \n  S 1x1 mg   \n ---------------------------------------- \n \n /R   Bicnat \n  S 2x1  \n ---------------------------------------- \n \n /R   Erkade \n  S 1x1  \n ---------------------------------------- \n"
+      );
+      $("#namapaketdrtoumi").select2("data", null);
+    } else if ($("#namapaketdrtoumi").val() == "Neuropati") {
+      $(".resep").val(
+        resep +
+          "\n /R   Gabapentin 300mg \n  S 0-0-1  \n ---------------------------------------- \n \n /R   Mecobalamin \n  S 1-0-0   \n ---------------------------------------- \n \n /R   Eperison \n   S 0-0-1    \n ---------------------------------------- \n"
+      );
+      $("#namapaketdrtoumi").select2("data", null);
+    } else if ($("#namapaketdrtoumi").val() == "ISPA") {
+      $(".resep").val(
+        resep +
+          "\n /R   Azitromicin \n  S 1x500mg  \n ---------------------------------------- \n \n /R   NAC  \n  S 3x200  \n ---------------------------------------- \n \n /R   Ceterizin 10mg \n  S 0-0-1  \n ---------------------------------------- \n \n /R   Boost D \n  S 1 x 1tab  \n ---------------------------------------- \n \n /R   Pct \n  S 3x500  \n ---------------------------------------- \n"
+      );
+      $("#namapaketdrtoumi").select2("data", null);
+    } else if ($("#namapaketdrtoumi").val() == "Kapsul batuk") {
+      $(".resep").val(
+        resep +
+          "\n /R   Salbutamol 1 mg \n  S   \n ---------------------------------------- \n \n /R   Ceterizin 5 mg \n  S   \n ---------------------------------------- \n \n /R   Ambroxol 10mg \n  S 2 x 1 tab  \n ---------------------------------------- \n \n /R   Infla da in cap 3x1 kp batuk  \n---------------------------------------- \n"
+      );
+      $("#namapaketdrtoumi").select2("data", null);
+    } else if ($("#namapaketdrtoumi").val() == "Dispepsia") {
+      $(".resep").val(
+        resep +
+          "\n /R   Lansoprazol 3mg \n  S 1-0-0  \n ---------------------------------------- \n \n /R   Sucralfat \n S 3xc1  \n ---------------------------------------- \n \n /R   Antasid tab 3x1 kp kembung \n ---------------------------------------- \n"
+      );
+      $("#namapaketdrtoumi").select2("data", null);
+    } else if ($("#namapaketdrtoumi").val() == "Kapsul cemas") {
+      $(".resep").val(
+        resep +
+          "\n /R   Alprazolam 0,5 \n  S 1/2 tablet  \n ---------------------------------------- \n \n /R   Ranitidin \n S 1/2 tablet  \n ---------------------------------------- \n \n /R   Domperidon \n S 1/2 tablet \n ---------------------------------------- \n \n R   Infla da in cap 0-0-1 kp cemas \n ---------------------------------------- \n"
+      );
+      $("#namapaketdrtoumi").select2("data", null);
+    } else if ($("#namapaketdrtoumi").val() == "Dermatitis alergi") {
+      $(".resep").val(
+        resep +
+          "\n /R   Clobetazol zalf 2xue  \n ---------------------------------------- \n \n /R   Ceterizin 10mg 0-0-1 kp gatal  \n ---------------------------------------- \n"
+      );
+      $("#namapaketdrtoumi").select2("data", null);
+    } else if ($("#namapaketdrtoumi").val() == "Tinea") {
+      $(".resep").val(
+        resep +
+          "\n /R   Ketokenazol zalf 2xue  \n ---------------------------------------- \n \n /R   Ceterizin 10 mg 0-0-1 kp gatal  \n ---------------------------------------- \n"
+      );
+      $("#namapaketdrtoumi").select2("data", null);
     }
   });
 
@@ -1608,6 +1698,14 @@ Suhu : {$vs.FS_SUHU} C, Nadi : {$vs.FS_NADI} x/menit,  Respirasi : {$vs.FS_R} x/
     if (key == 13) {
       var hasil_ekg = $(".hasil_ekg").val();
       $(".hasil_ekg").val(hasil_ekg + "\n");
+    }
+  }
+
+  function handle13(e) {
+    var key = e.keyCode || e.which;
+    if (key == 13) {
+      var diagnosa_sekunder = $(".diagnosa_sekunder").val();
+      $(".diagnosa_sekunder").val(diagnosa_sekunder + "\n");
     }
   }
 </script>

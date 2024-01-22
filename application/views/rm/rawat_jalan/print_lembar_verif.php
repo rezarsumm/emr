@@ -251,7 +251,10 @@
             
             if($asal['KODE_RUANG']==''){?>
                  <tr>
-                    <td style="height:7px; border-left:solid 1px white;border-bottom:solid 1px #000000;text-align:;border-right:solid 1px #000000;border-top:solid 1px #000000;"> </td>
+                    <td style="height:7px; border-left:solid 1px white;border-bottom:solid 1px #000000;text-align:;border-right:solid 1px #000000;border-top:solid 1px #000000;">         <?php 
+               if($asal['KODE_RUANG']==''){ echo $result['FS_DIAGNOSA_SEKUNDER'];}
+               else{
+                   echo '';}?></td>
                     <td style="border-left:solid 1px #000000;border-bottom:solid 1px #000000;text-align:;border-right:solid 1px #000000;border-top:solid 1px #000000;">  </td>
                     <td style="border-left:solid 1px #000000;border-bottom:solid 1px #000000;text-align:;border-right:solid 1px #000000;border-top:solid 1px #000000;"></td>
                     <td style="border-left:solid 1px #000000;border-bottom:solid 1px #000000;text-align:;border-right:solid 1px #000000;border-top:solid 1px #000000;"> </td>
@@ -454,12 +457,12 @@
           <td>Petugas BPJS Center</td>
       </tr>
     <tr>
-        <td style="height:20px;"></td>
-        <td></td>
-        <td></td>
+    
+        <td>   <qrcode value="<?= $result['Nama_Dokter']; ?> pada <?= date("d-m-Y", strtotime($asal['TANGGAL'])); ?> " ec="H" style="width: 15mm; background-color: white; color: black;"></qrcode></td>
+        
     </tr>
     <tr>
-        <td>(........................)</td>
+        <td>(<?php echo $result['Nama_Dokter']?>)</td>
         <td></td>
         <td>(........................)</td>
     </tr>

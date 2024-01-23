@@ -158,9 +158,9 @@ class m_igd extends CI_Model {
     }
 
 
-    function INSERT($params) {
-        $sql = "INSERT INTO PKU.dbo.TRIASE(FS_KD_REG, Nama_Pasien, Alamat, TGL_DATANG, JAM_DATANG, CARA_MASUK, SUDAH_TERPASANG, ALASAN_DATANG, KENDARAAN, NAMA_PENGANTAR, TELP_PENGANTAR, JENIS_KASUS, JENIS_TRAUMA, URAIAN_TRAUMA, TGL_KEJADIAN, TEMPAT_KEJADIAN, PACS, KESADARAN, SKOR_KESADARAN, TD, SKOR_TD, R, SKOR_R, O2, SKOR_O2, N, N_SKOR, SUHU, SKOR_SUHU, NYERI, BB, TB, KEPUTUSAN, rujukan_dari, dijemput, KELUHAN, CAT_KHUSUS, TOTAL_SKOR, JAM_KEP, KD_PERAWAT, mdd )
-        VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    function INSERT_TRIASE($params) {
+        $sql = "INSERT INTO PKU.dbo.TRIASE(FS_KD_REG, Nama_Pasien, Alamat, TGL_DATANG, JAM_DATANG, CARA_MASUK, SUDAH_TERPASANG, ALASAN_DATANG, KENDARAAN, NAMA_PENGANTAR, TELP_PENGANTAR, JENIS_KASUS, JENIS_TRAUMA, URAIAN_TRAUMA, TGL_KEJADIAN, TEMPAT_KEJADIAN, PACS, KESADARAN, SKOR_KESADARAN, TD, SKOR_TD, R, SKOR_R, O2, SKOR_O2, N, N_SKOR, SUHU, SKOR_SUHU, NYERI, BB, TB, KEPUTUSAN, rujukan_dari, dijemput, KELUHAN, CAT_KHUSUS, TOTAL_SKOR, JAM_KEP, KD_PERAWAT, mdd, LEVEL_TRIASE )
+        VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         return $this->db->query($sql, $params);
     }
 
@@ -519,12 +519,12 @@ class m_igd extends CI_Model {
     }
 
 
-    function UPDATE($params) {
+    function UPDATE_TRIASE($params) {
         $sql = "UPDATE PKU.dbo.TRIASE SET FS_KD_REG=?, Nama_Pasien=?, Alamat=?, TGL_DATANG=?, JAM_DATANG=?, CARA_MASUK=?,
          SUDAH_TERPASANG=?, ALASAN_DATANG=?, KENDARAAN=?, NAMA_PENGANTAR=?, TELP_PENGANTAR=?, JENIS_KASUS=?, JENIS_TRAUMA=?,
           URAIAN_TRAUMA=?, TGL_KEJADIAN=?, TEMPAT_KEJADIAN=?, PACS=?, KESADARAN=?, SKOR_KESADARAN=?, TD=?, SKOR_TD=?, R=?,
            SKOR_R=?, O2=?, SKOR_O2=?, N=?, N_SKOR=?, SUHU=?, SKOR_SUHU=?, NYERI=?, BB=?, TB=?, KEPUTUSAN=?, rujukan_dari=?, dijemput=?, 
-           KELUHAN=?, CAT_KHUSUS=?, TOTAL_SKOR=?, JAM_KEP=?, KD_PERAWAT=?, mdd=? where id=? ";
+           KELUHAN=?, CAT_KHUSUS=?, TOTAL_SKOR=?, JAM_KEP=?, KD_PERAWAT=?, mdd=?, LEVEL_TRIASE=? where id=? ";
                    return $this->db->query($sql, $params);
     }
 

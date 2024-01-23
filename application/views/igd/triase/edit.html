@@ -185,6 +185,25 @@
                          </td>
                      </tr>
                    </table>
+                   <table class="table-input" width="100%">
+                    <tr class="headrow">
+                        <th colspan="4">  LEVEL TRIAGE (PATIENT'S ACUITY CATEGORIZATION SCALE / PACS</th>
+                     </tr>
+                     <tr>
+                         <td style="background-color:#ff0000; color: white;">
+                            <input type="radio" name="LEVEL_TRIASE" value="PACS 1" {if $rs_triase.LEVEL_TRIASE eq 'PACS 1'} checked {/if}>PACS 1
+                         </td>
+                         <td style="background-color:yellow;">
+                            <input type="radio" name="LEVEL_TRIASE" value="PACS 2" {if $rs_triase.LEVEL_TRIASE eq 'PACS 2'} checked {/if}>PACS 2
+                         </td>
+                         <td style="background-color:yellow;">
+                            <input type="radio" name="LEVEL_TRIASE" value="PACS 3" {if $rs_triase.LEVEL_TRIASE eq 'PACS 3'} checked {/if}>PACS 3
+                         </td>
+                         <td style="background-color:green; color: white;">
+                            <input type="radio" name="LEVEL_TRIASE" value="PACS 4" {if $rs_triase.LEVEL_TRIASE eq 'PACS 4'} checked {/if}>PACS 4
+                         </td>
+                     </tr>
+                   </table>
                  <table class="table-input" width="100%">
                     <!-- <tr class="headrow">
                         <th colspan="4">    LEVEL TRIAGE</th>
@@ -294,7 +313,7 @@
                 <td colspan="3">
                      <input type="hidden" name="KEPUTUSAN" value="{$rs_triase.KEPUTUSAN}" style="width:500px ;">
                     Pukul
-                    <input type="time" required name="JAM_KEP" value="{$rs_triase.JAM_KEP}"></input>
+                    <input type="time" required name="JAM_KEP" value="{$rs_triase.JAM_KEP}" id="jam_keperawatan"></input>
                   </td>
                 
             </tr>
@@ -317,6 +336,26 @@
     </form>
 </div>
   
+<script>
+                 // Mendapatkan elemen input waktu
+                 const inputWaktu = document.getElementById('jam_keperawatan');
+  
+  // Mengatur waktu awal
+  updateTime();
+
+  // Fungsi untuk memperbarui waktu pada input
+  function updateTime() {
+    const waktuSekarang = new Date();
+    const jam = waktuSekarang.getHours();
+    const menit = waktuSekarang.getMinutes();
+    const detik = waktuSekarang.getSeconds();
+    const waktuDefault = jam.toString().padStart(2, '0') + ':' + menit.toString().padStart(2, '0');
+    inputWaktu.value = waktuDefault;
+  }
+
+  // Memperbarui waktu setiap menit
+  setInterval(updateTime, 1000);
+</script>
  
 <script>
     $(".select2").select2({

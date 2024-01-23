@@ -225,9 +225,10 @@ class Triase extends ApplicationBase {
                     $this->input->post('JAM_KEP'),
                     $this->com_user['user_name'],
                     date('Y-m-d H:i:s'), 
+                    $this->input->post('LEVEL_TRIASE'),
                      
                 );
-                $this->m_igd->INSERT($params2);
+                $this->m_igd->INSERT_TRIASE($params2);
 
                 $params1 = array(
                         $this->input->post('FS_KD_REG'),
@@ -326,11 +327,12 @@ class Triase extends ApplicationBase {
                     $this->input->post('JAM_KEP'),
                     $this->com_user['user_name'],
                     date('Y-m-d H:i:s'), 
+                    $this->input->post('LEVEL_TRIASE'),
                     $this->input->post('id'),
 
                     
                 );
-                $this->m_igd->UPDATE($params2);
+                $this->m_igd->UPDATE_TRIASE($params2);
 
                 $params1 = array(
                         $this->input->post('SUHU'),

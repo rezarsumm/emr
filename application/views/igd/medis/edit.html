@@ -268,26 +268,22 @@
                 <input type="radio" name="MUKOSA" {if $data.MUKOSA eq 'Tidak'} checked="" {/if}  value="Tidak"> Basah
             </td>
          </tr>
-
          <tr class="headrow">
-            <th colspan="2">THORAX  </th>
-            <th colspan="2"> JANTUNG </th>
+            <th colspan="4">THORAX  </th>
+            <!-- <th colspan="2"> JANTUNG </th> -->
         </tr>
-        <tr>
-            <td colspan="2">
-                <textarea cols="80" rows="1" name="THORAX"> {$data.THORAX}</textarea>
-            </td>
-            <td colspan="2">
-                <textarea cols="80" rows="1" name="JANTUNG">{$data.JANTUNG}</textarea>
-
-            </td>
-        </tr>
-        <tr class="headrow">
-            <th colspan="4">PARU  </th> 
+         <tr class="headrow">
+            <th colspan="2" style="background-color:darkblue; color: white;">PARU  </th>
+            <th colspan="2" style="background-color:darkblue; color: white;"> JANTUNG </th>
         </tr>
         <tr>
             <td colspan="2">
                 <textarea cols="80" rows="1" name="PARU">{$data.PARU} </textarea>
+                <!-- <textarea cols="80" rows="1" name="THORAX"> {$data.THORAX}</textarea> -->
+            </td>
+            <td colspan="2">
+                <textarea cols="80" rows="1" name="JANTUNG">{$data.JANTUNG}</textarea>
+
             </td>
         </tr>
 
@@ -435,7 +431,7 @@
                    </table>
 
 
-                    <textarea rows="15" class="form-control resep"  cols="60" name="FS_TERAPI">{$data.FS_TERAPI}</textarea> 
+                    <textarea rows="15" class="form-control resep" onkeypress="handle17(event)"  cols="60" name="FS_TERAPI">{$data.FS_TERAPI}</textarea> 
                 </td> 
                <td colspan="2"> Dokter Spesialis
                 DPJP UTAMA
@@ -450,7 +446,7 @@
                                 {/foreach}
                             </select>
                             <br>Uraian Konsul (Tanggal, Jam, Instruksi) <br>
-                            <textarea rows="2" class="form-control konsul" onkeypress="handle1(event)"  cols="60" name="KONSUL">{$data.KONSUL} </textarea>
+                            <textarea rows="15" class="form-control konsul" onkeypress="handle1(event)"  cols="60" name="KONSUL">{$data.KONSUL} </textarea>
                              <br><br>
                  DPJP 1
                  <select name="KD_DOKTER_KONSUL2" id="surat_dari" class="select2" style="width: 300px;">
@@ -464,7 +460,7 @@
                     {/foreach}
                 </select>
                 <br>Uraian Konsul (Tanggal, Jam, Instruksi) <br>
-                <textarea rows="2" class="form-control konsul2" onkeypress="handle2(event)"  cols="60" name="KONSUL2">{$data.KONSUL2} </textarea>
+                <textarea rows="15" class="form-control konsul2" onkeypress="handle2(event)"  cols="60" name="KONSUL2">{$data.KONSUL2} </textarea>
                  <br><br>
                  DPJP 2
                  <select name="KD_DOKTER_KONSUL3" id="surat_dari" class="select2" style="width: 300px;">
@@ -478,7 +474,7 @@
                     {/foreach}
                 </select>
                 <br>Uraian Konsul (Tanggal, Jam, Instruksi) <br>
-                <textarea rows="2" class="form-control konsul3" onkeypress="handle3(event)"  cols="60" name="KONSUL3">{$data.KONSUL3} </textarea>
+                <textarea rows="15" class="form-control konsul3" onkeypress="handle3(event)"  cols="60" name="KONSUL3">{$data.KONSUL3} </textarea>
                  <br><br>
                       
                             <!-- <input type="checkbox" name="KRITERIA_DISCHARGE[]" value="Umur>65" {if in_array('ALBUMIN/ALP ', $lab_edit)}checked="checked"{/if}>Umur>65<br> -->
@@ -827,6 +823,13 @@ var key = e.keyCode || e.which;
 if (key == 13) {
 var konsul = $(".konsul").val();
 $(".konsul").val(konsul + "\n");
+}
+}
+    function handle17(e) {
+var key = e.keyCode || e.which;
+if (key == 13) {
+var resep = $(".resep").val();
+$(".resep").val(resep + "\n");
 }
 }
 

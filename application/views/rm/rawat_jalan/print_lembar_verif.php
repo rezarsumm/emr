@@ -172,7 +172,12 @@
             <td style="border-left:solid 1px #000000;border-bottom:solid 1px #000000;text-align:left;border-right:solid 1px white;border-top:solid 1px #000000;">Tanggal Keluar</td>
             <td style="border-left:solid 1px #000000;border-bottom:solid 1px #000000;text-align:left;border-right:solid 1px white;border-top:solid 1px #000000;">:</td>
             <td style="border-left:solid 1px #000000;border-bottom:solid 1px #000000;text-align:left;border-right:solid 1px #000000;border-top:solid 1px #000000;"><?php if($asal['MEDIS']=='RAWAT JALAN'){
-                echo date("d-m-Y", strtotime($asal['TANGGAL']));
+                if( $asal['FS_CARA_PULANG']=='3'){
+                    echo '';
+                }else{
+                    echo date("d-m-Y", strtotime($asal['TANGGAL']));
+                }
+                
             }else{
                 echo date("d-m-Y", strtotime($rs_pasien['TGL_KELUAR']));
             }?>

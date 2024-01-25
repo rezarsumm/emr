@@ -2663,7 +2663,7 @@ class m_rawat_jalan extends CI_Model {
 
 
      function get_px_history_verif($params) {
-        $sql = "SELECT a.NO_MR,a.TANGGAL,a.NO_REG,a.MEDIS,c.NAMA_PASIEN,g.FS_KD_TRS,NAMA_RUANG,
+        $sql = "SELECT a.NO_MR,a.TANGGAL,a.NO_REG,a.MEDIS,c.NAMA_PASIEN,g.FS_KD_TRS,NAMA_RUANG,g.FS_CARA_PULANG,
                 d.NAMA_DOKTER,FS_CARA_PULANG,a.STATUS,a.KODE_RUANG
                 FROM DB_RSMM.dbo.PENDAFTARAN a
                 INNER JOIN DB_RSMM.dbo.REGISTER_PASIEN c ON a.NO_MR=c.NO_MR

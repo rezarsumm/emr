@@ -39,7 +39,7 @@
             </td>
           
             <td style="width:75%;text-align: center;border-bottom:solid 1px #000000;">
-                <h5>MAJELIS PEMBINA KESEHATAN UMUM
+                <h5>MAJELIS PEMBINAAN KESEHATAN UMUM
                 <br>RSU MUHAMMADIYAH METRO</h5>
                 
            
@@ -62,7 +62,7 @@
             </table>
         </td>
           <td style="width:15%;border-bottom:solid 1px #000000; float:right" >
-                <img src="<?php base_url() ?>resource/doc/images/icon/kars.png" width="50" height="50" />
+                <img src="<?php base_url() ?>resource/doc/images/icon/larsibaru.png" width="50" height="50" />
             </td>
 
           
@@ -171,7 +171,12 @@
             <td style="border-left:solid 1px #000000;border-bottom:solid 1px #000000;text-align:center;border-right:solid 1px #000000;border-top:solid 1px #000000;">13</td>
             <td style="border-left:solid 1px #000000;border-bottom:solid 1px #000000;text-align:left;border-right:solid 1px white;border-top:solid 1px #000000;">Tanggal Keluar</td>
             <td style="border-left:solid 1px #000000;border-bottom:solid 1px #000000;text-align:left;border-right:solid 1px white;border-top:solid 1px #000000;">:</td>
-            <td style="border-left:solid 1px #000000;border-bottom:solid 1px #000000;text-align:left;border-right:solid 1px #000000;border-top:solid 1px #000000;"><?php echo date("d-m-Y", strtotime($rs_pasien['TGL_KELUAR']));?> </td>
+            <td style="border-left:solid 1px #000000;border-bottom:solid 1px #000000;text-align:left;border-right:solid 1px #000000;border-top:solid 1px #000000;"><?php if($asal['MEDIS']=='RAWAT JALAN'){
+                echo date("d-m-Y", strtotime($asal['TANGGAL']));
+            }else{
+                echo date("d-m-Y", strtotime($rs_pasien['TGL_KELUAR']));
+            }?>
+                  </td>
         </tr>
         <tr>
             <td style="border-left:solid 1px #000000;border-bottom:solid 1px #000000;text-align:center;border-right:solid 1px #000000;border-top:solid 1px #000000;">14</td>

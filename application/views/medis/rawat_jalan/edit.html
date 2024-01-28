@@ -1257,6 +1257,13 @@ if(x=='a'||x=='A'){
                                $('.hasil_ekg').val(hasil_ekg+'\n');   }
                   }
 
+                  function handle13(e) {
+                      var key = e.keyCode || e.which;
+                        if (key == 13) {
+                          var diagnosa_sekunder = $(".diagnosa_sekunder").val();
+                          $(".diagnosa_sekunder").val(diagnosa_sekunder + "\n");
+                        }
+                      }
        
     </script> 
        

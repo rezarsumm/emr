@@ -375,13 +375,15 @@
                  }
                  else{ ?>
                     <tr>
-                        <td style="height:7px; border-left:solid 1px white;border-bottom:solid 1px #000000;text-align:;border-right:solid 1px #000000;border-top:solid 1px #000000;"><?php 
-                                 echo $pecah[$a];
-                            ?>
+                        <td style="height:7px; border-left:solid 1px white;border-bottom:solid 1px #000000;text-align:;border-right:solid 1px #000000;border-top:solid 1px #000000;"><?php if($result['FS_TINDAKAN']!=null){
+                            echo $result['FS_TINDAKAN'];
+                    } ?>
                         </td>
-                        <td style="border-left:solid 1px #000000;border-bottom:solid 1px #000000;text-align:;border-right:solid 1px #000000;border-top:solid 1px #000000;">  </td>
-                        <td style="border-left:solid 1px #000000;border-bottom:solid 1px #000000;text-align:;border-right:solid 1px #000000;border-top:solid 1px #000000;"></td>
                         <td style="border-left:solid 1px #000000;border-bottom:solid 1px #000000;text-align:;border-right:solid 1px #000000;border-top:solid 1px #000000;"> </td>
+                        <td style="border-left:solid 1px #000000;border-bottom:solid 1px #000000;text-align:;border-right:solid 1px #000000;border-top:solid 1px #000000;"><?php if($result['FS_TINDAKAN']!=null){
+                            echo $result['Nama_Dokter'];
+                    } ?> </td>
+                        <td style="border-left:solid 1px #000000;border-bottom:solid 1px #000000;text-align:;border-right:solid 1px #000000;border-top:solid 1px #000000;"> <?php if($result['FS_TINDAKAN']!=null){ ?><qrcode value="<?= $result['Nama_Dokter']; ?> pada <?= date("d-m-Y", strtotime($asal['TANGGAL'])); ?> " ec="H" style="width: 10mm; background-color: white; color: black;"></qrcode> <?php } ?></td>
                         <td style="border-left:solid 1px #000000;border-bottom:solid 1px #000000;text-align:;border-right:solid 1px #000000;border-top:solid 1px #000000;"> </td>
                         <td style="border-left:solid 1px #000000;border-bottom:solid 1px #000000;text-align:;border-right:solid 1px #000000;border-top:solid 1px #000000;"> </td>
                     </tr>

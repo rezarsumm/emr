@@ -1738,7 +1738,6 @@ function get_data_medis_by_rg2($params) {
          WHERE  A.NO_MR=B.NO_MR AND C.FS_KD_REG=A.NO_REG
          AND (A.TANGGAL= '$now' or A.TANGGAL='$akhirnya') AND C.FS_CARA_PULANG=3";
 
-
 $sql2 = " SELECT B.NAMA_PASIEN, B.NO_MR, A.NO_REG, A.KODE_DOKTER
          FROM PENDAFTARAN A, REGISTER_PASIEN B, PKU.dbo.IGD_AWAL_MEDIS D
          WHERE  A.NO_MR=B.NO_MR AND D.FS_KD_REG=A.NO_REG

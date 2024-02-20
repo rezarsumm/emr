@@ -511,6 +511,9 @@ class rawat_inap extends ApplicationBase {
                     }
                 }
 
+                // var_dump($lab);
+                // die; 
+
 
                    $rrad='';
 

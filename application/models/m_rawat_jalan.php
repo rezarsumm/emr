@@ -2196,6 +2196,7 @@ class m_rawat_jalan extends CI_Model {
             return 0;
         }
     }
+    
     function get_data_medis_by_rg22($params) { 
         $sql = "SELECT a.*,c.NAMA_DOKTER,b.user_name,KODE_DOKTER, d.NAMALENGKAP 
         FROM PKU.dbo.TAC_RJ_MEDIS a
@@ -2909,6 +2910,18 @@ class m_rawat_jalan extends CI_Model {
             return array();
         }
     }
+    function get_radiologi_ranap($params) {
+        $sql = "SELECT * FROM PKU.dbo.TAC_RI_MEDIS WHERE FS_KD_REG = ?  ";
+        $query = $this->db->query($sql, $params);
+        if ($query->num_rows() > 0) {
+            $result = $query->row_array();
+            $query->free_result();
+            return $result;
+        } else {
+            return array();
+        }
+    }
+
 
     function get_header1() {
         $sql = "SELECT pref_value FROM PKU.dbo.tac_com_preferences WHERE pref_group = 'header' AND pref_nm='header1'";
@@ -2968,6 +2981,7 @@ class m_rawat_jalan extends CI_Model {
             return array();
         }
     }
+    
     function get_antrian_obat_by_trs($params) {
         $sql = "SELECT * FROM PKU.dbo.TAC_RJ_ANTRIAN_OBAT WHERE FS_KD_RJ_MEDIS = ?";
         $query = $this->db->query($sql, $params);

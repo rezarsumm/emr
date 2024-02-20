@@ -61,6 +61,9 @@
         </thead>
         <tbody>
             {foreach from=$rs_pasien item=data}
+            {assign
+                var=cek_rad_ranap
+                value=$m_rawat_jalan->get_radiologi_ranap(array($data.NO_REG))}
             <!--{assign var=cek_lab value=$m_rawat_jalan->cek_data_order_lab_by_rg2(array($data.NO_REG))}
                 {assign var=cek_rad value=$m_rawat_jalan->cek_data_order_rad_by_rg2(array($data.NO_REG))}-->
                 <tr {if ($data.NOMOR % 2) <> 1}class="blink-row"{/if}>
@@ -95,6 +98,14 @@
                         {/if}
                         {if $data.HASIL_ECHO neq ''}
                         <a  href="javascript:void(0);" onclick="window.open('{$config->site_url('rm/rawat_jalan/cetak_hasil_echo/'|cat:$data.NO_REG|cat:'/'|cat:$data.FS_KD_TRS)}', 'nama_window_pop_up', 'scrollbars=yes,resizeable=no')" class="button-edit">Hasil Echo</a>
+                        {else}
+                        {/if}
+                        {if $cek_rad_ranap['FS_PLANNING_RAD'] neq ''}
+                        <a  href="javascript:void(0);" onclick="window.open('{$config->site_url('rm/rawat_jalan/cetak_rujukan_rad_ranap/'|cat:$data.NO_REG|cat:'/'|cat:$data.FS_KD_TRS)}', 'nama_window_pop_up', 'scrollbars=yes,resizeable=no')" class="button-edit">Radiologi Ranap</a>
+                        {else}
+                        {/if}
+                        {if $cek_rad_ranap['FS_PLANNING_LAB'] neq ''}
+                        <a  href="javascript:void(0);" onclick="window.open('{$config->site_url('rm/rawat_jalan/cetak_rujukan_lab_ranap/'|cat:$data.NO_REG|cat:'/'|cat:$data.FS_KD_TRS)}', 'nama_window_pop_up', 'scrollbars=yes,resizeable=no')" class="button-edit">Lab Ranap</a>
                         {else}
                         {/if}
                         {if $data.FS_CARA_PULANG == '2'}

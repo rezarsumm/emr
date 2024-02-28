@@ -668,6 +668,7 @@ Suhu : {$vs.FS_SUHU} C, Nadi : {$vs.FS_NADI} x/menit,  Respirasi : {$vs.FS_R} x/
           rows="18"
           class="form-control resep"
           cols="70"
+          onkeypress="handle14(event)"
           name="FS_TERAPI"
         ></textarea>
       </td>
@@ -1140,49 +1141,49 @@ Suhu : {$vs.FS_SUHU} C, Nadi : {$vs.FS_NADI} x/menit,  Respirasi : {$vs.FS_R} x/
     if ($("#namapaketdrtoumi").val() == "Dkd/ckd") {
       $(".resep").val(
         resep +
-          "\n /R   Asam folat \n  S 1x1 mg   \n ---------------------------------------- \n \n /R   Bicnat \n  S 2x1  \n ---------------------------------------- \n \n /R   Erkade \n  S 1x1  \n ---------------------------------------- \n"
+          "\n /R   Asam folat 1 mg No XXX \n  S 1dd1   \n ---------------------------------------- \n \n /R   Bicnat No LX \n  S 2dd1  \n ---------------------------------------- \n \n /R   Erkade XXX \n  S 1dd1  \n ---------------------------------------- \n"
       );
       $("#namapaketdrtoumi").select2("data", null);
     } else if ($("#namapaketdrtoumi").val() == "Neuropati") {
       $(".resep").val(
         resep +
-          "\n /R   Gabapentin 300mg \n  S 0-0-1  \n ---------------------------------------- \n \n /R   Mecobalamin \n  S 1-0-0   \n ---------------------------------------- \n \n /R   Eperison \n   S 0-0-1    \n ---------------------------------------- \n"
+          "\n /R   Gabapentin 300mg X \n  S 0-0-1 (K/P Kesemutan)  \n ---------------------------------------- \n \n /R   Mecobalamin XXX \n  S 1-0-0   \n ---------------------------------------- \n \n /R   Eperison XXX \n   S 0-0-1    \n ---------------------------------------- \n"
       );
       $("#namapaketdrtoumi").select2("data", null);
     } else if ($("#namapaketdrtoumi").val() == "ISPA") {
       $(".resep").val(
         resep +
-          "\n /R   Azitromicin \n  S 1x500mg  \n ---------------------------------------- \n \n /R   NAC  \n  S 3x200  \n ---------------------------------------- \n \n /R   Ceterizin 10mg \n  S 0-0-1  \n ---------------------------------------- \n \n /R   Boost D \n  S 1 x 1tab  \n ---------------------------------------- \n \n /R   Pct \n  S 3x500  \n ---------------------------------------- \n"
+          "\n /R   Azitromicin 500mg V \n  S 1dd1  \n ---------------------------------------- \n \n /R   Acetylsistein 200mg XV  \n  S 3dd1  \n ---------------------------------------- \n \n /R   Ceterizin 10mg V \n  S 0-0-1  \n ---------------------------------------- \n \n /R   Boost D 1000 V \n  S 1dd1  \n ---------------------------------------- \n \n /R   Erlamol XV \n  S 3dd1  \n ---------------------------------------- \n"
       );
       $("#namapaketdrtoumi").select2("data", null);
     } else if ($("#namapaketdrtoumi").val() == "Kapsul batuk") {
       $(".resep").val(
         resep +
-          "\n /R   Salbutamol 1 mg \n  S   \n ---------------------------------------- \n \n /R   Ceterizin 5 mg \n  S   \n ---------------------------------------- \n \n /R   Ambroxol 10mg \n  S 2 x 1 tab  \n ---------------------------------------- \n \n /R   Infla da in cap 3x1 kp batuk  \n---------------------------------------- \n"
+          "\n /R   Salbutamol 1 mg \n  S   \n ---------------------------------------- \n \n /R   Ceterizin 5 mg \n  S   \n ---------------------------------------- \n \n /R   Ambroxol 15mg \n  S   \n ---------------------------------------- \n \n /R   Mfla da in cap No XXX \n S 3dd1  \n---------------------------------------- \n"
       );
       $("#namapaketdrtoumi").select2("data", null);
     } else if ($("#namapaketdrtoumi").val() == "Dispepsia") {
       $(".resep").val(
         resep +
-          "\n /R   Lansoprazol 3mg \n  S 1-0-0  \n ---------------------------------------- \n \n /R   Sucralfat \n S 3xc1  \n ---------------------------------------- \n \n /R   Antasid tab 3x1 kp kembung \n ---------------------------------------- \n"
+          "\n /R   Lansoprazol 30mg XXX \n  S 1-0-0  \n ---------------------------------------- \n \n /R   Sucralfat syrup No III \n S 3ddC1 ac  \n ---------------------------------------- \n \n /R   Antasid syrup No I \n S 4ddCII kp mual kembung perih \n ---------------------------------------- \n"
       );
       $("#namapaketdrtoumi").select2("data", null);
     } else if ($("#namapaketdrtoumi").val() == "Kapsul cemas") {
       $(".resep").val(
         resep +
-          "\n /R   Alprazolam 0,5 \n  S 1/2 tablet  \n ---------------------------------------- \n \n /R   Ranitidin \n S 1/2 tablet  \n ---------------------------------------- \n \n /R   Domperidon \n S 1/2 tablet \n ---------------------------------------- \n \n R   Infla da in cap 0-0-1 kp cemas \n ---------------------------------------- \n"
+          "\n /R   Alprazolam 0,5mg 1/2tab \n  S  \n ---------------------------------------- \n \n /R   Ranitidin 150g 1/2 tab \n S  \n ---------------------------------------- \n \n /R   Domperidon 1/2 tab \n S  \n ---------------------------------------- \n \n R   Mfla da in cap No X \n S 0-0-1 Kp Cemas \n ---------------------------------------- \n"
       );
       $("#namapaketdrtoumi").select2("data", null);
     } else if ($("#namapaketdrtoumi").val() == "Dermatitis alergi") {
       $(".resep").val(
         resep +
-          "\n /R   Clobetazol zalf 2xue  \n ---------------------------------------- \n \n /R   Ceterizin 10mg 0-0-1 kp gatal  \n ---------------------------------------- \n"
+          "\n /R   Clobetazol zalf No I \n S 22ddue  \n ---------------------------------------- \n \n /R   Ceterizin 10mg X \n S 0-0-1 \n ---------------------------------------- \n"
       );
       $("#namapaketdrtoumi").select2("data", null);
     } else if ($("#namapaketdrtoumi").val() == "Tinea") {
       $(".resep").val(
         resep +
-          "\n /R   Ketokenazol zalf 2xue  \n ---------------------------------------- \n \n /R   Ceterizin 10 mg 0-0-1 kp gatal  \n ---------------------------------------- \n"
+          "\n /R   Ketokenazol zalf No I \n S 2ddue  \n ---------------------------------------- \n \n /R   Ceterizin 10 mg X \n S 0-0-1  \n ---------------------------------------- \n"
       );
       $("#namapaketdrtoumi").select2("data", null);
     }
@@ -1691,6 +1692,13 @@ Suhu : {$vs.FS_SUHU} C, Nadi : {$vs.FS_NADI} x/menit,  Respirasi : {$vs.FS_R} x/
     if (key == 13) {
       var treadmill = $(".treadmill").val();
       $(".treadmill").val(treadmill + "\n");
+    }
+  }
+  function handle14(e) {
+    var key = e.keyCode || e.which;
+    if (key == 13) {
+      var resep = $(".resep").val();
+      $(".resep").val(resep + "\n");
     }
   }
   function handle12(e) {

@@ -139,6 +139,7 @@
                 </td>
                 
             </tr>
+            
             <tr>
                 <td>Alergi</td>
                 <td>

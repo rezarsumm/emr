@@ -779,6 +779,9 @@ Suhu : {$vs.FS_SUHU} C, Nadi : {$vs.FS_NADI} x/menit,  Respirasi : {$vs.FS_R} x/
         <td width="75%">
           <select name="FS_SKDP_1" id="skdp_alasan">
             <option value="1">--Pilih Alasan--</option>
+            <option value="1" selected>
+              Untuk Melihat Perkembangan Penyakit
+            </option>
             {foreach from=$rs_skdp_alasan item=skdp_alasan}
             <option value="{$skdp_alasan.FS_KD_TRS}">
               {$skdp_alasan.FS_NM_SKDP_ALASAN}
@@ -794,6 +797,9 @@ Suhu : {$vs.FS_SUHU} C, Nadi : {$vs.FS_NADI} x/menit,  Respirasi : {$vs.FS_R} x/
         <td>
           <select name="FS_SKDP_2" id="kota">
             <option value="1">--Pilih Rencana Tindakan--</option>
+            <option value="1" selected>
+              Menegakkan Diagnosis dan Memberikan Terapi Definitif
+            </option>
           </select>
           <input type="text" name="FS_SKDP_KET" />
         </td>
@@ -804,11 +810,12 @@ Suhu : {$vs.FS_SUHU} C, Nadi : {$vs.FS_NADI} x/menit,  Respirasi : {$vs.FS_R} x/
           <select
             name="FS_RENCANA_KONTROL"
             class="select2"
+            id="tgl_kontrol_selanjutnya"
             style="width: 190px"
           >
             <option value="1 Minggu Kedepan">1 Minggu Kedepan</option>
             <option value="2 Minggu Kedepan">2 Minggu Kedepan</option>
-            <option value="Sebulan Kedepan">Sebulan Kedepan</option>
+            <option value="Sebulan Kedepan" selected>Sebulan Kedepan</option>
           </select>
         </td>
       </tr>
@@ -965,7 +972,7 @@ Suhu : {$vs.FS_SUHU} C, Nadi : {$vs.FS_NADI} x/menit,  Respirasi : {$vs.FS_R} x/
           <a
             href="{$config->site_url('medis/rawat_jalan/edit_copy2/'|cat:$result.NO_REG|cat:'/'|cat:$result.NO_REG)}"
             class="button-edit"
-            >Copy</a
+            >Copyyy</a
           >
 
           {/if} {elseif $data.KODE_RUANG neq ''}
@@ -1770,6 +1777,54 @@ Suhu : {$vs.FS_SUHU} C, Nadi : {$vs.FS_NADI} x/menit,  Respirasi : {$vs.FS_R} x/
     },
   });
 </script>
+
+<!-- <script type="text/javascript">
+  function click_rencana_kontrol(selected) {
+    var date = new Date();
+    var current_date =
+      date.getDate() +
+      7 +
+      "/" +
+      (date.getMonth() + 1) +
+      "/" +
+      date.getFullYear();
+    var rencana_kontrol = selected.value;
+
+    if (rencana_kontrol == "1 Minggu") {
+      // document.getElementById("#tgl_kontrol_berikutnya").value = current_date;
+      // $("#tgl_kontrol_berikutnya").value(current_date);
+      // $("#FS_RENCANA_KONTROL").select2("data", null);
+    } else if (rencana_kontrol == "4") {
+      // $("#form3").show();
+    }
+  }
+
+  $("#tgl_kontrol_selanjutnya").on("change", function () {
+    var resep = $(".resep").val();
+    if ($(this).val() == "1 Minggu Kedepan") {
+      var date = new Date();
+      var current_date =
+        date.getDate() +
+        7 +
+        "/" +
+        (date.getMonth() + 1) +
+        "/" +
+        date.getFullYear();
+      alert(current_date);
+    } else if ($("#tgl_kontrol_selanjutnya").val() == "TW2") {
+      $(".resep").val(
+        resep +
+          "\n /R  citicoline tab 500 mg \n S 2 dd 1 pc \n ---------------------------------------- \n \n /R  PCT 500 mg \n S 3 dd 1 pc  \n ---------------------------------------- \n \n /R  Mecobalamin 500 mg \n S 2 dd 1 pc  \n ---------------------------------------- \n \n /R  amlodipin 10 mg \n S 2 dd 1 pc sore  \n ---------------------------------------- \n \n /R  ranitidin 150 mg \n S 2 dd 1 ac  \n ---------------------------------------- \n"
+      );
+      $("#tgl_kontrol_selanjutnya").select2("data", null);
+    } else if ($("#tgl_kontrol_selanjutnya").val() == "TW3") {
+      $(".resep").val(
+        resep +
+          "\n /R  PCT 500 mg \n S 3 dd 1 pc  \n ---------------------------------------- \n \n /R  diazepam 2 mg \n S 3 dd 1 pc  \n ---------------------------------------- \n \n /R  ergotamine caffein 1 mg \n S 3 dd 1 pc  \n ---------------------------------------- \n \n /R  depakote 500 mg \n S 2 dd 1 pc  \n ---------------------------------------- \n \n /R  ranitidin 150 mg \n S 2 dd 1 ac  \n ---------------------------------------- \n"
+      );
+    }
+  });
+</script> -->
 
 <script>
   $("#kondisi").on("change", function () {

@@ -708,6 +708,8 @@ class rawat_jalan extends ApplicationBase {
         // $this->smarty->assign("rs_pasien", $this->m_rawat_jalan->get_px_resume2(array($FS_MR['NO_MR'])));
         $this->smarty->assign("cekradionya", $this->m_rawat_jalan->get_cek_radnya(array($FS_KD_REG)));
         $this->smarty->assign("ases2", $this->m_rawat_jalan->get_data_ases2_by_rg(array($FS_KD_REG)));
+        $this->smarty->assign("alasan_skdp", $this->m_rawat_jalan->get_alasan_skdp());
+        $this->smarty->assign("rencana_skdp", $this->m_rawat_jalan->get_rencana_skdp2());
         $tujuan = $this->m_rawat_jalan->list_pemeriksaan_lab_by_rg($FS_KD_REG);
         $tujuan_str = "";
         foreach ($tujuan as $key => $value) {
@@ -1758,6 +1760,8 @@ class rawat_jalan extends ApplicationBase {
         $this->smarty->assign("skdp", $this->m_rawat_jalan->get_cek_skdp2(array($FS_KD_REG)));
 
         $this->smarty->assign("rs_skdp_alasan", $this->m_rawat_jalan->get_tac_com_parameter_alasan());
+        $this->smarty->assign("alasan_skdp", $this->m_rawat_jalan->get_alasan_skdp());
+        $this->smarty->assign("rencana_skdp", $this->m_rawat_jalan->get_rencana_skdp2());
          
         $tujuan = $this->m_rawat_jalan->list_pemeriksaan_lab_by_rg_skdp($FS_KD_REG);
         $tujuan_str = ""; 

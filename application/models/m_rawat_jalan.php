@@ -2496,6 +2496,32 @@ class m_rawat_jalan extends CI_Model {
         }
     }
 
+    function get_alasan_skdp($params = "")
+    {
+        $sql = "SELECT *  FROM PKU.dbo.TAC_COM_PARAMETER_SKDP_ALASAN";
+        $query = $this->db->query($sql, $params);
+        if ($query->num_rows() > 0) {
+            $result = $query->result_array();
+            $query->free_result();
+            return $result;
+        } else {
+            return array();
+        }
+    }
+
+    function get_rencana_skdp2($params = "")
+    {
+        $sql = "SELECT * FROM PKU.dbo.TAC_COM_PARAMETER_SKDP_RENCANA";
+        $query = $this->db->query($sql, $params);
+        if ($query->num_rows() > 0) {
+            $result = $query->result_array();
+            $query->free_result();
+            return $result;
+        } else {
+            return array();
+        }
+    }
+
     function get_data_medis_igd($params) {
         $date = date('Y-m-d');
 

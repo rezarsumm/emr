@@ -580,7 +580,7 @@
                         <select name="FS_SKDP_1" id="skdp_alasan">
                             <option value='1'>--Pilih Alasan--</option>
                             {foreach from=$rs_skdp_alasan item=skdp_alasan}
-                            <option value="{$skdp_alasan.FS_KD_TRS}">{$skdp_alasan.FS_NM_SKDP_ALASAN}</option>
+                            <option value="{$skdp_alasan.FS_KD_TRS}" {if $skdp.FS_SKDP_1 eq $skdp_alasan.FS_KD_TRS} selected=""{/if}>{$skdp_alasan.FS_NM_SKDP_ALASAN}</option>
                             {/foreach}
                         </select>
                     </td>
@@ -591,6 +591,9 @@
                     <td>
                         <select name="FS_SKDP_2" id="kota">
                             <option value='1'>--Pilih Rencana Tindakan--</option>
+                            {foreach from=$rencana_skdp item=skdp_rencana}
+                            <option value="{$skdp_rencana.FS_KD_TRS}" {if $skdp.FS_SKDP_2 eq $skdp_rencana.FS_KD_TRS} selected=""{/if}>{$skdp_rencana.FS_NM_SKDP_RENCANA}</option>
+                            {/foreach}
                         </select>
                         <input type="text" name="FS_SKDP_KET" />
                     </td>

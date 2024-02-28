@@ -313,7 +313,7 @@
                 <td colspan="3">
                      <input type="hidden" name="KEPUTUSAN" value="{$rs_triase.KEPUTUSAN}" style="width:500px ;">
                     Pukul
-                    <input type="time" required name="JAM_KEP" value="{$rs_triase.JAM_KEP}" id="jam_keperawatan"></input>
+                    <input type="time" required name="JAM_KEP" value="{date('H:i', strtotime($rs_triase.JAM_KEP))}" ></input>
                   </td>
                 
             </tr>

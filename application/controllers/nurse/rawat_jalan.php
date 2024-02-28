@@ -34,6 +34,12 @@ class rawat_jalan extends ApplicationBase {
         $this->smarty->load_style("jquery.ui/select2/select2.css");
         // load style ui
         $this->smarty->load_style("jquery.ui/redmond/jquery-ui-1.8.13.custom.css");
+
+        $now = date('Y-m-d');
+        $session_khusus=$this->com_user['user_id'];
+        $this->smarty->assign("session", $session_khusus);
+        $this->smarty->assign("date", $now);
+        
       
         $search = $this->tsession->userdata('nurse_rawat_jalan');
         if (!empty($search)) {
@@ -52,7 +58,7 @@ class rawat_jalan extends ApplicationBase {
         // search parameters
         $FD_TGL_MASUK = empty($search['FD_TGL_MASUK']) ? : $search['FD_TGL_MASUK'];
         $FS_KD_PEG = empty($search['FS_KD_PEG']) ? : $search['FS_KD_PEG'];
-        $now = date('Y-m-d');
+       
 // get search parameter
         $this->smarty->assign("no", '1');
         $this->smarty->assign("rs_dokter", $this->m_rawat_jalan->get_dokter());

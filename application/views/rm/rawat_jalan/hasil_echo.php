@@ -141,28 +141,16 @@
             </tr>
             <tr>
             
-                <td colspan="2">Berikut merupakan hasil pemeriksaan echocardiografi</td>
+                <td colspan="2">Berikut merupakan hasil pemeriksaan echocardiografi : </td>
             </tr>
             <tr>
                 <td colspan="2"></td>
             </tr>
              <tr>
-                <td>Hasil</td>
-                <td>
-                    : <?= strip_tags($result['HASIL_ECHO']); ?>
-                </td>
+                <td colspan="2" style="text-align:justify ;"><?= strip_tags($result['HASIL_ECHO']); ?></td>
+        
                 
             </tr>
-<tr>
-<td></td></tr>
-<tr>
-<td></td></tr>
-<tr>
-<td></td></tr>
-<tr>
-<td></td></tr>
-<tr>
-<td></td></tr>
 
         </tbody>
     </table>

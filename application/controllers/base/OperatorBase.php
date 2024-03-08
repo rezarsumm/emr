@@ -183,7 +183,7 @@ class ApplicationBase extends CI_Controller {
             $x = $this->com_user['user_name'];
             $y = $this->com_user['role_nm'];
 
-            if($x=='216'|| $x=='217'|| $x=='215'|| $x=='213'|| $x=='202' || $x=='203' || $x=='206'  || $x=='211' || $x=='207' || $x=='209' || $x=='219' || $x=='223' || $x=='220' || $x=='221' || $x=='222' || $x=='312' ||  $x=='224' ||  $x=='225' ||  $x=='224' ||  $x=='227' || $x=='229'){
+            if($x=='216'|| $x=='217'|| $x=='215'|| $x=='213'|| $x=='202' || $x=='203' || $x=='206'  || $x=='211' || $x=='207' || $x=='209' || $x=='219' || $x=='223' || $x=='220' || $x=='221' || $x=='222' || $x=='312' ||  $x=='224' ||  $x=='225' ||  $x=='224' ||  $x=='227' || $x=='229'|| $x=='230'){
            
                 $html .='<li><a class="parent" href="'. site_url('medis/asesmenawal').'"> <img src="' . base_url() . 'resource/doc/images/nav/135.png' . '" alt="" /> Asesmen Awal Rawat Inap</a></li>';
 

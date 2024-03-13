@@ -86,6 +86,12 @@
                 <td><?= $rs_pasien['FS_ALERGI2']; ?></td>
             </tr>   
               
+            <tr>
+                <td style="width:30%">Diagnosa Sekunder</td>
+                <td style="width:30%"><?= strip_tags($medis['FS_DIAGNOSA_SEKUNDER']); ?></td>
+               
+            </tr>   
+              
              
         </table>
         <barcode type="C39" value="<?= $rs_pasien['NO_REG'];?>" style="width:40mm; height:8mm; font-size: 1mm"></barcode>

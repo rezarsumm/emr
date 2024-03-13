@@ -1965,6 +1965,19 @@ class m_rawat_jalan extends CI_Model {
             return 0;
         }
     }
+     function get_data_asasmen_igd_by_reg($params) {
+        $sql = "SELECT top 1 * 
+        FROM PKU.dbo.IGD_AWAL_MEDIS
+        WHERE FS_KD_REG = ? "; 
+        $query = $this->db->query($sql, $params);
+        if ($query->num_rows() > 0) {
+            $result = $query->row_array();
+            $query->free_result();
+            return $result;
+        } else {
+            return 0;
+        }
+    }
 
 
      function get_px_by_daftar($params) {

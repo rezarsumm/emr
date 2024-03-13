@@ -121,7 +121,7 @@
             </tr>
             <tr>
                 <td>Keluhan Utama  </td>
-                <td colspan="3"> <input type="text" name="ANAMNESA" style="width:78% ;" value="{$medis.FS_ANAMNESA}">  </td></tr>
+                <td colspan="3"> <input type="text" name="ANAMNESA" style="width:78% ;" value="{if $medis.FS_ANAMNESA neq ''}{$medis.FS_ANAMNESA}{elseif $asasmen_igd.FS_ANAMNESA neq ''}{$asasmen_igd.FS_ANAMNESA}{/if}">  </td></tr>
                 
              <tr>
                 <td >Riwayat Penyakit </td>
@@ -134,9 +134,9 @@
             <tr>
                 <td >Diagnosa Awal </td>
                 <td  >
-                   <input type="text" name="DIAGNOSA1" value="{$medis.FS_DIAGNOSA}"  size="30"> </td>
+                   <input type="text" name="DIAGNOSA1" value="{if $medis.FS_DIAGNOSA neq ''}{$medis.FS_DIAGNOSA}{elseif $asasmen_igd.FS_DIAGNOSA neq ''}{$asasmen_igd.FS_DIAGNOSA}{/if}"  size="30"> </td>
                    <td> Diagnosa  Sekarang  </td>
-                   <td>     <input type="text" name="DIAGNOSA2" value="{$medis.FS_DIAGNOSA}"  size="30">      </td>
+                   <td>     <input type="text" name="DIAGNOSA2" value="{if $medis.FS_DIAGNOSA neq ''}{$medis.FS_DIAGNOSA}{elseif $asasmen_igd.FS_DIAGNOSA neq ''}{$asasmen_igd.FS_DIAGNOSA}{/if}"  size="30">      </td>
             </tr>
 
             <tr class="headrow">
@@ -155,6 +155,7 @@
                      <td colspan="2">
                         <textarea name="TERAPI" rows="3" style="width:100%">
                            {$medis.FS_TERAPI}
+                            {$asasmen_igd.FS_TERAPI}
                             </textarea>
                         
                          </td>

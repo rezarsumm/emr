@@ -289,6 +289,7 @@ class Tf extends ApplicationBase {
         $this->smarty->assign("ruang", $this->m_igd->get_ruang());      
 
         $this->smarty->assign("medis", $this->m_rawat_jalan->get_data_medis_by_rg23(array($FS_RG)));
+        $this->smarty->assign("asasmen_igd", $this->m_rawat_jalan->get_data_asasmen_igd_by_reg(array($FS_RG)));
         
          $this->smarty->assign("kamar", $this->m_igd->ruang_now(array($FS_RG)));       
              

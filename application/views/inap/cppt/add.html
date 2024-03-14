@@ -341,6 +341,26 @@
         {else}
         {/if}
 
+        {if $username eq '157'}
+    Pilih Paket Obat
+        <select
+          name="namapaketdrdicky"
+          class="namapaketdrdicky select2"
+          id="namapaketdrdicky"
+          multiple
+          id="namapaketdrdicky"
+          cols="50"
+          style="width: 210px"
+        >
+          <option></option>
+          <option value="dr. dicky I">dr. dicky I</option>
+          <option value="dr. dicky II">dr. dicky II</option>
+          <option value="dr. dicky III">dr. dicky III</option>
+    
+        </select>
+     
+    {else} {/if}
+
 
 
          {if $username eq '152'} 
@@ -365,6 +385,8 @@
         
         {else}
         {/if}
+
+        
 
 
 
@@ -833,7 +855,28 @@
        
 
 
-
+               $("#namapaketdrdicky").change(function () {
+    var resep = $(".resep").val();
+    if ($("#namapaketdrdicky").val() == "dr. dicky I") {
+      $(".resep").val(
+        resep +
+        "\n /R    -Mp 1mg   \n    - codein 1/2 tab  \n    - Terasma 1/4  \n    - aminophylline 50mg \n    - Mfla da in cap no V \n    1dd1 (Malam)\n ----------------------------------------"
+      );
+      $("#namapaketdrdicky").select2("data", null);
+    } else if ($("#namapaketdrdicky").val() == "dr. dicky II") {
+      $(".resep").val(
+        resep +
+        "\n /R    -Mp 1mg   \n    - codein 1 tab  \n    - Terasma 1/4  \n    - aminophylline 50mg \n    - Mfla da in cap no X \n    2dd1 \n ----------------------------------------"
+      );
+      $("#namapaketdrdicky").select2("data", null);
+    } else if ($("#namapaketdrdicky").val() == "dr. dicky III") {
+      $(".resep").val(
+        resep +
+        "\n /R    -Mp 4mg   \n    - codein 1 tab  \n    - Terasma 1/4  \n    - aminophylline 50mg \n    - Mfla da in cap no X \n    3dd1 \n ----------------------------------------"
+      );
+      $("#namapaketdrdicky").select2("data", null);
+    } 
+  });
 
 
  $("#namapaket").change(function(){

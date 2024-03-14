@@ -23,6 +23,27 @@ class m_igd extends CI_Model {
         }
     }
 
+    function get_px_transfer_igd($params) {
+
+        $now = date('Y-m-d'); 
+
+        $date = new DateTime();
+        $date_plus = $date->modify("-1 days");
+        $akhirnya= $date_plus->format("Y-m-d");
+
+        $sql = "SELECT E.NO_REG, B.NO_MR, B.NAMA_PASIEN, B.TGL_LAHIR, B.JENIS_KELAMIN, B.ALAMAT
+       FROM REGISTER_PASIEN B,  PENDAFTARAN E 
+       WHERE B.NO_MR=E.NO_MR AND E.STATUS='1' and E.KODE_MASUK='1' and (E.TANGGAL= '$now' or E.TANGGAL='$akhirnya')";
+       $query = $this->db->query($sql);
+       if ($query->num_rows() > 0) {
+           $result = $query->result_array();
+           $query->free_result();
+           return $result;
+       } else {
+           return array();
+       }
+    }
+
     function list_pemeriksaan_lab($params) {
         $sql = "SELECT id,No_Kelompok, No_Jenis,JENIS
         FROM DB_RSMM.dbo.LAB_JENISPERIKSA  
@@ -463,6 +484,20 @@ class m_igd extends CI_Model {
         FROM PKU.dbo.TAC_RI_JATUH2 A
         left join   PKU.dbo.TAC_RI_JATUH3 B ON A.FS_KD_TRS=B.FS_KD_JATUH2
         WHERE FS_KD_REG = ?";
+        $query = $this->db->query($sql, $params);
+        if ($query->num_rows() > 0) {
+            $result = $query->row_array();
+            $query->free_result();
+            return $result;
+        } else {
+            return 0;
+        }
+    }
+
+    function get_triase_by_noreg($params) {
+        $sql = "SELECT top 1 * 
+        FROM PKU.dbo.TRIASE
+        WHERE FS_KD_REG = ? order by id asc";
         $query = $this->db->query($sql, $params);
         if ($query->num_rows() > 0) {
             $result = $query->row_array();
@@ -1262,6 +1297,7 @@ class m_igd extends CI_Model {
            return array();
        }
    }
+
     function get_pasien_ugd_anak() {
         $now = date('Y-m-d'); 
 

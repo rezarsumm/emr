@@ -275,7 +275,7 @@ Suhu : {$vs.FS_SUHU} C, Nadi : {$vs.FS_NADI} x/menit,  Respirasi : {$vs.FS_R} x/
       <td>Hasil Echocardiografi</td>
       <td>
         <textarea
-          rows="5"
+          rows="15"
           cols="50"
           name="HASIL_ECHO"
           onkeypress="handle10(event)"
@@ -583,8 +583,7 @@ Suhu : {$vs.FS_SUHU} C, Nadi : {$vs.FS_NADI} x/menit,  Respirasi : {$vs.FS_R} x/
         </select>
       </td>
     </tr>
-    {else} {/if}
-    {if $username eq '157'}
+    {else} {/if} {if $username eq '157'}
     <tr>
       <td>Pilih Paket Obat</td>
       <td>
@@ -601,7 +600,6 @@ Suhu : {$vs.FS_SUHU} C, Nadi : {$vs.FS_NADI} x/menit,  Respirasi : {$vs.FS_R} x/
           <option value="dr. dicky I">dr. dicky I</option>
           <option value="dr. dicky II">dr. dicky II</option>
           <option value="dr. dicky III">dr. dicky III</option>
-    
         </select>
       </td>
     </tr>
@@ -1223,22 +1221,22 @@ Suhu : {$vs.FS_SUHU} C, Nadi : {$vs.FS_NADI} x/menit,  Respirasi : {$vs.FS_R} x/
     if ($("#namapaketdrdicky").val() == "dr. dicky I") {
       $(".resep").val(
         resep +
-        "\n /R    -Mp 1ms   \n    - codein 1/2 tab  \n    - Terasma 1/4  \n    - aminophylline 50mg \n    - Mfla da in cap no V \n    1dd1 (Malam)\n ----------------------------------------"
+          "\n /R    -Mp 1ms   \n    - codein 1/2 tab  \n    - Terasma 1/4  \n    - aminophylline 50mg \n    - Mfla da in cap no V \n    1dd1 (Malam)\n ----------------------------------------"
       );
       $("#namapaketdrdicky").select2("data", null);
     } else if ($("#namapaketdrdicky").val() == "dr. dicky II") {
       $(".resep").val(
         resep +
-        "\n /R    -Mp 1ms   \n    - codein 1 tab  \n    - Terasma 1/4  \n    - aminophylline 50mg \n    - Mfla da in cap no X \n    2dd1 \n ----------------------------------------"
+          "\n /R    -Mp 1ms   \n    - codein 1 tab  \n    - Terasma 1/4  \n    - aminophylline 50mg \n    - Mfla da in cap no X \n    2dd1 \n ----------------------------------------"
       );
       $("#namapaketdrdicky").select2("data", null);
     } else if ($("#namapaketdrdicky").val() == "dr. dicky III") {
       $(".resep").val(
         resep +
-        "\n /R    -Mp 4ms   \n    - codein 1 tab  \n    - Terasma 1/4  \n    - aminophylline 50mg \n    - Mfla da in cap no X \n    3dd1 \n ----------------------------------------"
+          "\n /R    -Mp 4ms   \n    - codein 1 tab  \n    - Terasma 1/4  \n    - aminophylline 50mg \n    - Mfla da in cap no X \n    3dd1 \n ----------------------------------------"
       );
       $("#namapaketdrdicky").select2("data", null);
-    } 
+    }
   });
 
   $("#namapaketirs").change(function () {

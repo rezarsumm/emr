@@ -73,7 +73,7 @@
                     {/if}
 
                     {if $ases_medis.mdd >= $tgl_kemarin || $com_user.role_nm eq 'Admin E-MR'}   
-                            <a href="{$config->site_url('medis/rawat_inap/edit_umum/'|cat:$ases_medis.FS_KD_REG|default:'')}" class="button-edit"> Edit</a> 
+                            <a href="{$config->site_url('medis/rawat_inap/edit_umum/'|cat:$No_registrasi|default:'')}" class="button-edit"> Edit</a> 
                     {/if}
                 </td> 
                  </tr>

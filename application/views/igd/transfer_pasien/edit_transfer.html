@@ -4,17 +4,17 @@
 <div class="breadcrum">
     <p>
         <a href="#">IGD</a><span></span>
-         <small>Form Transfer Internal Antar Unit </small>
+         <small>Transfer internal antar Unit :  IGD - Rawat Inap</small>
     </p>
     <div class="clear"></div>
 </div> 
 <div class="content-entry">
     <!-- notification template -->
      <!-- end of notification template-->
-    <form action="{$config->site_url('igd/transfer_pasien/transfer_process')}" method="post" onkeypress="return event.keyCode != 13">
+    <form action="{$config->site_url('igd/transfer_pasien/edit_transfer_process')}" method="post" onkeypress="return event.keyCode != 13">
         <input name="FS_KD_REG" id="FS_KD_REG" type="hidden" value="{$rs_pasien.NO_REG}" />
         <input name="FS_MR" type="hidden" value="{$rs_pasien.NO_MR}" />
-        <input name="id" type="hidden" value="{$perawat.id}" />
+        <input name="id" type="hidden" value="{$tf.id}" />
         <input name="FS_KD_LAYANAN" type="hidden" value="{$rs_pasien.KODE_BANGSAL}" />
         <input name="FS_KD_PETUGAS_MEDIS" type="hidden" value="{$rs_pasien.fs_kd_medis}" />
 
@@ -45,9 +45,7 @@
            
 
        </table>
-       <input type="hidden" name="CARA_MASUK" value="{$perawat.CARA_MASUK}" > 
-       <input type="hidden" name="ASAL_MASUK" value="{$perawat.ASAL_MASUK}" > 
-        
+     
         <table class="table-input" width="100%">
 
             <tr>
@@ -56,7 +54,7 @@
                     <select name="KD_DOKTER_DPJP" id="surat_dari" class="select2" style="width: 400px;">
                         <option value=""></option>
                         {foreach from=$rs_dokter item=data}
-                        {if $rs_pasien.KODE_DOKTER eq $data.NAMAUSER}
+                        {if $tf.KD_DOKTER_DPJP eq $data.NAMAUSER}
                         <option value="{$data.NAMAUSER}" selected>{$data.NAMALENGKAP} </option>
                         {else}
                         <option value="{$data.NAMAUSER}">{$data.NAMALENGKAP} </option>
@@ -72,7 +70,7 @@
                         <option value=""></option>
                         {foreach from=$rs_dokter item=data}
                     
-                        <option value="{$data.NAMAUSER}" {if $asasmen_igd.KD_DOKTER_KONSUL eq $data.NAMAUSER} selected {/if}>{$data.NAMALENGKAP} </option>
+                        <option value="{$data.NAMAUSER}" {if $tf.KD_KONSUL_1 eq $data.NAMAUSER} selected {/if}>{$data.NAMALENGKAP} </option>
                         {/foreach}
                     </select>
                  </td>
@@ -81,20 +79,24 @@
                     <select name="KD_KONSUL_2" id="surat_dari" class="select2" style="width: 400px;">
                         <option value=""></option>
                         {foreach from=$rs_dokter item=data}    
-                        <option value="{$data.NAMAUSER}" {if $asasmen_igd.KD_DOKTER_KONSUL2 eq $data.NAMAUSER} selected {/if}>{$data.NAMALENGKAP} </option>
+                        <option value="{$data.NAMAUSER}" {if $tf.KD_KONSUL_2 eq $data.NAMAUSER} selected {/if}>{$data.NAMALENGKAP} </option>
                       
                         {/foreach}
                     </select>
                  </td>
              </tr>
 
-             <input type="hidden" name="RUANG1" value="{$kamar.Kode_Ruang}">
-             <tr> 
-                <td  > Pindah  Ke Ruang </td>
-                <td  >   <select name="RUANG2" id="surat_dari" class="select2" style="width: 200px;" required>
+             
+            
+             <input type="hidden" name="RUANG1" value="{$tf.RUANG1}">
+
+             <tr>
+                <td>Pindah ke ruang   </td>
+                <td > 
+                    <select name="RUANG2" id="surat_dari" class="select2" style="width: 400px;">
                         <option value=""></option> 
                         {foreach from=$ruang item=gata}
-                        {if $daftar.RUANG1 eq $gata.Kode_Ruang}
+                        {if $tf.RUANG2 eq $gata.Kode_Ruang}
                         <option value="{$gata.Kode_Ruang}" selected>{$gata.Nama_Ruang} </option>
                         {else}
                         <option value="{$gata.Kode_Ruang}">{$gata.Nama_Ruang} </option>
@@ -103,8 +105,9 @@
                     </select>
                   </td> 
                 <td>  Tanggal/Jam Pindah</td>
-                <td  > <input type="date" name="TGL_PINDAH" size="100" value="{$perawat.KEL_SEKARANG}" required> 
-                    <input type="time" name="JAM_PINDAH" size="100" value="{$perawat.KEL_SEKARANG}">  </td>
+                <td  > <input type="date" name="TGL_PINDAH" size="100" value="{date('Y-m-d', strtotime($tf.TGL_PINDAH))}" required> 
+                    <input type="time" name="JAM_PINDAH" size="100" value="{date('H:i', strtotime($tf.JAM_PINDAH))}" required>  </td>
+                    
 
              </tr>
 
@@ -115,25 +118,22 @@
             </tr>
             <tr>
                 <td>Keluhan Utama  </td>
-                <td colspan="3"> <input type="text" name="ANAMNESA" style="width:78% ;" value="{if $medis.FS_ANAMNESA neq ''}{$medis.FS_ANAMNESA}{elseif $asasmen_igd.FS_ANAMNESA neq ''}{$asasmen_igd.FS_ANAMNESA}{/if}">  </td></tr>
+                <td colspan="3"> <input type="text" name="ANAMNESA" style="width:78% ;" value="{$tf.ANAMNESA}">  </td></tr>
                 
              <tr>
                 <td >Riwayat Penyakit </td>
-                <td  ><input type="text" name="RIWAYAT_SAKIT" value="{$asasmen_igd.RIW_PENYAKIT_DAHULU}"  size="30"> </td>
+                <td  ><input type="text" name="RIWAYAT_SAKIT" value="{$tf.RIWAYAT_SAKIT}"  size="30"> </td>
                    <td> Riwayat  Alergi  </td>
-                   <td> <input type="text" name="RIWAYAT_ALERGI_MAKANAN" value="{$result.FS_ALERGI|default:'-'}" size="30">
+                   <td> <input type="text" name="RIWAYAT_ALERGI_MAKANAN" value="{$tf.RIWAYAT_ALERGI_MAKANAN}" size="30">
                 
                 </td>
             </tr>
             <tr>
                 <td >Diagnosa Awal </td>
                 <td  >
-                    <textarea name="DIAGNOSA1" id="" rows="6" style="width:100%">{if $medis.FS_DIAGNOSA neq ''}{$medis.FS_DIAGNOSA}{elseif $asasmen_igd.FS_DIAGNOSA neq ''}{$asasmen_igd.FS_DIAGNOSA}{/if}</textarea>
-                  
+                   <input type="text" name="DIAGNOSA1" value="{$tf.DIAGNOSA1}"  size="30"> </td>
                    <td> Diagnosa  Sekarang  </td>
-                   <td> 
-                    <textarea name="DIAGNOSA2" id="" rows="6" style="width:100%">{if $medis.FS_DIAGNOSA neq ''}{$medis.FS_DIAGNOSA}{elseif $asasmen_igd.FS_DIAGNOSA neq ''}{$asasmen_igd.FS_DIAGNOSA}{/if}</textarea>
-             </td>
+                   <td>     <input type="text" name="DIAGNOSA2" value="{$tf.DIAGNOSA2}" size="30">      </td>
             </tr>
             <tr class="headrow">
                 <th colspan="4">TINDAKAN MEDIS</th> 
@@ -141,9 +141,10 @@
             <tr>
 
                 <td >TINDAKAN MEDIS </td>
-                <td  ><textarea name="TINDAKAN_MEDIS" id="" rows="3" style="width:100%"></textarea> </td>
+                <td  ><textarea name="TINDAKAN_MEDIS" id="" rows="3" style="width:100%">{$tf.TINDAKAN}</textarea> </td>
                    
             </tr>
+
             <tr class="headrow">
                 <th colspan="4">PEMERIKSAAN FISIK AWAL (dari triase awal)</th> 
             </tr>
@@ -180,7 +181,7 @@
 
                 </select> </td>
                    <td> EWSS  </td>
-                   <td> <input type="text" name="EWSS" value="" size="30">
+                   <td> <input type="text" name="EWSS" value="{$tf.EWSS}" size="30">
                 
                 </td>
             </tr>
@@ -189,160 +190,159 @@
    
             <tr>
                 <td> GCS  </td>
-                <td> <input type="text" name="GCS" value="" size="30">
+                <td> <input type="text" name="GCS" value="{$tf.GCS}" size="30">
                     
                 </td>
-                <td >M</td>
-                <td  ><input type="text" name="GCS_M" value=""  size="30"> </td>
+                <td>M</td>
+                <td><input type="text" name="GCS_M" value="{$tf.GCS_M}"  size="30"> </td>
             </tr>
             <tr>
-                <td >E</td>
-                <td  ><input type="text" name="GCS_E" value=""  size="30"> </td>
+                <td>E</td>
+                <td><input type="text" name="GCS_E" value="{$tf.GCS_E}"  size="30"> </td>
                    <td> V  </td>
-                   <td> <input type="text" name="GCS_V" value="" size="30">
+                   <td> <input type="text" name="GCS_V" value="{$tf.GCS_V}" size="30">
                 
                 </td>
             </tr>
-    
 
             <tr class="headrow">
-                <th colspan="2">Pemeriksaan Penunjang  </th> 
+                <th colspan="2">Pemeriksaan Penunjang </th> 
                 <th colspan="2">  Pemberian Therapi </th> 
             </tr>
             <tr>
                 <td colspan="2">
-                    <textarea name="PENUNJANG" rows="12" style="width:100%">
-                        Lab          : {$asasmen_igd.lab} 
-                        Radiologi    :  {$asasmen_igd.rad}
-                        Lain-lain    :
-                        </textarea>
+                    <textarea name="PENUNJANG" rows="12" style="width:100%">{$tf.PENUNJANG}</textarea>
                     
                      </td>
                      <td colspan="2">
-                        <textarea name="TERAPI" rows="12" style="width:100%">{$asasmen_igd.FS_TERAPI}</textarea>
+                        <textarea name="TERAPI" rows="12" style="width:100%">{$tf.TERAPI}</textarea>
                         
                          </td>
                         </tr>
-                
-              <tr class="headrow">
-                    <th colspan="4">Pemeriksaan Fisik Sebelum Transfer</th> 
-                 
-                </tr>
-                <tr>
 
-                    <td >KESADARAN </td>
-                    <td  ><select name="KESADARAN" id="" class="select2" style="width: 200px;">
-                        <option value="">--pilih--</option>
-                        <option value="Sadar Penuh">Sadar Penuh</option>
-                        <option value="Respon Suara">Respon Suara</option>
-                        <option value="Respon Nyeri">Respon Nyeri</option>
-                        <option value="Tida Ada respon">Tidak Ada respon</option>
-    
-                    </select> </td>
+                        <tr class="headrow">
+                            <th colspan="4">Pemeriksaan Fisik Sebelum Transfer</th> 
+                         
+                        </tr>
+                        <tr>
         
-                </tr>
-                <tr>
-                    <td >TEKANAN DARAH </td>
-                    <td  ><input type="text" name="TD"  size="30"> </td>
-                    <td> SUHU  </td>
-                    <td> <input type="text" name="SUHU"  size="30">
-                    
-                    </td>
-                </tr>
-                <tr>
-                    <td >NADI </td>
-                    <td  ><input type="text" name="N"   size="30"> </td>
-                       <td> RESPIRASI  </td>
-                       <td> <input type="text" name="R"  size="30">
-                    
-                    </td>
-                </tr>
-                <tr>
-                    <td >SPO2 </td>
-                    <td  ><input type="text" name="O2"   size="30"> </td>  
-                    
-                </tr>
+                            <td >KESADARAN </td>
+                            <td  ><select name="KESADARAN" id="" class="select2" style="width: 200px;">
+                                <option value="">--pilih--</option>
+                                <option value="Sadar Penuh" {if $ttv_sebelum_transfer.KESADARAN eq 'Sadar Penuh'} selected {/if}>Sadar Penuh</option>
+                                <option value="Respon Suara" {if $ttv_sebelum_transfer.KESADARAN eq 'Respon Suara'} selected {/if}>Respon Suara</option>
+                                <option value="Respon Nyeri" {if $ttv_sebelum_transfer.KESADARAN eq 'Respon Nyeri'} selected {/if}>Respon Nyeri</option>
+                                <option value="Tidak Ada respon" {if $ttv_sebelum_transfer.KESADARAN eq 'Tidak Ada respon'} selected {/if}>Tidak Ada respon</option>
+            
+                            </select> </td>
+                
+                        </tr>
+                        <tr>
+                            <td >TEKANAN DARAH </td>
+                            <td  ><input type="text" name="TD" value="{$ttv_sebelum_transfer.TD}"  size="30"> 
+                                <input type="hidden" name="ID_SEBELUM" value="{$ttv_sebelum_transfer.ID}"  size="30"></td>
+                            <td> SUHU  </td>
+                            <td> <input type="text" name="SUHU" value="{$ttv_sebelum_transfer.SUHU}" size="30">
+                            
+                            </td>
+                        </tr>
+                        <tr>
+                            <td >NADI </td>
+                            <td  ><input type="text" name="N" value="{$ttv_sebelum_transfer.NADI}"  size="30"> </td>
+                               <td> RESPIRASI  </td>
+                               <td> <input type="text" name="R" value="{$ttv_sebelum_transfer.RR}" size="30">
+                            
+                            </td>
+                        </tr>
+                        <tr>
+                            <td >SPO2 </td>
+                            <td  ><input type="text" name="O2" value="{$ttv_sebelum_transfer.SPO2}"  size="30"> </td>  
+                            
+                        </tr>
+        
+                        <tr>
+                            <td>Catatan sebelum transfer</td>
+                            <td>
+                                <textarea name="CAT1" id="" rows="3" style="width:100%">{$tf.CAT1}</textarea>
+                            </td>
+                        </tr>
+           
+                        <tr class="headrow">
+                      
+                            <th colspan="4">Pemeriksaan Fisik Setelah Transfer</th> 
+                        </tr>
+                        <tr>
+        
+                            <td >KESADARAN </td>
+                            <td  ><select name="KESADARAN_2" id="" class="select2" style="width: 200px;">
+                                <option value="">--pilih--</option>
+                                <option value="Sadar Penuh" {if $ttv_setelah_transfer.KESADARAN eq 'Sadar Penuh'} selected {/if}>Sadar Penuh</option>
+                                <option value="Respon Suara" {if $ttv_setelah_transfer.KESADARAN eq 'Respon Suara'} selected {/if}>Respon Suara</option>
+                                <option value="Respon Nyeri" {if $ttv_setelah_transfer.KESADARAN eq 'Respon Nyeri'} selected {/if}>Respon Nyeri</option>
+                                <option value="Tidak Ada respon" {if $ttv_setelah_transfer.KESADARAN eq 'Tidak Ada respon'} selected {/if}>Tidak Ada respon</option>
+            
+                            </select> </td>
+                       
+                        </tr>
+                        <tr>
+                            <td >TEKANAN DARAH </td>
+                            <td  ><input type="text" name="TD_2" value="{$ttv_setelah_transfer.TD}"  size="30">
+                                <input type="hidden" name="ID_SETELAH" value="{$ttv_setelah_transfer.ID}"  size="30"> </td>
+                            <td> SUHU  </td>
+                            <td> <input type="text" name="SUHU_2" value="{$ttv_setelah_transfer.SUHU}" size="30">
+                            
+                            </td>
+                        </tr>
+                        <tr>
+                            <td >NADI </td>
+                            <td  ><input type="text" name="N_2" value="{$ttv_setelah_transfer.NADI}"  size="30"> </td>
+                               <td> RESPIRASI  </td>
+                               <td> <input type="text" name="R_2" value="{$ttv_setelah_transfer.RR}" size="30">
+                            
+                            </td>
+                        </tr>
+                        <tr>
+                            <td >SPO2 </td>
+                            <td  ><input type="text" name="O2_2" value="{$ttv_setelah_transfer.SPO2}"  size="30"> </td>  
+                            
+                        </tr>
+        
+                        <tr>
+                            <td>Catatan setelah transfer</td>
+                            <td>
+                                <textarea name="CAT2" id="" rows="3" style="width:100%">{$tf.CAT2}</textarea>
+                            </td>
+                        </tr>
+        
+                        <tr class="headrow">
+                            <th colspan="4">LAIN-LAIN</th> 
+                         
+                        </tr>
+            
+                       <tr>
+                          <td>Lain-Lain</td>
+                          <td>
+                                <textarea name="LAINNYA" id="" rows="6" style="width: 100%;">{$tf.LAINNYA}</textarea>
+                          </td>
+                     
+                       </tr>
+                        <tr class="headrow">
+                            <th colspan="4">Derajat Kebutuhan Transfer</th> 
+                         
+                        </tr>
+            
+                       <tr>
+                          <td>Derajat Kebutuhan Transfer</td>
+                          <td>
+                             <input type="radio" name="DERAJAT" {if $tf.DERAJAT eq '0'} checked {/if} value="0">0
+                             <input type="radio" name="DERAJAT" {if $tf.DERAJAT eq '1'} checked {/if} value="1">1
+                             <input type="radio" name="DERAJAT" {if $tf.DERAJAT eq '2'} checked {/if} value="2">2
+                             <input type="radio" name="DERAJAT" {if $tf.DERAJAT eq '3'} checked {/if} value="3">3
+                          </td>
+                     
+                       </tr>
 
-                <tr>
-                    <td>Catatan sebelum transfer</td>
-                    <td>
-                        <textarea name="CAT1" id="" rows="3" style="width:100%"></textarea>
-                    </td>
-                </tr>
-   
-                <tr class="headrow">
-              
-                    <th colspan="4">Pemeriksaan Fisik Setelah Transfer</th> 
-                </tr>
-                <tr>
 
-                    <td >KESADARAN </td>
-                    <td  ><select name="KESADARAN_2" id="" class="select2" style="width: 200px;">
-                        <option value="">--pilih--</option>
-                        <option value="Sadar Penuh">Sadar Penuh</option>
-                        <option value="Respon Suara">Respon Suara</option>
-                        <option value="Respon Nyeri">Respon Nyeri</option>
-                        <option value="Tida Ada respon">Tidak Ada respon</option>
-    
-                    </select> </td>
-               
-                </tr>
-                <tr>
-                    <td >TEKANAN DARAH </td>
-                    <td  ><input type="text" name="TD_2"  size="30"> </td>
-                    <td> SUHU  </td>
-                    <td> <input type="text" name="SUHU_2"  size="30">
-                    
-                    </td>
-                </tr>
-                <tr>
-                    <td >NADI </td>
-                    <td  ><input type="text" name="N_2"  size="30"> </td>
-                       <td> RESPIRASI  </td>
-                       <td> <input type="text" name="R_2" size="30">
-                    
-                    </td>
-                </tr>
-                <tr>
-                    <td >SPO2 </td>
-                    <td  ><input type="text" name="O2_2"  size="30"> </td>  
-                    
-                </tr>
-
-                <tr>
-                    <td>Catatan setelah transfer</td>
-                    <td>
-                        <textarea name="CAT2" id="" rows="3" style="width:100%"></textarea>
-                    </td>
-                </tr>
-
-                <tr class="headrow">
-                    <th colspan="4">LAIN-LAIN</th> 
-                 
-                </tr>
-    
-               <tr>
-                  <td>Lain-Lain</td>
-                  <td>
-                        <textarea name="LAINNYA" id="" rows="6" style="width: 100%;"></textarea>
-                  </td>
-             
-               </tr>
-                <tr class="headrow">
-                    <th colspan="4">Derajat Kebutuhan Transfer</th> 
-                 
-                </tr>
-    
-               <tr>
-                  <td>Derajat Kebutuhan Transfer</td>
-                  <td>
-                     <input type="radio" name="DERAJAT" value="0">0
-                     <input type="radio" name="DERAJAT" value="1">1
-                     <input type="radio" name="DERAJAT" value="2">2
-                     <input type="radio" name="DERAJAT" value="3">3
-                  </td>
-             
-               </tr>
                <tr class="headrow">
                 <th colspan="4">Kategori Pasien Transfer</th> 
                 </tr>
@@ -378,7 +378,7 @@
                         <td>Dokter / Petugas PK III</td>
                         <td>peralatan derajat 2, + alat bantu nafas</td>
                     </tr>
-             
+
                     <tr class="headrow">
                         <th colspan="4">Konsulan Dokter DPJP</th> 
                      
@@ -410,5 +410,10 @@
                             </tr>
             </form>
             </div>
-  
+      <script>
+ 
+ 
+  </script>     
+
+
  

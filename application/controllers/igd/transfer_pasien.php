@@ -75,7 +75,7 @@ class Transfer_pasien extends ApplicationBase {
                    
    
                   
-                       $this->smarty->assign("tf", $this->m_igd->get_pasien_keluar_tf4(array($fs_kd_layanan)));           
+                       $this->smarty->assign("tf", $this->m_igd->get_pasien_keluar_igd(array($fs_kd_layanan)));           
                    
                    $this->smarty->assign("rs_dokter", $this->m_igd->get_dokter_sp());           
                    $this->smarty->assign("bangsal", $this->m_igd->get_bangsal());           
@@ -90,6 +90,50 @@ class Transfer_pasien extends ApplicationBase {
                    $this->tnotification->display_last_field();
            // output
                    parent::display();
+     }
+     
+     public function pasien_masuk(){
+            // set page rules 
+            $this->_set_page_rule("R");
+            // set template content
+                    $this->smarty->assign("template_content", "inap/transfer_pasien/igd/index.html");
+                    $this->smarty->load_javascript('resource/js/jquery.datatables/jquery.dataTables.js');
+                    $this->smarty->load_javascript('resource/js/jquery.datatables/dataTables.fixedHeader.js');
+                    $this->smarty->load_style("jquery.ui/redmond/jquery-ui-1.8.13.custom.css");
+                    $this->smarty->load_style("jquery.ui/datatables/jquery.dataTables.css");
+            // load javascript
+                    $this->smarty->load_javascript('resource/js/jquery/jquery-ui-1.9.2.custom.min.js');
+                    $rolenya=$this->com_user['role_nm'];
+                    $this->smarty->assign("username", $this->com_user['user_name']);
+                    $this->smarty->assign("rolenya", $this->com_user['role_nm']);
+            
+                    $search = $this->tsession->userdata('medis_rawat_jalan');
+                  
+                    $x = $this->com_user['user_name'];
+                    $FS_KD_PEG = $this->com_user['user_name'];
+                 
+                  
+    
+                    $fs_kd_layanan = $this->com_user['fs_kd_layanan'];
+    
+                    if($fs_kd_layanan == 'MNA')
+                    {
+                        $this->smarty->assign("rs_pasien", $this->m_igd->get_pasien_masuk_tf_igd2(array($fs_kd_layanan)));           
+                    }
+                    else{
+                        $this->smarty->assign("rs_pasien", $this->m_igd->get_pasien_masuk_tf_igd(array($fs_kd_layanan)));           
+                    }
+     
+                 
+                    $this->smarty->assign("no", '1');  
+             
+                 
+                     
+            // notification
+                    $this->tnotification->display_notification();
+                    $this->tnotification->display_last_field();
+            // output
+                    parent::display();
      }
 
 
@@ -265,6 +309,8 @@ class Transfer_pasien extends ApplicationBase {
         // cek input
         $this->tnotification->set_rules('FS_KD_REG', 'NAMA PASIEN', 'trim|required');
         // process
+
+    
   
        
             $params2 = array(
@@ -274,33 +320,69 @@ class Transfer_pasien extends ApplicationBase {
                 $this->input->post('KD_KONSUL_2'), 
                 $this->input->post('TGL_PINDAH'), 
                 $this->input->post('JAM_PINDAH'),  
-                'POLI', 
+                'IGD', 
                 $this->input->post('RUANG2'), 
                 $this->input->post('DIAGNOSA1'), 
                 $this->input->post('DIAGNOSA2'), 
                 $this->input->post('ANAMNESA'),
-                $this->input->post('RIWAYAT_SAKIT'),
-                $this->input->post('PEMERIKSAAN_FISIK1'), 
-                $this->input->post('PEMERIKSAAN_FISIK2'), 
+                $this->input->post('RIWAYAT_SAKIT'), 
                 $this->input->post('PENUNJANG'), 
-                '', 
+                $this->input->post('TINDAKAN_MEDIS'), 
+           
                 $this->input->post('TERAPI'), 
                 $this->com_user['user_name'],
                 '',
                 'Pending',
                 $this->input->post('DERAJAT'), 
                 $this->input->post('CAT1'), 
+                $this->input->post('CAT2'), 
                 date('Y-m-d H:i:s'), 
                 date('Y-m-d H:i:s'), 
+                $this->input->post('LAINNYA'), 
+                $this->input->post('RIWAYAT_ALERGI_MAKANAN'),
+                $this->input->post('EWSS'),
+                $this->input->post('GCS'),
+                $this->input->post('GCS_M'),
+                $this->input->post('GCS_E'),
+                $this->input->post('GCS_V')
                 
             );
        
                 
-                $this->m_igd->INSERT_TF_PERAWAT($params2);
+                $this->m_igd->INSERT_TF_PERAWAT_IGD($params2);
+                
+                $pemeriksaan_sebelum_transfer = array(
+                    $this->input->post('TD'), 
+                    $this->input->post('SUHU'), 
+                    $this->input->post('N'), 
+                    $this->input->post('R'), 
+                    $this->input->post('O2'), 
+                    $this->input->post('FS_KD_REG'), 
+                    $this->input->post('KESADARAN'), 
+                    date('Y-m-d'), 
+                    $this->com_user['user_name'], 
+                );
+                
+                $this->m_igd->insert_pemeriksaan_sebelum_transfer($pemeriksaan_sebelum_transfer);
+                
+                $pemeriksaan_sesudah_transfer = array(
+                    $this->input->post('TD_2'), 
+                    $this->input->post('SUHU_2'), 
+                    $this->input->post('N_2'), 
+                    $this->input->post('R_2'), 
+                    $this->input->post('O2_2'), 
+                    $this->input->post('FS_KD_REG'), 
+                    $this->input->post('KESADARAN_2'), 
+                    date('Y-m-d'), 
+                    $this->com_user['user_name'], 
+                );
+                $this->m_igd->insert_pemeriksaan_setelah_transfer($pemeriksaan_sesudah_transfer);
+                
+        
 
               
         // default redirect
-        redirect("nurse/tf/out");
+        redirect("igd/transfer_pasien/");
     }
 
 
@@ -397,7 +479,7 @@ class Transfer_pasien extends ApplicationBase {
         // set page rules
         $this->_set_page_rule("C");
         // set template content
-        $this->smarty->assign("template_content", "nurse/transfer_pasien/edit_transfer.html");
+        $this->smarty->assign("template_content", "igd/transfer_pasien/edit_transfer.html");
         // load javascript
         $this->smarty->load_javascript("resource/js/jquery/jquery-ui-1.9.2.custom.min.js");
         $this->smarty->load_javascript('resource/js/jquery/select2.js');
@@ -422,12 +504,70 @@ class Transfer_pasien extends ApplicationBase {
                           $akhirnya= $date_plus->format("Y-m-d");
 
         $this->smarty->assign("rs_pasien", $this->m_igd->get_pasien_by_rg_ugd(array($FS_RG)));
-        $this->smarty->assign("rs_triase", $this->m_igd->get_data_triase_by_noreg(array($FS_RG)));           
+        $this->smarty->assign("triase", $this->m_igd->get_triase_by_noreg(array($FS_RG)));           
         $this->smarty->assign("perawat", $this->m_igd->get_data_perawat_by_noreg(array($FS_RG)));           
         $this->smarty->assign("daftar", $this->m_igd->get_daftar_igd_by_noreg(array($FS_RG)));           
         $this->smarty->assign("bangsal", $this->m_igd->get_bangsal());  
         $this->smarty->assign("ruang", $this->m_igd->get_ruang());           
+        $this->smarty->assign("ttv_sebelum_transfer", $this->m_igd->get_data_ttv_sebelum_tf(array($FS_RG)));          
+        $this->smarty->assign("ttv_setelah_transfer", $this->m_igd->get_data_ttv_setelah_tf(array($FS_RG)));          
+        $this->smarty->assign("asasmen_igd", $this->m_rawat_jalan->get_data_asasmen_igd_by_reg(array($FS_RG)));
+                 
 
+        $this->smarty->assign("medis", $this->m_igd->get_data_medis_by_noreg(array($FS_RG)));           
+        $this->smarty->assign("tf", $this->m_igd->get_data_tf_by_noreg2(array($FS_RG)));           
+
+        $this->smarty->assign("rs_dokter", $this->m_igd->get_dokter_sp());       
+        $this->smarty->assign("ases2", $this->m_rawat_jalan->get_data_ases2_by_rg(array($FS_RG)));
+
+        $FS_KD_REG=$FS_RG;
+           
+        $this->smarty->assign("role_id", $this->com_user['role_id']);
+        $this->smarty->assign("tgl", $tgl);
+         $this->smarty->assign("namarole", $rolenya); 
+        $this->tnotification->display_notification();
+        $this->tnotification->display_last_field();
+        // output
+        parent::display();
+    }
+
+    public function edit_transfer_ruangan($FS_RG) {
+        // set page rules
+        $this->_set_page_rule("C");
+        // set template content
+        $this->smarty->assign("template_content", "inap/transfer_pasien/igd/aprove.html");
+        // load javascript
+        $this->smarty->load_javascript("resource/js/jquery/jquery-ui-1.9.2.custom.min.js");
+        $this->smarty->load_javascript('resource/js/jquery/select2.js');
+        $this->smarty->load_javascript('resource/js/jquery/jquery-ui-timepicker-addon.js');
+        $this->smarty->load_javascript('resource/js/tinymce/tinymce.min.js');
+        // load style
+        $this->smarty->load_style("jquery.ui/select2/select2.css");
+        // load style ui
+        $this->smarty->load_style("jquery.ui/redmond/jquery-ui-1.8.13.custom.css");
+
+        $this->smarty->assign("vs", $this->m_igd->get_data_vs_by_rg($FS_RG));   
+
+         $role = $this->com_user['role_id'];
+         $rolenya=$this->com_user['role_nm'];
+          $this->smarty->assign("username", $this->com_user['user_name']);
+          $tgl=date('Y-m-d');
+
+          $now = date('Y-m-d'); 
+ 
+          $date = new DateTime();
+                          $date_plus = $date->modify("-1 days");
+                          $akhirnya= $date_plus->format("Y-m-d");
+
+        $this->smarty->assign("rs_pasien", $this->m_igd->get_pasien_by_rg_ugd(array($FS_RG)));
+        $this->smarty->assign("triase", $this->m_igd->get_triase_by_noreg(array($FS_RG)));           
+        $this->smarty->assign("perawat", $this->m_igd->get_data_perawat_by_noreg(array($FS_RG)));           
+        $this->smarty->assign("daftar", $this->m_igd->get_daftar_igd_by_noreg(array($FS_RG)));           
+        $this->smarty->assign("bangsal", $this->m_igd->get_bangsal());  
+        $this->smarty->assign("ruang", $this->m_igd->get_ruang());           
+        $this->smarty->assign("ttv_sebelum_transfer", $this->m_igd->get_data_ttv_sebelum_tf(array($FS_RG)));          
+        $this->smarty->assign("ttv_setelah_transfer", $this->m_igd->get_data_ttv_setelah_tf(array($FS_RG)));          
+        $this->smarty->assign("asasmen_igd", $this->m_rawat_jalan->get_data_asasmen_igd_by_reg(array($FS_RG)));
                  
 
         $this->smarty->assign("medis", $this->m_igd->get_data_medis_by_noreg(array($FS_RG)));           
@@ -463,34 +603,148 @@ class Transfer_pasien extends ApplicationBase {
                     $this->input->post('KD_KONSUL_1'),
                     $this->input->post('KD_KONSUL_2'), 
                     $this->input->post('TGL_PINDAH'), 
-                    $this->input->post('JAM_PINDAH'), 
-                    $this->input->post('RUANG1'), 
+                    $this->input->post('JAM_PINDAH'),  
+                    'IGD', 
                     $this->input->post('RUANG2'), 
                     $this->input->post('DIAGNOSA1'), 
                     $this->input->post('DIAGNOSA2'), 
                     $this->input->post('ANAMNESA'),
-                    $this->input->post('RIWAYAT_SAKIT'),
-                    $this->input->post('PEMERIKSAAN_FISIK1'), 
-                    $this->input->post('PEMERIKSAAN_FISIK2'), 
+                    $this->input->post('RIWAYAT_SAKIT'), 
                     $this->input->post('PENUNJANG'), 
-                    '', 
+                    $this->input->post('TINDAKAN_MEDIS'), 
+               
                     $this->input->post('TERAPI'), 
                     $this->com_user['user_name'],
-                    '',
-                    'Pending',
                     $this->input->post('DERAJAT'), 
                     $this->input->post('CAT1'), 
+                    $this->input->post('CAT2'),  
                     date('Y-m-d H:i:s'), 
-                    date('Y-m-d H:i:s'), 
-                    $this->input->post('id'), 
+                    $this->input->post('LAINNYA'), 
+                    $this->input->post('RIWAYAT_ALERGI_MAKANAN'),
+                    $this->input->post('EWSS'),
+                    $this->input->post('GCS'),
+                    $this->input->post('GCS_M'),
+                    $this->input->post('GCS_E'),
+                    $this->input->post('GCS_V'),
+                    $this->input->post('id')
 
                     
                 );
-                $this->m_igd->UPDATE_TF_PERAWAT($params2);
+           
+                $this->m_igd->UPDATE_TF_PERAWAT_IGD($params2);
 
+                $pemeriksaan_sebelum_transfer = array(
+                    $this->input->post('TD'), 
+                    $this->input->post('SUHU'), 
+                    $this->input->post('N'), 
+                    $this->input->post('R'), 
+                    $this->input->post('O2'), 
+                    $this->input->post('FS_KD_REG'), 
+                    $this->input->post('KESADARAN'), 
+                    date('Y-m-d'), 
+                    $this->com_user['user_name'], 
+                    $this->input->post('ID_SEBELUM')
+                );
+                
+                $this->m_igd->update_pemeriksaan_sebelum_transfer($pemeriksaan_sebelum_transfer);
+                
+                $pemeriksaan_sesudah_transfer = array(
+                    $this->input->post('TD_2'), 
+                    $this->input->post('SUHU_2'), 
+                    $this->input->post('N_2'), 
+                    $this->input->post('R_2'), 
+                    $this->input->post('O2_2'), 
+                    $this->input->post('FS_KD_REG'), 
+                    $this->input->post('KESADARAN_2'), 
+                    date('Y-m-d'), 
+                    $this->com_user['user_name'], 
+                    $this->input->post('ID_SETELAH')
+                );
+                $this->m_igd->update_pemeriksaan_setelah_transfer($pemeriksaan_sesudah_transfer);
+        
               
         // default redirect
-        redirect("nurse/tf/out");
+        redirect("igd/transfer_pasien");
+    }
+
+    public function aprove_transfer_process(){
+             // set page rules
+             $this->_set_page_rule("C");
+             // cek input
+             $this->tnotification->set_rules('FS_KD_REG', 'NAMA PASIEN', 'trim|required');
+
+    
+             // process
+       
+                       $params2 = array(
+                         $this->input->post('FS_KD_REG'), 
+                         $this->input->post('KD_DOKTER_DPJP'), 
+                         $this->input->post('KD_KONSUL_1'),
+                         $this->input->post('KD_KONSUL_2'), 
+                         $this->input->post('TGL_PINDAH'), 
+                         $this->input->post('JAM_PINDAH'),  
+                         'IGD', 
+                         $this->input->post('RUANG2'), 
+                         $this->input->post('DIAGNOSA1'), 
+                         $this->input->post('DIAGNOSA2'), 
+                         $this->input->post('ANAMNESA'),
+                         $this->input->post('RIWAYAT_SAKIT'), 
+                         $this->input->post('PENUNJANG'), 
+                         $this->input->post('TINDAKAN_MEDIS'), 
+                    
+                         $this->input->post('TERAPI'), 
+                         $this->com_user['user_name'],
+                         'Diterima',
+                         $this->input->post('DERAJAT'), 
+                         $this->input->post('CAT1'), 
+                         $this->input->post('CAT2'),  
+                         date('Y-m-d H:i:s'), 
+                         $this->input->post('LAINNYA'), 
+                         $this->input->post('RIWAYAT_ALERGI_MAKANAN'),
+                         $this->input->post('EWSS'),
+                         $this->input->post('GCS'),
+                         $this->input->post('GCS_M'),
+                         $this->input->post('GCS_E'),
+                         $this->input->post('GCS_V'),
+                         $this->input->post('id')
+     
+                         
+                     );
+                
+                     $this->m_igd->UPDATE_TF_PERAWAT_RUANGAN($params2);
+     
+                     $pemeriksaan_sebelum_transfer = array(
+                         $this->input->post('TD'), 
+                         $this->input->post('SUHU'), 
+                         $this->input->post('N'), 
+                         $this->input->post('R'), 
+                         $this->input->post('O2'), 
+                         $this->input->post('FS_KD_REG'), 
+                         $this->input->post('KESADARAN'), 
+                         date('Y-m-d'), 
+                         $this->com_user['user_name'], 
+                         $this->input->post('ID_SEBELUM')
+                     );
+                     
+                     $this->m_igd->update_pemeriksaan_sebelum_transfer($pemeriksaan_sebelum_transfer);
+                     
+                     $pemeriksaan_sesudah_transfer = array(
+                         $this->input->post('TD_2'), 
+                         $this->input->post('SUHU_2'), 
+                         $this->input->post('N_2'), 
+                         $this->input->post('R_2'), 
+                         $this->input->post('O2_2'), 
+                         $this->input->post('FS_KD_REG'), 
+                         $this->input->post('KESADARAN_2'), 
+                         date('Y-m-d'), 
+                         $this->com_user['user_name'], 
+                         $this->input->post('ID_SETELAH')
+                     );
+                     $this->m_igd->update_pemeriksaan_setelah_transfer($pemeriksaan_sesudah_transfer);
+             
+                   
+             // default redirect
+             redirect("igd/transfer_pasien/pasien_masuk");
     }
 
 
@@ -502,6 +756,9 @@ class Transfer_pasien extends ApplicationBase {
 
         $now = date('Y-m-d');
         $data['vs'] = $this->m_rawat_jalan->get_data_vs_by_rg(array($FS_KD_REG));
+        $data['triase'] =$this->m_igd->get_triase_by_noreg(array($FS_KD_REG));
+        $data['ttv_sebelum_transfer'] = $this->m_igd->get_data_ttv_sebelum_tf(array($FS_KD_REG));
+        $data['ttv_setelah_transfer'] = $this->m_igd->get_data_ttv_setelah_tf(array($FS_KD_REG));
     
         $data['rs_pasien'] = $this->m_igd->cetak_tf_pasien(array($id));
 
@@ -509,7 +766,7 @@ class Transfer_pasien extends ApplicationBase {
         // die;
   
         ob_start();
-        $this->load->view('nurse/transfer_pasien/cetak_tf_pasien', $data);
+        $this->load->view('igd/transfer_pasien/cetak_tf_pasien_igd', $data);
         $content = ob_get_contents();
         ob_end_clean();
 

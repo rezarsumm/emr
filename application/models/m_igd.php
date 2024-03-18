@@ -33,7 +33,7 @@ class m_igd extends CI_Model {
 
         $sql = "SELECT E.NO_REG, B.NO_MR, B.NAMA_PASIEN, B.TGL_LAHIR, B.JENIS_KELAMIN, B.ALAMAT
        FROM REGISTER_PASIEN B,  PENDAFTARAN E 
-       WHERE B.NO_MR=E.NO_MR AND E.STATUS='1' and E.KODE_MASUK='1' and (E.TANGGAL= '$now' or E.TANGGAL='$akhirnya')";
+       WHERE B.NO_MR=E.NO_MR AND E.STATUS='1' and E.Kode_Ruang='' and E.KODE_MASUK='1' and (E.TANGGAL= '$now' or E.TANGGAL='$akhirnya')";
        $query = $this->db->query($sql);
        if ($query->num_rows() > 0) {
            $result = $query->result_array();
@@ -450,6 +450,49 @@ class m_igd extends CI_Model {
             return $this->db->query($sql, $params);
     }
 
+    function INSERT_TF_PERAWAT_IGD($params) { 
+        $sql = "INSERT INTO PKU.dbo.TRANSFER_PASIEN (FS_KD_REG, 
+        KD_DOKTER_DPJP, 
+        KD_KONSUL_1,
+        KD_KONSUL_2, 
+        TGL_PINDAH, 
+        JAM_PINDAH, 
+        RUANG1, 
+        RUANG2, 
+                    DIAGNOSA1, 
+                    DIAGNOSA2, 
+                    ANAMNESA,
+                    RIWAYAT_SAKIT,  
+                    PENUNJANG, TINDAKAN, TERAPI, PENGIRIM, PENERIMA, STATUS_TF, DERAJAT, CAT1,CAT2, MDD1, MDD2,LAINNYA,RIWAYAT_ALERGI_MAKANAN,EWSS,GCS,GCS_M,GCS_E,GCS_V) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            return $this->db->query($sql, $params);
+    }
+
+    function insert_pemeriksaan_sebelum_transfer($params) { 
+        $sql = "INSERT INTO PKU.dbo.PEMERIKSAAN_FISIK_IGD_SEBELUM_TRANSFER (TD, 
+        SUHU, 
+        NADI,
+        RR, 
+        SPO2, 
+        FS_KD_REG, 
+        KESADARAN, 
+        CREATE_AT, 
+                    CREATE_BY) values(?,?,?,?,?,?,?,?,?)";
+            return $this->db->query($sql, $params);
+    }
+
+    function insert_pemeriksaan_setelah_transfer($params) { 
+        $sql = "INSERT INTO PKU.dbo.PEMERIKSAAN_FISIK_IGD_SETELAH_TRANSFER (TD, 
+        SUHU, 
+        NADI,
+        RR, 
+        SPO2, 
+        FS_KD_REG, 
+        KESADARAN, 
+        CREATE_AT, 
+                    CREATE_BY) values(?,?,?,?,?,?,?,?,?)";
+            return $this->db->query($sql, $params);
+    }
+
     
     function UPDATE_TF_PERAWAT($params) { 
         $sql = "UPDATE  PKU.dbo.TRANSFER_PASIEN set FS_KD_REG=?, 
@@ -468,6 +511,44 @@ class m_igd extends CI_Model {
                     PEMERIKSAAN_FISIK2=?, 
                     PENUNJANG=?, TINDAKAN=?, TERAPI=?, PENGIRIM=?, PENERIMA=?, STATUS_TF=?, DERAJAT=?, CAT1=?, MDD1=?, MDD2=?
                     where id=?";
+            return $this->db->query($sql, $params);
+    }
+
+    function UPDATE_TF_PERAWAT_IGD($params) { 
+        $sql = "UPDATE  PKU.dbo.TRANSFER_PASIEN SET FS_KD_REG=?, 
+        KD_DOKTER_DPJP=?, 
+        KD_KONSUL_1=?,
+        KD_KONSUL_2=?, 
+        TGL_PINDAH=?, 
+        JAM_PINDAH=?, 
+        RUANG1=?, 
+        RUANG2=?, 
+                    DIAGNOSA1=?, 
+                    DIAGNOSA2=?, 
+                    ANAMNESA=?,
+                    RIWAYAT_SAKIT=?,  
+                    PENUNJANG=?, TINDAKAN=?, TERAPI=?, PENGIRIM=?, DERAJAT=?, CAT1=?,CAT2=?, MDD2=?,LAINNYA=?,RIWAYAT_ALERGI_MAKANAN=?,EWSS=?,GCS=?,GCS_M=?,GCS_E=?,GCS_V=?
+                    where id=?";
+                
+            return $this->db->query($sql, $params);
+    }
+
+    function UPDATE_TF_PERAWAT_RUANGAN($params) { 
+        $sql = "UPDATE  PKU.dbo.TRANSFER_PASIEN SET FS_KD_REG=?, 
+        KD_DOKTER_DPJP=?, 
+        KD_KONSUL_1=?,
+        KD_KONSUL_2=?, 
+        TGL_PINDAH=?, 
+        JAM_PINDAH=?, 
+        RUANG1=?, 
+        RUANG2=?, 
+                    DIAGNOSA1=?, 
+                    DIAGNOSA2=?, 
+                    ANAMNESA=?,
+                    RIWAYAT_SAKIT=?,  
+                    PENUNJANG=?, TINDAKAN=?, TERAPI=?, PENERIMA=?,STATUS_TF=?, DERAJAT=?, CAT1=?,CAT2=?, MDD2=?,LAINNYA=?,RIWAYAT_ALERGI_MAKANAN=?,EWSS=?,GCS=?,GCS_M=?,GCS_E=?,GCS_V=?
+                    where id=?";
+                
             return $this->db->query($sql, $params);
     }
 
@@ -971,6 +1052,36 @@ class m_igd extends CI_Model {
         return $this->db->query($sql, $params);
     }
 
+
+
+    function update_pemeriksaan_sebelum_transfer($params) {
+        $sql = "  UPDATE PKU.dbo.PEMERIKSAAN_FISIK_IGD_SEBELUM_TRANSFER SET 
+        TD=?,
+         SUHU=?,
+        NADI=?,
+        RR=?,
+        SPO2=?,
+        FS_KD_REG=?,
+        KESADARAN=?,
+        CREATE_AT=?,
+        CREATE_BY=? where ID=? ";
+        return $this->db->query($sql, $params);
+    }
+
+    function update_pemeriksaan_setelah_transfer($params) {
+        $sql = "  UPDATE PKU.dbo.PEMERIKSAAN_FISIK_IGD_SETELAH_TRANSFER SET 
+        TD=?,
+         SUHU=?,
+        NADI=?,
+        RR=?,
+        SPO2=?,
+        FS_KD_REG=?,
+        KESADARAN=?,
+        CREATE_AT=?,
+        CREATE_BY=? where ID=? ";
+        return $this->db->query($sql, $params);
+    }
+
     function cek_perawat($params) {
         $sql = "SELECT FS_KD_REG FROM PKU.dbo.IGD_AWAL_PERAWAT WHERE FS_KD_REG = ?";
         $query = $this->db->query($sql, $params);
@@ -1081,6 +1192,33 @@ class m_igd extends CI_Model {
         from PKU.dbo.TRANSFER_PASIEN A, PENDAFTARAN C, REGISTER_PASIEN D 
         where   C.No_Reg=A.FS_KD_REG and D.No_MR=C.No_MR 
           and FS_KD_REG = ? ";
+        $query = $this->db->query($sql, $params);
+        if ($query->num_rows() > 0) {
+            $result = $query->row_array();
+            $query->free_result();
+            return $result;
+        } else {
+            return 0;
+        }
+    }
+
+    function get_data_ttv_sebelum_tf($params) {
+        $sql = "SELECT top 1 * 
+        from PKU.dbo.PEMERIKSAAN_FISIK_IGD_SEBELUM_TRANSFER 
+        where FS_KD_REG = ? order by ID desc";
+        $query = $this->db->query($sql, $params);
+        if ($query->num_rows() > 0) {
+            $result = $query->row_array();
+            $query->free_result();
+            return $result;
+        } else {
+            return 0;
+        }
+    }
+    function get_data_ttv_setelah_tf($params) {
+        $sql = "SELECT top 1 * 
+        from PKU.dbo.PEMERIKSAAN_FISIK_IGD_SETELAH_TRANSFER 
+        where FS_KD_REG = ? order by ID desc";
         $query = $this->db->query($sql, $params);
         if ($query->num_rows() > 0) {
             $result = $query->row_array();
@@ -1724,7 +1862,54 @@ function get_data_medis_by_rg2($params) {
         $sql = "select A.*, B.Nama_Ruang, C.No_Reg, C.No_MR, D.Nama_Pasien, D.Alamat, C.MEDIS, F.Nama_Ruang
          from PKU.dbo.TRANSFER_PASIEN A, M_RUANG B, PENDAFTARAN C, REGISTER_PASIEN D, M_RUANG F
          where  A.RUANG2=B.Kode_Ruang and  B.Kode_Bangsal=? and C.No_Reg=A.FS_KD_REG and D.No_MR=C.No_MR  and F.Kode_Ruang=A.RUANG2 
-         and (A.TGL_PINDAH>='$akhirnya') 
+         and (A.TGL_PINDAH>='$akhirnya') and A.RUANG1='POLI'
+        ";
+        $query = $this->db->query($sql, $params);
+        if ($query->num_rows() > 0) {
+            $result = $query->result_array();
+            $query->free_result();
+            return $result;
+        } else {
+            return array();
+        }
+    }
+
+    function get_pasien_masuk_tf_igd($params) {
+
+        $now = date('Y-m-d'); 
+
+        $date = new DateTime();
+        $date_plus = $date->modify("-1 days");
+        $akhirnya= $date_plus->format("Y-m-d");
+        
+        $sql = "select A.*, B.Nama_Ruang, C.No_Reg, C.No_MR, D.Nama_Pasien, D.Alamat, C.MEDIS, F.Nama_Ruang
+         from PKU.dbo.TRANSFER_PASIEN A, M_RUANG B, PENDAFTARAN C, REGISTER_PASIEN D, M_RUANG F
+         where  A.RUANG2=B.Kode_Ruang and  B.Kode_Bangsal=? and C.No_Reg=A.FS_KD_REG and D.No_MR=C.No_MR  and F.Kode_Ruang=A.RUANG2 
+         and (A.TGL_PINDAH>='$akhirnya') and A.RUANG1='IGD'
+        ";
+        $query = $this->db->query($sql, $params);
+        if ($query->num_rows() > 0) {
+            $result = $query->result_array();
+            $query->free_result();
+            return $result;
+        } else {
+            return array();
+        }
+    }
+
+    function get_pasien_masuk_tf_igd2($params) {
+
+        $now = date('Y-m-d'); 
+
+        $date = new DateTime();
+        $date_plus = $date->modify("-1 days");
+        $akhirnya= $date_plus->format("Y-m-d");
+        
+        $sql = "select A.*, B.Nama_Ruang, C.No_Reg, C.No_MR, D.Nama_Pasien, D.Alamat, C.MEDIS, F.Nama_Ruang
+         from PKU.dbo.TRANSFER_PASIEN A, M_RUANG B, PENDAFTARAN C, REGISTER_PASIEN D, M_RUANG F
+         where  A.RUANG2=B.Kode_Ruang and  (B.Kode_Bangsal='MNA' or B.Kode_Bangsal ='0001')
+          and C.No_Reg=A.FS_KD_REG and D.No_MR=C.No_MR  and F.Kode_Ruang=A.RUANG2 
+         and (A.TGL_PINDAH>='$akhirnya') and A.RUANG1='IGD'
         ";
         $query = $this->db->query($sql, $params);
         if ($query->num_rows() > 0) {
@@ -1748,7 +1933,7 @@ function get_data_medis_by_rg2($params) {
          from PKU.dbo.TRANSFER_PASIEN A, M_RUANG B, PENDAFTARAN C, REGISTER_PASIEN D, M_RUANG F
          where  A.RUANG2=B.Kode_Ruang and  (B.Kode_Bangsal='MNA' or B.Kode_Bangsal ='0001')
           and C.No_Reg=A.FS_KD_REG and D.No_MR=C.No_MR  and F.Kode_Ruang=A.RUANG2 
-         and (A.TGL_PINDAH>='$akhirnya') 
+         and (A.TGL_PINDAH>='$akhirnya') and A.RUANG1='POLI'
         ";
         $query = $this->db->query($sql, $params);
         if ($query->num_rows() > 0) {
@@ -1831,6 +2016,29 @@ $result2 = $kondisi2->result_array();
         $sql = "select A.*, B.Nama_Ruang, C.No_Reg, C.No_MR, D.Nama_Pasien, D.Alamat, C.MEDIS
         from PKU.dbo.TRANSFER_PASIEN A,M_RUANG B, PENDAFTARAN C, REGISTER_PASIEN D
         where  A.RUANG2=B.Kode_Ruang  and C.No_Reg=A.FS_KD_REG and D.No_MR=C.No_MR  and A.RUANG1='POLI'
+         and (A.TGL_PINDAH>='$akhirnya') 
+        ";
+        $query = $this->db->query($sql, $params);
+        if ($query->num_rows() > 0) {
+            $result = $query->result_array();
+            $query->free_result();
+            return $result;
+        } else {
+            return array();
+        }
+    }
+
+    function get_pasien_keluar_igd($params) {
+
+        $now = date('Y-m-d'); 
+
+        $date = new DateTime();
+        $date_plus = $date->modify("-1 days");
+        $akhirnya= $date_plus->format("Y-m-d");
+        
+        $sql = "select A.*, B.Nama_Ruang, C.No_Reg, C.No_MR, D.Nama_Pasien, D.Alamat, C.MEDIS
+        from PKU.dbo.TRANSFER_PASIEN A,M_RUANG B, PENDAFTARAN C, REGISTER_PASIEN D
+        where  A.RUANG2=B.Kode_Ruang  and C.No_Reg=A.FS_KD_REG and D.No_MR=C.No_MR  and A.RUANG1='IGD'
          and (A.TGL_PINDAH>='$akhirnya') 
         ";
         $query = $this->db->query($sql, $params);

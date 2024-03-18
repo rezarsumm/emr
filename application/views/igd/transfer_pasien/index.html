@@ -90,7 +90,7 @@
           <td>
             <a
               href="javascript:void(0);"
-              onclick="window.open('{$config->site_url('nurse/tf/cetak_tf_pasien/'|cat:$data.id|cat:'/'|cat:$data.FS_KD_REG)}', 'nama_window_pop_up', 'scrollbars=yes,resizeable=no')"
+              onclick="window.open('{$config->site_url('igd/transfer_pasien/cetak_tf_pasien/'|cat:$data.id|cat:'/'|cat:$data.FS_KD_REG)}', 'nama_window_pop_up', 'scrollbars=yes,resizeable=no')"
               class="button-download"
             >
               Cetak
@@ -98,7 +98,7 @@
             {IF $data.STATUS_TF neq 'Diterima'} {if $data.FS_KD_REG neq ''} {if
             $rolenya neq 'Dokter'}
             <a
-              href="{$config->site_url('nurse/tf/edit_transfer/'|cat:$data.FS_KD_REG|cat:'/'|cat:$id|default:'')}"
+              href="{$config->site_url('igd/transfer_pasien/edit_transfer/'|cat:$data.FS_KD_REG|cat:'/'|cat:$id|default:'')}"
               class="button-edit"
               >Edit</a
             >

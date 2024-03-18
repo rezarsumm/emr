@@ -118,6 +118,7 @@ class berkas extends ApplicationBase {
         $this->smarty->assign("tindakan", $this->m_rawat_jalan->get_tindakan_kep_by_rg(array($FS_KD_REG)));
         $this->smarty->assign("obat", $this->m_rawat_jalan->get_all_rm17_by_rg(array($FS_KD_REG)));
         $this->smarty->assign("cppt", $this->m_rawat_jalan->get_cppt_by_rg($FS_KD_REG));
+        $this->smarty->assign("No_registrasi", $FS_KD_REG);
         $this->smarty->assign("template_content", "rm/berkas/detail_igd.html");
       
         $this->smarty->assign("rs_berkas", $this->m_upload->get_list_berkas_by_rg($FS_KD_REG));

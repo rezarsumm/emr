@@ -117,8 +117,8 @@ class rawat_inap extends ApplicationBase {
         $cek = $this->m_rawat_inap->cek_rawat_inap(array($FS_RG2));
         $cek_igd = $this->m_rawat_inap->cek_rawat_inap_igd(array($FS_RG2));
 
-
-        if ($cek == '0' && $cek_igd=='0') {
+        // && $cek_igd=='0'
+        if ($cek == '0' ) {
             redirect("medis/rawat_inap/add/" . $FS_RG2);
         } elseif ($cek >= '1') {
             redirect("medis/rawat_inap/edit_umum/" . $FS_RG2);

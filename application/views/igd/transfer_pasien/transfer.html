@@ -56,11 +56,8 @@
                     <select name="KD_DOKTER_DPJP" id="surat_dari" class="select2" style="width: 400px;">
                         <option value=""></option>
                         {foreach from=$rs_dokter item=data}
-                        {if $rs_pasien.KODE_DOKTER eq $data.NAMAUSER}
-                        <option value="{$data.NAMAUSER}" selected>{$data.NAMALENGKAP} </option>
-                        {else}
-                        <option value="{$data.NAMAUSER}">{$data.NAMALENGKAP} </option>
-                        {/if}
+                    
+                        <option value="{$data.NAMAUSER}" {if $asasmen_igd.KD_DOKTER_KONSUL eq $data.NAMAUSER} selected {/if}>{$data.NAMALENGKAP} </option>
                         {/foreach}
                     </select>
                 
@@ -72,7 +69,7 @@
                         <option value=""></option>
                         {foreach from=$rs_dokter item=data}
                     
-                        <option value="{$data.NAMAUSER}" {if $asasmen_igd.KD_DOKTER_KONSUL eq $data.NAMAUSER} selected {/if}>{$data.NAMALENGKAP} </option>
+                        <option value="{$data.NAMAUSER}" {if $asasmen_igd.KD_DOKTER_KONSUL2 eq $data.NAMAUSER} selected {/if}>{$data.NAMALENGKAP} </option>
                         {/foreach}
                     </select>
                  </td>
@@ -81,7 +78,7 @@
                     <select name="KD_KONSUL_2" id="surat_dari" class="select2" style="width: 400px;">
                         <option value=""></option>
                         {foreach from=$rs_dokter item=data}    
-                        <option value="{$data.NAMAUSER}" {if $asasmen_igd.KD_DOKTER_KONSUL2 eq $data.NAMAUSER} selected {/if}>{$data.NAMALENGKAP} </option>
+                        <option value="{$data.NAMAUSER}" {if $asasmen_igd.KD_DOKTER_KONSUL3 eq $data.NAMAUSER} selected {/if}>{$data.NAMALENGKAP} </option>
                       
                         {/foreach}
                     </select>
@@ -228,15 +225,22 @@
                          
                         </tr>
                         <tr>
-                            <td>Konsulan Dokter 1</td>
+                            <td>Konsulan DPJP utama</td>
                             <td>
                                   <textarea id="" rows="8" style="width: 100%;" readonly>{$asasmen_igd.KONSUL}</textarea>
                             </td>
-                            <td>Konsulan Dokter 2</td>
+                            <td>Konsulan Dokter 1</td>
                             <td>
                                   <textarea id="" rows="8" style="width: 100%;" readonly>{$asasmen_igd.KONSUL2}</textarea>
                             </td>
+                    
                        
+                         </tr>
+                         <tr>
+                            <td>Konsulan Dokter 2</td>
+                            <td>
+                                  <textarea id="" rows="8" style="width: 100%;" readonly>{$asasmen_igd.KONSUL3}</textarea>
+                            </td>
                          </tr>
                 
               <tr class="headrow">

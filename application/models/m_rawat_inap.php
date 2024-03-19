@@ -140,6 +140,17 @@ class m_rawat_inap extends CI_Model {
         }
     }
 
+    function cek_rawat_inap_igd($params) {
+        $sql = "SELECT FS_KD_REG FROM PKU.dbo.IGD_AWAL_MEDIS WHERE FS_KD_REG = ?";
+        $query = $this->db->query($sql, $params);
+        if ($query->num_rows() > 0) {
+            $result = $query->num_rows();
+            return $result;
+        } else {
+            return 0;
+        }
+    }
+
 
     function cek_asesmen_awal_umum($params) {
         $sql = "SELECT FS_KD_REG FROM PKU.dbo.TAC_RI_MEDIS WHERE FS_KD_REG = ?";
@@ -384,6 +395,20 @@ class m_rawat_inap extends CI_Model {
         LEFT JOIN PKU.dbo.TAC_COM_USER b ON a.mdb=b.user_id
         LEFT JOIN DB_RSMM.dbo.DOKTER c ON b.user_name=c.Kode_Dokter
         WHERE a.FS_KD_REG = ?  order by a.FS_KD_TRS desc"; 
+        $query = $this->db->query($sql, $params);
+        if ($query->num_rows() > 0) {
+            $result = $query->row_array();
+            $query->free_result();
+            return $result;
+        } else {
+            return 0;
+        }
+    }
+
+    function get_data_medis_igd_by_rg($params) {
+        $sql = "SELECT top 1 *
+        FROM PKU.dbo.IGD_AWAL_MEDIS 
+        WHERE FS_KD_REG = ?  order by id desc"; 
         $query = $this->db->query($sql, $params);
         if ($query->num_rows() > 0) {
             $result = $query->row_array();

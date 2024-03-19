@@ -54,11 +54,8 @@
                     <select name="KD_DOKTER_DPJP" id="surat_dari" class="select2" style="width: 400px;">
                         <option value=""></option>
                         {foreach from=$rs_dokter item=data}
-                        {if $tf.KD_DOKTER_DPJP eq $data.NAMAUSER}
-                        <option value="{$data.NAMAUSER}" selected>{$data.NAMALENGKAP} </option>
-                        {else}
-                        <option value="{$data.NAMAUSER}">{$data.NAMALENGKAP} </option>
-                        {/if}
+                    
+                        <option value="{$data.NAMAUSER}" {if $tf.KD_DOKTER_DPJP eq $data.NAMAUSER} selected {/if}>{$data.NAMALENGKAP} </option>
                         {/foreach}
                     </select>
                 
@@ -224,15 +221,22 @@
              
             </tr>
             <tr>
-                <td>Konsulan Dokter 1</td>
+                <td>Konsulan DPJP utama</td>
                 <td>
                       <textarea id="" rows="8" style="width: 100%;" readonly>{$asasmen_igd.KONSUL}</textarea>
                 </td>
-                <td>Konsulan Dokter 2</td>
+                <td>Konsulan Dokter 1</td>
                 <td>
                       <textarea id="" rows="8" style="width: 100%;" readonly>{$asasmen_igd.KONSUL2}</textarea>
                 </td>
+        
            
+             </tr>
+             <tr>
+                <td>Konsulan Dokter 2</td>
+                <td>
+                      <textarea id="" rows="8" style="width: 100%;" readonly>{$asasmen_igd.KONSUL3}</textarea>
+                </td>
              </tr>
  
 

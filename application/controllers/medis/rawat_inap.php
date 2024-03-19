@@ -115,11 +115,17 @@ class rawat_inap extends ApplicationBase {
     public function cari_process($FS_RG2="") {
         $FS_RG2 = $this->input->post('FS_RG');
         $cek = $this->m_rawat_inap->cek_rawat_inap(array($FS_RG2));
-        if ($cek == '0') {
+        $cek_igd = $this->m_rawat_inap->cek_rawat_inap_igd(array($FS_RG2));
+
+
+        if ($cek == '0' && $cek_igd=='0') {
             redirect("medis/rawat_inap/add/" . $FS_RG2);
         } elseif ($cek >= '1') {
             redirect("medis/rawat_inap/edit_umum/" . $FS_RG2);
         }
+        // elseif ($cek_igd >= '1') {
+        //     redirect("medis/rawat_inap/edit_igd/" . $FS_RG2);
+        // }
     }
  
     public function cari_process2() {
@@ -202,6 +208,7 @@ class rawat_inap extends ApplicationBase {
         $this->smarty->assign("rs_pasien", $this->m_rawat_inap->get_pasien_by_rg2(array($FS_RG)));
         $this->smarty->assign("nama_obat", $this->m_rawat_jalan->list_nama_obat());
         $this->smarty->assign("medis", $this->m_rawat_inap->get_data_medis_by_rg2(array($FS_RG)));
+        $this->smarty->assign("medis_igd", $this->m_rawat_inap->get_data_medis_igd_by_rg(array($FS_RG)));
          
         $this->smarty->assign("result3", $this->m_rawat_jalan_nurse->get_px_by_dokter_by_rg2(array($FS_RG)));
 
@@ -284,6 +291,35 @@ class rawat_inap extends ApplicationBase {
        public function edit_umum($FS_RG = "") {
         // set page rules
         $this->_set_page_rule("C"); 
+        // set template content
+        $this->smarty->assign("template_content", "medis/rawat_inap/edit_umum.html");
+        // load javascript
+        $this->smarty->load_javascript("resource/js/jquery/jquery-ui-1.9.2.custom.min.js");
+        $this->smarty->load_javascript('resource/js/jquery/select2.js');
+        $this->smarty->load_javascript('resource/js/tinymce/tinymce.min.js');
+        // load style
+        $this->smarty->load_style("jquery.ui/select2/select2.css");
+        // load style ui
+        $this->smarty->load_style("jquery.ui/redmond/jquery-ui-1.8.13.custom.css");
+        $this->smarty->assign("rs_pasien", $this->m_rawat_inap->get_pasien_by_rg2(array($FS_RG)));  
+
+        $this->smarty->assign("result", $this->m_rawat_inap->get_data_medis_by_rg2(array($FS_RG)));
+        $this->smarty->assign("bio", $this->m_igd->biososio(array($FS_RG)));
+        $this->smarty->assign("ases2", $this->m_rawat_jalan->get_data_ases2_by_rg(array($FS_RG)));
+        $this->smarty->assign("result3", $this->m_rawat_jalan_nurse->get_px_by_dokter_by_rg2(array($FS_RG)));
+        
+        // notification
+        $this->tnotification->display_notification();
+        $this->tnotification->display_last_field();
+        // output
+        parent::display();
+    }
+
+       public function edit_igd($FS_RG = "") {
+        // set page rules
+        $this->_set_page_rule("C"); 
+        var_dump('ok');
+        die;
         // set template content
         $this->smarty->assign("template_content", "medis/rawat_inap/edit_umum.html");
         // load javascript

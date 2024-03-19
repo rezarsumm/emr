@@ -34,7 +34,7 @@ class m_igd extends CI_Model {
               $sql = "SELECT E.NO_REG, B.NO_MR, B.NAMA_PASIEN, B.TGL_LAHIR, B.JENIS_KELAMIN, B.ALAMAT
              FROM REGISTER_PASIEN B,  PENDAFTARAN E 
              WHERE B.NO_MR=E.NO_MR AND E.STATUS='1' and E.Kode_ruang='' and E.KODE_MASUK='1' and (E.TANGGAL= '$now' or E.TANGGAL='$akhirnya')";
-       $query = $this->db->query($sql);
+       $query = $this->db->query($sql,$params);
        if ($query->num_rows() > 0) {
            $result = $query->result_array();
            $query->free_result();

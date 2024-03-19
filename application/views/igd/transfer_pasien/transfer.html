@@ -141,7 +141,7 @@
             <tr>
 
                 <td >TINDAKAN MEDIS </td>
-                <td  ><textarea name="TINDAKAN_MEDIS" id="" rows="3" style="width:100%"></textarea> </td>
+                <td  ><textarea name="TINDAKAN_MEDIS" class="tindakan_medis" id="" rows="3" onkeypress="handle1(event)" style="width:100%"></textarea> </td>
                    
             </tr>
             <tr class="headrow">
@@ -211,7 +211,7 @@
             </tr>
             <tr>
                 <td colspan="2">
-                    <textarea name="PENUNJANG" rows="12" style="width:100%">
+                    <textarea name="PENUNJANG" rows="12" class="penunjang" onkeypress="handle2(event)" style="width:100%">
                         Lab          : {$asasmen_igd.lab} 
                         Radiologi    :  {$asasmen_igd.rad}
                         Lain-lain    :
@@ -219,10 +219,25 @@
                     
                      </td>
                      <td colspan="2">
-                        <textarea name="TERAPI" rows="12" style="width:100%">{$asasmen_igd.FS_TERAPI}</textarea>
+                        <textarea name="TERAPI" rows="12" class="terapi" onkeypress="handle3(event)" style="width:100%">{$asasmen_igd.FS_TERAPI}</textarea>
                         
                          </td>
                         </tr>
+                        <tr class="headrow">
+                            <th colspan="4">Konsulan Dokter DPJP</th> 
+                         
+                        </tr>
+                        <tr>
+                            <td>Konsulan Dokter 1</td>
+                            <td>
+                                  <textarea id="" rows="8" style="width: 100%;" readonly>{$asasmen_igd.KONSUL}</textarea>
+                            </td>
+                            <td>Konsulan Dokter 2</td>
+                            <td>
+                                  <textarea id="" rows="8" style="width: 100%;" readonly>{$asasmen_igd.KONSUL2}</textarea>
+                            </td>
+                       
+                         </tr>
                 
               <tr class="headrow">
                     <th colspan="4">Pemeriksaan Fisik Sebelum Transfer</th> 
@@ -266,7 +281,7 @@
                 <tr>
                     <td>Catatan sebelum transfer</td>
                     <td>
-                        <textarea name="CAT1" id="" rows="3" style="width:100%"></textarea>
+                        <textarea name="CAT1" id="" rows="3" class="cat1" onkeypress="handle4(event)" style="width:100%"></textarea>
                     </td>
                 </tr>
    
@@ -312,7 +327,7 @@
                 <tr>
                     <td>Catatan setelah transfer</td>
                     <td>
-                        <textarea name="CAT2" id="" rows="3" style="width:100%"></textarea>
+                        <textarea name="CAT2" id="" rows="3" class="cat2" onkeypress="handle5(event)" style="width:100%"></textarea>
                     </td>
                 </tr>
 
@@ -324,7 +339,7 @@
                <tr>
                   <td>Lain-Lain</td>
                   <td>
-                        <textarea name="LAINNYA" id="" rows="6" style="width: 100%;"></textarea>
+                        <textarea name="LAINNYA" id="" rows="6" class="lainnya" onkeypress="handle6(event)" style="width: 100%;"></textarea>
                   </td>
              
                </tr>
@@ -378,25 +393,7 @@
                         <td>Dokter / Petugas PK III</td>
                         <td>peralatan derajat 2, + alat bantu nafas</td>
                     </tr>
-             
-                    <tr class="headrow">
-                        <th colspan="4">Konsulan Dokter DPJP</th> 
-                     
-                    </tr>
-                    <tr>
-                        <td>Konsulan Dokter 1</td>
-                        <td>
-                              <textarea id="" rows="12" style="width: 100%;" readonly>{$asasmen_igd.KONSUL}</textarea>
-                        </td>
-                   
-                     </tr>
-                     <tr>
-                        <td>Konsulan Dokter 2</td>
-                        <td>
-                              <textarea id="" rows="12" style="width: 100%;" readonly>{$asasmen_igd.KONSUL2}</textarea>
-                        </td>
-                   
-                     </tr>
+            
                
 
                      <tr class="submit-box">
@@ -410,5 +407,51 @@
                             </tr>
             </form>
             </div>
+
+            <script>
+                function handle1(e) {
+            var key = e.keyCode || e.which;
+            if (key == 13) {
+              var tindakan_medis = $(".tindakan_medis").val();
+              $(".tindakan_medis").val(tindakan_medis + "\n");
+            }
+          }
+                function handle2(e) {
+            var key = e.keyCode || e.which;
+            if (key == 13) {
+              var penunjang = $(".penunjang").val();
+              $(".penunjang").val(penunjang + "\n");
+            }
+          }
+                function handle3(e) {
+            var key = e.keyCode || e.which;
+            if (key == 13) {
+              var terapi = $(".terapi").val();
+              $(".terapi").val(terapi + "\n");
+            }
+          }
+                function handle4(e) {
+            var key = e.keyCode || e.which;
+            if (key == 13) {
+              var cat1 = $(".cat1").val();
+              $(".cat1").val(cat1 + "\n");
+            }
+          }
+                function handle5(e) {
+            var key = e.keyCode || e.which;
+            if (key == 13) {
+              var cat2 = $(".cat2").val();
+              $(".cat2").val(cat2 + "\n");
+            }
+          }
+                function handle6(e) {
+            var key = e.keyCode || e.which;
+            if (key == 13) {
+              var lainnya = $(".lainnya").val();
+              $(".lainnya").val(lainnya + "\n");
+            }
+          }
+         
+          </script>    
   
  

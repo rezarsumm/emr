@@ -21,6 +21,22 @@ class m_rawat_inap extends CI_Model {
         return $this->db->query($sql, $params);
         
     } 
+
+    function insert_ranap_dari_igd($params) {
+        $sql = "INSERT 
+        INTO PKU.dbo.TAC_RI_MEDIS(FS_KD_KP, FS_KD_REG, FS_DIAGNOSA, FS_ANAMNESA, FS_TINDAKAN, FS_TERAPI, FS_CATATAN_FISIK, FS_KD_MEDIS, 
+        FS_CARA_PULANG, FS_DAFTAR_MASALAH, FS_PLANNING_LAB, FS_PLANNING_RAD,FS_PESAN,FS_MR, FS_STATUS, mdb, mdd, FS_JAM_TRS,FS_RIW_PENYAKIT_DAHULU,FS_STATUS_PSIK,KONJUNGTIVA,DEVIASI,SKELERA,JVP,BIBIR,MUKOSA,THORAX,JANTUNG,ABDOMEN,PINGGANG,EKS_ATAS,EKS_BAWAH)
+        VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        return $this->db->query($sql, $params);
+        
+    } 
+    function update_ranap_dari_igd($params) {
+        $sql = "UPDATE PKU.dbo.TAC_RI_MEDIS set FS_DIAGNOSA=?, FS_ANAMNESA=?, FS_TINDAKAN=?, FS_TERAPI=?, FS_CATATAN_FISIK=?, FS_KD_MEDIS=?, 
+        FS_CARA_PULANG=?, FS_DAFTAR_MASALAH=?, FS_PLANNING_LAB=?, FS_PLANNING_RAD=?,FS_PESAN=?,FS_MR=?, FS_STATUS=?, mdb=?, mdd=?, FS_JAM_TRS=?,FS_RIW_PENYAKIT_DAHULU=?,FS_STATUS_PSIK=?,KONJUNGTIVA=?,DEVIASI=?,SKELERA=?,JVP=?,BIBIR=?,MUKOSA=?,THORAX=?,JANTUNG=?,ABDOMEN=?,PINGGANG=?,EKS_ATAS=?,EKS_BAWAH=? WHERE FS_KD_REG=?";
+        return $this->db->query($sql, $params);
+        
+    } 
+
     function update($params) {
 
         $sql = "UPDATE PKU.dbo.TAC_RI_MEDIS SET FS_DIAGNOSA=?, FS_ANAMNESA=?, FS_TINDAKAN=?, FS_TERAPI=?, FS_CATATAN_FISIK=?, 

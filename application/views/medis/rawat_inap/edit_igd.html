@@ -94,10 +94,10 @@ setup: function (ed) {
         </tr>
         <tr>  
             <td colspan="2">
-                <textarea cols="80" rows="4" name="FS_ANAMNESA">{$result.FS_ANAMNESA}</textarea>
+                <textarea cols="80" rows="4" name="FS_ANAMNESA">{$medis_igd.FS_ANAMNESA}</textarea>
             </td>
             <td colspan="2">
-                <textarea cols="80"  rows="4" name="FS_CATATAN_FISIK">{$result.FS_CATATAN_FISIK}</textarea>
+                <textarea cols="80"  rows="4" name="FS_CATATAN_FISIK">{$medis_igd.PEMERIKSAAN_FISIK}</textarea>
 
             </td>
         </tr>
@@ -105,11 +105,11 @@ setup: function (ed) {
         <tr>
             <td width='20%'>Riweayat Penyakit dahulu</td>
             <td width='40%'>
-                <input type="text" name="FS_RIW_PENYAKIT_DAHULU" value="{$result.FS_RIW_PENYAKIT_DAHULU|default:'-'}" size="32">
+                <input type="text" name="FS_RIW_PENYAKIT_DAHULU" value="{$medis_igd.FS_RIW_PENYAKIT_DAHULU|default:'-'}" size="32">
             </td>
             <td width='20%'>Riwayat penyakit keluarga</td>
             <td width='30%'>
-                <input type="text" name="FS_RIW_PENYAKIT_DAHULU2" value="{$result.FS_RIW_PENYAKIT_DAHULU2|default:'-'}" size="32">
+                <input type="text" name="FS_RIW_PENYAKIT_DAHULU2" value="{$medis_igd.FS_RIW_PENYAKIT_DAHULU2|default:'-'}" size="32">
             </td>
         </tr>
 
@@ -130,16 +130,16 @@ setup: function (ed) {
             <td width='20%'>Status Psikologis</td>
             <td width='30%'>
                 <select name="FS_STATUS_PSIK">
-                    <option value=""  {if $ases2.FS_STATUS_PSIK eq ''} selected="" {/if}  onclick='document.getElementById("civstaton3").disabled = true'>--Pilih Data--</option>
-                    <option value="1" {if $ases2.FS_STATUS_PSIK eq '1'} selected="" {/if} onclick='document.getElementById("civstaton3").disabled = true'>Tenang</option>
-                    <option value="2" {if $ases2.FS_STATUS_PSIK eq '2'} selected="" {/if} onclick='document.getElementById("civstaton3").disabled = true'>Cemas</option>
-                    <option value="3" {if $ases2.FS_STATUS_PSIK eq '3'} selected="" {/if} onclick='document.getElementById("civstaton3").disabled = true'>Takut</option>
-                    <option value="4" {if $ases2.FS_STATUS_PSIK eq '4'} selected="" {/if} onclick='document.getElementById("civstaton3").disabled = true'>Marah</option>
-                    <option value="5" {if $ases2.FS_STATUS_PSIK eq '5'} selected="" {/if} onclick='document.getElementById("civstaton3").disabled = true'>Sedih</option>
-                    <option value="6" {if $ases2.FS_STATUS_PSIK neq '' &&  $ases2.FS_STATUS_PSIK neq '1' && $ases2.FS_STATUS_PSIK neq '2'&& $ases2.FS_STATUS_PSIK neq '3'&& $ases2.FS_STATUS_PSIK neq '4'&& $ases2.FS_STATUS_PSIK neq '5'}selected="" {/if}onclick='document.getElementById("civstaton3").disabled = false'>Lainnya</option>
+                    <option value=""  {if $medis_igd.FS_STATUS_PSIK eq ''} selected="" {/if}  onclick='document.getElementById("civstaton3").disabled = true'>--Pilih Data--</option>
+                    <option value="1" {if $medis_igd.FS_STATUS_PSIK eq '1'} selected="" {/if} onclick='document.getElementById("civstaton3").disabled = true'>Tenang</option>
+                    <option value="2" {if $medis_igd.FS_STATUS_PSIK eq '2'} selected="" {/if} onclick='document.getElementById("civstaton3").disabled = true'>Cemas</option>
+                    <option value="3" {if $medis_igd.FS_STATUS_PSIK eq '3'} selected="" {/if} onclick='document.getElementById("civstaton3").disabled = true'>Takut</option>
+                    <option value="4" {if $medis_igd.FS_STATUS_PSIK eq '4'} selected="" {/if} onclick='document.getElementById("civstaton3").disabled = true'>Marah</option>
+                    <option value="5" {if $medis_igd.FS_STATUS_PSIK eq '5'} selected="" {/if} onclick='document.getElementById("civstaton3").disabled = true'>Sedih</option>
+                    <option value="6" {if $medis_igd.FS_STATUS_PSIK neq '' &&  $medis_igd.FS_STATUS_PSIK neq '1' && $medis_igd.FS_STATUS_PSIK neq '2'&& $medis_igd.FS_STATUS_PSIK neq '3'&& $medis_igd.FS_STATUS_PSIK neq '4'&& $medis_igd.FS_STATUS_PSIK neq '5'}selected="" {/if}onclick='document.getElementById("civstaton3").disabled = false'>Lainnya</option>
                 </select>
                 <br><br>
-                <input type="text" name="FS_STATUS_PSIK2" id="civstaton3" {if $ases2.FS_STATUS_PSIK2 eq '0'}disabled=""{/if} size="27" value="{$ases2.FS_STATUS_PSIK2}">
+                <input type="text" name="FS_STATUS_PSIK2" id="civstaton3" {if $medis_igd.FS_STATUS_PSIK2 eq '0'}disabled=""{/if} size="27" value="{$medis_igd.FS_STATUS_PSIK2}">
             </td>
             <td width='39%'>Hubungan dengan anggota keluarga</td>
             <td width='30%'>
@@ -159,40 +159,40 @@ setup: function (ed) {
         <tr>
             <td width='40%'>Konjungtiva  </td>
             <td width='40%'>
-                <input type="checkbox" name="KONJUNGTIVA" {if $result.KONJUNGTIVA eq 'Pucat'} checked="" {/if} value="Pucat">Pucat
-                <input type="checkbox" name="KONJUNGTIVA" {if $result.KONJUNGTIVA eq 'Pink'} checked="" {/if} value="Pink">Pink
+                <input type="checkbox" name="KONJUNGTIVA" {if $medis_igd.KONJUNGTIVA eq 'Pucat'} checked="" {/if} value="Pucat">Pucat
+                <input type="checkbox" name="KONJUNGTIVA" {if $medis_igd.KONJUNGTIVA eq 'Pink'} checked="" {/if} value="Pink">Pink
              </td>
             <td width='40%'>Deviasi Trakea  </td>
             <td width='40%'>
-                <input type="checkbox" name="DEVIASI" {if $result.DEVIASI eq 'Kanan'} checked="" {/if}  value="Kanan">Kanan
-                <input type="checkbox" name="DEVIASI" {if $result.DEVIASI eq 'Kiri'} checked="" {/if} value="Kiri"> Kiri
-                <input type="checkbox" name="DEVIASI" {if $result.DEVIASI eq ''} checked="" {/if} value=""> Tidak Ada
+                <input type="checkbox" name="DEVIASI" {if $medis_igd.DEVIASI eq 'Kanan'} checked="" {/if}  value="Kanan">Kanan
+                <input type="checkbox" name="DEVIASI" {if $medis_igd.DEVIASI eq 'Kiri'} checked="" {/if} value="Kiri"> Kiri
+                <input type="checkbox" name="DEVIASI" {if $medis_igd.DEVIASI eq 'Tidak Ada'} checked="" {/if} value="Tidak Ada"> Tidak Ada
             </td>
          </tr>
          <tr>
             <td width='20%'>Skelera  </td>
             <td width='40%'>
-                <input type="checkbox" name="SKELERA" {if $result.SKELERA eq 'Ikterik'} checked="" {/if} value="Ikterik">Ikterik
-                <input type="checkbox" name="SKELERA" {if $result.SKELERA eq 'Tidak'} checked="" {/if} value="Tidak"> Tidak Ikterik
+                <input type="checkbox" name="SKELERA" {if $medis_igd.SKELERA eq 'Ikterik'} checked="" {/if} value="Ikterik">Ikterik
+                <input type="checkbox" name="SKELERA" {if $medis_igd.SKELERA eq 'Tidak Ikterik'} checked="" {/if} value="Tidak Ikterik"> Tidak Ikterik
             </td>
             <td width='20%'>JVP  </td>
             <td width='40%'>
-                <input type="checkbox" name="JVP" {if $result.JVP eq 'Meningkat'} checked="" {/if}  value="Meningkat">Meningkat
-                <input type="checkbox" name="JVP" {if $result.JVP eq 'Tidak'} checked="" {/if}   value="Tidak"> Tidak 
+                <input type="checkbox" name="JVP" {if $medis_igd.JVP eq 'Meningkat'} checked="" {/if}  value="Meningkat">Meningkat
+                <input type="checkbox" name="JVP" {if $medis_igd.JVP eq 'Tidak'} checked="" {/if}   value="Tidak"> Tidak 
             
          </tr>
          <tr>
             <td width='20%'>Bibir/Lidah  </td>
             <td width='40%'>
-                <input type="checkbox" name="BIBIR" {if $result.BIBIR eq 'Sianosis'} checked="" {/if}  value="Sianosis">Sianosis
-                <input type="checkbox" name="BIBIR" {if $result.BIBIR eq 'Tidak'} checked="" {/if}  value="Tidak"> Tidak
+                <input type="checkbox" name="BIBIR" {if $medis_igd.BIBIR eq 'Sianosis'} checked="" {/if}  value="Sianosis">Sianosis
+                <input type="checkbox" name="BIBIR" {if $medis_igd.BIBIR eq 'Tidak'} checked="" {/if}  value="Tidak"> Tidak
             </td>
          </tr>
          <tr>
             <td width='20%'>Mukosa </td>
             <td width='40%'>
-                <input type="checkbox" name="MUKOSA" {if $result.MUKOSA eq 'Kering'} checked="" {/if}  value="Sianosis">Kering
-                <input type="checkbox" name="MUKOSA" {if $result.MUKOSA eq 'Tidak'} checked="" {/if}  value="Tidak"> Basah
+                <input type="checkbox" name="MUKOSA" {if $medis_igd.MUKOSA eq 'Kering'} checked="" {/if}  value="Sianosis">Kering
+                <input type="checkbox" name="MUKOSA" {if $medis_igd.MUKOSA eq 'Tidak'} checked="" {/if}  value="Tidak"> Basah
             </td>
          </tr>
 
@@ -202,10 +202,10 @@ setup: function (ed) {
         </tr>
         <tr>
             <td colspan="2">
-                <textarea cols="80" rows="1" name="THORAX"> {$result.THORAX}</textarea>
+                <textarea cols="80" rows="1" name="THORAX"> {$medis_igd.THORAX}</textarea>
             </td>
             <td colspan="2">
-                <textarea cols="80" rows="1" name="JANTUNG">{$result.JANTUNG}</textarea>
+                <textarea cols="80" rows="1" name="JANTUNG">{$medis_igd.JANTUNG}</textarea>
 
             </td>
         </tr>
@@ -216,10 +216,10 @@ setup: function (ed) {
         </tr>
         <tr>
             <td colspan="2">
-                <textarea cols="80" rows="1" name="ABDOMEN">{$result.ABDOMEN} </textarea>
+                <textarea cols="80" rows="1" name="ABDOMEN">{$medis_igd.ABDOMEN} </textarea>
             </td>
             <td colspan="2">
-                <textarea cols="80" rows="1" name="PINGGANG"> {$result.PINGGANG} </textarea>
+                <textarea cols="80" rows="1" name="PINGGANG">{$medis_igd.PINGGANG} </textarea>
 
             </td>
         </tr>
@@ -229,10 +229,10 @@ setup: function (ed) {
         </tr>
         <tr>
             <td colspan="2"> Atas
-                <textarea cols="80" rows="1" name="EKS_ATAS">{$result.EKS_ATAS} </textarea>
+                <textarea cols="80" rows="1" name="EKS_ATAS">{$medis_igd.EKS_ATAS} </textarea>
             </td>
             <td colspan="2">Bawah
-                <textarea cols="80" rows="1" name="EKS_BAWAH">{$result.EKS_BAWAH} </textarea>
+                <textarea cols="80" rows="1" name="EKS_BAWAH">{$medis_igd.EKS_BAWAH} </textarea>
 
             </td>
         </tr>
@@ -243,10 +243,10 @@ setup: function (ed) {
         </tr>
         <tr>
             <td colspan="2">
-                <textarea cols="80" rows="4" name="FS_HASIL_PEMERIKSAAN_PENUNJANG">{$result.FS_HASIL_PEMERIKSAAN_PENUNJANG}</textarea>
+                <textarea cols="80" rows="4" name="FS_HASIL_PEMERIKSAAN_PENUNJANG">{$medis_igd.FS_HASIL_PEMERIKSAAN_PENUNJANG}</textarea>
             </td>
             <td colspan="2">
-                <textarea cols="80" rows="4" name="FS_DIAGNOSA">{$result.FS_DIAGNOSA}</textarea>
+                <textarea cols="80" rows="4" name="FS_DIAGNOSA">{$medis_igd.FS_DIAGNOSA}</textarea>
 
             </td>
         </tr>
@@ -258,10 +258,10 @@ setup: function (ed) {
         </tr>
         <tr>
             <td colspan="2">
-                <textarea cols="80" rows="4" name="FS_DAFTAR_MASALAH">{$result.FS_DAFTAR_MASALAH}</textarea>
+                <textarea cols="80" rows="4" name="FS_DAFTAR_MASALAH">{$medis_igd.MASALAH_KES}</textarea>
             </td>
             <td colspan="2">
-                <textarea cols="80" rows="4" name="FS_TINDAKAN">{$result.FS_TINDAKAN}</textarea>
+                <textarea cols="80" rows="4" name="FS_TINDAKAN">{$medis_igd.RENCANA}</textarea>
 
             </td>
         </tr>
@@ -271,24 +271,24 @@ setup: function (ed) {
         </tr>
         <tr>
             <td colspan="2">
-                {if $result.FS_PLANNING_LAB=='0'||$result.FS_PLANNING_LAB==''}
+                {if $medis_igd.lab=='0'||$medis_igd.lab==''}
                 <select name="FS_PLANNING_LAB[]" multiple id="rlab" style="width:350px">
                         <option></option>
                     </select> 
                     {else}
-                <textarea cols="80" name="FS_PLANNING_LAB">{$result.FS_PLANNING_LAB}</textarea>
+                <textarea cols="80" name="FS_PLANNING_LAB2">{$medis_igd.lab}</textarea>
                 {/if}
-          <input type="hidden" value="{$result.FS_PLANNING_LAB}" class="inilablama" >
+          <input type="hidden" value="{$medis_igd.FS_PLANNING_LAB}" class="inilablama" >
             </td>
             <td colspan="2">
-                 {if $result.FS_PLANNING_RAD=='0'||$result.FS_PLANNING_RAD==''}
+                 {if $medis_igd.rad=='0'||$medis_igd.rad==''}
                   <select name="FS_PLANNING_RAD[]" multiple id="rrad" style="width:350px">
                         <option></option>
                     </select>  
                     {else}
-                <textarea cols="80" name="FS_PLANNING_RAD">{$result.FS_PLANNING_RAD}</textarea>
+                <textarea cols="80" name="FS_PLANNING_RAD2">{$medis_igd.rad}</textarea>
                 {/if}
-                <input type="hidden" value="{$result2.FS_PLANNING_RAD}" class="iniradlama" >
+                <input type="hidden" value="{$medis_igd2.FS_PLANNING_RAD}" class="iniradlama" >
 
             </td>
         </tr> 
@@ -317,7 +317,7 @@ setup: function (ed) {
 
 
                     <textarea rows="15" class="form-control resep"  cols="60" name="FS_TERAPI"> 
-                        {$result.FS_TERAPI}
+                        {$medis_igd.FS_TERAPI}
                         
                     </textarea> 
             </td>
@@ -354,13 +354,13 @@ setup: function (ed) {
         <tr>
             
             <td colspan="2">
-               <!--  <textarea cols="80" rows="8" name="FS_TERAPI">{$result.FS_TERAPI}</textarea> -->
+               <!--  <textarea cols="80" rows="8" name="FS_TERAPI">{$medis_igd.FS_TERAPI}</textarea> -->
 
             </td>
             <td colspan="2">
                     {if $com_user.role_nm=='Perawat Poli'}
                      
-                 <textarea rows="5" cols="80" name="FS_PESAN">{$result.FS_PESAN}
+                 <textarea rows="5" cols="80" name="FS_PESAN">{$medis_igd.FS_PESAN}
               
                  </textarea>
           
@@ -397,10 +397,10 @@ setup: function (ed) {
                     dataType: 'json',
                     success: function(data) {
                     var showData;
-                            jQuery.each(data, function(index, result) {
-                            if (result.value == 0) {
+                            jQuery.each(data, function(index, medis_igd) {
+                            if (medis_igd.value == 0) {
                             } else {
-                            showData += "<option value='" + result.value + "'>" + result.label + "</option>";
+                            showData += "<option value='" + medis_igd.value + "'>" + medis_igd.label + "</option>";
                             }
                             })
                             jQuery("#rlab").html(showData);
@@ -422,10 +422,10 @@ setup: function (ed) {
                     dataType: 'json',
                     success: function(data) {
                     var showData;
-                            jQuery.each(data, function(index, result) {
-                            if (result.value == 0) {
+                            jQuery.each(data, function(index, medis_igd) {
+                            if (medis_igd.value == 0) {
                             } else {
-                            showData += "<option value='" + result.value + "'>" + result.label + "</option>";
+                            showData += "<option value='" + medis_igd.value + "'>" + medis_igd.label + "</option>";
                             }
                             })
                             jQuery("#rrad").html(showData);
@@ -453,10 +453,10 @@ setup: function (ed) {
                     dataType: 'json',
                     success: function(data) {
                     var showData;
-                            jQuery.each(data, function(index, result) {
-                            if (result.value == 0) {
+                            jQuery.each(data, function(index, medis_igd) {
+                            if (medis_igd.value == 0) {
                             } else {
-                            showData += "<option value='" + result.value + "'>" + result.label + "</option>";
+                            showData += "<option value='" + medis_igd.value + "'>" + medis_igd.label + "</option>";
                             }
                             })
                             jQuery("#rlab").html(showData);
@@ -478,10 +478,10 @@ setup: function (ed) {
                     dataType: 'json',
                     success: function(data) {
                     var showData;
-                            jQuery.each(data, function(index, result) {
-                            if (result.value == 0) {
+                            jQuery.each(data, function(index, medis_igd) {
+                            if (medis_igd.value == 0) {
                             } else {
-                            showData += "<option value='" + result.value + "'>" + result.label + "</option>";
+                            showData += "<option value='" + medis_igd.value + "'>" + medis_igd.label + "</option>";
                             }
                             })
                             jQuery("#rrad").html(showData);
@@ -604,10 +604,10 @@ if(x=='a'||x=='A'){
                            dataType: 'json',
                            success: function(data) {
                            var showData;
-                                   jQuery.each(data, function(index, result) {
-                                   if (result.value == 0) {
+                                   jQuery.each(data, function(index, medis_igd) {
+                                   if (medis_igd.value == 0) {
                                    } else {
-                                   showData += "<option value='" + result.value + "'>" + result.label + "</option>";
+                                   showData += "<option value='" + medis_igd.value + "'>" + medis_igd.label + "</option>";
                                    }
                                    })
                                    jQuery("#namaobat").html(showData);
@@ -628,10 +628,10 @@ if(x=='a'||x=='A'){
                            dataType: 'json',
                            success: function(data) {
                            var showData;
-                                   jQuery.each(data, function(index, result) {
-                                   if (result.value == 0) {
+                                   jQuery.each(data, function(index, medis_igd) {
+                                   if (medis_igd.value == 0) {
                                    } else {
-                                   showData += "<option value='" + result.value + "'>" + result.label + "</option>";
+                                   showData += "<option value='" + medis_igd.value + "'>" + medis_igd.label + "</option>";
                                    }
                                    })
                                    jQuery("#namaobat1").html(showData);

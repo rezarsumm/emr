@@ -160,13 +160,13 @@
                 <td width='20%'>Status Psikologis</td>
                 <td width='30%'>
                     <select name="FS_STATUS_PSIK" class="select2" >
-                        <option value=""  {if $ases2.FS_STATUS_PSIK eq ''} selected="" {/if}  onclick='document.getElementById("civstaton3").disabled = true'>--Pilih Data--</option>
-                        <option value="1" {if $ases2.FS_STATUS_PSIK eq '1'} selected="" {/if} onclick='document.getElementById("civstaton3").disabled = true'>Tenang</option>
-                        <option value="2" {if $ases2.FS_STATUS_PSIK eq '2'} selected="" {/if} onclick='document.getElementById("civstaton3").disabled = true'>Cemas</option>
-                        <option value="3" {if $ases2.FS_STATUS_PSIK eq '3'} selected="" {/if} onclick='document.getElementById("civstaton3").disabled = true'>Takut</option>
-                        <option value="4" {if $ases2.FS_STATUS_PSIK eq '4'} selected="" {/if} onclick='document.getElementById("civstaton3").disabled = true'>Marah</option>
-                        <option value="5" {if $ases2.FS_STATUS_PSIK eq '5'} selected="" {/if} onclick='document.getElementById("civstaton3").disabled = true'>Sedih</option>
-                        <option value="6" {if $ases2.FS_STATUS_PSIK neq '' &&  $ases2.FS_STATUS_PSIK neq '1' && $ases2.FS_STATUS_PSIK neq '2'&& $ases2.FS_STATUS_PSIK neq '3'&& $ases2.FS_STATUS_PSIK neq '4'&& $ases2.FS_STATUS_PSIK neq '5'}selected="" {/if}onclick='document.getElementById("civstaton3").disabled = false'>Lainnya</option>
+                        <option value=""  {if $data.FS_STATUS_PSIK eq ''} selected="" {/if}  onclick='document.getElementById("civstaton3").disabled = true'>--Pilih Data--</option>
+                        <option value="1" {if $data.FS_STATUS_PSIK eq '1'} selected="" {/if} onclick='document.getElementById("civstaton3").disabled = true'>Tenang</option>
+                        <option value="2" {if $data.FS_STATUS_PSIK eq '2'} selected="" {/if} onclick='document.getElementById("civstaton3").disabled = true'>Cemas</option>
+                        <option value="3" {if $data.FS_STATUS_PSIK eq '3'} selected="" {/if} onclick='document.getElementById("civstaton3").disabled = true'>Takut</option>
+                        <option value="4" {if $data.FS_STATUS_PSIK eq '4'} selected="" {/if} onclick='document.getElementById("civstaton3").disabled = true'>Marah</option>
+                        <option value="5" {if $data.FS_STATUS_PSIK eq '5'} selected="" {/if} onclick='document.getElementById("civstaton3").disabled = true'>Sedih</option>
+                        <option value="6" {if $data.FS_STATUS_PSIK neq '' &&  $data.FS_STATUS_PSIK neq '1' && $data.FS_STATUS_PSIK neq '2'&& $data.FS_STATUS_PSIK neq '3'&& $data.FS_STATUS_PSIK neq '4'&& $data.FS_STATUS_PSIK neq '5'}selected="" {/if}onclick='document.getElementById("civstaton3").disabled = false'>Lainnya</option>
                     </select>
                     <br><br>
                     <!-- <input type="text" name="FS_STATUS_PSIK2" id="civstaton3" {if $ases2.FS_STATUS_PSIK2 eq '0'}disabled=""{/if} size="27" value="{$ases2.FS_STATUS_PSIK2}"> -->
@@ -239,14 +239,14 @@
             <td width='40%'>
                 <input type="radio" name="DEVIASI" {if $data.DEVIASI eq 'Kanan'} checked="" {/if}  value="Kanan">Kanan
                 <input type="radio" name="DEVIASI" {if $data.DEVIASI eq 'Kiri'} checked="" {/if} value="Kiri"> Kiri
-                <input type="radio" name="DEVIASI" {if $data.DEVIASI eq 'Tidak Ada'} checked="" {/if} value=""> Tidak Ada
+                <input type="radio" name="DEVIASI" {if $data.DEVIASI eq 'Tidak Ada'} checked="" {/if} value="Tidak Ada"> Tidak Ada
             </td>
          </tr>
          <tr>
             <td width='20%'>Skelera  </td>
             <td width='40%'>
                 <input type="radio" name="SKELERA" {if $data.SKELERA eq 'Ikterik'} checked="" {/if} value="Ikterik">Ikterik
-                <input type="radio" name="SKELERA" {if $data.SKELERA eq 'Tidak'} checked="" {/if} value="Tidak Ikterik"> Tidak Ikterik
+                <input type="radio" name="SKELERA" {if $data.SKELERA eq 'Tidak Ikterik'} checked="" {/if} value="Tidak Ikterik"> Tidak Ikterik
             </td>
             <td width='20%'>JVP  </td>
             <td width='40%'>

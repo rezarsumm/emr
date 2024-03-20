@@ -117,15 +117,15 @@ class rawat_inap extends ApplicationBase {
         $cek = $this->m_rawat_inap->cek_rawat_inap(array($FS_RG2));
         $cek_igd = $this->m_rawat_inap->cek_rawat_inap_igd(array($FS_RG2));
 
-        // && $cek_igd=='0'
-        if ($cek == '0' ) {
+        
+        if ($cek == '0'&& $cek_igd=='0' ) {
             redirect("medis/rawat_inap/add/" . $FS_RG2);
         } elseif ($cek >= '1') {
             redirect("medis/rawat_inap/edit_umum/" . $FS_RG2);
         }
-        // elseif ($cek_igd >= '1') {
-        //     redirect("medis/rawat_inap/edit_igd/" . $FS_RG2);
-        // }
+        elseif ($cek_igd >= '1') {
+            redirect("medis/rawat_inap/edit_igd/" . $FS_RG2);
+        }
     }
  
     public function cari_process2() {
@@ -318,10 +318,9 @@ class rawat_inap extends ApplicationBase {
        public function edit_igd($FS_RG = "") {
         // set page rules
         $this->_set_page_rule("C"); 
-        var_dump('ok');
-        die;
+
         // set template content
-        $this->smarty->assign("template_content", "medis/rawat_inap/edit_umum.html");
+        $this->smarty->assign("template_content", "medis/rawat_inap/edit_igd.html");
         // load javascript
         $this->smarty->load_javascript("resource/js/jquery/jquery-ui-1.9.2.custom.min.js");
         $this->smarty->load_javascript('resource/js/jquery/select2.js');
@@ -331,7 +330,7 @@ class rawat_inap extends ApplicationBase {
         // load style ui
         $this->smarty->load_style("jquery.ui/redmond/jquery-ui-1.8.13.custom.css");
         $this->smarty->assign("rs_pasien", $this->m_rawat_inap->get_pasien_by_rg2(array($FS_RG)));  
-
+        $this->smarty->assign("medis_igd", $this->m_rawat_inap->get_data_medis_igd_by_rg(array($FS_RG)));
         $this->smarty->assign("result", $this->m_rawat_inap->get_data_medis_by_rg2(array($FS_RG)));
         $this->smarty->assign("bio", $this->m_igd->biososio(array($FS_RG)));
         $this->smarty->assign("ases2", $this->m_rawat_jalan->get_data_ases2_by_rg(array($FS_RG)));
@@ -399,9 +398,9 @@ class rawat_inap extends ApplicationBase {
                  $rlab, 
                  $rrad, 
                 $this->input->post('FS_HASIL_PEMERIKSAAN_PENUNJANG'),
-                '1',
-                $this->input->post('FS_MR'),
                 $this->input->post('FS_PESAN'),
+                    $this->input->post('FS_MR'),
+                    '1',
                 $this->com_user['user_id'],
                 date('Y-m-d'),
                 date('H:i:s')
@@ -680,6 +679,9 @@ class rawat_inap extends ApplicationBase {
                 $this->input->post('FS_KD_REG'),
                 $this->com_user['user_name'],    
                );
+
+               var_dump($this->input->post('FS_HASIL_PEMERIKSAAN_PENUNJANG'));
+               die;
             
                if ( $this->m_rawat_inap->update2($params)) {
 

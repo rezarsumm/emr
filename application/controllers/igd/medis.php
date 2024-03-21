@@ -323,7 +323,7 @@ class Medis extends ApplicationBase {
 
 
             $lab = $this->input->post('rlab');
-            // $klab='';
+            $klab='';
             if (!empty($lab)) {
                 foreach ($lab as $value) {
                     $klab=$klab.', '.$value;
@@ -332,7 +332,7 @@ class Medis extends ApplicationBase {
 
 
             $rad = $this->input->post('rrad');
-            // $tembusan='';
+            $tembusan='';
             if (!empty($rad)) {
                 foreach ($rad as $value) {
                     $tembusan=$tembusan.', '.$value;
@@ -442,7 +442,7 @@ class Medis extends ApplicationBase {
                     $this->input->post('FS_TERAPI'),
                     $this->input->post('PEMERIKSAAN_FISIK'),
                     $this->com_user['user_name'],
-                    $this->input->post('FS_CARA_PULANG'),
+                    '0',
                     $this->input->post('MASALAH_KES'),
                     $klab, 
                     $tembusan, 
@@ -982,7 +982,7 @@ class Medis extends ApplicationBase {
                     $this->input->post('FS_TERAPI'),
                     $this->input->post('PEMERIKSAAN_FISIK'),
                     $this->com_user['user_name'],
-                    $this->input->post('FS_CARA_PULANG'),
+                    '0',
                     $this->input->post('MASALAH_KES'),
                     $klab, 
                     $tembusan, 

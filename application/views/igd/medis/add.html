@@ -76,31 +76,32 @@
             </tr>
             <tr>
                 <td>Keluhan Utama</td>
-                <td colspan="3"><textarea style="width: 600px;" name="FS_ANAMNESA"  >{if $perawat.KEL_UTAMA neq ''}{$perawat.KEL_UTAMA}{elseif $rs_triase.KELUHAN neq ''}{{$rs_triase.KELUHAN}}{else}{$bidan.FS_ANAMNESA}{/if}</textarea></td>
+                <td colspan="3"><textarea rows="3" style="width: 600px;" name="FS_ANAMNESA"  >{if $perawat.KEL_UTAMA neq ''}{$perawat.KEL_UTAMA}{elseif $rs_triase.KELUHAN neq ''}{{$rs_triase.KELUHAN}}{else}{$bidan.FS_ANAMNESA}{/if}</textarea></td>
                 
             </tr>
             <tr> 
                 <td width='20%'>Riwayat Penyakit Sekarang</td>
                 <td width='40%'>
-                    <textarea style="width: 300px;" name="RIW_PENYAKIT_NOW"  >{if $perawat.KEL_SEKARANG neq ''}{$perawat.KEL_SEKARANG}{/if} </textarea>
+                    <textarea rows="4" style="width: 300px;" name="RIW_PENYAKIT_NOW"  >{if $perawat.KEL_SEKARANG neq ''}{$perawat.KEL_SEKARANG}{/if} </textarea>
 
                 </td>
                
                 <td width='20%'>Riwayat Penyakit dahulu</td>
                 <td width='40%'>
-                    <input type="text" name="FS_RIW_PENYAKIT_DAHULU" value="{$perawat.RIWAYAT_SAKIT|default:'-'}" size="32">
+                    <textarea name="FS_RIW_PENYAKIT_DAHULU" rows="4" style="width: 300px;">{$perawat.RIWAYAT_SAKIT|default:'-'}</textarea>
+              
                 </td>
             </tr>
             <tr>
                 <td width='20%'>Riwayat Perawatan Sebelumnya</td>
                 <td width='40%'>
-                    <textarea style="width: 300px;" name="RIW_PERAWATAN">{$result3.FS_RIW_PENYAKIT_DAHULU|default:'-'} </textarea>
+                    <textarea rows="4" style="width: 300px;" name="RIW_PERAWATAN">{$result3.FS_RIW_PENYAKIT_DAHULU|default:'-'} </textarea>
                     <!-- <input type="text" name="RIW_PERAWATAN" value="{$result3.FS_RIW_PENYAKIT_DAHULU|default:'-'}" size="32"> -->
                 </td>
                 <td width='20%'>Terapi & Tindakan yang pernah dilakukan</td>
                 <td width='30%'>
                     <!-- <input type="text" name="RIW_TINDAKAN" value="{$result3.FS_RIW_PENYAKIT_DAHULU2|default:'-'}" size="32"> -->
-                    <textarea style="width: 300px;" name="RIW_TINDAKAN">- </textarea>
+                    <textarea style="width: 300px;" rows="4" name="RIW_TINDAKAN">- </textarea>
                 </td>
                 <!-- <td width='20%'>Riwayat penyakit keluarga</td>
                 <td width='30%'>

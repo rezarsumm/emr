@@ -77,28 +77,30 @@
                 </tr>
             <tr>
                 <td>Keluhan Utama</td>
-                <td colspan="3"><textarea style="width: 600px;" name="FS_ANAMNESA"  value="{$data.FS_ANAMNESA}">{$data.FS_ANAMNESA}</textarea></td>
+                <td colspan="3"><textarea rows="3" style="width: 600px;" name="FS_ANAMNESA"  value="{$data.FS_ANAMNESA}">{$data.FS_ANAMNESA}</textarea></td>
                 
             </tr>
             <tr> 
                 <td width='20%'>Riwayat Penyakit Sekarang</td>
                 <td width='40%'>
-                    <textarea style="width: 300px;" name="RIW_PENYAKIT_NOW">{$data.RIW_PENYAKIT_NOW} </textarea> 
+                    <textarea rows="4" style="width: 300px;" name="RIW_PENYAKIT_NOW">{$data.RIW_PENYAKIT_NOW} </textarea> 
                 </td>
                
                 <td width='20%'>Riwayat Penyakit dahulu</td>
                 <td width='40%'>
-                    <input type="text" name="FS_RIW_PENYAKIT_DAHULU" value="{$data.RIW_PENYAKIT_DAHULU}" size="32">
+                    <textarea name="FS_RIW_PENYAKIT_DAHULU" rows="4" style="width: 300px;">{$data.RIW_PENYAKIT_DAHULU}</textarea>
                 </td>
             </tr>
             <tr>
                 <td width='20%'>Riwayat Perawatan Sebelumnya</td>
                 <td width='40%'>
-                    <input type="text" name="RIW_PERAWATAN" value="{$data.RIW_PERAWATAN}" size="32">
+                    <textarea name="RIW_PERAWATAN" rows="4" style="width: 300px;">{$data.RIW_PERAWATAN}</textarea>
+                 
                 </td>
                 <td width='20%'>Terapi & Tindakan yang pernah dilakukan</td>
                 <td width='30%'>
-                    <input type="text" name="RIW_TINDAKAN" value="{$data.RIW_TINDAKAN}" size="32">
+                    <textarea name="RIW_TINDAKAN" rows="4" style="width: 300px;">{$data.RIW_TINDAKAN}</textarea>
+              
                 </td>
                 <!-- <td width='20%'>Riwayat penyakit keluarga</td>
                 <td width='30%'>

@@ -974,42 +974,90 @@ class Medis extends ApplicationBase {
             
             $this->m_igd->INSERT_AWAL_MEDIS($params2);
 
+            $cek_asasmen_medis=$this->m_rawat_inap->cek_asasmen_awal_ranap(array($this->input->post('FS_KD_REG')));
+          
+
             if ($this->input->post('D_PLANNING')=='Inap'){
-                $asasmen_awal_ranap = array(
-                    $this->input->post('FS_DIAGNOSA'),
-                    $this->input->post('FS_ANAMNESA'),
-                    $this->input->post('RENCANA'),
-                    $this->input->post('FS_TERAPI'),
-                    $this->input->post('PEMERIKSAAN_FISIK'),
-                    $this->com_user['user_name'],
-                    $this->input->post('FS_CARA_PULANG'),
-                    $this->input->post('MASALAH_KES'),
-                    $klab, 
-                    $tembusan, 
-                    $this->input->post('FS_PESAN'),
-                    $this->input->post('FS_MR'),
-                    '1',
-                    $this->com_user['user_id'],
-                    date('Y-m-d'),
-                    date('H:i:s'),
-                    $this->input->post('FS_RIW_PENYAKIT_DAHULU'),
-                    $this->input->post('FS_STATUS_PSIK'),
-                    $this->input->post('KONJUNGTIVA'),
-                    $this->input->post('DEVIASI'),
-                    $this->input->post('SKELERA'),
-                    $this->input->post('JVP'),
-                    $this->input->post('BIBIR'),
-                    $this->input->post('MUKOSA'),
-                    $this->input->post('THORAX'),
-                    $this->input->post('JANTUNG'),
-                    $this->input->post('ABDOMEN'),
-                    $this->input->post('PINGGANG'),
-                    $this->input->post('EKS_ATAS'),
-                    $this->input->post('EKS_BAWAH'),
-                    $this->input->post('FS_KD_REG')
-                    
-                ); 
-                $this->m_rawat_inap->update_ranap_dari_igd($asasmen_awal_ranap);
+
+             
+
+                if ($cek_asasmen_medis >= 1){
+                    $asasmen_awal_ranap = array(
+                        $this->input->post('FS_DIAGNOSA'),
+                        $this->input->post('FS_ANAMNESA'),
+                        $this->input->post('RENCANA'),
+                        $this->input->post('FS_TERAPI'),
+                        $this->input->post('PEMERIKSAAN_FISIK'),
+                        $this->com_user['user_name'],
+                        $this->input->post('FS_CARA_PULANG'),
+                        $this->input->post('MASALAH_KES'),
+                        $klab, 
+                        $tembusan, 
+                        $this->input->post('FS_PESAN'),
+                        $this->input->post('FS_MR'),
+                        '1',
+                        $this->com_user['user_id'],
+                        date('Y-m-d'),
+                        date('H:i:s'),
+                        $this->input->post('FS_RIW_PENYAKIT_DAHULU'),
+                        $this->input->post('FS_STATUS_PSIK'),
+                        $this->input->post('KONJUNGTIVA'),
+                        $this->input->post('DEVIASI'),
+                        $this->input->post('SKELERA'),
+                        $this->input->post('JVP'),
+                        $this->input->post('BIBIR'),
+                        $this->input->post('MUKOSA'),
+                        $this->input->post('THORAX'),
+                        $this->input->post('JANTUNG'),
+                        $this->input->post('ABDOMEN'),
+                        $this->input->post('PINGGANG'),
+                        $this->input->post('EKS_ATAS'),
+                        $this->input->post('EKS_BAWAH'),
+                        $this->input->post('FS_KD_REG')
+                        
+                    ); 
+                    $this->m_rawat_inap->update_ranap_dari_igd($asasmen_awal_ranap);
+                }
+                else{
+        
+                    $asasmen_awal_ranap = array(
+                        '',
+                        $this->input->post('FS_KD_REG'),
+                        $this->input->post('FS_DIAGNOSA'),
+                        $this->input->post('FS_ANAMNESA'),
+                        $this->input->post('RENCANA'),
+                        $this->input->post('FS_TERAPI'),
+                        $this->input->post('PEMERIKSAAN_FISIK'),
+                        $this->com_user['user_name'],
+                        $this->input->post('FS_CARA_PULANG'),
+                        $this->input->post('MASALAH_KES'),
+                        $klab, 
+                        $tembusan, 
+                        $this->input->post('FS_PESAN'),
+                        $this->input->post('FS_MR'),
+                        '1',
+                        $this->com_user['user_id'],
+                        date('Y-m-d'),
+                        date('H:i:s'),
+                        $this->input->post('FS_RIW_PENYAKIT_DAHULU'),
+                        $this->input->post('FS_STATUS_PSIK'),
+                        $this->input->post('KONJUNGTIVA'),
+                        $this->input->post('DEVIASI'),
+                        $this->input->post('SKELERA'),
+                        $this->input->post('JVP'),
+                        $this->input->post('BIBIR'),
+                        $this->input->post('MUKOSA'),
+                        $this->input->post('THORAX'),
+                        $this->input->post('JANTUNG'),
+                        $this->input->post('ABDOMEN'),
+                        $this->input->post('PINGGANG'),
+                        $this->input->post('EKS_ATAS'),
+                        $this->input->post('EKS_BAWAH'),
+                        
+                    ); 
+                    $this->m_rawat_inap->insert_ranap_dari_igd($asasmen_awal_ranap);
+                }
+                
             }
 
 

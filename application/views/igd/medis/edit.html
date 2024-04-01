@@ -529,7 +529,7 @@
                <input type="radio" {if $data.KONDISI_AKHIR eq 'Meninggal'} checked {/if}  name="KONDISI_AKHIR" value="Meninggal">Meninggal
             </td>
             <td>Jama Selesai diperiksa</td>
-            <td><input type="time" name="JAM_SELESAI" value="{date('H:i',strtotime($data.RUJUKAN))}"></td>
+            <td><input type="time" name="JAM_SELESAI" value="{date('H:i',strtotime($data.JAM_SELESAI))}"></td>
        </tr>
 
  

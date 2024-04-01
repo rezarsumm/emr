@@ -37,6 +37,17 @@ class m_rawat_inap extends CI_Model {
         
     } 
 
+    function cek_asasmen_awal_ranap($params) {
+        $sql = "SELECT FS_KD_REG FROM PKU.dbo.TAC_RI_MEDIS WHERE FS_KD_REG = ?";
+        $query = $this->db->query($sql, $params);
+        if ($query->num_rows() > 0) {
+            $result = $query->num_rows();
+            return $result;
+        } else {
+            return 0;
+        }
+    }
+
     function update($params) {
 
         $sql = "UPDATE PKU.dbo.TAC_RI_MEDIS SET FS_DIAGNOSA=?, FS_ANAMNESA=?, FS_TINDAKAN=?, FS_TERAPI=?, FS_CATATAN_FISIK=?, 

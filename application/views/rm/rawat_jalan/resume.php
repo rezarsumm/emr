@@ -88,17 +88,19 @@
     </table> -->
     <table class="content">
         <col style="width: 10%;font-size: 12px;">
-        <col style="width: 20%;font-size: 12px;">
-        <col style="width: 20%;font-size: 12px;">
+        <col style="width: 15%;font-size: 12px;">
+        <col style="width: 18%;font-size: 12px;">
+        <col style="width: 12%;font-size: 12px;">
         <col style="width: 12%;font-size: 12px;">
         <col style="width: 10%;font-size: 12px;">
-        <col style="width: 28%;font-size: 12px;">
+        <col style="width: 23%;font-size: 12px;">
         <tbody>
             <tr>
                 <th style="border-left:solid 1px #000000;border-bottom:solid 1px #000000; border-right:solid 1px #000000;text-align: center;">Tanggal</th>
                 <th style="border-bottom:solid 1px #000000;border-right:solid 1px #000000;text-align: center;" > Dokter</th>
                 <th style="border-bottom:solid 1px #000000;border-right:solid 1px #000000;text-align: center;">Uraian Klinis</th>
                  <th style="border-bottom:solid 1px #000000;border-right:solid 1px #000000;text-align: center;">Diagnosa</th>
+                 <th style="border-bottom:solid 1px #000000;border-right:solid 1px #000000;text-align: center;">Hasil EKG</th>
                 <th style="border-bottom:solid 1px #000000;border-right:solid 1px #000000;text-align: center;">Rencana</th>
                 <th style="border-bottom:solid 1px #000000;border-right:solid 1px #000000;text-align: center;">Terapi</th>
                 </tr>
@@ -118,6 +120,9 @@
                 </td>
                 <td style="border-bottom:solid 1px #000000;border-right:solid 1px #000000;">
                     <?= strip_tags($data["FS_DIAGNOSA"]);?>
+                </td>
+                <td style="border-bottom:solid 1px #000000;border-right:solid 1px #000000;">
+                    <?= strip_tags($data["HASIL_EKG"]);?>
                 </td>
                  <td style="border-bottom:solid 1px #000000;border-right:solid 1px #000000;">
                     <?= strip_tags($data["FS_PLANNING"]);?>

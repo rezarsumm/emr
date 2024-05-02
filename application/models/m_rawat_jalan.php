@@ -2457,7 +2457,7 @@ class m_rawat_jalan extends CI_Model {
 
         $sql = "  select A.FS_KD_REG, B.No_MR, C.Nama_Pasien, C.Alamat, D.Nama_Dokter
         from PKU.dbo.IGD_AWAL_MEDIS as A, PENDAFTARAN as B, REGISTER_PASIEN as C, DOKTER as D
-         where A.FS_TERAPI not like '' and (A.mdd ='$dt' or A.mdd = '$akhirnya')
+         where A.FS_TERAPI not like '' and A.mdd ='$dt'
       and A.FS_KD_REG not in(select No_Reg from TR_MASTER_RESEP where Tgl_Resep ='$dt' )
       and A.FS_KD_REG=B.No_Reg and B.No_MR=C.No_MR and A.MDB=D.Kode_Dokter";
       $query = $this->db->query($sql, $params);

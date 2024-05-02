@@ -119,6 +119,14 @@
                            <a  href="javascript:void(0);" onclick="window.open('{$config->site_url('rm/rawat_jalan/cetak_rujukan/'|cat:$data.NO_REG|cat:'/'|cat:$data.FS_KD_TRS)}', 'nama_window_pop_up', 'scrollbars=yes,resizeable=no')" class="button-edit">Rujukan Internal</a>
                            {else}
                            {/if}
+                           {if $data.FS_CARA_PULANG eq '7'}
+                           <a  href="javascript:void(0);" onclick="window.open('{$config->site_url('medis/rawat_jalan/cetak_faskes/'|cat:$data.NO_REG|cat:'/'|cat:$data.FS_KD_TRS)}', 'nama_window_pop_up', 'scrollbars=yes,resizeable=no')" class="button-edit">Faskes</a>
+                           {else}
+                           {/if}
+                           {if $data.FS_CARA_PULANG eq '8'}
+                           <a  href="javascript:void(0);" onclick="window.open('{$config->site_url('medis/rawat_jalan/cetak_prb/'|cat:$data.NO_REG|cat:'/'|cat:$data.FS_KD_TRS)}', 'nama_window_pop_up', 'scrollbars=yes,resizeable=no')" class="button-edit"> PRB</a>
+                           {else}
+                           {/if}
                            {if $cek_lab neq ''}
                            <a  href="javascript:void(0);" onclick="window.open('{$config->site_url('rm/rawat_jalan/cetak_rujukan_lab/'|cat:$data.NO_REG|cat:'/'|cat:$data.FS_KD_TRS)}', 'nama_window_pop_up', 'scrollbars=yes,resizeable=no')" class="button-edit">Lab</a>
                            {else}

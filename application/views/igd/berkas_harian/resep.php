@@ -53,7 +53,7 @@
                          $rs_rujukan['FS_TUJUAN_RUJUKAN'];
                      }
                 ?>
-                <td style="text-align:center;width: 100%"><?= $sejawat; ?><br> SIP :<p style="text-align:right;"><?= date('d-m-Y', strtotime($medis['mdd'])); ?></p></td>
+                <td style="text-align:center;width: 100%"><?= $sejawat; ?><br> SIP :<p style="text-align:right;"><?= date('d-m-Y', strtotime($medis['MDD'])); ?></p></td>
             </tr>
         </table>
     </page_header>

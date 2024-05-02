@@ -2209,6 +2209,23 @@ class m_rawat_jalan extends CI_Model {
             return 0;
         }
     }
+
+    function get_data_medis_by_rg2_igd($params) { 
+        $sql = "SELECT a.*,c.NAMA_DOKTER,b.user_name,KODE_DOKTER, d.NAMALENGKAP 
+        FROM PKU.dbo.IGD_AWAL_MEDIS a
+        LEFT JOIN PKU.dbo.TAC_COM_USER b ON a.MDB=b.user_name
+        LEFT JOIN DOKTER c ON b.user_name=c.KODE_DOKTER
+        LEFT JOIN DB_RSMM.dbo.TUSER d ON b.user_name=d.NAMAUSER
+        WHERE a.FS_KD_REG = ?";
+        $query = $this->db->query($sql, $params);
+        if ($query->num_rows() > 0) {
+            $result = $query->row_array();
+            $query->free_result();
+            return $result;
+        } else {
+            return 0;
+        }
+    }
     
     function get_data_medis_by_rg22($params) { 
         $sql = "SELECT a.*,c.NAMA_DOKTER,b.user_name,KODE_DOKTER, d.NAMALENGKAP 
@@ -2389,7 +2406,7 @@ class m_rawat_jalan extends CI_Model {
         }
     }
 
-    function list_resep_masuk() {
+    function list_resep_masuk($params) {
         $dt=date('Y-m-d');
         $sql = "  select A.*, B.No_MR, C.Nama_Pasien, C.Alamat, D.Nama_Dokter
         from PKU.dbo.TAC_RJ_MEDIS as A, PENDAFTARAN as B, REGISTER_PASIEN as C, DOKTER as D
@@ -2403,6 +2420,53 @@ class m_rawat_jalan extends CI_Model {
             return $result;
         } else {
             return array();
+        }
+    }
+
+    function list_resep_masuk_igd($params) {
+
+        $dt = date('Y-m-d'); 
+
+        $date = new DateTime();
+        $date_plus = $date->modify("-1 days");
+        $akhirnya= $date_plus->format("Y-m-d");
+
+        $sql = "  select A.FS_KD_REG, B.No_MR, C.Nama_Pasien, C.Alamat, D.Nama_Dokter
+        from PKU.dbo.IGD_AWAL_MEDIS as A, PENDAFTARAN as B, REGISTER_PASIEN as C, DOKTER as D
+         where A.FS_TERAPI not like '' and (A.MDD ='$dt' or A.MDD = '$akhirnya') and B.status=1
+      and A.FS_KD_REG not in(select No_Reg from TR_MASTER_RESEP where Tgl_Resep ='$dt' )
+      and A.FS_KD_REG=B.No_Reg and B.No_MR=C.No_MR and A.MDB=D.Kode_Dokter";
+      $query = $this->db->query($sql, $params);
+        if ($query->num_rows() > 0) {
+            $result = $query->result_array();
+            $query->free_result();
+            return $result;
+        } else {
+            return array();
+        }
+
+    }
+
+    function cek_resep_masuk_igd($params) {
+
+        $dt = date('Y-m-d'); 
+
+        $date = new DateTime();
+        $date_plus = $date->modify("-1 days");
+        $akhirnya= $date_plus->format("Y-m-d");
+
+        $sql = "  select A.FS_KD_REG, B.No_MR, C.Nama_Pasien, C.Alamat, D.Nama_Dokter
+        from PKU.dbo.IGD_AWAL_MEDIS as A, PENDAFTARAN as B, REGISTER_PASIEN as C, DOKTER as D
+         where A.FS_TERAPI not like '' and (A.mdd ='$dt' or A.mdd = '$akhirnya') and B.status=1
+      and A.FS_KD_REG not in(select No_Reg from TR_MASTER_RESEP where Tgl_Resep ='$dt' )
+      and A.FS_KD_REG=B.No_Reg and B.No_MR=C.No_MR and A.MDB=D.Kode_Dokter";
+      $query = $this->db->query($sql, $params);
+        if ($query->num_rows() > 0) {
+            $result = $query->num_rows();
+            $query->free_result();
+            return $result;
+        } else {
+            return 0;
         }
     }
 

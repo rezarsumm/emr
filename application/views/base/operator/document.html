@@ -41,8 +41,14 @@
                 </div>
               
                 <div class="header-profile" style="padding-top: 0px;">
-                        <div class="as" style="color: floralwhite;height: 0px; padding-left: 500px;padding-top: 5px; "> 
+                        <div class="as" style="color: floralwhite;height: 0px; padding-left: 400px;padding-top: 5px; "> 
                                 {if $com_user.role_nm=='Farmasi'}
+                                <img src="{$BASEURL}/resource/doc/images/icon/icon.ok.png" alt="" />
+                                <a href="{$config->site_url('medis/rawat_jalan/resepmasukigd')}" style="color: white;">
+
+                                    {assign var=cekresepmasukigd value=$m_rawat_jalan->cek_resep_masuk_igd()}
+                                    {$cekresepmasukigd} Resep IGD </a>
+                                    
                                 <img src="{$BASEURL}/resource/doc/images/icon/icon.ok.png" alt="" />
                                 <a href="{$config->site_url('medis/rawat_jalan/resepmasuk')}" style="color: white;">
 

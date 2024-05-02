@@ -824,6 +824,24 @@ class rawat_jalan extends ApplicationBase {
                 $this->smarty->load_javascript('resource/js/jquery/jquery-ui-1.9.2.custom.min.js');
                 $this->smarty->assign("now", $now);
                 $this->smarty->assign("listresep", $this->m_rawat_jalan->list_resep_masuk());
+          
+                   parent::display();
+            } 
+
+      public function resepmasukigd() { 
+        // set page rules
+                $this->_set_page_rule("R");
+        // set template content
+                $this->smarty->assign("template_content", "medis/rawat_jalan/resepmasukigd.html");
+                $this->smarty->load_javascript('resource/js/jquery.datatables/jquery.dataTables.js');
+                $this->smarty->load_javascript('resource/js/jquery.datatables/dataTables.fixedHeader.js');
+                $this->smarty->load_style("jquery.ui/redmond/jquery-ui-1.8.13.custom.css");
+                $this->smarty->load_style("jquery.ui/datatables/jquery.dataTables.css");
+                $this->smarty->load_javascript('resource/js/jquery/jquery-ui-1.9.2.custom.min.js');
+                $this->smarty->assign("now", $now);
+                $this->smarty->assign("listresep", $this->m_rawat_jalan->list_resep_masuk_igd());
+                
+        
                    parent::display();
             } 
 
@@ -2179,6 +2197,32 @@ class rawat_jalan extends ApplicationBase {
             exit;
         }
     }
+
+    public function cetak_resep_igd($FS_KD_REG = "", $FS_KD_TRS = "") {
+        $this->_set_page_rule("R");
+        $this->load->library('html2pdf');
+        $now = date('Y-m-d'); 
+        $data['rs_pasien'] = $this->m_rawat_jalan->get_px_by_dokter_by_rg2(array($FS_KD_REG));
+        $data['daftar'] = $this->m_rawat_jalan->get_px_by_daftar(array($FS_KD_REG));
+        $data['medis'] = $this->m_rawat_jalan->get_data_medis_by_rg2_igd(array($FS_KD_REG, $FS_KD_TRS));
+        $data['antrian'] = $this->m_rawat_jalan->get_antrian_obat_by_trs(array($FS_KD_TRS));
+        ob_start(); 
+        $this->load->view('medis/rawat_jalan/resep_igd', $data);
+        $content = ob_get_contents();
+        ob_end_clean();
+
+        try {
+            $html2pdf = new HTML2PDF();
+            $html2pdf->pdf->SetDisplayMode('fullpage');
+            $html2pdf->setDefaultFont('Arial');
+            $html2pdf->writeHTML($content, isset($_GET['vuehtml']));
+            $html2pdf->Output($rs_pasien['FS_NM_PASIEN'] . '.pdf');
+        } catch (HTML2PDF_exception $e) {
+            echo $e;
+            exit;
+        }
+    }
+
 
     public function skdp_rencana() {
         $id = $this->input->post('skdp_alasan');

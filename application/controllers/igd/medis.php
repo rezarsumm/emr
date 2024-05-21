@@ -426,7 +426,8 @@ class Medis extends ApplicationBase {
                     $this->input->post('EKG'),
                     $this->input->post('PARU'),
                     $jenis_anamnesa,
-                    $this->input->post('BAGIAN_RADIOLOGI')
+                    $this->input->post('BAGIAN_RADIOLOGI'),
+                    $this->input->post('INTERPRESTASI_EKG')
 
                     
                 );
@@ -963,7 +964,8 @@ class Medis extends ApplicationBase {
                 $this->input->post('EKG'),
                 $this->input->post('PARU'),
                 $jenis_anamnesa,
-                $this->input->post('BAGIAN_RADIOLOGI')
+                $this->input->post('BAGIAN_RADIOLOGI'),
+                $this->input->post('INTERPRESTASI_EKG')
 
 
                 

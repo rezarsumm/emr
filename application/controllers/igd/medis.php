@@ -57,7 +57,7 @@ class Medis extends ApplicationBase {
 
         $fs_kd_layanan = $this->com_user['fs_kd_layanan'];
 
-       $this->smarty->assign("rs_pasien", $this->m_igd->get_pasien_ugd());
+       $this->smarty->assign("rs_pasien", $this->m_igd->get_pasien_ugd_medis());
    
         // notification
         $this->tnotification->display_notification();

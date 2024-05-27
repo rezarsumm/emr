@@ -1436,6 +1436,28 @@ class m_igd extends CI_Model {
        }
    }
 
+   function get_pasien_ugd_medis() {
+    $now = date('Y-m-d'); 
+
+    $date = new DateTime();
+    $date_plus = $date->modify("-1 days");
+    $akhirnya= $date_plus->format("Y-m-d");
+
+    $sql = "SELECT E.NO_REG, B.NO_MR, B.NAMA_PASIEN, B.TGL_LAHIR, B.JENIS_KELAMIN, B.ALAMAT, D.STATUS_IGD
+   FROM REGISTER_PASIEN B,  PENDAFTARAN E 
+   LEFT JOIN PKU.dbo.TAC_STATUS_IGD D ON E.NO_REG = D.FS_KD_REG
+ 
+   WHERE B.NO_MR=E.NO_MR AND E.STATUS='1' and E.KODE_MASUK='1' and (E.TANGGAL= '$now' or E.TANGGAL='$akhirnya')";
+   $query = $this->db->query($sql);
+   if ($query->num_rows() > 0) {
+       $result = $query->result_array();
+       $query->free_result();
+       return $result;
+   } else {
+       return array();
+   }
+}
+
     function get_pasien_ugd_anak() {
         $now = date('Y-m-d'); 
 

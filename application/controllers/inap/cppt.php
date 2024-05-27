@@ -188,6 +188,8 @@ class cppt extends ApplicationBase {
     public function add($FS_RG = '') {
         // set page rules
         $this->_set_page_rule("C");
+        // var_dump($this->com_user['fs_kd_layanan']);
+        // die;
 
         // set template content
         $this->smarty->assign("template_content", "inap/cppt/add.html");
@@ -210,12 +212,13 @@ class cppt extends ApplicationBase {
           $this->smarty->assign("x", $x);  
 
        
-           $ruangan = $this->m_cppt->get_pasien_by_rg(array($FS_RG));
+           $ruangan = $this->m_cppt->get_ruangan_inap(array($FS_RG));
+       
            $this->smarty->assign("rs_ruangan", $ruangan['NAMA_BANGSAL']);
+           $this->smarty->assign("layanan", $this->com_user['fs_kd_layanan']);
   
 
-        // var_dump($this->com_user['fs_kd_layanan']);
-        // die;
+     
 
       
 

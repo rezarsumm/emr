@@ -2335,6 +2335,19 @@ function get_resep_by_trs2($params) {
             return 0;
         }
     }
+    function get_ruangan_inap($params) {
+        $sql = "SELECT D.NAMA_BANGSAL
+        FROM M_BANGSAL D, PENDAFTARAN E,M_RUANG M
+        WHERE  E.Kode_Ruang=M.Kode_Ruang AND M.Kode_Bangsal=D.Kode_Bangsal AND E.No_Reg = ? ";
+        $query = $this->db->query($sql, $params);
+        if ($query->num_rows() > 0) {
+            $result = $query->row_array();
+            $query->free_result();
+            return $result;
+        } else {
+            return 0;
+        }
+    }
 
     function get_pasien_by_rg_verif_ugd($params) {
         $sql = "SELECT B.NAMA_PASIEN, B.JENIS_KELAMIN,B.ALAMAT,E.KODEREKANAN,F.NAMAREKANAN ,B.TGL_LAHIR,datediff(year,B.TGL_LAHIR,GETDATE()) 'fn_umur'

@@ -56,6 +56,7 @@ class rawat_jalan extends ApplicationBase {
         
         $FD_TGL_MASUK = empty($search['FD_TGL_MASUK']) ? : $search['FD_TGL_MASUK'];
         $FD_TGL_TRS = empty($search['FD_TGL_TRS']) ? : $search['FD_TGL_TRS'];
+        $this->smarty->assign("username", $this->com_user['user_name']);
        
         $x = $this->com_user['user_name'];
         $FS_KD_PEG = $this->com_user['user_name'];

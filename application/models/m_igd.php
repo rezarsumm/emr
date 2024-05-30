@@ -1418,14 +1418,62 @@ class m_igd extends CI_Model {
         $now = date('Y-m-d'); 
 
         $date = new DateTime();
+        $date2 = new DateTime();
+        $date3 = new DateTime();
+        $date4 = new DateTime();
         $date_plus = $date->modify("-1 days");
+    
         $akhirnya= $date_plus->format("Y-m-d");
+
+        $date_plus2 = $date2->modify("-2 days");
+        $akhirnya2= $date_plus2->format("Y-m-d");
+
+        $date_plus3 = $date3->modify("-3 days");
+        $akhirnya3= $date_plus3->format("Y-m-d");
+
+        $date_plus4 = $date4->modify("-4 days");
+        $akhirnya4= $date_plus4->format("Y-m-d");
+
 
         $sql = "SELECT E.NO_REG, B.NO_MR, B.NAMA_PASIEN, B.TGL_LAHIR, B.JENIS_KELAMIN, B.ALAMAT, D.STATUS_IGD, C.FS_TERAPI
        FROM REGISTER_PASIEN B,  PENDAFTARAN E 
        LEFT JOIN PKU.dbo.TAC_STATUS_IGD D ON E.NO_REG = D.FS_KD_REG
        LEFT JOIN PKU.dbo.IGD_AWAL_MEDIS C ON E.NO_REG = C.FS_KD_REG
-       WHERE B.NO_MR=E.NO_MR AND E.STATUS='1' and E.KODE_MASUK='1' and (E.TANGGAL= '$now' or E.TANGGAL='$akhirnya')";
+       WHERE B.NO_MR=E.NO_MR AND E.STATUS='1' and E.KODE_MASUK='1' and (E.TANGGAL= '$now' or E.TANGGAL='$akhirnya' or E.TANGGAL ='$akhirnya2' or E.TANGGAL = '$akhirnya3' or E.TANGGAL = '$akhirnya4')";
+       $query = $this->db->query($sql);
+       if ($query->num_rows() > 0) {
+           $result = $query->result_array();
+           $query->free_result();
+           return $result;
+       } else {
+           return array();
+       }
+   }
+
+    function get_pasien_ugd_cppt() {
+        $now = date('Y-m-d'); 
+
+        $date = new DateTime();
+        $date2 = new DateTime();
+        $date3 = new DateTime();
+        $date4 = new DateTime();
+        $date_plus = $date->modify("-1 days");
+    
+        $akhirnya= $date_plus->format("Y-m-d");
+
+        $date_plus2 = $date2->modify("-2 days");
+        $akhirnya2= $date_plus2->format("Y-m-d");
+
+        $date_plus3 = $date3->modify("-3 days");
+        $akhirnya3= $date_plus3->format("Y-m-d");
+
+        $date_plus4 = $date4->modify("-4 days");
+        $akhirnya4= $date_plus4->format("Y-m-d");
+
+
+        $sql = "SELECT E.NO_REG, B.NO_MR, B.NAMA_PASIEN, B.TGL_LAHIR, B.JENIS_KELAMIN, B.ALAMAT
+       FROM REGISTER_PASIEN B,  PENDAFTARAN E 
+       WHERE B.NO_MR=E.NO_MR AND E.STATUS='1' and E.KODE_MASUK='1' and (E.TANGGAL= '$now' or E.TANGGAL='$akhirnya' or E.TANGGAL ='$akhirnya2' or E.TANGGAL = '$akhirnya3' or E.TANGGAL = '$akhirnya4')";
        $query = $this->db->query($sql);
        if ($query->num_rows() > 0) {
            $result = $query->result_array();

@@ -83,6 +83,7 @@ class Bidan extends ApplicationBase {
     
      
     public function add($FS_RG) {
+        
         // set page rules
         $this->_set_page_rule("C");
         // set template content

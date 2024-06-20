@@ -406,6 +406,7 @@ class suratt extends ApplicationBase {
                         $this->load->view('medis/surat/skd', $data);
                         $content = ob_get_contents();
                         ob_end_clean();
+                        
                 
                         try {
                             $html2pdf = new HTML2PDF('P', 'A5', 'fr');

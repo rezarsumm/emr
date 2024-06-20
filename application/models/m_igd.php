@@ -1414,6 +1414,8 @@ class m_igd extends CI_Model {
            return array();
        }
    }
+
+   
     function get_pasien_ugd() {
         $now = date('Y-m-d'); 
 

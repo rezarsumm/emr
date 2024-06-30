@@ -49,7 +49,8 @@ class cppt extends ApplicationBase {
 
         $x = $this->com_user['user_name'];
 
-    
+        $user_id2 = $this->com_user['user_id'];
+        $this->smarty->assign("user", $user_id2);
 
 
         $fs_kd_layanan = $this->com_user['fs_kd_layanan'];

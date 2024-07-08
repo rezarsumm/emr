@@ -375,6 +375,30 @@
      
     {else} {/if}
 
+    {if $username eq '161'}
+    Pilih Paket Obat
+    <select
+          name="namapaketdrmiftah"
+          class="namapaketdrmiftah select2"
+          id="namapaketdrmiftah"
+          multiple
+          id="namapaketdrmiftah"
+          cols="50"
+          style="width: 210px"
+        >
+      <option></option>
+      <option value="SC I">SC I</option>
+      <option value="SC II">SC II</option>
+      <option value="PN I">PN I</option>
+      <option value="PN II">PN II</option>
+      <option value="KURET I">KURET I</option>
+      <option value="KURET II">KURET II</option>
+      <option value="HEG I">HEG I</option>
+
+    </select>
+
+    {else} {/if}
+
 
 
          {if $username eq '152'} 
@@ -890,6 +914,56 @@
       );
       $("#namapaketdrdicky").select2("data", null);
     } 
+  });
+
+  $("#namapaketdrmiftah").change(function () {
+    var resep = $(".resep").val();
+    if ($("#namapaketdrmiftah").val() == "SC I") {
+      $(".resep").val(
+        resep +
+          "\n /R   CEFTRIAXON inj No.1 gr No.2  \n  S 2x1  \n ----------------------------------------------- \n \n /R   KETEROLAC inj No.3 \n  S 3x1   \n -----------------------------------------------\n \n /R   HEVIT C 500 mgg TAB No.2 \n   S 2x1 (sesudah makan)    \n ----------------------------------------------- \n \n /R   ASAM MEFENAMAT 500 mg No.3 \n  S 3x1   \n -----------------------------------------------\n \n"
+      );
+      $("#namapaketdrmiftah").select2("data", null);
+    } else if ($("#namapaketdrmiftah").val() == "SC II") {
+      $(".resep").val(
+        resep +
+          "\n /R   CEFIXIME 100 mgg No.X  \n  S 2x1  \n ---------------------------------------- \n \n /R   HEVIT C 500 mgg TAB No.X \n   S 2x1    \n ---------------------------------------- \n \n /R   ASAM MEFENAMAT 500 mgg No.X \n  S 3x1   \n ---------------------------------------- \n \n"
+      );
+      $("#namapaketdrmiftah").select2("data", null);
+    } else if ($("#namapaketdrmiftah").val() == "PN I") {
+      $(".resep").val(
+        resep +
+           "\n /R  DRIP OXYTUSIN 2 amp \n ---------------------------------------- \n \n /R   MISOPROSTOL RECTAL (Tidak Asma)    \n ---------------------------------------- \n \n /R   DRIP METERGIN (Kecuali PEB dan jantung)   \n ---------------------------------------- \n \n"
+      );
+      $("#namapaketdrmiftah").select2("data", null);
+    } else if ($("#namapaketdrmiftah").val() == "PN II") {
+      $(".resep").val(
+        resep +
+          "\n /R   ASAM MEFENAMAT No.X \n  S 3x1   \n ---------------------------------------- \n /R   CEFIXIME 100 mgg No.X  \n  S 2x1  \n ---------------------------------------- \n \n /R   HEVIT C 500 mgg TAB No.X \n   S 2x1    \n ---------------------------------------- \n  \n"
+      );
+      $("#namapaketdrmiftah").select2("data", null);
+    }
+    else if ($("#namapaketdrmiftah").val() == "KURET I") {
+      $(".resep").val(
+        resep +
+           "\n /R   KETEROLAC 30mg inj No.3 \n  S 3x1   \n ---------------------------------------- \n /R   DRIP OXITOSIN 2 Amp  \n ---------------------------------------- \n \n /R   METERGIN No.3 \n   S 3x1    \n ---------------------------------------- \n  \n"
+      );
+      $("#namapaketdrmiftah").select2("data", null);
+    }
+    else if ($("#namapaketdrmiftah").val() == "KURET II") {
+      $(".resep").val(
+        resep +
+               "\n /R   ASAM MEFENAMAT 500mg No.X \n  S 3x1   \n ---------------------------------------- \n /R   METERGIN No.X  \n  S 3x1  \n ---------------------------------------- \n \n"
+      );
+      $("#namapaketdrmiftah").select2("data", null);
+    }
+    else if ($("#namapaketdrmiftah").val() == "HEG I") {
+      $(".resep").val(
+        resep +
+               "\n /R   DRIP RL  5% 1:1 \n ---------------------------------------- \n /R   ONDANSENTRON 4 mg inj No.3  \n  S 3x1  \n ---------------------------------------- \n \n /R  LANZOPRAZOLE 30 mg inj No.2 \n   S 2x1    \n ---------------------------------------- \n  /R  SUKRALFAT 5 gr \n   S 3  x1    \n ---------------------------------------- \n  \n"
+      );
+      $("#namapaketdrmiftah").select2("data", null);
+    }
   });
 
 

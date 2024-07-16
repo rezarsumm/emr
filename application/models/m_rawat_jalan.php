@@ -1344,6 +1344,26 @@ class m_rawat_jalan extends CI_Model {
         }
     }
 
+    
+    function get_px_by_dokter_igd_laporan($params) {
+  
+
+        $sql = "SELECT E.NO_REG, B.NO_MR, B.NAMA_PASIEN, B.TGL_LAHIR, B.JENIS_KELAMIN, B.ALAMAT, D.D_PLANNING, D.FS_KD_REG, D.FS_TERAPI, D.id, D.rad, D.lab, F.STATUS_IGD, E.Tanggal
+       FROM REGISTER_PASIEN B,  PENDAFTARAN E 
+       LEFT JOIN PKU.dbo.IGD_AWAL_MEDIS D ON E.NO_REG = D.FS_KD_REG
+       LEFT JOIN PKU.dbo.TAC_STATUS_IGD F ON E.NO_REG = F.FS_KD_REG
+
+       WHERE B.NO_MR=E.NO_MR and E.KODE_MASUK='1' and E.No_MR=?";
+        $query = $this->db->query($sql, $params);
+        if ($query->num_rows() > 0) {
+            $result = $query->result_array();
+            $query->free_result();
+            return $result;
+        } else {
+            return array();
+        }
+    }
+
       function get_px_by_dokter_wait2($params) {
         $sql = "SELECT a.NOMOR,a.NO_MR,b.NAMA_PASIEN,b.ALAMAT, b.KOTA,b.PROVINSI,b.NO_MR,d.FS_STATUS,
         e.FS_CARA_PULANG,e.FS_TERAPI,e.FS_KD_TRS,c.NO_REG 

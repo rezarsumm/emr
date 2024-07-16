@@ -6,7 +6,7 @@ date_default_timezone_set('Asia/Jakarta');
 // load base class if needed
 require_once( APPPATH . 'controllers/base/OperatorBase.php' );
 
-class berkas_igd extends ApplicationBase {
+class berkas_igd_laporan extends ApplicationBase {
 
 // constructor
     public function __construct() {
@@ -20,51 +20,52 @@ class berkas_igd extends ApplicationBase {
         $this->load->library('tnotification');
     }
     
-    public function index() { 
-// set page rules
-        $this->_set_page_rule("R");
-// set template content
-        $this->smarty->assign("template_content", "igd/berkas_harian/index.html");
-        $this->smarty->load_javascript("resource/js/jquery/jquery-ui-1.9.2.custom.min.js");
-        $this->smarty->load_javascript('resource/js/jquery/select2.js');
-        $this->smarty->load_javascript('resource/js/jquery/jquery-ui-timepicker-addon.js');
-        // load style
-        $this->smarty->load_style("jquery.ui/select2/select2.css");
-        // load style ui
-        $this->smarty->load_style("jquery.ui/redmond/jquery-ui-1.8.13.custom.css");
-        $search = $this->tsession->userdata('rm_berkas_harian_igd');
-        if (!empty($search)) {
-            $this->smarty->assign("search", $search);
-        }
-        if (empty($search['FD_TGL_MASUK'])) {
-            $search['FD_TGL_MASUK'] = date('Y-m-d');
-            $this->smarty->assign("search", $search);
-        }
+//     public function index() { 
+// // set page rules
+//         $this->_set_page_rule("R");
+     
+// // set template content
+//         $this->smarty->assign("template_content", "rm/berkas_igd/index.html");
+//         $this->smarty->load_javascript("resource/js/jquery/jquery-ui-1.9.2.custom.min.js");
+//         $this->smarty->load_javascript('resource/js/jquery/select2.js');
+//         $this->smarty->load_javascript('resource/js/jquery/jquery-ui-timepicker-addon.js');
+//         // load style
+//         $this->smarty->load_style("jquery.ui/select2/select2.css");
+//         // load style ui
+//         $this->smarty->load_style("jquery.ui/redmond/jquery-ui-1.8.13.custom.css");
+//         $search = $this->tsession->userdata('rm_berkas_harian_igd');
+//         if (!empty($search)) {
+//             $this->smarty->assign("search", $search);
+//         }
+//         if (empty($search['FD_TGL_MASUK'])) {
+//             $search['FD_TGL_MASUK'] = date('Y-m-d');
+//             $this->smarty->assign("search", $search);
+//         }
 
-         $tgl_sekarang =strtotime(date('Y-m-d'));
-        $tgl_kemarin =date('Y-m-d', strtotime("-1 day", $tgl_sekarang));
-        $this->smarty->assign("tgl_kemarin", $tgl_kemarin);
+//          $tgl_sekarang =strtotime(date('Y-m-d'));
+//         $tgl_kemarin =date('Y-m-d', strtotime("-1 day", $tgl_sekarang));
+//         $this->smarty->assign("tgl_kemarin", $tgl_kemarin);
 
-         $x = $this->com_user['user_name'];
-         $rolenya=$this->com_user['role_nm'];
+//          $x = $this->com_user['user_name'];
+//          $rolenya=$this->com_user['role_nm'];
 
-        $this->smarty->assign("x", $x );
-        $this->smarty->assign("rolenya", $rolenya );
-        $this->smarty->assign("FD_TGL_MASUK", $search['FD_TGL_MASUK']);
-        // search parameters
-        $FD_TGL_MASUK = empty($search['FD_TGL_MASUK']) ? : $search['FD_TGL_MASUK'];
-        $now = date('Y-m-d');
-// get search parameter
+//         $this->smarty->assign("x", $x );
+//         $this->smarty->assign("rolenya", $rolenya );
+//         $this->smarty->assign("FD_TGL_MASUK", $search['FD_TGL_MASUK']);
+//         // search parameters
+//         $FD_TGL_MASUK = empty($search['FD_TGL_MASUK']) ? : $search['FD_TGL_MASUK'];
+//         $now = date('Y-m-d');
+// // get search parameter
         
-        $this->smarty->assign("rs_pasien", $this->m_rawat_jalan->get_px_by_dokter_igd(array($FD_TGL_MASUK)));
-        // notification
-        $this->tnotification->display_notification();
-        $this->tnotification->display_last_field();
-// output
-        parent::display();
-    }
+//         $this->smarty->assign("rs_pasien", $this->m_rawat_jalan->get_px_by_dokter_igd(array($FD_TGL_MASUK)));
+//         // notification
+//         $this->tnotification->display_notification();
+//         $this->tnotification->display_last_field();
+// // output
+//         parent::display();
+//     }
 
-    public function berkas_igd_laporan() { 
+    public function index() { 
         // set page rules
                 $this->_set_page_rule("R");
         // set template content
@@ -80,10 +81,14 @@ class berkas_igd extends ApplicationBase {
                 if (!empty($search)) {
                     $this->smarty->assign("search", $search);
                 }
-                if (empty($search['FD_TGL_MASUK'])) {
-                    $search['FD_TGL_MASUK'] = date('Y-m-d');
+                if (empty($search['FS_MR'])) {
+                    $search['FS_MR'] = ' ';
                     $this->smarty->assign("search", $search);
                 }
+
+                     // search parameters 
+        $new_reg = $search['FS_MR'];
+        $FS_MR = empty($new_reg) ? : $new_reg;
         
                  $tgl_sekarang =strtotime(date('Y-m-d'));
                 $tgl_kemarin =date('Y-m-d', strtotime("-1 day", $tgl_sekarang));
@@ -94,13 +99,11 @@ class berkas_igd extends ApplicationBase {
         
                 $this->smarty->assign("x", $x );
                 $this->smarty->assign("rolenya", $rolenya );
-                $this->smarty->assign("FD_TGL_MASUK", $search['FD_TGL_MASUK']);
-                // search parameters
-                $FD_TGL_MASUK = empty($search['FD_TGL_MASUK']) ? : $search['FD_TGL_MASUK'];
                 $now = date('Y-m-d');
         // get search parameter
+        $this->smarty->assign("result", $this->m_rm->get_data_px_by_rm(array($FS_MR)));
                 
-                $this->smarty->assign("rs_pasien", $this->m_rawat_jalan->get_px_by_dokter_igd(array($FD_TGL_MASUK)));
+                $this->smarty->assign("rs_pasien", $this->m_rawat_jalan->get_px_by_dokter_igd_laporan(array($FS_MR)));
                 // notification
                 $this->tnotification->display_notification();
                 $this->tnotification->display_last_field();
@@ -144,12 +147,12 @@ class berkas_igd extends ApplicationBase {
             $this->tsession->unset_userdata("rm_berkas_harian_igd");
         } else {
             $params = array(
-                "FD_TGL_MASUK" => $this->input->post("FD_TGL_MASUK"),
+                "FS_MR" => $this->input->post("FS_MR"),
             );
             $this->tsession->set_userdata("rm_berkas_harian_igd", $params);
         }
         // redirect
-        redirect("rm/berkas_igd");
+        redirect("rm/berkas_igd_laporan");
     }
 
     public function cetak_rujukan($FS_KD_REG = "", $FS_KD_TRS = "") {

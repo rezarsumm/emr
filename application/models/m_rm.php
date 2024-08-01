@@ -67,6 +67,7 @@ class m_rm extends CI_Model {
             return array();
         }
     }
+    
   function get_px_history2_inap($params) {
         $sql = "SELECT a.*,b.*,c.*,g.*,NAMABAGIAN,NAMADOKTER
                 FROM DBHOSPITAL.dbo.REGPAS a

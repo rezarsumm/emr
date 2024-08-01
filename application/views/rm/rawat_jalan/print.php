@@ -353,6 +353,7 @@
                   <td style="border-left:solid 1px #000000;border-right:solid 1px #000000;">
                     : 
                     <?php echo $rs_pasien['FS_RIW_PENYAKIT_DAHULU']; ?>
+                    
                 </td>
             </tr>
             <tr>

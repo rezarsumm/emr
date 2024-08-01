@@ -238,8 +238,7 @@ Suhu : {$vs.FS_SUHU} C, Nadi : {$vs.FS_NADI} x/menit,  Respirasi : {$vs.FS_R} x/
       <td>Diagnosa (A)</td>
       <td>
         <textarea
-          rows="5"
-          cols="50"
+          rows="5" cols="50"
           name="FS_DIAGNOSA"
           onkeypress="handle8(event)"
           class="form-control diagnosa"
@@ -626,6 +625,30 @@ Suhu : {$vs.FS_SUHU} C, Nadi : {$vs.FS_NADI} x/menit,  Respirasi : {$vs.FS_R} x/
           <option value="KURET I">KURET I</option>
           <option value="KURET II">KURET II</option>
           <option value="HEG I">HEG I</option>
+         
+        </select>
+      </td>
+    </tr>
+    {else} {/if}
+
+    {if $username eq '125'}
+    <tr>
+      <td>Pilih Paket Obat</td>
+      <td>
+        <select
+          name="namapaketdrvito"
+          class="namapaketdrvito select2"
+          id="namapaketdrvito"
+          multiple
+          id="namapaketdrvito"
+          cols="50"
+          style="width: 210px"
+        >
+          <option></option>
+          <option value="Ortho 1">Ortho 1</option>
+          <option value="Ortho 2">Ortho 2</option>
+          <option value="Ortho 3">Ortho 3</option>
+          <option value="Ortho 4">Ortho 4</option>
          
         </select>
       </td>
@@ -1314,6 +1337,36 @@ Suhu : {$vs.FS_SUHU} C, Nadi : {$vs.FS_NADI} x/menit,  Respirasi : {$vs.FS_R} x/
       );
       $("#namapaketdrmiftah").select2("data", null);
     }
+  });
+
+  $("#namapaketdrvito").change(function () {
+    var resep = $(".resep").val();
+    if ($("#namapaketdrvito").val() == "Ortho 1") {
+      $(".resep").val(
+        resep +
+          "\n /R   Meloxicam 7,5 mg No 60  \n  S 2dd1  \n ----------------------------------------------- \n \n /R   lansoprazol caps No 20\n  S 2dd1   \n -----------------------------------------------\n \n /R   mecobalamin 500 mg No 60 \n   S 2dd1    \n ----------------------------------------------- \n \n /R   Neurobion No 30 \n  S 1dd1   \n -----------------------------------------------\n \n /R   Eperison Hcl No 60 \n  S 2dd1   \n -----------------------------------------------\n \n /R   Gabapentin 300 mg No 30 \n  S 1dd1   \n -----------------------------------------------\n \n /R   flamar Gel No 1 \n  S 3 ue   \n -----------------------------------------------\n \n"
+      );
+      $("#namapaketdrvito").select2("data", null);
+    } else if ($("#namapaketdrvito").val() == "Ortho 2") {
+      $(".resep").val(
+        resep +
+          "\n /R   cefixime 200 mg No XV  \n  S 2dd1  \n ---------------------------------------- \n \n /R   meloxicam 7,5 mg No XV \n   S 2dd1    \n ---------------------------------------- \n \n /R   lansoprazol capa No XV \n  S 2dd1   \n ---------------------------------------- \n \n /R   Calcium  No X \n  S 1dd1   \n ---------------------------------------- \n \n /R Fitbone No X \n  S 1dd1   \n ---------------------------------------- \n \n"
+      );
+      $("#namapaketdrvito").select2("data", null);
+    } else if ($("#namapaketdrvito").val() == "Ortho 3") {
+      $(".resep").val(
+        resep +
+                "\n /R   calcium NO 30 \n  S 1dd1  \n ---------------------------------------- \n \n /R   Boost D NO 30 \n   S 1dd1    \n ---------------------------------------- \n \n"
+      );
+      $("#namapaketdrvito").select2("data", null);
+    } else if ($("#namapaketdrvito").val() == "Ortho 4") {
+      $(".resep").val(
+        resep +
+             "\n /R   Meloxicam 7,5 mg No 60  \n  S 2dd1  \n ---------------------------------------- \n \n /R   lansoprazol caps No 20 \n   S 2dd1    \n ---------------------------------------- \n \n /R   mecobalamin 500 mg No 60\n  S 2dd1   \n ---------------------------------------- \n \n /R   Neurobion No 30 \n  S 1dd1   \n ---------------------------------------- \n \n /R Fitbone No 60 \n  S 2dd1   \n ---------------------------------------- \n \n /R Gabapentin 300 mg No 30 \n  S 1dd1   \n ---------------------------------------- \n \n /R flamar Gel No 1 \n  S 3 ue   \n ---------------------------------------- \n \n"
+      );
+      $("#namapaketdrvito").select2("data", null);
+    }
+   
   });
 
   $("#namapaketirs").change(function () {

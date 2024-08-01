@@ -655,6 +655,30 @@ Suhu : {$vs.FS_SUHU} C, Nadi : {$vs.FS_NADI} x/menit,  Respirasi : {$vs.FS_R} x/
     </tr>
     {else} {/if}
 
+    {if $username eq '115'}
+    <tr>
+      <td>Pilih Paket Obat</td>
+      <td>
+        <select
+          name="namapaketdrharizon"
+          class="namapaketdrharizon select2"
+          id="namapaketdrharizon"
+          multiple
+          id="namapaketdrharizon"
+          cols="50"
+          style="width: 210px"
+        >
+          <option></option>
+          <option value="Bedah 1">Bedah 1</option>
+          <option value="Bedah 2">Bedah 2</option>
+          <option value="Bedah 3">Bedah 3</option>
+          <option value="Bedah 4">Bedah 4</option>
+         
+        </select>
+      </td>
+    </tr>
+    {else} {/if}
+
     <tr>
       <td></td>
       <td></td>
@@ -1365,6 +1389,36 @@ Suhu : {$vs.FS_SUHU} C, Nadi : {$vs.FS_NADI} x/menit,  Respirasi : {$vs.FS_R} x/
              "\n /R   Meloxicam 7,5 mg No 60  \n  S 2dd1  \n ---------------------------------------- \n \n /R   lansoprazol caps No 20 \n   S 2dd1    \n ---------------------------------------- \n \n /R   mecobalamin 500 mg No 60\n  S 2dd1   \n ---------------------------------------- \n \n /R   Neurobion No 30 \n  S 1dd1   \n ---------------------------------------- \n \n /R Fitbone No 60 \n  S 2dd1   \n ---------------------------------------- \n \n /R Gabapentin 300 mg No 30 \n  S 1dd1   \n ---------------------------------------- \n \n /R flamar Gel No 1 \n  S 3 ue   \n ---------------------------------------- \n \n"
       );
       $("#namapaketdrvito").select2("data", null);
+    }
+   
+  });
+
+  $("#namapaketdrharizon").change(function () {
+    var resep = $(".resep").val();
+    if ($("#namapaketdrharizon").val() == "Bedah 1") {
+      $(".resep").val(
+        resep +
+          "\n /R   cefixime 200 mg No X  \n  S 2dd1  \n ----------------------------------------------- \n \n /R   paracetamol 500 mg   No XV\n  S 3dd1   \n -----------------------------------------------\n \n"
+      );
+      $("#namapaketdrharizon").select2("data", null);
+    } else if ($("#namapaketdrharizon").val() == "Bedah 2") {
+      $(".resep").val(
+        resep +
+          "\n /R   cefixime 200 mg No X  \n  S 2dd1  \n ---------------------------------------- \n \n /R   paracetamol 500 mg   No XV \n   S 3dd1    \n ---------------------------------------- \n \n /R   betadine  No 1 \n  S imm   \n ---------------------------------------- \n \n /R   gentamycin salep  No 1 \n  2 ue (pagi, sore)    \n ---------------------------------------- \n \n /R kassa steril   No 1 \n  S imm   \n ---------------------------------------- \n \n"
+      );
+      $("#namapaketdrharizon").select2("data", null);
+    } else if ($("#namapaketdrharizon").val() == "Bedah 3") {
+      $(".resep").val(
+        resep +
+           "\n /R   cefixime 200 mg No X  \n  S 2dd1  \n ---------------------------------------- \n \n /R   paracetamol 500 mg   No XV \n   S 3dd1    \n ---------------------------------------- \n \n /R   betadine  No 1 \n  S imm   \n ---------------------------------------- \n \n /R   gentamycin salep  No 1 \n  2 ue (pagi, sore)    \n ---------------------------------------- \n \n /R kassa steril   No 1 \n  S imm   \n ---------------------------------------- \n \n /R PK tabur    No 1 \n  S 2 ue (pagi, sore)   \n ---------------------------------------- \n \n"
+      );
+      $("#namapaketdrharizon").select2("data", null);
+    } else if ($("#namapaketdrharizon").val() == "Bedah 4") {
+      $(".resep").val(
+        resep +
+             "\n /R   cefixime sirup No 1   \n  S 2dd1 C  \n ---------------------------------------- \n \n"
+      );
+      $("#namapaketdrharizon").select2("data", null);
     }
    
   });

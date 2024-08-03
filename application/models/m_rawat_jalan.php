@@ -455,6 +455,10 @@ class m_rawat_jalan extends CI_Model {
         $sql = "UPDATE PKU.dbo.TAC_RJ_VITAL_SIGN SET FS_SUHU = ?, FS_NADI =?, FS_R=?, FS_TD=?, FS_TB=?, FS_BB=?, mdb=?, mdd=? WHERE FS_KD_REG = ?";
         return $this->db->query($sql, $params);
     }
+    function update_vs_sementara($params) {
+        $sql = "UPDATE PKU.dbo.TAC_RJ_VITAL_SIGN SET FS_SUHU = ?, FS_NADI =?, FS_R=?, FS_TD=?, FS_TB=?, FS_BB=? WHERE FS_KD_REG = ?";
+        return $this->db->query($sql, $params);
+    }
 
      function update_pemeriksaan_rad($params) {
          $sql = "UPDATE PKU.dbo.ta_trs_kartu_periksa5 SET fn_no_urut = ?, fs_kd_tarif =?, fs_bagian=? WHERE FS_KD_REG2 = ?";

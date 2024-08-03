@@ -873,6 +873,43 @@ class rawat_jalan extends ApplicationBase {
         redirect("nurse/rawat_jalan");
     }
 
+    public function edit_process_sementara() {
+
+        // var_dump($this->input->post('FS_KD_REG'));
+        // die;
+        // set page rules
+        $this->_set_page_rule("U");
+        // cek input
+        $this->tnotification->set_rules('FS_KD_REG', 'KODE REGISTER', 'trim|required');
+       
+        // process
+        if ($this->tnotification->run() !== FALSE) {
+   
+                $params1 = array(
+                    $this->input->post('FS_SUHU'),
+                    $this->input->post('FS_NADI'),
+                    $this->input->post('FS_R'),
+                    $this->input->post('FS_TD'),
+                    $this->input->post('FS_TB'),
+                    $this->input->post('FS_BB'),
+             
+                    $this->input->post('FS_KD_REG')
+                );
+                $this->m_rawat_jalan->update_vs_sementara($params1);
+                // insert 
+               
+                // notification
+                $this->tnotification->delete_last_field();
+                $this->tnotification->sent_notification("success", "Detail berhasil disimpan");
+        
+        } else {
+            // default error
+            $this->tnotification->sent_notification("error", "Detail gagal disimpan");
+        }
+        // default redirect
+        redirect("rm/berkas_harian");
+    }
+
     public function rekap_excel() {
         // load excel
         $this->load->library('phpexcel');

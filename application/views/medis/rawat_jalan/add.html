@@ -649,6 +649,7 @@ Suhu : {$vs.FS_SUHU} C, Nadi : {$vs.FS_NADI} x/menit,  Respirasi : {$vs.FS_R} x/
           <option value="Ortho 2">Ortho 2</option>
           <option value="Ortho 3">Ortho 3</option>
           <option value="Ortho 4">Ortho 4</option>
+          <option value="Ortho 5">Ortho 5</option>
          
         </select>
       </td>
@@ -1390,6 +1391,14 @@ Suhu : {$vs.FS_SUHU} C, Nadi : {$vs.FS_NADI} x/menit,  Respirasi : {$vs.FS_R} x/
       );
       $("#namapaketdrvito").select2("data", null);
     }
+    else if ($("#namapaketdrvito").val() == "Ortho 5") {
+      $(".resep").val(
+        resep +
+             "\n /R   Meloxicam 7,5 mg No 30  \n  S 2dd1  \n ---------------------------------------- \n \n /R   lansoprazol caps No 30 \n   S 2dd1    \n ---------------------------------------- \n \n /R   mecobalamin 500 mg No 30\n  S 2dd1   \n ---------------------------------------- \n \n /R   Neurobion No 30 \n  S 2dd1   \n ---------------------------------------- \n \n /R Fitbone No 30 \n  S 2dd1   \n ---------------------------------------- \n \n /R Eperison Hcl     No 15 \n  S 1dd1   \n ---------------------------------------- \n \n /R flamar Gel No 1 \n  S 3 ue   \n ---------------------------------------- \n \n"
+      );
+      $("#namapaketdrvito").select2("data", null);
+    }
+ 
    
   });
 

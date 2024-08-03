@@ -84,8 +84,8 @@
                             {assign var=cek_ases_perawat value=$m_rawat_jalan->cek_ases_perawat_by_rg(array($data.NO_REG))}
 
                             {if $data.TANGGAL >= $tgl_kemarin || $com_user.role_nm eq 'Admin E-MR'}
-                                    <a href="{$config->site_url('nurse/rawat_jalan/edit/'|cat:$data.NO_REG|default:'')}" class="button-edit">Edit Perawat</a>
-                               
+                                    <!-- <a href="{$config->site_url('nurse/rawat_jalan/edit/'|cat:$data.NO_REG|default:'')}" class="button-edit">Edit Perawat</a>
+                                -->
 
                                 {if $data.Kode_Dokter eq $x} 
                                    

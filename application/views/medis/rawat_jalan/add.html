@@ -650,6 +650,40 @@ Suhu : {$vs.FS_SUHU} C, Nadi : {$vs.FS_NADI} x/menit,  Respirasi : {$vs.FS_R} x/
           <option value="Ortho 3">Ortho 3</option>
           <option value="Ortho 4">Ortho 4</option>
           <option value="Ortho 5">Ortho 5</option>
+          <option value="Ortho 6">Ortho 6</option>
+          <option value="Ortho 7">Ortho 7</option>
+          <option value="Ortho 8">Ortho 8</option>
+          <option value="Ortho 9">Ortho 9</option>
+         
+        </select>
+      </td>
+    </tr>
+    {else} {/if}
+
+    {if $username eq '113'}
+    <tr>
+      <td>Pilih Paket Obat</td>
+      <td>
+        <select
+          name="namapaketdrslamet"
+          class="namapaketdrslamet select2"
+          id="namapaketdrslamet"
+          multiple
+          id="namapaketdrslamet"
+          cols="50"
+          style="width: 210px"
+        >
+          <option></option>
+          <option value="HT">HT</option>
+          <option value="DM">DM</option>
+          <option value="DM + HT">DM + HT</option>
+          <option value="DM,RF,HT">DM,RF,HT</option>
+          <option value="SLE">SLE</option>
+          <option value="PPOK">PPOK</option>
+          <option value="CH">CH</option>
+          <option value="Dispepsia">Dispepsia</option>
+          <option value="Anemia">Anemia</option>
+         
          
         </select>
       </td>
@@ -1398,6 +1432,110 @@ Suhu : {$vs.FS_SUHU} C, Nadi : {$vs.FS_NADI} x/menit,  Respirasi : {$vs.FS_R} x/
       );
       $("#namapaketdrvito").select2("data", null);
     }
+
+    else if ($("#namapaketdrvito").val() == "Ortho 6") {
+      $(".resep").val(
+        resep +
+             "\n /R   Meloxicam 7,5 mg No 30  \n  S 2dd1  \n ---------------------------------------- \n \n /R   lansoprazol caps No 30 \n   S 2dd1    \n ---------------------------------------- \n \n /R   calcium No 30\n  S 2dd1   \n ---------------------------------------- \n \n /R   Boost D 5000 No 30 \n  S 2dd1   \n ---------------------------------------- \n \n"
+      );
+      $("#namapaketdrvito").select2("data", null);
+    }
+ 
+    else if ($("#namapaketdrvito").val() == "Ortho 7") {
+      $(".resep").val(
+        resep +
+             "\n /R   Sikstop No 15 \n   S 1dd1    \n ---------------------------------------- \n \n /R   Omeprazol No 15\n  S 1dd1   \n ---------------------------------------- \n \n /R   Neufar 75mg No 15 \n  S 1dd1   \n ---------------------------------------- \n \n /R   Tizad No 15 \n  S 1dd1   \n ---------------------------------------- \n \n"
+      );
+      $("#namapaketdrvito").select2("data", null);
+    }
+
+    else if ($("#namapaketdrvito").val() == "Ortho 8") {
+      $(".resep").val(
+        resep +
+             "\n /R   Sikstop 120mg No 15 \n   S 1dd1    \n ---------------------------------------- \n \n /R   Omeprazol No 15\n  S 1dd1   \n ---------------------------------------- \n \n /R   Syallox No 15\n  S 1dd1   \n ---------------------------------------- \n \n  /R   Norflam No 15 \n  S 1dd1   \n ---------------------------------------- \n \n /R   Osteocream No 1 \n  S 1dd1   \n ---------------------------------------- \n \n"
+      );
+      $("#namapaketdrvito").select2("data", null);
+    }
+ 
+    else if ($("#namapaketdrvito").val() == "Ortho 9") {
+      $(".resep").val(
+        resep +
+             "\n /R   Sikstop 120mg No 15 \n   S 1dd1    \n ---------------------------------------- \n \n /R   Omeprazol No 15\n  S 1dd1   \n ---------------------------------------- \n \n /R   Caplex No 15\n  S 1dd1   \n ---------------------------------------- \n \n  /R   Triochol No 30 \n  S 2dd1   \n ---------------------------------------- \n \n /R   Osteocream No 1 \n  S 1dd1   \n ---------------------------------------- \n \n"
+      );
+      $("#namapaketdrvito").select2("data", null);
+    }
+ 
+   
+  });
+
+  $("#namapaketdrslamet").change(function () {
+    var resep = $(".resep").val();
+    if ($("#namapaketdrslamet").val() == "HT") {
+      $(".resep").val(
+        resep +
+          "\n /R   amlodipin 5 mg No 31  \n  S 1dd1  \n ----------------------------------------------- \n \n /R   irbesartan 150 mg No 31\n  S 1dd1   \n -----------------------------------------------\n \n /R   Hidroklorotiazid (HCT) 25 mg No. 31 \n   S 1dd1    \n ----------------------------------------------- \n \n"
+      );
+      $("#namapaketdrslamet").select2("data", null);
+    } else if ($("#namapaketdrslamet").val() == "DM") {
+      $(".resep").val(
+        resep +
+          "\n /R   metformin 500 mg  No 62  \n  S 2dd1  \n ---------------------------------------- \n \n /R   acarbose   No 62 \n   S 2dd1    \n ---------------------------------------- \n \n /R   diamicron No 15 \n  S 1/2-0-0   \n ---------------------------------------- \n \n "
+      );
+      $("#namapaketdrslamet").select2("data", null);
+    } else if ($("#namapaketdrslamet").val() == "DM + HT") {
+      $(".resep").val(
+        resep +
+        "\n /R   amlodipin 5 mg No 31  \n  S 1dd1   \n ---------------------------------------- \n \n /R   irbesartan 150 mg No 31 \n   S 1dd1    \n ---------------------------------------- \n \n /R   Hidroklorotiazid (HCT) 25 mg No. 31 \n  S 1dd1   \n ---------------------------------------- \n \n /R   metformin 500 mg  No 62 \n  S 2dd1   \n ---------------------------------------- \n \n/R   acarbose   No 62 \n  S 2dd1   \n ---------------------------------------- \n \n /R   diamicron    No 15 \n  S 1/2-0-0   \n ---------------------------------------- \n \n"
+      );
+      $("#namapaketdrslamet").select2("data", null);
+    } else if ($("#namapaketdrslamet").val() == "SLE") {
+      $(".resep").val(
+        resep +
+             "\n /R   Methil prednisolon  4mg  No 15  \n  S 1/2-0-0   \n ---------------------------------------- \n \n /R   cloroquin    No 15 \n   S 1/2-0-0    \n ---------------------------------------- \n \n /R   erkde/ kalk     No 31\n  S 1dd1   \n ---------------------------------------- \n \n /R   asam folat   No 31 \n  S 1dd1   \n ---------------------------------------- \n \n"
+      );
+      $("#namapaketdrslamet").select2("data", null);
+    }
+    else if ($("#namapaketdrslamet").val() == "PPOK") {
+      $(".resep").val(
+        resep +
+             "\n /R   berotec     No 1 \n  S 2dd1  \n ---------------------------------------- \n \n /R   seretide    No 1 \n   S 2dd1    \n ---------------------------------------- \n \n "
+      );
+      $("#namapaketdrslamet").select2("data", null);
+    }
+
+    else if ($("#namapaketdrslamet").val() == "CH") {
+      $(".resep").val(
+        resep +
+             "\n /R   spironolacton 12,5 mg  No 31  \n  S 1dd1  \n ---------------------------------------- \n \n /R   ursolic   No 31 \n   S 1dd1    \n ---------------------------------------- \n \n /R   propanolol 5 mg  No 31 \n  S 1dd1   \n ---------------------------------------- \n \n"
+      );
+      $("#namapaketdrslamet").select2("data", null);
+    }
+ 
+    else if ($("#namapaketdrslamet").val() == "Dispepsia") {
+      $(".resep").val(
+        resep +
+             "\n /R   cefixime 100 mg    NO X \n   S 2dd1    \n ---------------------------------------- \n \n /R   lansoprazol      No X \n  S 2dd1   \n ---------------------------------------- \n \n /R   domperidon     No X \n  S 2dd1   \n ---------------------------------------- \n \n"
+      );
+      $("#namapaketdrslamet").select2("data", null);
+    }
+    
+    else if ($("#namapaketdrslamet").val() == "DM,RF,HT") {
+      $(".resep").val(
+        resep +
+             "\n /R   Levimir NO 1 \n   S     \n ---------------------------------------- \n \n /R   Irbesartan      No 31 \n  S 1dd1   \n ---------------------------------------- \n \n /R   Amlodipin 5mg    No 31 \n  S 1dd1   \n ---------------------------------------- \n \n /R   Asam Folat No 31 \n  S 1dd1   \n ---------------------------------------- \n \n"
+      );
+      $("#namapaketdrslamet").select2("data", null);
+    }
+
+    else if ($("#namapaketdrslamet").val() == "Anemia") {
+      $(".resep").val(
+        resep +
+        "\n /R  hemafort      NO 31 \n   S 1dd1    \n ---------------------------------------- \n \n /R   neurosanbe    NO 31\n  S 1dd1   \n ---------------------------------------- \n \n "
+      );
+      $("#namapaketdrslamet").select2("data", null);
+    }
+ 
+ 
  
    
   });

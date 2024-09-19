@@ -65,6 +65,8 @@ class rawat_jalan extends ApplicationBase {
     $this->smarty->assign("rs_pasien", $this->m_rawat_jalan->get_px_by_dokter_wait(array($FD_TGL_MASUK, $FS_KD_PEG,$FD_TGL_MASUK, $FS_KD_PEG)));
     // $this->smarty->assign("rs_pasien", $this->m_rawat_jalan->get_px_by_dokter_wait2(array($FD_TGL_MASUK, $FD_TGL_MASUK, $FS_KD_PEG)));
 // notification
+// var_dump($this->m_rawat_jalan->get_px_by_dokter_wait(array($FD_TGL_MASUK, $FS_KD_PEG,$FD_TGL_MASUK, $FS_KD_PEG)));
+// die;
         $this->tnotification->display_notification();
         $this->tnotification->display_last_field();
 // output
@@ -470,6 +472,51 @@ class rawat_jalan extends ApplicationBase {
         $this->_set_page_rule("U");
 // set template content
         $this->smarty->assign("template_content", "nurse/rawat_jalan/edit.html");
+        $this->smarty->load_javascript("resource/js/jquery/jquery-ui-1.9.2.custom.min.js");
+        $this->smarty->load_javascript('resource/js/jquery/select2.js');
+        $this->smarty->load_javascript('resource/js/jquery/jquery-ui-timepicker-addon.js');
+        // load style
+        $this->smarty->load_style("jquery.ui/select2/select2.css");
+        // load style ui
+        $this->smarty->load_style("jquery.ui/redmond/jquery-ui-1.8.13.custom.css");
+        $now = date('Y-m-d');
+        $this->smarty->assign("result", $this->m_rawat_jalan_nurse->get_px_by_dokter_by_rg2(array($FS_KD_REG)));
+        $this->smarty->assign("vs", $this->m_rawat_jalan->get_data_vs_by_rg(array($FS_KD_REG)));
+        $this->smarty->assign("nyeri", $this->m_rawat_jalan->get_data_nyeri_by_rg(array($FS_KD_REG)));
+        $this->smarty->assign("jatuh", $this->m_rawat_jalan->get_data_jatuh_by_rg(array($FS_KD_REG)));
+        $this->smarty->assign("ases2", $this->m_rawat_jalan->get_data_ases2_by_rg(array($FS_KD_REG)));
+        
+        $this->smarty->assign("icd", $this->m_igd->get_icd());  
+
+        $this->smarty->assign("nutrisi", $this->m_rawat_jalan->get_data_nutrisi_by_rg(array($FS_KD_REG)));
+        // get instansi tujuan
+        $tujuan = $this->m_rawat_jalan->list_masalah_kep_by_rg($FS_KD_REG);
+        $tujuan_str = "";
+        foreach ($tujuan as $key => $value) {
+            $tujuan_str .= "'" . $value['FS_KD_MASALAH_KEP'] . "',";
+        }
+        $this->smarty->assign('rs_tujuan', $tujuan_str);
+
+        $tembusan = $this->m_rawat_jalan->list_rencana_kep_by_rg($FS_KD_REG);
+        $tembusan_str = "";
+        foreach ($tembusan as $key => $value) {
+            $tembusan_str .= "'" . $value['FS_KD_REN_KEP'] . "',";
+        }
+        $this->smarty->assign('rs_tembusan', $tembusan_str);
+// notification
+        $this->tnotification->display_notification();
+        $this->tnotification->display_last_field();
+// output
+        parent::display();
+    }
+    public function edit_sementara($FS_KD_REG = "") {
+// set page rules
+        $this->_set_page_rule("U");
+
+        // var_dump('ok');
+        // die;
+// set template content
+        $this->smarty->assign("template_content", "nurse/rawat_jalan/edit_sementara.html");
         $this->smarty->load_javascript("resource/js/jquery/jquery-ui-1.9.2.custom.min.js");
         $this->smarty->load_javascript('resource/js/jquery/select2.js');
         $this->smarty->load_javascript('resource/js/jquery/jquery-ui-timepicker-addon.js');

@@ -211,7 +211,8 @@
         <textarea
           rows="4"
           cols="50"
-          name="FS_CATATAN_FISIK"
+          name="FS_CATATAN_FISIK" onkeypress="handle16(event)"
+          class="catatan_fisik"
           style="text-align: justify"
         >
 Suhu : {$vs.FS_SUHU} C, Nadi : {$vs.FS_NADI} x/menit,  Respirasi : {$vs.FS_R} x/menit, TD : {$vs.FS_TD} mmHg, BB : {$vs.FS_BB}, TB : {$vs.FS_TB}, Alergi :  {if $alergi.FS_ALERGI eq '1'} Belum Diketahui,  {elseif $alergi.FS_ALERGI eq '2'} Tidak Ada {elseif $alergi.FS_ALERGI eq '3'}  Ada, {$alergi.FS_ALERGI2} {else}
@@ -860,6 +861,7 @@ Suhu : {$vs.FS_SUHU} C, Nadi : {$vs.FS_NADI} x/menit,  Respirasi : {$vs.FS_R} x/
           rows="15"
           class="form-control resepracik"
           cols="60"
+          onkeypress="handle15(event)"
           name="FS_TERAPI2"
         >
         </textarea>
@@ -2021,81 +2023,243 @@ Suhu : {$vs.FS_SUHU} C, Nadi : {$vs.FS_NADI} x/menit,  Respirasi : {$vs.FS_R} x/
     }
   }
 
+
+ 
   function handle5(e) {
-    var key = e.keyCode || e.which;
-    if (key == 13) {
-      var anamnesa = $(".anamnesa").val();
-      $(".anamnesa").val(anamnesa + "\n");
-    }
+  var key = e.keyCode || e.which;
+  if (key === 13) { // Check if the Enter key is pressed
+    e.preventDefault(); // Prevent the default action (form submission)
+    
+    // Add a new line
+    var textarea = $(".anamnesa")[0];
+    var start = textarea.selectionStart;
+    var end = textarea.selectionEnd;
+    var value = textarea.value;
+
+    // Insert a new line at the cursor position
+    textarea.value = value.substring(0, start) + "\n" + value.substring(end);
+    
+    // Move the cursor to the end of the new line
+    textarea.selectionStart = textarea.selectionEnd = start + 1; 
+    textarea.focus(); // Ensure the textarea is focused
   }
+}
+
 
   function handle6(e) {
     var key = e.keyCode || e.which;
-    if (key == 13) {
-      var daftarmasalah = $(".daftarmasalah").val();
-      $(".daftarmasalah").val(daftarmasalah + "\n");
-    }
+  if (key === 13) { // Check if the Enter key is pressed
+    e.preventDefault(); // Prevent the default action (form submission)
+    
+    // Add a new line
+    var textarea = $(".daftarmasalah")[0];
+    var start = textarea.selectionStart;
+    var end = textarea.selectionEnd;
+    var value = textarea.value;
+
+    // Insert a new line at the cursor position
+    textarea.value = value.substring(0, start) + "\n" + value.substring(end);
+    
+    // Move the cursor to the end of the new line
+    textarea.selectionStart = textarea.selectionEnd = start + 1; 
+    textarea.focus(); // Ensure the textarea is focused
+  }
   }
 
   function handle7(e) {
     var key = e.keyCode || e.which;
-    if (key == 13) {
-      var tindakan = $(".tindakan").val();
-      $(".tindakan").val(tindakan + "\n");
-    }
+  if (key === 13) { // Check if the Enter key is pressed
+    e.preventDefault(); // Prevent the default action (form submission)
+    
+    // Add a new line
+    var textarea = $(".tindakan")[0];
+    var start = textarea.selectionStart;
+    var end = textarea.selectionEnd;
+    var value = textarea.value;
+
+    // Insert a new line at the cursor position
+    textarea.value = value.substring(0, start) + "\n" + value.substring(end);
+    
+    // Move the cursor to the end of the new line
+    textarea.selectionStart = textarea.selectionEnd = start + 1; 
+    textarea.focus(); // Ensure the textarea is focused
+  }
   }
 
   function handle8(e) {
     var key = e.keyCode || e.which;
-    if (key == 13) {
-      var diagnosa = $(".diagnosa").val();
-      $(".diagnosa").val(diagnosa + "\n");
-    }
+  if (key === 13) { // Check if the Enter key is pressed
+    e.preventDefault(); // Prevent the default action (form submission)
+    
+    // Add a new line
+    var textarea = $(".diagnosa")[0];
+    var start = textarea.selectionStart;
+    var end = textarea.selectionEnd;
+    var value = textarea.value;
+
+    // Insert a new line at the cursor position
+    textarea.value = value.substring(0, start) + "\n" + value.substring(end);
+    
+    // Move the cursor to the end of the new line
+    textarea.selectionStart = textarea.selectionEnd = start + 1; 
+    textarea.focus(); // Ensure the textarea is focused
+  }
   }
 
   function handle9(e) {
     var key = e.keyCode || e.which;
-    if (key == 13) {
-      var usg = $(".usg").val();
-      $(".usg").val(usg + "\n");
-    }
+  if (key === 13) { // Check if the Enter key is pressed
+    e.preventDefault(); // Prevent the default action (form submission)
+    
+    // Add a new line
+    var textarea = $(".usg")[0];
+    var start = textarea.selectionStart;
+    var end = textarea.selectionEnd;
+    var value = textarea.value;
+
+    // Insert a new line at the cursor position
+    textarea.value = value.substring(0, start) + "\n" + value.substring(end);
+    
+    // Move the cursor to the end of the new line
+    textarea.selectionStart = textarea.selectionEnd = start + 1; 
+    textarea.focus(); // Ensure the textarea is focused
+  }
   }
 
   function handle10(e) {
     var key = e.keyCode || e.which;
-    if (key == 13) {
-      var echo = $(".echo").val();
-      $(".echo").val(echo + "\n");
-    }
+  if (key === 13) { // Check if the Enter key is pressed
+    e.preventDefault(); // Prevent the default action (form submission)
+    
+    // Add a new line
+    var textarea = $(".echo")[0];
+    var start = textarea.selectionStart;
+    var end = textarea.selectionEnd;
+    var value = textarea.value;
+
+    // Insert a new line at the cursor position
+    textarea.value = value.substring(0, start) + "\n" + value.substring(end);
+    
+    // Move the cursor to the end of the new line
+    textarea.selectionStart = textarea.selectionEnd = start + 1; 
+    textarea.focus(); // Ensure the textarea is focused
+  }
   }
   function handle11(e) {
     var key = e.keyCode || e.which;
-    if (key == 13) {
-      var treadmill = $(".treadmill").val();
-      $(".treadmill").val(treadmill + "\n");
-    }
+  if (key === 13) { // Check if the Enter key is pressed
+    e.preventDefault(); // Prevent the default action (form submission)
+    
+    // Add a new line
+    var textarea = $(".treadmill")[0];
+    var start = textarea.selectionStart;
+    var end = textarea.selectionEnd;
+    var value = textarea.value;
+
+    // Insert a new line at the cursor position
+    textarea.value = value.substring(0, start) + "\n" + value.substring(end);
+    
+    // Move the cursor to the end of the new line
+    textarea.selectionStart = textarea.selectionEnd = start + 1; 
+    textarea.focus(); // Ensure the textarea is focused
+  }
   }
   function handle14(e) {
     var key = e.keyCode || e.which;
-    if (key == 13) {
-      var resep = $(".resep").val();
-      $(".resep").val(resep + "\n");
-    }
+  if (key === 13) { // Check if the Enter key is pressed
+    e.preventDefault(); // Prevent the default action (form submission)
+    
+    // Add a new line
+    var textarea = $(".resep")[0];
+    var start = textarea.selectionStart;
+    var end = textarea.selectionEnd;
+    var value = textarea.value;
+
+    // Insert a new line at the cursor position
+    textarea.value = value.substring(0, start) + "\n" + value.substring(end);
+    
+    // Move the cursor to the end of the new line
+    textarea.selectionStart = textarea.selectionEnd = start + 1; 
+    textarea.focus(); // Ensure the textarea is focused
+  }
   }
   function handle12(e) {
     var key = e.keyCode || e.which;
-    if (key == 13) {
-      var hasil_ekg = $(".hasil_ekg").val();
-      $(".hasil_ekg").val(hasil_ekg + "\n");
-    }
+  if (key === 13) { // Check if the Enter key is pressed
+    e.preventDefault(); // Prevent the default action (form submission)
+    
+    // Add a new line
+    var textarea = $(".hasil_ekg")[0];
+    var start = textarea.selectionStart;
+    var end = textarea.selectionEnd;
+    var value = textarea.value;
+
+    // Insert a new line at the cursor position
+    textarea.value = value.substring(0, start) + "\n" + value.substring(end);
+    
+    // Move the cursor to the end of the new line
+    textarea.selectionStart = textarea.selectionEnd = start + 1; 
+    textarea.focus(); // Ensure the textarea is focused
+  }
   }
 
   function handle13(e) {
     var key = e.keyCode || e.which;
-    if (key == 13) {
-      var diagnosa_sekunder = $(".diagnosa_sekunder").val();
-      $(".diagnosa_sekunder").val(diagnosa_sekunder + "\n");
-    }
+  if (key === 13) { // Check if the Enter key is pressed
+    e.preventDefault(); // Prevent the default action (form submission)
+    
+    // Add a new line
+    var textarea = $(".diagnosa_sekunder")[0];
+    var start = textarea.selectionStart;
+    var end = textarea.selectionEnd;
+    var value = textarea.value;
+
+    // Insert a new line at the cursor position
+    textarea.value = value.substring(0, start) + "\n" + value.substring(end);
+    
+    // Move the cursor to the end of the new line
+    textarea.selectionStart = textarea.selectionEnd = start + 1; 
+    textarea.focus(); // Ensure the textarea is focused
+  }
+  }
+
+  function handle15(e) {
+    var key = e.keyCode || e.which;
+  if (key === 13) { // Check if the Enter key is pressed
+    e.preventDefault(); // Prevent the default action (form submission)
+    
+    // Add a new line
+    var textarea = $(".resepracik")[0];
+    var start = textarea.selectionStart;
+    var end = textarea.selectionEnd;
+    var value = textarea.value;
+
+    // Insert a new line at the cursor position
+    textarea.value = value.substring(0, start) + "\n" + value.substring(end);
+    
+    // Move the cursor to the end of the new line
+    textarea.selectionStart = textarea.selectionEnd = start + 1; 
+    textarea.focus(); // Ensure the textarea is focused
+  }
+  }
+  function handle16(e) {
+    var key = e.keyCode || e.which;
+  if (key === 13) { // Check if the Enter key is pressed
+    e.preventDefault(); // Prevent the default action (form submission)
+    
+    // Add a new line
+    var textarea = $(".catatan_fisik")[0];
+    var start = textarea.selectionStart;
+    var end = textarea.selectionEnd;
+    var value = textarea.value;
+
+    // Insert a new line at the cursor position
+    textarea.value = value.substring(0, start) + "\n" + value.substring(end);
+    
+    // Move the cursor to the end of the new line
+    textarea.selectionStart = textarea.selectionEnd = start + 1; 
+    textarea.focus(); // Ensure the textarea is focused
+  }
   }
 </script>
 

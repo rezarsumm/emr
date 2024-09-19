@@ -143,7 +143,7 @@
             <td>Pemeriksaan Fisik (O)</td>
             <td>
                 <input type="hidden" name="FS_CATATAN_FISIK_0" value="{$medis.FS_CATATAN_FISIK}">
-                <textarea rows="3" cols="50" name='FS_CATATAN_FISIK'>{$medis.FS_CATATAN_FISIK}</textarea>
+                <textarea rows="3" cols="50" onkeypress="handle16(event)" class="catatan_fisik" name='FS_CATATAN_FISIK'>{$medis.FS_CATATAN_FISIK}</textarea>
             </td>
             <td>Tindakan (P)</td>
             <td>
@@ -446,6 +446,36 @@
 {else}
 {/if}
 
+{if $username eq '113'}
+<tr>
+  <td>Pilih Paket Obat</td>
+  <td>
+    <select
+      name="namapaketdrslamet"
+      class="namapaketdrslamet select2"
+      id="namapaketdrslamet"
+      multiple
+      id="namapaketdrslamet"
+      cols="50"
+      style="width: 210px"
+    >
+      <option></option>
+      <option value="HT">HT</option>
+      <option value="DM">DM</option>
+      <option value="DM + HT">DM + HT</option>
+      <option value="DM,RF,HT">DM,RF,HT</option>
+      <option value="SLE">SLE</option>
+      <option value="PPOK">PPOK</option>
+      <option value="CH">CH</option>
+      <option value="Dispepsia">Dispepsia</option>
+      <option value="Anemia">Anemia</option>
+     
+     
+    </select>
+  </td>
+</tr>
+{else} {/if}
+
 
 
 {if $username eq '137'} 
@@ -530,7 +560,7 @@
                    </table>
 
 
-        <textarea rows="18" class="form-control resep"  cols="60" name="FS_TERAPI">{$medis.FS_TERAPI}</textarea> 
+        <textarea rows="18" class="form-control resep" onkeypress="handle14(event)"  cols="60" name="FS_TERAPI">{$medis.FS_TERAPI}</textarea> 
     </td>
 {if $username eq '138'} 
 
@@ -557,7 +587,7 @@
                     <td><input cols="20" type="text" name="dosis1" class="dosis1" style="width: 50px;" onkeypress="handle3(event)"></td>
                 </tr>
            </table>
-          <textarea rows="15" class="form-control resepracik"   cols="60" name="FS_TERAPI2">{if $kp2.FS_TERAPI eq ''}
+          <textarea rows="15" class="form-control resepracik" onkeypress="handle15(event)"   cols="60" name="FS_TERAPI2">{if $kp2.FS_TERAPI eq ''}
                     {foreach $terapi as $data_t} {$data_t.NAMA_OBAT} {$data_t.JML_OBAT|number_format:2:".":","} {$data_t.SATUAN} {$data_t.Dosis} 
                     {/foreach}
 
@@ -759,6 +789,78 @@
                          }
 
                 });
+
+                $("#namapaketdrslamet").change(function () {
+    var resep = $(".resep").val();
+    if ($("#namapaketdrslamet").val() == "HT") {
+      $(".resep").val(
+        resep +
+          "\n /R   amlodipin 5 mg No 31  \n  S 1dd1  \n ----------------------------------------------- \n \n /R   irbesartan 150 mg No 31\n  S 1dd1   \n -----------------------------------------------\n \n /R   Hidroklorotiazid (HCT) 25 mg No. 31 \n   S 1dd1    \n ----------------------------------------------- \n \n"
+      );
+      $("#namapaketdrslamet").select2("data", null);
+    } else if ($("#namapaketdrslamet").val() == "DM") {
+      $(".resep").val(
+        resep +
+          "\n /R   metformin 500 mg  No 62  \n  S 2dd1  \n ---------------------------------------- \n \n /R   acarbose   No 62 \n   S 2dd1    \n ---------------------------------------- \n \n /R   diamicron No 15 \n  S 1/2-0-0   \n ---------------------------------------- \n \n "
+      );
+      $("#namapaketdrslamet").select2("data", null);
+    } else if ($("#namapaketdrslamet").val() == "DM + HT") {
+      $(".resep").val(
+        resep +
+        "\n /R   amlodipin 5 mg No 31  \n  S 1dd1   \n ---------------------------------------- \n \n /R   irbesartan 150 mg No 31 \n   S 1dd1    \n ---------------------------------------- \n \n /R   Hidroklorotiazid (HCT) 25 mg No. 31 \n  S 1dd1   \n ---------------------------------------- \n \n /R   metformin 500 mg  No 62 \n  S 2dd1   \n ---------------------------------------- \n \n/R   acarbose   No 62 \n  S 2dd1   \n ---------------------------------------- \n \n /R   diamicron    No 15 \n  S 1/2-0-0   \n ---------------------------------------- \n \n"
+      );
+      $("#namapaketdrslamet").select2("data", null);
+    } else if ($("#namapaketdrslamet").val() == "SLE") {
+      $(".resep").val(
+        resep +
+             "\n /R   Methil prednisolon  4mg  No 15  \n  S 1/2-0-0   \n ---------------------------------------- \n \n /R   cloroquin    No 15 \n   S 1/2-0-0    \n ---------------------------------------- \n \n /R   erkde/ kalk     No 31\n  S 1dd1   \n ---------------------------------------- \n \n /R   asam folat   No 31 \n  S 1dd1   \n ---------------------------------------- \n \n"
+      );
+      $("#namapaketdrslamet").select2("data", null);
+    }
+    else if ($("#namapaketdrslamet").val() == "PPOK") {
+      $(".resep").val(
+        resep +
+             "\n /R   berotec     No 1 \n  S 2dd1  \n ---------------------------------------- \n \n /R   seretide    No 1 \n   S 2dd1    \n ---------------------------------------- \n \n "
+      );
+      $("#namapaketdrslamet").select2("data", null);
+    }
+
+    else if ($("#namapaketdrslamet").val() == "CH") {
+      $(".resep").val(
+        resep +
+             "\n /R   spironolacton 12,5 mg  No 31  \n  S 1dd1  \n ---------------------------------------- \n \n /R   ursolic   No 31 \n   S 1dd1    \n ---------------------------------------- \n \n /R   propanolol 5 mg  No 31 \n  S 1dd1   \n ---------------------------------------- \n \n"
+      );
+      $("#namapaketdrslamet").select2("data", null);
+    }
+ 
+    else if ($("#namapaketdrslamet").val() == "Dispepsia") {
+      $(".resep").val(
+        resep +
+             "\n /R   cefixime 100 mg    NO X \n   S 2dd1    \n ---------------------------------------- \n \n /R   lansoprazol      No X \n  S 2dd1   \n ---------------------------------------- \n \n /R   domperidon     No X \n  S 2dd1   \n ---------------------------------------- \n \n"
+      );
+      $("#namapaketdrslamet").select2("data", null);
+    }
+    
+    else if ($("#namapaketdrslamet").val() == "DM,RF,HT") {
+      $(".resep").val(
+        resep +
+             "\n /R   Levimir NO 1 \n   S     \n ---------------------------------------- \n \n /R   Irbesartan      No 31 \n  S 1dd1   \n ---------------------------------------- \n \n /R   Amlodipin 5mg    No 31 \n  S 1dd1   \n ---------------------------------------- \n \n /R   Asam Folat No 31 \n  S 1dd1   \n ---------------------------------------- \n \n"
+      );
+      $("#namapaketdrslamet").select2("data", null);
+    }
+
+    else if ($("#namapaketdrslamet").val() == "Anemia") {
+      $(".resep").val(
+        resep +
+        "\n /R  hemafort      NO 31 \n   S 1dd1    \n ---------------------------------------- \n \n /R   neurosanbe    NO 31\n  S 1dd1   \n ---------------------------------------- \n \n "
+      );
+      $("#namapaketdrslamet").select2("data", null);
+    }
+ 
+ 
+ 
+   
+  });
 
 
 
@@ -1242,75 +1344,242 @@ if(x=='a'||x=='A'){
                  }
                }
 
+               function handle5(e) {
+  var key = e.keyCode || e.which;
+  if (key === 13) { // Check if the Enter key is pressed
+    e.preventDefault(); // Prevent the default action (form submission)
+    
+    // Add a new line
+    var textarea = $(".anamnesa")[0];
+    var start = textarea.selectionStart;
+    var end = textarea.selectionEnd;
+    var value = textarea.value;
+
+    // Insert a new line at the cursor position
+    textarea.value = value.substring(0, start) + "\n" + value.substring(end);
+    
+    // Move the cursor to the end of the new line
+    textarea.selectionStart = textarea.selectionEnd = start + 1; 
+    textarea.focus(); // Ensure the textarea is focused
+  }
+}
 
 
+  function handle6(e) {
+    var key = e.keyCode || e.which;
+  if (key === 13) { // Check if the Enter key is pressed
+    e.preventDefault(); // Prevent the default action (form submission)
+    
+    // Add a new line
+    var textarea = $(".daftarmasalah")[0];
+    var start = textarea.selectionStart;
+    var end = textarea.selectionEnd;
+    var value = textarea.value;
 
-                    function handle5(e){
-                   var key=e.keyCode || e.which;
-                 if (key==13){
-                               var anamnesa = $(".anamnesa").val(); 
-                               $('.anamnesa').val(anamnesa+'\n');   }
-                  }
+    // Insert a new line at the cursor position
+    textarea.value = value.substring(0, start) + "\n" + value.substring(end);
+    
+    // Move the cursor to the end of the new line
+    textarea.selectionStart = textarea.selectionEnd = start + 1; 
+    textarea.focus(); // Ensure the textarea is focused
+  }
+  }
 
+  function handle7(e) {
+    var key = e.keyCode || e.which;
+  if (key === 13) { // Check if the Enter key is pressed
+    e.preventDefault(); // Prevent the default action (form submission)
+    
+    // Add a new line
+    var textarea = $(".tindakan")[0];
+    var start = textarea.selectionStart;
+    var end = textarea.selectionEnd;
+    var value = textarea.value;
 
-                    function handle6(e){
-                   var key=e.keyCode || e.which;
-                 if (key==13){
-                               var daftarmasalah = $(".daftarmasalah").val(); 
-                               $('.daftarmasalah').val(daftarmasalah+'\n');   }
-                  }
+    // Insert a new line at the cursor position
+    textarea.value = value.substring(0, start) + "\n" + value.substring(end);
+    
+    // Move the cursor to the end of the new line
+    textarea.selectionStart = textarea.selectionEnd = start + 1; 
+    textarea.focus(); // Ensure the textarea is focused
+  }
+  }
 
+  function handle8(e) {
+    var key = e.keyCode || e.which;
+  if (key === 13) { // Check if the Enter key is pressed
+    e.preventDefault(); // Prevent the default action (form submission)
+    
+    // Add a new line
+    var textarea = $(".diagnosa")[0];
+    var start = textarea.selectionStart;
+    var end = textarea.selectionEnd;
+    var value = textarea.value;
 
-                    function handle7(e){
-                   var key=e.keyCode || e.which;
-                 if (key==13){
-                               var tindakan = $(".tindakan").val(); 
-                               $('.tindakan').val(tindakan+'\n');   }
-                  }
+    // Insert a new line at the cursor position
+    textarea.value = value.substring(0, start) + "\n" + value.substring(end);
+    
+    // Move the cursor to the end of the new line
+    textarea.selectionStart = textarea.selectionEnd = start + 1; 
+    textarea.focus(); // Ensure the textarea is focused
+  }
+  }
 
+  function handle9(e) {
+    var key = e.keyCode || e.which;
+  if (key === 13) { // Check if the Enter key is pressed
+    e.preventDefault(); // Prevent the default action (form submission)
+    
+    // Add a new line
+    var textarea = $(".usg")[0];
+    var start = textarea.selectionStart;
+    var end = textarea.selectionEnd;
+    var value = textarea.value;
 
-                    function handle8(e){
-                   var key=e.keyCode || e.which;
-                 if (key==13){
-                               var diagnosa = $(".diagnosa").val(); 
-                               $('.diagnosa').val(diagnosa+'\n');   }
-                  }
+    // Insert a new line at the cursor position
+    textarea.value = value.substring(0, start) + "\n" + value.substring(end);
+    
+    // Move the cursor to the end of the new line
+    textarea.selectionStart = textarea.selectionEnd = start + 1; 
+    textarea.focus(); // Ensure the textarea is focused
+  }
+  }
 
+  function handle10(e) {
+    var key = e.keyCode || e.which;
+  if (key === 13) { // Check if the Enter key is pressed
+    e.preventDefault(); // Prevent the default action (form submission)
+    
+    // Add a new line
+    var textarea = $(".echo")[0];
+    var start = textarea.selectionStart;
+    var end = textarea.selectionEnd;
+    var value = textarea.value;
 
+    // Insert a new line at the cursor position
+    textarea.value = value.substring(0, start) + "\n" + value.substring(end);
+    
+    // Move the cursor to the end of the new line
+    textarea.selectionStart = textarea.selectionEnd = start + 1; 
+    textarea.focus(); // Ensure the textarea is focused
+  }
+  }
+  function handle11(e) {
+    var key = e.keyCode || e.which;
+  if (key === 13) { // Check if the Enter key is pressed
+    e.preventDefault(); // Prevent the default action (form submission)
+    
+    // Add a new line
+    var textarea = $(".treadmill")[0];
+    var start = textarea.selectionStart;
+    var end = textarea.selectionEnd;
+    var value = textarea.value;
 
-                    function handle9(e){
-                   var key=e.keyCode || e.which;
-                 if (key==13){
-                               var usg = $(".usg").val(); 
-                               $('.usg').val(usg+'\n');   }
-                  }
+    // Insert a new line at the cursor position
+    textarea.value = value.substring(0, start) + "\n" + value.substring(end);
+    
+    // Move the cursor to the end of the new line
+    textarea.selectionStart = textarea.selectionEnd = start + 1; 
+    textarea.focus(); // Ensure the textarea is focused
+  }
+  }
+  function handle14(e) {
+    var key = e.keyCode || e.which;
+  if (key === 13) { // Check if the Enter key is pressed
+    e.preventDefault(); // Prevent the default action (form submission)
+    
+    // Add a new line
+    var textarea = $(".resep")[0];
+    var start = textarea.selectionStart;
+    var end = textarea.selectionEnd;
+    var value = textarea.value;
 
-                    function handle10(e){
-                   var key=e.keyCode || e.which;
-                 if (key==13){
-                               var echo = $(".echo").val(); 
-                               $('.echo').val(echo+'\n');   }
-                  }
-                    function handle11(e){
-                   var key=e.keyCode || e.which;
-                 if (key==13){
-                               var treadmill = $(".treadmill").val(); 
-                               $('.treadmill').val(treadmill+'\n');   }
-                  }
-                    function handle12(e){
-                   var key=e.keyCode || e.which;
-                 if (key==13){
-                               var hasil_ekg = $(".hasil_ekg").val(); 
-                               $('.hasil_ekg').val(hasil_ekg+'\n');   }
-                  }
+    // Insert a new line at the cursor position
+    textarea.value = value.substring(0, start) + "\n" + value.substring(end);
+    
+    // Move the cursor to the end of the new line
+    textarea.selectionStart = textarea.selectionEnd = start + 1; 
+    textarea.focus(); // Ensure the textarea is focused
+  }
+  }
+  function handle12(e) {
+    var key = e.keyCode || e.which;
+  if (key === 13) { // Check if the Enter key is pressed
+    e.preventDefault(); // Prevent the default action (form submission)
+    
+    // Add a new line
+    var textarea = $(".hasil_ekg")[0];
+    var start = textarea.selectionStart;
+    var end = textarea.selectionEnd;
+    var value = textarea.value;
 
-                  function handle13(e) {
-                      var key = e.keyCode || e.which;
-                        if (key == 13) {
-                          var diagnosa_sekunder = $(".diagnosa_sekunder").val();
-                          $(".diagnosa_sekunder").val(diagnosa_sekunder + "\n");
-                        }
-                      }
+    // Insert a new line at the cursor position
+    textarea.value = value.substring(0, start) + "\n" + value.substring(end);
+    
+    // Move the cursor to the end of the new line
+    textarea.selectionStart = textarea.selectionEnd = start + 1; 
+    textarea.focus(); // Ensure the textarea is focused
+  }
+  }
+
+  function handle13(e) {
+    var key = e.keyCode || e.which;
+  if (key === 13) { // Check if the Enter key is pressed
+    e.preventDefault(); // Prevent the default action (form submission)
+    
+    // Add a new line
+    var textarea = $(".diagnosa_sekunder")[0];
+    var start = textarea.selectionStart;
+    var end = textarea.selectionEnd;
+    var value = textarea.value;
+
+    // Insert a new line at the cursor position
+    textarea.value = value.substring(0, start) + "\n" + value.substring(end);
+    
+    // Move the cursor to the end of the new line
+    textarea.selectionStart = textarea.selectionEnd = start + 1; 
+    textarea.focus(); // Ensure the textarea is focused
+  }
+  }
+
+  function handle15(e) {
+    var key = e.keyCode || e.which;
+  if (key === 13) { // Check if the Enter key is pressed
+    e.preventDefault(); // Prevent the default action (form submission)
+    
+    // Add a new line
+    var textarea = $(".resepracik")[0];
+    var start = textarea.selectionStart;
+    var end = textarea.selectionEnd;
+    var value = textarea.value;
+
+    // Insert a new line at the cursor position
+    textarea.value = value.substring(0, start) + "\n" + value.substring(end);
+    
+    // Move the cursor to the end of the new line
+    textarea.selectionStart = textarea.selectionEnd = start + 1; 
+    textarea.focus(); // Ensure the textarea is focused
+  }
+  }
+  function handle16(e) {
+    var key = e.keyCode || e.which;
+  if (key === 13) { // Check if the Enter key is pressed
+    e.preventDefault(); // Prevent the default action (form submission)
+    
+    // Add a new line
+    var textarea = $(".catatan_fisik")[0];
+    var start = textarea.selectionStart;
+    var end = textarea.selectionEnd;
+    var value = textarea.value;
+
+    // Insert a new line at the cursor position
+    textarea.value = value.substring(0, start) + "\n" + value.substring(end);
+    
+    // Move the cursor to the end of the new line
+    textarea.selectionStart = textarea.selectionEnd = start + 1; 
+    textarea.focus(); // Ensure the textarea is focused
+  }
+  }
        
     </script> 
        

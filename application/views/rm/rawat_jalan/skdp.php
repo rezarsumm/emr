@@ -128,7 +128,7 @@ $dayList = array(
                 </td>
 
             </tr>
-            <?php if ($result['KODE_DOKTER']=='140'){?>
+            <?php if ($result['KODE_DOKTER']=='140' || $result['KODE_DOKTER']=='113'){?>
                         <tr>
                         <td>Diagnosa Sekunder</td>
                         <td>

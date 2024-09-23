@@ -691,6 +691,39 @@ Suhu : {$vs.FS_SUHU} C, Nadi : {$vs.FS_NADI} x/menit,  Respirasi : {$vs.FS_R} x/
     </tr>
     {else} {/if}
 
+    {if $username eq '160'}
+    <tr>
+      <td>Pilih Paket Obat</td>
+      <td>
+        <select
+          name="namapaketdrgilang"
+          class="namapaketdrgilang select2"
+          id="namapaketdrgilang"
+          multiple
+          cols="50"
+          style="width: 210px"
+        >
+          <option></option>
+          <option value="BM 1-Post OD rajal 1">BM 1-Post OD rajal 1</option>
+          <option value="BM 2-post OD rajal 2">BM 2-post OD rajal 2</option>
+          <option value="BM 3-post OD rajal 3">BM 3-post OD rajal 3</option>
+          <option value="BM 4-post exo 1">BM 4-post exo 1</option>
+          <option value="BM 5-post exo 2">BM 5-post exo 2</option>
+          <option value="BM 6-medikasi">BM 6-medikasi</option>
+          <option value="BM 7-medikasi">BM 7-medikasi</option>
+          <option value="BM 8-abses ekstraoral">BM 8-abses ekstraoral</option>
+          <option value="BM 9-abses ekstraoral">BM 9-abses ekstraoral</option>
+          <option value="BM 10">BM 10</option>
+          <option value="BM 11">BM 11</option>
+          <option value="BM 12">BM 12</option>
+          <option value="BM 13">BM 13</option>
+         
+         
+        </select>
+      </td>
+    </tr>
+    {else} {/if}
+
     {if $username eq '115'}
     <tr>
       <td>Pilih Paket Obat</td>
@@ -1468,6 +1501,122 @@ Suhu : {$vs.FS_SUHU} C, Nadi : {$vs.FS_NADI} x/menit,  Respirasi : {$vs.FS_R} x/
     }
  
    
+  });
+
+  // <option value="BM 1-Post OD rajal 1">BM 1-Post OD rajal 1</option>
+  //         <option value="BM 2-post OD rajal 2">BM 2-post OD rajal 2</option>
+  //         <option value="BM 3-post OD rajal 3">BM 3-post OD rajal 3</option>
+  //         <option value="BM 4-post exo 1">BM 4-post exo 1</option>
+  //         <option value="BM 5-post exo 2">BM 5-post exo 2</option>
+  //         <option value="BM 6-medikasi">BM 6-medikasi</option>
+  //         <option value="BM 7-medikasi">BM 7-medikasi</option>
+  //         <option value="BM 8-abses ekstraoral">BM 8-abses ekstraoral</option>
+  //         <option value="BM 9-abses ekstraoral">BM 9-abses ekstraoral</option>
+  //         <option value="BM 10">BM 10</option>
+  //         <option value="BM 11">BM 11</option>
+  //         <option value="BM 12">BM 12</option>
+  //         <option value="BM 13">BM 13</option>
+
+          $("#namapaketdrgilang").change(function () {
+    var resep = $(".resep").val();
+    if ($("#namapaketdrgilang").val() == "BM 1-Post OD rajal 1") {
+      $(".resep").val(
+        resep +
+          "\n /R   amoksisilin tab mg 500 no 15   \n  S 3dd1 pc  \n ----------------------------------------------- \n \n /R   Asam mefenamat tab mg 500 no 10 \n  S 3dd1 pc   \n -----------------------------------------------\n \n /R   Metil prednisolone tab mg 8 no 10  \n   S 2dd1 pc    \n ----------------------------------------------- \n \n /R   Kalnex tab mg 500 no 3  \n   S 3dd1 pc    \n ----------------------------------------------- \n \n"
+      );
+      $("#namapaketdrgilang").select2("data", null);
+    } else if ($("#namapaketdrgilang").val() == "BM 9-abses ekstraoral") {
+      $(".resep").val(
+        resep +
+        "\n /R   clindamicin tab mg 300 no 20   \n  S 4dd1 pc  \n ----------------------------------------------- \n \n /R   Metronidazole tab mg 500 no 15 \n  S 3dd1 pc   \n -----------------------------------------------\n \n /R   Natrium diclofenac tab mg 50 no 10 \n   S 2dd1 pc    \n ----------------------------------------------- \n \n /R   Lansoprazole tab mg 30 no 10  \n   S 2dd1 pc    \n ----------------------------------------------- \n \n /R   Betadine gargle FL no I \n   S 2dd1 pc    \n ----------------------------------------------- \n \n"
+      );
+      $("#namapaketdrgilang").select2("data", null);
+    } else if ($("#namapaketdrgilang").val() == "BM 2-post OD rajal 2") {
+      $(".resep").val(
+        resep +
+        "\n /R   Cefixime tab mg 200 no 10  \n  S 2dd1 pc   \n ---------------------------------------- \n \n /R   Natrium diclofenac tab mg 50 no 10 \n   S 2dd1 pc    \n ---------------------------------------- \n \n /R   Metil prednisolone tab mg 8 no 10  \n  S 2dd1 pc   \n ---------------------------------------- \n \n /R   Kalnex tab mg 500 no 2 \n  S 2dd1  \n ---------------------------------------- \n \n"
+      );
+      $("#namapaketdrgilang").select2("data", null);
+    } else if ($("#namapaketdrgilang").val() == "BM 3-post OD rajal 3") {
+      $(".resep").val(
+        resep +
+        "\n /R   Cefixime tab mg 200 no 10  \n  S 2dd1 pc   \n ---------------------------------------- \n \n /R   Natrium diclofenac tab mg 50 no 10 \n   S 2dd1 pc    \n ---------------------------------------- \n \n /R   Metil prednisolone tab mg 8 no 10  \n  S 2dd1 pc   \n ---------------------------------------- \n \n /R   Kalnex tab mg 500 no 2 \n  S 2dd1 \n ---------------------------------------- \n \n /R   Lansoprazole tab mg 30 no 10 \n  S 2dd1   \n ---------------------------------------- \n \n"
+      );
+      $("#namapaketdrgilang").select2("data", null);
+    }
+    else if ($("#namapaketdrgilang").val() == "BM 4-post exo 1") {
+      $(".resep").val(
+        resep +
+             "\n /R   amoksisilin tab mg 500 no 15 \n  S 3dd1 PC \n ---------------------------------------- \n \n /R   Asam mefenamat tab mg 500 no 10 \n   S 3dd1 PC   \n ---------------------------------------- \n \n /R   Kalnex tab mg 500 no 3 \n  S 3dd1 pc \n ---------------------------------------- \n \n"
+      );
+      $("#namapaketdrgilang").select2("data", null);
+    }
+
+    else if ($("#namapaketdrgilang").val() == "BM 5-post exo 2") {
+      $(".resep").val(
+        resep +
+        "\n /R   Cefixime tab mg 200 no 10 \n  S 2dd1 pc \n ---------------------------------------- \n \n /R   Natrium diclofenac tab mg 50 no 10 \n   S 2dd1 pc   \n ---------------------------------------- \n \n /R   Kalnex tab mg 500 no 2 \n  S 2dd1 pc \n ---------------------------------------- \n \n"
+      );
+      $("#namapaketdrgilang").select2("data", null);
+    }
+ 
+    else if ($("#namapaketdrgilang").val() == "BM 6-medikasi") {
+      $(".resep").val(
+        resep +
+             "\n /R   Paracetamol tab mg 500 no 10 \n   S 3dd1 pc    \n ---------------------------------------- \n \n /R   Betadine gargle FL no I \n  S 2dd1 kumur pagi dan malam    \n ---------------------------------------- \n \n"
+      );
+      $("#namapaketdrgilang").select2("data", null);
+    }
+    
+    else if ($("#namapaketdrgilang").val() == "BM 7-medikasi") {
+      $(".resep").val(
+        resep +
+        "\n  /R   Amoksisilin tab mg 500 no 15 \n   S 3dd1 pc    \n ---------------------------------------- \n \n /R   Paracetamol tab mg 500 no 10 \n   S 3dd1 pc    \n ---------------------------------------- \n \n /R   Betadine gargle FL no I \n  S 2dd1 kumur pagi dan malam    \n ---------------------------------------- \n \n"
+      );
+      $("#namapaketdrgilang").select2("data", null);
+    }
+
+    else if ($("#namapaketdrgilang").val() == "BM 8-abses ekstraoral") {
+      $(".resep").val(
+        resep +
+        "\n  /R   Amoksisilin tab mg 500 no 15 \n   S 3dd1 pc    \n ---------------------------------------- \n \n /R   Metronidazole tab mg 500 no 15  \n   S 3dd1 pc    \n ---------------------------------------- \n \n /R   Natrium diclofenac tab mg 50 no 10  \n   S 2dd1 pc    \n ---------------------------------------- \n \n /R   Lansoprazole tab mg 30 no 10   \n   S 2dd1 pc    \n ---------------------------------------- \n \n /R   Betadine gargle FL no I \n  S 2dd1 kumur pagi dan malam    \n ---------------------------------------- \n \n"
+      );
+      $("#namapaketdrgilang").select2("data", null);
+    }
+
+    else if ($("#namapaketdrgilang").val() == "BM 10") {
+      $(".resep").val(
+        resep +
+        "\n /R   Natrium diclofenac tab mg 50 no 10  \n   S 2dd1 pc    \n ---------------------------------------- \n \n /R   Betadine gargle FL no I \n  S 2dd1 kumur pagi dan malam    \n ---------------------------------------- \n \n"
+      );
+      $("#namapaketdrgilang").select2("data", null);
+    }
+
+    else if ($("#namapaketdrgilang").val() == "BM 11") {
+      $(".resep").val(
+        resep +
+        "\n /R   Natrium diclofenac tab mg 50 no 10  \n   S 2dd1 pc    \n ---------------------------------------- \n \n /R Mecobalamin tab 500 Mcg no 28   \n   S 2dd1 pc    \n ---------------------------------------- \n \n /R   Betadine gargle FL no I \n  S 2dd1 kumur pagi dan malam    \n ---------------------------------------- \n \n"
+      );
+      $("#namapaketdrgilang").select2("data", null);
+    }
+
+    else if ($("#namapaketdrgilang").val() == "BM 12") {
+      $(".resep").val(
+        resep +
+        "\n  /R Mecobalamin tab 500 Mcg no 60   \n   S 2dd1 pc    \n ---------------------------------------- \n \n /R   Carbamazepine tab 200 mg no 60  \n  S 2dd1 pc    \n ---------------------------------------- \n \n"
+      );
+      $("#namapaketdrgilang").select2("data", null);
+    }
+
+    else if ($("#namapaketdrgilang").val() == "BM 13") {
+      $(".resep").val(
+        resep +
+        "\n  /R Mecobalamin tab 500 Mcg no 30   \n   S 1dd1 pc    \n ---------------------------------------- \n \n /R   Carbamazepine tab 200 mg no 30  \n  S 1dd1 pc    \n ---------------------------------------- \n \n"
+      );
+      $("#namapaketdrgilang").select2("data", null);
+    }
+
+ 
   });
 
   $("#namapaketdrslamet").change(function () {

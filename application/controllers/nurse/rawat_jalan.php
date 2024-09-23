@@ -148,6 +148,7 @@ class rawat_jalan extends ApplicationBase {
         // cek input
         $this->tnotification->set_rules('FS_KD_REG', 'KODE REGISTER', 'trim|required');
         $this->tnotification->set_rules('FS_ANAMNESA', 'Anamnesa', 'trim|required');
+        $this->tnotification->set_rules('FS_EDUKASI', 'Pemeriksaan fisik', 'required');
         $this->tnotification->set_rules('FS_ALERGI', 'Alergi', 'trim|required');
         $this->tnotification->set_rules('FS_REAK_ALERGI', 'Reaksi Alergi', 'trim|required');
         // process

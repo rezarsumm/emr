@@ -271,6 +271,17 @@ class m_rawat_jalan extends CI_Model {
             return array();
         }
     }
+     function get_catatan_prb($params) {
+        $sql = "SELECT * FROM PKU.dbo.TAC_RJ_CATATAN_PRB WHERE FS_KD_REG=?";
+        $query = $this->db->query($sql, $params);
+        if ($query->num_rows() > 0) {
+            $result = $query->row_array();
+            $query->free_result();
+            return $result;
+        } else {
+            return array();
+        }
+    }
 
 
    
@@ -294,6 +305,12 @@ class m_rawat_jalan extends CI_Model {
     function insert_tac_rj_skdp($params) {
         $sql = "INSERT INTO PKU.dbo.TAC_RJ_SKDP(FS_KD_REG, FS_SKDP_1, FS_SKDP_2,FS_SKDP_KET,FS_SKDP_KONTROL,FS_NO_SKDP, mdb, mdd, mdd_time, FS_SKDP_FASKES, FS_PESAN, FS_RENCANA_KONTROL)
         VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
+        return $this->db->query($sql, $params);
+    }
+
+    function insert_tac_rj_catatan_prb($params) {
+        $sql = "INSERT INTO PKU.dbo.TAC_RJ_CATATAN_PRB(FS_KD_REG, CATATAN_PRB, CREATED_BY,CREATED_AT,UPDATED_BY,UPDATED_AT)
+        VALUES (?,?,?,?,?,?)";
         return $this->db->query($sql, $params);
     }
 
@@ -539,6 +556,11 @@ class m_rawat_jalan extends CI_Model {
     function update_tac_rj_skdp($params) {
         $sql = "UPDATE PKU.dbo.TAC_RJ_SKDP SET FS_SKDP_1 = ?, FS_SKDP_2 = ?,FS_SKDP_KET=?,FS_SKDP_KONTROL=?,FS_KD_REG=?,FS_SKDP_FASKES=?, FS_PESAN=?, FS_RENCANA_KONTROL=?
         WHERE FS_KD_REG = ?";
+        return $this->db->query($sql, $params);
+    }
+
+    function update_tac_rj_catatan_prb($params) {
+        $sql = "UPDATE PKU.dbo.TAC_RJ_CATATAN_PRB SET CATATAN_PRB = ?, UPDATED_BY = ?,UPDATED_AT=? WHERE FS_KD_REG = ?";
         return $this->db->query($sql, $params);
     }
 

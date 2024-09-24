@@ -172,16 +172,23 @@ $dayList = array(
                 
             </tr>
             <tr>
-                <td>Terapi</td>
-                            <td> : <table style="width: 100%;" class="content">
-                    <tbody>
-                        <col style="width: 100%;">
-                        <tr>
-                            
-                            <td style="width: 100%;"><?= $medis['FS_TERAPI']; ?></td>
-                        </tr>
-                    </tbody>
-                </table>
+            <td>Terapi</td>
+            <td> : <table style="width: 100%;" class="content">
+            <tbody>
+            <col style="width: 100%;">
+            <tr>
+            
+            <td style="width: 100%;"><?= $medis['FS_TERAPI']; ?></td>
+            </tr>
+            </tbody>
+            </table>
+            </td>
+            
+            </tr>
+            <tr>
+                <td>Catatan / Pesan</td>
+                <td>
+                    : <?= strip_tags($catatan_prb['CATATAN_PRB']); ?>
                 </td>
                 
             </tr>

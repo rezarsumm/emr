@@ -461,6 +461,22 @@ class rawat_jalan extends ApplicationBase {
                 $this->input->post('FS_RENCANA_KONTROL')             
             ); 
             $this->m_rawat_jalan->insert_tac_rj_skdp($skdp);
+        } else if($this->input->post('FS_CARA_PULANG')==8){
+        
+            if($this->input->post('CATATAN_PRB')!=null){
+             
+                $catatan_prb = array(
+                    $this->input->post('FS_KD_REG'),
+                    $this->input->post('CATATAN_PRB'),
+                    $this->com_user['user_name'],
+                    date('Y-m-d H:i:s'),
+                    $this->com_user['user_name'],
+                    date('Y-m-d H:i:s'),           
+                ); 
+                $this->m_rawat_jalan->insert_tac_rj_catatan_prb($catatan_prb);
+            }
+
+
         }
    
 
@@ -709,6 +725,7 @@ class rawat_jalan extends ApplicationBase {
         // $this->smarty->assign("rs_pasien", $this->m_rawat_jalan->get_px_resume2(array($FS_MR['NO_MR'])));
         $this->smarty->assign("cekradionya", $this->m_rawat_jalan->get_cek_radnya(array($FS_KD_REG)));
         $this->smarty->assign("ases2", $this->m_rawat_jalan->get_data_ases2_by_rg(array($FS_KD_REG)));
+        $this->smarty->assign("catatan_prb", $this->m_rawat_jalan->get_catatan_prb(array($FS_KD_REG)));
         $this->smarty->assign("alasan_skdp", $this->m_rawat_jalan->get_alasan_skdp());
         $this->smarty->assign("rencana_skdp", $this->m_rawat_jalan->get_rencana_skdp2());
         $tujuan = $this->m_rawat_jalan->list_pemeriksaan_lab_by_rg($FS_KD_REG);
@@ -1153,25 +1170,27 @@ class rawat_jalan extends ApplicationBase {
                         
                     );
 
+                    $this->m_rawat_jalan->update_tac_rj_skdp($params_skdp);
+
                     // insert
                     //if ($this->m_rawat_jalan->update_medis($params_skdp)) {
-                    if ($this->m_rawat_jalan->update_tac_rj_skdp($params_skdp)) {
+                    // if ($this->m_rawat_jalan->update_tac_rj_skdp($params_skdp)) {
 
-                        $lab = $this->input->post('tujuan');
-                        $this->m_rawat_jalan->delete_pemeriksaan_lab_skdp($this->input->post('FS_KD_REG'));
-                        if (!empty($lab)) {
-                            foreach ($lab as $key => $value) {
-                                $this->m_rawat_jalan->insert_pemeriksaan_lab_skdp(array($key, $value,$this->input->post('FS_KD_REG')));
-                            }
-                        }
-                        $rad = $this->input->post('tembusan');
-                        $this->m_rawat_jalan->delete_pemeriksaan_rad_skdp($this->input->post('FS_KD_REG'));
-                        if (!empty($rad)) {
-                            foreach ($rad as $key => $value) {
-                                $this->m_rawat_jalan->insert_pemeriksaan_rad_skdp(array($key, $value, $this->input->post('FS_KD_REG')));
-                            }
-                        }
-                    }
+                    //     $lab = $this->input->post('tujuan');
+                    //     $this->m_rawat_jalan->delete_pemeriksaan_lab_skdp($this->input->post('FS_KD_REG'));
+                    //     if (!empty($lab)) {
+                    //         foreach ($lab as $key => $value) {
+                    //             $this->m_rawat_jalan->insert_pemeriksaan_lab_skdp(array($key, $value,$this->input->post('FS_KD_REG')));
+                    //         }
+                    //     }
+                    //     $rad = $this->input->post('tembusan');
+                    //     $this->m_rawat_jalan->delete_pemeriksaan_rad_skdp($this->input->post('FS_KD_REG'));
+                    //     if (!empty($rad)) {
+                    //         foreach ($rad as $key => $value) {
+                    //             $this->m_rawat_jalan->insert_pemeriksaan_rad_skdp(array($key, $value, $this->input->post('FS_KD_REG')));
+                    //         }
+                    //     }
+                    // }
 
                 } else{
                     $no_skdp = $this->m_rawat_jalan->get_no_skdp(array(date('m'),date('Y')));
@@ -1195,6 +1214,22 @@ class rawat_jalan extends ApplicationBase {
                     ); 
                     $this->m_rawat_jalan->insert_tac_rj_skdp($skdp);
                 }
+            }
+            
+            else if($this->input->post('FS_CARA_PULANG')==8){
+        
+                if($this->input->post('CATATAN_PRB')!=null){
+                 
+                    $catatan_prb = array(
+                        $this->input->post('CATATAN_PRB'),
+                        $this->com_user['user_name'],
+                        date('Y-m-d H:i:s'),           
+                        $this->input->post('FS_KD_REG'),
+                    ); 
+                    $this->m_rawat_jalan->update_tac_rj_catatan_prb($catatan_prb);
+                }
+    
+    
             }
 
 
@@ -2085,6 +2120,9 @@ class rawat_jalan extends ApplicationBase {
         $data['medis'] = $this->m_rawat_jalan->get_data_medis_by_rg2(array($FS_KD_REG, $FS_KD_TRS));
 
         $data['rs_pasien'] = $this->m_rawat_jalan->get_px_by_dokter_by_rg2(array($FS_KD_REG));
+        $data['catatan_prb'] = $this->m_rawat_jalan->get_catatan_prb(array($FS_KD_REG));
+        // var_dump($data['catatan_prb']);
+        // die;
         //$data['rs_prb'] = $this->m_rawat_jalan->get_data_prb_by_rg(array($FS_KD_REG));
         $data["result"] = $this->m_rawat_jalan->get_data_medis_by_rg2(array($FS_KD_REG, $FS_KD_TRS));
 

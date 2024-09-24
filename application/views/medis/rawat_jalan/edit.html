@@ -683,10 +683,22 @@
                 <tr>
                     <td>Keterangan/Pesan :</td>
                     <td>
-                        <textarea rows="5" cols="50" name="FS_PESAN" >{$skdp.FS_PESAN}</textarea>
+                        <textarea rows="5" cols="50"  onkeypress="handle17(event)" class="catatan_skdp" name="FS_PESAN" >{$skdp.FS_PESAN}</textarea>
                     </td>
                 </tr>
             
+            </table>
+
+            <table class="table-input" width="100%" id="form3"  {if $medis.FS_CARA_PULANG eq '8'} style="display: show;" {/if} style="display: none;">
+              <tr class="headrow">
+                <th colspan="4">Surat Keterangan PRB</th>
+              </tr>
+              <tr>
+                <td>Catatan/Pesan :</td>
+                <td>
+                  <textarea rows="5" cols="50"  onkeypress="handle18(event)" class="catatan_prb" name="CATATAN_PRB">{$catatan_prb.CATATAN_PRB}</textarea>
+                </td>
+              </tr>
             </table>
     <tr class="submit-box table-info">
         <td colspan="4">
@@ -704,8 +716,11 @@
 
                 if ($(this).val() == "2") {
                     $("#form2").show();
-                } else {
+                } else if ($(this).val() == "8") {
+                  $("#form3").show();
+                }  else {
                     $("#form2").hide();
+                    $("#form3").hide();
                 }
             });
 
@@ -1568,6 +1583,45 @@ if(x=='a'||x=='A'){
     
     // Add a new line
     var textarea = $(".catatan_fisik")[0];
+    var start = textarea.selectionStart;
+    var end = textarea.selectionEnd;
+    var value = textarea.value;
+
+    // Insert a new line at the cursor position
+    textarea.value = value.substring(0, start) + "\n" + value.substring(end);
+    
+    // Move the cursor to the end of the new line
+    textarea.selectionStart = textarea.selectionEnd = start + 1; 
+    textarea.focus(); // Ensure the textarea is focused
+  }
+  }
+
+  function handle17(e) {
+    var key = e.keyCode || e.which;
+  if (key === 13) { // Check if the Enter key is pressed
+    e.preventDefault(); // Prevent the default action (form submission)
+    
+    // Add a new line
+    var textarea = $(".catatan_skdp")[0];
+    var start = textarea.selectionStart;
+    var end = textarea.selectionEnd;
+    var value = textarea.value;
+
+    // Insert a new line at the cursor position
+    textarea.value = value.substring(0, start) + "\n" + value.substring(end);
+    
+    // Move the cursor to the end of the new line
+    textarea.selectionStart = textarea.selectionEnd = start + 1; 
+    textarea.focus(); // Ensure the textarea is focused
+  }
+  }
+  function handle18(e) {
+    var key = e.keyCode || e.which;
+  if (key === 13) { // Check if the Enter key is pressed
+    e.preventDefault(); // Prevent the default action (form submission)
+    
+    // Add a new line
+    var textarea = $(".catatan_prb")[0];
     var start = textarea.selectionStart;
     var end = textarea.selectionEnd;
     var value = textarea.value;

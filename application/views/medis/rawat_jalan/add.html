@@ -1076,11 +1076,11 @@ Suhu : {$vs.FS_SUHU} C, Nadi : {$vs.FS_NADI} x/menit,  Respirasi : {$vs.FS_R} x/
         <td>{$data.TANGGAL|date_format :"%d %B %Y"}</td>
 
         <td>
-          {$data.NAMA_DOKTER} {if $data.TANGGAL eq $noww} {if $cek_konsulan neq
+          {$data.NAMA_DOKTER} {if $cek_konsulan neq
           ''} {if $data.FS_KD_MEDIS eq $com_user.user_name} {foreach
           from=$cek_konsulan item=cck}
           <br />
-          {$cck.NAMA_DOKTER} {/foreach} {else} {/if} {else} {/if} {else} {if
+          {$cck.NAMA_DOKTER} {/foreach} {else} {/if} {else} {if
           $data.KODE_RUANG neq ''} {assign var=visite
           value=$m_rawat_jalan->get_data_visite(array($data.NO_REG))} {foreach
           from=$visite item=vst} <br />{$vst.NAMA_DOKTER} {/foreach} {/if}

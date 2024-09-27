@@ -1222,7 +1222,18 @@ class rawat_jalan extends ApplicationBase {
         
                 if($this->input->post('CATATAN_PRB')!=null){
 
-                    if($cekcatatanprb>1){
+                    if($cekcatatanprb<1){
+                        $catatan_prb = array(
+                            $this->input->post('FS_KD_REG'),
+                            $this->input->post('CATATAN_PRB'),
+                            $this->com_user['user_name'],
+                            date('Y-m-d H:i:s'),
+                            $this->com_user['user_name'],
+                            date('Y-m-d H:i:s'),           
+                        ); 
+                        $this->m_rawat_jalan->insert_tac_rj_catatan_prb($catatan_prb);
+                    }
+                    else{    
                         $catatan_prb = array(
                             $this->input->post('CATATAN_PRB'),
                             $this->com_user['user_name'],
@@ -1230,17 +1241,6 @@ class rawat_jalan extends ApplicationBase {
                             $this->input->post('FS_KD_REG'),
                         ); 
                         $this->m_rawat_jalan->update_tac_rj_catatan_prb($catatan_prb);
-                    }
-                    else{    
-                                $catatan_prb = array(
-                                    $this->input->post('FS_KD_REG'),
-                                    $this->input->post('CATATAN_PRB'),
-                                    $this->com_user['user_name'],
-                                    date('Y-m-d H:i:s'),
-                                    $this->com_user['user_name'],
-                                    date('Y-m-d H:i:s'),           
-                                ); 
-                                $this->m_rawat_jalan->insert_tac_rj_catatan_prb($catatan_prb);
                     }
                 }
             }

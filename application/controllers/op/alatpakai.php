@@ -64,6 +64,9 @@ class alatpakai extends ApplicationBase {
     public function index() {
         // set page rules
         $this->_set_page_rule("C");
+        $date = date('Y-m-d');
+        // var_dump($this->m_rawat_jalan->get_pasien_ok_by_rgxx($date));
+        // die;
         // set template content
         $this->smarty->assign("template_content", "op/alatpakai/list.html");
         // load javascript
@@ -74,7 +77,6 @@ class alatpakai extends ApplicationBase {
         $this->smarty->load_style("jquery.ui/select2/select2.css");
         // load style ui
         $this->smarty->load_style("jquery.ui/redmond/jquery-ui-1.8.13.custom.css");
-        $date = date('Y-m-d');
         $date2 = date('Y-m-dH:i:s');
         $role = $this->com_user['role_id'];
         $x = $this->com_user['user_name'];
@@ -82,7 +84,9 @@ class alatpakai extends ApplicationBase {
 
         $fs_kd_layanan = $this->com_user['fs_kd_layanan'];
 
-        $this->smarty->assign("rs_pasien", $this->m_rawat_jalan->get_pasien_ok_by_rgxx(array($FS_RG)));
+        $this->smarty->assign("rs_pasien", $this->m_rawat_jalan->get_pasien_ok_by_rgxx($date));
+
+ 
 
         // notification
         $this->tnotification->display_notification();
@@ -169,7 +173,8 @@ class alatpakai extends ApplicationBase {
     public function add($FS_RG = '',$idoperasi='') {
 
 
-
+// var_dump('ok');
+// die;
         // set page rules
         $this->_set_page_rule("C");
         // set template content
@@ -194,7 +199,9 @@ class alatpakai extends ApplicationBase {
         $this->smarty->assign("rs_perawat", $this->m_cppt->get_perawat(array($FS_RG)));
         $this->smarty->assign("rs_dokter_sp", $this->m_cppt->get_dokter_sp(array($FS_RG)));
 
-        $this->smarty->assign("rs_pasien", $this->m_rawat_jalan->get_pasien_ok_by_rgxx(array($FS_RG)));
+        $this->smarty->assign("rs_pasien", $this->m_rawat_jalan->get_pasien_ok_by_rgxx2(array($FS_RG)));
+        // var_dump($this->m_rawat_jalan->get_pasien_ok_by_rgxx2(array($FS_RG)));
+        // die;
 
          $this->smarty->assign("rs_resep", $this->m_cppt->get_resep());
         $tgl=date('Y-m-d');

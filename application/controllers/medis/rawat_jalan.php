@@ -1217,20 +1217,35 @@ class rawat_jalan extends ApplicationBase {
             }
             
             else if($this->input->post('FS_CARA_PULANG')==8){
+
+                $cekcatatanprb = $this->m_rawat_jalan->cek_catatan_prb($this->input->post('FS_KD_REG'));
         
                 if($this->input->post('CATATAN_PRB')!=null){
-                 
-                    $catatan_prb = array(
-                        $this->input->post('CATATAN_PRB'),
-                        $this->com_user['user_name'],
-                        date('Y-m-d H:i:s'),           
-                        $this->input->post('FS_KD_REG'),
-                    ); 
-                    $this->m_rawat_jalan->update_tac_rj_catatan_prb($catatan_prb);
+
+                    if($cekcatatanprb>1){
+                        $catatan_prb = array(
+                            $this->input->post('CATATAN_PRB'),
+                            $this->com_user['user_name'],
+                            date('Y-m-d H:i:s'),           
+                            $this->input->post('FS_KD_REG'),
+                        ); 
+                        $this->m_rawat_jalan->update_tac_rj_catatan_prb($catatan_prb);
+                    }
+                    else{    
+                                $catatan_prb = array(
+                                    $this->input->post('FS_KD_REG'),
+                                    $this->input->post('CATATAN_PRB'),
+                                    $this->com_user['user_name'],
+                                    date('Y-m-d H:i:s'),
+                                    $this->com_user['user_name'],
+                                    date('Y-m-d H:i:s'),           
+                                ); 
+                                $this->m_rawat_jalan->insert_tac_rj_catatan_prb($catatan_prb);
+                    }
                 }
-    
-    
             }
+
+   
 
 
         

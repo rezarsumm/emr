@@ -142,6 +142,8 @@ class m_rawat_jalan extends CI_Model {
 
 
      function get_pasien_ok_by_rgxx($params) {
+        // $date=date('Y-m-d');
+        
         $sql = "SELECT E.NO_REG,E.NO_MR,A.TGL_MULAI,B.NAMA_PASIEN,A.KODE_RUANG,
          B.JENIS_KELAMIN,B.ALAMAT,C.NAMA_RUANG,
          E.KODEREKANAN,F.NAMAREKANAN ,
@@ -150,8 +152,31 @@ class m_rawat_jalan extends CI_Model {
         left join REKANAN F on E.KODEREKANAN=F.KODEREKANAN 
         left join TR_KAMAR A on A.NO_REG=E.NO_REG
         left join REGISTER_PASIEN B on E.NO_MR=B.NO_MR
-        left join M_RUANG C on A.KODE_RUANG=C.KODE_RUANG
-        WHERE E.NO_REG = ?   ";
+        left join M_RUANG C on A.KODE_RUANG=C.KODE_RUANG 
+        where E.Tanggal=?";
+         $query = $this->db->query($sql, $params);
+         if ($query->num_rows() > 0) {
+            $result = $query->result_array();
+            $query->free_result();
+            return $result;
+        } else {
+            return array();
+        }
+    }
+
+     function get_pasien_ok_by_rgxx2($params) {
+        // $date=date('Y-m-d');
+        
+        $sql = "SELECT E.NO_REG,E.NO_MR,A.TGL_MULAI,B.NAMA_PASIEN,A.KODE_RUANG,
+         B.JENIS_KELAMIN,B.ALAMAT,C.NAMA_RUANG,
+         E.KODEREKANAN,F.NAMAREKANAN ,
+         B.TGL_LAHIR,datediff(year,B.TGL_LAHIR,GETDATE()) 'fn_umur'
+        FROM  PENDAFTARAN E
+        left join REKANAN F on E.KODEREKANAN=F.KODEREKANAN 
+        left join TR_KAMAR A on A.NO_REG=E.NO_REG
+        left join REGISTER_PASIEN B on E.NO_MR=B.NO_MR
+        left join M_RUANG C on A.KODE_RUANG=C.KODE_RUANG 
+        where E.NO_REG=?";
          $query = $this->db->query($sql, $params);
          if ($query->num_rows() > 0) {
             $result = $query->row_array();
@@ -280,6 +305,18 @@ class m_rawat_jalan extends CI_Model {
             return $result;
         } else {
             return array();
+        }
+    }
+
+     function cek_catatan_prb($params) {
+        $sql = "SELECT * FROM PKU.dbo.TAC_RJ_CATATAN_PRB WHERE FS_KD_REG=?";
+        $query = $this->db->query($sql, $params);
+        if ($query->num_rows() > 0) {
+            $result = $query->num_rows();
+            $query->free_result();
+            return $result;
+        } else {
+            return 0;
         }
     }
 

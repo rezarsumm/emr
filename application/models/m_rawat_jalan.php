@@ -153,7 +153,7 @@ class m_rawat_jalan extends CI_Model {
         left join TR_KAMAR A on A.NO_REG=E.NO_REG
         left join REGISTER_PASIEN B on E.NO_MR=B.NO_MR
         left join M_RUANG C on A.KODE_RUANG=C.KODE_RUANG 
-        where E.Tanggal=?";
+        where E.NO_REG=?";
          $query = $this->db->query($sql, $params);
          if ($query->num_rows() > 0) {
             $result = $query->result_array();

@@ -46,6 +46,9 @@ class Asuhan extends ApplicationBase {
         $role = $this->com_user['role_id'];
         $x = $this->com_user['user_name'];
 
+        // var_dump($this->com_user['fs_kd_layanan']);
+        // die;
+
 
         $fs_kd_layanan = $this->com_user['fs_kd_layanan'];
 

@@ -52,6 +52,9 @@ class cppt extends ApplicationBase {
         $user_id2 = $this->com_user['user_id'];
         $this->smarty->assign("user", $user_id2);
 
+        // var_dump($role);
+        // die;
+
 
         $fs_kd_layanan = $this->com_user['fs_kd_layanan'];
 
@@ -76,7 +79,10 @@ class cppt extends ApplicationBase {
                  $this->smarty->assign("rs_pasien", $this->m_ass_jatuh->get_pasien_ugd());
             
             }
+            else if ($role=='33'){
 
+                $this->smarty->assign("rs_pasien", $this->m_ass_jatuh->get_pasien_bangsal_by_fisio());
+            }
 
             else{
                $this->smarty->assign("rs_pasien", $this->m_ass_jatuh->get_pasien_bangsal_by_bangsal(array($this->com_user['fs_kd_layanan'])));
@@ -809,6 +815,15 @@ class cppt extends ApplicationBase {
 
 
                         // insert
+                        // pengkodisian ruangan untuk fisioterapi
+                        $role = $this->com_user['role_id'];
+                        if($role =='33'){
+                            $status_ruangan = 'FISIOTERAPI';
+                        }
+                        else {
+                            $status_ruangan = $this->input->post('status_cppt');
+                        }
+                        
                         if ($this->m_cppt->insert_medis($params)) {
 
                             $update_kp = $this->m_cppt->update_tz_parameter_no_kp($NOKP2);
@@ -827,7 +842,7 @@ class cppt extends ApplicationBase {
                                 $rrad,  
                                 $this->input->post('TGL_TUJUAN_LAB'),
                                 $this->input->post('jenis_cppt'),
-                                $this->input->post('status_cppt'),
+                                $status_ruangan,
                             );
                             $this->m_cppt->insertt($params2);
 

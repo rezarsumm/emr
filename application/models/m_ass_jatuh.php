@@ -172,6 +172,21 @@ class m_ass_jatuh extends CI_Model {
         }
     }
 
+    function get_pasien_bangsal_by_fisio($params) {
+        $sql = "SELECT A.NO_REG,A.NO_MR,A.TGL_MULAI,B.NAMA_PASIEN,A.KODE_RUANG, B.JENIS_KELAMIN,B.ALAMAT,D.KODE_BANGSAL,C.NAMA_RUANG,D.NAMA_BANGSAL,E.KODEREKANAN,F.NAMAREKANAN,B.ALAMAT
+        FROM TR_KAMAR A, REGISTER_PASIEN B, M_RUANG C, M_BANGSAL D, PENDAFTARAN E, REKANAN F 
+        WHERE A.NO_MR=B.NO_MR AND A.NO_REG=E.NO_REG AND E.KODEREKANAN=F.KODEREKANAN AND A.KODE_RUANG=C.KODE_RUANG AND C.KODE_BANGSAL=D.KODE_BANGSAL AND A.STATUS='1' AND E.STATUS='1' AND 
+        (A.No_Reg in(select H.No_Reg from TR_BIAYARINCI as H where A.No_Reg=H.No_Reg and H.Kode_Dokter='028'))
+        ORDER BY D.KODE_BANGSAL,A.TGL_MULAI";
+        $query = $this->db->query($sql, $params);
+        if ($query->num_rows() > 0) {
+            $result = $query->result_array();
+            $query->free_result();
+            return $result;
+        } else {
+            return array();
+        }
+    }
 
 
      function get_pasien_bangsal1($params) {

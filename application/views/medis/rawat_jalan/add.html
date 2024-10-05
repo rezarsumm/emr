@@ -655,6 +655,7 @@ Suhu : {$vs.FS_SUHU} C, Nadi : {$vs.FS_NADI} x/menit,  Respirasi : {$vs.FS_R} x/
           <option value="Ortho 7">Ortho 7</option>
           <option value="Ortho 8">Ortho 8</option>
           <option value="Ortho 9">Ortho 9</option>
+          <option value="paket injeksi">paket injeksi</option>
          
         </select>
       </td>
@@ -778,6 +779,7 @@ Suhu : {$vs.FS_SUHU} C, Nadi : {$vs.FS_NADI} x/menit,  Respirasi : {$vs.FS_R} x/
           <option value="Ortho H">Ortho H</option>
           <option value="Ortho I">Ortho I</option>
           <option value="Ortho J">Ortho J</option>
+          <option value="paket injeksi">paket injeksi</option>
         </select>
       </td>
       {else} {/if}
@@ -1265,10 +1267,21 @@ Suhu : {$vs.FS_SUHU} C, Nadi : {$vs.FS_NADI} x/menit,  Respirasi : {$vs.FS_R} x/
           "\n /R Calcium no XXX  \n S 1 dd 1 tab \n ---------------------------------------- \n \n /R Cefadroxil 250mg no XV  \n S 2 dd 1 cap \n ---------------------------------------- \n \n /R Ibuprofen 200mg no XXX \n  S 2 dd 1 tab \n ---------------------------------------- \n"
       );
       $("#namapaket").select2("data", null);
-    } else if ($("#namapaket").val() == "Ortho L") {
+    } 
+    
+    else if ($("#namapaket").val() == "Ortho L") {
       $(".resep").val(
         resep +
           "\n /R Cefadroxil sirup no I \n  S 2 dd 1 cth \n ---------------------------------------- \n \n /R Ibuprofen sirup no I  \n S 2 dd 1 cth \n ---------------------------------------- \n"
+      );
+      $("#namapaket").select2("data", null);
+    }
+
+
+    else if ($("#namapaket").val() == "paket injeksi") {
+      $(".resep").val(
+        resep +
+          "\n /R triamcinolon 1 vial \n lidocain 2 ampul \n spuit 10cc 1 \n ---------------------------------------- \n \n /R meloxicam 15 mg  \n S 2Dd1 \n ---------------------------------------- \n \n /R omeprazol 200 mg  \n S 1dd1 \n ---------------------------------------- \n \n /R alpentin 100 mg   \n S 2dd1 \n ---------------------------------------- \n \n /R eperison 50 mg  \n S 2dd1 \n ---------------------------------------- \n \n /R mecobalamin 500 mg  \n S 1dd1 \n ---------------------------------------- \n \n /R flamar gel  1 \n ---------------------------------------- \n"
       );
       $("#namapaket").select2("data", null);
     }
@@ -1510,6 +1523,15 @@ Suhu : {$vs.FS_SUHU} C, Nadi : {$vs.FS_NADI} x/menit,  Respirasi : {$vs.FS_R} x/
       $(".resep").val(
         resep +
              "\n /R   Sikstop 120mg No 15 \n   S 1dd1    \n ---------------------------------------- \n \n /R   Omeprazol No 15\n  S 1dd1   \n ---------------------------------------- \n \n /R   Caplex No 15\n  S 1dd1   \n ---------------------------------------- \n \n  /R   Triochol No 30 \n  S 2dd1   \n ---------------------------------------- \n \n /R   Osteocream No 1 \n  S 1dd1   \n ---------------------------------------- \n \n"
+      );
+      $("#namapaketdrvito").select2("data", null);
+    }
+
+
+    else if ($("#namapaketdrvito").val() == "paket injeksi") {
+      $(".resep").val(
+        resep +
+             "\n /R   thiamcinolone 1 vial \n   S 1dd1    \n ---------------------------------------- \n \n /R   lidocain 2 ampul\n  S 1dd1   \n Spuit 10 cc 2 \n Spuit 3 cc 1 \n ---------------------------------------- \n \n /R   meloxicam 7,5 mg  \n  S 2dd1   \n ---------------------------------------- \n \n /R  Lansoprazol  \n  S 2dd1   \n ---------------------------------------- \n \n /R   calcium  \n  S 2dd1   \n ---------------------------------------- \n\n /R   Boost D  \n  S 2dd1   \n ---------------------------------------- \n\n /R   Flamar gel No. 1 \n ---------------------------------------- \n"
       );
       $("#namapaketdrvito").select2("data", null);
     }

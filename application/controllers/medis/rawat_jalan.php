@@ -173,7 +173,10 @@ class rawat_jalan extends ApplicationBase {
 // set template content
 
 
+
          $x = $this->com_user['user_name'];
+
+    
          if($x=='216'|| $x=='217' || $x=='211' || $x=='215'  || $x=='203' || $x=='206'  || $x=='211' || $x=='207' || $x=='209' || $x=='213'|| $x=='202' || $x=='219' || $x=='220' || $x=='221' || $x=='312' || $x=='222' || $x=='223' || $x=='208' ||  $x=='224' ||  $x=='225' || $x=='226' || $x=='227' || $x=='229' || $x=='230' || $x=='231'){
             $this->smarty->assign("template_content", "medis/rawat_jalan/addx.html");
 
@@ -228,7 +231,13 @@ class rawat_jalan extends ApplicationBase {
         $this->smarty->assign("masalah2", $this->m_rawat_jalan->get_data_masalah_by_rg(array($FS_KD_REG)));
         $this->smarty->assign("cek_ases_kebid", $this->m_rawat_jalan->cek_data_ases_kebid_by_rg(array($FS_KD_REG)));
         // $this->smarty->assign("ases_kebid", $this->m_rawat_jalan->get_data_ases_kebid_by_rg(array($FS_KD_REG)));
-         $this->smarty->assign("rs_pasien", $this->m_rawat_jalan->get_px_history_dokter2(array($now, $medis, $FS_MR['NO_MR'])));
+        if($x=='140'){
+            $this->smarty->assign("rs_pasien", $this->m_rawat_jalan->get_px_history_dokter_toumi(array($now, $medis, $FS_MR['NO_MR'])));
+        }
+        else {
+            $this->smarty->assign("rs_pasien", $this->m_rawat_jalan->get_px_history_dokter2(array($now, $medis, $FS_MR['NO_MR'])));
+
+        }
                    $this->smarty->assign("ases2", $this->m_rawat_jalan->get_data_ases2_by_rg(array($FS_KD_REG)));
        
         $this->smarty->assign("rs_skdp_alasan", $this->m_rawat_jalan->get_tac_com_parameter_alasan());

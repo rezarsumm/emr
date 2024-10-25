@@ -1774,6 +1774,29 @@ class m_rawat_jalan extends CI_Model {
         }
     }
 
+    function get_px_history_dokter_toumi($params) {
+        $sql = "SELECT TOP 15 A.TANGGAL, A.KODE_RUANG,A.STATUS,A.NO_REG,B.NAMA_PASIEN, B.ALAMAT,
+         B.TGL_LAHIR,B.JENIS_KELAMIN, I.NAMA_DOKTER,K.SPESIALIS,L.MAX_RG,M.FS_KD_MEDIS,M.FS_KD_TRS, M.HASIL_ECHO
+        FROM PENDAFTARAN A
+        LEFT JOIN REGISTER_PASIEN B ON  A.NO_MR=B.NO_MR
+        LEFT JOIN DOKTER I ON A.KODE_DOKTER=I.KODE_DOKTER
+         LEFT JOIN M_SPESIALIS K ON I.SPESIALIS=K.SPESIALIS
+        LEFT JOIN (SELECT NO_REG 'MAX_RG',NO_MR FROM PENDAFTARAN WHERE TANGGAL = ? AND (KODE_DOKTER = ?)  )L ON A.NO_MR = L.NO_MR
+        LEFT JOIN PKU.dbo.TAC_RJ_MEDIS M ON a.NO_REG=M.FS_KD_REG
+
+        WHERE A.NO_MR = ? and A.Kode_Dokter not in ('028')
+        ORDER BY TANGGAL DESC 
+        ";
+        $query = $this->db->query($sql, $params);
+        if ($query->num_rows() > 0) {
+            $result = $query->result_array();
+            $query->free_result();
+            return $result;
+        } else {
+            return array();
+        }
+    }
+
 
        function get_px_history_dokter4($params) {
         $sql = "SELECT TOP 8 A.TANGGAL,A.STATUS,A.NO_REG,B.NAMA_PASIEN, B.ALAMAT, B.TGL_LAHIR,B.JENIS_KELAMIN,

@@ -21,8 +21,10 @@ class icare extends ApplicationBase {
         $this->smarty->assign('m_cppt', $this->m_cppt);
         $this->smarty->assign('m_rawat_jalan', $this->m_rawat_jalan);
         $this->load->library('tnotification');
-
-        require_once APPPATH . 'libraries/lzstring/src/LZCompressor/LZString.php';
+        require_once(APPPATH . 'libraries/src/LZCompressor/LZReverseDictionary.php');
+        require_once (APPPATH . 'libraries/src/LZCompressor/LZString.php');
+        require_once(APPPATH . 'libraries/src/LZCompressor/LZData.php');
+        require_once(APPPATH . 'libraries/src/LZCompressor/LZUtil.php');
 
     }
 
@@ -30,10 +32,11 @@ class icare extends ApplicationBase {
     
 
     public function index($no_bpjs="",$kode_dokter_jkn="",$No_Reg="") {
-
+        
         // var_dump($kode_dokter_jkn);
         // die;
         // Mengatur konsumen dan secret key
+        $kode_dokter_jkn = intval($kode_dokter_jkn);
         $this->load->helper('signature');
     
         // Data dan secret key
@@ -68,7 +71,7 @@ class icare extends ApplicationBase {
                 'X-cons-id: ' . $signatureData['X-cons-id'],
                 'X-timestamp: ' . $signatureData['X-timestamp'],
                 'X-signature: ' . $signatureData['X-signature'],
-                'user_key: 2f51b00ee2808e7698e1e09dc01c11ad',
+                'user_key:2f51b00ee2808e7698e1e09dc01c11ad',
                 'Content-Type: application/json',
             ),
         ));
@@ -92,9 +95,35 @@ class icare extends ApplicationBase {
 
             // Dekripsi dan dekompresi
             $hasilakhir = $this->decompress($this->stringDecrypt($kunci, $nilairespon));
-            echo $hasilakhir;
+
+            // Mengonversi hasil akhir dari JSON menjadi array
+    $hasilArray = json_decode($hasilakhir, true);
+    
+    // Memeriksa dan mengambil URL jika ada
+    if (isset($hasilArray['url'])) {
+        $url = $hasilArray['url']; // Mengambil nilai URL
+        echo $url; // Menampilkan hanya URL
+    } else {
+        // Jika tidak ada URL, Anda bisa menampilkan pesan kesalahan atau tindakan lain
+        echo "URL tidak ditemukan.";
+    }
+            
+
+            $successMessage = isset($data['metaData']['message']) ? $data['metaData']['message'] : 'Tidak ada pesan error yang tersedia.';
+
+            $finalMessage = "Respons dari server: " . htmlspecialchars($successMessage) . 
+
+            '<br><a href="' . $url . '" class="btn btn-primary">Lihat I care</a>';
+            $this->tnotification->sent_notification("success", $finalMessage);
+            redirect("medis/rawat_jalan/add/" . $No_Reg . '/' . $No_Reg);
+            // echo $hasilakhir;
         } else {
-            $this->tnotification->sent_notification("error", "Respon tidak Valid");
+          // Mengambil pesan dari metaData jika ada
+    $errorMessage = isset($data['metaData']['message']) ? $data['metaData']['message'] : 'Tidak ada pesan error yang tersedia.';
+    
+    // Menyusun pesan akhir
+    $finalMessage = "Respons dari bpjs: " . htmlspecialchars($errorMessage);
+            $this->tnotification->sent_notification("success",$finalMessage);
             redirect("medis/rawat_jalan/add/" . $No_Reg . '/' . $No_Reg);
         }
     }
@@ -111,6 +140,7 @@ class icare extends ApplicationBase {
     // Fungsi untuk mendekompresi string
     private function decompress($string) {
         return \LZCompressor\LZString::decompressFromEncodedURIComponent($string);
+        
     }
 }
 

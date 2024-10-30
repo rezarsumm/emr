@@ -29,7 +29,7 @@ class icare extends ApplicationBase {
 // bridging icare bpjs
     
 
-    public function index($no_bpjs="",$kode_dokter_jkn="") {
+    public function index($no_bpjs="",$kode_dokter_jkn="",$No_Reg="") {
 
         // var_dump($kode_dokter_jkn);
         // die;
@@ -94,7 +94,8 @@ class icare extends ApplicationBase {
             $hasilakhir = $this->decompress($this->stringDecrypt($kunci, $nilairespon));
             echo $hasilakhir;
         } else {
-            echo "Response tidak valid.";
+            $this->tnotification->sent_notification("error", "Respon tidak Valid");
+            redirect("medis/rawat_jalan/add/" . $No_Reg . '/' . $No_Reg);
         }
     }
 

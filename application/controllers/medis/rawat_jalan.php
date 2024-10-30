@@ -204,6 +204,9 @@ class rawat_jalan extends ApplicationBase {
         $this->smarty->assign("FS_KD_REG2", $FS_KD_REG2);
         $this->smarty->assign("FS_KD_REG", $FS_KD_REG);
         $this->smarty->assign("result", $this->m_rawat_jalan->get_px_by_dokter_by_rg2(array($FS_KD_REG)));  
+
+        // var_dump($this->m_rawat_jalan->get_px_by_dokter_by_rg2(array($FS_KD_REG)));
+        // die;
         
 
         $this->smarty->assign("icd", $this->m_igd->get_icd());  
@@ -233,11 +236,14 @@ class rawat_jalan extends ApplicationBase {
         // $this->smarty->assign("ases_kebid", $this->m_rawat_jalan->get_data_ases_kebid_by_rg(array($FS_KD_REG)));
         if($x=='140'){
             $this->smarty->assign("rs_pasien", $this->m_rawat_jalan->get_px_history_dokter_toumi(array($now, $medis, $FS_MR['NO_MR'])));
+        
         }
         else {
             $this->smarty->assign("rs_pasien", $this->m_rawat_jalan->get_px_history_dokter2(array($now, $medis, $FS_MR['NO_MR'])));
 
         }
+    
+        
                    $this->smarty->assign("ases2", $this->m_rawat_jalan->get_data_ases2_by_rg(array($FS_KD_REG)));
        
         $this->smarty->assign("rs_skdp_alasan", $this->m_rawat_jalan->get_tac_com_parameter_alasan());
@@ -2660,6 +2666,12 @@ class rawat_jalan extends ApplicationBase {
         echo json_encode($data);
     }
 
+
+
+    // bridging icare bpjs
+    
+
+    
 
 
 }

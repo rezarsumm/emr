@@ -1999,9 +1999,10 @@ class m_rawat_jalan extends CI_Model {
    function get_px_by_dokter_by_rg2($params) {
         $sql = "SELECT b.NO_REG,a.NAMA_PASIEN, a.NO_MR, a.ALAMAT, a.KOTA, a.PROVINSI, A.JENIS_KELAMIN,
         a.TGL_LAHIR,c.SPESIALIS, c.NAMA_DOKTER, E.NAMAREKANAN,
-        b.TANGGAL,b.KODE_DOKTER,a.FS_HIGH_RISK,d.FS_KD_TRS
+        b.TANGGAL,b.KODE_DOKTER,a.FS_HIGH_RISK,d.FS_KD_TRS, ds.Kodedokter_jkn,ds.kdpoli,a.No_Identitas
         FROM DB_RSMM.dbo.REGISTER_PASIEN a
         LEFT JOIN DB_RSMM.dbo.PENDAFTARAN b ON a.NO_MR=b.NO_MR
+        LEFT JOIN DB_RSMM.dbo.DOKTER_SMSGATEWAY ds ON b.Kode_Dokter=ds.Kode_Dokter
         LEFT JOIN DB_RSMM.dbo.DOKTER c ON b.KODE_DOKTER=c.KODE_DOKTER
         LEFT JOIN PKU.dbo.TAC_RJ_MEDIS d ON b.NO_REG=d.FS_KD_REG
         LEFT JOIN DB_RSMM.dbo.REKANAN E ON b.KODEREKANAN=E.KODEREKANAN

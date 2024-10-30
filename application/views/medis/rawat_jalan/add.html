@@ -32,7 +32,7 @@
 <form
   action="{$config->site_url('medis/rawat_jalan/add_process')}"
   method="post"
-  method="post"
+
   onkeypress="return event.keyCode != 13"
 >
   <input type="hidden" name="FS_KD_REG" value="{$FS_KD_REG}" />
@@ -150,6 +150,19 @@
     <br />
     <div class="clear"></div>
   </div>
+  <!-- <div class="navigation">
+    <div class="navigation-button float-left">
+      <ul>
+        <li>
+          <a
+            href="{$config->site_url('medis/icare/index/'|cat:$result.No_Identitas|cat:'/'|cat:$result.Kodedokter_jkn)}">
+            I care BPJS</a
+          >
+        </li>
+      </ul>
+    </div>
+    <br />
+  </div> -->
 
   <table class="table-view" width="100%" id="form_lab">
     <tr class="headrow">

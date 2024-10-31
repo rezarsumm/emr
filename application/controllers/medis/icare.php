@@ -105,25 +105,31 @@ class icare extends ApplicationBase {
         echo $url; // Menampilkan hanya URL
     } else {
         // Jika tidak ada URL, Anda bisa menampilkan pesan kesalahan atau tindakan lain
-        echo "URL tidak ditemukan.";
+    
+        $errorMessage = isset($data['metaData']['message']) ? $data['metaData']['message'] : 'Tidak ada pesan error yang tersedia.';
+    
+        // Menyusun pesan akhir
+        $finalMessage = "Respons bpjs: " . htmlspecialchars($errorMessage);
+                $this->tnotification->sent_notification("error",$finalMessage);
+                redirect("medis/rawat_jalan/add/" . $No_Reg . '/' . $No_Reg);
     }
             
 
-            $successMessage = isset($data['metaData']['message']) ? $data['metaData']['message'] : 'Tidak ada pesan error yang tersedia.';
+            // $successMessage = isset($data['metaData']['message']) ? $data['metaData']['message'] : 'Tidak ada pesan error yang tersedia.';
 
-            $finalMessage = "Respons dari server: " . htmlspecialchars($successMessage) . 
+            // $finalMessage = "Respons dari server: " . htmlspecialchars($successMessage) . 
 
-            '<br><a href="' . $url . '" class="btn btn-primary">Lihat I care</a>';
-            $this->tnotification->sent_notification("success", $finalMessage);
-            redirect("medis/rawat_jalan/add/" . $No_Reg . '/' . $No_Reg);
+            // '<br><a href="' . $url . '" class="btn btn-primary">Lihat I care</a>';
+            // $this->tnotification->sent_notification("success", $finalMessage);
+            redirect($url);
             // echo $hasilakhir;
         } else {
           // Mengambil pesan dari metaData jika ada
     $errorMessage = isset($data['metaData']['message']) ? $data['metaData']['message'] : 'Tidak ada pesan error yang tersedia.';
     
     // Menyusun pesan akhir
-    $finalMessage = "Respons dari bpjs: " . htmlspecialchars($errorMessage);
-            $this->tnotification->sent_notification("success",$finalMessage);
+    $finalMessage = "Respons bpjs: " . htmlspecialchars($errorMessage);
+            $this->tnotification->sent_notification("error",$finalMessage);
             redirect("medis/rawat_jalan/add/" . $No_Reg . '/' . $No_Reg);
         }
     }

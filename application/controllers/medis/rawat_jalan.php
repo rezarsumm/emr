@@ -17,6 +17,7 @@ class rawat_jalan extends ApplicationBase {
         $this->load->model('m_igd');
         $this->load->model('m_cppt');
         $this->load->model('m_rawat_jalan');
+        $this->load->model('m_account');
         $this->load->model('m_rawat_jalan_nurse');
         $this->smarty->assign('m_cppt', $this->m_cppt);
         $this->smarty->assign('m_rawat_jalan', $this->m_rawat_jalan);
@@ -168,10 +169,12 @@ class rawat_jalan extends ApplicationBase {
     }
 
    public function add($FS_KD_REG = "", $FS_KD_REG2 = "",$medis="") { 
-// set page rules
-        $this->_set_page_rule("R");  
+      
+  
+     
+       // set page rules
+       $this->_set_page_rule("R");  
 // set template content
-
 
 
          $x = $this->com_user['user_name'];
@@ -201,8 +204,16 @@ class rawat_jalan extends ApplicationBase {
         $FS_KD_REG = $FS_KD_REG;
         $FS_MR = $this->m_rawat_jalan->get_rm_px_by_rg(array($FS_KD_REG));
 
+          
+    $sessionData= $this->tsession->userdata('session_emr');
+    $kodeDokterJkn = intval($sessionData['Kodedokter_jkn']);
+
+    // var_dump($this->tsession->userdata('session_emr'));
+    // die;
+
         $this->smarty->assign("FS_KD_REG2", $FS_KD_REG2);
         $this->smarty->assign("FS_KD_REG", $FS_KD_REG);
+        $this->smarty->assign("kodeDokterJkn", $kodeDokterJkn);
         $this->smarty->assign("result", $this->m_rawat_jalan->get_px_by_dokter_by_rg2(array($FS_KD_REG)));  
 
         // var_dump($this->m_rawat_jalan->get_px_by_dokter_by_rg2(array($FS_KD_REG)));

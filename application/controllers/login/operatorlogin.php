@@ -54,7 +54,7 @@ class operatorlogin extends ApplicationBase {
                     redirect('login/operatorlogin/index/locked');
                 }
                 // set session
-                $this->tsession->set_userdata('session_emr', array('user_id' => $result['user_id'], 'role_id' => $result['role_id'],'user_name' => $result['user_name']));
+                $this->tsession->set_userdata('session_emr', array('user_id' => $result['user_id'], 'role_id' => $result['role_id'],'user_name' => $result['user_name'],'Kodedokter_jkn' => $result['Kodedokter_jkn']));
                 // insert login time
                 $this->m_account->save_user_login($result['user_id'], $_SERVER['REMOTE_ADDR']);
                 // redirect

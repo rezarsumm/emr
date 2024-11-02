@@ -84,9 +84,10 @@ class m_account extends CI_Model {
 
     // get user detail with auto role
     function get_user_detail_by_username_auto_role($params) {
-        $sql = "SELECT TOP 1 a.*, c.role_id, c.role_nm, c.default_page,user_name
+        $sql = "SELECT TOP 1 a.*, c.role_id, c.role_nm, c.default_page,user_name, ds.Kodedokter_jkn
                 FROM PKU.dbo.tac_com_user a
                 LEFT JOIN PKU.dbo.tac_com_role_user b ON a.user_id = b.user_id
+                LEFT JOIN DB_RSMM.dbo.DOKTER_SMSGATEWAY ds ON a.user_name=ds.Kode_Dokter
                 LEFT JOIN PKU.dbo.tac_com_role c ON b.role_id = c.role_id
                 WHERE user_name = ? AND c.portal_id = ? ";
         $query = $this->db->query($sql, $params);
@@ -123,6 +124,9 @@ class m_account extends CI_Model {
 
     // get login auto role
     function get_user_login_auto_role($username, $password, $portal) {
+
+        // var_dump($portal);
+        // die;
         // load encrypt
         $this->load->library('encrypt');
         // process

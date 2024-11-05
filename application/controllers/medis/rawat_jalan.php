@@ -754,6 +754,11 @@ class rawat_jalan extends ApplicationBase {
         $this->smarty->assign("catatan_prb", $this->m_rawat_jalan->get_catatan_prb(array($FS_KD_REG)));
         $this->smarty->assign("alasan_skdp", $this->m_rawat_jalan->get_alasan_skdp());
         $this->smarty->assign("rencana_skdp", $this->m_rawat_jalan->get_rencana_skdp2());
+
+        $sessionData= $this->tsession->userdata('session_emr');
+        $kodeDokterJkn = intval($sessionData['Kodedokter_jkn']);
+        $this->smarty->assign("kodeDokterJkn", $kodeDokterJkn);
+
         $tujuan = $this->m_rawat_jalan->list_pemeriksaan_lab_by_rg($FS_KD_REG);
         $tujuan_str = "";
         foreach ($tujuan as $key => $value) {

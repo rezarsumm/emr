@@ -664,6 +664,11 @@ class m_rawat_jalan extends CI_Model {
         VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
         return $this->db->query($sql, $params);
     }
+    function insert_log_icare($params) {
+        $sql = "INSERT INTO PKU.dbo.log_icare_bpjs(created_at, kode_dokter_rs, kode_dokter_jkn, kode_register, keterangan) 
+        VALUES (?,?,?,?,?)";
+        return $this->db->query($sql, $params);
+    }
 
     function insert_riwayat_dokterx($params) {
         $sql = "INSERT INTO PKU.dbo.RIWAYAT_PERBAIKAN_DOKTER_RAJAL( FS_KD_REG, FS_DIAGNOSA, FS_ANAMNESA, FS_TINDAKAN,  FS_TERAPI, FS_CATATAN_FISIK, FS_CARA_PULANG, FS_DAFTAR_MASALAH, 

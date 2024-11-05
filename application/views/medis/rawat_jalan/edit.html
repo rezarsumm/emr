@@ -77,21 +77,36 @@
         </div>
         <div class="clear"></div>
     </div>
+    <div class="navigation">
+      <div class="navigation-button float-left">
+          <ul>
+              <li><a href="javascript:void(0);" onclick="myFunction()" id="tampil" alt=""> Tampilkan hasil Lab</a></li>
+          </ul>
+      </div>
+      <br>
+      <div class="clear"></div>
+  </div>
+  <div class="navigation">
+    <div class="navigation-button float-left">
+      <ul>
+        <li>
+          <a
+            href="{$config->site_url('medis/icare/icare_edit/'|cat:$result.No_Identitas|cat:'/'|cat:$kodeDokterJkn|cat:'/'|cat:$result.NO_REG|cat:'/'|cat:$result.KODE_DOKTER)}" target="_blank">
+            I care BPJS</a
+          >
+        </li>
+      </ul>
+    </div>
+    <br />
+  </div>
+
     <div class="notification red">
         <p><strong>High Risk :</strong> {$result.FS_HIGH_RISK|default:'-'} </p>
         <p><strong>Alergi :</strong> {$result.FS_ALERGI|default:'-'} ({$result.FS_REAK_ALERGI|default:'-'})</p>
         <div class="clear"></div>
     </div>
 
-    <div class="navigation">
-        <div class="navigation-button float-left">
-            <ul>
-                <li><a href="javascript:void(0);" onclick="myFunction()" id="tampil" alt=""> Tampilkan hasil Lab</a></li>
-            </ul>
-        </div>
-        <br>
-        <div class="clear"></div>
-    </div>
+
     
     
     

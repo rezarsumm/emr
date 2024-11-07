@@ -1327,7 +1327,7 @@ class m_igd extends CI_Model {
     function get_pasien_by_rg_ugd($params) {
         $date = date('Y-m-d');
 
-        $sql = "SELECT E.NO_REG, B.NO_MR, B.NAMA_PASIEN, B.TGL_LAHIR, E.KODE_DOKTER, B.JENIS_KELAMIN, B.ALAMAT,  datediff(year,B.TGL_LAHIR,GETDATE()) 'fn_umur'
+        $sql = "SELECT E.NO_REG, B.NO_MR, B.NAMA_PASIEN, B.TGL_LAHIR, E.KODE_DOKTER, B.JENIS_KELAMIN, B.ALAMAT,  datediff(year,B.TGL_LAHIR,GETDATE()) 'fn_umur', B.NO_IDENTITAS
         FROM REGISTER_PASIEN B,  PENDAFTARAN E 
         WHERE E.NO_REG=? AND B.NO_MR=E.NO_MR";
           $query = $this->db->query($sql, $params);

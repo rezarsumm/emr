@@ -105,6 +105,8 @@ class rawat_inap extends ApplicationBase {
 
         //ases awal medis 
        $data["rs_ases_medis"]=$this->m_rawat_jalan->get_data_medis_ases(array($FS_KD_REG));
+    //    var_dump($this->m_rawat_inap->get_px_by_dokter_by_rg2(array($FS_KD_REG)));
+    //    die;
        $data["data_hamil"]=$this->m_ass_awal_bidan->get_riw_hamil(array($FS_KD_REG));
  
  

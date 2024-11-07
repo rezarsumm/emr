@@ -126,7 +126,7 @@
                <tr>
                 <td style="border-left:solid 1px #000000; border-top:solid 1px #000000;">Riwayat Penyakit Keluarga</td>
                 <td style="border-right:solid 1px #000000;border-top:solid 1px #000000;">
-                    :  <?php echo $h['FS_RIW_PENYAKIT_DAHULU2']; ?>
+                    :  <?php echo $rs_pasien['FS_RIW_PENYAKIT_DAHULU2']; ?>
 
                 </td>
             </tr>

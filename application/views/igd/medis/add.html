@@ -9,6 +9,9 @@
     </p>
     <div class="clear"></div>
 </div> 
+<!-- notification template -->
+{include file="base/templates/notification.html"}
+<!-- end of notification template-->
 <div class="content-entry">
     <!-- notification template -->
      <!-- end of notification template-->
@@ -49,7 +52,20 @@
                 <td>{$rs_pasien.fn_umur} Tahun</td>
             </tr>
         </table>
-       
+        <!-- <div class="navigation">
+            <div class="navigation-button float-left">
+              <ul>
+                <li>
+                  <a
+                    href="{$config->site_url('medis/icare/icare_igd_add/'|cat:$rs_pasien.NO_IDENTITAS|cat:'/'|cat:$kodeDokterJkn|cat:'/'|cat:$rs_pasien.NO_REG|cat:'/'|cat:$rs_pasien.KODE_DOKTER)}" target="_blank">
+                    I care BPJS</a
+                  >
+                </li>
+              </ul>
+            </div>
+            <br />
+          </div> -->
+
         <table class="table-input" width="100%">
             <tr>
                <td>Kendaraan</td>

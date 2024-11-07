@@ -122,7 +122,10 @@ class Medis extends ApplicationBase {
         $this->smarty->assign("rs_lab", $this->m_igd->list_pemeriksaan_lab()); 
         $this->smarty->assign("rs_rad_igd", $this->m_igd->list_pemeriksaan_rad_igd()); 
         
-        // var_dump($this->m_igd->list_pemeriksaan_lab());
+        $sessionData= $this->tsession->userdata('session_emr');
+    $kodeDokterJkn = intval($sessionData['Kodedokter_jkn']);
+    $this->smarty->assign("kodeDokterJkn", $kodeDokterJkn);
+        // var_dump($kodeDokterJkn);
         // die;
 
 

@@ -223,7 +223,9 @@ class laporanmedis extends ApplicationBase {
                                                 case 'SPESIALIS UROLOGI':
                                                     return '16';
                                                     case 'SPESIALIS BEDAH SARAF':
-                                                        return '17';                           
+                                                        return '17';
+                                                        case 'SPESIALIS JANTUNG':
+                                                        return '18';                          
                default:
                 return '';
             }
